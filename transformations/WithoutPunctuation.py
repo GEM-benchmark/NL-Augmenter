@@ -11,3 +11,4 @@ class WithoutPunctuation(SentenceTransformation):
     def generate(self, sentence: str):
         pertubed = Perturb.strip_punctuation(self.nlp(sentence))
         print(f"Perturbed Input from {self.name()} : {pertubed}")
+        return pertubed
