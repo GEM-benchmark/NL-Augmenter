@@ -8,6 +8,7 @@ TODO: Would require changing on the side of the output too.
 class ChangeNamedEntities(SentenceTransformation):
 
     def __init__(self):
+        # TODO: Do not repeat parse computations.
         self.nlp = spacy.load('en_core_web_sm')
 
     def generate(self, sentence: str):

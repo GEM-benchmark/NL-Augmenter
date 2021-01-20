@@ -1,3 +1,4 @@
+from transformations.BackTranslation import BackTranslation
 from transformations.ButterFingersPerturbation import ButterFingersPerturbation
 from transformations.ChangeNamedEntities import ChangeNamedEntities
 from transformations.SentenceTransformation import SentenceTransformation
@@ -11,6 +12,7 @@ class TransformationsList(SentenceTransformation):
         transformations.append(ButterFingersPerturbation())
         transformations.append(WithoutPunctuation())
         transformations.append(ChangeNamedEntities())
+        transformations.append(BackTranslation())
         self.transformations = transformations
 
     def generate(self, sentence: str):

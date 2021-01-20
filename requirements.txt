@@ -1,3 +1,12 @@
 checklist
 spacy==2.3.2
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
+
+# for backtranslation
+torch==1.5.1
+fairseq==0.9.0
+moses==0.10.0
+regex==2020.6.8
+sacremoses==0.0.43
+subword-nmt==0.3.7
+scikit-learn==0.22.2
+fastBPE==0.1.0
