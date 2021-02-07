@@ -8,10 +8,13 @@ class CorefSwap(SentenceTransformation):
     def __init__(self):
         random.seed(42)
         self.nlp = init_components()
+        self.mention_replacers = None
 
     def generate(self, sentence: str):
-        perturbed = swap_coref(sentence,self.nlp)
+        perturbed, mention_replacers = swap_coref(sentence,self.nlp)
         print(f"Perturbed Input from {self.name()} : {perturbed}")
+        print(f"Metadata from {self.name()} : {mention_replacers}")
+        self.mention_replacers = mention_replacers
         return perturbed
 
 def init_components():
@@ -20,7 +23,7 @@ def init_components():
     nlp.add_pipe(coref,name='neuralcoref')
     return nlp
 
-def swap_coref(sent,nlp,verbose=False):
+def swap_coref(sent,nlp,verbose=False,how_likely=3):
     doc = nlp(sent)
 
 
@@ -32,7 +35,7 @@ def swap_coref(sent,nlp,verbose=False):
         swap_pairs = []
         for i in range(1,len(coref_cluster.mentions)):
             for j in range(i+1,len(coref_cluster.mentions)):
-                if sum([random.randint(0,2) for trial in range(5)])<=3:
+                if sum([random.randint(0,2) for trial in range(5)])<=how_likely:
                     swap_pairs.append((i,j))
         if verbose: print(swap_pairs)
         
@@ -43,7 +46,7 @@ def swap_coref(sent,nlp,verbose=False):
             mention_i_text_full = sent[doc[mention_i.start].idx:doc[mention_i.end-1].idx+len(doc[mention_i.end-1].text)] 
             mention_j_text_full = sent[doc[mention_j.start].idx:doc[mention_j.end-1].idx+len(doc[mention_j.end-1].text)] 
            
-            mention_i_replacer = {"start": doc[mention_i.start].idx, "end": doc[mention_i.end-1].idx+len(doc[mention_i.end-1].text), "repn": mention_j_text_full}
+            mention_i_replacer = {"start": doc[mention_i.start].idx, "end": doc[mention_i.end-1].idx+len(doc[mention_i.end-1].text), "repn": mention_j_text_full, "start_replacer": doc[mention_j.start].idx, "end_replacer": doc[mention_j.end-1].idx+len(doc[mention_j.end-1].text) }
             mention_replacers.append(mention_i_replacer)
     
     mention_replacers.sort(key = lambda x:x["start"])
@@ -66,7 +69,7 @@ def swap_coref(sent,nlp,verbose=False):
     if verbose: print(cluster_repn_heads)
     if verbose: print(sent)
     
-    return new_string
+    return new_string, mention_replacers
 
 
 
