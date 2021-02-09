@@ -3,6 +3,7 @@ from transformations.ButterFingersPerturbation import ButterFingersPerturbation
 from transformations.ChangeNamedEntities import ChangeNamedEntities
 from transformations.SentenceTransformation import SentenceTransformation
 from transformations.WithoutPunctuation import WithoutPunctuation
+from transformations.CorefSwap import CorefSwap
 
 
 class TransformationsList(SentenceTransformation):
@@ -13,6 +14,7 @@ class TransformationsList(SentenceTransformation):
         transformations.append(WithoutPunctuation())
         transformations.append(ChangeNamedEntities())
         transformations.append(BackTranslation())
+        transformations.append(CorefSwap())
         self.transformations = transformations
 
     def generate(self, sentence: str):
