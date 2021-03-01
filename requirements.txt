@@ -11,5 +11,11 @@ subword-nmt==0.3.7
 scikit-learn==0.22.2
 fastBPE==0.1.0
 
+# for speech
+gTTS==2.2.2
+mpg123==0.4
+SpeechRecognition==3.8.1
+pydub==0.24.1
+
 # for CorefSwap
 neuralcoref==4.0.0

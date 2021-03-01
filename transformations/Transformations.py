@@ -2,6 +2,7 @@ from transformations.BackTranslation import BackTranslation
 from transformations.ButterFingersPerturbation import ButterFingersPerturbation
 from transformations.ChangeNamedEntities import ChangeNamedEntities
 from transformations.SentenceTransformation import SentenceTransformation
+from transformations.SpeechConversionError import SpeechConversionError
 from transformations.WithoutPunctuation import WithoutPunctuation
 from transformations.CorefSwap import CorefSwap
 
@@ -15,6 +16,7 @@ class TransformationsList(SentenceTransformation):
         transformations.append(ChangeNamedEntities())
         transformations.append(BackTranslation())
         transformations.append(CorefSwap())
+        transformations.append(SpeechConversionError())
         self.transformations = transformations
 
     def generate(self, sentence: str):
