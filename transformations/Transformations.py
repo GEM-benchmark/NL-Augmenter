@@ -4,7 +4,7 @@ from transformations.ChangeNamedEntities import ChangeNamedEntities
 from transformations.SentenceTransformation import SentenceTransformation
 from transformations.SpeechConversionError import SpeechConversionError
 from transformations.WithoutPunctuation import WithoutPunctuation
-from transformations.CorefSwap import CorefSwap
+#from transformations.CorefSwap import CorefSwap
 
 
 class TransformationsList(SentenceTransformation):
@@ -15,7 +15,7 @@ class TransformationsList(SentenceTransformation):
         transformations.append(WithoutPunctuation())
         transformations.append(ChangeNamedEntities())
         transformations.append(BackTranslation())
-        transformations.append(CorefSwap())
+        #transformations.append(CorefSwap()) TODO: @Varun
         transformations.append(SpeechConversionError())
         self.transformations = transformations
 

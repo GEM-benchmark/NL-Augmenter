@@ -4,6 +4,7 @@ import speech_recognition as sr
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
 import os
+import tempfile
 
 class SpeechConversionError(SentenceTransformation):
 
@@ -18,11 +19,13 @@ class SpeechConversionError(SentenceTransformation):
 
     def tts_stt(self, sentence: str):
         speech = gTTS(text=sentence, slow=True)
-        filename = 'temp.mp3'
+        temp_file = tempfile.NamedTemporaryFile(prefix="speech_", suffix=".mp3")
+        filename = temp_file.name #'temp.mp3'
         speech.save(filename)  # this actually saves it as an mp3
         # convert mp3 to wav
         audio_file = convert_to_wav(filename)
         sentence = get_large_audio_transcription(self.speech_recognizer, audio_file)
+        temp_file.close()
         return sentence
 
 
@@ -77,6 +80,7 @@ def get_large_audio_transcription(recognizer, path):
                 #text = f"{text.capitalize()}. "
                 print(chunk_filename, ":", text)
                 whole_text += text
+        os.remove(chunk_filename)
     # return the text for all chunks detected
     return whole_text
 
