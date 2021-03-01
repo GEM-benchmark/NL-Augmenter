@@ -4,12 +4,14 @@ from transformations.ChangeNamedEntities import ChangeNamedEntities
 from transformations.SentenceTransformation import SentenceTransformation
 from transformations.WithoutPunctuation import WithoutPunctuation
 from transformations.CorefSwap import CorefSwap
+from transformations.ReplaceNumericalValues import ReplaceNumericalValues
 
 
 class TransformationsList(SentenceTransformation):
 
     def __init__(self):
         transformations = []
+        transformations.append(ReplaceNumericalValues())
         transformations.append(ButterFingersPerturbation())
         transformations.append(WithoutPunctuation())
         transformations.append(ChangeNamedEntities())
