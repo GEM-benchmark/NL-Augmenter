@@ -7,6 +7,10 @@ Special Test Sets for the Generation Evaluation Benchmark. Contains data-sets fo
 pip install -r requirements.txt
 pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
 ```
+For setting up the speech perturbation, the following will also need to be run for an OS X user:
+```bash
+brew install ffmpeg
+```
 ```bash
 python main.py
 ```
