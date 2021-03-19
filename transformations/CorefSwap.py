@@ -66,7 +66,7 @@ def swap_coref(sent,nlp,verbose=False,how_likely=3):
 
     if verbose: print(new_string)
     if verbose: print(mention_replacers)
-    if verbose: print(cluster_repn_heads)
+    # if verbose: print(cluster_repn_heads)
     if verbose: print(sent)
     
     return new_string, mention_replacers

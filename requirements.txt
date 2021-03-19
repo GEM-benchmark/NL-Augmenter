@@ -18,4 +18,9 @@ SpeechRecognition==3.8.1
 pydub==0.24.1
 
 # for CorefSwap
+wheel==0.36.2
 neuralcoref==4.0.0
+
+# for ReplaceNumericalValues
+num2words==0.5.10
+word2number==1.1

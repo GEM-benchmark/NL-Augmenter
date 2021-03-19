@@ -5,12 +5,15 @@ from transformations.SentenceTransformation import SentenceTransformation
 from transformations.SpeechConversionError import SpeechConversionError
 from transformations.WithoutPunctuation import WithoutPunctuation
 #from transformations.CorefSwap import CorefSwap
+from transformations.ReplaceNumericalValues import ReplaceNumericalValues
+#from transformations.CorefSwap import CorefSwap
 
 
 class TransformationsList(SentenceTransformation):
 
     def __init__(self):
         transformations = []
+        transformations.append(ReplaceNumericalValues())
         transformations.append(ButterFingersPerturbation())
         transformations.append(WithoutPunctuation())
         transformations.append(ChangeNamedEntities())
