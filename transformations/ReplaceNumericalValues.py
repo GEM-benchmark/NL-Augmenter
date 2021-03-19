@@ -28,6 +28,11 @@ class ReplaceNumericalValues(SentenceTransformation):
                         new_value = randint(0, value_tens)
                     else:
                         new_value = uniform(0.0, value_tens)
+                        # Format value to same number of floating point values:
+                        split_entity_value_list = entity.text.split(".")
+                        floating_length = len(split_entity_value_list[1])
+                        new_value = "%.{}f".format(floating_length) % new_value
+
 
                 elif isinstance(entity.text, str):
                     num_value = w2n.word_to_num(entity.text)

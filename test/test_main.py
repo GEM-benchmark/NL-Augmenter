@@ -22,7 +22,7 @@ class TestStringMethods(unittest.TestCase):
         generations = transformationsList.generate(
             "Andrew finally returned the five French books to Chris that contains 53.45 pages.")
         self.assertEqual(generations['ReplaceNumericalValues'],
-                         'Andrew finally returned the ten French books to Chris that contains 11.13310681656804 pages.')
+                         'Andrew finally returned the ten French books to Chris that contains 11.13 pages.')
 
 if __name__ == '__main__':
     unittest.main()
