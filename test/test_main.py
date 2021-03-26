@@ -5,6 +5,7 @@ from transformations.Transformations import TransformationsList
 
 import unittest
 
+
 class TestStringMethods(unittest.TestCase):
 
     def test_transformations(self):
@@ -18,12 +19,13 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(generations['BackTranslation'], 'Andrew finally gave the French book to Chris that I bought last week')
 
     def test_numerical_transformation(self):
-        random.seed(0)
+        random.seed(10)
+
         transformationsList = TransformationsList()
         generations = transformationsList.generate(
             "Andrew finally returned the five French books to Chris that contains 53.45 pages.")
         self.assertEqual(generations['ReplaceNumericalValues'],
-                         'Andrew finally returned the ten French books to Chris that contains 11.13 pages.')
+                         'Andrew finally returned the six French books to Chris that contains 75.80 pages.')
 
     def test_speech_perturbation(self):
         sc = SpeechConversionError()

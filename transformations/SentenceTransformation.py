@@ -2,6 +2,8 @@
 """
 Base Class for implementing the different input transformations a generation should be robust against.
 """
+
+
 class SentenceTransformation(object):
 
     def generate(self, sentence: str):
