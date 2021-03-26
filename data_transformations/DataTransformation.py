@@ -5,7 +5,7 @@ Base Class for implementing the different data transformations a generation shou
 
 class DataTransformation(object):
 
-    def generate(self, input: object, data_subset: str):
+    def generate(self, input: object, data_subset: str, dataset_size=None):
         pass
 
     def name(self):
