@@ -18,8 +18,7 @@ class TestDataMethods(unittest.TestCase):
         generations = transformation_list.generate(dataset, "validation")
 
         self.assertIsNotNone(generations["ReplaceDataNumericalValues"])
-        self.assertIsNotNone(generations["ReplaceDataNumericalValues"]["input_objects_per_category"])
-        self.assertIsNotNone(generations["ReplaceDataNumericalValues"]["input_objects_per_category_per_size"])
+        self.assertIsNotNone(generations["ReplaceDataNumericalValues"]["validation"])
 
     def test_data_numerical_webnlg_test_dataset(self):
         transformation_list = DataTransformationList()
@@ -27,5 +26,13 @@ class TestDataMethods(unittest.TestCase):
         generations = transformation_list.generate(dataset, "test")
 
         self.assertIsNotNone(generations["ReplaceDataNumericalValues"])
-        self.assertIsNotNone(generations["ReplaceDataNumericalValues"]["input_objects_per_category"])
-        self.assertIsNotNone(generations["ReplaceDataNumericalValues"]["input_objects_per_category_per_size"])
+        self.assertIsNotNone(generations["ReplaceDataNumericalValues"]["test"])
+
+    def test_limited_data_numerical_webnlg_test_dataset(self):
+        transformation_list = DataTransformationList()
+        dataset = load_dataset('gem', 'web_nlg_en')
+        generations = transformation_list.generate(dataset, "test", 5)
+
+        self.assertIsNotNone(generations["ReplaceDataNumericalValues"])
+        self.assertIsNotNone(generations["ReplaceDataNumericalValues"]["test"])
+        self.assertEqual(5, len(generations["ReplaceDataNumericalValues"]["test"]))

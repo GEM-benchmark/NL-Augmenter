@@ -14,3 +14,15 @@ class DataEntry:
         self.references = references
         self.target = target
         self.webnlg_id = webnlg_id
+
+    def generate_entry_dict(self):
+        input_list = [a_triple.get_triple() for a_triple in self.triple_list]
+
+        return {
+            "category": self.category,
+            "gem_id": self.gem_id,
+            "input": input_list,
+            "references": self.references,
+            "target": self.target,
+            "webnlg_id": self.webnlg_id
+        }

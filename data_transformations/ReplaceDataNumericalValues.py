@@ -1,3 +1,5 @@
+import random
+
 from common.webnlg.DataEntry import DataEntry
 from data_transformations.DataTransformation import DataTransformation
 from common.NumericalTransformation import NumericalTransformation
@@ -10,15 +12,9 @@ class ReplaceDataNumericalValues(DataTransformation):
     def __init__(self):
         self.numerical_transformation = NumericalTransformation()
 
-    def generate(self, dataset: object, data_subset: str):
+    def generate(self, dataset: object, data_subset: str, dataset_size=None):
         if isinstance(dataset, dict):
-
-            # dict where the key is a category and the value is a list which will contain
-            # all DataEntry objects of that category:
-            input_objects_per_category = {}
-            # dict where the key is a category and the value is a dict in which the key is the input size
-            # and the value a list which will contain all DataEntry objects of that category
-            input_objects_per_category_per_size = {}
+            input_obj_list = []
 
             for index in range(len(dataset[data_subset])):
                 # Replace Numerical Values:
@@ -37,25 +33,18 @@ class ReplaceDataNumericalValues(DataTransformation):
                 input_object = DataEntry(dataset[data_subset][index]['gem_id'], dataset[data_subset][index]['category'],
                                          input_triple_list, dataset[data_subset][index]['references'],
                                          target, dataset[data_subset][index]['webnlg_id'])
+                input_obj_list.append(input_object)
 
-                # if the current category is not found in the dict, create a key with the category label in the dict
-                if not input_object.category in input_objects_per_category:
-                    input_objects_per_category[input_object.category] = []
-                input_objects_per_category[input_object.category].append(input_object)
-
-                # if the current category is not found in the dict, create a key with the category label in the dict
-                if not input_object.category in input_objects_per_category_per_size:
-                    input_objects_per_category_per_size[input_object.category] = {}
-                # if the current input size is not found in the dict,
-                # create a key with the input size number label in the embedded dict
-                if not input_object.input_size in input_objects_per_category_per_size[input_object.category]:
-                    input_objects_per_category_per_size[input_object.category][input_object.input_size] = []
-                input_objects_per_category_per_size[input_object.category][input_object.input_size].append(
-                    input_object)
+            # Convert Back to dataset representation:
+            dataset_list = []
+            if dataset_size and isinstance(dataset_size, int):
+                sample_input_list = random.sample(input_obj_list, dataset_size)
+                dataset_list = [a_data_entry.generate_entry_dict() for a_data_entry in sample_input_list]
+            else:
+                dataset_list = [a_data_entry.generate_entry_dict() for a_data_entry in input_obj_list]
 
             return {
-                "input_objects_per_category": input_objects_per_category,
-                "input_objects_per_category_per_size": input_objects_per_category_per_size
+                data_subset: dataset_list
             }
 
         return None
