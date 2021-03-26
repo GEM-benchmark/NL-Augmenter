@@ -31,6 +31,7 @@ class SpeechConversionError(SentenceTransformation):
 
 def convert_to_wav(src_file: str):
     # convert wav to mp3
+    print("The source file is: {}".format(src_file))
     sound = AudioSegment.from_mp3(src_file)
     dst = src_file.replace(".mp3", ".wav")
     sound.export(dst, format="wav")
