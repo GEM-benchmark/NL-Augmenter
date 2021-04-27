@@ -63,9 +63,12 @@ def butter_finger(text, prob=0.1, keyboard='querty'):
 
     return buttertext
 
+
 """
 Butter Finger implementation borrowed from https://github.com/alexyorke/butter-fingers.
 """
+
+
 class ButterFingersPerturbation(SentenceTransformation):
 
     def generate(self, sentence: str):

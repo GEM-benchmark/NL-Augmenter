@@ -12,7 +12,7 @@ class NumericalTransformation:
     nlp = None
     
     def __init__(self):
-        self.nlp = spacy.load('en')
+        self.nlp = spacy.load('en_core_web_sm')
     
     def transform(self, input_text: str):
         doc = self.nlp(input_text)
