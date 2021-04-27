@@ -1,4 +1,4 @@
-checklist
+checklist==0.0.10
 spacy==2.3.2
 
 # for backtranslation
@@ -10,3 +10,17 @@ sacremoses==0.0.43
 subword-nmt==0.3.7
 scikit-learn==0.22.2
 fastBPE==0.1.0
+
+# for speech perturbation
+gTTS==2.2.2
+mpg123==0.4
+SpeechRecognition==3.8.1
+pydub==0.24.1
+
+# for CorefSwap
+wheel==0.36.2
+neuralcoref==4.0.0
+
+# for ReplaceNumericalValues
+num2words==0.5.10
+word2number==1.1
