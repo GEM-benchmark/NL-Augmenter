@@ -4,12 +4,14 @@ from transformations.ButterFingersPerturbation import ButterFingersPerturbation
 from transformations.ChangeNamedEntities import ChangeNamedEntities
 from transformations.SentenceTransformation import SentenceTransformation
 from transformations.WithoutPunctuation import WithoutPunctuation
+from transformations.ReplaceNumericalValues import ReplaceNumericalValues
 
 
 class TransformationsList(SentenceTransformation):
 
     def __init__(self):
-        transformations = [ButterFingersPerturbation(), WithoutPunctuation(), ChangeNamedEntities(), BackTranslation()]
+        transformations = [ButterFingersPerturbation(), WithoutPunctuation(), ChangeNamedEntities(), BackTranslation(),
+                           ReplaceNumericalValues()]
         self.transformations = transformations
 
     def generate(self, sentence: str):
