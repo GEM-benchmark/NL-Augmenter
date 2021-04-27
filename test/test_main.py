@@ -29,6 +29,10 @@ class TestStringMethods(unittest.TestCase):
                                                          "Andrew seldom played cricket with Chris.")
         assert perturbed_source == "Andrew played cricket with Jacob"
         assert perturbed_target == "Andrew seldom played cricket with Jacob."
+        perturbed_source, perturbed_target = tr.generate("Andrew played cricket in India",
+                                                         "India was the country where Jonathan played.")
+        assert perturbed_source == "Andrew played cricket in Canada"
+        assert perturbed_target == "Canada was the country where Jonathan played."
 
     def test_numerical_transformation(self):
         random.seed(10)

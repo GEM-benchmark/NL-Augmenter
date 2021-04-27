@@ -38,13 +38,16 @@ class ChangeTwoWayNamedEntities(SentenceAndLabelTransformation):
         self.n = n
 
     def generate(self, sentence: str, output_sequence: str):
+        perturbed_source = sentence
+        perturbed_target = output_sequence
         n = self.n
         doc = self.nlp(sentence).doc
-        ents = [x.text for x in doc.ents if np.all([a.ent_type_ == 'PERSON' for a in x])]
+        # (1) replace person entities
+        person_entities = [x.text for x in doc.ents if np.all([a.ent_type_ == 'PERSON' for a in x])]
         ret = []
         ret_m = []
         outs = []
-        for x in ents:
+        for x in person_entities:
             f = x.split()[0]
             sex = None
             if f.capitalize() in Perturb.data['name_set']['women']:
@@ -76,8 +79,32 @@ class ChangeTwoWayNamedEntities(SentenceAndLabelTransformation):
                 ret.append(re.sub(to_replace, y, doc.text))
                 outs.append(re.sub(to_replace, y, output_sequence))  # this is the part added from Checklist
                 ret_m.append((f, y))
-        perturbed_source = ret[0]
-        perturbed_target = outs[0]
+        if len(ret) > 0 and ret[0] != sentence:
+            perturbed_source = ret[0]
+            perturbed_target = outs[0]
+            print(f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}")
+            return perturbed_source, perturbed_target
+
+        # (2) add location named entities
+        ents = [x.text for x in doc.ents if np.all([a.ent_type_ == 'GPE' for a in x])]
+        ret = []
+        ret_m = []
+        outs = []
+        for x in ents:
+            if x in Perturb.data['city']:
+                names = Perturb.data['city'][:100]
+            elif x in Perturb.data['country']:
+                names = Perturb.data['country'][:50]
+            else:
+                continue
+            sub_re = re.compile(r'\b%s\b' % re.escape(x))
+            to_use = np.random.choice(names, n)
+            ret.extend([sub_re.sub(n, doc.text) for n in to_use])
+            outs.extend([sub_re.sub(n, output_sequence) for n in to_use])
+            ret_m.extend([(x, n) for n in to_use])
+        if len(ret) > 0 and ret[0] != sentence:
+            perturbed_source = ret[0]
+            perturbed_target = outs[0]
         print(f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}")
         return perturbed_source, perturbed_target
 
