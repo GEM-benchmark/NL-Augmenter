@@ -31,7 +31,7 @@ class ChangeTwoWayNamedEntities(SentenceAndLabelTransformation):
     '''
 
     def __init__(self, first_only=False, last_only=False, n=1):
-        random.seed(0)
+        np.random.seed(0)
         self.nlp = spacy.load('en_core_web_sm')
         self.first_only = first_only  # first name
         self.last_only = last_only  # last name
