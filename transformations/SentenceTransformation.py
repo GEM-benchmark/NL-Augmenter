@@ -12,7 +12,7 @@ class SentenceTransformation(object):
         pass
 
     def name(self):
-        return f"SentenceTransformation_{self.__class__.__name__}"
+        return self.__class__.__name__
 
 
 class SentenceAndLabelTransformation(object):
@@ -24,4 +24,4 @@ class SentenceAndLabelTransformation(object):
         pass
 
     def name(self):
-        return f"SentenceAndLabelTransformation_{self.__class__.__name__}"
+        return self.__class__.__name__

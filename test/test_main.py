@@ -13,12 +13,14 @@ class TestStringMethods(unittest.TestCase):
         transformations_list = TransformationsList()
         generations = transformations_list.generate(
             "Andrew finally returned the French book to Chris that I bought last week")
-        self.assertEqual(generations['SentenceTransformation_ButterFingersPerturbation'],
+        self.assertEqual(generations['ButterFingersPerturbation'],
                          'Andgew finally returned the French book to Chrus thav I bought last week')
-        self.assertEqual(generations['SentenceTransformation_WithoutPunctuation'],
+        self.assertEqual(generations['WithoutPunctuation'],
                          'Andrew finally returned the French book to Chris that I bought last week')
-        self.assertEqual(generations['SentenceTransformation_BackTranslation'],
+        self.assertEqual(generations['BackTranslation'],
                          'Andrew finally gave the French book to Chris that I bought last week')
+        self.assertEqual(generations['ChangeNamedEntities'],
+                         'Nathaniel finally returned the French book to Chris that I bought last week')
 
     def test_two_way_named_entity_replacements(self):
         tr = ChangeTwoWayNamedEntities()

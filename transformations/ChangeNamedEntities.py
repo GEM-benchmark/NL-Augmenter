@@ -17,7 +17,7 @@ class ChangeNamedEntities(SentenceTransformation):
         self.n = n
 
     def generate(self, sentence: str):
-        random.seed(0)
+        np.random.seed(0)
         pertubed = Perturb.perturb([self.nlp(sentence)], Perturb.change_names, nsamples=1)
         pertubed = pertubed.data[0][1]
         print(f"Perturbed Input from {self.name()} : {pertubed}")
