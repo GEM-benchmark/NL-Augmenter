@@ -1,13 +1,15 @@
 import random
 
 from transformations.SentenceTransformation import SentenceTransformation
+from tasks.TaskTypes import TaskType
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.
 """
 
 
-def butter_finger(text, prob=0.1, keyboard='querty'):
+def butter_finger(text, prob=0.1, keyboard='querty', seed= 0):
+    random.seed(seed)
     keyApprox = {}
 
     if keyboard == "querty":
@@ -70,6 +72,11 @@ Butter Finger implementation borrowed from https://github.com/alexyorke/butter-f
 
 
 class ButterFingersPerturbation(SentenceTransformation):
+
+    def __init__(self):
+        tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+        locales = ["en"]
+        super().__init__(tasks, locales)
 
     def generate(self, sentence: str):
         pertubed = butter_finger(text=sentence, prob=0.05)

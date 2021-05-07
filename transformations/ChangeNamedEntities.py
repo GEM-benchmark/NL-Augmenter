@@ -4,13 +4,18 @@ import re
 
 from checklist.perturb import Perturb
 
-from transformations.SentenceTransformation import SentenceTransformation, SentenceAndLabelTransformation
+from transformations.SentenceTransformation import SentenceTransformation, SentenceAndTargetTransformation
 import spacy
+from tasks.TaskTypes import TaskType
 
 
 class ChangeNamedEntities(SentenceTransformation):
 
     def __init__(self, n=1):
+        tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+        locales = ["en"]
+        super().__init__(tasks, locales)
+
         # TODO: Do not repeat parse computations.
         random.seed(0)
         self.nlp = spacy.load('en_core_web_sm')
@@ -19,18 +24,23 @@ class ChangeNamedEntities(SentenceTransformation):
     def generate(self, sentence: str):
         np.random.seed(0)
         pertubed = Perturb.perturb([self.nlp(sentence)], Perturb.change_names, nsamples=1)
-        pertubed = pertubed.data[0][1]
+        pertubed = pertubed.data[0][1] if len(pertubed.data) > 0 else sentence
         print(f"Perturbed Input from {self.name()} : {pertubed}")
         return pertubed
 
 
-class ChangeTwoWayNamedEntities(SentenceAndLabelTransformation):
+class ChangeTwoWayNamedEntities(SentenceAndTargetTransformation):
     '''
         Repository of names has been taken from the CheckList repo.
         @TODO - need to extend this to other NEs like location, etc.
     '''
 
     def __init__(self, first_only=False, last_only=False, n=1):
+
+        tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+        locales = ["en"]
+        super().__init__(tasks, locales, locales)
+
         np.random.seed(0)
         self.nlp = spacy.load('en_core_web_sm')
         self.first_only = first_only  # first name

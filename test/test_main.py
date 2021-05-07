@@ -2,7 +2,7 @@ import random
 
 from transformations.ChangeNamedEntities import ChangeTwoWayNamedEntities
 from transformations.ReplaceNumericalValues import ReplaceNumericalValues
-from transformations.Transformations import TransformationsList
+from Transformations import *
 
 import unittest
 
@@ -41,11 +41,6 @@ class TestStringMethods(unittest.TestCase):
             "Andrew finally returned the five French books to Chris that contains 53.45 pages.")
         self.assertEqual(transformed,
                          'Andrew finally returned the nine French books to Chris that contains 3.26 pages.')
-
-    #def test_speech_perturbation(self):
-        #sc = SpeechConversionError()
-        #text = sc.generate("This speech conversion error needs improvement!")
-        #self.assertEqual(text, "speech conversion error improvement")
 
 
 if __name__ == '__main__':
