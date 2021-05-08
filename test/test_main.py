@@ -1,4 +1,7 @@
 import random
+from os import sys, path
+
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 from transformations.change_named_entities.transformation import ChangeTwoWayNamedEntities
 from transformations.replace_numerical_values.transformation import ReplaceNumericalValues
@@ -9,19 +12,8 @@ import unittest
 
 class TestStringMethods(unittest.TestCase):
 
-    def test_source_only_transformations(self):
-        random.seed(0)
-        transformations_list = TransformationsList()
-        generations = transformations_list.generate(
-            "Andrew finally returned the French book to Chris that I bought last week")
-        self.assertEqual(generations['ButterFingersPerturbation'],
-                         'Andgew finally returned the French book to Chrus thav I bought last week')
-        self.assertEqual(generations['WithoutPunctuation'],
-                         'Andrew finally returned the French book to Chris that I bought last week')
-        self.assertEqual(generations['BackTranslation'],
-                         'Andrew finally gave the French book to Chris that I bought last week')
-        self.assertEqual(generations['ChangeNamedEntities'],
-                         'Nathaniel finally returned the French book to Chris that I bought last week')
+    def test_jsons(self):
+        execute_test_cases()
 
     def test_two_way_named_entity_replacements(self):
         tr = ChangeTwoWayNamedEntities()
