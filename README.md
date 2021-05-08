@@ -1,6 +1,19 @@
-# GEM-special-test-sets
-Special Test Sets for the Generation Evaluation Benchmark. Contains data-sets for evaluating the robustness of (1) data-to-text and (2) text-to-text generative models.  
+# A Repository of Perturbations and Adversaries 🦎 → 🐍
 
+The Perturbation Repository is a collaborative effort intended to accumulate all transformations operating over tasks dealing with natural language. We invite submissions of perturbations and transformations via pull requests to this GitHub repository. 
+Every contribution of a perturbation should either add noise to the input or paraphrase or transform the input. 
+
+# Tasks
+```python
+class TaskType(enum.Enum):
+    TEXT_CLASSIFICATION = 1,
+    TEXT_TO_TEXT_GENERATION = 2,
+    TEXT_TAGGING = 3,
+    DIALOGUE_TO_TEXT = 4,
+    TABLE_TO_TEXT = 5,
+    RDF_TO_TEXT = 6,
+    RDF_TO_RDF = 7
+```
 
 #### Install and Generate the Test Sets
 ```bash
