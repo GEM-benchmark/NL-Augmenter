@@ -15,7 +15,14 @@ class TaskType(enum.Enum):
     RDF_TO_RDF = 7
 ```
 
-#### Install and Generate the Test Sets
+**Table of contents**
+
+* [Installation](#installation)
+* [How do I create a perturbation?](#how-do-i-create-a-perturbation)
+* [Creating a programmatic task](#creating-a-programmatic-task)
+* [Review Criteria for Accepting Submissions](#review-criteria)
+
+## Installation
 ```bash
 pip install -r requirements.txt
 pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
@@ -33,3 +40,59 @@ python test_main.py
 ```
  
 And for any new logic, add the appropriate test case so that no one else breaks the changes. 
+
+## How do I create a transformation?
+### Setup
+
+First, [fork the repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) in GitHub! :fork_and_knife:
+<a href="https://docs.github.com/en/github/getting-started-with-github/fork-a-repo">
+<div style="text-align:center"><img src="https://docs.github.com/assets/images/help/repository/fork_button.jpg" alt="fork button" width="500"/></div>
+</a>
+
+Your fork will have its own location, which we will call `PATH_TO_YOUR_FORK`.
+Next, [clone the forked repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) and create a branch for your transformation, which here we will call **my_awesome_transformation**:
+```bash
+git clone $PATH_TO_YOUR_FORK
+cd GEM-special-test-sets
+git checkout -b my_awesome_transformation
+```
+We will base our transformation on an existing example.
+Create a new transformation directory by copying over an existing transformation:
+```bash
+cd transformation/
+cp -r butter_fingers_perturbation my_awesome_transformation
+cd my_awesome_transformation
+```
+
+### Creating a transformation
+- (1) Rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation`
+- (2) Choose one of the perturbation interfaces from the `interfaces` folder eg. `SentenceTransformation`, `SentenceAndTargetTransformation`, etc.
+- (3) Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in `requirements.txt`
+- (4) Once done add at least 5 example pairs as test cases in the file `test.json`.
+
+**Testing and evaluating**
+
+Once the transformation is ready, test it:
+```bash
+cd ../../..  # get to the "test" folder
+python test_main.py
+```
+
+### Submitting
+
+Once the tests pass and you are happy with the transformation, submit your transformation for review.
+First, commit and push your changes:
+```bash
+git add transformations/my_awesome_transformation/*
+git commit -m "Added my_awesome_transformation"
+git push --set-upstream origin my_awesome_transformation
+```
+Finally, [submit a pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+The last `git push` command prints a URL that can be copied into a browser to initiate such a pull request.
+Alternatively, you can do so from the GitHub website.
+<a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">
+<div style="text-align:center"><img src="https://docs.github.com/assets/images/help/pull_requests/pull-request-start-review-button.png" alt="pull request button" width="500"/></div>
+</a>
+
+:sparkles: Congratulations, you've submitted a task to the perturbation repository! :sparkles:
+## Review Criteria for Accepting Submissions
