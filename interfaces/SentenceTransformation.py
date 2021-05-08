@@ -14,18 +14,25 @@ class SentenceTransformation(object):
      "en_IN"
     """
 
-    def __init__(self, tasks: list, locales: list):
-        self.tasks = tasks
-        self.locales = locales
+    locales = None
+    tasks = None
+
+    def __init__(self):
+        print(f"Loading Transformation {self.name()}")
+
+    @classmethod
+    def domain(cls):
+        return cls.tasks, cls.locales
+
+    @classmethod
+    def name(cls):
+        return cls.__name__
 
     def generate(self, sentence: str):
         pass
 
     def generateFromParse(self, parse):
         pass
-
-    def name(self):
-        return self.__class__.__name__
 
 
 class SentenceAndTargetTransformation(object):
@@ -39,16 +46,23 @@ class SentenceAndTargetTransformation(object):
      "mr","en_IN"
     """
 
-    def __init__(self, tasks: list, src_locales: list, tgt_locales: list):
-        self.tasks = tasks
-        self.src_locales = src_locales
-        self.tgt_locales = tgt_locales
+    src_locale = None
+    tgt_locale = None
+    tasks = None
+
+    def __init__(self):
+        print(f"Loading Transformation {self.name()}")
+
+    @classmethod
+    def domain(cls):
+        return cls.tasks, cls.src_locale, cls.tgt_locale
+
+    @classmethod
+    def name(cls):
+        return cls.__name__
 
     def generate(self, sentence: str, target: str):
         pass
 
     def generateFromParse(self, parse, target: str):
         pass
-
-    def name(self):
-        return self.__class__.__name__

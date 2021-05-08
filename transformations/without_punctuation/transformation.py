@@ -6,12 +6,15 @@ from tasks.TaskTypes import TaskType
 
 
 class WithoutPunctuation(SentenceTransformation):
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    locales = ["en"]
+
+    @classmethod
+    def domain(cls):
+        return cls.tasks, cls.locales
 
     def __init__(self):
-        tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-        locales = ["en"]
-        super().__init__(tasks, locales)
-
+        super()
         self.nlp = spacy.load('en_core_web_sm')
 
     def generate(self, sentence: str):

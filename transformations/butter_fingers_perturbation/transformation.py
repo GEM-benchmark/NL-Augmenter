@@ -8,7 +8,7 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-def butter_finger(text, prob=0.1, keyboard='querty', seed= 0):
+def butter_finger(text, prob=0.1, keyboard='querty', seed=0):
     random.seed(seed)
     keyApprox = {}
 
@@ -72,11 +72,15 @@ Butter Finger implementation borrowed from https://github.com/alexyorke/butter-f
 
 
 class ButterFingersPerturbation(SentenceTransformation):
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    locales = ["en"]
+
+    @classmethod
+    def domain(cls):
+        return cls.tasks, cls.locales
 
     def __init__(self):
-        tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-        locales = ["en"]
-        super().__init__(tasks, locales)
+        super()
 
     def generate(self, sentence: str):
         pertubed = butter_finger(text=sentence, prob=0.05)

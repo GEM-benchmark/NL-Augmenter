@@ -4,12 +4,15 @@ from tasks.TaskTypes import TaskType
 
 
 class BackTranslation(SentenceTransformation):
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    locales = ["en"]
+
+    @classmethod
+    def domain(cls):
+        return cls.tasks, cls.locales
 
     def __init__(self):
-        tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-        locales = ["en"]
-        super().__init__(tasks, locales)
-
+        super()
         print("Starting to load English to German Translation Model:")
         # TODO: Update this with wmt19.
         # self.en2de = torch.hub.load('pytorch/fairseq', 'transformer.wmt19.en-de', tokenizer='moses', bpe='subword_nmt')

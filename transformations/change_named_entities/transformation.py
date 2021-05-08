@@ -10,12 +10,15 @@ from tasks.TaskTypes import TaskType
 
 
 class ChangeNamedEntities(SentenceTransformation):
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    locales = ["en"]
+
+    @classmethod
+    def domain(cls):
+        return cls.tasks, cls.locales
 
     def __init__(self, n=1):
-        tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-        locales = ["en"]
-        super().__init__(tasks, locales)
-
+        super()
         # TODO: Do not repeat parse computations.
         random.seed(0)
         self.nlp = spacy.load('en_core_web_sm')
@@ -34,12 +37,19 @@ class ChangeTwoWayNamedEntities(SentenceAndTargetTransformation):
         Repository of names has been taken from the CheckList repo.
         @TODO - need to extend this to other NEs like location, etc.
     '''
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    src_locales = ["en"]
+    tgt_locales = ["en"]
+
+    @classmethod
+    def domain(cls):
+        return cls.tasks, cls.src_locales, cls.tgt_locale
 
     def __init__(self, first_only=False, last_only=False, n=1):
 
         tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
         locales = ["en"]
-        super().__init__(tasks, locales, locales)
+        super().__init__()
 
         np.random.seed(0)
         self.nlp = spacy.load('en_core_web_sm')
