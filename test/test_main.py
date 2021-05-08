@@ -1,7 +1,7 @@
 import random
 
-from transformations.ChangeNamedEntities import ChangeTwoWayNamedEntities
-from transformations.ReplaceNumericalValues import ReplaceNumericalValues
+from transformations.change_named_entities.transformation import ChangeTwoWayNamedEntities
+from transformations.replace_numerical_values.transformation import ReplaceNumericalValues
 from Transformations import *
 
 import unittest

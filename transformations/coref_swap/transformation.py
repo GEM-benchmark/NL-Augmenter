@@ -1,8 +1,7 @@
 import spacy
 import neuralcoref
 import random
-from transformations.SentenceTransformation import SentenceTransformation
-from tasks.TaskTypes import TaskType
+
 
 # Segmentation fault due to init_components() TODO: @Varun
 class CorefSwap():

@@ -4,7 +4,7 @@ import re
 
 from checklist.perturb import Perturb
 
-from transformations.SentenceTransformation import SentenceTransformation, SentenceAndTargetTransformation
+from interfaces.SentenceTransformation import SentenceTransformation, SentenceAndTargetTransformation
 import spacy
 from tasks.TaskTypes import TaskType
 

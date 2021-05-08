@@ -1,6 +1,6 @@
 import random
 
-from transformations.SentenceTransformation import SentenceTransformation
+from interfaces.SentenceTransformation import SentenceTransformation
 from tasks.TaskTypes import TaskType
 
 """

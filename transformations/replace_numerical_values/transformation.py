@@ -1,4 +1,4 @@
-from transformations.SentenceTransformation import SentenceTransformation
+from interfaces.SentenceTransformation import SentenceTransformation
 from common.NumericalTransformation import NumericalTransformation
 from tasks.TaskTypes import TaskType
 

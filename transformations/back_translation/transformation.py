@@ -1,4 +1,4 @@
-from transformations.SentenceTransformation import SentenceTransformation
+from interfaces.SentenceTransformation import SentenceTransformation
 import torch
 from tasks.TaskTypes import TaskType
 

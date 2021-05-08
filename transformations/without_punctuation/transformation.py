@@ -1,6 +1,6 @@
 from checklist.perturb import Perturb
 
-from transformations.SentenceTransformation import SentenceTransformation
+from interfaces.SentenceTransformation import SentenceTransformation
 import spacy
 from tasks.TaskTypes import TaskType
 
