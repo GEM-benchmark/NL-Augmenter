@@ -4,6 +4,7 @@ The Perturbation Repository is a collaborative effort intended to accumulate all
 Every contribution of a perturbation should either add noise to the input or paraphrase or transform the input. 
 
 # Tasks
+All the supported interfaces can be looked up here: [interfaces](interfaces)
 ```python
 class TaskType(enum.Enum):
     TEXT_CLASSIFICATION = 1,
@@ -114,5 +115,5 @@ Alternatively, you can do so from the GitHub website.
  
 **Test Cases:** At least 5 samples (text or data) should be added in the file test_perturbation as test cases for every new perturbation.
 
-**Languages other than English:** We strongly encourage multilingual perturbations. For languages other than English, you should specify the languages in the list of “applicable_languages”.
+**Languages other than English:** We strongly encourage multilingual perturbations. Every should specify the languages in the list of “locales”.
  
