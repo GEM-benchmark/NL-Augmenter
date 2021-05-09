@@ -65,10 +65,10 @@ cd my_awesome_transformation
 ```
 
 ### Creating a transformation
-- (1) Rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation`
-- (2) Choose one of the perturbation interfaces from the `interfaces` folder eg. `SentenceTransformation`, `SentenceAndTargetTransformation`, etc.
-- (3) Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in `requirements.txt`
-- (4) Once done add at least 5 example pairs as test cases in the file `test.json`.
+1. Rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation`
+2. Choose one of the perturbation interfaces from the `interfaces` folder eg. `SentenceTransformation`, `SentenceAndTargetTransformation`, etc.
+3. Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in `requirements.txt`
+4. Once done add at least 5 example pairs as test cases in the file `test.json`.
 
 **Testing and evaluating**
 
@@ -95,4 +95,24 @@ Alternatively, you can do so from the GitHub website.
 </a>
 
 :sparkles: Congratulations, you've submitted a task to the perturbation repository! :sparkles:
+
 ## Review Criteria for Accepting Submissions
+
+**Correctness:** Perturbations must be valid Python code and must pass tests. 
+
+**Output:** Perturbations like named entity changes might need parallel changes in the output. Participants should ensure that the correct interface is used.
+
+**Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific perturbation. Eg. reversing the gender pronouns could give insights about gender bias in models, etc.
+
+**Adding Libraries:** We welcome addition of new libraries which can be installed via pip. Every library should specify the version number associated. However, we encourage you to avoid adding new libraries which are heavy or from which only partial code is used unless really required.
+  
+**Applicable Tasks:** Perturbations can vary across tasks as well as work differently for different types of inputs. Hence all the tasks where the perturbation is applicable should be specified in the list “applicable_tasks”. The list of tasks has been specified here:
+
+**Justification:** The README.md file should clearly explain what the perturbation is attempting to generate as well as the importance of that perturbation for the specified tasks.
+
+**Accuracy:** We also encourage perturbation methods which act like paraphrasers or data augmenters. For such methods, the paraphrasing accuracy must be specified. Paraphrasers with low accuracy would be selected on a case-by-case basis.
+ 
+**Test Cases:** At least 5 samples (text or data) should be added in the file test_perturbation as test cases for every new perturbation.
+
+**Languages other than English:** We strongly encourage multilingual perturbations. For languages other than English, you should specify the languages in the list of “applicable_languages”.
+ 
