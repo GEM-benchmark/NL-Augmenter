@@ -95,25 +95,32 @@ Alternatively, you can do so from the GitHub website.
 <div style="text-align:center"><img src="https://docs.github.com/assets/images/help/pull_requests/pull-request-start-review-button.png" alt="pull request button" width="500"/></div>
 </a>
 
-:sparkles: Congratulations, you've submitted a task to the perturbation repository! :sparkles:
+:sparkles: Congratulations, you've submitted a transformation to the perturbation repository! :sparkles:
 
 ## Review Criteria for Accepting Submissions
 
-**Correctness:** Perturbations must be valid Python code and must pass tests. 
+**Correctness:** Transformations must be valid Python code and must pass tests. 
 
-**Output:** Perturbations like named entity changes might need parallel changes in the output. Participants should ensure that the correct interface is used.
+**Output:** Participants should ensure that they use the correct interface. Eg. for tasks like machine translation, perturbations like named entity changes might need parallel changes in the output. 
 
 **Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific perturbation. Eg. reversing the gender pronouns could give insights about gender bias in models, etc.
 
-**Adding Libraries:** We welcome addition of new libraries which can be installed via pip. Every library should specify the version number associated. However, we encourage you to avoid adding new libraries which are heavy or from which only partial code is used unless really required.
+**Adding New Libraries:** We welcome addition of new libraries which can be installed via pip. Every library should specify the version number associated. 
+
+However, we encourage you to avoid adding new libraries which are heavy or from which only a small part of the code is used.
   
-**Applicable Tasks:** Perturbations can vary across tasks as well as work differently for different types of inputs. Hence all the tasks where the perturbation is applicable should be specified in the list “applicable_tasks”. The list of tasks has been specified here:
+**Applicable Tasks:** Perturbations can vary across tasks as well as work differently for different types of inputs. Hence all the tasks where the perturbation is applicable should be specified in the list “applicable_tasks”. The list of tasks has been specified [here](interfaces).
+```python
+class ButterFingersPerturbation(SentenceTransformation):
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    locales = ["en"]
+```
 
-**Justification:** The README.md file should clearly explain what the perturbation is attempting to generate as well as the importance of that perturbation for the specified tasks.
+**Description:** The `README.md` file should clearly explain what the perturbation is attempting to generate as well as the importance of that perturbation for the specified tasks.
 
-**Accuracy:** We also encourage perturbation methods which act like paraphrasers or data augmenters. For such methods, the paraphrasing accuracy must be specified. Paraphrasers with low accuracy would be selected on a case-by-case basis.
+**Accuracy:** We also encourage perturbation methods which act like paraphrasers or data augmenters. For such methods, the paraphrasing accuracy must be specified. It is preferred to have a high precision transformer rather than a low accuracy one. Paraphrasers with low accuracy would be selected on a case-by-case basis.
  
-**Test Cases:** At least 5 samples (text or data) should be added in the file test_perturbation as test cases for every new perturbation.
+**Test Cases:** At least 5 examples (text or data) should be added in the file `test.json` as test cases for every added perturbation.
 
-**Languages other than English:** We strongly encourage multilingual perturbations. Every should specify the languages in the list of “locales”.
+**Languages other than English:** We strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
  

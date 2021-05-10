@@ -8,4 +8,6 @@ class TaskType(enum.Enum):
     DIALOGUE_TO_TEXT = 4,
     TABLE_TO_TEXT = 5,
     RDF_TO_TEXT = 6,
-    RDF_TO_RDF = 7
+    RDF_TO_RDF = 7,
+    QUESTION_ANSWERING = 8,
+    QUESTION_GENERATION = 9

@@ -4,7 +4,9 @@ import random
 
 
 # Segmentation fault due to init_components() TODO: @Varun
+
 class CorefSwap():
+#class CorefSwap(SentenceTransformation):
 
     def __init__(self):
         #tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
