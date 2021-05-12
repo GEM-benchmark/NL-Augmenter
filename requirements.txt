@@ -1,5 +1,6 @@
 checklist==0.0.10
-spacy==2.3.2
+#spacy==2.3.2
+spacy==2.2.4
 
 # for backtranslation
 torch==1.5.1
@@ -18,3 +19,6 @@ neuralcoref==4.0.0
 # for ReplaceNumericalValues
 num2words==0.5.10
 word2number==1.1
+
+# for test cases
+pytest==6.2.4

@@ -1,3 +1,7 @@
+import abc
+from typing import Tuple, List
+
+
 class QuestionAnswerTransformation(object):
     """
      The base class for implementing question answering style perturbations and transformations.
@@ -24,5 +28,6 @@ class QuestionAnswerTransformation(object):
     def name(cls):
         return cls.__name__
 
-    def generate(self, context: str, question: str, answer: [str]):
-        pass
+    @abc.abstractmethod
+    def generate(self, context: str, question: str, answer: [str]) -> Tuple[str, str, List[str]]:
+        raise NotImplementedError

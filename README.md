@@ -75,8 +75,7 @@ cd my_awesome_transformation
 
 Once the transformation is ready, test it:
 ```bash
-cd ../../..  # get to the "test" folder
-python test_main.py
+python test/test_main.py
 ```
 
 ### Submitting
@@ -109,7 +108,7 @@ Alternatively, you can do so from the GitHub website.
 
 However, we encourage you to avoid adding new libraries which are heavy or from which only a small part of the code is used.
   
-**Applicable Tasks:** Perturbations can vary across tasks as well as work differently for different types of inputs. Hence all the tasks where the perturbation is applicable should be specified in the list “applicable_tasks”. The list of tasks has been specified [here](interfaces).
+**Applicable Tasks:** Perturbations can vary across tasks as well as work differently for different types of inputs. Hence all the tasks where the perturbation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](tasks/TaskTypes.py).
 ```python
 class ButterFingersPerturbation(SentenceTransformation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]

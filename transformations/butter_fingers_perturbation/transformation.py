@@ -75,12 +75,8 @@ class ButterFingersPerturbation(SentenceTransformation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
 
-    @classmethod
-    def domain(cls):
-        return cls.tasks, cls.locales
-
     def __init__(self):
-        super()
+        super().__init__()
 
     def generate(self, sentence: str):
         pertubed = butter_finger(text=sentence, prob=0.05)

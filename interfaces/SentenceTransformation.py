@@ -1,9 +1,12 @@
+import abc
+from typing import Tuple, List
+
 """
 Base Class for implementing the different input transformations a generation should be robust against.
 """
 
 
-class SentenceTransformation(object):
+class SentenceTransformation(abc.ABC):
     """
      The base class for implementing sentence-level perturbations and transformations.
 
@@ -28,14 +31,15 @@ class SentenceTransformation(object):
     def name(cls):
         return cls.__name__
 
-    def generate(self, sentence: str):
+    @abc.abstractmethod
+    def generate(self, sentence: str) -> str:
+        raise NotImplementedError
+
+    def generateFromParse(self, parse) -> str:
         pass
 
-    def generateFromParse(self, parse):
-        pass
 
-
-class SentenceAndTargetTransformation(object):
+class SentenceAndTargetTransformation(abc.ABC):
     """
      The base class for implementing sentence-pair-level perturbations and transformations. The target could be
      either a class label (eg. sentiment analysis) or a target utterance (eg. machine translation).
@@ -62,14 +66,15 @@ class SentenceAndTargetTransformation(object):
     def name(cls):
         return cls.__name__
 
-    def generate(self, sentence: str, target: str):
+    @abc.abstractmethod
+    def generate(self, sentence: str, target: str) -> Tuple[str, str]:
+        raise NotImplementedError
+
+    def generateFromParse(self, parse, target: str) -> Tuple[str, str]:
         pass
 
-    def generateFromParse(self, parse, target: str):
-        pass
 
-
-class SentenceAndTargetsTransformation(object):
+class SentenceAndTargetsTransformation(abc.ABC):
     """
      The base class for implementing sentence-pair-level perturbations and transformations. There can be
      muliple targets eg. multiple references in machine translation.
@@ -96,8 +101,9 @@ class SentenceAndTargetsTransformation(object):
     def name(cls):
         return cls.__name__
 
-    def generate(self, sentence: str, target: [str]):
+    @abc.abstractmethod
+    def generate(self, sentence: str, target: List[str]) -> Tuple[str, List[str]]:
         pass
 
-    def generateFromParse(self, parse, target: [str]):
+    def generateFromParse(self, parse, target: [str]) -> Tuple[str, List[str]]:
         pass

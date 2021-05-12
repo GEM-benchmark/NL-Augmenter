@@ -7,10 +7,6 @@ class BackTranslation(SentenceTransformation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
 
-    @classmethod
-    def domain(cls):
-        return cls.tasks, cls.locales
-
     def __init__(self):
         super().__init__()
         print("Starting to load English to German Translation Model:")

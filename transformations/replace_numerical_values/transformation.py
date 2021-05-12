@@ -9,13 +9,9 @@ class ReplaceNumericalValues(SentenceTransformation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
 
-    @classmethod
-    def domain(cls):
-        return cls.tasks, cls.locales
-
     def __init__(self):
         random.seed(10)
-        super()
+        super().__init__()
         self.numerical_transformation = NumericalTransformation()
 
     def generate(self, sentence: str):
