@@ -1,38 +1,35 @@
-import random
 from os import sys, path
+import unittest
+
+from TestRunner import TestRuns
+from interfaces.SentenceTransformation import SentenceTransformation, SentenceAndTargetTransformation
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
-from transformations.change_named_entities.transformation import ChangeTwoWayNamedEntities
-from transformations.replace_numerical_values.transformation import ReplaceNumericalValues
-from Transformations import *
 
-import unittest
+def execute_test_cases_1():
+    tx = TestRuns(interface=SentenceTransformation)
+    for transformation, tests in zip(tx.transformations, tx.test_cases):
+        for test in tests:
+            assert test["output"] == transformation.generate(test["input"]), f"Should have generated {test['output']}"
+
+
+def execute_test_cases_2():
+    tx = TestRuns(interface=SentenceAndTargetTransformation)
+    for transformation, tests in zip(tx.transformations, tx.test_cases):
+        for test in tests:
+            output_x, output_y = transformation.generate(test["input_x"], test["input_y"])
+            assert output_x == test["output_x"], f"Should have generated {test['output_x']}"
+            assert output_y == test["output_y"], f"Should have generated {test['output_y']}"
 
 
 class TestStringMethods(unittest.TestCase):
 
-    def test_jsons(self):
-        execute_test_cases()
+    def test_1(self):
+        execute_test_cases_1()
 
-    def test_two_way_named_entity_replacements(self):
-        tr = ChangeTwoWayNamedEntities()
-        perturbed_source, perturbed_target = tr.generate("Andrew played cricket with Chris",
-                                                         "Andrew seldom played cricket with Chris.")
-        assert perturbed_source == "Andrew played cricket with Jacob"
-        assert perturbed_target == "Andrew seldom played cricket with Jacob."
-        perturbed_source, perturbed_target = tr.generate("Andrew played cricket in India",
-                                                         "India was the country where Jonathan played.")
-        assert perturbed_source == "Andrew played cricket in Canada"
-        assert perturbed_target == "Canada was the country where Jonathan played."
-
-    def test_numerical_transformation(self):
-        random.seed(10)
-        perturber = ReplaceNumericalValues()
-        transformed = perturber.generate(
-            "Andrew finally returned the five French books to Chris that contains 53.45 pages.")
-        self.assertEqual(transformed,
-                         'Andrew finally returned the nine French books to Chris that contains 3.26 pages.')
+    def test_2(self):
+        execute_test_cases_2()
 
 
 if __name__ == '__main__':

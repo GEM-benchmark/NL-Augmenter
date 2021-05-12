@@ -3,7 +3,6 @@ from pathlib import Path
 from importlib import import_module
 import os
 import json
-from interfaces.SentenceTransformation import SentenceTransformation
 
 
 def load(module, cls):
@@ -12,24 +11,27 @@ def load(module, cls):
 
 
 def load_test_cases(test_json):
-    with open(test_json) as f:
-        d = json.load(f)
-        examples = d["test_cases"]
-    return examples
+    try:
+        with open(test_json) as f:
+            d = json.load(f)
+            examples = d["test_cases"]
+        return examples
+    except FileNotFoundError:
+        raise Exception(f"\n\n\t\tYou should add a test file at this location!\n\t\t{test_json}")
 
 
-class TransformationsList:
+class TestRuns(object):
 
-    def __init__(self, load_tests=False):
+    def __init__(self, interface, load_tests=True):
         transformations = []
         test_cases = []
         # iterate through the modules in the current package
-        package_dir = Path(__file__).resolve()  # --> Transformations.py
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath("transformations")
         for (_, m, _) in iter_modules([transformations_dir]):
             t_py = import_module(f"transformations.{m}.transformation")
             t_js = os.path.join(transformations_dir, m, "test.json")
-            tx = [load(t_py, cls) for cls in SentenceTransformation.__subclasses__() if hasattr(t_py, cls.__name__)]
+            tx = [load(t_py, cls) for cls in interface.__subclasses__() if hasattr(t_py, cls.__name__)]
             if len(tx) > 0:
                 transformations.extend(tx)
                 if load_tests:
@@ -43,13 +45,3 @@ class TransformationsList:
         for transformation in self.transformations:
             generations[transformation.name()] = transformation.generate(sentence)
         return generations
-
-
-def execute_test_cases():
-    tx = TransformationsList(load_tests=True)
-    for transformation, tests in zip(tx.transformations, tx.test_cases):
-        for test in tests:
-            input = test["input"]
-            output = test["output"]
-            print(f"Executing transformation: {transformation.name()} on {input}")
-            assert output == transformation.generate(input), f"Should have generated {output}"
