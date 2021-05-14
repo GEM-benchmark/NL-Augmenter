@@ -1,6 +1,7 @@
 from data_transformations.DataTransformation import DataTransformation
 from data_transformations.ReplaceDataNumericalValues import ReplaceDataNumericalValues
 
+
 class DataTransformationList(DataTransformation):
 
     def __init__(self):
