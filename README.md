@@ -26,8 +26,8 @@ class TaskType(enum.Enum):
 ## Installation
 ```bash
 # When creating a new transformation, replace this with your forked repository (see below)
-git clone https://github.com/GEM-benchmark/GEM-special-test-sets.git
-cd GEM-special-test-sets
+git clone https://github.com/GEM-benchmark/NL-Augmenter.git
+cd NL-Augmenter
 python setup.py sdist
 pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
 ```
@@ -40,7 +40,7 @@ Running it for the first time will take a while (depending on your internet spee
 After you make any change, run test_main.py once to ensure that your changes don't regress anything.
 
 ```bash
-python test_main.py
+pytest
 ```
  
 And for any new logic, add the appropriate test case so that no one else breaks the changes. 
@@ -57,7 +57,7 @@ Your fork will have its own location, which we will call `PATH_TO_YOUR_FORK`.
 Next, [clone the forked repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) and create a branch for your transformation, which here we will call **my_awesome_transformation**:
 ```bash
 git clone $PATH_TO_YOUR_FORK
-cd GEM-special-test-sets
+cd NL-Augmenter
 git checkout -b my_awesome_transformation
 ```
 We will base our transformation on an existing example.
@@ -69,10 +69,9 @@ cd my_awesome_transformation
 ```
 
 ### Creating a transformation
-1. Rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation`
-2. Choose one of the perturbation interfaces from the `interfaces` folder eg. `SentenceTransformation`, `SentenceAndTargetTransformation`, etc.
+1. Rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation` and choose one of the perturbation interfaces from the `interfaces` folder. Full list [here.](interfaces)
 3. Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in `requirements.txt`
-4. Once done add at least 5 example pairs as test cases in the file `test.json`.
+4. Once done add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently and update `my_awesome_transformation/README.md`.
 
 **Testing and evaluating**
 

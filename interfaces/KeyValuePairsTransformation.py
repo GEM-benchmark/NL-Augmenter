@@ -2,7 +2,7 @@ import abc
 from typing import Tuple
 
 
-class KeyValuePairsTransformation(object):
+class KeyValuePairsTransformation(abc.ABC):
     """
      The base class for implementing transformations
       for inputs which take a structured form like AMR-to-text, E2E, etc.
