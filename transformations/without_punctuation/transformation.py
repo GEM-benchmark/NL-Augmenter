@@ -1,11 +1,16 @@
 from checklist.perturb import Perturb
 
-from transformations.SentenceTransformation import SentenceTransformation
+from interfaces.SentenceTransformation import SentenceTransformation
 import spacy
+from tasks.TaskTypes import TaskType
+
 
 class WithoutPunctuation(SentenceTransformation):
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    locales = ["en"]
 
     def __init__(self):
+        super().__init__()
         self.nlp = spacy.load('en_core_web_sm')
 
     def generate(self, sentence: str):
