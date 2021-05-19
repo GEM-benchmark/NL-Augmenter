@@ -25,7 +25,10 @@ class TaskType(enum.Enum):
 
 ## Installation
 ```bash
-pip install -r requirements.txt
+# When creating a new transformation, replace this with your forked repository (see below)
+git clone https://github.com/GEM-benchmark/GEM-special-test-sets.git
+cd GEM-special-test-sets
+python setup.py sdist
 pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
 ```
 
@@ -75,7 +78,7 @@ cd my_awesome_transformation
 
 Once the transformation is ready, test it:
 ```bash
-python test/test_main.py
+pytest
 ```
 
 ### Submitting

@@ -20,7 +20,7 @@ def load_test_cases(test_json):
         raise Exception(f"\n\n\t\tYou should add a test file at this location!\n\t\t{test_json}")
 
 
-class TestRuns(object):
+class Runs(object):
 
     def __init__(self, interface, load_tests=True):
         transformations = []
