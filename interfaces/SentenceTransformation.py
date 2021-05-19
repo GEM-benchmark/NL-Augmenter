@@ -36,7 +36,7 @@ class SentenceTransformation(abc.ABC):
         raise NotImplementedError
 
     def generateFromParse(self, parse) -> str:
-        pass
+        raise NotImplementedError
 
 
 class SentenceAndTargetTransformation(abc.ABC):
@@ -71,7 +71,7 @@ class SentenceAndTargetTransformation(abc.ABC):
         raise NotImplementedError
 
     def generateFromParse(self, parse, target: str) -> Tuple[str, str]:
-        pass
+        raise NotImplementedError
 
 
 class SentenceAndTargetsTransformation(abc.ABC):
@@ -103,7 +103,7 @@ class SentenceAndTargetsTransformation(abc.ABC):
 
     @abc.abstractmethod
     def generate(self, sentence: str, target: List[str]) -> Tuple[str, List[str]]:
-        pass
+        raise NotImplementedError
 
     def generateFromParse(self, parse, target: [str]) -> Tuple[str, List[str]]:
-        pass
+        raise NotImplementedError
