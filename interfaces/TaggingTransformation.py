@@ -32,13 +32,6 @@ class TaggingTransformation(abc.ABC):
         return cls.__name__
 
     @abc.abstractmethod
-    def generate(self, sentence: str) -> str:
-        raise NotImplementedError
-
-    def generateFromParse(self, parse) -> str:
-        raise NotImplementedError
-
-    @abc.abstractmethod
     def generate(self, sentence: List[str], tagSeq: List[str]) -> Tuple[List[str], List[str]]:
         raise NotImplementedError
 
