@@ -45,3 +45,21 @@ class Runs(object):
         for transformation in self.transformations:
             generations[transformation.name()] = transformation.generate(sentence)
         return generations
+
+
+def load_implementation(tx_name: str):
+    try:
+        t_py = import_module(f"transformations.{tx_name}.transformation")
+    except ModuleNotFoundError as error:
+        raise Exception(f"Transformation folder of name {tx_name} is not found.\n {error}")
+    try:
+        TxName = convert_to_camel_case(tx_name)
+        transformation = getattr(t_py, TxName)
+        return transformation
+    except AttributeError as error:
+        raise Exception(f"Transformation implementation"
+                        f" named {TxName} not found.\n {error}")
+
+
+def convert_to_camel_case(word):
+    return ''.join(x.capitalize() or '_' for x in word.split('_'))

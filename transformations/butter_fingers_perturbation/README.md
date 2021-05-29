@@ -11,6 +11,12 @@ source sentences i.e. the code outputs highly precise generations.
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, etc. 
 
+The accuracy of a RoBERTa model fine-tuned on a subset of IMDB sentiment dataset = 95.74
+The accuracy of the same model on perturbed set = 88.26
+```python
+dataset = load_dataset("imdb", split='test[:20%]')
+```
+
 ## Previous Work
 1) Butter Finger implementation borrowed from this code https://github.com/alexyorke/butter-fingers
 
