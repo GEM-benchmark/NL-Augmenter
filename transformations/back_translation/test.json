@@ -3,11 +3,11 @@
   "test_cases": [
     {
       "input": "Andrew finally returned the French book to Chris that I bought last week",
-      "output": "Andrew finally gave the French book to Chris that I bought last week"
+      "output": "Andrew eventually gave Chris the French book I bought last week."
     },
     {
-      "input": "Andrew finally returned the French book to Chris that I bought last week",
-      "output": "Andrew finally gave the French book to Chris that I bought last week"
+      "input": "Andrew returned the German book to Chris that I bought last week",
+      "output": "Andrew gave Chris the German book I bought last week"
     }
   ]
 }
