@@ -38,10 +38,3 @@ class Runs(object):
                     test_cases.append(load_test_cases(t_js))
         self.transformations = transformations
         self.test_cases = test_cases
-
-    def generate(self, sentence: str):
-        print(f"Original Input : {sentence}")
-        generations = {"Original": sentence}
-        for transformation in self.transformations:
-            generations[transformation.name()] = transformation.generate(sentence)
-        return generations

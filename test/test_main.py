@@ -1,6 +1,7 @@
 import unittest
 
 from TestRunner import Runs
+from interfaces.QuestionAnswerTransformation import QuestionAnswerTransformation
 from interfaces.SentenceTransformation import SentenceTransformation, SentenceAndTargetTransformation
 
 
@@ -20,6 +21,16 @@ def execute_test_cases_2():
             assert output_y == test["output_y"], f"Should have generated {test['output_y']}"
 
 
+def execute_test_cases_3():
+    tx = Runs(interface=QuestionAnswerTransformation)
+    for transformation, tests in zip(tx.transformations, tx.test_cases):
+        for test in tests:
+            output_c, output_q, output_a = transformation.generate(test["input_c"], test["input_q"], test["input_a"])
+            assert output_c == test["output_c"], f"Should have generated {test['output_c']}"
+            assert output_q == test["output_q"], f"Should have generated {test['output_q']}"
+            assert output_a == test["output_a"], f"Should have generated {test['output_a']}"
+
+
 class TestStringMethods(unittest.TestCase):
 
     def test_1(self):
@@ -27,6 +38,9 @@ class TestStringMethods(unittest.TestCase):
 
     def test_2(self):
         execute_test_cases_2()
+
+    def test_3(self):
+        execute_test_cases_3()
 
 
 if __name__ == '__main__':

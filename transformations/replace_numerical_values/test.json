@@ -1,5 +1,5 @@
 {
-  "type": "back_translation",
+  "type": "replace_numerical_values",
   "test_cases": [
     {
       "input": "Andrew finally returned the French book to Chris that I bought last week",

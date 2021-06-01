@@ -1,5 +1,5 @@
 {
-  "type": "back_translation",
+  "type": "change_two_way_ne",
   "test_cases": [
     {
       "input_x": "Andrew played cricket with Chris",
