@@ -39,13 +39,6 @@ class Runs(object):
         self.transformations = transformations
         self.test_cases = test_cases
 
-    def generate(self, sentence: str):
-        print(f"Original Input : {sentence}")
-        generations = {"Original": sentence}
-        for transformation in self.transformations:
-            generations[transformation.name()] = transformation.generate(sentence)
-        return generations
-
 
 def load_implementation(tx_name: str):
     try:

@@ -9,6 +9,10 @@ parser.add_argument('-l', '--locale', help="locale to evaluate over", default="e
 parser.add_argument('--transformation', '-t', required=True)
 parser.add_argument('-p', '--percentage_of_examples', help="percentage of examples to test", default=20)
 
+"""
+Just run this file using the following command:
+  python evaluate.py -t butter_fingers_perturbation
+"""
 if __name__ == '__main__':
     args = parser.parse_args()
 

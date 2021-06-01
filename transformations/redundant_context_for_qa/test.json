@@ -1,0 +1,37 @@
+{
+  "type": "redundant_context_for_qa",
+  "test_cases": [
+    {
+      "input_c": "Steam engines are external combustion engines, where the working fluid is separate from the combustion products. Non-combustion heat sources such as solar power, nuclear power or geothermal energy may be used.",
+      "input_q": "Along with geothermal and nuclear, what is a notable non-combustion heat source?",
+      "input_a": [
+        "solar",
+        "solar power",
+        "solar power, nuclear power or geothermal energy"
+      ],
+      "output_c": "Steam engines are external combustion engines, where the working fluid is separate from the combustion products. Non-combustion heat sources such as solar power, nuclear power or geothermal energy may be used. Steam engines are external combustion engines, where the working fluid is separate from the combustion products. Non-combustion heat sources such as solar power, nuclear power or geothermal energy may be used.",
+      "output_q": "Along with geothermal and nuclear, what is a notable non-combustion heat source?",
+      "output_a": [
+        "solar",
+        "solar power",
+        "solar power, nuclear power or geothermal energy"
+      ]
+    },
+    {
+      "input_c": "From Italy, the disease spread northwest across Europe, striking France, Spain, Portugal and England by June 1348, then turned and spread east through Germany and Scandinavia from 1348 to 1350.",
+      "input_q": " Which direction did the disease first move in?",
+      "input_a": [
+        "northwest across",
+        "Europe",
+        "northwest"
+      ],
+      "output_c": "From Italy, the disease spread northwest across Europe, striking France, Spain, Portugal and England by June 1348, then turned and spread east through Germany and Scandinavia from 1348 to 1350. From Italy, the disease spread northwest across Europe, striking France, Spain, Portugal and England by June 1348, then turned and spread east through Germany and Scandinavia from 1348 to 1350.",
+      "output_q": " Which direction did the disease first move in?",
+      "output_a": [
+        "northwest across",
+        "Europe",
+        "northwest"
+      ]
+    }
+  ]
+}
