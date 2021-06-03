@@ -9,5 +9,5 @@ word2number==1.1
 pytest==6.2.4
 
 # for evaluation
-datasets==1.2.1
+datasets==1.7.0
 transformers==4.2.1

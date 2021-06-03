@@ -1,5 +1,6 @@
 from datasets import load_dataset
 from transformers import pipeline
+from tasks.TaskTypes import TaskType
 
 """
 This is the evaluation engine.
@@ -8,7 +9,7 @@ eg. python evaluate.py -t butter_fingers_perturbation
 """
 
 
-def evaluate(implementation, locale, model, dataset, percent_of_examples):
+def evaluate(implementation, task_type, locale, model, dataset, percent_of_examples):
     # The evaluation engine would effectively do the following
     # (1) Loading a standard model and a test set (the model's original test set would be the best choice)
     # (2) Executing perturbations to generate the perturbed test set.
@@ -16,12 +17,56 @@ def evaluate(implementation, locale, model, dataset, percent_of_examples):
     # (4) Writing a neat README.
     interface = implementation.__bases__[0]  # SentenceTransformation
     impl = implementation()
-    execute_model(impl, interface, locale, model, dataset, percent_of_examples)
+    execute_model(impl, task_type, interface, locale, model, dataset, percent_of_examples)
     return
 
+def execute_model(impl, task_type, interface, locale, model=None, dataset=None, percentage_of_examples=20):
+    if locale is "en":
+        if interface.__name__ is "SentenceTransformation" and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION:
+            evaluate_text_classifier(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
+        elif interface.__name__ is "QuestionAnswerTransformation" and TaskType[task_type] == TaskType.QUESTION_ANSWERING:
+            evaluate_question_answering_model(impl, model, dataset, split=f'validation[:{percentage_of_examples}%]')
+        elif interface.__name__ is "SentenceTransformation" and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION:
+            evaluate_text_summarization(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
+        # Other if else cases should be added here.
+        else:
+            print(f"No default evaluation model exists for the interface {interface} in the locale {locale}."
+                  f"It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate "
+                  f"your perturbation on a task and a dataset, "
+                  f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
+                  f"and call it from execute_model. That's it!")
+    else:
+        print(f"Unsupported locale {locale}!")
 
-def evaluate_text_classifier(transformation, model_name, dataset_name,
-                             split='test[:20%]'):
+
+def evaluate_text_summarization(transformation, model_name, dataset_name, split='test[:20%]'):
+    if model_name is None:
+        model_name = "sshleifer/distilbart-cnn-12-6"
+    if dataset_name is None:
+        dataset_name = "cnn_dailymail"
+    dataset = load_dataset('cnn_dailymail', '3.0.0', split=split)
+
+    summarization_pipeline = pipeline("summarization", model=model_name, tokenizer=model_name)
+    accuracy = 0
+    pt_accuracy = 0
+    total = 0
+    for example in dataset:
+        label = example["highlights"]
+        prediction = summarization_pipeline(example["article"], truncation=True)[0]["highlights"]
+        # TODO: Needs to change the logic here.
+        if (label.lower().strip() == prediction.lower().strip()):
+            accuracy += 1
+        pt = transformation.generate(example["article"])
+        pt_pred = summarization_pipeline(pt, truncation=True)[0]["highlights"]
+        if (pt["highlights"].lower().strip() == pt_pred.lower().strip()):
+            pt_accuracy += 1
+        total += 1
+        print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+        print(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
+        print(f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}")
+
+
+def evaluate_text_classifier(transformation, model_name, dataset_name, split='test[:20%]'):
     # (1) load model
     if model_name is None:
         model_name = "aychang/roberta-base-imdb"
@@ -80,17 +125,3 @@ def evaluate_question_answering_model(transformation, model_name,
     print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
     print(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
     print(f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}")
-
-
-def execute_model(impl, interface, locale, model=None, dataset=None, percentage_of_examples=20):
-    if interface.__name__ is "SentenceTransformation" and locale is "en":
-        evaluate_text_classifier(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
-    elif interface.__name__ is "QuestionAnswerTransformation" and locale is "en":
-        evaluate_question_answering_model(impl, model, dataset, split=f'validation[:{percentage_of_examples}%]')
-    # Other if else cases should be added here.
-    else:
-        print(f"No default evaluation model exists for the interface {interface} in the locale {locale}."
-              f"It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate "
-              f"your perturbation on a task and a dataset, "
-              f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
-              f"and call it from execute_model. That's it!")
