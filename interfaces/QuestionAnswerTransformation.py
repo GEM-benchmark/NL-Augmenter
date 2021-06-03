@@ -2,7 +2,7 @@ import abc
 from typing import Tuple, List
 
 
-class QuestionAnswerTransformation(object):
+class QuestionAnswerTransformation(abc.ABC):
     """
      The base class for implementing question answering style perturbations and transformations.
 
