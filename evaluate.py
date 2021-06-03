@@ -7,6 +7,9 @@ parser = argparse.ArgumentParser(description='This is the evaluate function. Thi
                                              'transformation on pre-defined models.')
 parser.add_argument('-l', '--locale', help="locale to evaluate over", default="en")
 parser.add_argument('--transformation', '-t', required=True)
+parser.add_argument('--model', '-m', help="HuggingFace model to evaluate. Note that the model should be in HF-models.")
+parser.add_argument('-d', '--dataset', help="Name of the HuggingFace dataset to evaluate. "
+                                            "Note that the dataset should be in HF-datasets.")
 parser.add_argument('-p', '--percentage_of_examples', help="percentage of examples to test", default=20)
 
 """
@@ -21,7 +24,7 @@ if __name__ == '__main__':
     # Use the tasks and the locales of an implementation to retrieve an HF model and a test set.
     tasks = implementation.tasks
     locales = implementation.locales
-    if args.locale not in locales:
-        raise Exception(f"The specified transformation is applicable only for the locales={locales}.  ")
+    if locales != "All" and args.locale not in locales:
+        raise ValueError(f"The specified transformation is applicable only for the locales={locales}.")
 
-    evaluate(implementation, args.locale, args.percentage_of_examples)
+    evaluate(implementation, args.locale, args.model, args.dataset, args.percentage_of_examples)
