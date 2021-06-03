@@ -3,6 +3,7 @@ import unittest
 from TestRunner import Runs
 from interfaces.QuestionAnswerTransformation import QuestionAnswerTransformation
 from interfaces.SentenceTransformation import SentenceTransformation, SentenceAndTargetTransformation
+from interfaces.TaggingTransformation import TaggingTransformation
 
 
 def execute_test_cases_1():
@@ -31,6 +32,15 @@ def execute_test_cases_3():
             assert output_a == test["output_a"], f"Should have generated {test['output_a']}"
 
 
+def execute_test_cases_4():
+    tx = Runs(interface=TaggingTransformation)
+    for transformation, tests in zip(tx.transformations, tx.test_cases):
+        for test in tests:
+            output_sequence, output_tag = transformation.generate(test["input_sequence"], test["input_tag"])
+            assert output_sequence == test["output_sequence"], f"Should have generated {test['output_sequence']}"
+            assert output_tag == test["output_tag"], f"Should have generated {test['output_tag']}"
+
+
 class TestStringMethods(unittest.TestCase):
 
     def test_1(self):
@@ -41,6 +51,9 @@ class TestStringMethods(unittest.TestCase):
 
     def test_3(self):
         execute_test_cases_3()
+
+    def test_4(self):
+        execute_test_cases_4()
 
 
 if __name__ == '__main__':
