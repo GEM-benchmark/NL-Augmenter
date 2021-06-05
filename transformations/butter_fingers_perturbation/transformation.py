@@ -72,7 +72,7 @@ Butter Finger implementation borrowed from https://github.com/alexyorke/butter-f
 
 
 class ButterFingersPerturbation(SentenceTransformation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     locales = ["en"]
 
     def __init__(self):
