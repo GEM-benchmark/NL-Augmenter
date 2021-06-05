@@ -89,8 +89,8 @@ def execute_model(impl, interface, locale, model=None, dataset=None, percentage_
         evaluate_question_answering_model(impl, model, dataset, split=f'validation[:{percentage_of_examples}%]')
     # Other if else cases should be added here.
     else:
-        print(f"No default evaluation model exists for the interface {interface} in the locale {locale}."
-              f"It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate "
+        print(f"\nNo default evaluation model exists for the interface {interface} in the locale {locale}."
+              f"It's okay to skip the evaluation for the purpose of the PR. If you are still interested to evaluate "
               f"your perturbation on a task and a dataset, "
               f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
-              f"and call it from execute_model. That's it!")
+              f"and call it from execute_model in a new elif statement. It's that simple!\n")
