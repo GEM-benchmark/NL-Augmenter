@@ -17,9 +17,14 @@ Transformations which are already accepted to NL-Augmenter are summarized in [th
 
 **Table of contents**
 
+* [Colab notebook](#colab-notebook)
 * [Installation](#installation)
 * [How do I create a transformation?](#how-do-i-create-a-transformation)
 * [Review Criteria for Accepting Submissions](#review-criteria)
+
+## Colab notebook
+
+<a href="https://github.com/GEM-benchmark/NL-Augmenter" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> 
 
 ## Installation
 ```bash

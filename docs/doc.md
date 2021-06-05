@@ -28,7 +28,7 @@ Each transformation will receive two reviews. The transformation may be edited i
 **Applicable Tasks:** We understand that transformations can vary across tasks as well as a single transformation can work for multiple tasks. Hence all the tasks where the transformation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](tasks/TaskTypes.py).
 ```python
 class ButterFingersPerturbation(SentenceTransformation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     locales = ["en"]
 ```
 
