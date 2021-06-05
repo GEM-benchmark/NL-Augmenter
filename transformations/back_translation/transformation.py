@@ -1,10 +1,10 @@
 from transformers import FSMTForConditionalGeneration, FSMTTokenizer
 
-from interfaces.SentenceTransformation import SentenceTransformation
+from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 
-class BackTranslation(SentenceTransformation):
+class BackTranslation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
 

@@ -3,12 +3,12 @@ import re
 
 from checklist.perturb import Perturb
 
-from interfaces.SentenceTransformation import SentenceAndTargetTransformation
+from interfaces.SentenceOperation import SentenceAndTargetOperation
 import spacy
 from tasks.TaskTypes import TaskType
 
 
-class ChangeTwoWayNamedEntities(SentenceAndTargetTransformation):
+class ChangeTwoWayNamedEntities(SentenceAndTargetOperation):
     '''
         Repository of names has been taken from the CheckList repo.
         @TODO - need to extend this to other NEs like location, etc.

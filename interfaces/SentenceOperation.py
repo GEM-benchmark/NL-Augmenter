@@ -6,7 +6,7 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-class SentenceTransformation(abc.ABC):
+class SentenceOperation(abc.ABC):
     """
      The base class for implementing sentence-level perturbations and transformations.
 
@@ -35,11 +35,14 @@ class SentenceTransformation(abc.ABC):
     def generate(self, sentence: str) -> str:
         raise NotImplementedError
 
+    def filter(self, sentence: str) -> bool:
+        raise NotImplementedError
+
     def generateFromParse(self, parse) -> str:
         raise NotImplementedError
 
 
-class SentenceAndTargetTransformation(abc.ABC):
+class SentenceAndTargetOperation(abc.ABC):
     """
      The base class for implementing sentence-pair-level perturbations and transformations. The target could be
      either a class label (eg. sentiment analysis) or a target utterance (eg. machine translation).
@@ -70,11 +73,14 @@ class SentenceAndTargetTransformation(abc.ABC):
     def generate(self, sentence: str, target: str) -> Tuple[str, str]:
         raise NotImplementedError
 
+    def filter(self, sentence: str, target: str) -> bool:
+        raise NotImplementedError
+
     def generateFromParse(self, parse, target: str) -> Tuple[str, str]:
         raise NotImplementedError
 
 
-class SentenceAndTargetsTransformation(abc.ABC):
+class SentenceAndTargetsOperation(abc.ABC):
     """
      The base class for implementing sentence-pair-level perturbations and transformations. There can be
      muliple targets eg. multiple references in machine translation.
@@ -103,6 +109,10 @@ class SentenceAndTargetsTransformation(abc.ABC):
 
     @abc.abstractmethod
     def generate(self, sentence: str, target: List[str]) -> Tuple[str, List[str]]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def filter(self, sentence: str, target: List[str]) -> bool:
         raise NotImplementedError
 
     def generateFromParse(self, parse, target: [str]) -> Tuple[str, List[str]]:

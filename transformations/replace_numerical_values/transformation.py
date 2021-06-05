@@ -1,11 +1,11 @@
 import random
 
-from interfaces.SentenceTransformation import SentenceTransformation
+from interfaces.SentenceOperation import SentenceOperation
 from common.NumericalTransformation import NumericalTransformation
 from tasks.TaskTypes import TaskType
 
 
-class ReplaceNumericalValues(SentenceTransformation):
+class ReplaceNumericalValues(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
 

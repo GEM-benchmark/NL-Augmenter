@@ -6,7 +6,7 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-class TaggingTransformation(abc.ABC):
+class TaggingOperation(abc.ABC):
     """
      The base class for implementing tagging ({word_i,tag_i}* --> {word_j,tag_j}*) perturbations and transformations.
 
@@ -33,6 +33,9 @@ class TaggingTransformation(abc.ABC):
 
     @abc.abstractmethod
     def generate(self, token_sequence: List[str], tag_sequence: List[str]) -> Tuple[List[str], List[str]]:
+        raise NotImplementedError
+
+    def filter(self, token_sequence: List[str], tag_sequence: List[str]) -> bool:
         raise NotImplementedError
 
     def generateFromParse(self, parse, tag_sequence: List[str]) -> Tuple[str, List[str]]:

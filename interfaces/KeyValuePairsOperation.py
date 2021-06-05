@@ -2,7 +2,7 @@ import abc
 from typing import Tuple
 
 
-class KeyValuePairsTransformation(abc.ABC):
+class KeyValuePairsOperation(abc.ABC):
     """
      The base class for implementing transformations
       for inputs which take a structured form like AMR-to-text, E2E, etc.
@@ -30,4 +30,7 @@ class KeyValuePairsTransformation(abc.ABC):
 
     @abc.abstractmethod
     def generate(self, meaning_representation: dict, reference: str) -> Tuple[dict, str]:
+        raise NotImplementedError
+
+    def filter(self, meaning_representation: dict, reference: str) -> bool:
         raise NotImplementedError

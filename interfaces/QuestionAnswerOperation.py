@@ -2,7 +2,7 @@ import abc
 from typing import Tuple, List
 
 
-class QuestionAnswerTransformation(abc.ABC):
+class QuestionAnswerOperation(abc.ABC):
     """
      The base class for implementing question answering style perturbations and transformations.
 
@@ -30,4 +30,7 @@ class QuestionAnswerTransformation(abc.ABC):
 
     @abc.abstractmethod
     def generate(self, context: str, question: str, answer: [str]) -> Tuple[str, str, List[str]]:
+        raise NotImplementedError
+
+    def filter(self, context: str, question: str, answer: [str]) -> bool:
         raise NotImplementedError
