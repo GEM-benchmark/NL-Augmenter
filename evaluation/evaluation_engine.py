@@ -8,7 +8,7 @@ eg. python evaluate.py -t butter_fingers_perturbation
 """
 
 
-def evaluate(implementation, locale, model, dataset, percent_of_examples):
+def evaluate(implementation, locale="en", model=None, dataset=None, percent_of_examples=None):
     # The evaluation engine would effectively do the following
     # (1) Loading a standard model and a test set (the model's original test set would be the best choice)
     # (2) Executing perturbations to generate the perturbed test set.
@@ -83,9 +83,9 @@ def evaluate_question_answering_model(transformation, model_name,
 
 
 def execute_model(impl, interface, locale, model=None, dataset=None, percentage_of_examples=20):
-    if interface.__name__ is "SentenceTransformation" and locale is "en":
+    if interface.__name__ is "SentenceOperation" and locale is "en":
         evaluate_text_classifier(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
-    elif interface.__name__ is "QuestionAnswerTransformation" and locale is "en":
+    elif interface.__name__ is "QuestionAnswerOperation" and locale is "en":
         evaluate_question_answering_model(impl, model, dataset, split=f'validation[:{percentage_of_examples}%]')
     # Other if else cases should be added here.
     else:
