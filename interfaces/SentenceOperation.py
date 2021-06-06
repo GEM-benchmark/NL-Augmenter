@@ -42,7 +42,6 @@ class SentenceAndTargetOperation(Operation):
 
     def __init__(self):
         super().__init__()
-        print(f"Loading Transformation {self.name()}")
 
     @classmethod
     def domain(cls):
@@ -77,7 +76,6 @@ class SentenceAndTargetsOperation(Operation):
 
     def __init__(self):
         super().__init__()
-        print(f"Loading Transformation {self.name()}")
 
     @classmethod
     def domain(cls):
