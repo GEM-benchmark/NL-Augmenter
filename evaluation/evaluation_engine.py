@@ -33,20 +33,23 @@ def get_task_type(implementation, task_type):
 def execute_model(implementation, task_type, locale="en", model=None, dataset=None, percentage_of_examples=20):
     interface = implementation.__bases__[0]  # SentenceTransformation
     impl = implementation()
-    if interface.__name__ is "SentenceOperation" and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION:
-        evaluate_text_classifier(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
-    elif interface.__name__ is "QuestionAnswerOperation" and TaskType[
-        task_type] == TaskType.QUESTION_ANSWERING:
-        evaluate_question_answering_model(impl, model, dataset, split=f'validation[:{percentage_of_examples}%]')
-    elif interface.__name__ is "SentenceOperation" and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION:
-        evaluate_text_summarization(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
-    # Other if else cases should be added here.
+    if locale is "en":
+        if interface.__name__ is "SentenceOperation" and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION:
+            evaluate_text_classifier(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
+        elif interface.__name__ is "QuestionAnswerOperation" and TaskType[
+            task_type] == TaskType.QUESTION_ANSWERING:
+            evaluate_question_answering_model(impl, model, dataset, split=f'validation[:{percentage_of_examples}%]')
+        elif interface.__name__ is "SentenceOperation" and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION:
+            evaluate_text_summarization(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
+        # Other if else cases should be added here.
+        else:
+            logging.info(f"No default evaluation model exists for the interface {interface} in the locale {locale}."
+                         f"It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate "
+                         f"your perturbation on a task and a dataset, "
+                         f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
+                         f"and call it from execute_model. That's it!")
     else:
-        logging.info(f"No default evaluation model exists for the interface {interface} in the locale {locale}."
-                     f"It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate "
-                     f"your perturbation on a task and a dataset, "
-                     f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
-                     f"and call it from execute_model. That's it!")
+        logging.error(f"Unsupported locale {locale}!")
 
 
 def evaluate_text_summarization(transformation, model_name, dataset_name, split='test[:20%]'):
