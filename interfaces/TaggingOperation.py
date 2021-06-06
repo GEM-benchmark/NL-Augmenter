@@ -1,12 +1,13 @@
-import abc
 from typing import Tuple, List
+
+from interfaces.Operation import Operation
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.
 """
 
 
-class TaggingOperation(abc.ABC):
+class TaggingOperation(Operation):
     """
      The base class for implementing tagging ({word_i,tag_i}* --> {word_j,tag_j}*) perturbations and transformations.
 
@@ -17,26 +18,8 @@ class TaggingOperation(abc.ABC):
      "en_IN"
     """
 
-    locales = None
-    tasks = None
-
-    def __init__(self):
-        print(f"Loading Transformation {self.name()}")
-
-    @classmethod
-    def domain(cls):
-        return cls.tasks, cls.locales
-
-    @classmethod
-    def name(cls):
-        return cls.__name__
-
-    @abc.abstractmethod
     def generate(self, token_sequence: List[str], tag_sequence: List[str]) -> Tuple[List[str], List[str]]:
         raise NotImplementedError
 
     def filter(self, token_sequence: List[str], tag_sequence: List[str]) -> bool:
-        raise NotImplementedError
-
-    def generateFromParse(self, parse, tag_sequence: List[str]) -> Tuple[str, List[str]]:
         raise NotImplementedError
