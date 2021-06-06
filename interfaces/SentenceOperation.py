@@ -1,12 +1,13 @@
-import abc
 from typing import Tuple, List
+
+from interfaces.Operation import Operation
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.
 """
 
 
-class SentenceTransformation(abc.ABC):
+class SentenceOperation(Operation):
     """
      The base class for implementing sentence-level perturbations and transformations.
 
@@ -16,30 +17,14 @@ class SentenceTransformation(abc.ABC):
      "locales" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
      "en_IN"
     """
-
-    locales = None
-    tasks = None
-
-    def __init__(self):
-        print(f"Loading Transformation {self.name()}")
-
-    @classmethod
-    def domain(cls):
-        return cls.tasks, cls.locales
-
-    @classmethod
-    def name(cls):
-        return cls.__name__
-
-    @abc.abstractmethod
     def generate(self, sentence: str) -> str:
         raise NotImplementedError
 
-    def generateFromParse(self, parse) -> str:
+    def filter(self, sentence: str) -> bool:
         raise NotImplementedError
 
 
-class SentenceAndTargetTransformation(abc.ABC):
+class SentenceAndTargetOperation(Operation):
     """
      The base class for implementing sentence-pair-level perturbations and transformations. The target could be
      either a class label (eg. sentiment analysis) or a target utterance (eg. machine translation).
@@ -56,6 +41,7 @@ class SentenceAndTargetTransformation(abc.ABC):
     tasks = None
 
     def __init__(self):
+        super().__init__()
         print(f"Loading Transformation {self.name()}")
 
     @classmethod
@@ -66,15 +52,14 @@ class SentenceAndTargetTransformation(abc.ABC):
     def name(cls):
         return cls.__name__
 
-    @abc.abstractmethod
     def generate(self, sentence: str, target: str) -> Tuple[str, str]:
         raise NotImplementedError
 
-    def generateFromParse(self, parse, target: str) -> Tuple[str, str]:
+    def filter(self, sentence: str, target: str) -> bool:
         raise NotImplementedError
 
 
-class SentenceAndTargetsTransformation(abc.ABC):
+class SentenceAndTargetsOperation(Operation):
     """
      The base class for implementing sentence-pair-level perturbations and transformations. There can be
      muliple targets eg. multiple references in machine translation.
@@ -91,6 +76,7 @@ class SentenceAndTargetsTransformation(abc.ABC):
     tasks = None
 
     def __init__(self):
+        super().__init__()
         print(f"Loading Transformation {self.name()}")
 
     @classmethod
@@ -101,9 +87,8 @@ class SentenceAndTargetsTransformation(abc.ABC):
     def name(cls):
         return cls.__name__
 
-    @abc.abstractmethod
     def generate(self, sentence: str, target: List[str]) -> Tuple[str, List[str]]:
         raise NotImplementedError
 
-    def generateFromParse(self, parse, target: [str]) -> Tuple[str, List[str]]:
+    def filter(self, sentence: str, target: List[str]) -> bool:
         raise NotImplementedError

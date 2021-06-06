@@ -12,7 +12,7 @@ eg. python evaluate.py -t butter_fingers_perturbation
 """
 
 
-def evaluate(implementation, task_type, locale, model, dataset, percent_of_examples):
+def evaluate(implementation, task_type, locale="en", model=None, dataset=None, percent_of_examples=None):
     # The evaluation engine would effectively do the following
     # (1) Loading a standard model and a test set (the model's original test set would be the best choice)
     # (2) Executing perturbations to generate the perturbed test set.
@@ -34,12 +34,12 @@ def execute_model(implementation, task_type, locale, model=None, dataset=None, p
     interface = implementation.__bases__[0]  # SentenceTransformation
     impl = implementation()
     if locale is "en":
-        if interface.__name__ is "SentenceTransformation" and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION:
+        if interface.__name__ is "SentenceOperation" and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION:
             evaluate_text_classifier(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
-        elif interface.__name__ is "QuestionAnswerTransformation" and TaskType[
+        elif interface.__name__ is "QuestionAnswerOperation" and TaskType[
             task_type] == TaskType.QUESTION_ANSWERING:
             evaluate_question_answering_model(impl, model, dataset, split=f'validation[:{percentage_of_examples}%]')
-        elif interface.__name__ is "SentenceTransformation" and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION:
+        elif interface.__name__ is "SentenceOperation" and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION:
             evaluate_text_summarization(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
         # Other if else cases should be added here.
         else:

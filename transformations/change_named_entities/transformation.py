@@ -3,12 +3,12 @@ import numpy as np
 
 from checklist.perturb import Perturb
 
-from interfaces.SentenceTransformation import SentenceTransformation
+from interfaces.SentenceOperation import SentenceOperation
 import spacy
 from tasks.TaskTypes import TaskType
 
 
-class ChangeNamedEntities(SentenceTransformation):
+class ChangeNamedEntities(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
 

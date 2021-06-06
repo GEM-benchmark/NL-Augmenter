@@ -9,7 +9,7 @@ def read(fname):
 
 
 setup(
-    name="Repository-Of-Perturbations",
+    name="NL-Augmenter",
     version="0.0.1",
     description=(
         "The official repository of transformations."

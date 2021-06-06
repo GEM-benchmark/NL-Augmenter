@@ -1,6 +1,6 @@
 from typing import List
 import random
-from interfaces.TaggingTransformation import TaggingTransformation
+from interfaces.TaggingOperation import TaggingOperation
 from tasks.TaskTypes import TaskType
 
 """
@@ -9,7 +9,7 @@ John Smith cooked a curry in the evening. --> John D. Smith cooked a curry in th
 """
 
 
-class LongerNamesNer(TaggingTransformation):
+class LongerNamesNer(TaggingOperation):
     tasks = [TaskType.TEXT_TAGGING]
     locales = "All"
     no_of_repeats = 1  # values should not be larger than 3-4

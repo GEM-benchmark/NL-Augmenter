@@ -1,6 +1,6 @@
 from typing import Tuple, List
 
-from interfaces.QuestionAnswerTransformation import QuestionAnswerTransformation
+from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
 
 """
@@ -9,7 +9,7 @@ and expects the answers still to be the same. Note that this perturbation might 
 """
 
 
-class RedundantContextForQa(QuestionAnswerTransformation):
+class RedundantContextForQa(QuestionAnswerOperation):
     tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
     locales = "All"
 
