@@ -1,20 +1,20 @@
 import unittest
 
 from TestRunner import Runs
-from interfaces.QuestionAnswerTransformation import QuestionAnswerTransformation
-from interfaces.SentenceTransformation import SentenceTransformation, SentenceAndTargetTransformation
-from interfaces.TaggingTransformation import TaggingTransformation
+from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
+from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
+from interfaces.TaggingOperation import TaggingOperation
 
 
 def execute_test_cases_1():
-    tx = Runs(interface=SentenceTransformation)
+    tx = Runs(interface=SentenceOperation)
     for transformation, tests in zip(tx.transformations, tx.test_cases):
         for test in tests:
             assert test["output"] == transformation.generate(test["input"]), f"Should have generated {test['output']}"
 
 
 def execute_test_cases_2():
-    tx = Runs(interface=SentenceAndTargetTransformation)
+    tx = Runs(interface=SentenceAndTargetOperation)
     for transformation, tests in zip(tx.transformations, tx.test_cases):
         for test in tests:
             output_x, output_y = transformation.generate(test["input_x"], test["input_y"])
@@ -23,7 +23,7 @@ def execute_test_cases_2():
 
 
 def execute_test_cases_3():
-    tx = Runs(interface=QuestionAnswerTransformation)
+    tx = Runs(interface=QuestionAnswerOperation)
     for transformation, tests in zip(tx.transformations, tx.test_cases):
         for test in tests:
             output_c, output_q, output_a = transformation.generate(test["input_c"], test["input_q"], test["input_a"])
@@ -33,7 +33,7 @@ def execute_test_cases_3():
 
 
 def execute_test_cases_4():
-    tx = Runs(interface=TaggingTransformation)
+    tx = Runs(interface=TaggingOperation)
     for transformation, tests in zip(tx.transformations, tx.test_cases):
         for test in tests:
             output_sequence, output_tag = transformation.generate(test["input_sequence"], test["input_tag"])

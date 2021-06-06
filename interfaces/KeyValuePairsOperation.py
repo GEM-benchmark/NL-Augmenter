@@ -1,8 +1,9 @@
-import abc
 from typing import Tuple
 
+from interfaces.Operation import Operation
 
-class KeyValuePairsTransformation(abc.ABC):
+
+class KeyValuePairsOperation(Operation):
     """
      The base class for implementing transformations
       for inputs which take a structured form like AMR-to-text, E2E, etc.
@@ -14,20 +15,8 @@ class KeyValuePairsTransformation(abc.ABC):
      "en_IN"
     """
 
-    locales = None
-    tasks = None
-
-    def __init__(self):
-        print(f"Loading Transformation {self.name()}")
-
-    @classmethod
-    def domain(cls):
-        return cls.tasks, cls.locales
-
-    @classmethod
-    def name(cls):
-        return cls.__name__
-
-    @abc.abstractmethod
     def generate(self, meaning_representation: dict, reference: str) -> Tuple[dict, str]:
         raise NotImplementedError
+
+    def filter(self, meaning_representation: dict, reference: str) -> bool:
+        raise True
