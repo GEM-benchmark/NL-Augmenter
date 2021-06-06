@@ -1,7 +1,10 @@
 import logging
 
+import numpy as np
 from datasets import load_dataset
 from transformers import pipeline
+from nltk import wordpunct_tokenize
+from nltk.translate.bleu_score import sentence_bleu
 
 from tasks.TaskTypes import TaskType
 
@@ -51,36 +54,57 @@ def execute_model(implementation, task_type, locale="en", model=None, dataset=No
     else:
         logging.error(f"Unsupported locale {locale}!")
 
+def n_gram_gleu(reference, hypothesis):
+    ng_list = []
+    n_gram = [(1,0,0,0), (0,1,0,0), (0,0,1,0), (0,0,0,1)] # upto 4-gram
+    for ng in n_gram:
+        score = sentence_bleu(references=reference, hypothesis=hypothesis, weights=ng)
+        ng_list.append(score)
+    return ng_list
+
+def glue_score(reference, hypothesis):
+    return sentence_bleu(references=reference, hypothesis=hypothesis)
+
+def show_gleu_score(score_list, dataset_name):
+    for i in range(len(score_list)):
+        print(f"The average {i+1}-gram bleu score on a subset of {dataset_name} = {score_list[i]}")
+    print("\n")
 
 def evaluate_text_summarization(transformation, model_name, dataset_name, split='test[:20%]'):
     if model_name is None:
-        model_name = "sshleifer/distilbart-cnn-12-6"
+        model_name = "sshleifer/distilbart-xsum-12-6"
     if dataset_name is None:
-        dataset_name = "cnn_dailymail"
+        dataset_name = "xsum"
 
     logging.info("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
     dataset = load_dataset(dataset_name, '3.0.0', split=split) if dataset_name is "cnn_dailymail" \
         else load_dataset(dataset_name, split=split)
 
     summarization_pipeline = pipeline("summarization", model=model_name, tokenizer=model_name)
-    accuracy = 0
-    pt_accuracy = 0
-    total = 0
+    predicted_summary_score = np.zeros((1,4), float)
+    transformed_summary_score = np.zeros((1,4), float)
     for example in dataset:
-        label = example["highlights"]
-        prediction = summarization_pipeline(example["article"], truncation=True)[0]["highlights"]
-        # TODO: Needs to change the logic here.
-        if (label.lower().strip() == prediction.lower().strip()):
-            accuracy += 1
-        pt = transformation.generate(example["article"])
-        pt_pred = summarization_pipeline(pt, truncation=True)[0]["highlights"]
-        if (pt["highlights"].lower().strip() == pt_pred.lower().strip()):
-            pt_accuracy += 1
-        total += 1
-    logging.info(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
-    logging.info(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
-    logging.info(f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}")
+        article = example["document"]
+        gold_summary = example["summary"]
+        max_len = len(wordpunct_tokenize(gold_summary)) + 10 # to control summary generation upto length of gold summary
+        predicted_summary = summarization_pipeline(article, truncation=True, max_length = max_len)[0]["summary_text"]
+        score_list = n_gram_gleu(reference=wordpunct_tokenize(gold_summary), hypothesis=wordpunct_tokenize(predicted_summary))
+        predicted_summary_score+=score_list
 
+        transformed_article = transformation.generate(article)
+        transformed_article_summary = summarization_pipeline(transformed_article, truncation=True, max_length= max_len)[0]["summary_text"]
+        trans_score_list = n_gram_gleu(reference=wordpunct_tokenize(gold_summary), hypothesis=wordpunct_tokenize(transformed_article_summary))
+        transformed_summary_score +=trans_score_list
+
+    predicted_summary_score = predicted_summary_score/len(dataset)
+    predicted_summary_score = predicted_summary_score.flatten().tolist()
+
+    transformed_summary_score = transformed_summary_score/len(dataset)
+    transformed_summary_score = transformed_summary_score.flatten().tolist()
+
+    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+    show_gleu_score(predicted_summary_score, dataset_name)
+    show_gleu_score(transformed_summary_score, dataset_name)
 
 def evaluate_text_classifier(transformation, model_name, dataset_name, split='test[:20%]'):
     # (1) load model
