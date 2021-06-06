@@ -1,27 +1,30 @@
-# A Repository of Perturbations and Adversaries 🦎 → 🐍
+# NL-Augmenter 🦎 → 🐍
 
-The Perturbation Repository is a collaborative effort intended to accumulate all transformations operating over tasks dealing with natural language. We invite submissions of perturbations and transformations via pull requests to this GitHub repository. 
-Every contribution of a perturbation should either add noise to the input or paraphrase or transform the input. 
+The NL-Augmenter is a collaborative effort intended to accumulate all transformations operating over tasks dealing with natural language. We invite submissions of transformations to this framework by way of GitHub pull request, through August 1, 2021. All submitters of accepted transformation will be included as co-authors on a paper announcing this framework. 
 
-# Tasks
-All the supported interfaces can be looked up here: [interfaces](interfaces)
-```python
-class TaskType(enum.Enum):
-    TEXT_CLASSIFICATION = 1,
-    TEXT_TO_TEXT_GENERATION = 2,
-    TEXT_TAGGING = 3,
-    DIALOGUE_TO_TEXT = 4,
-    TABLE_TO_TEXT = 5,
-    RDF_TO_TEXT = 6,
-    RDF_TO_RDF = 7
-```
+The framework organizers can be contacted at gem-benchmark@googlegroups.com.
+
+**Submission timeline**
+
+| Due date          | Description                                                                 |
+| ------------------ | -----------                                                                 |
+| August 1, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
+| August 22, 2021 | Review process for pull request above must be complete           |
+
+The transformation can be revised between the pull request submission and pull request merge deadlines. We expect that most transformations will undergo revisions based on reviewer feedback.
+
+Transformations which are already accepted to NL-Augmenter are summarized in [this table](transformations/README.md). Transformations undergoing review can be seen as [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls).
 
 **Table of contents**
 
+* [Colab notebook](#colab-notebook)
 * [Installation](#installation)
-* [How do I create a perturbation?](#how-do-i-create-a-perturbation)
-* [Creating a programmatic task](#creating-a-programmatic-task)
+* [How do I create a transformation?](#how-do-i-create-a-transformation)
 * [Review Criteria for Accepting Submissions](#review-criteria)
+
+## Colab notebook
+
+<a href="https://github.com/GEM-benchmark/NL-Augmenter" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> 
 
 ## Installation
 ```bash
@@ -97,31 +100,3 @@ Alternatively, you can do so from the GitHub website.
 </a>
 
 :sparkles: Congratulations, you've submitted a transformation to the perturbation repository! :sparkles:
-
-## Review Criteria for Accepting Submissions
-
-**Correctness:** Transformations must be valid Python code and must pass tests. 
-
-**Output:** Participants should ensure that they use the correct interface. Eg. for tasks like machine translation, perturbations like named entity changes might need parallel changes in the output. 
-
-**Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific perturbation. Eg. reversing the gender pronouns could give insights about gender bias in models, etc.
-
-**Adding New Libraries:** We welcome addition of new libraries which can be installed via pip. Every library should specify the version number associated. 
-
-However, we encourage you to avoid adding new libraries which are heavy or from which only a small part of the code is used.
-  
-**Applicable Tasks:** Perturbations can vary across tasks as well as work differently for different types of inputs. Hence all the tasks where the perturbation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](tasks/TaskTypes.py).
-```python
-class ButterFingersPerturbation(SentenceTransformation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-    locales = ["en"]
-```
-
-**Description:** The `README.md` file should clearly explain what the perturbation is attempting to generate as well as the importance of that perturbation for the specified tasks.
-
-**Accuracy:** We also encourage perturbation methods which act like paraphrasers or data augmenters. For such methods, the paraphrasing accuracy must be specified. It is preferred to have a high precision transformer rather than a low accuracy one. Paraphrasers with low accuracy would be selected on a case-by-case basis.
- 
-**Test Cases:** At least 5 examples (text or data) should be added in the file `test.json` as test cases for every added perturbation.
-
-**Languages other than English:** We strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
- 
