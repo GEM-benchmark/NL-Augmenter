@@ -1,10 +1,10 @@
 from collections import defaultdict
 
-from interfaces.ContrastSetTransformation import ContrastSetTransformation
+from interfaces.ContrastSetOperation import ContrastSetOperation
 from tasks.TaskTypes import TaskType
 
 
-class InputSize(ContrastSetTransformation):
+class InputSize(ContrastSetOperation):
 
     tasks = [TaskType.E2E_TASK]
     locales = ["en"]

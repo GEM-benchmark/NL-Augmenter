@@ -1,11 +1,11 @@
-import abc
+from interfaces.Operation import Operation
 
 """
 Base class for implementing contrast set transformation on a given input dataset.
 """
 
 
-class ContrastSetTransformation(abc.ABC):
+class ContrastSetOperation(Operation):
     """
     The base class for implementing dataset level contrast set formations from a given dataset.
 
@@ -19,9 +19,6 @@ class ContrastSetTransformation(abc.ABC):
     locales = None
     tasks = None
 
-    def __init__(self):
-        print(f"Performing Contrasts Sets {self.name()}")
-
     @classmethod
     def domain(cls):
         return cls.tasks, cls.locales
@@ -30,6 +27,5 @@ class ContrastSetTransformation(abc.ABC):
     def name(cls):
         return cls.__name__
 
-    @abc.abstractmethod
     def generate(self, dataset: dict, field_name: str) -> dict:
         raise NotImplementedError

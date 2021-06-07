@@ -1,7 +1,7 @@
 import unittest
 
 from TestRunner import Runs
-from interfaces.ContrastSetTransformation import ContrastSetTransformation
+from interfaces.ContrastSetOperation import ContrastSetOperation
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
 from interfaces.TaggingOperation import TaggingOperation
@@ -43,7 +43,7 @@ def execute_test_cases_4():
 
 
 def execute_test_cases_5():
-    tx = Runs(interface=ContrastSetTransformation, package="contrast_sets")
+    tx = Runs(interface=ContrastSetOperation, package="contrast_sets")
     for transformation, tests in zip(tx.transformations, tx.test_cases):
         for test in tests:
             output = transformation.generate(test, "input")
