@@ -3,7 +3,7 @@ class Operation(object):
     tasks = None
 
     def __init__(self):
-        print(f"Loading Transformation {self.name()}")
+        print(f"Loading Operation {self.name()}")
 
     @classmethod
     def domain(cls):
