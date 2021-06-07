@@ -1,10 +1,8 @@
 import logging
 
-import numpy as np
 from datasets import load_dataset
 from transformers import pipeline
-from nltk import wordpunct_tokenize
-from nltk.translate.bleu_score import sentence_bleu
+import sacrebleu
 
 from tasks.TaskTypes import TaskType
 
@@ -54,21 +52,8 @@ def execute_model(implementation, task_type, locale="en", model=None, dataset=No
     else:
         logging.error(f"Unsupported locale {locale}!")
 
-def n_gram_gleu(reference, hypothesis):
-    ng_list = []
-    n_gram = [(1,0,0,0), (0,1,0,0), (0,0,1,0), (0,0,0,1)] # upto 4-gram
-    for ng in n_gram:
-        score = sentence_bleu(references=reference, hypothesis=hypothesis, weights=ng)
-        ng_list.append(score)
-    return ng_list
-
-def glue_score(reference, hypothesis):
-    return sentence_bleu(references=reference, hypothesis=hypothesis)
-
-def show_gleu_score(score_list, dataset_name):
-    for i in range(len(score_list)):
-        print(f"The average {i+1}-gram bleu score on a subset of {dataset_name} = {score_list[i]}")
-    print("\n")
+def sacrebleu_score(reference, hypothesis):
+    return sacrebleu.sentence_bleu([hypothesis], [reference]).score
 
 def evaluate_text_summarization(transformation, model_name, dataset_name, split='test[:20%]'):
     if model_name is None:
@@ -77,34 +62,32 @@ def evaluate_text_summarization(transformation, model_name, dataset_name, split=
         dataset_name = "xsum"
 
     logging.info("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
-    dataset = load_dataset(dataset_name, '3.0.0', split=split) if dataset_name is "cnn_dailymail" \
+    dataset = load_dataset(dataset_name, '3.0.0', split=split) if dataset_name is "xsum" \
         else load_dataset(dataset_name, split=split)
 
     summarization_pipeline = pipeline("summarization", model=model_name, tokenizer=model_name)
-    predicted_summary_score = np.zeros((1,4), float)
-    transformed_summary_score = np.zeros((1,4), float)
+    predicted_summary_score = 0.0
+    transformed_summary_score = 0.0
+
     for example in dataset:
         article = example["document"]
         gold_summary = example["summary"]
-        max_len = len(wordpunct_tokenize(gold_summary)) + 10 # to control summary generation upto length of gold summary
+        max_len = len(gold_summary.split(" ")) + 10 # approximate max length to control summary generation upto length of gold summary
         predicted_summary = summarization_pipeline(article, truncation=True, max_length = max_len)[0]["summary_text"]
-        score_list = n_gram_gleu(reference=wordpunct_tokenize(gold_summary), hypothesis=wordpunct_tokenize(predicted_summary))
+        score_list = sacrebleu_score(reference=gold_summary, hypothesis=predicted_summary)
         predicted_summary_score+=score_list
 
         transformed_article = transformation.generate(article)
         transformed_article_summary = summarization_pipeline(transformed_article, truncation=True, max_length= max_len)[0]["summary_text"]
-        trans_score_list = n_gram_gleu(reference=wordpunct_tokenize(gold_summary), hypothesis=wordpunct_tokenize(transformed_article_summary))
+        trans_score_list = sacrebleu_score(reference=gold_summary, hypothesis=transformed_article_summary)
         transformed_summary_score +=trans_score_list
 
     predicted_summary_score = predicted_summary_score/len(dataset)
-    predicted_summary_score = predicted_summary_score.flatten().tolist()
-
     transformed_summary_score = transformed_summary_score/len(dataset)
-    transformed_summary_score = transformed_summary_score.flatten().tolist()
 
-    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
-    show_gleu_score(predicted_summary_score, dataset_name)
-    show_gleu_score(transformed_summary_score, dataset_name)
+    logging.info(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+    logging.info(f"The average sacrebleu score on a subset of {dataset_name} = {predicted_summary_score}")
+    logging.info(f"The average sacrebleu score on its pertubed set = {transformed_summary_score}")
 
 def evaluate_text_classifier(transformation, model_name, dataset_name, split='test[:20%]'):
     # (1) load model

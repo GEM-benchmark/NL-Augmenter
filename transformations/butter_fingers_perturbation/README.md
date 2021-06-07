@@ -13,6 +13,9 @@ text generation, etc.
 
 The accuracy of a RoBERTa model (fine-tuned on IMDB) on a subset of IMDB sentiment dataset = 95.74
 The accuracy of the same model on the perturbed set = 88.26
+
+The average sacrebleu score of a distillbert model (fine-tuned on xsum) on a subset of xsum dataset = 14.9104
+The average sacrebleu score of same model on the pertubed set = 11.9221
 ```python
 dataset = load_dataset("imdb", split='test[:20%]')
 ```
