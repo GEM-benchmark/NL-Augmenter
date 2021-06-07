@@ -4,14 +4,14 @@
     {
       "input_x": "Andrew played cricket with Chris",
       "input_y": "Andrew seldom played cricket with Chris.",
-      "output_x": "Andrew played cricket with Jacob",
-      "output_y": "Andrew seldom played cricket with Jacob."
+      "output_x": "Andrew played cricket with Austin",
+      "output_y": "Andrew seldom played cricket with Austin."
     },
     {
       "input_x": "Andrew played cricket in India",
       "input_y": "India was the country where Jonathan played.",
-      "output_x": "Andrew played cricket in Canada",
-      "output_y": "Canada was the country where Jonathan played."
+      "output_x": "Andrew played cricket in Nepal",
+      "output_y": "Nepal was the country where Jonathan played."
     }
   ]
 }

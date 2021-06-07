@@ -1,19 +1,20 @@
 import unittest
 
 from TestRunner import Runs
+from interfaces.ContrastSetTransformation import ContrastSetTransformation
 from interfaces.QuestionAnswerTransformation import QuestionAnswerTransformation
 from interfaces.SentenceTransformation import SentenceTransformation, SentenceAndTargetTransformation
 
 
 def execute_test_cases_1():
-    tx = Runs(interface=SentenceTransformation)
+    tx = Runs(interface=SentenceTransformation, package="transformations")
     for transformation, tests in zip(tx.transformations, tx.test_cases):
         for test in tests:
             assert test["output"] == transformation.generate(test["input"]), f"Should have generated {test['output']}"
 
 
 def execute_test_cases_2():
-    tx = Runs(interface=SentenceAndTargetTransformation)
+    tx = Runs(interface=SentenceAndTargetTransformation, package="transformations")
     for transformation, tests in zip(tx.transformations, tx.test_cases):
         for test in tests:
             output_x, output_y = transformation.generate(test["input_x"], test["input_y"])
@@ -22,13 +23,21 @@ def execute_test_cases_2():
 
 
 def execute_test_cases_3():
-    tx = Runs(interface=QuestionAnswerTransformation)
+    tx = Runs(interface=QuestionAnswerTransformation, package="transformations")
     for transformation, tests in zip(tx.transformations, tx.test_cases):
         for test in tests:
             output_c, output_q, output_a = transformation.generate(test["input_c"], test["input_q"], test["input_a"])
             assert output_c == test["output_c"], f"Should have generated {test['output_c']}"
             assert output_q == test["output_q"], f"Should have generated {test['output_q']}"
             assert output_a == test["output_a"], f"Should have generated {test['output_a']}"
+
+
+def execute_test_cases_4():
+    tx = Runs(interface=ContrastSetTransformation, package="contrast_sets")
+    for transformation, tests in zip(tx.transformations, tx.test_cases):
+        for test in tests:
+            output = transformation.generate(test, "input")
+            assert dict(output[transformation.name()]) == test['result']
 
 
 class TestStringMethods(unittest.TestCase):
@@ -42,6 +51,8 @@ class TestStringMethods(unittest.TestCase):
     def test_3(self):
         execute_test_cases_3()
 
+    def test_4(self):
+        execute_test_cases_4()
 
 if __name__ == '__main__':
     unittest.main()

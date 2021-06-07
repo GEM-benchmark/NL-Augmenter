@@ -22,14 +22,14 @@ def load_test_cases(test_json):
 
 class Runs(object):
 
-    def __init__(self, interface, load_tests=True):
+    def __init__(self, interface, package, load_tests=True):
         transformations = []
         test_cases = []
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        transformations_dir = package_dir.parent.joinpath("transformations")
+        transformations_dir = package_dir.parent.joinpath(package)
         for (_, m, _) in iter_modules([transformations_dir]):
-            t_py = import_module(f"transformations.{m}.transformation")
+            t_py = import_module(f"{package}.{m}.transformation")
             t_js = os.path.join(transformations_dir, m, "test.json")
             tx = [load(t_py, cls) for cls in interface.__subclasses__() if hasattr(t_py, cls.__name__)]
             if len(tx) > 0:

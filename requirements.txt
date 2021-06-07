@@ -1,5 +1,5 @@
 checklist==0.0.10
-spacy==2.2.4
+spacy>=2.2.4
 
 # for ReplaceNumericalValues
 num2words==0.5.10

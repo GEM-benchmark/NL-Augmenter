@@ -1,0 +1,16 @@
+{
+  "type": "input_size",
+  "test_cases": [
+    {
+      "test": [{
+          "gem_id": "web_nlg_en-test-0",
+          "input": ["Estádio_Municipal_Coaracy_da_Mata_Fonseca | location | Arapiraca",
+  "Agremiação_Sportiva_Arapiraquense | league | Campeonato_Brasileiro_Série_C",
+  "Campeonato_Brasileiro_Série_C | country | Brazil",
+  "Agremiação_Sportiva_Arapiraquense | nickname | Alvinegro",
+  "Agremiação_Sportiva_Arapiraquense | ground | Estádio_Municipal_Coaracy_da_Mata_Fonseca"]
+        }],
+      "result":{"input_length_5":  ["web_nlg_en-test-0"]}
+    }
+  ]
+}
