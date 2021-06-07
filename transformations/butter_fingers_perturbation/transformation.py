@@ -1,6 +1,6 @@
 import random
 
-from interfaces.SentenceTransformation import SentenceTransformation
+from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 """
@@ -71,8 +71,8 @@ Butter Finger implementation borrowed from https://github.com/alexyorke/butter-f
 """
 
 
-class ButterFingersPerturbation(SentenceTransformation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+class ButterFingersPerturbation(SentenceOperation):
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     locales = ["en"]
 
     def __init__(self):

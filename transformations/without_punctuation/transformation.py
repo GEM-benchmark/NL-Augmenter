@@ -1,11 +1,11 @@
 from checklist.perturb import Perturb
 
-from interfaces.SentenceTransformation import SentenceTransformation
+from interfaces.SentenceOperation import SentenceOperation
 import spacy
 from tasks.TaskTypes import TaskType
 
 
-class WithoutPunctuation(SentenceTransformation):
+class WithoutPunctuation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
 

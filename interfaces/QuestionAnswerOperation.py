@@ -1,8 +1,9 @@
-import abc
 from typing import Tuple, List
 
+from interfaces.Operation import Operation
 
-class QuestionAnswerTransformation(object):
+
+class QuestionAnswerOperation(Operation):
     """
      The base class for implementing question answering style perturbations and transformations.
 
@@ -14,20 +15,8 @@ class QuestionAnswerTransformation(object):
      accordingly override the domain(cls) function.
     """
 
-    locales = None
-    tasks = None
-
-    def __init__(self):
-        print(f"Loading Transformation {self.name()}")
-
-    @classmethod
-    def domain(cls):
-        return cls.tasks, cls.locales, cls.locales, cls.locales
-
-    @classmethod
-    def name(cls):
-        return cls.__name__
-
-    @abc.abstractmethod
     def generate(self, context: str, question: str, answer: [str]) -> Tuple[str, str, List[str]]:
         raise NotImplementedError
+
+    def filter(self, context: str, question: str, answer: [str]) -> bool:
+        raise True
