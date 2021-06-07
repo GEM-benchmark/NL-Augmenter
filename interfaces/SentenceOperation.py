@@ -17,6 +17,7 @@ class SentenceOperation(Operation):
      "locales" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
      "en_IN"
     """
+
     def generate(self, sentence: str) -> str:
         raise NotImplementedError
 

@@ -37,8 +37,7 @@ def execute_model(implementation, task_type, locale="en", model=None, dataset=No
     if locale is "en":
         if interface.__name__ is "SentenceOperation" and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION:
             evaluate_text_classifier(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
-        elif interface.__name__ is "QuestionAnswerOperation" and TaskType[
-            task_type] == TaskType.QUESTION_ANSWERING:
+        elif interface.__name__ is "QuestionAnswerOperation" and TaskType[task_type] == TaskType.QUESTION_ANSWERING:
             evaluate_question_answering_model(impl, model, dataset, split=f'validation[:{percentage_of_examples}%]')
         elif interface.__name__ is "SentenceOperation" and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION:
             evaluate_text_summarization(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
@@ -52,8 +51,10 @@ def execute_model(implementation, task_type, locale="en", model=None, dataset=No
     else:
         logging.error(f"Unsupported locale {locale}!")
 
+
 def sacrebleu_score(reference, hypothesis):
     return sacrebleu.sentence_bleu([hypothesis], [reference]).score
+
 
 def evaluate_text_summarization(transformation, model_name, dataset_name, split='test[:20%]'):
     if model_name is None:
@@ -72,22 +73,24 @@ def evaluate_text_summarization(transformation, model_name, dataset_name, split=
     for example in dataset:
         article = example["document"]
         gold_summary = example["summary"]
-        max_len = len(gold_summary.split(" ")) + 10 # approximate max length to control summary generation upto length of gold summary
-        predicted_summary = summarization_pipeline(article, truncation=True, max_length = max_len)[0]["summary_text"]
+        max_len = len(gold_summary.split(" ")) + 10  # approximate max length to control summary generation upto length of gold summary
+        predicted_summary = summarization_pipeline(article, truncation=True, max_length=max_len)[0]["summary_text"]
         score_list = sacrebleu_score(reference=gold_summary, hypothesis=predicted_summary)
-        predicted_summary_score+=score_list
+        predicted_summary_score += score_list
 
         transformed_article = transformation.generate(article)
-        transformed_article_summary = summarization_pipeline(transformed_article, truncation=True, max_length= max_len)[0]["summary_text"]
+        transformed_article_summary = \
+        summarization_pipeline(transformed_article, truncation=True, max_length=max_len)[0]["summary_text"]
         trans_score_list = sacrebleu_score(reference=gold_summary, hypothesis=transformed_article_summary)
-        transformed_summary_score +=trans_score_list
+        transformed_summary_score += trans_score_list
 
-    predicted_summary_score = predicted_summary_score/len(dataset)
-    transformed_summary_score = transformed_summary_score/len(dataset)
+    predicted_summary_score = predicted_summary_score / len(dataset)
+    transformed_summary_score = transformed_summary_score / len(dataset)
 
     logging.info(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
-    logging.info(f"The average sacrebleu score on a subset of {dataset_name} = {predicted_summary_score}")
-    logging.info(f"The average sacrebleu score on its pertubed set = {transformed_summary_score}")
+    logging.info(f"The average bleu score on a subset of {dataset_name} = {predicted_summary_score}")
+    logging.info(f"The average bleu score on its pertubed set = {transformed_summary_score}")
+
 
 def evaluate_text_classifier(transformation, model_name, dataset_name, split='test[:20%]'):
     # (1) load model

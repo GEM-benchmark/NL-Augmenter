@@ -45,7 +45,6 @@ def butter_finger(text, prob=0.1, keyboard='querty', seed=0):
     else:
         print("Keyboard not supported.")
 
-    probOfTypoArray = []
     probOfTypo = int(prob * 100)
 
     buttertext = ""

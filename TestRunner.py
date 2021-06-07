@@ -45,8 +45,8 @@ def load_implementation(tx_name: str):
         t_py = import_module(f"transformations.{tx_name}.transformation")
     except ModuleNotFoundError as error:
         raise Exception(f"Transformation folder of name {tx_name} is not found.\n {error}")
+    TxName = convert_to_camel_case(tx_name)
     try:
-        TxName = convert_to_camel_case(tx_name)
         transformation = getattr(t_py, TxName)
         return transformation
     except AttributeError as error:
