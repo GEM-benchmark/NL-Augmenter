@@ -54,6 +54,7 @@ And for any new logic, add the appropriate test case so that no one else breaks 
 First, [fork the repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) in GitHub! :fork_and_knife:
 <a href="https://docs.github.com/en/github/getting-started-with-github/fork-a-repo">
 <div style="text-align:center"><img src="https://docs.github.com/assets/images/help/repository/fork_button.jpg" alt="fork button" width="500"/></div>
+</a>
 
 Your fork will have its own location, which we will call `PATH_TO_YOUR_FORK`.
 Next, [clone the forked repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) and create a branch for your transformation, which here we will call **my_awesome_transformation**:
@@ -96,5 +97,6 @@ The last `git push` command prints a URL that can be copied into a browser to in
 Alternatively, you can do so from the GitHub website.
 <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">
 <div style="text-align:center"><img src="https://docs.github.com/assets/images/help/pull_requests/pull-request-start-review-button.png" alt="pull request button" width="500"/></div>
+</a>
 
 :sparkles: Congratulations, you've submitted a transformation to the perturbation repository! :sparkles:
