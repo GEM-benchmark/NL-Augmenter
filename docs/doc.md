@@ -23,11 +23,11 @@ Each transformation will receive two reviews. The transformation may be edited i
 ### Review Criteria for Submissions
 **Correctness:** Transformations must be valid Python code and must pass tests. 
 
-**Interface:** Participants should ensure that they use the correct interface. The complete list is mentioned [here.](../interfaces) Eg. for tasks like machine translation, a transformation which changes the value of a named entity (Andrew->Jason) might need parallel changes in the output too. And hence, it might be more appropriate to use `SentenceAndTargetTransformation` or `SentenceAndTargetsTransformation` rather than `SentenceTransformation`.
+**Interface:** Participants should ensure that they use the correct interface. The complete list is mentioned [here.](../interfaces) Eg. for tasks like machine translation, a transformation which changes the value of a named entity (Andrew->Jason) might need parallel changes in the output too. And hence, it might be more appropriate to use `SentenceAndTargetOperation` or `SentenceAndTargetsOperation` rather than `SentenceOperation`.
 
 **Applicable Tasks:** We understand that transformations can vary across tasks as well as a single transformation can work for multiple tasks. Hence all the tasks where the transformation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](tasks/TaskTypes.py).
 ```python
-class ButterFingersPerturbation(SentenceTransformation):
+class ButterFingersPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     locales = ["en"]
 ```
