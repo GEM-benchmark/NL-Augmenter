@@ -8,7 +8,7 @@ import spacy
 from tasks.TaskTypes import TaskType
 
 
-class ChangeNamedEntities(SentenceOperation):
+class ChangePersonNamedEntities(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
 
