@@ -97,8 +97,3 @@ class ChangeTwoWayNamedEntities(SentenceAndTargetOperation):
             perturbed_target = outs[0]
         print(f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}")
         return perturbed_source, perturbed_target
-
-
-if __name__ == '__main__':
-    tr = ChangeTwoWayNamedEntities()
-    tr.generate("Andrew played football with Chris", "Andrew seldom played football with Chris.")

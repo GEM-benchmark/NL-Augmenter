@@ -11,7 +11,6 @@ source sentences i.e. the code outputs highly precise generations.
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, etc. 
 
-```python evaluate.py -t back_translation -task TEXT_CLASSIFICATION```
 The accuracy of a RoBERTa model (fine-tuned on IMDB) on a subset of IMDB sentiment dataset = 95.74
 The accuracy of the same model on the perturbed set = 88.26
 
