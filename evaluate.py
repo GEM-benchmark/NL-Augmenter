@@ -1,5 +1,4 @@
 import argparse
-import logging
 
 from TestRunner import load_implementation
 from evaluation.evaluation_engine import evaluate
@@ -20,7 +19,6 @@ Just run this file using the following command:
 """
 if __name__ == '__main__':
     args = parser.parse_args()
-    logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
     # Identify the transformation that the user has mentioned.
     implementation = load_implementation(args.transformation)

@@ -12,6 +12,7 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 text generation, etc. 
 
 ```python evaluate.py -t back_translation -task TEXT_CLASSIFICATION```
+```model_name = "aychang/roberta-base-imdb"```
 The accuracy of a RoBERTa model (fine-tuned on IMDB) on a subset of IMDB sentiment dataset = 95.74
 The accuracy of the same model on the perturbed set = 88.26
 

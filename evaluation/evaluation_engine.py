@@ -1,4 +1,3 @@
-import logging
 
 from datasets import load_dataset
 from transformers import pipeline
@@ -26,7 +25,7 @@ def evaluate(implementation, task_type, locale="en", model=None, dataset=None, p
 
 def get_task_type(implementation, task_type):
     if task_type is None:
-        logging.info("Undefined task type, switching to default task %s", implementation.tasks[0].name)
+        print("Undefined task type, switching to default task %s", implementation.tasks[0].name)
         return implementation.tasks[0]
     return task_type
 
@@ -43,13 +42,17 @@ def execute_model(implementation, task_type, locale="en", model=None, dataset=No
             evaluate_text_summarization(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
         # Other if else cases should be added here.
         else:
-            logging.info(f"No default evaluation model exists for the interface {interface} in the locale {locale}."
+            print(f"No default evaluation model exists for the interface {interface} in the locale {locale}."
                          f"It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate "
                          f"your perturbation on a task and a dataset, "
                          f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
                          f"and call it from execute_model. That's it!")
     else:
-        logging.error(f"Unsupported locale {locale}!")
+        print(f"No default evaluation model exists in the locale {locale}."
+              f"It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate "
+              f"your perturbation on a task and a dataset, "
+              f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
+              f"and call it from execute_model. That's it!")
 
 
 def sacrebleu_score(reference, hypothesis):
@@ -62,7 +65,7 @@ def evaluate_text_summarization(transformation, model_name, dataset_name, split=
     if dataset_name is None:
         dataset_name = "xsum"
 
-    logging.info("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
+    print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
     dataset = load_dataset(dataset_name, '3.0.0', split=split) if dataset_name is "xsum" \
         else load_dataset(dataset_name, split=split)
 
@@ -87,9 +90,9 @@ def evaluate_text_summarization(transformation, model_name, dataset_name, split=
     predicted_summary_score = predicted_summary_score / len(dataset)
     transformed_summary_score = transformed_summary_score / len(dataset)
 
-    logging.info(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
-    logging.info(f"The average bleu score on a subset of {dataset_name} = {predicted_summary_score}")
-    logging.info(f"The average bleu score on its pertubed set = {transformed_summary_score}")
+    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+    print(f"The average bleu score on a subset of {dataset_name} = {predicted_summary_score}")
+    print(f"The average bleu score on its perturbed set = {transformed_summary_score}")
 
 
 def evaluate_text_classifier(transformation, model_name, dataset_name, split='test[:20%]'):
@@ -99,7 +102,7 @@ def evaluate_text_classifier(transformation, model_name, dataset_name, split='te
     # (2) load test set
     if dataset_name is None:
         dataset_name = 'imdb'
-    logging.info("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
+    print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
     dataset = load_dataset(dataset_name, split=split)
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
@@ -117,9 +120,9 @@ def evaluate_text_classifier(transformation, model_name, dataset_name, split='te
         if (pt_pred == "pos" and label == 1) or (pt_pred == "neg" and label == 0):
             pt_accuracy += 1
         total += 1
-    logging.info(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
-    logging.info(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
-    logging.info(f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}")
+    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+    print(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
+    print(f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}")
 
 
 def evaluate_question_answering_model(transformation, model_name,
@@ -130,7 +133,7 @@ def evaluate_question_answering_model(transformation, model_name,
     # (2) load test set
     if dataset_name is None:
         dataset_name = 'squad'
-    logging.info("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
+    print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
     dataset = load_dataset(dataset_name, split=split)
     nlp = pipeline('question-answering', model=model_name, tokenizer=model_name)
     # (3) Execute perturbation
@@ -150,6 +153,6 @@ def evaluate_question_answering_model(transformation, model_name,
         if pt_pred in answers_t:
             pt_accuracy += 1
         total += 1
-    logging.info(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
-    logging.info(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
-    logging.info(f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}")
+    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+    print(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
+    print(f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}")

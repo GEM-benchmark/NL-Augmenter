@@ -5,10 +5,12 @@
 * [Definitions](#definitions)
 * [Submission review process](#submission-review-process)
     * [Review Criteria for Submissions](#review-criteria-for-submissions)
+    * [Writing a good perturbation](#review-criteria-for-submissions)
 
 ## Motivation
 
 ## Definitions
+Transformations vs Perturbation vs Augmentation
 
 ## Publication of transformations
 
@@ -44,3 +46,5 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Languages other than English:** We also strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
  
+## Writing a good transformation
+Now writing a transformation is a creative process. While there is no single rule, but a perturbation is worth i

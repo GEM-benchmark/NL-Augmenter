@@ -6,9 +6,10 @@ class Operation(object):
     tasks = None
     seed = 0
 
-    def __init__(self, seed=0):
+    def __init__(self, seed=0, verbose=False):
         self.seed = seed
-        print(f"Loading Operation {self.name()}")
+        if verbose:
+            print(f"Loading Operation {self.name()}")
 
     @classmethod
     def domain(cls):
