@@ -51,6 +51,15 @@ def execute_model(implementation, task_type, locale="en", model=None, dataset=No
     else:
         logging.error(f"Unsupported locale {locale}!")
 
+def evaluate_ner_tagging(transformation, model_name, dataset_name, split='test[:20%]'):
+    if model_name is None:
+        model_name = "dslim/bert-base-NER"
+    if(dataset_name is None):
+        dataset_name = "conll2003"
+
+    logging.info("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
+    # rest of the code
+
 
 def sacrebleu_score(reference, hypothesis):
     return sacrebleu.sentence_bleu([hypothesis], [reference]).score
