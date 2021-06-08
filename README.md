@@ -66,15 +66,16 @@ git checkout -b my_awesome_transformation
 We will base our transformation on an existing example.
 Create a new transformation directory by copying over an existing transformation:
 ```bash
-cd transformation/
+cd transformations/
 cp -r butter_fingers_perturbation my_awesome_transformation
 cd my_awesome_transformation
 ```
 
 ### Creating a transformation
-1. Rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation` and choose one of the perturbation interfaces from the `interfaces` folder. Full list [here.](interfaces)
-3. Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in `requirements.txt`
-4. Once done add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently and update `my_awesome_transformation/README.md`.
+1. In the file `transformation.py`, rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation` and choose one of the perturbation interfaces from the `interfaces/` folder. See the full list of options [here.](interfaces)
+2. Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in [`requirements.txt`](requirements.txt)
+3. Once done add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently and update `my_awesome_transformation/README.md`.
+
 
 **Testing and evaluating**
 
