@@ -1,0 +1,13 @@
+{
+  "type": "english_inflectional_variation",
+  "test_cases": [
+    {
+      "input": "Andrew finally returned the French book to Chris that I bought last week",
+      "output": "Andrew finally returning the French book to Chris that I buy last week"
+    },
+    {
+      "input": "Andrew finally returned the French book to Chris that I bought last week",
+      "output": "Andrew finally returns the French book to Chris that I buying last weeks"
+    }
+  ]
+}
