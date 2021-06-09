@@ -1,8 +1,9 @@
-from pkgutil import iter_modules
-from pathlib import Path
-from importlib import import_module
-import os
 import json
+import os
+
+from importlib import import_module
+from pathlib import Path
+from pkgutil import iter_modules
 
 
 def load(module, cls):
@@ -22,22 +23,23 @@ def load_test_cases(test_json):
 
 class Runs(object):
 
-    def __init__(self, interface, load_tests=True):
-        transformations = []
-        test_cases = []
+    def __init__(self, interface, perturbation_type, load_tests=True):
+        self.transformation = None
+        self.test_cases = None
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath("transformations")
         for (_, m, _) in iter_modules([transformations_dir]):
-            t_py = import_module(f"transformations.{m}.transformation")
-            t_js = os.path.join(transformations_dir, m, "test.json")
-            tx = [load(t_py, cls) for cls in interface.__subclasses__() if hasattr(t_py, cls.__name__)]
-            if len(tx) > 0:
-                transformations.extend(tx)
-                if load_tests:
-                    test_cases.append(load_test_cases(t_js))
-        self.transformations = transformations
-        self.test_cases = test_cases
+            if m == perturbation_type:
+                t_py = import_module(f"transformations.{m}.transformation")
+                t_js = os.path.join(transformations_dir, m, "test.json")
+                for cls in interface.__subclasses__():
+                    if hasattr(t_py, cls.__name__):
+                        self.transformation = load(t_py, cls)
+                        if load_tests:
+                            self.test_cases = load_test_cases(t_js)
+                        break
+                break
 
 class FilterRuns(object):
     

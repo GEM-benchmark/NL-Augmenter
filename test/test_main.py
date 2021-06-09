@@ -1,4 +1,4 @@
-import unittest
+import pytest
 
 from TestRunner import Runs, FilterRuns
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
@@ -6,66 +6,71 @@ from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOpe
 from interfaces.TaggingOperation import TaggingOperation
 
 
-def execute_test_cases_1():
-    tx = Runs(interface=SentenceOperation)
-    for transformation, tests in zip(tx.transformations, tx.test_cases):
-        for test in tests:
-            assert test["output"] == transformation.generate(test["input"]), f"Should have generated {test['output']}"
+def getMessage(transformation, impl_name):
+    return "For {transformation}, no transformation or test case found for {impl_name}" \
+        .format(transformation=transformation, impl_name=impl_name)
 
 
-def execute_test_cases_2():
-    tx = Runs(interface=SentenceAndTargetOperation)
-    for transformation, tests in zip(tx.transformations, tx.test_cases):
-        for test in tests:
-            output_x, output_y = transformation.generate(test["input_x"], test["input_y"])
+def test_execute_sentence_operation_test_case(perturbation_type):
+    transformation = SentenceOperation
+    tx = Runs(interface=transformation, perturbation_type=perturbation_type)
+    if tx.transformation is not None and tx.test_cases is not None:
+        for test in tx.test_cases:
+            assert test["output"] == tx.transformation.generate(
+                test["input"]), f"Should have generated {test['output']}"
+    else:
+        print(getMessage(transformation.__name__, perturbation_type))
+
+
+def test_execute_sentence_target_operation_test_case(perturbation_type):
+    transformation = SentenceAndTargetOperation
+    tx = Runs(interface=transformation, perturbation_type=perturbation_type)
+    if tx.transformation is not None and tx.test_cases is not None:
+        for test in tx.test_cases:
+            output_x, output_y = tx.transformation.generate(test["input_x"], test["input_y"])
             assert output_x == test["output_x"], f"Should have generated {test['output_x']}"
             assert output_y == test["output_y"], f"Should have generated {test['output_y']}"
+    else:
+        print(getMessage(transformation.__name__, perturbation_type))
 
 
-def execute_test_cases_3():
-    tx = Runs(interface=QuestionAnswerOperation)
-    for transformation, tests in zip(tx.transformations, tx.test_cases):
-        for test in tests:
-            output_c, output_q, output_a = transformation.generate(test["input_c"], test["input_q"], test["input_a"])
+def test_execute_ques_ans_test_case(perturbation_type):
+    transformation = QuestionAnswerOperation
+    tx = Runs(interface=transformation, perturbation_type=perturbation_type)
+    if tx.transformation is not None and tx.test_cases is not None:
+        for test in tx.test_cases:
+            output_c, output_q, output_a = tx.transformation.generate(test["input_c"], test["input_q"], test["input_a"])
             assert output_c == test["output_c"], f"Should have generated {test['output_c']}"
             assert output_q == test["output_q"], f"Should have generated {test['output_q']}"
             assert output_a == test["output_a"], f"Should have generated {test['output_a']}"
+    else:
+        print(getMessage(transformation.__name__, perturbation_type))
 
 
-def execute_test_cases_4():
-    tx = Runs(interface=TaggingOperation)
-    for transformation, tests in zip(tx.transformations, tx.test_cases):
-        for test in tests:
-            output_sequence, output_tag = transformation.generate(test["input_sequence"], test["input_tag"])
+def test_execute_tagging_test_case(perturbation_type):
+    transformation = TaggingOperation
+    tx = Runs(interface=transformation, perturbation_type=perturbation_type)
+    if tx.transformation is not None and tx.test_cases is not None:
+        for test in tx.test_cases:
+            output_sequence, output_tag = tx.transformation.generate(test["input_sequence"], test["input_tag"])
             assert output_sequence == test["output_sequence"], f"Should have generated {test['output_sequence']}"
             assert output_tag == test["output_tag"], f"Should have generated {test['output_tag']}"
+    else:
+        print(getMessage(transformation.__name__, perturbation_type))
 
 
-def execute_filter_test_cases_1():
+def test_execute_filter_test_case():
     tx = FilterRuns()
     for filter, test in zip(tx.filters, tx.filter_test_cases):
         filter_args = test["filter_args"]
-        print(filter)
         output = filter.filter(**filter_args)
         assert output == test["output"], f"The filter should return {test['output']}"
             
 
-class TestStringMethods(unittest.TestCase):
 
-    def test_1(self):
-        execute_test_cases_1()
+def main():
+    pytest.main()
 
-    def test_2(self):
-        execute_test_cases_2()
 
-    def test_3(self):
-        execute_test_cases_3()
-
-    def test_4(self):
-        execute_test_cases_4()
-
-    def test_5(self):
-        execute_filter_test_cases_1()
-
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+    main()
