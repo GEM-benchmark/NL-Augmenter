@@ -2,12 +2,14 @@
   "type": "english_inflectional_variation",
   "test_cases": [
     {
+      "class": "EnglishInflectionalVariation",
       "input": "Andrew finally returned the French book to Chris that I bought last week",
-      "output": "Andrew finally returning the French book to Chris that I buy last week"
+      "output": "Andrew finally return the French book to Chris that I buy last week"
     },
     {
-      "input": "Andrew finally returned the French book to Chris that I bought last week",
-      "output": "Andrew finally returns the French book to Chris that I buying last weeks"
+      "class": "EnglishInflectionalVariation",
+      "input": "Andrew finally got the French book I sent to him two days ago.",
+      "output": "Andrew finally get the French book I send to him two day ago."
     }
   ]
 }
