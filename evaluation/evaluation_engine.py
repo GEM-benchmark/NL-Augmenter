@@ -27,7 +27,7 @@ def evaluate(implementation, task_type, locale="en", model=None, dataset=None, p
 def get_task_type(implementation, task_type):
     if task_type is None:
         print("Undefined task type, switching to default task %s", implementation.tasks[0].name)
-        return implementation.tasks[0]
+        return str(implementation.tasks[0]).split(".")[1]
     return task_type
 
 

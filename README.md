@@ -2,7 +2,7 @@
 
 The NL-Augmenter is a collaborative effort intended to accumulate all transformations operating over tasks dealing with natural language. We invite submissions of transformations to this framework by way of GitHub pull request, through August 1, 2021. All submitters of accepted transformation will be included as co-authors on a paper announcing this framework. 
 
-The framework organizers can be contacted at gem-benchmark@googlegroups.com.
+The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
 **Submission timeline**
 
