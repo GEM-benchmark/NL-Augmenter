@@ -41,10 +41,6 @@ class SentenceAndTargetOperation(Operation):
     tgt_locale = None
     tasks = None
 
-    def __init__(self):
-        super().__init__()
-        print(f"Loading Transformation {self.name()}")
-
     @classmethod
     def domain(cls):
         return cls.tasks, cls.src_locale, cls.tgt_locale
@@ -75,10 +71,6 @@ class SentenceAndTargetsOperation(Operation):
     src_locale = None
     tgt_locale = None
     tasks = None
-
-    def __init__(self):
-        super().__init__()
-        print(f"Loading Transformation {self.name()}")
 
     @classmethod
     def domain(cls):

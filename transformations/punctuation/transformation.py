@@ -5,7 +5,7 @@ import spacy
 from tasks.TaskTypes import TaskType
 
 
-class WithoutPunctuation(SentenceOperation):
+class Punctuation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
 
@@ -14,6 +14,7 @@ class WithoutPunctuation(SentenceOperation):
         self.nlp = spacy.load('en_core_web_sm')
 
     def generate(self, sentence: str):
-        pertubed = Perturb.strip_punctuation(self.nlp(sentence))
+        pertubed = Perturb.punctuation(self.nlp(sentence))
+        pertubed = pertubed[0] # Just take the first one for now.
         print(f"Perturbed Input from {self.name()} : {pertubed}")
         return pertubed
