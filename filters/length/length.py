@@ -14,7 +14,7 @@ class TextLengthFilter(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
 
-    def __init__(self, op: str, threshold: int):
+    def __init__(self, op: str=None, threshold: int=None):
         super().__init__()
         self.operator = self.parse_operator(op)
         self.threshold = threshold
@@ -29,7 +29,7 @@ class TextLengthFilter(SentenceOperation):
                '==': operator.eq}
         return ops[op]
 
-    def filter(self, sentence: str) -> bool:
+    def filter(self, sentence: str=None) -> bool:
         tokenized = self.nlp(sentence, disable=['parser', 'tagger', 'ner'])
         return self.operator(len(tokenized), self.threshold)
 
@@ -44,7 +44,7 @@ class SentenceAndTargetLengthFilter(SentenceAndTargetOperation):
     src_locales = ["en"]
     tgt_locales = ["en"]
 
-    def __init__(self, ops: List[str], thresholds: List[int]):
+    def __init__(self, ops: List[str]=None, thresholds: List[int]=None):
         super().__init__()
         self.operators = [TextLengthFilter.parse_operator(op) for op in ops]
         self.thresholds = thresholds
@@ -56,7 +56,7 @@ class SentenceAndTargetLengthFilter(SentenceAndTargetOperation):
         assert len(self.operators) == 2, "SentenceAndTargetOperation only support two inputs."
         assert len(self.thresholds) == 2, "SentenceAndTargetOperation only support two inputs."
 
-    def filter(self, sentence: str, target: str) -> bool:
+    def filter(self, sentence: str=None, target: str=None) -> bool:
         tokenized_sentence = self.nlp(sentence, disable=['parser', 'tagger', 'ner'])
         tokenized_target = self.nlp(target, disable=['parser', 'tagger', 'ner'])
 

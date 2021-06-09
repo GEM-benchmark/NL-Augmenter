@@ -1,6 +1,6 @@
 import unittest
 
-from TestRunner import Runs
+from TestRunner import Runs, FilterRuns
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
 from interfaces.TaggingOperation import TaggingOperation
@@ -41,6 +41,15 @@ def execute_test_cases_4():
             assert output_tag == test["output_tag"], f"Should have generated {test['output_tag']}"
 
 
+def execute_filter_test_cases_1():
+    tx = FilterRuns()
+    for filter, test in zip(tx.filters, tx.filter_test_cases):
+        filter_args = test["filter_args"]
+        print(filter)
+        output = filter.filter(**filter_args)
+        assert output == test["output"], f"The filter should return {test['output']}"
+            
+
 class TestStringMethods(unittest.TestCase):
 
     def test_1(self):
@@ -55,6 +64,8 @@ class TestStringMethods(unittest.TestCase):
     def test_4(self):
         execute_test_cases_4()
 
+    def test_5(self):
+        execute_filter_test_cases_1()
 
 if __name__ == '__main__':
     unittest.main()
