@@ -40,10 +40,15 @@ python main.py
 ```
 Running it for the first time will take a while (depending on your internet speed) since the translation models need to be downloaded.
 
-After you make any change, run test_main.py once to ensure that your changes don't regress anything.
+After you make any change, run test_main.py once by giving transformation type as parameter to ensure that your changes don't regress anything.
 
 ```bash
-pytest
+pytest -s --t=<transformation_type>
+```
+
+For example, to run 'butter_fingers_perturbation' test cases:
+```bash
+pytest -s --t=butter_fingers_perturbation
 ```
  
 And for any new logic, add the appropriate test case so that no one else breaks the changes. 
@@ -81,7 +86,7 @@ cd my_awesome_transformation
 
 Once the transformation is ready, test it:
 ```bash
-pytest
+pytest -s --t=<transformation_type>
 ```
 
 ### Submitting
