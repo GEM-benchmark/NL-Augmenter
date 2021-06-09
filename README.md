@@ -35,24 +35,6 @@ python setup.py sdist
 pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
 ```
 
-```bash
-python main.py
-```
-Running it for the first time will take a while (depending on your internet speed) since the translation models need to be downloaded.
-
-After you make any change, run test_main.py once by giving transformation type as parameter to ensure that your changes don't regress anything.
-
-```bash
-pytest -s --t=<transformation_type>
-```
-
-For example, to run 'butter_fingers_perturbation' test cases:
-```bash
-pytest -s --t=butter_fingers_perturbation
-```
- 
-And for any new logic, add the appropriate test case so that no one else breaks the changes. 
-
 ## How do I create a transformation?
 ### Setup
 
@@ -86,8 +68,9 @@ cd my_awesome_transformation
 
 Once the transformation is ready, test it:
 ```bash
-pytest -s --t=<transformation_type>
+pytest -s --t=my_awesome_transformation
 ```
+[Optional] If you would like to evaluate your transformation against a common HuggingFace 🤗 model, we suggest you to call [evaluate.py](evaluation)
 
 ### Submitting
 
@@ -106,3 +89,5 @@ Alternatively, you can do so from the GitHub website.
 </a>
 
 :sparkles: Congratulations, you've submitted a transformation to the perturbation repository! :sparkles:
+
+There's more than just a transformation that you could contribute to NL-Augmenter by the deadline - [filters](filters)!  

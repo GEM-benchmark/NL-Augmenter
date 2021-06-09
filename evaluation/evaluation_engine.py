@@ -1,8 +1,9 @@
-
 from datasets import load_dataset
 from transformers import pipeline
 import sacrebleu
 
+from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
+from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 """
@@ -34,19 +35,19 @@ def execute_model(implementation, task_type, locale="en", model=None, dataset=No
     interface = implementation.__bases__[0]  # SentenceTransformation
     impl = implementation()
     if locale is "en":
-        if interface.__name__ is "SentenceOperation" and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION:
+        if isinstance(impl, SentenceOperation) and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION:
             evaluate_text_classifier(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
-        elif interface.__name__ is "QuestionAnswerOperation" and TaskType[task_type] == TaskType.QUESTION_ANSWERING:
+        elif isinstance(impl, QuestionAnswerOperation) and TaskType[task_type] == TaskType.QUESTION_ANSWERING:
             evaluate_question_answering_model(impl, model, dataset, split=f'validation[:{percentage_of_examples}%]')
-        elif interface.__name__ is "SentenceOperation" and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION:
+        elif isinstance(impl, SentenceOperation) and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION:
             evaluate_text_summarization(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
         # Other if else cases should be added here.
         else:
             print(f"No default evaluation model exists for the interface {interface} in the locale {locale}."
-                         f"It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate "
-                         f"your perturbation on a task and a dataset, "
-                         f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
-                         f"and call it from execute_model. That's it!")
+                  f"It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate "
+                  f"your perturbation on a task and a dataset, "
+                  f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
+                  f"and call it from execute_model. That's it!")
     else:
         print(f"No default evaluation model exists in the locale {locale}."
               f"It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate "
@@ -76,21 +77,22 @@ def evaluate_text_summarization(transformation, model_name, dataset_name, split=
     for example in dataset:
         article = example["document"]
         gold_summary = example["summary"]
-        max_len = len(gold_summary.split(" ")) + 10  # approximate max length to control summary generation upto length of gold summary
+        max_len = len(gold_summary.split(
+            " ")) + 10  # approximate max length to control summary generation upto length of gold summary
         predicted_summary = summarization_pipeline(article, truncation=True, max_length=max_len)[0]["summary_text"]
         score_list = sacrebleu_score(reference=gold_summary, hypothesis=predicted_summary)
         predicted_summary_score += score_list
 
         transformed_article = transformation.generate(article)
         transformed_article_summary = \
-        summarization_pipeline(transformed_article, truncation=True, max_length=max_len)[0]["summary_text"]
+            summarization_pipeline(transformed_article, truncation=True, max_length=max_len)[0]["summary_text"]
         trans_score_list = sacrebleu_score(reference=gold_summary, hypothesis=transformed_article_summary)
         transformed_summary_score += trans_score_list
 
     predicted_summary_score = predicted_summary_score / len(dataset)
     transformed_summary_score = transformed_summary_score / len(dataset)
 
-    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset")
     print(f"The average bleu score on a subset of {dataset_name} = {predicted_summary_score}")
     print(f"The average bleu score on its perturbed set = {transformed_summary_score}")
 
@@ -120,7 +122,7 @@ def evaluate_text_classifier(transformation, model_name, dataset_name, split='te
         if (pt_pred == "pos" and label == 1) or (pt_pred == "neg" and label == 0):
             pt_accuracy += 1
         total += 1
-    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset")
     print(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
     print(f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}")
 
@@ -153,6 +155,6 @@ def evaluate_question_answering_model(transformation, model_name,
         if pt_pred in answers_t:
             pt_accuracy += 1
         total += 1
-    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset")
     print(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
     print(f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}")
