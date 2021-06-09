@@ -1,7 +1,13 @@
 dist/
 *~
-*.pyc
+*.py[cod]
 \#*\#
-__pycache__
+__pycache__/
 .DS_Store
 .vscode/
+Thumbs.db
+.idea
+build/
+*.log
+.env
+.venv
