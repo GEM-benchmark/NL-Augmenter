@@ -93,8 +93,6 @@ def evaluate_text_summarization(transformation, model_name, dataset_name, split=
     print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
     print(f"The average bleu score on a subset of {dataset_name} = {predicted_summary_score}")
     print(f"The average bleu score on its perturbed set = {transformed_summary_score}")
-
-
 def evaluate_text_classifier(transformation, model_name, dataset_name, split='test[:20%]'):
     # (1) load model
     if model_name is None:
