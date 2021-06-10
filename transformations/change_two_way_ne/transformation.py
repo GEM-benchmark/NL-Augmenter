@@ -18,13 +18,10 @@ class ChangeTwoWayNamedEntities(SentenceAndTargetOperation):
     src_locales = ["en"]
     tgt_locales = ["en"]
 
-    def __init__(self, first_only=False, last_only=False, n=1):
+    def __init__(self, first_only=False, last_only=False, n=1, seed=0):
+        super().__init__(seed)
 
-        tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-        locales = ["en"]
-        super().__init__()
-
-        np.random.seed(0)
+        np.random.seed(self.seed)
         self.nlp = spacy.load('en_core_web_sm')
         self.first_only = first_only  # first name
         self.last_only = last_only  # last name
@@ -98,10 +95,6 @@ class ChangeTwoWayNamedEntities(SentenceAndTargetOperation):
         if len(ret) > 0 and ret[0] != sentence:
             perturbed_source = ret[0]
             perturbed_target = outs[0]
-        print(f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}")
+        if self.verbose:
+            print(f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}")
         return perturbed_source, perturbed_target
-
-
-if __name__ == '__main__':
-    tr = ChangeTwoWayNamedEntities()
-    tr.generate("Andrew played football with Chris", "Andrew seldom played football with Chris.")

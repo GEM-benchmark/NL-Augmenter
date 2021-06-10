@@ -5,10 +5,14 @@
 * [Definitions](#definitions)
 * [Submission review process](#submission-review-process)
     * [Review Criteria for Submissions](#review-criteria-for-submissions)
+    * [Writing a good transformation](#Writing-a-good-transformation)
+    * [Evaluating the transformation](#evaluating-the-transformation)
+    * [What is the purpose of test.json](#What-is-the-purpose-of-test.json)
 
 ## Motivation
 
 ## Definitions
+Transformations vs Perturbation vs Augmentation 
 
 ## Publication of transformations
 
@@ -44,3 +48,11 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Languages other than English:** We also strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
  
+## Writing a good transformation
+Writing a transformation is a creative process. Transformations could be generated both using machine learning as well as rule based models. While there is no hard core rule, a transformation is worth if it can augment training data qualitatively or be able to generate perturbations which could reveal places where models' performance suffers. One of the quick ways to contribute would be to add a copy of any of the existing transformations for a low-resource language.
+
+## Evaluating the transformation
+ 
+
+## What is the purpose of test.json
+The `test.json` simply serves to keep track of the core logic of transformation that you intend. While working with the code to and fro, you don't want to mistakenly change the output of someone else's code. Besides, it also makes reviewing much simpler as it gives a quick look into the examples that your logic generates.   

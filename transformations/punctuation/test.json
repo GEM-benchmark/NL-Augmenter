@@ -1,0 +1,24 @@
+{
+  "type": "without_punctuation",
+  "test_cases": [
+    {
+      "input": "Andrew finally returned the French book to Chris that I bought last week",
+      "output": "Andrew finally returned the French book to Chris that I bought last week."
+    },
+    {
+      "input": "Did Andrew finally return the French book to Chris that I bought last week?",
+      "output": "Did Andrew finally return the French book to Chris that I bought last week"
+    },{
+      "input": "Data augmentation faces substantial challenges, specifically for NLP, and with these challenges, new opportunities for future work arise.",
+      "output": "Data augmentation faces substantial challenges, specifically for NLP, and with these challenges, new opportunities for future work arise"
+    },
+    {
+      "input": "There are many works which have investigated DA for NMT",
+      "output": "There are many works which have investigated DA for NMT."
+    },
+    {
+      "input": "Good data augmentation practices would help make DA work more accessible!!!",
+      "output": "Good data augmentation practices would help make DA work more accessible"
+    }
+  ]
+}
