@@ -41,6 +41,26 @@ class Runs(object):
                         break
                 break
 
+class ContrastRuns(object):
+
+    def __init__(self, interface, load_tests=True):
+        transformations = []
+        test_cases = []
+        # iterate through the modules in the current package
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        transformations_dir = package_dir.parent.joinpath("contrast_sets")
+        for (_, m, _) in iter_modules([transformations_dir]):
+            t_py = import_module(f"contrast_sets.{m}.transformation")
+            t_js = os.path.join(transformations_dir, m, "test.json")
+            tx = [load(t_py, cls) for cls in interface.__subclasses__() if hasattr(t_py, cls.__name__)]
+            if len(tx) > 0:
+                transformations.extend(tx)
+                if load_tests:
+                    test_cases.append(load_test_cases(t_js))
+        self.transformations = transformations
+        self.test_cases = test_cases
+
+
 class FilterRuns(object):
 
     def __init__(self):
