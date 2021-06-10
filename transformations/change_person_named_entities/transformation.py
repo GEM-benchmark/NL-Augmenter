@@ -21,5 +21,4 @@ class ChangePersonNamedEntities(SentenceOperation):
         np.random.seed(self.seed)
         pertubed = Perturb.perturb([self.nlp(sentence)], Perturb.change_names, nsamples=1)
         pertubed = pertubed.data[0][1] if len(pertubed.data) > 0 else sentence
-        print(f"Perturbed Input from {self.name()} : {pertubed}")
         return pertubed

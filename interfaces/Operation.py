@@ -8,7 +8,8 @@ class Operation(object):
 
     def __init__(self, seed=0, verbose=False):
         self.seed = seed
-        if verbose:
+        self.verbose = verbose
+        if self.verbose:
             print(f"Loading Operation {self.name()}")
 
     @classmethod
