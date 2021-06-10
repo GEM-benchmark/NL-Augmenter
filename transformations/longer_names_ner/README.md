@@ -15,3 +15,6 @@ This would help augment data for an NER task by keeping the labels still aligned
 The transformation's outputs are too simple to be used for data augmentation and has been used for demonstration. 
 Unlike a paraphraser, it is not capable of 
 generating linguistically diverse text.
+
+The accuracy of a BERT-base model (fine-tuned on conll2003) on a subset of conll2003 validation dataset = 81.364%
+The accuracy of the same model on the perturbed set = 70.911%
