@@ -5,7 +5,7 @@
 * [Definitions](#definitions)
 * [Submission review process](#submission-review-process)
     * [Review Criteria for Submissions](#review-criteria-for-submissions)
-    * [Writing a good perturbation](#review-criteria-for-submissions)
+    * [Writing a good transformation](#Writing-a-good-transformation)
     * [Evaluating the transformation](#evaluating-the-transformation)
     * [What is the purpose of test.json](#What-is-the-purpose-of-test.json)
 
