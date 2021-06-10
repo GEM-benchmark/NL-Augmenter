@@ -15,8 +15,8 @@ class QuestionAnswerOperation(Operation):
      accordingly override the domain(cls) function.
     """
 
-    def generate(self, context: str, question: str, answer: [str]) -> Tuple[str, str, List[str]]:
+    def generate(self, context: str, question: str, answers: [str]) -> Tuple[str, str, List[str]]:
         raise NotImplementedError
 
-    def filter(self, context: str, question: str, answer: [str]) -> bool:
+    def filter(self, context: str, question: str, answers: [str]) -> bool:
         raise True

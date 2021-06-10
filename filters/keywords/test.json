@@ -1,0 +1,15 @@
+{
+    "type": "keywords",
+    "test_cases": [
+        {
+            "class": "TextContainsKeywordsFilter",
+            "args": {
+                "keywords": ["in", "at"]
+            },
+            "filter_args": {
+                "sentence": "Andrew played cricket in India"
+            },
+            "output": true
+        }
+    ]
+}

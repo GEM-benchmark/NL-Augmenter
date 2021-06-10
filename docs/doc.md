@@ -5,10 +5,14 @@
 * [Definitions](#definitions)
 * [Submission review process](#submission-review-process)
     * [Review Criteria for Submissions](#review-criteria-for-submissions)
+    * [Writing a good transformation](#Writing-a-good-transformation)
+    * [Evaluating the transformation](#evaluating-the-transformation)
+    * [What is the purpose of test.json](#What-is-the-purpose-of-test.json)
 
 ## Motivation
 
 ## Definitions
+Transformations vs Perturbation vs Augmentation 
 
 ## Publication of transformations
 
@@ -23,11 +27,11 @@ Each transformation will receive two reviews. The transformation may be edited i
 ### Review Criteria for Submissions
 **Correctness:** Transformations must be valid Python code and must pass tests. 
 
-**Interface:** Participants should ensure that they use the correct interface. The complete list is mentioned [here.](../interfaces) Eg. for tasks like machine translation, a transformation which changes the value of a named entity (Andrew->Jason) might need parallel changes in the output too. And hence, it might be more appropriate to use `SentenceAndTargetTransformation` or `SentenceAndTargetsTransformation` rather than `SentenceTransformation`.
+**Interface:** Participants should ensure that they use the correct interface. The complete list is mentioned [here.](../interfaces) Eg. for tasks like machine translation, a transformation which changes the value of a named entity (Andrew->Jason) might need parallel changes in the output too. And hence, it might be more appropriate to use `SentenceAndTargetOperation` or `SentenceAndTargetsOperation` rather than `SentenceOperation`.
 
 **Applicable Tasks:** We understand that transformations can vary across tasks as well as a single transformation can work for multiple tasks. Hence all the tasks where the transformation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](tasks/TaskTypes.py).
 ```python
-class ButterFingersPerturbation(SentenceTransformation):
+class ButterFingersPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     locales = ["en"]
 ```
@@ -44,3 +48,11 @@ class ButterFingersPerturbation(SentenceTransformation):
 
 **Languages other than English:** We also strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
  
+## Writing a good transformation
+Writing a transformation is a creative process. Transformations could be generated both using machine learning as well as rule based models. While there is no hard core rule, a transformation is worth if it can augment training data qualitatively or be able to generate perturbations which could reveal places where models' performance suffers. One of the quick ways to contribute would be to add a copy of any of the existing transformations for a low-resource language.
+
+## Evaluating the transformation
+ 
+
+## What is the purpose of test.json
+The `test.json` simply serves to keep track of the core logic of transformation that you intend. While working with the code to and fro, you don't want to mistakenly change the output of someone else's code. Besides, it also makes reviewing much simpler as it gives a quick look into the examples that your logic generates.   

@@ -45,7 +45,6 @@ def butter_finger(text, prob=0.1, keyboard='querty', seed=0):
     else:
         print("Keyboard not supported.")
 
-    probOfTypoArray = []
     probOfTypo = int(prob * 100)
 
     buttertext = ""
@@ -75,10 +74,9 @@ class ButterFingersPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     locales = ["en"]
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, seed=0):
+        super().__init__(seed)
 
     def generate(self, sentence: str):
-        pertubed = butter_finger(text=sentence, prob=0.05)
-        print(f"Perturbed Input from {self.name()} : {pertubed}")
+        pertubed = butter_finger(text=sentence, prob=0.05, seed=self.seed)
         return pertubed

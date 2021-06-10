@@ -2,7 +2,7 @@
 
 The NL-Augmenter is a collaborative effort intended to accumulate all transformations operating over tasks dealing with natural language. We invite submissions of transformations to this framework by way of GitHub pull request, through August 1, 2021. All submitters of accepted transformation will be included as co-authors on a paper announcing this framework. 
 
-The framework organizers can be contacted at gem-benchmark@googlegroups.com.
+The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
 **Submission timeline**
 
@@ -35,19 +35,6 @@ python setup.py sdist
 pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
 ```
 
-```bash
-python main.py
-```
-Running it for the first time will take a while (depending on your internet speed) since the translation models need to be downloaded.
-
-After you make any change, run test_main.py once to ensure that your changes don't regress anything.
-
-```bash
-pytest
-```
- 
-And for any new logic, add the appropriate test case so that no one else breaks the changes. 
-
 ## How do I create a transformation?
 ### Setup
 
@@ -66,22 +53,24 @@ git checkout -b my_awesome_transformation
 We will base our transformation on an existing example.
 Create a new transformation directory by copying over an existing transformation:
 ```bash
-cd transformation/
+cd transformations/
 cp -r butter_fingers_perturbation my_awesome_transformation
 cd my_awesome_transformation
 ```
 
 ### Creating a transformation
-1. Rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation` and choose one of the perturbation interfaces from the `interfaces` folder. Full list [here.](interfaces)
-3. Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in `requirements.txt`
-4. Once done add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently and update `my_awesome_transformation/README.md`.
+1. In the file `transformation.py`, rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation` and choose one of the perturbation interfaces from the `interfaces/` folder. See the full list of options [here.](interfaces)
+2. Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in [`requirements.txt`](requirements.txt)
+3. Once done add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently and update `my_awesome_transformation/README.md`.
+
 
 **Testing and evaluating**
 
 Once the transformation is ready, test it:
 ```bash
-pytest
+pytest -s --t=my_awesome_transformation
 ```
+[Optional] If you would like to evaluate your transformation against a common HuggingFace 🤗 model, we suggest you to call [evaluate.py](evaluation)
 
 ### Submitting
 
@@ -100,3 +89,5 @@ Alternatively, you can do so from the GitHub website.
 </a>
 
 :sparkles: Congratulations, you've submitted a transformation to the perturbation repository! :sparkles:
+
+There's more than just a transformation that you could contribute to NL-Augmenter by the deadline - [filters](filters)!  
