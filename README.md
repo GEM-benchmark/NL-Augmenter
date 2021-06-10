@@ -89,6 +89,10 @@ Once the transformation is ready, test it:
 pytest -s --t=<transformation_type>
 ```
 
+To standardized the code we use the black code formatter which will run at the time of pre-commit.
+To use pre-commit hook, install pre-commit with pip install pre-commit (installed by default if you've followed the above instructions). 
+Then run pre-commit install to install the hook. On future commits, you should see the black code formatter is run on all python files you've staged for commit.
+
 ### Submitting
 
 Once the tests pass and you are happy with the transformation, submit your transformation for review.
