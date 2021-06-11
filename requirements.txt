@@ -14,3 +14,4 @@ checklist==0.0.10
 spacy==2.2.4
 
 black
+pre-commit
