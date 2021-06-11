@@ -2,7 +2,7 @@
 
 This filter filters data with the input text length matching a specified threshold.
 
-Suppored conditions:
+Supported conditions:
 - greater than: ">"
 - less than: "<"
 - greater equal to: ">="

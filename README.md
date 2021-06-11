@@ -20,7 +20,7 @@ Transformations which are already accepted to NL-Augmenter are summarized in [th
 * [Colab notebook](#colab-notebook)
 * [Installation](#installation)
 * [How do I create a transformation?](#how-do-i-create-a-transformation)
-* [Review Criteria for Accepting Submissions](#review-criteria)
+* [Review Criteria for Accepting Submissions](docs/doc.md#review-criteria-for-submissions)
 
 ## Colab notebook
 
