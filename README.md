@@ -72,6 +72,10 @@ pytest -s --t=my_awesome_transformation
 ```
 [Optional] If you would like to evaluate your transformation against a common HuggingFace 🤗 model, we suggest you to call [evaluate.py](evaluation)
 
+**Code Styling** To standardized the code we use the [black](https://github.com/psf/black) code formatter which will run at the time of pre-commit.
+To use pre-commit hook, install `pre-commit` with `pip install pre-commit` (installed by default if you've followed the above instructions). 
+Then run `pre-commit install` to install the hook. On future commits, you should see the black code formatter is run on all python files you've staged for commit.
+
 ### Submitting
 
 Once the tests pass and you are happy with the transformation, submit your transformation for review.

@@ -5,17 +5,19 @@ from interfaces.Operation import Operation
 
 class KeyValuePairsOperation(Operation):
     """
-     The base class for implementing transformations
-      for inputs which take a structured form like AMR-to-text, E2E, etc.
+    The base class for implementing transformations
+     for inputs which take a structured form like AMR-to-text, E2E, etc.
 
-     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
-     given in tasks.TaskType.
+    "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
+    given in tasks.TaskType.
 
-     "locales" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
-     "en_IN"
+    "locales" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
+    "en_IN"
     """
 
-    def generate(self, meaning_representation: dict, reference: str) -> Tuple[dict, str]:
+    def generate(
+        self, meaning_representation: dict, reference: str
+    ) -> Tuple[dict, str]:
         raise NotImplementedError
 
     def filter(self, meaning_representation: dict, reference: str) -> bool:

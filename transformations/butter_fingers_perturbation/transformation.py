@@ -8,40 +8,40 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-def butter_finger(text, prob=0.1, keyboard='querty', seed=0):
+def butter_finger(text, prob=0.1, keyboard="querty", seed=0):
     random.seed(seed)
     keyApprox = {}
 
     if keyboard == "querty":
-        keyApprox['q'] = "qwasedzx"
-        keyApprox['w'] = "wqesadrfcx"
-        keyApprox['e'] = "ewrsfdqazxcvgt"
-        keyApprox['r'] = "retdgfwsxcvgt"
-        keyApprox['t'] = "tryfhgedcvbnju"
-        keyApprox['y'] = "ytugjhrfvbnji"
-        keyApprox['u'] = "uyihkjtgbnmlo"
-        keyApprox['i'] = "iuojlkyhnmlp"
-        keyApprox['o'] = "oipklujm"
-        keyApprox['p'] = "plo['ik"
+        keyApprox["q"] = "qwasedzx"
+        keyApprox["w"] = "wqesadrfcx"
+        keyApprox["e"] = "ewrsfdqazxcvgt"
+        keyApprox["r"] = "retdgfwsxcvgt"
+        keyApprox["t"] = "tryfhgedcvbnju"
+        keyApprox["y"] = "ytugjhrfvbnji"
+        keyApprox["u"] = "uyihkjtgbnmlo"
+        keyApprox["i"] = "iuojlkyhnmlp"
+        keyApprox["o"] = "oipklujm"
+        keyApprox["p"] = "plo['ik"
 
-        keyApprox['a'] = "aqszwxwdce"
-        keyApprox['s'] = "swxadrfv"
-        keyApprox['d'] = "decsfaqgbv"
-        keyApprox['f'] = "fdgrvwsxyhn"
-        keyApprox['g'] = "gtbfhedcyjn"
-        keyApprox['h'] = "hyngjfrvkim"
-        keyApprox['j'] = "jhknugtblom"
-        keyApprox['k'] = "kjlinyhn"
-        keyApprox['l'] = "lokmpujn"
+        keyApprox["a"] = "aqszwxwdce"
+        keyApprox["s"] = "swxadrfv"
+        keyApprox["d"] = "decsfaqgbv"
+        keyApprox["f"] = "fdgrvwsxyhn"
+        keyApprox["g"] = "gtbfhedcyjn"
+        keyApprox["h"] = "hyngjfrvkim"
+        keyApprox["j"] = "jhknugtblom"
+        keyApprox["k"] = "kjlinyhn"
+        keyApprox["l"] = "lokmpujn"
 
-        keyApprox['z'] = "zaxsvde"
-        keyApprox['x'] = "xzcsdbvfrewq"
-        keyApprox['c'] = "cxvdfzswergb"
-        keyApprox['v'] = "vcfbgxdertyn"
-        keyApprox['b'] = "bvnghcftyun"
-        keyApprox['n'] = "nbmhjvgtuik"
-        keyApprox['m'] = "mnkjloik"
-        keyApprox[' '] = " "
+        keyApprox["z"] = "zaxsvde"
+        keyApprox["x"] = "xzcsdbvfrewq"
+        keyApprox["c"] = "cxvdfzswergb"
+        keyApprox["v"] = "vcfbgxdertyn"
+        keyApprox["b"] = "bvnghcftyun"
+        keyApprox["n"] = "nbmhjvgtuik"
+        keyApprox["m"] = "mnkjloik"
+        keyApprox[" "] = " "
     else:
         print("Keyboard not supported.")
 
@@ -71,7 +71,11 @@ Butter Finger implementation borrowed from https://github.com/alexyorke/butter-f
 
 
 class ButterFingersPerturbation(SentenceOperation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
+    tasks = [
+        TaskType.TEXT_CLASSIFICATION,
+        TaskType.TEXT_TO_TEXT_GENERATION,
+        TaskType.TEXT_TAGGING,
+    ]
     locales = ["en"]
 
     def __init__(self, seed=0):
