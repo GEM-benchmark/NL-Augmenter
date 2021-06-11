@@ -11,9 +11,7 @@ def read(fname):
 setup(
     name="NL-Augmenter",
     version="0.0.1",
-    description=(
-        "The official repository of transformations."
-    ),
+    description=("The official repository of transformations."),
     long_description=read("README.md"),
     install_requires=read("requirements.txt"),
     package_data={"": ["*.json", "*.txt", "*.tsv", "*.csv", "*.npz", "*.ckpt"]},

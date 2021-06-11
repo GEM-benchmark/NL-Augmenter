@@ -16,6 +16,8 @@ class RedundantContextForQa(QuestionAnswerOperation):
     def __init__(self):
         super().__init__()
 
-    def generate(self, context: str, question: str, answer: [str]) -> Tuple[str, str, List[str]]:
+    def generate(
+        self, context: str, question: str, answer: [str]
+    ) -> Tuple[str, str, List[str]]:
         context = context.rstrip() + " " + context.lstrip()
         return context, question, answer

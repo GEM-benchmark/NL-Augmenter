@@ -18,11 +18,12 @@ def load_test_cases(test_json):
             examples = d["test_cases"]
         return examples
     except FileNotFoundError:
-        raise Exception(f"\n\n\t\tYou should add a test file at this location!\n\t\t{test_json}")
+        raise Exception(
+            f"\n\n\t\tYou should add a test file at this location!\n\t\t{test_json}"
+        )
 
 
 class Runs(object):
-
     def __init__(self, interface, perturbation_type, load_tests=True):
         self.transformation = None
         self.test_cases = None
@@ -46,15 +47,18 @@ def load_implementation(tx_name: str):
     try:
         t_py = import_module(f"transformations.{tx_name}.transformation")
     except ModuleNotFoundError as error:
-        raise Exception(f"Transformation folder of name {tx_name} is not found.\n {error}")
+        raise Exception(
+            f"Transformation folder of name {tx_name} is not found.\n {error}"
+        )
     TxName = convert_to_camel_case(tx_name)
     try:
         transformation = getattr(t_py, TxName)
         return transformation
     except AttributeError as error:
-        raise Exception(f"Transformation implementation"
-                        f" named {TxName} not found.\n {error}")
+        raise Exception(
+            f"Transformation implementation" f" named {TxName} not found.\n {error}"
+        )
 
 
 def convert_to_camel_case(word):
-    return ''.join(x.capitalize() or '_' for x in word.split('_'))
+    return "".join(x.capitalize() or "_" for x in word.split("_"))

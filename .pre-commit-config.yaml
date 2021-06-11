@@ -1,6 +1,7 @@
+#For more info in pre-commit refer: https://pre-commit.com/#using-the-latest-version-for-a-repository
 repos:
 -   repo: https://github.com/psf/black
-    rev: stable
+    rev: 21.5b2
     hooks:
     - id: black
       language_version: python3

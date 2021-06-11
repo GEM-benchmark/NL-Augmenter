@@ -12,9 +12,9 @@ class TextContainsKeywordsFilter(SentenceOperation):
     def __init__(self, keywords: List[str]):
         super().__init__()
         self.keywords = keywords
-        self.nlp = spacy.load('en_core_web_sm')
+        self.nlp = spacy.load("en_core_web_sm")
 
     def apply(self, sentence: str) -> bool:
-        tokenized = self.nlp(sentence, disable=['parser', 'tagger', 'ner'])
+        tokenized = self.nlp(sentence, disable=["parser", "tagger", "ner"])
         contained_keywords = set(tokenized).intersection(set(self.keywords))
         return bool(contained_keywords)

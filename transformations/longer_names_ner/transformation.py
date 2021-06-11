@@ -24,7 +24,7 @@ class LongerNamesNer(TaggingOperation):
             next = begin + 1
             if next < len(tag_sequence) and "I-PER" == tag_sequence[next]:
                 for _ in range(self.no_of_repeats):
-                    random_upper_letter = chr(random.randint(ord('A'), ord('Z')))
+                    random_upper_letter = chr(random.randint(ord("A"), ord("Z")))
                     token_sequence.insert(next, random_upper_letter)
                     tag_sequence.insert(next, "I-PER")
         return token_sequence, tag_sequence
