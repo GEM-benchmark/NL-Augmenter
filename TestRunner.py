@@ -23,7 +23,7 @@ def load_test_cases(test_json):
         )
 
 
-class Runs(object):
+class TransformationRuns(object):
     def __init__(self, interface, perturbation_type, load_tests=True):
         self.transformation = None
         self.test_cases = None

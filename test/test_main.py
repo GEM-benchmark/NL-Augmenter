@@ -1,6 +1,6 @@
 import pytest
 
-from TestRunner import Runs, FilterRuns
+from TestRunner import TransformationRuns, FilterRuns
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
 from interfaces.TaggingOperation import TaggingOperation
@@ -14,7 +14,9 @@ def getMessage(transformation, impl_name):
 
 def test_execute_sentence_operation_test_case(perturbation_type):
     transformation = SentenceOperation
-    tx = Runs(interface=transformation, perturbation_type=perturbation_type)
+    tx = TransformationRuns(
+        interface=transformation, perturbation_type=perturbation_type
+    )
     if tx.transformation is not None and tx.test_cases is not None:
         for test in tx.test_cases:
             assert test["output"] == tx.transformation.generate(
@@ -26,7 +28,9 @@ def test_execute_sentence_operation_test_case(perturbation_type):
 
 def test_execute_sentence_target_operation_test_case(perturbation_type):
     transformation = SentenceAndTargetOperation
-    tx = Runs(interface=transformation, perturbation_type=perturbation_type)
+    tx = TransformationRuns(
+        interface=transformation, perturbation_type=perturbation_type
+    )
     if tx.transformation is not None and tx.test_cases is not None:
         for test in tx.test_cases:
             output_x, output_y = tx.transformation.generate(
@@ -44,7 +48,9 @@ def test_execute_sentence_target_operation_test_case(perturbation_type):
 
 def test_execute_ques_ans_test_case(perturbation_type):
     transformation = QuestionAnswerOperation
-    tx = Runs(interface=transformation, perturbation_type=perturbation_type)
+    tx = TransformationRuns(
+        interface=transformation, perturbation_type=perturbation_type
+    )
     if tx.transformation is not None and tx.test_cases is not None:
         for test in tx.test_cases:
             output_c, output_q, output_a = tx.transformation.generate(
@@ -65,7 +71,9 @@ def test_execute_ques_ans_test_case(perturbation_type):
 
 def test_execute_tagging_test_case(perturbation_type):
     transformation = TaggingOperation
-    tx = Runs(interface=transformation, perturbation_type=perturbation_type)
+    tx = TransformationRuns(
+        interface=transformation, perturbation_type=perturbation_type
+    )
     if tx.transformation is not None and tx.test_cases is not None:
         for test in tx.test_cases:
             output_sequence, output_tag = tx.transformation.generate(
