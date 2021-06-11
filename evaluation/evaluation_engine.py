@@ -2,6 +2,8 @@ from datasets import load_dataset
 from transformers import pipeline
 import sacrebleu
 
+from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
+from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 """
@@ -37,7 +39,7 @@ def get_task_type(implementation, task_type):
             "Undefined task type, switching to default task %s",
             implementation.tasks[0].name,
         )
-        return implementation.tasks[0]
+        return str(implementation.tasks[0]).split(".")[1]
     return task_type
 
 
@@ -53,21 +55,21 @@ def execute_model(
     impl = implementation()
     if locale is "en":
         if (
-            interface.__name__ is "SentenceOperation"
+            isinstance(impl, SentenceOperation)
             and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION
         ):
             evaluate_text_classifier(
                 impl, model, dataset, split=f"test[:{percentage_of_examples}%]"
             )
         elif (
-            interface.__name__ is "QuestionAnswerOperation"
+            isinstance(impl, QuestionAnswerOperation)
             and TaskType[task_type] == TaskType.QUESTION_ANSWERING
         ):
             evaluate_question_answering_model(
                 impl, model, dataset, split=f"validation[:{percentage_of_examples}%]"
             )
         elif (
-            interface.__name__ is "SentenceOperation"
+            isinstance(impl, SentenceOperation)
             and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION
         ):
             evaluate_text_summarization(
@@ -144,7 +146,7 @@ def evaluate_text_summarization(
     transformed_summary_score = transformed_summary_score / len(dataset)
 
     print(
-        f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset"
+        f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset"
     )
     print(
         f"The average bleu score on a subset of {dataset_name} = {predicted_summary_score}"
@@ -180,7 +182,7 @@ def evaluate_text_classifier(
             pt_accuracy += 1
         total += 1
     print(
-        f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset"
+        f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset"
     )
     print(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
     print(
@@ -224,7 +226,7 @@ def evaluate_question_answering_model(
             pt_accuracy += 1
         total += 1
     print(
-        f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset"
+        f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset"
     )
     print(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
     print(

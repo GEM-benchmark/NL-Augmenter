@@ -83,5 +83,4 @@ class ButterFingersPerturbation(SentenceOperation):
 
     def generate(self, sentence: str):
         pertubed = butter_finger(text=sentence, prob=0.05, seed=self.seed)
-        print(f"Perturbed Input from {self.name()} : {pertubed}")
         return pertubed

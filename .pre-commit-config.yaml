@@ -1,4 +1,5 @@
-#For more info in pre-commit refer: https://pre-commit.com/#using-the-latest-version-for-a-repository
+#For more info in pre-commit refer: https://pre-commit.com/#using-the-latest-version-for-a-repository and
+# https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/
 repos:
 -   repo: https://github.com/psf/black
     rev: 21.5b2

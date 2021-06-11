@@ -105,7 +105,8 @@ class ChangeTwoWayNamedEntities(SentenceAndTargetOperation):
         if len(ret) > 0 and ret[0] != sentence:
             perturbed_source = ret[0]
             perturbed_target = outs[0]
-        print(
-            f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}"
-        )
+        if self.verbose:
+            print(
+                f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}"
+            )
         return perturbed_source, perturbed_target

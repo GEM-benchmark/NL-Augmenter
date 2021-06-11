@@ -1,6 +1,6 @@
 import pytest
 
-from TestRunner import Runs
+from TestRunner import Runs, FilterRuns
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
 from interfaces.TaggingOperation import TaggingOperation
@@ -79,6 +79,14 @@ def test_execute_tagging_test_case(perturbation_type):
             ), f"Should have generated {test['output_tag']}"
     else:
         print(getMessage(transformation.__name__, perturbation_type))
+
+
+def test_execute_filter_test_case():
+    tx = FilterRuns()
+    for filter, test in zip(tx.filters, tx.filter_test_cases):
+        filter_args = test["filter_args"]
+        output = filter.filter(**filter_args)
+        assert output == test["output"], f"The filter should return {test['output']}"
 
 
 def main():
