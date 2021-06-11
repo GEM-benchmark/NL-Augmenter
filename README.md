@@ -24,7 +24,7 @@ Transformations which are already accepted to NL-Augmenter are summarized in [th
 
 ## Colab notebook
 
-<a href="https://github.com/GEM-benchmark/NL-Augmenter" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> 
+<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/NL_Augmenter_Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> 
 
 ## Installation
 ```bash
