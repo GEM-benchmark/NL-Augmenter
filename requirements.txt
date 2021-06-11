@@ -13,6 +13,9 @@ sacrebleu==1.5.1
 checklist==0.0.10
 spacy==2.2.4
 
+# for utility
+tqdm==4.61.0
+
 # Google colab 2nd example
 sentencepiece==0.1.95
 
