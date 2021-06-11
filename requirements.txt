@@ -15,3 +15,7 @@ spacy==2.2.4
 
 # Google colab 2nd example
 sentencepiece==0.1.95
+
+# for code format
+black
+pre-commit

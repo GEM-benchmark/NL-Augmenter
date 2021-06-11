@@ -9,13 +9,13 @@ Base Class for implementing the different input transformations a generation sho
 
 class SentenceOperation(Operation):
     """
-     The base class for implementing sentence-level perturbations and transformations.
+    The base class for implementing sentence-level perturbations and transformations.
 
-     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
-     given in tasks.TaskType.
+    "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
+    given in tasks.TaskType.
 
-     "locales" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
-     "en_IN"
+    "locales" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
+    "en_IN"
     """
 
     def generate(self, sentence: str) -> str:
@@ -27,14 +27,14 @@ class SentenceOperation(Operation):
 
 class SentenceAndTargetOperation(Operation):
     """
-     The base class for implementing sentence-pair-level perturbations and transformations. The target could be
-     either a class label (eg. sentiment analysis) or a target utterance (eg. machine translation).
+    The base class for implementing sentence-pair-level perturbations and transformations. The target could be
+    either a class label (eg. sentiment analysis) or a target utterance (eg. machine translation).
 
-     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
-     given in tasks.TaskType.
+    "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
+    given in tasks.TaskType.
 
-     "src_locales", "tgt_locales :: The locales and/or languages for which this perturbation is applicable. eg. "es",
-     "mr","en_IN"
+    "src_locales", "tgt_locales :: The locales and/or languages for which this perturbation is applicable. eg. "es",
+    "mr","en_IN"
     """
 
     src_locale = None
@@ -58,14 +58,14 @@ class SentenceAndTargetOperation(Operation):
 
 class SentenceAndTargetsOperation(Operation):
     """
-     The base class for implementing sentence-pair-level perturbations and transformations. There can be
-     muliple targets eg. multiple references in machine translation.
+    The base class for implementing sentence-pair-level perturbations and transformations. There can be
+    muliple targets eg. multiple references in machine translation.
 
-     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
-     given in tasks.TaskType.
+    "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
+    given in tasks.TaskType.
 
-     "src_locales", "tgt_locales :: The locales and/or languages for which this perturbation is applicable. eg. "es",
-     "mr","en_IN"
+    "src_locales", "tgt_locales :: The locales and/or languages for which this perturbation is applicable. eg. "es",
+    "mr","en_IN"
     """
 
     src_locale = None
