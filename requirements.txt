@@ -14,8 +14,5 @@ transformers==4.2.1
 sacrebleu==1.5.1
 seqeval==1.2.2
 
-checklist==0.0.10
-spacy==2.2.4
-
 # Google colab 2nd example
 sentencepiece==0.1.95
