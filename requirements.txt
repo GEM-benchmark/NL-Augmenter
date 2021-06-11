@@ -14,11 +14,11 @@ checklist==0.0.10
 spacy==2.2.4
 
 # for utility
-tqdm==4.61.0
+tqdm==4.49
 
 # Google colab 2nd example
 sentencepiece==0.1.95
 
 # for code format
-black
-pre-commit
+black==21.5b2
+pre-commit==2.13.0
