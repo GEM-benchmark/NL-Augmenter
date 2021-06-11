@@ -22,6 +22,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pytest
+        pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
         pip install ./
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
