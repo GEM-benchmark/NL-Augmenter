@@ -59,24 +59,6 @@ def execute_model(implementation, task_type, locale="en", model=None, dataset=No
               f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
               f"and call it from execute_model. That's it!")
 
-def conll_tokens_to_sentence(token_list):
-    # create sentence from conll2003 tokens
-    white_space = " "
-    sentence = ""
-    is_hyphen_prev_token = False
-    for token in token_list:
-        if(token == "-"):
-            sentence = sentence + token
-            is_hyphen_prev_token = True
-        elif(token == ","):
-            sentence = sentence + token
-        else:
-            if(is_hyphen_prev_token):
-                sentence = sentence + token
-                is_hyphen_prev_token = False
-            else:
-                sentence = sentence + white_space + token
-    return sentence
 
 def convert_ner_ids_to_tags(ner_tags):
     # convert list of ner ids [0,1,2,0] to list of ner tags ['0', 'B-PER', 'I-PER', '0']
