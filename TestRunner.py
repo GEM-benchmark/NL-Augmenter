@@ -1,6 +1,7 @@
 import json
 import os
 import inspect
+import re
 
 from importlib import import_module
 from pathlib import Path
@@ -46,12 +47,25 @@ class TransformationRuns(object):
                         break
                 break
 
+    @staticmethod
+    def get_test_cases(interface, implementation):
+        name_of_transformation = convert_to_snake_case(implementation.name())
+        # iterate through the modules in the current package
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        transformations_dir = package_dir.parent.joinpath("transformations")
+        for (_, m, _) in iter_modules([transformations_dir]):
+            if m == name_of_transformation:
+                t_py = import_module(f"transformations.{m}.transformation")
+                for cls in interface.__subclasses__():
+                    if hasattr(t_py, cls.__name__):
+                        t_js = os.path.join(transformations_dir, m, "test.json")
+                        return load_test_cases(t_js)
+                break
+
     # bit of cleanup required, filters need to be added.
     @staticmethod
     def get_all_transformations(query_task_type: TaskType) -> Iterable:
         # iterate through the modules in the current package
-        package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        transformations_dir = package_dir.parent.joinpath("transformations")
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath("transformations")
         for (_, m, _) in iter_modules([transformations_dir]):
@@ -93,7 +107,7 @@ def get_implementation(tx_name: str):
         t_py = import_module(f"transformations.{tx_name}.transformation")
     except ModuleNotFoundError as error:
         raise Exception(
-            f"Transformation folder of name {tx_name} is not found.\n {error}"
+            f"Transformation folder of name {tx_name} is not found. Make sure you've spelt it correctly!\n {error}"
         )
     TxName = convert_to_camel_case(tx_name)
     try:
@@ -108,6 +122,9 @@ def get_implementation(tx_name: str):
 def convert_to_camel_case(word):
     return "".join(x.capitalize() or "_" for x in word.split("_"))
 
+def convert_to_snake_case(camel_case):
+    name = re.sub(r'(?<!^)(?=[A-Z])', '_', camel_case).lower()
+    return name
 
 if __name__ == '__main__':
     for transformation in TransformationRuns.get_all_transformations(TaskType.TEXT_CLASSIFICATION):
