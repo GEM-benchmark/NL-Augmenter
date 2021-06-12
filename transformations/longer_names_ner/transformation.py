@@ -25,7 +25,8 @@ class LongerNamesNer(TaggingOperation):
         tag = "PERSON" if "B-PERSON" in tag_sequence else "PER"
         b_tag = "B-" + tag
         i_tag = "I-" + tag
-        assert len(token_sequence) == len(tag_sequence), "Lengths of token_sequence and tag_sequence should be the same"
+        assert len(token_sequence) == len(tag_sequence), \
+            "Lengths of `token_sequence` and `tag_sequence` should be the same"
         if b_tag in tag_sequence:
             begin = tag_sequence.index(b_tag)
             next = begin + 1

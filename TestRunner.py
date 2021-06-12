@@ -64,7 +64,7 @@ class TransformationRuns(object):
 
     # bit of cleanup required, filters need to be added.
     @staticmethod
-    def get_all_transformations(query_task_type: TaskType) -> Iterable:
+    def get_all_transformations_for_task(query_task_type: TaskType) -> Iterable:
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath("transformations")
@@ -76,9 +76,26 @@ class TransformationRuns(object):
                     if tasks is not None and query_task_type in tasks:
                         yield load(t_py, obj)
 
+    @staticmethod
+    def get_all_transformation_names(heavy=False) -> Iterable:
+        # iterate through the modules in the current package
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        transformations_dir = package_dir.parent.joinpath("transformations")
+        for (_, m, _) in iter_modules([transformations_dir]): # ---> ["back_translation", ...]
+            t_py = import_module(f"transformations.{m}.transformation")
+            for name, obj in inspect.getmembers(t_py):
+                if convert_to_camel_case(m) == name:
+                    if inspect.isclass(obj) and hasattr(obj, "heavy"):
+                        is_heavy = obj.is_heavy()
+                        if not is_heavy:
+                            yield m
+                        else:
+                            if heavy:
+                                yield m
+
 
 class FilterRuns(object):
-    
+
     def __init__(self):
         filters = []
         filter_test_cases = []
@@ -122,11 +139,15 @@ def get_implementation(tx_name: str):
 def convert_to_camel_case(word):
     return "".join(x.capitalize() or "_" for x in word.split("_"))
 
+
 def convert_to_snake_case(camel_case):
     name = re.sub(r'(?<!^)(?=[A-Z])', '_', camel_case).lower()
     return name
 
+
 if __name__ == '__main__':
-    for transformation in TransformationRuns.get_all_transformations(TaskType.TEXT_CLASSIFICATION):
+    for tx in TransformationRuns.get_all_transformation_names(True):
+        print(tx)
+    for transformation in TransformationRuns.get_all_transformations_for_task(TaskType.TEXT_CLASSIFICATION):
         print(transformation.generate("This is a quick test code to show all the transformations "
                                       "for a particular task type!"))

@@ -13,8 +13,9 @@ class Operation(object):
         if self.verbose:
             print(f"Loading Operation {self.name()}")
 
-    def is_heavy(self):
-        return self.heavy
+    @classmethod
+    def is_heavy(cls):
+        return cls.heavy
 
     @classmethod
     def domain(cls):
