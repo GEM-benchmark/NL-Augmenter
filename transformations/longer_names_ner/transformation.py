@@ -20,8 +20,6 @@ class LongerNamesNer(TaggingOperation):
         self.no_of_repeats = no_of_repeats
 
     def generate(self, token_sequence: List[str], tag_sequence: List[str]):
-        print(" ".join(token_sequence))
-        print(" ".join(tag_sequence))
         tag = "PERSON" if "B-PERSON" in tag_sequence else "PER"
         b_tag = "B-" + tag
         i_tag = "I-" + tag
@@ -35,6 +33,4 @@ class LongerNamesNer(TaggingOperation):
                     random_upper_letter = chr(random.randint(ord("A"), ord("Z")))
                     token_sequence.insert(next, random_upper_letter)
                     tag_sequence.insert(next, i_tag)
-        print(" ".join(token_sequence))
-        print(" ".join(tag_sequence))
         return token_sequence, tag_sequence
