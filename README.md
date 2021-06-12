@@ -92,7 +92,7 @@ Alternatively, you can do so from the GitHub website.
 <div style="text-align:center"><img src="https://docs.github.com/assets/images/help/pull_requests/pull-request-start-review-button.png" alt="pull request button" width="500"/></div>
 </a>
 
-:sparkles: Congratulations, you've submitted a transformation to the perturbation repository! :sparkles:
+:sparkles: Congratulations, you've submitted a transformation to NL-Augmenter! :sparkles:
 
 ## What's more besides transformations?
 
