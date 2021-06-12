@@ -8,14 +8,14 @@ import spacy
 from tasks.TaskTypes import TaskType
 
 
-class ChangeTwoWayNamedEntities(SentenceAndTargetOperation):
+class ChangeTwoWayNe(SentenceAndTargetOperation):
     """
     Repository of names has been taken from the CheckList repo.
     @TODO - need to extend this to other NEs like location, etc.
     @TODO - also this needs to move into a separate folder.
     """
 
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     src_locales = ["en"]
     tgt_locales = ["en"]
 

@@ -12,13 +12,3 @@ This directory contains transformations that are part of the Natural Language Au
 | [without_punctuation](punctuation)        | Welcome to New York city! --> Welcome to New York city
 | [replace_numerical_values](replace_numerical_values)        | Changes numerical values. Jason's 3 sisters want to move back to India --> Jason's 6 sisters want to move back to India
 | [redundant_context_for_qa](redundant_context_for_qa)        | Duplicates the context in a QA setting. (context, question, short-answer) --> (context+context, question, short-answer)
-
-
-
-
-The following describes the list of filters or conditions which split the dataset into contrast sets.
-
-| Filter                             | Description                                                                       
-| ------- | -----------                          
-| [TextContainsKeywordsFilter](../filters)              | Selects examples which contain a pre-defined set of words.                
-| [TextLengthFilter](../filters)     | Selects sentences/paragraphs of a specified length.

@@ -1,6 +1,6 @@
 import argparse
 
-from TestRunner import load_implementation
+from TestRunner import get_implementation
 from evaluation.evaluation_engine import evaluate
 
 parser = argparse.ArgumentParser(
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Identify the transformation that the user has mentioned.
-    implementation = load_implementation(args.transformation)
+    implementation = get_implementation(args.transformation)
     # Use the tasks and the locales of an implementation to retrieve an HF model and a test set.
     locales = implementation.locales
     if locales != "All" and args.locale not in locales:

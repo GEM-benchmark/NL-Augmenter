@@ -1,6 +1,6 @@
 # NL-Augmenter 🦎 → 🐍
 
-The NL-Augmenter is a collaborative effort intended to accumulate all transformations operating over tasks dealing with natural language. We invite submissions of transformations to this framework by way of GitHub pull request, through August 1, 2021. All submitters of accepted transformation will be included as co-authors on a paper announcing this framework. 
+The NL-Augmenter is a collaborative effort intended to accumulate all transformations operating over tasks dealing with natural language. We invite submissions of transformations to this framework by way of GitHub pull request, through August 1, 2021. All submitters of accepted transformations will be included as co-authors on a paper announcing this framework. 
 
 The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
@@ -20,7 +20,7 @@ Transformations which are already accepted to NL-Augmenter are summarized in [th
 * [Colab notebook](#colab-notebook)
 * [Installation](#installation)
 * [How do I create a transformation?](#how-do-i-create-a-transformation)
-* [Review Criteria for Accepting Submissions](#review-criteria)
+* [Review Criteria for Accepting Submissions](docs/doc.md#review-criteria-for-submissions)
 
 ## Colab notebook
 
@@ -92,6 +92,10 @@ Alternatively, you can do so from the GitHub website.
 <div style="text-align:center"><img src="https://docs.github.com/assets/images/help/pull_requests/pull-request-start-review-button.png" alt="pull request button" width="500"/></div>
 </a>
 
-:sparkles: Congratulations, you've submitted a transformation to the perturbation repository! :sparkles:
+:sparkles: Congratulations, you've submitted a transformation to NL-Augmenter! :sparkles:
 
-There's more than just a transformation that you could contribute to NL-Augmenter by the deadline - [filters](filters)!  
+## What's more besides transformations?
+
+You could also contribute the following to NL-Augmenter by the deadline:
+ - [Filters](filters)
+ - [Contrast-Sets](filters)

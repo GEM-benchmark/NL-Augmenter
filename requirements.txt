@@ -15,7 +15,7 @@ sacrebleu==1.5.1
 seqeval==1.2.2
 
 # for utility
-tqdm==4.49
+tqdm
 
 # Google colab 2nd example
 sentencepiece==0.1.95
