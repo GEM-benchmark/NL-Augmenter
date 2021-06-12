@@ -24,7 +24,7 @@ Transformations will be subject to a lightweight, public, and non-anonymous revi
 
 Each transformation will receive two reviews. The transformation may be edited in response to the reviews. Final decisions will then be made by a meta-review committee. Authors of transformation submissions may be asked to join the reviewer pool after their own transformation is accepted.
 
-### Review Criteria for Submissions
+## Review Criteria for Submissions
 **Correctness:** Transformations must be valid Python code and must pass tests. 
 
 **Interface:** Participants should ensure that they use the correct interface. The complete list is mentioned [here.](../interfaces) Eg. for tasks like machine translation, a transformation which changes the value of a named entity (Andrew->Jason) might need parallel changes in the output too. And hence, it might be more appropriate to use `SentenceAndTargetOperation` or `SentenceAndTargetsOperation` rather than `SentenceOperation`.
@@ -36,23 +36,23 @@ class ButterFingersPerturbation(SentenceOperation):
     locales = ["en"]
 ```
 
-**Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific transformation. Eg. a perturbation which reverses the gender pronouns could give insights about gender bias in models, etc.
+**Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific transformation. Eg. a perturbation which only reverses the gender pronouns could give insights about gender bias in models, etc.
 
-**Adding New Libraries:** We welcome addition of libraries which are light and can be installed via pip. Every library should specify the version number associated and be added in requirements.txt. 
+**Adding New Libraries:** We welcome addition of libraries which are light and can be installed via pip. Every library should specify the version number associated and be added in requirements.txt. However, it's not highly encouraged to use heavy libraries for a few lines of code which can be replicated directly.
 
 **Description:** The `README.md` file should clearly explain what the transformation is attempting to generate as well as the importance of that transformation for the specified tasks.
 
-**Paraphrasers and Data Augmenters:** Besides perturbations, we strongly encourage transformation methods which act like paraphrasers and data augmenters. For non-deterministic approaches, we encourage you to specify metrics which could provide an estimate of the quality of generation. It is preferred to have a high precision transformation generator as compared to a low accuracy one. And hence it's okay to selectively generate.
+**Paraphrasers and Data Augmenters:** Besides perturbations, we strongly encourage transformation methods which act like paraphrasers and data augmenters. For non-deterministic approaches, we encourage you to specify metrics which could provide an estimate of the quality of generation. It is preferred to have a high precision transformation generator as compared to a low accuracy one. And hence it's okay if your transformation selectively generates. If your transformation loads a deep-learning model, especially a heavy one (like BERT or T5 or their cousins), set the `heavy` variable to `True`.
  
-**Test Cases:** At least 5 examples should be added in the file `test.json` as test cases for every added transformation. These examples serve as test cases as well as provide a glimpse of what the transformation takes as input and what it generates.
+**Test Cases:** At least 5 examples should be added in the file `test.json` as test cases for every added transformation. These examples serve as test cases as well as provide a glimpse to reviewers of what your transformation generates. The format of `test.json` can be borrowed from the sample transformations [here.](../interfaces)
 
 **Languages other than English:** We also strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
  
 ## Writing a good transformation
-Writing a transformation is a creative process. Transformations could be generated both using machine learning as well as rule based models. While there is no hard core rule, a transformation is worth if it can augment training data qualitatively or be able to generate perturbations which could reveal places where models' performance suffers. One of the quick ways to contribute would be to add a copy of any of the existing transformations for a low-resource language.
+Writing a transformation is a creative process. Transformations could use both machine learning as well as rule based models. While there is no hard core rule, a transformation is worth if it can augment training data qualitatively or be able to generate perturbations which could reveal places where models' performance suffers. One of the quick ways to contribute would be to add a copy of any of the existing transformations for a low-resource language.
 
 ## Evaluating the transformation
  
 
 ## What is the purpose of test.json
-The `test.json` simply serves to keep track of the core logic of transformation that you intend. While working with the code to and fro, you don't want to mistakenly change the output of someone else's code. Besides, it also makes reviewing much simpler as it gives a quick look into the examples that your logic generates.   
+The `test.json` simply serves to keep track of the core logic of transformation that you intend. While working with the code to and fro, you don't want to mistakenly change the output of someone else's code. Additionally, it makes reviewing much simpler as it gives a quick look into the examples that your logic generates.   
