@@ -14,7 +14,7 @@ checklist==0.0.10
 spacy==2.2.4
 
 # for utility
-tqdm==4.49
+tqdm
 
 # Google colab 2nd example
 sentencepiece==0.1.95

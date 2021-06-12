@@ -7,20 +7,23 @@ from tasks.TaskTypes import TaskType
 class BackTranslation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
+    heavy = True
 
     def __init__(self):
         super().__init__()
-        print("Starting to load English to German Translation Model.\n")
+        if self.verbose:
+            print("Starting to load English to German Translation Model.\n")
         name_en_de = "facebook/wmt19-en-de"
         self.tokenizer_en_de = FSMTTokenizer.from_pretrained(name_en_de)
         self.model_en_de = FSMTForConditionalGeneration.from_pretrained(name_en_de)
-        print("Completed loading English to German Translation Model.\n")
-
-        print("Starting to load German to English Translation Model:")
+        if self.verbose:
+            print("Completed loading English to German Translation Model.\n")
+            print("Starting to load German to English Translation Model:")
         name_de_en = "facebook/wmt19-de-en"
         self.tokenizer_de_en = FSMTTokenizer.from_pretrained(name_de_en)
         self.model_de_en = FSMTForConditionalGeneration.from_pretrained(name_de_en)
-        print("Completed loading German to English Translation Model.\n")
+        if self.verbose:
+            print("Completed loading German to English Translation Model.\n")
 
     def back_translate(self, en: str):
         try:
@@ -43,7 +46,8 @@ class BackTranslation(SentenceOperation):
         input_ids = self.tokenizer_de_en.encode(input, return_tensors="pt")
         outputs = self.model_de_en.generate(input_ids)
         decoded = self.tokenizer_de_en.decode(outputs[0], skip_special_tokens=True)
-        print(decoded)  # Machine learning is great, isn't it?
+        if self.verbose:
+            print(decoded)  # Machine learning is great, isn't it?
         return decoded
 
     def generate(self, sentence: str):

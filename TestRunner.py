@@ -1,9 +1,13 @@
 import json
 import os
+import inspect
 
 from importlib import import_module
 from pathlib import Path
 from pkgutil import iter_modules
+
+from typing import Iterable
+from tasks.TaskTypes import TaskType
 
 
 def load(module, cls):
@@ -42,8 +46,25 @@ class TransformationRuns(object):
                         break
                 break
 
+    # bit of cleanup required, filters need to be added.
+    @staticmethod
+    def get_all_transformations(query_task_type: TaskType) -> Iterable:
+        # iterate through the modules in the current package
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        transformations_dir = package_dir.parent.joinpath("transformations")
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        transformations_dir = package_dir.parent.joinpath("transformations")
+        for (_, m, _) in iter_modules([transformations_dir]):
+            t_py = import_module(f"transformations.{m}.transformation")
+            for name, obj in inspect.getmembers(t_py):
+                if inspect.isclass(obj) and hasattr(obj, "tasks"):
+                    tasks = obj.tasks
+                    if tasks is not None and query_task_type in tasks:
+                        yield load(t_py, obj)
+
 
 class FilterRuns(object):
+    
     def __init__(self):
         filters = []
         filter_test_cases = []
@@ -86,3 +107,9 @@ def load_implementation(tx_name: str):
 
 def convert_to_camel_case(word):
     return "".join(x.capitalize() or "_" for x in word.split("_"))
+
+
+if __name__ == '__main__':
+    for transformation in TransformationRuns.get_all_transformations(TaskType.TEXT_CLASSIFICATION):
+        print(transformation.generate("This is a quick test code to show all the transformations "
+                                      "for a particular task type!"))
