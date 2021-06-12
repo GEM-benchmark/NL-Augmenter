@@ -28,20 +28,20 @@ def load_test_cases(test_json):
 
 
 class TransformationRuns(object):
-    def __init__(self, interface, perturbation_type, load_tests=True):
+    def __init__(self, interface, name_of_transformation, load_tests=True):
         self.transformation = None
         self.test_cases = None
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath("transformations")
         for (_, m, _) in iter_modules([transformations_dir]):
-            if m == perturbation_type:
+            if m == name_of_transformation:
                 t_py = import_module(f"transformations.{m}.transformation")
-                t_js = os.path.join(transformations_dir, m, "test.json")
                 for cls in interface.__subclasses__():
                     if hasattr(t_py, cls.__name__):
                         self.transformation = load(t_py, cls)
                         if load_tests:
+                            t_js = os.path.join(transformations_dir, m, "test.json")
                             self.test_cases = load_test_cases(t_js)
                         break
                 break
@@ -88,7 +88,7 @@ class FilterRuns(object):
         self.filter_test_cases = filter_test_cases
 
 
-def load_implementation(tx_name: str):
+def get_implementation(tx_name: str):
     try:
         t_py = import_module(f"transformations.{tx_name}.transformation")
     except ModuleNotFoundError as error:

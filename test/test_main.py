@@ -6,16 +6,16 @@ from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOpe
 from interfaces.TaggingOperation import TaggingOperation
 
 
-def getMessage(transformation, impl_name):
-    return "For {transformation}, no transformation or test case found for {impl_name}".format(
-        transformation=transformation, impl_name=impl_name
+def getMessage(transformation_type, impl_name):
+    return "Skipping {transformation} test cases.".format(
+        transformation=transformation_type
     )
 
 
-def test_execute_sentence_operation_test_case(perturbation_type):
-    transformation = SentenceOperation
+def test_execute_sentence_operation_test_case(name_of_transformation):
+    interface = SentenceOperation
     tx = TransformationRuns(
-        interface=transformation, perturbation_type=perturbation_type
+        interface=interface, name_of_transformation=name_of_transformation
     )
     if tx.transformation is not None and tx.test_cases is not None:
         for test in tx.test_cases:
@@ -23,13 +23,13 @@ def test_execute_sentence_operation_test_case(perturbation_type):
                 test["input"]
             ), f"Should have generated {test['output']}"
     else:
-        print(getMessage(transformation.__name__, perturbation_type))
+        print(getMessage(interface.__name__, name_of_transformation))
 
 
-def test_execute_sentence_target_operation_test_case(perturbation_type):
-    transformation = SentenceAndTargetOperation
+def test_execute_sentence_target_operation_test_case(name_of_transformation):
+    interface = SentenceAndTargetOperation
     tx = TransformationRuns(
-        interface=transformation, perturbation_type=perturbation_type
+        interface=interface, name_of_transformation=name_of_transformation
     )
     if tx.transformation is not None and tx.test_cases is not None:
         for test in tx.test_cases:
@@ -43,13 +43,13 @@ def test_execute_sentence_target_operation_test_case(perturbation_type):
                 output_y == test["output_y"]
             ), f"Should have generated {test['output_y']}"
     else:
-        print(getMessage(transformation.__name__, perturbation_type))
+        print(getMessage(interface.__name__, name_of_transformation))
 
 
-def test_execute_ques_ans_test_case(perturbation_type):
-    transformation = QuestionAnswerOperation
+def test_execute_ques_ans_test_case(name_of_transformation):
+    interface = QuestionAnswerOperation
     tx = TransformationRuns(
-        interface=transformation, perturbation_type=perturbation_type
+        interface=interface, name_of_transformation=name_of_transformation
     )
     if tx.transformation is not None and tx.test_cases is not None:
         for test in tx.test_cases:
@@ -66,18 +66,18 @@ def test_execute_ques_ans_test_case(perturbation_type):
                 output_a == test["output_a"]
             ), f"Should have generated {test['output_a']}"
     else:
-        print(getMessage(transformation.__name__, perturbation_type))
+        print(getMessage(interface.__name__, name_of_transformation))
 
 
-def test_execute_tagging_test_case(perturbation_type):
-    transformation = TaggingOperation
+def test_execute_tagging_test_case(name_of_transformation):
+    interface = TaggingOperation
     tx = TransformationRuns(
-        interface=transformation, perturbation_type=perturbation_type
+        interface=interface, name_of_transformation=name_of_transformation
     )
     if tx.transformation is not None and tx.test_cases is not None:
         for test in tx.test_cases:
             output_sequence, output_tag = tx.transformation.generate(
-                test["input_sequence"], test["input_tag"]
+                test["input_sequence"].split(" "), test["input_tag"].split(" ")
             )
             assert (
                 output_sequence == test["output_sequence"]
@@ -86,7 +86,7 @@ def test_execute_tagging_test_case(perturbation_type):
                 output_tag == test["output_tag"]
             ), f"Should have generated {test['output_tag']}"
     else:
-        print(getMessage(transformation.__name__, perturbation_type))
+        print(getMessage(interface.__name__, name_of_transformation))
 
 
 def test_execute_filter_test_case():
