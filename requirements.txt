@@ -14,5 +14,12 @@ transformers==4.2.1
 sacrebleu==1.5.1
 seqeval==1.2.2
 
+# for utility
+tqdm==4.49
+
 # Google colab 2nd example
 sentencepiece==0.1.95
+
+# for code format
+black==21.5b2
+pre-commit==2.13.0

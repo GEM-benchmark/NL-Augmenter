@@ -14,7 +14,7 @@ class NumericalTransformation:
     nlp = None
 
     def __init__(self):
-        self.nlp = spacy.load('en_core_web_sm')
+        self.nlp = spacy.load("en_core_web_sm")
 
     def transform(self, input_text: str):
         doc = self.nlp(input_text)
@@ -22,7 +22,9 @@ class NumericalTransformation:
         for entity in doc.ents:
             new_value = None
 
-            if entity.label_ == "CARDINAL" and not re.search('[_]|[-]|[:]|[/]|[(]|[)]', entity.text):
+            if entity.label_ == "CARDINAL" and not re.search(
+                "[_]|[-]|[:]|[/]|[(]|[)]", entity.text
+            ):
                 # Flag if the value has formatting:
                 has_formatting = False
                 is_fraction = False
@@ -74,7 +76,11 @@ class NumericalTransformation:
                         new_value = random.randint(0, value_tens)
                         new_value = num2words(new_value)
                     except ValueError as ve:
-                        print("Value: {} is not recognised as an alpha-number".format(cardinal_value))
+                        print(
+                            "Value: {} is not recognised as an alpha-number".format(
+                                cardinal_value
+                            )
+                        )
 
             if new_value:
                 input_text = input_text.replace(entity.text, str(new_value))

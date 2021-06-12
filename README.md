@@ -24,7 +24,7 @@ Transformations which are already accepted to NL-Augmenter are summarized in [th
 
 ## Colab notebook
 
-<a href="https://github.com/GEM-benchmark/NL-Augmenter" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> 
+<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/NL_Augmenter_Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> 
 
 ## Installation
 ```bash
@@ -71,6 +71,10 @@ Once the transformation is ready, test it:
 pytest -s --t=my_awesome_transformation
 ```
 [Optional] If you would like to evaluate your transformation against a common HuggingFace 🤗 model, we suggest you to call [evaluate.py](evaluation)
+
+**Code Styling** To standardized the code we use the [black](https://github.com/psf/black) code formatter which will run at the time of pre-commit.
+To use pre-commit hook, install `pre-commit` with `pip install pre-commit` (installed by default if you've followed the above instructions). 
+Then run `pre-commit install` to install the hook. On future commits, you should see the black code formatter is run on all python files you've staged for commit.
 
 ### Submitting
 
