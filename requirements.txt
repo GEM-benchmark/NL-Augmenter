@@ -11,7 +11,7 @@ transformers==4.2.1
 sacrebleu==1.5.1
 
 checklist==0.0.10
-spacy==2.2.4
+spacy==3.0.6
 
 # for utility
 tqdm
