@@ -47,17 +47,25 @@ Dataset for data in plain texts where each line is a datapoint
 class TextLineDataset(BaseDataset):
     tasks = [TaskType.TEXT_CLASSIFICATION]
     
-    def __init__(self, data: List[str]):
+    def __init__(self, data: List[str], labels: List):
         super(TextLineDataset, self).__init__(data)
+        assert len(data) == len(
+            labels), "The number of datapoint should be the same as the number of labels"
+        self.labels = labels
+        self.mapping = {datapoint:label
+                        for datapoint, label in zip(self.data, self.labels)}
         
     def apply_filter(self, filter: SentenceOperation):
         filtered_data = []
+        filtered_labels = []
         print("Applying filtering:")
-        for line in tqdm(self.data):
-            if filter.filter(line):
-                filtered_data.append(line)
+        for datapoint, label in tqdm(zip(self.data, self.labels)):
+            if filter.filter(datapoint):
+                filtered_data.append(datapoint)
+                filtered_labels.append(label)
         self.data = filtered_data
-        return self.data
+        self.labels = filtered_labels
+        return self.data, self.labels
 
     def apply_transformation(self, transformation: SentenceOperation):
         transformed_data = []
@@ -65,19 +73,26 @@ class TextLineDataset(BaseDataset):
         for line in tqdm(self.data):
             transformed_data.append(transformation.generate(line))
         self.data = transformed_data
-        return self.data
+        return self.data, self.labels
     
     def __len__(self):
         return len(self.data)
         
     def __or__(self, other: TextLineDataset):
-        return list(set(self.data).union(set(other.data)))
+        data = list(set(self.data).union(set(other.data)))
+        mapping = {**self.mapping, **other.mapping}
+        labels = [mapping[datapoint] for datapoint in data]
+        return data, labels
 
     def __and__(self, other: TextLineDataset):
-        return list(set(self.data).intersection(set(other.data)))
+        data = list(set(self.data).intersection(set(other.data)))
+        labels = [self.mapping[datapoint] for datapoint in data]
+        return data, labels
 
     def __sub__(self, other: TextLineDataset):
-        return list(set(self.data).difference(set(other.data)))
+        data = list(set(self.data).difference(set(other.data)))
+        labels = [self.mapping[datapoint] for datapoint in data]
+        return data, labels
 
 
 '''
