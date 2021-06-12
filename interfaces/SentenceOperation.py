@@ -45,10 +45,6 @@ class SentenceAndTargetOperation(Operation):
     def domain(cls):
         return cls.tasks, cls.src_locale, cls.tgt_locale
 
-    @classmethod
-    def name(cls):
-        return cls.__name__
-
     def generate(self, sentence: str, target: str) -> Tuple[str, str]:
         raise NotImplementedError
 
@@ -75,10 +71,6 @@ class SentenceAndTargetsOperation(Operation):
     @classmethod
     def domain(cls):
         return cls.tasks, cls.src_locale, cls.tgt_locale
-
-    @classmethod
-    def name(cls):
-        return cls.__name__
 
     def generate(self, sentence: str, target: List[str]) -> Tuple[str, List[str]]:
         raise NotImplementedError

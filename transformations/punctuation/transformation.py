@@ -16,5 +16,6 @@ class Punctuation(SentenceOperation):
     def generate(self, sentence: str):
         pertubed = Perturb.punctuation(self.nlp(sentence))
         pertubed = pertubed[0]  # Just take the first one for now.
-        print(f"Perturbed Input from {self.name()} : {pertubed}")
+        if self.verbose:
+            print(f"Perturbed Input from {self.name()} : {pertubed}")
         return pertubed

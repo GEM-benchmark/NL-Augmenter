@@ -1,6 +1,7 @@
 import json
 import os
 import inspect
+import re
 
 from importlib import import_module
 from pathlib import Path
@@ -28,30 +29,43 @@ def load_test_cases(test_json):
 
 
 class TransformationRuns(object):
-    def __init__(self, interface, perturbation_type, load_tests=True):
+    def __init__(self, interface, name_of_transformation, load_tests=True):
         self.transformation = None
         self.test_cases = None
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath("transformations")
         for (_, m, _) in iter_modules([transformations_dir]):
-            if m == perturbation_type:
+            if m == name_of_transformation:
                 t_py = import_module(f"transformations.{m}.transformation")
-                t_js = os.path.join(transformations_dir, m, "test.json")
                 for cls in interface.__subclasses__():
                     if hasattr(t_py, cls.__name__):
                         self.transformation = load(t_py, cls)
                         if load_tests:
+                            t_js = os.path.join(transformations_dir, m, "test.json")
                             self.test_cases = load_test_cases(t_js)
                         break
                 break
 
-    # bit of cleanup required, filters need to be added.
     @staticmethod
-    def get_all_transformations(query_task_type: TaskType) -> Iterable:
+    def get_test_cases(interface, implementation):
+        name_of_transformation = convert_to_snake_case(implementation.name())
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath("transformations")
+        for (_, m, _) in iter_modules([transformations_dir]):
+            if m == name_of_transformation:
+                t_py = import_module(f"transformations.{m}.transformation")
+                for cls in interface.__subclasses__():
+                    if hasattr(t_py, cls.__name__):
+                        t_js = os.path.join(transformations_dir, m, "test.json")
+                        return load_test_cases(t_js)
+                break
+
+    # bit of cleanup required, filters need to be added.
+    @staticmethod
+    def get_all_transformations_for_task(query_task_type: TaskType) -> Iterable:
+        # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath("transformations")
         for (_, m, _) in iter_modules([transformations_dir]):
@@ -62,9 +76,26 @@ class TransformationRuns(object):
                     if tasks is not None and query_task_type in tasks:
                         yield load(t_py, obj)
 
+    @staticmethod
+    def get_all_transformation_names(heavy=False) -> Iterable:
+        # iterate through the modules in the current package
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        transformations_dir = package_dir.parent.joinpath("transformations")
+        for (_, m, _) in iter_modules([transformations_dir]): # ---> ["back_translation", ...]
+            t_py = import_module(f"transformations.{m}.transformation")
+            for name, obj in inspect.getmembers(t_py):
+                if convert_to_camel_case(m) == name:
+                    if inspect.isclass(obj) and hasattr(obj, "heavy"):
+                        is_heavy = obj.is_heavy()
+                        if not is_heavy:
+                            yield m
+                        else:
+                            if heavy:
+                                yield m
+
 
 class FilterRuns(object):
-    
+
     def __init__(self):
         filters = []
         filter_test_cases = []
@@ -88,12 +119,12 @@ class FilterRuns(object):
         self.filter_test_cases = filter_test_cases
 
 
-def load_implementation(tx_name: str):
+def get_implementation(tx_name: str):
     try:
         t_py = import_module(f"transformations.{tx_name}.transformation")
     except ModuleNotFoundError as error:
         raise Exception(
-            f"Transformation folder of name {tx_name} is not found.\n {error}"
+            f"Transformation folder of name {tx_name} is not found. Make sure you've spelt it correctly!\n {error}"
         )
     TxName = convert_to_camel_case(tx_name)
     try:
@@ -109,7 +140,14 @@ def convert_to_camel_case(word):
     return "".join(x.capitalize() or "_" for x in word.split("_"))
 
 
+def convert_to_snake_case(camel_case):
+    name = re.sub(r'(?<!^)(?=[A-Z])', '_', camel_case).lower()
+    return name
+
+
 if __name__ == '__main__':
-    for transformation in TransformationRuns.get_all_transformations(TaskType.TEXT_CLASSIFICATION):
+    for tx in TransformationRuns.get_all_transformation_names(True):
+        print(tx)
+    for transformation in TransformationRuns.get_all_transformations_for_task(TaskType.TEXT_CLASSIFICATION):
         print(transformation.generate("This is a quick test code to show all the transformations "
                                       "for a particular task type!"))

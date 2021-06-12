@@ -110,12 +110,12 @@ class ReplaceNumericalValues(SentenceOperation):
     locales = ["en"]
 
     def __init__(self):
-        random.seed(10)
+        random.seed(self.seed)
         super().__init__()
         self.numerical_transformation = NumericalTransformation()
 
     def generate(self, sentence: str):
         result = self.numerical_transformation.transform(sentence)
-
-        print(f"Perturbed Input from {self.name()} : {result}")
+        if self.verbose:
+            print(f"Perturbed Input from {self.name()} : {result}")
         return result
