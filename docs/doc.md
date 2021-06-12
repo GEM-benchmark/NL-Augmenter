@@ -7,12 +7,14 @@
     * [Review Criteria for Submissions](#review-criteria-for-submissions)
     * [Writing a good transformation](#Writing-a-good-transformation)
     * [Evaluating the transformation](#evaluating-the-transformation)
+    * [Writing a good filter](#Writing-a-good-filter)
     * [What is the purpose of test.json](#What-is-the-purpose-of-test.json)
 
 ## Motivation
 
 ## Definitions
-Transformations vs Perturbation vs Augmentation 
+Transformations vs Perturbation vs Augmentation
+Filters and Contrast Sets
 
 ## Publication of transformations
 
@@ -53,6 +55,8 @@ Writing a transformation is a creative process. Transformations could use both m
 
 ## Evaluating the transformation
  
+## Writing a good filter
+
 
 ## What is the purpose of test.json
 The `test.json` simply serves to keep track of the core logic of transformation that you intend. While working with the code to and fro, you don't want to mistakenly change the output of someone else's code. Additionally, it makes reviewing much simpler as it gives a quick look into the examples that your logic generates.   
