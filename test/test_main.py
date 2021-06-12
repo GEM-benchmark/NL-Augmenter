@@ -108,9 +108,9 @@ def execute_test_case_for_transformation(transformation_name):
 def test_filter(filter_name):
     tx = FilterRuns(filter_name)
     for filter, test in zip(tx.filters, tx.filter_test_cases):
-        filter_args = test["filter_args"]
+        filter_args = test["inputs"]
         output = filter.filter(**filter_args)
-        assert output == test["output"], f"The filter should return {test['output']}"
+        assert output == test["outputs"], f"The filter should return {test['outputs']}"
 
 
 def main():
