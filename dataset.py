@@ -55,44 +55,43 @@ class TextLineDataset(BaseDataset):
         self.mapping = {datapoint:label
                         for datapoint, label in zip(self.data, self.labels)}
         
-    def apply_filter(self, filter: SentenceOperation):
+    def apply_filter(self, filter: SentenceOperation) -> TextLineDataset:
         filtered_data = []
         filtered_labels = []
         print("Applying filtering:")
-        for datapoint, label in tqdm(zip(self.data, self.labels)):
+        for datapoint, label in tqdm(zip(self.data, self.labels), total=len(self.data)):
             if filter.filter(datapoint):
                 filtered_data.append(datapoint)
                 filtered_labels.append(label)
-        self.data = filtered_data
-        self.labels = filtered_labels
-        return self.data, self.labels
+        
+        return TextLineDataset(filtered_data, filtered_labels)
 
-    def apply_transformation(self, transformation: SentenceOperation):
+    def apply_transformation(self, transformation: SentenceOperation) -> TextLineDataset:
         transformed_data = []
         print("Applying transformation:")
         for line in tqdm(self.data):
             transformed_data.append(transformation.generate(line))
-        self.data = transformed_data
-        return self.data, self.labels
+        
+        return TextLineDataset(transformed_data, self.labels)
     
     def __len__(self):
         return len(self.data)
         
-    def __or__(self, other: TextLineDataset):
+    def __or__(self, other: TextLineDataset) -> TextLineDataset:
         data = list(set(self.data).union(set(other.data)))
         mapping = {**self.mapping, **other.mapping}
         labels = [mapping[datapoint] for datapoint in data]
-        return data, labels
+        return TextLineDataset(data, labels)
 
-    def __and__(self, other: TextLineDataset):
+    def __and__(self, other: TextLineDataset) -> TextLineDataset:
         data = list(set(self.data).intersection(set(other.data)))
         labels = [self.mapping[datapoint] for datapoint in data]
-        return data, labels
+        return TextLineDataset(data, labels)
 
-    def __sub__(self, other: TextLineDataset):
+    def __sub__(self, other: TextLineDataset) -> TextLineDataset:
         data = list(set(self.data).difference(set(other.data)))
         labels = [self.mapping[datapoint] for datapoint in data]
-        return data, labels
+        return TextLineDataset(data, labels)
 
 
 '''
@@ -127,16 +126,23 @@ class KeyValueDataset(BaseDataset):
             "_apply_" + self.operation_type + "_filter")
         self.transformation_func = self.__getattribute__(
             "_apply_" + self.operation_type + "_transformation")
+    
+    @classmethod
+    def from_huggingface(cls, dataset, task_type, fields):
+        data = []
+        for example in dataset:
+            data.append({key:example[key] for key in fields})
+        return cls(data, task_type, fields)
 
     # this function is an adapter and will call the corresponding filter function for the task
-    def apply_filter(self, filter: Operation):
+    def apply_filter(self, filter: Operation) -> KeyValueDataset:
         filtered_data = []
         print("Applying filtering:")
         for datapoint in tqdm(self.data):
             if self.filter_func(datapoint, filter):
                 filtered_data.append(datapoint)
-        self.data = filtered_data
-        return self.data
+        
+        return KeyValueDataset(filtered_data, self.task_type, self.fields)
     
     def _apply_sentence_and_target_filter(self, datapoint: dict, filter: SentenceAndTargetOperation):
         sentence = datapoint[self.fields[0]]
@@ -155,13 +161,13 @@ class KeyValueDataset(BaseDataset):
         return filter.filter(context, question, answers)
 
     # this function is an adapter and will call the corresponding transform function for the task
-    def apply_transformation(self, transformation: Operation):
+    def apply_transformation(self, transformation: Operation) -> KeyValueDataset:
         transformed_data = []
         print("Applying transformation:")
         for datapoint in tqdm(self.data):
             transformed_data.append(self.transformation_func(datapoint, transformation))
-        self.data = transformed_data
-        return self.data
+        
+        return KeyValueDataset(transformed_data, self.task_type, self.fields)
     
     def _apply_sentence_and_target_transformation(self, datapoint: dict, transformation: SentenceAndTargetOperation):
         sentence = datapoint[self.fields[0]]
@@ -224,23 +230,26 @@ class KeyValueDataset(BaseDataset):
             result_data.append(id2datapoint[identifier2id[identifier]])
         return result_data
 
-    def __or__(self, other: KeyValueDataset):
+    def __or__(self, other: KeyValueDataset) -> KeyValueDataset:
         self._sanity_check(other)
         id2datapoint, identifier2id, identifiers = self._data2identifier(self.data+other.data)
-        return self._identifier2data(id2datapoint, identifier2id, identifiers)
+        data = self._identifier2data(id2datapoint, identifier2id, identifiers)
+        return KeyValueDataset(data, self.task_type, self.fields)
             
-    def __and__(self, other: KeyValueDataset):
+    def __and__(self, other: KeyValueDataset) -> KeyValueDataset:
         self._sanity_check(other)
         id2datapoint, identifier2id, identifiers = self._data2identifier(self.data)
         _, _, identifiers2 = self._data2identifier(other.data)
         
         identifiers = identifiers.intersection(identifiers2)
-        return self._identifier2data(id2datapoint, identifier2id, identifiers)
+        data = self._identifier2data(id2datapoint, identifier2id, identifiers)
+        return KeyValueDataset(data, self.task_type, self.fields)
 
-    def __sub__(self, other: KeyValueDataset):
+    def __sub__(self, other: KeyValueDataset) -> KeyValueDataset:
         self._sanity_check(other)
         id2datapoint, identifier2id, identifiers = self._data2identifier(self.data)
         _, _, identifiers2 = self._data2identifier(other.data)
         
         identifiers = identifiers.difference(identifiers2)
-        return self._identifier2data(id2datapoint, identifier2id, identifiers)
+        data = self._identifier2data(id2datapoint, identifier2id, identifiers)
+        return KeyValueDataset(data, self.task_type, self.fields)
