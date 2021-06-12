@@ -105,8 +105,8 @@ def execute_test_case_for_transformation(transformation_name):
         execute_tagging_test_case(impl)
 
 
-def test_execute_filter_test_case():
-    tx = FilterRuns()
+def test_filter(filter_name):
+    tx = FilterRuns(filter_name)
     for filter, test in zip(tx.filters, tx.filter_test_cases):
         filter_args = test["filter_args"]
         output = filter.filter(**filter_args)
