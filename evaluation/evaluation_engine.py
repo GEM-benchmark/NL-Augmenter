@@ -5,6 +5,7 @@ import sacrebleu
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
+from dataset import TextLineDataset, KeyValueDataset
 
 """
 This is the evaluation engine.
@@ -107,11 +108,15 @@ def evaluate_text_summarization(
         dataset_name = "xsum"
 
     print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
-    dataset = (
+    hf_dataset = (
         load_dataset(dataset_name, "3.0.0", split=split)
         if dataset_name is "xsum"
         else load_dataset(dataset_name, split=split)
     )
+
+    dataset = KeyValueDataset.from_huggingface(
+        hf_dataset, TaskType.TEXT_TO_TEXT_GENERATION, ['document', 'summary'])
+    pt_dataset = dataset.apply_transformation(transformation, subfields=['document'])
 
     summarization_pipeline = pipeline(
         "summarization", model=model_name, tokenizer=model_name
@@ -119,9 +124,10 @@ def evaluate_text_summarization(
     predicted_summary_score = 0.0
     transformed_summary_score = 0.0
 
-    for example in dataset:
-        article = example["document"]
-        gold_summary = example["summary"]
+    for raw_example, pt_example in zip(dataset, pt_dataset):
+        article, gold_summary = raw_example
+        transformed_article, _ = pt_example
+
         max_len = (
             len(gold_summary.split(" ")) + 10
         )  # approximate max length to control summary generation upto length of gold summary
@@ -133,7 +139,6 @@ def evaluate_text_summarization(
         )
         predicted_summary_score += score_list
 
-        transformed_article = transformation.generate(article)
         transformed_article_summary = summarization_pipeline(
             transformed_article, truncation=True, max_length=max_len
         )[0]["summary_text"]
@@ -164,20 +169,26 @@ def evaluate_text_classifier(
     if dataset_name is None:
         dataset_name = "imdb"
     print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
-    dataset = load_dataset(dataset_name, split=split)
+    hf_dataset = load_dataset(dataset_name, split=split)
+    
+    dataset = TextLineDataset.from_huggingface(hf_dataset, ['text', 'label'])
+    pt_dataset = dataset.apply_transformation(transformation)
+    
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
     nlp = pipeline("sentiment-analysis", model=model_name, tokenizer=model_name)
     accuracy = 0
     pt_accuracy = 0
     total = 0
-    for example in dataset:
-        label = example["label"]
-        pred = nlp(example["text"], truncation=True)[0]["label"]
+    for raw_example, pt_example in zip(dataset, pt_dataset):
+        raw_text, label = raw_example
+        pt_text, _ = pt_example
+       
+        pred = nlp(raw_text, truncation=True)[0]["label"]
         if (pred == "pos" and label == 1) or (pred == "neg" and label == 0):
             accuracy += 1
-        pt = transformation.generate(example["text"])
-        pt_pred = nlp(pt, truncation=True)[0]["label"]
+        
+        pt_pred = nlp(pt_text, truncation=True)[0]["label"]
         if (pt_pred == "pos" and label == 1) or (pt_pred == "neg" and label == 0):
             pt_accuracy += 1
         total += 1
@@ -200,25 +211,27 @@ def evaluate_question_answering_model(
     if dataset_name is None:
         dataset_name = "squad"
     print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
-    dataset = load_dataset(dataset_name, split=split)
+    hf_dataset = load_dataset(dataset_name, split=split)
+    dataset = KeyValueDataset.from_huggingface(
+        hf_dataset, TaskType.QUESTION_ANSWERING, ['context', 'question', 'answers'])
+    pt_dataset = dataset.apply_transformation(transformation)
+    
     nlp = pipeline("question-answering", model=model_name, tokenizer=model_name)
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
     accuracy = 0
     pt_accuracy = 0
     total = 0
-    for example in dataset:
-        context = example["context"]
-        question = example["question"]
-        answers = example["answers"]["text"]
+    for raw_example, pt_example in zip(dataset, pt_dataset):
+        context, question, answers = raw_example
+        context_t, question_t, answers_t = pt_example
+
         pred = nlp({"context": context, "question": question}, truncation=True)[
             "answer"
         ]
         if pred in answers:
             accuracy += 1
-        context_t, question_t, answers_t = transformation.generate(
-            context, question, answers
-        )
+        
         pt_pred = nlp({"context": context_t, "question": question_t}, truncation=True)[
             "answer"
         ]
