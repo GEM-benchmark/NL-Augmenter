@@ -95,8 +95,8 @@ def execute_model(
         )
 
 
-def sacrebleu_score(reference, hypothesis):
-    return sacrebleu.sentence_bleu([hypothesis], [reference]).score
+def sacrebleu_score(hypotheses, references):
+    return sacrebleu.corpus_bleu(hypotheses, [references]).score
 
 
 def evaluate_text_summarization(
@@ -123,6 +123,10 @@ def evaluate_text_summarization(
     )
     predicted_summary_score = 0.0
     transformed_summary_score = 0.0
+    
+    references = []
+    raw_hypotheses = []
+    pt_hypotheses = []
 
     for raw_example, pt_example in zip(dataset, pt_dataset):
         article, gold_summary = raw_example
@@ -134,29 +138,25 @@ def evaluate_text_summarization(
         predicted_summary = summarization_pipeline(
             article, truncation=True, max_length=max_len
         )[0]["summary_text"]
-        score_list = sacrebleu_score(
-            reference=gold_summary, hypothesis=predicted_summary
-        )
-        predicted_summary_score += score_list
-
+        
         transformed_article_summary = summarization_pipeline(
             transformed_article, truncation=True, max_length=max_len
         )[0]["summary_text"]
-        trans_score_list = sacrebleu_score(
-            reference=gold_summary, hypothesis=transformed_article_summary
-        )
-        transformed_summary_score += trans_score_list
-
-    predicted_summary_score = predicted_summary_score / len(dataset)
-    transformed_summary_score = transformed_summary_score / len(dataset)
+        
+        references.append(gold_summary)
+        raw_hypotheses.append(predicted_summary)
+        pt_hypotheses.append(transformed_article_summary)
+        
+    predicted_summary_score = sacrebleu_score(raw_hypotheses, references) # 15.989 BLEU
+    transformed_summary_score = sacrebleu_score(pt_hypotheses, references) # 11.830 BLEU
 
     print(
         f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset"
     )
     print(
-        f"The average bleu score on a subset of {dataset_name} = {predicted_summary_score}"
+        f"The bleu score on a subset of {dataset_name} = {predicted_summary_score}"
     )
-    print(f"The average bleu score on its perturbed set = {transformed_summary_score}")
+    print(f"The bleu score on its perturbed set = {transformed_summary_score}")
 
 
 def evaluate_text_classifier(
