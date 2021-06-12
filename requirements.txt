@@ -1,3 +1,6 @@
+checklist==0.0.10
+spacy==2.2.4
+
 # for ReplaceNumericalValues
 num2words==0.5.10
 word2number==1.1
@@ -9,9 +12,7 @@ pytest==6.2.4
 datasets==1.7.0
 transformers==4.2.1
 sacrebleu==1.5.1
-
-checklist==0.0.10
-spacy==2.2.4
+seqeval==1.2.2
 
 # for utility
 tqdm

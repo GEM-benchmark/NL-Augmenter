@@ -1,9 +1,11 @@
 from datasets import load_dataset
 from transformers import pipeline
-import sacrebleu
+from sacrebleu import sentence_bleu
+from seqeval.metrics import accuracy_score
 
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation
+from interfaces.TaggingOperation import TaggingOperation
 from tasks.TaskTypes import TaskType
 
 """
@@ -75,6 +77,11 @@ def execute_model(
             evaluate_text_summarization(
                 impl, model, dataset, split=f"test[:{percentage_of_examples}%]"
             )
+        elif (
+            isinstance(impl, TaggingOperation)
+            and TaskType[task_type] == TaskType.TEXT_TAGGING
+        ):
+            evaluate_ner_tagging(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
         # Other if else cases should be added here.
         else:
             print(
@@ -94,15 +101,81 @@ def execute_model(
         )
 
 
-def sacrebleu_score(reference, hypothesis):
-    return sacrebleu.sentence_bleu([hypothesis], [reference]).score
+def convert_ner_ids_to_tags(ner_tags):
+    # convert list of ner ids [0,1,2,0] to list of ner tags ['0', 'B-PER', 'I-PER', '0']
+    ner_tag_sequence = []
+    ner_tag_dict = {1: 'B-PER', 2: 'I-PER', 3: 'B-ORG', 4: 'I-ORG', 5: 'B-LOC', 6: 'I-LOC', 7: 'B-MISC', 8: 'I-MISC'}
+    for tag in ner_tags:
+        ner_tag_sequence.append(ner_tag_dict.get(tag, "0")) # '0', tag for no ner token
+    return ner_tag_sequence
+
+
+def create_prediction_seq(prediction, expected_seq_length):
+    # create model output into ner tag sequence
+    # input : model output in the form [[], [{ner-info}], [{ner-info}], []]
+    # output : ['0', 'B-PER', 'I-PER', '0']
+    if (prediction == []):  # corner case where model prediction is [] and gold label is not []. ex: example["tokens"] = [',']
+        return ['0'] * expected_seq_length
+    seq = []
+    tag = ""
+    for item in prediction:
+        if(len(item)==0):
+            seq.append('0')
+        else:
+            if(isinstance(item, list)):
+                tag = item[0]['entity']
+            elif(isinstance(item, dict)): # to handle a corner case
+                tag = item['entity']
+            seq.append(tag)
+    return seq
+
+
+def evaluate_ner_tagging(transformation, model_name, dataset_name, split='validation[:20%]'):
+    # load modal
+    if model_name is None:
+        model_name = "dslim/bert-base-NER"
+    # load test set
+    if(dataset_name is None):
+        dataset_name = "conll2003"
+
+    print(f"Loading <%s> dataset to train <%s> model", dataset_name, model_name)
+    dataset = load_dataset(dataset_name, split=split)
+    tagging_pipeline = pipeline("ner", model=model_name, tokenizer=model_name)
+
+    average_score = 0.0
+    average_pertubed_score = 0.0
+    print(f"Length of Evaluation dataset is {len(dataset)}")
+    for example in dataset:
+        # Calculating the performance on the original set
+        gold_tag_seq = convert_ner_ids_to_tags(example['ner_tags'])
+        prediction = tagging_pipeline(example['tokens'])
+        predicted_tag_seq = create_prediction_seq(prediction, len(gold_tag_seq))
+        score = accuracy_score([gold_tag_seq], [predicted_tag_seq])
+        average_score +=score
+
+        # Calculating the performance on the perturbed set
+        trans_input, trans_gold_tag_seq = transformation.generate(example['tokens'], gold_tag_seq)
+        trans_gold_tag_seq = convert_ner_ids_to_tags(trans_gold_tag_seq)
+        transformed_input_prediction = tagging_pipeline(trans_input)
+        trans_predicted_tag_seq = create_prediction_seq(transformed_input_prediction, len(trans_gold_tag_seq))
+        pt_score = accuracy_score([trans_gold_tag_seq], [trans_predicted_tag_seq])
+        average_pertubed_score += pt_score
+
+    average_score = average_score / len(dataset)
+    average_pertubed_score = average_pertubed_score / len(dataset)
+
+    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+    print(f"The average accuracy on a subset of {dataset_name} = {average_score}")
+    print(f"The average accuracy on its pertubed set = {average_pertubed_score}")
 
 
 def evaluate_text_summarization(
     transformation, model_name, dataset_name, split="test[:20%]"
 ):
+    # load model
     if model_name is None:
         model_name = "sshleifer/distilbart-xsum-12-6"
+    # load test set
     if dataset_name is None:
         dataset_name = "xsum"
 
@@ -118,7 +191,7 @@ def evaluate_text_summarization(
     )
     predicted_summary_score = 0.0
     transformed_summary_score = 0.0
-
+    print(f"Length of Evaluation dataset is {len(dataset)}")
     for example in dataset:
         article = example["document"]
         gold_summary = example["summary"]
@@ -128,17 +201,18 @@ def evaluate_text_summarization(
         predicted_summary = summarization_pipeline(
             article, truncation=True, max_length=max_len
         )[0]["summary_text"]
-        score_list = sacrebleu_score(
-            reference=gold_summary, hypothesis=predicted_summary
+        score_list = sentence_bleu(
+            reference=[gold_summary], hypothesis=predicted_summary
         )
         predicted_summary_score += score_list
 
+        # Calculating the performance on the perturbed set
         transformed_article = transformation.generate(article)
         transformed_article_summary = summarization_pipeline(
             transformed_article, truncation=True, max_length=max_len
         )[0]["summary_text"]
-        trans_score_list = sacrebleu_score(
-            reference=gold_summary, hypothesis=transformed_article_summary
+        trans_score_list = sentence_bleu(
+            reference=[gold_summary], hypothesis=transformed_article_summary
         )
         transformed_summary_score += trans_score_list
 
