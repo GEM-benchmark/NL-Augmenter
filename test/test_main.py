@@ -92,8 +92,8 @@ def test_transformation(name_of_transformation):
         execute_test_case_for_transformation(name_of_transformation)
 
 
-def execute_test_case_for_transformation(name_of_transformation):
-    implementation = get_implementation(name_of_transformation)
+def execute_test_case_for_transformation(transformation_name):
+    implementation = get_implementation(transformation_name)
     impl = implementation()
     if isinstance(impl, SentenceOperation):
         execute_sentence_operation_test_case(impl)
