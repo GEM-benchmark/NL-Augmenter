@@ -80,16 +80,16 @@ def execute_tagging_test_case(transformation):
         print_no_test_cases_found(transformation.name())
 
 
-def test_transformation(name_of_transformation):
-    if name_of_transformation == "light":
+def test_transformation(transformation_name):
+    if transformation_name == "light":
         print("in all")
         for tx_name in TransformationRuns.get_all_transformation_names(heavy=False):
             execute_test_case_for_transformation(tx_name)
-    elif name_of_transformation == "all":
+    elif transformation_name == "all":
         for tx_name in TransformationRuns.get_all_transformation_names(heavy=True):
             execute_test_case_for_transformation(tx_name)
     else:
-        execute_test_case_for_transformation(name_of_transformation)
+        execute_test_case_for_transformation(transformation_name)
 
 
 def execute_test_case_for_transformation(transformation_name):
