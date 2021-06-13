@@ -54,7 +54,6 @@ Here, we provide a leaderboards for each default task, by executing transformati
 ### Question Answering
 
 | Transformation        |   deepset/roberta-base-squad2 |   bert-large-uncased-whole-word-masking-finetuned-squad |
-|                       |                       (squad) |                                                 (squad) |
 |:----------------------|------------------------------:|--------------------------------------------------------:|
 | RedundantContextForQa |                           5.6 |                                                    -1.9 |
 
