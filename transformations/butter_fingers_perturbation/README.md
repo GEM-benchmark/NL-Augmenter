@@ -2,6 +2,8 @@
 This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise erupting 
 from keyboard typos making common spelling errors.
 
+Author name: Kaustubh Dhole (email)
+
 ## What type of a transformation is this?
 This transformation acts like a perturbation to test robustness. Few letters picked at random are replaced with letters 
 which are at keyboard positions near the source letter. Generated transformations display high similarity to the 

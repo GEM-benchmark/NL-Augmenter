@@ -15,4 +15,4 @@ The [task](../tasks/TaskTypes.py) (`-t`), [dataset](https://huggingface.co/datas
 python evaluate.py -t butter_fingers_perturbation -task "TEXT_CLASSIFICATION" -m "aychang/roberta-base-imdb" -d "imdb"
 ```  
 
-Note that it's highly possible that some of the evaluate_* functionality won't work owing to the variety of dataset and model formats. We've tried to mititgate this by using models and datasets which are commonly used. If you wish to evaluate on models and datasets apart from those mentioned [here](evaluation_engine.py), you are free to do so. Do mention in your README how they turned out!
+Note that it's highly possible that some of the evaluate_* functionality won't work owing to the variety of dataset and model formats. We've tried to mitigate this by using models and datasets of HuggingFace. If you wish to evaluate on models and datasets apart from those mentioned [here](evaluation_engine.py), you are welcome to do so. Do mention in your README how they turned out!

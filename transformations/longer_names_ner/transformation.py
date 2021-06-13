@@ -34,3 +34,20 @@ class LongerNamesNer(TaggingOperation):
                     token_sequence.insert(next, random_upper_letter)
                     tag_sequence.insert(next, i_tag)
         return token_sequence, tag_sequence
+
+
+"""
+# Sample code to demonstrate usage. Can also assist in adding test cases.
+if __name__ == '__main__':
+    import json
+
+    tx = LongerNamesNer()
+    input_sequence = "Roger Michael Humphrey Binny ( born 19 July 1955 ) is an Indian former cricketer ."
+    input_tag = "B-PER I-PER I-PER I-PER O O B-DATE I-DATE I-DATE O O O O O O O"
+    output_sequence, output_tag = tx.generate(input_sequence.split(" "), input_tag.split(" "))
+    output_sequence = " ".join(output_sequence)
+    output_tag = " ".join(output_tag)
+    test_case = {"input_sequence": input_sequence, "input_tag": input_tag, "output_sequence":output_sequence,
+            "output_tag": output_tag}
+    print(json.dumps(test_case))
+"""

@@ -24,6 +24,12 @@
       "output_sequence": "The owner of the mall is Anthony B Gonsalves.",
       "input_tag": "O O O O O O B-PER I-PER",
       "output_tag": "O O O O O O B-PER I-PER I-PER"
+    },
+    {
+      "input_sequence": "Roger Michael Humphrey Binny ( born 19 July 1955 ) is an Indian former cricketer .",
+      "input_tag": "B-PER I-PER I-PER I-PER O O B-DATE I-DATE I-DATE O O O O O O O",
+      "output_sequence": "Roger I Michael Humphrey Binny ( born 19 July 1955 ) is an Indian former cricketer .",
+      "output_tag": "B-PER I-PER I-PER I-PER I-PER O O B-DATE I-DATE I-DATE O O O O O O O"
     }
   ]
 }
