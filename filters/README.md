@@ -1,3 +1,6 @@
+## What is a filter?
+Just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters return True or False!
+
 ### The List of Filters
 
 This directory contains filters that are used to create contrast sets. A list of data points are fed through the filter to match the condition (e.g. the input text length should be above certain threshold, the input text should contain some keywords, etc.). Each subdirectory contains a single filter to construct contrast sets. A summary table of these filters follows.
@@ -10,7 +13,7 @@ The following describes the list of filters or conditions which split the datase
 | [TextLengthFilter](length)     | Selects sentences/paragraphs of a specified length.
 
 
-### How to Contribute
+### How to Add a new Filter
 1. Create a new folder and a new filter file `filter_folder/filter_name.py`. Remember to import the filter class in the `filter_folder/__init__.py` file, otherwise it may cause error when running the test cases.
 2. Implement your filter by inheriting one of the operation [interfaces](../interfaces), and re-write the `filter` method with corresponding input. You might need to specify a default value for the arguments for `filter` and `__init__` method of your filter class. For example:
 ```
