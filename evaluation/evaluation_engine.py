@@ -2,6 +2,7 @@ from datasets import load_dataset
 from transformers import pipeline
 from sacrebleu import sentence_bleu
 from seqeval.metrics import accuracy_score
+import numpy as np
 
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation
@@ -49,7 +50,7 @@ def execute_model(
     implementation,
     task_type,
     locale="en",
-    model=None,
+    model_name=None,
     dataset=None,
     percentage_of_examples=20,
 ):
@@ -60,28 +61,28 @@ def execute_model(
             isinstance(impl, SentenceOperation)
             and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION
         ):
-            evaluate_text_classifier(
-                impl, model, dataset, split=f"test[:{percentage_of_examples}%]"
+            return evaluate_text_classifier(
+                impl, model_name, dataset, split=f"test[:{percentage_of_examples}%]"
             )
         elif (
             isinstance(impl, QuestionAnswerOperation)
             and TaskType[task_type] == TaskType.QUESTION_ANSWERING
         ):
-            evaluate_question_answering_model(
-                impl, model, dataset, split=f"validation[:{percentage_of_examples}%]"
+            return evaluate_question_answering_model(
+                impl, model_name, dataset, split=f"validation[:{percentage_of_examples}%]"
             )
         elif (
             isinstance(impl, SentenceOperation)
             and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION
         ):
-            evaluate_text_summarization(
-                impl, model, dataset, split=f"test[:{percentage_of_examples}%]"
+            return evaluate_text_summarization(
+                impl, model_name, dataset, split=f"test[:{percentage_of_examples}%]"
             )
         elif (
             isinstance(impl, TaggingOperation)
             and TaskType[task_type] == TaskType.TEXT_TAGGING
         ):
-            evaluate_ner_tagging(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
+            return evaluate_ner_tagging(impl, model_name, dataset, split=f'test[:{percentage_of_examples}%]')
         # Other if else cases should be added here.
         else:
             print(
@@ -138,7 +139,7 @@ def evaluate_ner_tagging(transformation, model_name, dataset_name, split='valida
     if(dataset_name is None):
         dataset_name = "conll2003"
 
-    print(f"Loading <%s> dataset to train <%s> model", dataset_name, model_name)
+    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
     dataset = load_dataset(dataset_name, split=split)
     tagging_pipeline = pipeline("ner", model=model_name, tokenizer=model_name)
 
@@ -161,12 +162,20 @@ def evaluate_ner_tagging(transformation, model_name, dataset_name, split='valida
         pt_score = accuracy_score([trans_gold_tag_seq], [trans_predicted_tag_seq])
         average_pertubed_score += pt_score
 
-    average_score = average_score / len(dataset)
-    average_pertubed_score = average_pertubed_score / len(dataset)
+    average_score = average_score / len(dataset) * 100
+    average_pertubed_score = average_pertubed_score / len(dataset) * 100
 
     print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
     print(f"The average accuracy on a subset of {dataset_name} = {average_score}")
     print(f"The average accuracy on its pertubed set = {average_pertubed_score}")
+
+    return {
+        "model_name": model_name,
+        "split": split,
+        "dataset_name": dataset_name,
+        "accuracy": np.round(average_score, 1),
+        "pt_accuracy": np.round(average_pertubed_score, 1)
+    }
 
 
 def evaluate_text_summarization(
@@ -179,7 +188,7 @@ def evaluate_text_summarization(
     if dataset_name is None:
         dataset_name = "xsum"
 
-    print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
+    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
     dataset = (
         load_dataset(dataset_name, "3.0.0", split=split)
         if dataset_name is "xsum"
@@ -216,8 +225,8 @@ def evaluate_text_summarization(
         )
         transformed_summary_score += trans_score_list
 
-    predicted_summary_score = predicted_summary_score / len(dataset)
-    transformed_summary_score = transformed_summary_score / len(dataset)
+    predicted_summary_score = predicted_summary_score / len(dataset) * 100
+    transformed_summary_score = transformed_summary_score / len(dataset) * 100
 
     print(
         f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset"
@@ -226,19 +235,32 @@ def evaluate_text_summarization(
         f"The average bleu score on a subset of {dataset_name} = {predicted_summary_score}"
     )
     print(f"The average bleu score on its perturbed set = {transformed_summary_score}")
-
+    return {
+        "model_name": model_name,
+        "split": split,
+        "dataset_name": dataset_name,
+        "bleu": np.round(predicted_summary_score, 1),
+        "pt_bleu": np.round(predicted_summary_score, 1)
+    }
 
 def evaluate_text_classifier(
-    transformation, model_name, dataset_name, split="test[:20%]"
-):
+    transformation, model_name, dataset_name, split="test[:20%]", input_key=None):
+    def is_positive(label):
+        return label == 1 or (type(label) == str and "pos" in label.lower())
+    # TODO: extend the task to other classification tasks that's not sentiment analysis.
     # (1) load model
     if model_name is None:
         model_name = "aychang/roberta-base-imdb"
     # (2) load test set
     if dataset_name is None:
         dataset_name = "imdb"
-    print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
-    dataset = load_dataset(dataset_name, split=split)
+        input_key = "text"
+    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
+    if dataset_name in ["qqp", "sst2"]:
+        # TODO: extend this to all the glue datasets.
+        dataset = load_dataset('glue', dataset_name, split=split)
+    else:
+        dataset = load_dataset(dataset_name, split=split)
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
     nlp = pipeline("sentiment-analysis", model=model_name, tokenizer=model_name)
@@ -246,13 +268,24 @@ def evaluate_text_classifier(
     pt_accuracy = 0
     total = 0
     for example in dataset:
+        if input_key is not None and input_key in example:
+            text = example[input_key]
+        elif "text" in example: 
+            text = example["text"]
+        elif "sentence" in example:
+            text = example["sentence"]
+        else:
+            raise IndexError(f"""
+                In [evaluate_text_classifier], 
+                Cannot find the key for input sentence. Please specify input_key 
+                to match the key for input sentence in dataset {dataset_name}.""")
         label = example["label"]
-        pred = nlp(example["text"], truncation=True)[0]["label"]
-        if (pred == "pos" and label == 1) or (pred == "neg" and label == 0):
+        pred = nlp(text, truncation=True)[0]["label"]
+        if is_positive(pred) == is_positive(label):
             accuracy += 1
-        pt = transformation.generate(example["text"])
+        pt = transformation.generate(text)
         pt_pred = nlp(pt, truncation=True)[0]["label"]
-        if (pt_pred == "pos" and label == 1) or (pt_pred == "neg" and label == 0):
+        if is_positive(pt_pred) == is_positive(label):
             pt_accuracy += 1
         total += 1
     print(
@@ -262,6 +295,13 @@ def evaluate_text_classifier(
     print(
         f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}"
     )
+    return {
+        "model_name": model_name,
+        "split": split,
+        "dataset_name": dataset_name,
+        "accuracy": np.round(100 * accuracy / total, 1),
+        "pt_accuracy": np.round(100 * pt_accuracy / total, 1)
+    }
 
 
 def evaluate_question_answering_model(
@@ -273,7 +313,7 @@ def evaluate_question_answering_model(
     # (2) load test set
     if dataset_name is None:
         dataset_name = "squad"
-    print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
+    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
     dataset = load_dataset(dataset_name, split=split)
     nlp = pipeline("question-answering", model=model_name, tokenizer=model_name)
     # (3) Execute perturbation
@@ -306,3 +346,11 @@ def evaluate_question_answering_model(
     print(
         f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}"
     )
+
+    return {
+        "model_name": model_name,
+        "split": split,
+        "dataset_name": dataset_name,
+        "accuracy": np.round(100 * accuracy / total, 1),
+        "pt_accuracy": np.round(100 * pt_accuracy / total, 1)
+    }
