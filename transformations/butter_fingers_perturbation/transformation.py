@@ -84,3 +84,14 @@ class ButterFingersPerturbation(SentenceOperation):
     def generate(self, sentence: str):
         pertubed = butter_finger(text=sentence, prob=0.05, seed=self.seed)
         return pertubed
+
+
+"""
+Sample code to demonstrate usage. Can also assist in adding test cases.
+
+if __name__ == '__main__':
+    tf = ButterFingersPerturbation()
+    sentence = "Andrew finally returned the French book to Chris that I bought last week"
+    json = {"input": sentence, "output": tf.generate(sentence)}
+    print(json)
+"""
