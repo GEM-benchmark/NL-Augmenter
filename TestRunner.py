@@ -97,11 +97,19 @@ class TransformationRuns(object):
 class FilterRuns(object):
 
     def __init__(self, name_of_filter):
+        if name_of_filter == 'light':
+            self._load_all_filter_test_case(heavy=False)
+        elif name_of_filter == 'all':
+            self._load_all_filter_test_case(heavy=True)
+        else:
+            self._load_single_filter_test_case(name_of_filter)
+        
+    def _load_single_filter_test_case(self, name_of_filter):
         filters = []
         filter_test_cases = []
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         filters_dir = package_dir.parent.joinpath("filters", name_of_filter)
-        
+
         t_py = import_module(f"filters.{name_of_filter}")
         t_js = os.path.join(filters_dir, "test.json")
 
@@ -114,6 +122,33 @@ class FilterRuns(object):
 
             filters.append(filter_instance)
             filter_test_cases.append(test_case)
+
+        self.filters = filters
+        self.filter_test_cases = filter_test_cases
+    
+    def _load_all_filter_test_case(self, heavy=False):
+        filters = []
+        filter_test_cases = []
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        filters_dir = package_dir.parent.joinpath("filters")
+        for (_, m, _) in iter_modules([filters_dir]):
+            t_py = import_module(f"filters.{m}")
+            t_js = os.path.join(filters_dir, m, "test.json")
+
+            for test_case in load_test_cases(t_js):
+                class_name = test_case["class"]
+                class_args = test_case["args"]
+                # construct filter class with input args
+                cls = getattr(t_py, class_name)
+                
+                is_heavy = cls.is_heavy()
+                if (not heavy) and is_heavy:
+                    continue
+                else:
+                    filter_instance = cls(**class_args)
+
+                    filters.append(filter_instance)
+                    filter_test_cases.append(test_case)
 
         self.filters = filters
         self.filter_test_cases = filter_test_cases

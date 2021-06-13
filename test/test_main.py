@@ -80,7 +80,7 @@ def execute_tagging_test_case(transformation):
         print_no_test_cases_found(transformation.name())
 
 
-def test_transformation(transformation_name):
+def test_operation(transformation_name, filter_name):
     if transformation_name == "light":
         for tx_name in TransformationRuns.get_all_transformation_names(heavy=False):
             execute_test_case_for_transformation(tx_name)
@@ -89,7 +89,9 @@ def test_transformation(transformation_name):
             execute_test_case_for_transformation(tx_name)
     else:
         execute_test_case_for_transformation(transformation_name)
-
+        
+    execute_test_case_for_filter(filter_name)
+        
 
 def execute_test_case_for_transformation(transformation_name):
     implementation = get_implementation(transformation_name)
@@ -104,7 +106,7 @@ def execute_test_case_for_transformation(transformation_name):
         execute_tagging_test_case(impl)
 
 
-def test_filter(filter_name):
+def execute_test_case_for_filter(filter_name):
     tx = FilterRuns(filter_name)
     for filter, test in zip(tx.filters, tx.filter_test_cases):
         filter_args = test["inputs"]
