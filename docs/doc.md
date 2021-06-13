@@ -14,7 +14,8 @@
 
 ## Definitions
 Transformations vs Perturbation vs Augmentation
-Filters and Contrast Sets
+
+Filters are qualifying conditions on the input data which help segregate datasets into informative splits. Relying on a single train-test split implies that there is an inherent element of randomness that can influence model performance. Instead, writing filters which identify specific properties of the data help make the splitting informative. eg. a filter which determines if an input sentence is conveyed in "an active voice" might be able to reveal performance differences between active and passive voice sentences.   
 
 ## Publication of transformations
 
