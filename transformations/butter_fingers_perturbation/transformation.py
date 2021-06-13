@@ -87,11 +87,13 @@ class ButterFingersPerturbation(SentenceOperation):
 
 
 """
-Sample code to demonstrate usage. Can also assist in adding test cases.
+# Sample code to demonstrate usage. Can also assist in adding test cases.
 
 if __name__ == '__main__':
+    import json
     tf = ButterFingersPerturbation()
     sentence = "Andrew finally returned the French book to Chris that I bought last week"
-    json = {"input": sentence, "output": tf.generate(sentence)}
-    print(json)
+    test_case = {"input": sentence, "output": tf.generate(sentence)}
+    print(json.dumps(test_case))
+
 """
