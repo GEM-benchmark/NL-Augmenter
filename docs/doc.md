@@ -31,7 +31,7 @@ Each transformation will receive two reviews. The transformation may be edited i
 
 **Interface:** Participants should ensure that they use the correct interface. The complete list is mentioned [here.](../interfaces) Eg. for tasks like machine translation, a transformation which changes the value of a named entity (Andrew->Jason) might need parallel changes in the output too. And hence, it might be more appropriate to use `SentenceAndTargetOperation` or `SentenceAndTargetsOperation` rather than `SentenceOperation`.
 
-**Applicable Tasks:** We understand that transformations can vary across tasks as well as a single transformation can work for multiple tasks. Hence all the tasks where the transformation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](tasks/TaskTypes.py).
+**Applicable Tasks:** We understand that transformations can vary across tasks as well as a single transformation can work for multiple tasks. Hence all the tasks where the transformation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](../tasks/TaskTypes.py).
 ```python
 class ButterFingersPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
@@ -49,6 +49,8 @@ class ButterFingersPerturbation(SentenceOperation):
 **Test Cases:** At least 5 examples should be added in the file `test.json` as test cases for every added transformation. These examples serve as test cases as well as provide reviewers a sample of your transformation's output. The format of `test.json` can be borrowed from the sample transformations [here.](../interfaces)
 
 **Languages other than English:** We also strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
+
+All of the above criteria extend to [filters](../filters) too.
  
 ## Writing a good transformation
 Writing a transformation is a creative process. Transformations could use both machine learning as well as rule based models. While there is no hard and fast rule, a transformation is useful if it can augment training data qualitatively or be able to generate perturbations which could reveal places where models' performance suffers. One of the quick ways to contribute would be to extend any of the existing transformations to a low-resource language.
