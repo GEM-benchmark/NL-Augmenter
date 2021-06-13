@@ -16,7 +16,7 @@ Natural Language Transformation or Augmentation comprises methods for increasing
 NL-Augmenter seeks to gather transformations, perturbations and filters which can generate additional data to serve for training as well as for testing robustness. Witnessing the benefits and success of open collaborative efforts like (BIG-bench)[https://github.com/google/BIG-bench] and [many](https://arxiv.org/pdf/2010.02353.pdf) others, we invite submissions via a participant driven repository.
 
 ## Task Specificity
-NLP tasks often radically differ in their linguistic properties of interest — changing the word “happy” to “very happy” in an input is more relevant for sentiment analysis than for summarization —we postulate that many transformations and filters are relevant to many datasets and hence NL-Augmenter is designed to be flexible enough to encourage [dataset](../interfaces) specific transformations. Such a mechanism also enables quick and rapid testing of models (and datasets) which share similar formats.  
+NLP tasks often radically differ in their linguistic properties of interest — changing the word “happy” to “very happy” in an input is more relevant for sentiment analysis than for summarization —we postulate that many transformations and filters are relevant to many datasets and hence NL-Augmenter is designed to be flexible enough to encourage [format specific](../interfaces) transformations. Such a mechanism also enables quick and rapid testing of transformations over models (and datasets) which share similar formats. 
 
 ## Publication of transformations
 
@@ -50,7 +50,7 @@ class ButterFingersPerturbation(SentenceOperation):
  
 **Test Cases:** At least 5 examples should be added in the file `test.json` as test cases for every added transformation. These examples serve as test cases as well as provide reviewers a sample of your transformation's output. The format of `test.json` can be borrowed from the sample transformations [here.](../interfaces)
 
-**Utility as a Perturbation:** A transformation's utility as a perturbation to 
+**Evaluating Robustness:** A transformation's potential to act as a robustness tool should be tested via executing [`evaluate.py`](../evaluation) and the corresponding performance should be mentioned in the README. 
 
 **Languages other than English:** We also strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
 
