@@ -49,7 +49,7 @@ def execute_model(
     implementation,
     task_type,
     locale="en",
-    model=None,
+    model_name=None,
     dataset=None,
     percentage_of_examples=20,
 ):
@@ -61,27 +61,27 @@ def execute_model(
             and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION
         ):
             evaluate_text_classifier(
-                impl, model, dataset, split=f"test[:{percentage_of_examples}%]"
+                impl, model_name, dataset, split=f"test[:{percentage_of_examples}%]"
             )
         elif (
             isinstance(impl, QuestionAnswerOperation)
             and TaskType[task_type] == TaskType.QUESTION_ANSWERING
         ):
             evaluate_question_answering_model(
-                impl, model, dataset, split=f"validation[:{percentage_of_examples}%]"
+                impl, model_name, dataset, split=f"validation[:{percentage_of_examples}%]"
             )
         elif (
             isinstance(impl, SentenceOperation)
             and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION
         ):
             evaluate_text_summarization(
-                impl, model, dataset, split=f"test[:{percentage_of_examples}%]"
+                impl, model_name, dataset, split=f"test[:{percentage_of_examples}%]"
             )
         elif (
             isinstance(impl, TaggingOperation)
             and TaskType[task_type] == TaskType.TEXT_TAGGING
         ):
-            evaluate_ner_tagging(impl, model, dataset, split=f'test[:{percentage_of_examples}%]')
+            evaluate_ner_tagging(impl, model_name, dataset, split=f'test[:{percentage_of_examples}%]')
         # Other if else cases should be added here.
         else:
             print(
