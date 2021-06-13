@@ -2,7 +2,7 @@
 
 **Table of Contents**
 * [Motivation](#motivation)
-* [Definitions](#definitions)
+* [Task Specificity](#task-specificity)
 * [Submission review process](#submission-review-process)
     * [Review Criteria for Submissions](#review-criteria-for-submissions)
     * [Writing a good transformation](#Writing-a-good-transformation)
@@ -10,12 +10,13 @@
     * [Writing a good filter](#Writing-a-good-filter)
     * [What is the purpose of test.json](#What-is-the-purpose-of-test.json)
 
+
 ## Motivation
+Natural Language Transformation or Augmentation comprises methods for increasing the variety of training data for natural language tasks without the hassle of manual collection. Most strategies either add slightly modified copies of existing data, called perturbations or create synthetic data with the aim of having the extended data act as a regularizer to reduce overfitting when training ML models. Unlike in computer vision, the space of natural language is discrete, and simple perturbations aren't enough to capture the entirety and complexity of natural language phenomena. Over the decades, this complexity has garnered a lot of interest in linguistics as well as machine learning resulting in a plethora of ways to transform natural language. 
+NL-Augmenter seeks to gather transformations, perturbations and filters which can generate additional data to serve for training as well as for testing robustness. Witnessing the benefits and success of open collaborative efforts like (BIG-bench)[https://github.com/google/BIG-bench] and [many](https://arxiv.org/pdf/2010.02353.pdf) others, we invite submissions via a participant driven repository.
 
-## Definitions
-Transformations vs Perturbation vs Augmentation
-
-Filters are qualifying conditions on the input data which help segregate datasets into informative splits. Relying on a single train-test split implies that there is an inherent element of randomness that can influence model performance. Instead, writing filters which identify specific properties of the data help make the splitting informative. eg. a filter which determines if an input sentence is conveyed in "an active voice" might be able to reveal performance differences between active and passive voice sentences.   
+## Task Specificity
+NLP tasks often radically differ in their linguistic properties of interest — changing the word “happy” to “very happy” in an input is more relevant for sentiment analysis than for summarization —we postulate that many transformations and filters are relevant to many datasets and hence NL-Augmenter is designed to be flexible enough to encourage [dataset](../interfaces) specific transformations. Such a mechanism also enables quick and rapid testing of models (and datasets) which share similar formats.  
 
 ## Publication of transformations
 
@@ -49,6 +50,8 @@ class ButterFingersPerturbation(SentenceOperation):
  
 **Test Cases:** At least 5 examples should be added in the file `test.json` as test cases for every added transformation. These examples serve as test cases as well as provide reviewers a sample of your transformation's output. The format of `test.json` can be borrowed from the sample transformations [here.](../interfaces)
 
+**Utility as a Perturbation:** A transformation's utility as a perturbation to 
+
 **Languages other than English:** We also strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
 
 All of the above criteria extend to [filters](../filters) too.
@@ -60,6 +63,7 @@ Writing a transformation is a creative process. Transformations could use both m
 ## Evaluating the transformation
  
 ## Writing a good filter
+Filters are qualifying conditions on the input data which help segregate datasets into informative splits. Relying on a single train-test split implies that there is an inherent element of randomness that can influence model performance. Instead, writing filters which identify specific properties of the data help make the splitting informative. eg. a filter which determines if an input sentence is conveyed in "an active voice" might be able to reveal performance differences between active and passive voice sentences.   
 
 
 ## What is the purpose of test.json
