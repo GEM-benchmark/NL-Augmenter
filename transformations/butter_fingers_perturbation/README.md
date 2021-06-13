@@ -13,10 +13,12 @@ text generation, etc.
 
 ```python evaluate.py -t back_translation -task TEXT_CLASSIFICATION```
 ```model_name = "aychang/roberta-base-imdb"```
-The accuracy of a RoBERTa model (fine-tuned on IMDB) on a subset of IMDB sentiment dataset = 95.74
+The accuracy of a RoBERTa model (fine-tuned on IMDB) (model: "aychang/roberta-base-imdb") 
+on a subset of IMDB sentiment dataset = 95.74
 The accuracy of the same model on the perturbed set = 88.26
 
-The average bleu score of a distillbert model (fine-tuned on xsum) on a subset of xsum dataset = 14.9104
+The average bleu score of a distillbert model (fine-tuned on xsum) (model: "sshleifer/distilbart-xsum-12-6") 
+on a subset (10%) of xsum test dataset = 14.9104
 The average bleu score of same model on the pertubed set = 11.9221
 
 ## Previous Work
