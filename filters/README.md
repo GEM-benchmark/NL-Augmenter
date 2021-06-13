@@ -35,10 +35,10 @@ class CustomFilter(Interface):
                 "arg1": ...,
                 "arg2": ...
             },
-            "filter_args": {
+            "inputs": {
                 "sentence": ...
             },
-            "output": true
+            "outputs": true
         }
     ]
 }
