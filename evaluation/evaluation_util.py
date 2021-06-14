@@ -1,3 +1,6 @@
+from sacrebleu import corpus_bleu
+
+
 def get_task_type(implementation, task_type):
     if task_type is None:
         print(
@@ -6,6 +9,10 @@ def get_task_type(implementation, task_type):
         )
         return str(implementation.tasks[0]).split(".")[1]
     return task_type
+
+
+def sacrebleu_score(hypotheses, references):
+    return corpus_bleu(hypotheses, [references]).score
 
 
 def convert_ner_ids_to_tags(ner_tags):

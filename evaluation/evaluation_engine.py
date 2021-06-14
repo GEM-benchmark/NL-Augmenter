@@ -1,13 +1,14 @@
 from datasets import load_dataset
 from transformers import pipeline
-from sacrebleu import sentence_bleu
 from seqeval.metrics import accuracy_score
+from evaluation.evaluation_util import *
+import numpy as np
 
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation
 from interfaces.TaggingOperation import TaggingOperation
 from tasks.TaskTypes import TaskType
-from evaluation.evaluation_util import *
+from dataset import TextLineDataset, KeyValueDataset
 
 """
 This is the evaluation engine.
@@ -40,7 +41,7 @@ def execute_model(
     implementation,
     task_type,
     locale="en",
-    model=None,
+    model_name=None,
     dataset=None,
     percentage_of_examples=20,
 ):
@@ -51,29 +52,32 @@ def execute_model(
             isinstance(impl, SentenceOperation)
             and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION
         ):
-            evaluate_text_classifier(
-                impl, model, dataset, split=f"test[:{percentage_of_examples}%]"
+            return evaluate_text_classifier(
+                impl, model_name, dataset, split=f"test[:{percentage_of_examples}%]"
             )
         elif (
             isinstance(impl, QuestionAnswerOperation)
             and TaskType[task_type] == TaskType.QUESTION_ANSWERING
         ):
-            evaluate_question_answering_model(
-                impl, model, dataset, split=f"validation[:{percentage_of_examples}%]"
+            return evaluate_question_answering_model(
+                impl,
+                model_name,
+                dataset,
+                split=f"validation[:{percentage_of_examples}%]",
             )
         elif (
             isinstance(impl, SentenceOperation)
             and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION
         ):
-            evaluate_text_summarization(
-                impl, model, dataset, split=f"test[:{percentage_of_examples}%]"
+            return evaluate_text_summarization(
+                impl, model_name, dataset, split=f"test[:{percentage_of_examples}%]"
             )
         elif (
             isinstance(impl, TaggingOperation)
             and TaskType[task_type] == TaskType.TEXT_TAGGING
         ):
-            evaluate_ner_tagging(
-                impl, model, dataset, split=f"test[:{percentage_of_examples}%]"
+            return evaluate_ner_tagging(
+                impl, model_name, dataset, split=f"test[:{percentage_of_examples}%]"
             )
         # Other if else cases should be added here.
         else:
@@ -104,12 +108,12 @@ def evaluate_ner_tagging(
     if dataset_name is None:
         dataset_name = "conll2003"
 
-    print(f"Loading <%s> dataset to train <%s> model", dataset_name, model_name)
+    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
     dataset = load_dataset(dataset_name, split=split)
     tagging_pipeline = pipeline("ner", model=model_name, tokenizer=model_name)
 
     average_score = 0.0
-    average_perturbed_score = 0.0
+    average_pertubed_score = 0.0
     print(f"Length of Evaluation dataset is {len(dataset)}")
     for example in dataset:
         # Calculating the performance on the original set
@@ -129,16 +133,24 @@ def evaluate_ner_tagging(
             transformed_input_prediction, len(trans_gold_tag_seq)
         )
         pt_score = accuracy_score([trans_gold_tag_seq], [trans_predicted_tag_seq])
-        average_perturbed_score += pt_score
+        average_pertubed_score += pt_score
 
-    average_score = average_score / len(dataset)
-    average_pertubed_score = average_perturbed_score / len(dataset)
+    average_score = average_score / len(dataset) * 100
+    average_pertubed_score = average_pertubed_score / len(dataset) * 100
 
     print(
         f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset"
     )
     print(f"The average accuracy on a subset of {dataset_name} = {average_score}")
     print(f"The average accuracy on its pertubed set = {average_pertubed_score}")
+
+    return {
+        "model_name": model_name,
+        "split": split,
+        "dataset_name": dataset_name,
+        "accuracy": np.round(average_score, 1),
+        "pt_accuracy": np.round(average_pertubed_score, 1),
+    }
 
 
 def evaluate_text_summarization(
@@ -151,80 +163,109 @@ def evaluate_text_summarization(
     if dataset_name is None:
         dataset_name = "xsum"
 
-    print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
-    dataset = (
+    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
+    hf_dataset = (
         load_dataset(dataset_name, "3.0.0", split=split)
         if dataset_name is "xsum"
         else load_dataset(dataset_name, split=split)
     )
+
+    dataset = KeyValueDataset.from_huggingface(
+        hf_dataset, TaskType.TEXT_TO_TEXT_GENERATION, ["document", "summary"]
+    )
+    pt_dataset = dataset.apply_transformation(transformation, subfields=["document"])
 
     summarization_pipeline = pipeline(
         "summarization", model=model_name, tokenizer=model_name
     )
     predicted_summary_score = 0.0
     transformed_summary_score = 0.0
+
+    references = []
+    raw_hypotheses = []
+    pt_hypotheses = []
+
     print(f"Length of Evaluation dataset is {len(dataset)}")
-    for example in dataset:
-        article = example["document"]
-        gold_summary = example["summary"]
+    for raw_example, pt_example in zip(dataset, pt_dataset):
+        article, gold_summary = raw_example
+        transformed_article, _ = pt_example
+
         max_len = (
             len(gold_summary.split(" ")) + 10
         )  # approximate max length to control summary generation upto length of gold summary
         predicted_summary = summarization_pipeline(
             article, truncation=True, max_length=max_len
         )[0]["summary_text"]
-        score_list = sentence_bleu(
-            references=[gold_summary], hypothesis=predicted_summary
-        )
-        predicted_summary_score += score_list
 
-        # Calculating the performance on the perturbed set
-        transformed_article = transformation.generate(article)
         transformed_article_summary = summarization_pipeline(
             transformed_article, truncation=True, max_length=max_len
         )[0]["summary_text"]
-        trans_score_list = sentence_bleu(
-            references=[gold_summary], hypothesis=transformed_article_summary
-        )
-        transformed_summary_score += trans_score_list
 
-    predicted_summary_score = predicted_summary_score / len(dataset)
-    transformed_summary_score = transformed_summary_score / len(dataset)
+        references.append(gold_summary)
+        raw_hypotheses.append(predicted_summary)
+        pt_hypotheses.append(transformed_article_summary)
+
+    predicted_summary_score = sacrebleu_score(raw_hypotheses, references)  # 15.989 BLEU
+    transformed_summary_score = sacrebleu_score(
+        pt_hypotheses, references
+    )  # 11.830 BLEU
 
     print(
         f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset"
     )
-    print(
-        f"The average bleu score on a subset of {dataset_name} = {predicted_summary_score}"
-    )
-    print(f"The average bleu score on its perturbed set = {transformed_summary_score}")
+    print(f"The bleu score on a subset of {dataset_name} = {predicted_summary_score}")
+    print(f"The bleu score on its perturbed set = {transformed_summary_score}")
+    return {
+        "model_name": model_name,
+        "split": split,
+        "dataset_name": dataset_name,
+        "bleu": np.round(predicted_summary_score, 1),
+        "pt_bleu": np.round(predicted_summary_score, 1),
+    }
 
 
 def evaluate_text_classifier(
-    transformation, model_name, dataset_name, split="test[:20%]"
+    transformation, model_name, dataset_name, split="test[:20%]", input_key=None
 ):
+    def is_positive(label):
+        return label == 1 or (type(label) == str and "pos" in label.lower())
+
+    # TODO: extend the task to other classification tasks that's not sentiment analysis.
     # (1) load model
     if model_name is None:
         model_name = "aychang/roberta-base-imdb"
     # (2) load test set
     if dataset_name is None:
         dataset_name = "imdb"
-    print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
-    dataset = load_dataset(dataset_name, split=split)
+        fields = ["text", "label"]
+    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
+    if dataset_name in ["qqp", "sst2"]:
+        # TODO: extend this to all the glue datasets.
+        hf_dataset = load_dataset("glue", dataset_name, split=split)
+        fields = ["sentence", "label"]
+    else:
+        hf_dataset = load_dataset(dataset_name, split=split)
+
+    dataset = TextLineDataset.from_huggingface(hf_dataset, ["text", "label"])
+    pt_dataset = dataset.apply_transformation(transformation)
+
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
     nlp = pipeline("sentiment-analysis", model=model_name, tokenizer=model_name)
     accuracy = 0
     pt_accuracy = 0
     total = 0
-    for example in dataset:
-        label = example["label"]
-        pred = nlp(example["text"], truncation=True)[0]["label"]
-        if (pred == "pos" and label == 1) or (pred == "neg" and label == 0):
+
+    for raw_example, pt_example in zip(dataset, pt_dataset):
+        raw_text, label = raw_example
+        pt_text, _ = pt_example
+
+        pred = nlp(raw_text, truncation=True)[0]["label"]
+        if is_positive(pred) == is_positive(label):
             accuracy += 1
-        pt = transformation.generate(example["text"])
-        pt_pred = nlp(pt, truncation=True)[0]["label"]
-        if (pt_pred == "pos" and label == 1) or (pt_pred == "neg" and label == 0):
+
+        pt_pred = nlp(pt_text, truncation=True)[0]["label"]
+        if is_positive(pt_pred) == is_positive(label):
             pt_accuracy += 1
         total += 1
     print(
@@ -234,6 +275,13 @@ def evaluate_text_classifier(
     print(
         f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}"
     )
+    return {
+        "model_name": model_name,
+        "split": split,
+        "dataset_name": dataset_name,
+        "accuracy": np.round(100 * accuracy / total, 1),
+        "pt_accuracy": np.round(100 * pt_accuracy / total, 1),
+    }
 
 
 def evaluate_question_answering_model(
@@ -245,26 +293,30 @@ def evaluate_question_answering_model(
     # (2) load test set
     if dataset_name is None:
         dataset_name = "squad"
-    print("Loading <%s> dataset to train <%s> model", dataset_name, model_name)
-    dataset = load_dataset(dataset_name, split=split)
+    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
+
+    hf_dataset = load_dataset(dataset_name, split=split)
+    dataset = KeyValueDataset.from_huggingface(
+        hf_dataset, TaskType.QUESTION_ANSWERING, ["context", "question", "answers"]
+    )
+    pt_dataset = dataset.apply_transformation(transformation)
+
     nlp = pipeline("question-answering", model=model_name, tokenizer=model_name)
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
     accuracy = 0
     pt_accuracy = 0
     total = 0
-    for example in dataset:
-        context = example["context"]
-        question = example["question"]
-        answers = example["answers"]["text"]
+    for raw_example, pt_example in zip(dataset, pt_dataset):
+        context, question, answers = raw_example
+        context_t, question_t, answers_t = pt_example
+
         pred = nlp({"context": context, "question": question}, truncation=True)[
             "answer"
         ]
         if pred in answers:
             accuracy += 1
-        context_t, question_t, answers_t = transformation.generate(
-            context, question, answers
-        )
+
         pt_pred = nlp({"context": context_t, "question": question_t}, truncation=True)[
             "answer"
         ]
@@ -278,3 +330,11 @@ def evaluate_question_answering_model(
     print(
         f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}"
     )
+
+    return {
+        "model_name": model_name,
+        "split": split,
+        "dataset_name": dataset_name,
+        "accuracy": np.round(100 * accuracy / total, 1),
+        "pt_accuracy": np.round(100 * pt_accuracy / total, 1),
+    }

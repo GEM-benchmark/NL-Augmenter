@@ -98,8 +98,8 @@ def execute_test_case_for_transformation(t_test_cases):
 
 
 def test_transformations(transformation_name):
-    """Entry point to run transformation test cases based on transformation_name"""
-    '''transformation_name: Should be "light"/"all" or any transformation name like "butter_fingers_perturbation"'''
+    """Entry point to run transformation test cases based on transformation_name
+    transformation_name: Should be "light"/"all" or any transformation class name like 'ButterFingersPerturbation'"""
     is_heavy = False if transformation_name == "light" else True
     t_runner = (
         TransformationRuns(is_heavy)
@@ -119,13 +119,14 @@ def test_transformations(transformation_name):
         execute_test_case_for_transformation(test_cases)
 
 
-def test_execute_filter_test_case():
-    """Entry point to run filter test cases"""
-    tx = FilterRuns()
+def test_filters(filter_name):
+    """Entry point to run filter test cases based on filter name parameter.
+    filter_name: Should be "light"/"all" or any filter name"""
+    tx = FilterRuns(filter_name)
     for filter, test in zip(tx.filters, tx.filter_test_cases):
-        filter_args = test["filter_args"]
+        filter_args = test["inputs"]
         output = filter.filter(**filter_args)
-        assert output == test["output"], f"The filter should return {test['output']}"
+        assert output == test["outputs"], f"The filter should return {test['outputs']}"
 
 
 def main():

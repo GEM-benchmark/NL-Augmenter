@@ -9,7 +9,7 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 text generation, etc. 
 
 ## Previous Work and References
-1) The list of names and the implemetation of perturbation has been taken from Checklist.
+1) The list of names and the implementation of perturbation has been taken from Checklist.
 ```bibtex
 @inproceedings{ribeiro-etal-2020-beyond,
     title = "Beyond Accuracy: Behavioral Testing of {NLP} Models with {C}heck{L}ist",

@@ -37,18 +37,16 @@ class TransformationRuns(object):
             t_py = import_module(f"transformations.{m}")
             t_js = os.path.join(transformations_dir, m, "test.json")
             for name, obj in inspect.getmembers(t_py):
-                if (
-                    transformation_name
-                ):  # if its not None, means test only transformation passed via command-line.
+                # if its not None, means test single transformation passed via command-line.
+                if transformation_name:
                     if name == transformation_name:
                         for test_case in load_test_cases(t_js):
                             if test_case["class"] == transformation_name:
                                 transformation_test_cases.append(test_case)
                         is_done = True
                         break
-                elif inspect.isclass(obj) and hasattr(
-                    obj, "heavy"
-                ):  # Run all the test cases based on heavy parameter.
+                elif inspect.isclass(obj) and hasattr(obj, "heavy"):
+                    # Run all the test cases based on heavy parameter.
                     if heavy == obj.is_heavy():
                         for test_case in load_test_cases(t_js):
                             transformation_test_cases.append(test_case)
@@ -60,6 +58,7 @@ class TransformationRuns(object):
     # bit of cleanup required, filters need to be added.
     @staticmethod
     def get_all_transformations_for_task(query_task_type: TaskType) -> Iterable:
+        print("Getting all the transformation by task-type....")
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath("transformations")
@@ -73,6 +72,7 @@ class TransformationRuns(object):
 
     @staticmethod
     def get_all_transformation_names(heavy=False) -> Iterable:
+        print("Getting all the transformation names....")
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath("transformations")
@@ -92,7 +92,37 @@ class TransformationRuns(object):
 
 
 class FilterRuns(object):
-    def __init__(self):
+    def __init__(self, filter_name):
+        if filter_name == "light":
+            self._load_all_filter_test_case(heavy=False)
+        elif filter_name == "all":
+            self._load_all_filter_test_case(heavy=True)
+        else:
+            self._load_single_filter_test_case(filter_name)
+
+    def _load_single_filter_test_case(self, filter_name):
+        filters = []
+        filter_test_cases = []
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        filters_dir = package_dir.parent.joinpath("filters", filter_name)
+
+        t_py = import_module(f"filters.{filter_name}")
+        t_js = os.path.join(filters_dir, "test.json")
+
+        for test_case in load_test_cases(t_js):
+            class_name = test_case["class"]
+            class_args = test_case["args"]
+            # construct filter class with input args
+            cls = getattr(t_py, class_name)
+            filter_instance = cls(**class_args)
+
+            filters.append(filter_instance)
+            filter_test_cases.append(test_case)
+
+        self.filters = filters
+        self.filter_test_cases = filter_test_cases
+
+    def _load_all_filter_test_case(self, heavy=False):
         filters = []
         filter_test_cases = []
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
@@ -106,10 +136,15 @@ class FilterRuns(object):
                 class_args = test_case["args"]
                 # construct filter class with input args
                 cls = getattr(t_py, class_name)
-                filter_instance = cls(**class_args)
 
-                filters.append(filter_instance)
-                filter_test_cases.append(test_case)
+                is_heavy = cls.is_heavy()
+                if (not heavy) and is_heavy:
+                    continue
+                else:
+                    filter_instance = cls(**class_args)
+
+                    filters.append(filter_instance)
+                    filter_test_cases.append(test_case)
 
         self.filters = filters
         self.filter_test_cases = filter_test_cases
