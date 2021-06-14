@@ -50,6 +50,20 @@ def filter_performance(dataset, summarization_pipeline, filter):
     filtered_dataset = dataset.apply_filter(filter, subfields=['document'])
     return performance_on_dataset(filtered_dataset, summarization_pipeline)
 
+"""
+Evaluates performance on the original set
+and on the perturbed set.
+"""
+
+
+def transformation_performance(dataset, summarization_pipeline, transformation):
+    pt_dataset = dataset.apply_transformation(transformation, subfields=['document'])
+    performance = performance_on_dataset(dataset, summarization_pipeline)  # 15.989 BLEU
+    pt_performance = performance_on_dataset(pt_dataset, summarization_pipeline)  # 11.830 BLEU
+    return {
+        "bleu": performance["bleu"],
+        "pt_bleu": pt_performance["bleu"]
+    }
 
 def performance_on_dataset(dataset, summarization_pipeline):
     references = []
@@ -77,17 +91,4 @@ def performance_on_dataset(dataset, summarization_pipeline):
     }
 
 
-"""
-Evaluates performance on the original set
-and on the perturbed set.
-"""
 
-
-def transformation_performance(dataset, summarization_pipeline, transformation):
-    pt_dataset = dataset.apply_transformation(transformation, subfields=['document'])
-    performance = performance_on_dataset(dataset, summarization_pipeline)  # 15.989 BLEU
-    pt_performance = performance_on_dataset(pt_dataset, summarization_pipeline)  # 11.830 BLEU
-    return {
-        "bleu": performance["bleu"],
-        "pt_bleu": pt_performance["bleu"]
-    }

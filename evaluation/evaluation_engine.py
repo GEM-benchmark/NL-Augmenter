@@ -3,7 +3,7 @@ from transformers import pipeline
 import numpy as np
 from sacrebleu import corpus_bleu
 
-from evaluation import evaluate_ner_tagging, evaluate_text_summarization
+from evaluation import evaluate_ner_tagging, evaluate_text_generation, evaluate_question_answering
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation
 from interfaces.TaggingOperation import TaggingOperation
@@ -62,11 +62,11 @@ def execute_model(
             return evaluate_text_classifier(impl, model_name, dataset, split=f"test[:{percentage_of_examples}%]")
 
         elif isinstance(impl, QuestionAnswerOperation) and TaskType[task_type] == TaskType.QUESTION_ANSWERING:
-            return evaluate_question_answering_model(impl, model_name, dataset,
+            return evaluate_question_answering.evaluate(impl, model_name, dataset,
                                                      split=f"validation[:{percentage_of_examples}%]")
 
         elif isinstance(impl, SentenceOperation) and TaskType[task_type] == TaskType.TEXT_TO_TEXT_GENERATION:
-            return evaluate_text_summarization.evaluate(impl, model_name, dataset,
+            return evaluate_text_generation.evaluate(impl, model_name, dataset,
                                                         split=f"test[:{percentage_of_examples}%]")
 
         elif isinstance(impl, TaggingOperation) and TaskType[task_type] == TaskType.TEXT_TAGGING:
@@ -150,57 +150,3 @@ def evaluate_text_classifier(
     }
 
 
-def evaluate_question_answering_model(
-        transformation, model_name, dataset_name, split="validation[:20%]"
-):
-    # (1) load model
-    if model_name is None:
-        model_name = "mrm8488/bert-tiny-5-finetuned-squadv2"
-    # (2) load test set
-    if dataset_name is None:
-        dataset_name = "squad"
-    print(
-        f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
-
-    hf_dataset = load_dataset(dataset_name, split=split)
-    dataset = KeyValueDataset.from_huggingface(
-        hf_dataset, TaskType.QUESTION_ANSWERING, ['context', 'question', 'answers'])
-    pt_dataset = dataset.apply_transformation(transformation)
-
-    nlp = pipeline("question-answering", model=model_name, tokenizer=model_name)
-    # (3) Execute perturbation
-    # (4) Execute the performance of the original set and the perturbed set
-    accuracy = 0
-    pt_accuracy = 0
-    total = 0
-    for raw_example, pt_example in zip(dataset, pt_dataset):
-        context, question, answers = raw_example
-        context_t, question_t, answers_t = pt_example
-
-        pred = nlp({"context": context, "question": question}, truncation=True)[
-            "answer"
-        ]
-        if pred in answers:
-            accuracy += 1
-
-        pt_pred = nlp({"context": context_t, "question": question_t}, truncation=True)[
-            "answer"
-        ]
-        if pt_pred in answers_t:
-            pt_accuracy += 1
-        total += 1
-    print(
-        f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset"
-    )
-    print(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
-    print(
-        f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}"
-    )
-
-    return {
-        "model_name": model_name,
-        "split": split,
-        "dataset_name": dataset_name,
-        "accuracy": np.round(100 * accuracy / total, 1),
-        "pt_accuracy": np.round(100 * pt_accuracy / total, 1)
-    }
