@@ -71,7 +71,7 @@ Once the transformation is ready, test it:
 ```bash
 pytest -s --t=my_awesome_transformation
 ```
-[Optional] If you would like to evaluate your transformation against a common HuggingFace 🤗 model, we encourage you to call [evaluate.py](evaluation)
+(Optional) If you would like to evaluate your transformation against a common HuggingFace 🤗 model, we encourage you to check [evaluation](evaluation)
 
 **Code Styling** To standardized the code we use the [black](https://github.com/psf/black) code formatter which will run at the time of pre-commit.
 To use pre-commit hook, install `pre-commit` with `pip install pre-commit` (installed by default if you've followed the above instructions). 
@@ -97,4 +97,4 @@ Alternatively, you can do so from the GitHub website.
 
 ## How do I create a filter?
 
-We also accept pull-requests for creating [filters](filters). The process to add a new filter is just the same as above. All filter implementations require implementing `.filter` instead of `.generate` and need to be placed in the [filters](filters) folder. So, just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters simply return True or False! For detailed instructions, check the [filters](filters) folder.
+We also accept pull-requests for creating [filters](filters). The process to add a new filter is just the same as above. All filter implementations require implementing `.filter` instead of `.generate` and need to be placed in the [filters](filters) folder. So, just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters simply return True or False! For step-by-step instructions, follow [these](filters) steps.
