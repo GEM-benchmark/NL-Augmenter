@@ -1,12 +1,7 @@
 from datasets import load_dataset
 from transformers import pipeline
-from sacrebleu import corpus_bleu
 import numpy as np
 from seqeval.metrics import accuracy_score
-
-
-def sacrebleu_score(hypotheses, references):
-    return corpus_bleu(hypotheses, [references]).score
 
 
 def convert_ner_ids_to_tags(ner_tags):
@@ -39,7 +34,7 @@ def create_prediction_seq(prediction, expected_seq_length):
     return seq
 
 
-def evaluate_ner_tagging(operation, model_name, dataset_name, split='validation[:20%]', evaluate_filter=False):
+def evaluate(operation, model_name, dataset_name, split='validation[:20%]', evaluate_filter=False):
     # load modal
     if model_name is None:
         model_name = "dslim/bert-base-NER"
