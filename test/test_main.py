@@ -30,8 +30,6 @@ def execute_sentence_operation_test_case(transformation, test_cases):
 
 
 def execute_sentence_target_operation_test_case(transformation, test_cases):
-    # interface = SentenceAndTargetOperation
-    # test_cases = TransformationRuns.get_test_cases(interface, implementation=transformation)
     if transformation is not None and test_cases is not None:
         for test_case in test_cases:
             output_x, output_y = transformation.generate(
@@ -48,8 +46,6 @@ def execute_sentence_target_operation_test_case(transformation, test_cases):
 
 
 def execute_ques_ans_test_case(transformation, test_cases):
-    # interface = QuestionAnswerOperation
-    # test_cases = TransformationRuns.get_test_cases(interface, implementation=transformation)
     if transformation is not None and test_cases is not None:
         for test_case in test_cases:
             output_c, output_q, output_a = transformation.generate(
@@ -100,7 +96,7 @@ def execute_test_case_for_transformation(t_test_cases):
 def test_transformations(transformation_name):
     """Entry point to run transformation test cases based on transformation_name
     transformation_name: Should be "light"/"all" or any transformation class name like 'ButterFingersPerturbation'"""
-    is_heavy = False if transformation_name == "light" else True
+    is_heavy = not transformation_name == "light"
     t_runner = (
         TransformationRuns(is_heavy)
         if transformation_name == "light" or transformation_name == "all"
