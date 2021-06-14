@@ -181,8 +181,7 @@ def convert_to_snake_case(camel_case):
 
 
 if __name__ == '__main__':
-    for tx in TransformationRuns.get_all_transformation_names(True):
-        print(tx)
-    for transformation in TransformationRuns.get_all_transformations_for_task(TaskType.TEXT_CLASSIFICATION):
-        print(transformation.generate("This is a quick test code to show all the transformations "
-                                      "for a particular task type!"))
+    [print(tx) for tx in TransformationRuns.get_all_transformation_names(True)]
+    for transformation in TransformationRuns.get_all_transformations_for_task(TaskType.QUESTION_ANSWERING):
+        print(transformation.name())
+        print(transformation.generate("test", "test", ["test", "test"]))
