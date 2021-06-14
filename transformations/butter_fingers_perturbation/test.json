@@ -2,10 +2,12 @@
   "type": "butter_fingers_perturbation",
   "test_cases": [
     {
+      "class": "ButterFingersPerturbation",
       "input": "Andrew finally returned the French book to Chris that I bought last week",
       "output": "Andgew finally returned the French book to Chrus thav I bought last week"
     },
     {
+      "class": "ButterFingersPerturbation",
       "input": "Andrew finally returned the French book to Chris that I bought last week",
       "output": "Andgew finally returned the French book to Chrus thav I bought last week"
     }

@@ -2,10 +2,12 @@
   "type": "change_named_entities",
   "test_cases": [
     {
+      "class": "ChangePersonNamedEntities",
       "input": "Andrew finally returned the French book to Chris that I bought last week",
       "output": "Nathaniel finally returned the French book to Chris that I bought last week"
     },
     {
+      "class": "ChangePersonNamedEntities",
       "input": "Andrew finally returned the French book to Chris that I bought last week",
       "output": "Nathaniel finally returned the French book to Chris that I bought last week"
     }

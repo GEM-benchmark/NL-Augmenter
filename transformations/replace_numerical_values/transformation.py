@@ -75,7 +75,7 @@ class NumericalTransformation:
                         value_tens = self.value_tens_count(num_value)
                         new_value = random.randint(0, value_tens)
                         new_value = num2words(new_value)
-                    except ValueError as ve:
+                    except ValueError:
                         print(
                             "Value: {} is not recognised as an alpha-number".format(
                                 cardinal_value

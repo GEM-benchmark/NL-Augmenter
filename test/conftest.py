@@ -1,5 +1,5 @@
 def pytest_addoption(parser):
-    parser.addoption("--t", action="store", default="butter_fingers_perturbation")
+    parser.addoption("--t", action="store", default="light")
 
 
 def pytest_generate_tests(metafunc):

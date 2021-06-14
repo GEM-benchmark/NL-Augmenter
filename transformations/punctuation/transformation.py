@@ -14,8 +14,8 @@ class Punctuation(SentenceOperation):
         self.nlp = spacy.load("en_core_web_sm")
 
     def generate(self, sentence: str):
-        pertubed = Perturb.punctuation(self.nlp(sentence))
-        pertubed = pertubed[0]  # Just take the first one for now.
+        perturbed = Perturb.punctuation(self.nlp(sentence))
+        perturbed = perturbed[0]  # Just take the first one for now.
         if self.verbose:
-            print(f"Perturbed Input from {self.name()} : {pertubed}")
-        return pertubed
+            print(f"Perturbed Input from {self.name()} : {perturbed}")
+        return perturbed

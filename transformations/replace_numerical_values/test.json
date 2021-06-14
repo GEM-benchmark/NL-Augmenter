@@ -2,10 +2,12 @@
   "type": "replace_numerical_values",
   "test_cases": [
     {
+      "class": "ReplaceNumericalValues",
       "input": "Andrew finally returned the French book to Chris that I bought last week",
       "output": "Andrew finally returned the French book to Chris that I bought last week"
     },
     {
+      "class": "ReplaceNumericalValues",
       "input": "Andrew finally returned the five French books to Chris that contains 53.45 pages.",
       "output": "Andrew finally returned the six French books to Chris that contains 75.80 pages."
     }

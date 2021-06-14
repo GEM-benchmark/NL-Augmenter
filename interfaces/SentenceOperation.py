@@ -39,7 +39,6 @@ class SentenceAndTargetOperation(Operation):
 
     src_locale = None
     tgt_locale = None
-    tasks = None
 
     @classmethod
     def domain(cls):
@@ -55,7 +54,7 @@ class SentenceAndTargetOperation(Operation):
 class SentenceAndTargetsOperation(Operation):
     """
     The base class for implementing sentence-pair-level perturbations and transformations. There can be
-    muliple targets eg. multiple references in machine translation.
+    multiple targets eg. multiple references in machine translation.
 
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
@@ -66,7 +65,6 @@ class SentenceAndTargetsOperation(Operation):
 
     src_locale = None
     tgt_locale = None
-    tasks = None
 
     @classmethod
     def domain(cls):

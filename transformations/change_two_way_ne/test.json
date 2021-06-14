@@ -2,12 +2,14 @@
   "type": "change_two_way_ne",
   "test_cases": [
     {
+      "class": "ChangeTwoWayNe",
       "input_x": "Andrew played cricket with Chris",
       "input_y": "Andrew seldom played cricket with Chris.",
       "output_x": "Andrew played cricket with Jacob",
       "output_y": "Andrew seldom played cricket with Jacob."
     },
     {
+      "class": "ChangeTwoWayNe",
       "input_x": "Andrew played cricket in India",
       "input_y": "India was the country where Jonathan played.",
       "output_x": "Andrew played cricket in Canada",
