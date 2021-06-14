@@ -30,6 +30,23 @@ def evaluate(
     )
     return
 
+def evaluate_mt( implementation,
+        task_type,
+        src_locale="en",
+        tgt_locale="en",
+        model=None,
+        dataset=None,
+        percent_of_examples=None,):
+    # The evaluation engine would effectively do the following
+    # (1) Loading a standard model and a test set (the model's original test set would be the best choice)
+    # (2) Executing perturbations to generate the perturbed test set.
+    # (3) Executing these against the model and evaluate its performance (display nicely :P )
+    # (4) Writing a neat README.
+    task_type = get_task_type(implementation, task_type)
+    execute_model(
+        implementation, task_type, src_locale, model, dataset, percent_of_examples, tgt_locale
+    )
+    return
 
 def get_task_type(implementation, task_type):
     if task_type is None:
@@ -48,6 +65,7 @@ def execute_model(
         model_name=None,
         dataset=None,
         percentage_of_examples=20,
+        locale_tgt = "en"
 ):
     interface = implementation.__bases__[0]  # SentenceTransformation
     impl = implementation()

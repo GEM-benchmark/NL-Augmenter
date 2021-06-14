@@ -37,13 +37,13 @@ class SentenceAndTargetOperation(Operation):
     "mr","en_IN"
     """
 
-    src_locale = None
-    tgt_locale = None
+    src_locales = None
+    tgt_locales = None
     tasks = None
 
     @classmethod
     def domain(cls):
-        return cls.tasks, cls.src_locale, cls.tgt_locale
+        return cls.tasks, cls.src_locales, cls.tgt_locales
 
     def generate(self, sentence: str, target: str) -> Tuple[str, str]:
         raise NotImplementedError
@@ -64,13 +64,13 @@ class SentenceAndTargetsOperation(Operation):
     "mr","en_IN"
     """
 
-    src_locale = None
-    tgt_locale = None
+    src_locales = None
+    tgt_locales = None
     tasks = None
 
     @classmethod
     def domain(cls):
-        return cls.tasks, cls.src_locale, cls.tgt_locale
+        return cls.tasks, cls.src_locales, cls.tgt_locales
 
     def generate(self, sentence: str, target: List[str]) -> Tuple[str, List[str]]:
         raise NotImplementedError

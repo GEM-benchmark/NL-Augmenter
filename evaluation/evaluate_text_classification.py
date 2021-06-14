@@ -32,19 +32,21 @@ def evaluate(
     dataset = TextLineDataset.from_huggingface(hf_dataset, ['text', 'label'])
     if evaluate_filter:
         filtered_dataset = dataset.apply_filter(operation)
+        print(f"Here is the performance of the model on the filtered set")
         accuracy, total = evaluate_dataset(text_classification_pipeline, filtered_dataset)
         performance["accuracy"] = accuracy
         performance["no_of_examples"] = total
     else:
-        pt_dataset = dataset.apply_transformation(operation)
         accuracy, total = evaluate_dataset(text_classification_pipeline, dataset)
         performance["accuracy"] = accuracy
         performance["no_of_examples"] = total
+        pt_dataset = dataset.apply_transformation(operation)
+        print(f"Here is the performance of the model on the transformed set")
         accuracy, _ = evaluate_dataset(text_classification_pipeline, pt_dataset)
         performance["pt_accuracy"] = accuracy
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
-
+    return performance
 
 def evaluate_dataset(text_classification_pipeline, dataset):
     def is_positive(label):
