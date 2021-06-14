@@ -31,11 +31,12 @@ def evaluate(operation, model_name, dataset_name, split="validation[:20%]", eval
         print(f"Starting evaluation on the filtered dataset.")
         performance = evaluate_on_dataset(filtered_dataset, qa_pipeline)
     else:
-        pt_dataset = dataset.apply_transformation(operation)
-        print(f"Starting evaluation on the transformed dataset.")
-        pt_performance = evaluate_on_dataset(pt_dataset, qa_pipeline)
         print(f"Starting evaluation on the original dataset.")
         performance = evaluate_on_dataset(dataset, qa_pipeline)
+
+        print(f"Starting evaluation on the transformed dataset.")
+        pt_dataset = dataset.apply_transformation(operation)
+        pt_performance = evaluate_on_dataset(pt_dataset, qa_pipeline)
         performance["pt_accuracy"] = pt_performance["accuracy"]
 
     # (3) Execute perturbation
