@@ -1,14 +1,8 @@
-from datasets import load_dataset
-from transformers import pipeline
-import numpy as np
-from sacrebleu import corpus_bleu
-
-from evaluation import evaluate_ner_tagging, evaluate_text_generation, evaluate_question_answering
+from evaluation import evaluate_ner_tagging, evaluate_text_generation, evaluate_question_answering, evaluate_text_classification
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation
 from interfaces.TaggingOperation import TaggingOperation
 from tasks.TaskTypes import TaskType
-from dataset import TextLineDataset, KeyValueDataset
 
 """
 This is the evaluation engine.
@@ -59,7 +53,7 @@ def execute_model(
     impl = implementation()
     if locale is "en":
         if isinstance(impl, SentenceOperation) and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION:
-            return evaluate_text_classifier(impl, model_name, dataset, split=f"test[:{percentage_of_examples}%]")
+            return evaluate_text_classification.evaluate(impl, model_name, dataset, split=f"test[:{percentage_of_examples}%]")
 
         elif isinstance(impl, QuestionAnswerOperation) and TaskType[task_type] == TaskType.QUESTION_ANSWERING:
             return evaluate_question_answering.evaluate(impl, model_name, dataset,
@@ -88,65 +82,4 @@ def execute_model(
             f"the right place to do it would to add a new function in evaluate/evaluation_engine.py "
             f"and call it from execute_model. That's it!"
         )
-
-
-def evaluate_text_classifier(
-        transformation, model_name, dataset_name, split="test[:20%]", input_key=None):
-    def is_positive(label):
-        return label == 1 or (type(label) == str and "pos" in label.lower())
-
-    # TODO: extend the task to other classification tasks that's not sentiment analysis.
-    # (1) load model
-    if model_name is None:
-        model_name = "aychang/roberta-base-imdb"
-    # (2) load test set
-    if dataset_name is None:
-        dataset_name = "imdb"
-        fields = ["text", "label"]
-    print(
-        f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
-    if dataset_name in ["qqp", "sst2"]:
-        # TODO: extend this to all the glue datasets.
-        hf_dataset = load_dataset('glue', dataset_name, split=split)
-        fields = ["sentence", "label"]
-    else:
-        hf_dataset = load_dataset(dataset_name, split=split)
-
-    dataset = TextLineDataset.from_huggingface(hf_dataset, ['text', 'label'])
-    pt_dataset = dataset.apply_transformation(transformation)
-
-    # (3) Execute perturbation
-    # (4) Execute the performance of the original set and the perturbed set
-    nlp = pipeline("sentiment-analysis", model=model_name, tokenizer=model_name)
-    accuracy = 0
-    pt_accuracy = 0
-    total = 0
-
-    for raw_example, pt_example in zip(dataset, pt_dataset):
-        raw_text, label = raw_example
-        pt_text, _ = pt_example
-
-        pred = nlp(raw_text, truncation=True)[0]["label"]
-        if is_positive(pred) == is_positive(label):
-            accuracy += 1
-
-        pt_pred = nlp(pt_text, truncation=True)[0]["label"]
-        if is_positive(pt_pred) == is_positive(label):
-            pt_accuracy += 1
-        total += 1
-    print(
-        f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset"
-    )
-    print(f"The accuracy on a subset of {dataset_name} = {100 * accuracy / total}")
-    print(
-        f"The accuracy on its perturbed set generated from = {100 * pt_accuracy / total}"
-    )
-    return {
-        "model_name": model_name,
-        "split": split,
-        "dataset_name": dataset_name,
-        "accuracy": np.round(100 * accuracy / total, 1),
-        "pt_accuracy": np.round(100 * pt_accuracy / total, 1)
-    }
-
 
