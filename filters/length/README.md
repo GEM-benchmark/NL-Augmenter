@@ -14,7 +14,7 @@ Supported conditions:
 - equal to: "=="
 
 
-## What tasks does it intend to benefit?
+## Why is measuring performance on this split important?
 
 ## Related Work
 

@@ -20,7 +20,7 @@ NLP tasks often radically differ in their linguistic properties of interest — 
 
 ## Publication of transformations
 
-A paper will be written describing the framework and analyzing the performance of common NLP models. All submitters of accepted transformations will be invited to be co-authors on this paper. The framework itself will provide a final artifact, which we hope will prove useful for data augmentation and generating perturbations and contrast sets to evaluate robustness. 
+A paper will be written describing the framework and analyzing the performance of common NLP models. All submitters of accepted transformations (and filters) will be invited to be co-authors on this paper. The framework itself will provide a final artifact, which we hope will prove useful for data augmentation and generating perturbations and contrast sets to evaluate robustness. 
 
 ## Submission review process
 
@@ -52,7 +52,7 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Evaluating Robustness:** A transformation's potential to act as a robustness tool should be tested via executing [`evaluate.py`](../evaluation) and the corresponding performance should be mentioned in the README. Evaluation should only be skipped in case there is no support in the [evaluation_engine](../evaluation).  
 
-**Languages other than English:** We also strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
+**Languages other than English:** We strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
 
 All of the above criteria extend to [filters](../filters) too.
  
