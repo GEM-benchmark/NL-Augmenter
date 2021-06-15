@@ -124,15 +124,6 @@ def get_implementation(clazz: str, search="transformations"):
     raise ValueError(f"No class called {clazz} found. Check if you've spelled it right!")
 
 
-def convert_to_camel_case(word):
-    return "".join(x.capitalize() or "_" for x in word.split("_"))
-
-
-def convert_to_snake_case(camel_case):
-    name = re.sub(r'(?<!^)(?=[A-Z])', '_', camel_case).lower()
-    return name
-
-
 if __name__ == '__main__':
     for x in OperationRuns.get_all_folder_names():
         print(x)

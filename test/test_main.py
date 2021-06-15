@@ -1,14 +1,9 @@
 import pytest
 
-from TestRunner import convert_to_camel_case, OperationRuns
+from TestRunner import OperationRuns
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
 from interfaces.TaggingOperation import TaggingOperation
-
-
-def print_no_test_cases_found(cls_name):
-    folder_name = convert_to_camel_case(cls_name)
-    print(f"No test cases found for {cls_name}. Add a file named `test.json` in {folder_name}")
 
 
 def execute_sentence_operation_test_case(transformation, test):
