@@ -29,6 +29,13 @@ The transformations which are already accepted to NL-Augmenter are summarized in
 <a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly see transformations and filters in action, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb). 
 
 ## Installation
+
+**Requirements**
+
+* Python 3.7
+
+**Instructions**
+
 ```bash
 # When creating a new transformation, replace this with your forked repository (see below)
 git clone https://github.com/GEM-benchmark/NL-Augmenter.git
