@@ -1,6 +1,6 @@
 # NL-Augmenter 🦎 → 🐍
 
-The NL-Augmenter is a collaborative effort intended to accumulate all transformations operating over tasks dealing with natural language. We invite submissions of transformations to this framework by way of GitHub pull request, through August 1, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework. 
+The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. We invite submissions of transformations to this framework by way of GitHub pull request, through August 1, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework. 
 
 The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
@@ -11,9 +11,9 @@ The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 | August 1, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
 | August 22, 2021 | Review process for pull request above must be complete           |
 
-The transformation can be revised between the pull request submission and pull request merge deadlines. We expect that most implementations will undergo revisions based on reviewer feedback.
+A transformation can be revised between the pull request submission and pull request merge deadlines. We will provide reviewer feedback to help with the revisions.
 
-Transformations which are already accepted to NL-Augmenter are summarized in [this table](transformations/README.md). Transformations undergoing review can be seen as [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls).
+The transformations which are already accepted to NL-Augmenter are summarized in [this table](transformations/README.md). Transformations undergoing review can be seen as [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls).
 
 **Table of contents**
 
@@ -21,11 +21,12 @@ Transformations which are already accepted to NL-Augmenter are summarized in [th
 * [Installation](#installation)
 * [How do I create a transformation?](#how-do-i-create-a-transformation)
 * [How do I create a filter?](#how-do-i-create-a-filter)
+* [Motivation](docs/doc.md#motivation)
 * [Review Criteria for Accepting Submissions](docs/doc.md#review-criteria-for-submissions)
 
 ## Colab notebook
 
-<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/NL_Augmenter_Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly see transformations and filters in action, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/NL_Augmenter_Write_a_sample_transformation.ipynb). 
+<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly see transformations and filters in action, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb). 
 
 ## Installation
 ```bash
@@ -62,24 +63,24 @@ cd my_awesome_transformation
 ### Creating a transformation
 1. In the file `transformation.py`, rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation` and choose one of the interfaces from the `interfaces/` folder. See the full list of options [here.](interfaces)
 2. Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in [`requirements.txt`](requirements.txt)
-3. Once done add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently and update `my_awesome_transformation/README.md`.
 
+**Testing and evaluating** (Optional)
 
-**Testing and evaluating**
+Once you are done, add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently and update `my_awesome_transformation/README.md` to describe your transformation.
 
 Once the transformation is ready, test it:
 ```bash
 pytest -s --t=my_awesome_transformation
 ```
-[Optional] If you would like to evaluate your transformation against a common HuggingFace 🤗 model, we encourage you to call [evaluate.py](evaluation)
+If you would like to evaluate your transformation against a common 🤗HuggingFace model, we encourage you to check [evaluation](evaluation)
 
 **Code Styling** To standardized the code we use the [black](https://github.com/psf/black) code formatter which will run at the time of pre-commit.
-To use pre-commit hook, install `pre-commit` with `pip install pre-commit` (installed by default if you've followed the above instructions). 
+To use the pre-commit hook, install `pre-commit` with `pip install pre-commit` (should already be installed if you followed the above instructions). 
 Then run `pre-commit install` to install the hook. On future commits, you should see the black code formatter is run on all python files you've staged for commit.
 
 ### Submitting
 
-Once the tests pass and you are happy with the transformation, submit your transformation for review.
+Once the tests pass and you are happy with the transformation, submit them for review.
 First, commit and push your changes:
 ```bash
 git add transformations/my_awesome_transformation/*
@@ -97,4 +98,4 @@ Alternatively, you can do so from the GitHub website.
 
 ## How do I create a filter?
 
-We also accept pull-requests for creating [filters](filters). The process to add a new filter is just the same as above. All filter implementations require implementing `.filter` instead of `.generate` and need to be placed in the [filters](filters) folder. So, just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters simply return True or False! For detailed instructions, check the [filters](filters) folder.
+We also accept pull-requests for creating [filters](filters) which identify interesting subpopulations of a dataset. The process to add a new filter is just the same as above. All filter implementations require implementing `.filter` instead of `.generate` and need to be placed in the [filters](filters) folder. So, just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters simply return True or False! For step-by-step instructions, follow [these](filters) steps.
