@@ -27,7 +27,7 @@ parser.add_argument(
 
 """
 Just run this file using the following command:
-  python evaluate.py -t butter_fingers_perturbation
+  python evaluate.py -t ButterFingersPerturbation
 """
 if __name__ == "__main__":
     args = parser.parse_args()

@@ -13,7 +13,7 @@ from dataset import TextLineDataset, KeyValueDataset
 """
 This is the evaluation engine.
 Currently has been implemented for SentenceTransformation:
-eg. python evaluate.py -t butter_fingers_perturbation
+eg. python evaluate.py -t ButterFingersPerturbation
 """
 
 
