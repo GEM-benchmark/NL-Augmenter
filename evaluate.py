@@ -34,6 +34,9 @@ Just run this file using the following command:
 if __name__ == "__main__":
     args = parser.parse_args()
 
+    if args.transformation is None and args.filter is None:
+        raise ValueError("Both transformation and filter can't be none.")
+
     # Identify the transformation that the user has mentioned.
     implementation = get_implementation(args.transformation)
     # Use the tasks and the locales of an implementation to retrieve an HF model and a test set.

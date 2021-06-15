@@ -29,24 +29,6 @@ def load_test_cases(test_json):
 
 
 class TransformationRuns(object):
-    def __init__(self, interface, name_of_transformation, load_tests=True):
-        self.transformation = None
-        self.test_cases = None
-        # iterate through the modules in the current package
-        package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        transformations_dir = package_dir.parent.joinpath("transformations")
-        for (_, m, _) in iter_modules([transformations_dir]):
-            if m == name_of_transformation:
-                t_py = import_module(f"transformations.{m}.transformation")
-                for cls in interface.__subclasses__():
-                    if hasattr(t_py, cls.__name__):
-                        self.transformation = load(t_py, cls)
-                        if load_tests:
-                            t_js = os.path.join(transformations_dir, m, "test.json")
-                            self.test_cases = load_test_cases(t_js)
-                        break
-                break
-
     @staticmethod
     def get_test_cases(interface, implementation):
         name_of_transformation = convert_to_snake_case(implementation.name())
