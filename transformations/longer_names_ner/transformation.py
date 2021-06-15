@@ -12,14 +12,16 @@ John Smith cooked a curry in the evening. --> John D. Smith cooked a curry in th
 class LongerNamesNer(TaggingOperation):
     tasks = [TaskType.TEXT_TAGGING]
     locales = "All"
-    no_of_repeats = 1  # values should not be larger than 3-4
+    no_of_repeats = 2  # values should not be larger than 3-4
 
-    def __init__(self, no_of_repeats=1):
+    def __init__(self, no_of_repeats=2):
         super().__init__()
-        random.seed(self.seed)
         self.no_of_repeats = no_of_repeats
 
     def generate(self, token_sequence: List[str], tag_sequence: List[str]):
+        random.seed(self.seed)
+        token_sequence = token_sequence.copy()
+        tag_sequence = tag_sequence.copy()
         tag = "PERSON" if "B-PERSON" in tag_sequence else "PER"
         b_tag = "B-" + tag
         i_tag = "I-" + tag
@@ -36,18 +38,33 @@ class LongerNamesNer(TaggingOperation):
         return token_sequence, tag_sequence
 
 
+
 """
 # Sample code to demonstrate usage. Can also assist in adding test cases.
+
 if __name__ == '__main__':
     import json
-
-    tx = LongerNamesNer()
-    input_sequence = "Roger Michael Humphrey Binny ( born 19 July 1955 ) is an Indian former cricketer ."
-    input_tag = "B-PER I-PER I-PER I-PER O O B-DATE I-DATE I-DATE O O O O O O O"
-    output_sequence, output_tag = tx.generate(input_sequence.split(" "), input_tag.split(" "))
-    output_sequence = " ".join(output_sequence)
-    output_tag = " ".join(output_tag)
-    test_case = {"input_sequence": input_sequence, "input_tag": input_tag, "output_sequence":output_sequence,
-            "output_tag": output_tag}
-    print(json.dumps(test_case))
+    from TestRunner import convert_to_snake_case
+    tf = LongerNamesNer()
+    test_cases = []
+    src = ["Manmohan Singh served as the PM of India .",
+                     "Neil Alden Armstrong was an American astronaut",
+           "Katheryn Elizabeth Hudson is an American singer",
+           "The owner of the mall is Anthony Gonsalves.",
+           "Roger Michael Humphrey Binny ( born 19 July 1955 ) is an Indian former cricketer ."]
+    tgt = ["B-PER I-PER O O O O O B-COUNTRY O",
+                     "B-PER I-PER I-PER O O B-COUNTRY O",
+           "B-PER I-PER I-PER O O B-COUNTRY O",
+           "O O O O O O B-PER I-PER",
+           "B-PER I-PER I-PER I-PER O O B-DATE I-DATE I-DATE O O O O O O O"
+           ]
+    for token_sequence, tag_sequence in zip(src, tgt):
+        sentence_o, target_o = tf.generate(token_sequence.split(" "), tag_sequence.split(" "))
+        test_cases.append({
+            "class": tf.name(),
+            "inputs": {"token_sequence": token_sequence, "tag_sequence": tag_sequence},
+            "outputs": {"token_sequence": " ".join(sentence_o), "tag_sequence": " ".join(target_o)}}
+        )
+    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
+    print(json.dumps(json_file))
 """

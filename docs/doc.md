@@ -20,7 +20,7 @@ NLP tasks often radically differ in their linguistic properties of interest — 
 
 ## Publication of transformations
 
-A paper will be written describing the framework and analyzing the performance of common NLP models. All submitters of accepted transformations will be invited to be co-authors on this paper. The framework itself will provide a final artifact, which we hope will prove useful for data augmentation and generating perturbations and contrast sets to evaluate robustness. 
+A paper will be written describing the framework and analyzing the performance of common NLP models. All submitters of accepted transformations (and filters) will be invited to be co-authors on this paper. The framework itself will provide a final artifact, which we hope will prove useful for data augmentation and generating perturbations and contrast sets to evaluate robustness. 
 
 ## Submission review process
 
@@ -48,20 +48,21 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Paraphrasers and Data Augmenters:** Besides perturbations, we welcome transformation methods that act like paraphrasers and data augmenters. For non-deterministic approaches, we encourage you to specify metrics which can provide an estimate of the generation quality. It is preferred to have a high precision transformation generator compared to a low accuracy one. And hence it's okay if your transformation selectively generates. If your transformation loads a deep-learning model, especially a heavy one (like BERT or T5 or their cousins), set the heavy variable to `True`.
  
-**Test Cases:** At least 5 examples should be added in the file `test.json` as test cases for every added transformation. These examples serve as test cases as well as provide reviewers a sample of your transformation's output. The format of `test.json` can be borrowed from the sample transformations [here.](../interfaces)
+**Test Cases:** We recommend you to add 5 examples in the file `test.json` as test cases for every added transformation. These examples serve as test cases as well as provide reviewers a sample of your transformation's output. The format of `test.json` can be borrowed from the sample transformations [here.](../interfaces). Addition of the the test cases is not mandatory but is encouraged.
 
-**Evaluating Robustness:** A transformation's potential to act as a robustness tool should be tested via executing [`evaluate.py`](../evaluation) and the corresponding performance should be mentioned in the README. 
+**Evaluating Robustness:** A transformation's potential to act as a robustness tool should be tested via executing [`evaluate.py`](../evaluation) and the corresponding performance should be mentioned in the README. Evaluation should only be skipped in case there is no support in the [evaluation_engine](../evaluation).  
 
-**Languages other than English:** We also strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
+**Languages other than English:** We strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
 
 All of the above criteria extend to [filters](../filters) too.
  
 ## Writing a good transformation
-Writing a transformation is a creative process. Transformations could use both machine learning as well as rule based models. While there is no hard and fast rule, a transformation is useful if it can augment training data qualitatively or be able to generate perturbations which could reveal places where models' performance suffers. One of the quick ways to contribute would be to extend any of the existing transformations to a low-resource language.
+Writing a transformation is a creative process. Transformations could use both machine learning as well as rule based models. While there is no hard and fast rule, a transformation is useful if it can augment training data qualitatively or be able to generate perturbations which could reveal places where models' performance suffers. One of the quick ways to contribute would be to extend any of the existing transformations to a low-resource language.  
 
 
 ## Evaluating the transformation
- 
+A transformation would be most effective when it can either reveal potential failures in a model or act as a data augmenter to generate more training data. With the availability of a plethora of open source pre-trained models, we seek to provide participants the opportunity to quickly test their implementations for evaluating robustness. For a handful set of NLP tasks, we support a [one line evaluation](../evaluation) of transformations. Depending on the interface/operation you use, our evaluation engine evaluates pre-trained HuggingFace models on task-related datasets. The default choice of models and datasets can be overridden. We currently support evaluation over HuggingFace models and datasets over HF pipelines.
+
 ## Writing a good filter
 Filters are qualifying conditions on the input data which help segregate datasets into informative splits. Relying on a single train-test split implies that there is an inherent element of randomness that can influence model performance. Instead, writing filters which identify specific properties of the data help make the splitting informative. eg. a filter which determines if an input sentence is conveyed in "an active voice" might be able to reveal performance differences between active and passive voice sentences.   
 

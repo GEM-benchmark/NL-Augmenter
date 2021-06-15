@@ -1,6 +1,6 @@
 import pytest
 
-from TestRunner import TransformationRuns, FilterRuns, get_implementation, convert_to_camel_case
+from TestRunner import convert_to_camel_case, TransformationRuns2
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
 from interfaces.TaggingOperation import TaggingOperation
@@ -11,104 +11,61 @@ def print_no_test_cases_found(cls_name):
     print(f"No test cases found for {cls_name}. Add a file named `test.json` in {folder_name}")
 
 
-def execute_sentence_operation_test_case(transformation):
-    interface = SentenceOperation
-    test_cases = TransformationRuns.get_test_cases(interface, implementation=transformation)
-    if transformation is not None and test_cases is not None:
-        for test in test_cases:
-            assert test["output"] == transformation.generate(
-                test["input"]
-            ), f"Should have generated {test['output']}"
-    else:
-        print_no_test_cases_found(transformation.name())
+def execute_sentence_operation_test_case(transformation, test):
+    filter_args = test["inputs"]
+    outputs = test["outputs"]
+    output = transformation.generate(**filter_args)
+    assert output == outputs["sentence"]
 
 
-def execute_sentence_target_operation_test_case(transformation):
-    interface = SentenceAndTargetOperation
-    test_cases = TransformationRuns.get_test_cases(interface, implementation=transformation)
-    if transformation is not None and test_cases is not None:
-        for test in test_cases:
-            output_x, output_y = transformation.generate(
-                test["input_x"], test["input_y"]
-            )
-            assert (
-                    output_x == test["output_x"]
-            ), f"Should have generated {test['output_x']}"
-            assert (
-                    output_y == test["output_y"]
-            ), f"Should have generated {test['output_y']}"
-    else:
-        print_no_test_cases_found(transformation.name())
+def execute_sentence_target_operation_test_case(transformation, test):
+    filter_args = test["inputs"]
+    outputs = test["outputs"]
+    output, target = transformation.generate(**filter_args)
+    assert output == outputs["sentence"]
+    assert target == outputs["target"]
 
 
-def execute_ques_ans_test_case(transformation):
-    interface = QuestionAnswerOperation
-    test_cases = TransformationRuns.get_test_cases(interface, implementation=transformation)
-    if transformation is not None and test_cases is not None:
-        for test in test_cases:
-            output_c, output_q, output_a = transformation.generate(
-                test["input_c"], test["input_q"], test["input_a"]
-            )
-            assert (
-                    output_c == test["output_c"]
-            ), f"Should have generated {test['output_c']}"
-            assert (
-                    output_q == test["output_q"]
-            ), f"Should have generated {test['output_q']}"
-            assert (
-                    output_a == test["output_a"]
-            ), f"Should have generated {test['output_a']}"
-    else:
-        print_no_test_cases_found(transformation.name())
+def execute_ques_ans_test_case(transformation, test):
+    filter_args = test["inputs"]
+    outputs = test["outputs"]
+    context, question, answers = transformation.generate(**filter_args)
+    assert context == outputs["context"]
+    assert question == outputs["question"]
+    assert answers == outputs["answers"]
 
 
-def execute_tagging_test_case(transformation):
-    interface = TaggingOperation
-    test_cases = TransformationRuns.get_test_cases(interface, implementation=transformation)
-    if transformation is not None and test_cases is not None:
-        for test in test_cases:
-            output_sequence, output_tag = transformation.generate(
-                test["input_sequence"].split(" "), test["input_tag"].split(" ")
-            )
-            assert (
-                    output_sequence == test["output_sequence"].split(" ")
-            ), f"Should have generated {test['output_sequence']}"
-            assert (
-                    output_tag == test["output_tag"].split(" ")
-            ), f"Should have generated {test['output_tag']}"
-    else:
-        print_no_test_cases_found(transformation.name())
+def execute_tagging_test_case(transformation, test):
+    filter_args = test["inputs"]
+    token_sequence = filter_args["token_sequence"]
+    tag_sequence = filter_args["tag_sequence"]
+    outputs = test["outputs"]
+    output, tags = transformation.generate(token_sequence.split(" "), tag_sequence.split(" "))
+    assert output == outputs["token_sequence"].split(" ")
+    assert tags == outputs["tag_sequence"].split(" ")
 
 
 def test_operation(transformation_name, filter_name):
-    if transformation_name == "light":
-        for tx_name in TransformationRuns.get_all_transformation_names(heavy=False):
-            execute_test_case_for_transformation(tx_name)
-    elif transformation_name == "all":
-        for tx_name in TransformationRuns.get_all_transformation_names(heavy=True):
-            execute_test_case_for_transformation(tx_name)
-    else:
-        execute_test_case_for_transformation(transformation_name)
-        
+    execute_test_case_for_transformation(transformation_name)
     execute_test_case_for_filter(filter_name)
         
 
 def execute_test_case_for_transformation(transformation_name):
-    implementation = get_implementation(transformation_name)
-    impl = implementation()
-    if isinstance(impl, SentenceOperation):
-        execute_sentence_operation_test_case(impl)
-    elif isinstance(impl, SentenceAndTargetOperation):
-        execute_sentence_target_operation_test_case(impl)
-    elif isinstance(impl, QuestionAnswerOperation):
-        execute_ques_ans_test_case(impl)
-    elif isinstance(impl, TaggingOperation):
-        execute_tagging_test_case(impl)
+    tx = TransformationRuns2(transformation_name)
+    for transformation, test in zip(tx.operations, tx.operation_test_cases):
+        if isinstance(transformation, SentenceOperation):
+            execute_sentence_operation_test_case(transformation, test)
+        elif isinstance(transformation, SentenceAndTargetOperation):
+            execute_sentence_target_operation_test_case(transformation, test)
+        elif isinstance(transformation, QuestionAnswerOperation):
+            execute_ques_ans_test_case(transformation, test)
+        elif isinstance(transformation, TaggingOperation):
+            execute_tagging_test_case(transformation, test)
 
 
 def execute_test_case_for_filter(filter_name):
-    tx = FilterRuns(filter_name)
-    for filter, test in zip(tx.filters, tx.filter_test_cases):
+    tx = TransformationRuns2(filter_name, "filters")
+    for filter, test in zip(tx.operations, tx.operation_test_cases):
         filter_args = test["inputs"]
         output = filter.filter(**filter_args)
         assert output == test["outputs"], f"The filter should return {test['outputs']}"

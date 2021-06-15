@@ -94,64 +94,64 @@ class TransformationRuns(object):
                                 yield m
 
 
-class FilterRuns(object):
+class TransformationRuns2(object):
 
-    def __init__(self, name_of_filter):
-        if name_of_filter == 'light':
-            self._load_all_filter_test_case(heavy=False)
-        elif name_of_filter == 'all':
-            self._load_all_filter_test_case(heavy=True)
+    def __init__(self, transformation_name, search="transformations"):
+        if transformation_name == 'light':
+            self._load_all_transformation_test_case(heavy=False, search=search)
+        elif transformation_name == 'all':
+            self._load_all_transformation_test_case(heavy=True, search=search)
         else:
-            self._load_single_filter_test_case(name_of_filter)
-        
-    def _load_single_filter_test_case(self, name_of_filter):
+            self._load_single_transformation_test_case(transformation_name, search)
+
+    def _load_single_transformation_test_case(self, transformation_name,  search="transformations"):
         filters = []
         filter_test_cases = []
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        filters_dir = package_dir.parent.joinpath("filters", name_of_filter)
+        filters_dir = package_dir.parent.joinpath(search, transformation_name)
 
-        t_py = import_module(f"filters.{name_of_filter}")
+        t_py = import_module(f"{search}.{transformation_name}")
         t_js = os.path.join(filters_dir, "test.json")
-
+        filter_instance = None
         for test_case in load_test_cases(t_js):
             class_name = test_case["class"]
-            class_args = test_case["args"]
+            class_args = test_case["args"] if "args" in test_case else {}
             # construct filter class with input args
             cls = getattr(t_py, class_name)
-            filter_instance = cls(**class_args)
-
+            if filter_instance is None or filter_instance.name() != class_name: # Check if already loaded
+                filter_instance = cls(**class_args)
             filters.append(filter_instance)
             filter_test_cases.append(test_case)
 
-        self.filters = filters
-        self.filter_test_cases = filter_test_cases
-    
-    def _load_all_filter_test_case(self, heavy=False):
+        self.operations = filters
+        self.operation_test_cases = filter_test_cases
+
+    def _load_all_transformation_test_case(self, heavy=False, search="transformations"):
         filters = []
         filter_test_cases = []
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        filters_dir = package_dir.parent.joinpath("filters")
+        filters_dir = package_dir.parent.joinpath(search)
         for (_, m, _) in iter_modules([filters_dir]):
-            t_py = import_module(f"filters.{m}")
+            t_py = import_module(f"{search}.{m}")
             t_js = os.path.join(filters_dir, m, "test.json")
-
+            filter_instance = None
             for test_case in load_test_cases(t_js):
                 class_name = test_case["class"]
-                class_args = test_case["args"]
-                # construct filter class with input args
+                class_args = test_case["args"] if "args" in test_case else {}
                 cls = getattr(t_py, class_name)
-                
+
                 is_heavy = cls.is_heavy()
                 if (not heavy) and is_heavy:
                     continue
                 else:
-                    filter_instance = cls(**class_args)
+                    if filter_instance is None or filter_instance.name() != class_name:  # Check if already loaded
+                        filter_instance = cls(**class_args)
 
                     filters.append(filter_instance)
                     filter_test_cases.append(test_case)
 
-        self.filters = filters
-        self.filter_test_cases = filter_test_cases
+        self.operations = filters
+        self.operation_test_cases = filter_test_cases
 
 
 def get_implementation(tx_name: str):
@@ -181,8 +181,7 @@ def convert_to_snake_case(camel_case):
 
 
 if __name__ == '__main__':
-    for tx in TransformationRuns.get_all_transformation_names(True):
-        print(tx)
-    for transformation in TransformationRuns.get_all_transformations_for_task(TaskType.TEXT_CLASSIFICATION):
-        print(transformation.generate("This is a quick test code to show all the transformations "
-                                      "for a particular task type!"))
+    [print(tx) for tx in TransformationRuns.get_all_transformation_names(True)]
+    for transformation in TransformationRuns.get_all_transformations_for_task(TaskType.QUESTION_ANSWERING):
+        print(transformation.name())
+        print(transformation.generate("test", "test", ["test", "test"]))

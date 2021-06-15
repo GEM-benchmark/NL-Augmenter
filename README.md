@@ -21,6 +21,7 @@ Transformations which are already accepted to NL-Augmenter are summarized in [th
 * [Installation](#installation)
 * [How do I create a transformation?](#how-do-i-create-a-transformation)
 * [How do I create a filter?](#how-do-i-create-a-filter)
+* [Motivation](docs/doc.md#motivation)
 * [Review Criteria for Accepting Submissions](docs/doc.md#review-criteria-for-submissions)
 
 ## Colab notebook

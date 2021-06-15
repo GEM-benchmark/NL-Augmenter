@@ -1,24 +1,50 @@
 {
-  "type": "without_punctuation",
+  "type": "punctuation",
   "test_cases": [
     {
-      "input": "Andrew finally returned the French book to Chris that I bought last week",
-      "output": "Andrew finally returned the French book to Chris that I bought last week."
+      "class": "Punctuation",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week."
+      }
     },
     {
-      "input": "Did Andrew finally return the French book to Chris that I bought last week?",
-      "output": "Did Andrew finally return the French book to Chris that I bought last week"
-    },{
-      "input": "Data augmentation faces substantial challenges, specifically for NLP, and with these challenges, new opportunities for future work arise.",
-      "output": "Data augmentation faces substantial challenges, specifically for NLP, and with these challenges, new opportunities for future work arise"
+      "class": "Punctuation",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments"
+      }
     },
     {
-      "input": "There are many works which have investigated DA for NMT",
-      "output": "There are many works which have investigated DA for NMT."
+      "class": "Punctuation",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film."
+      }
     },
     {
-      "input": "Good data augmentation practices would help make DA work more accessible!!!",
-      "output": "Good data augmentation practices would help make DA work more accessible"
+      "class": "Punctuation",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001."
+      }
+    },
+    {
+      "class": "Punctuation",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization"
+      }
     }
   ]
 }
