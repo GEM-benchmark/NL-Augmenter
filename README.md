@@ -63,16 +63,16 @@ cd my_awesome_transformation
 ### Creating a transformation
 1. In the file `transformation.py`, rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation` and choose one of the interfaces from the `interfaces/` folder. See the full list of options [here.](interfaces)
 2. Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in [`requirements.txt`](requirements.txt)
-3. Once you are done, add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently and update `my_awesome_transformation/README.md` to describe your transformation.
 
+**Testing and evaluating** (Optional)
 
-**Testing and evaluating**
+Once you are done, add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently and update `my_awesome_transformation/README.md` to describe your transformation.
 
 Once the transformation is ready, test it:
 ```bash
 pytest -s --t=my_awesome_transformation
 ```
-(Optional) If you would like to evaluate your transformation against a common 🤗HuggingFace model, we encourage you to check [evaluation](evaluation)
+If you would like to evaluate your transformation against a common 🤗HuggingFace model, we encourage you to check [evaluation](evaluation)
 
 **Code Styling** To standardized the code we use the [black](https://github.com/psf/black) code formatter which will run at the time of pre-commit.
 To use the pre-commit hook, install `pre-commit` with `pip install pre-commit` (should already be installed if you followed the above instructions). 
