@@ -44,7 +44,7 @@ An Example filter for SentenceAndTargetOperation interface.
 class SentenceAndTargetLengthFilter(SentenceAndTargetOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     src_locales = ["en"]
-    tgt_locales = ["en"]
+    tgt_languages = ["en"]
 
     def __init__(self, ops: List[str] = None, thresholds: List[int] = None):
         super().__init__()

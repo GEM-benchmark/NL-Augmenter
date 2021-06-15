@@ -76,7 +76,7 @@ class ButterFingersPerturbation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
-    locales = ["en"]
+    languages = ["en"]
 
     def __init__(self, seed=0):
         super().__init__(seed)

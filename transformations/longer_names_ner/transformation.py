@@ -11,7 +11,7 @@ John Smith cooked a curry in the evening. --> John D. Smith cooked a curry in th
 
 class LongerNamesNer(TaggingOperation):
     tasks = [TaskType.TEXT_TAGGING]
-    locales = "All"
+    languages = "All"
     no_of_repeats = 2  # values should not be larger than 3-4
 
     def __init__(self, no_of_repeats=2):
