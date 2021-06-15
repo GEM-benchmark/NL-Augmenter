@@ -37,7 +37,7 @@ Each transformation will receive two reviews and the transformation may be edite
 ```python
 class ButterFingersPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
-    locales = ["en"]
+    languages = ["en"]
 ```
 
 **Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific transformation. E.g., a perturbation which changes gendered pronouns could give insights about gender bias in models.
@@ -52,7 +52,7 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Evaluating Robustness:** A transformation's potential to act as a robustness tool should be tested via executing [`evaluate.py`](../evaluation) and the corresponding performance should be mentioned in the README. Evaluation should only be skipped in case there is no support in the [evaluation_engine](../evaluation).  
 
-**Languages other than English:** We strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “locales”.
+**Languages other than English:** We strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “languages”.
 
 All of the above criteria extend to [filters](../filters) too.
  

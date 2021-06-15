@@ -23,7 +23,7 @@ class NumericalTransformation:
             new_value = None
 
             if entity.label_ == "CARDINAL" and not re.search(
-                "[_]|[-]|[:]|[/]|[(]|[)]", entity.text
+                    "[_]|[-]|[:]|[/]|[(]|[)]", entity.text
             ):
                 # Flag if the value has formatting:
                 has_formatting = False
@@ -107,7 +107,7 @@ class NumericalTransformation:
 
 class ReplaceNumericalValues(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-    locales = ["en"]
+    languages = ["en"]
 
     def __init__(self):
         random.seed(self.seed)

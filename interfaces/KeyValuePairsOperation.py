@@ -11,7 +11,7 @@ class KeyValuePairsOperation(Operation):
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
 
-    "locales" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
+    "languages" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
     "en_IN"
     """
 

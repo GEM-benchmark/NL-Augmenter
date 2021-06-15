@@ -16,8 +16,8 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
     """
 
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
-    src_locales = ["en"]
-    tgt_locales = ["en"]
+    languages = ["en"]
+    tgt_languages = ["en"]
 
     def __init__(self, first_only=False, last_only=False, n=1, seed=0):
         super().__init__(seed)
