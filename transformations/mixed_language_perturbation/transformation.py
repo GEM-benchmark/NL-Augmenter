@@ -45,8 +45,7 @@ def mixed_language(model, tokenizer, text, prob=0.1, src_lang="en", trg_lang="fr
 class MixedLanguagePerturbation(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
-        TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
+        TaskType.TEXT_TO_TEXT_GENERATION
     ]
     languages = ["en"]
     tgt_languages = ["es", "de", "fr", "zh"]
