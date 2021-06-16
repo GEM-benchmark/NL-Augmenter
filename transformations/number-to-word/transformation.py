@@ -11,20 +11,18 @@ Base Class for implementing the different input transformations a generation sho
 
 infEng = inflect.engine()
 
+
 def word_to_number(text):
 
     trans = []
     for token in text.split():
         if token.isdigit():
-            words = infEng.number_to_words(int(token), wantlist=True)      
+            words = infEng.number_to_words(int(token), wantlist=True)
             trans.extend(words)
         else:
             trans.append(token)
 
-
-    return ' '.join(trans)
-
-
+    return " ".join(trans)
 
 
 class NumberToWord(SentenceOperation):
@@ -41,5 +39,3 @@ class NumberToWord(SentenceOperation):
     def generate(self, sentence: str):
         pertubed = word_to_number(text=sentence)
         return pertubed
-
-
