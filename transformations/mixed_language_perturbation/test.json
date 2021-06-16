@@ -7,7 +7,7 @@
         "sentence": "Andrew finally returned the Comic book to Chris that I bought last week"
       },
       "outputs": {
-        "sentence": "Andrew finally returned Die Comic book to Chris that I Kaufen last week"
+        "sentence": "Andrew finally returned Die Comic book to Chris that I bought last Woche"
       }
     },
     {
@@ -16,7 +16,7 @@
         "sentence": "Chris borroed the Comic book from Andrew last weekend"
       },
       "outputs": {
-        "sentence": "Chris borroed the Komik Buch von Andrew last weekend"
+        "sentence": "Chris borroed the Komik book from Andrew last weekend"
       }
     },
     {
