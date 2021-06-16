@@ -1,5 +1,5 @@
 # Mixed Language Perturbation 🦎  + ⌨️ → 🐍
-This perturbation translates words in the text from English to other languages (e.g., German). It can be used to test the robustness of a model in a multilingual setting.
+This perturbation translates randomly picked words in the text from English to other languages (e.g., German). It can be used to test the robustness of a model in a multilingual setting.
 
 Author names: Genta Indra Winata (giwinata@connect.ust.hk), Samuel Cahyawijaya (scahyawijaya@connect.ust.hk), and Bryan Wilie (bryanwilie92@gmail.com).
 
