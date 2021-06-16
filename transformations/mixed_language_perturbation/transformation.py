@@ -10,17 +10,14 @@ Mixed Language Perturbation
 This perturbation translates words in the text from English to other languages (e.g., German). It can be used to test the robustness of a model in a multilingual setting.
 """
 
-def translate(text, src_lang, target_lang):
-    model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
-    tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
-
+def translate(model, tokenizer, text, src_lang, target_lang):
     tokenizer.src_lang = src_lang
     encoded = tokenizer(text, return_tensors="pt")
     generated_tokens = model.generate(**encoded, forced_bos_token_id=tokenizer.get_lang_id(target_lang))
     res = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
     return res
 
-def mixed_language(text, prob=0.1, src_lang="en", trg_lang="fr", seed=0):
+def mixed_language(model, tokenizer, text, prob=0.1, src_lang="en", trg_lang="fr", seed=0):
     random.seed(seed)
 
     words = text.split()
@@ -36,7 +33,7 @@ def mixed_language(text, prob=0.1, src_lang="en", trg_lang="fr", seed=0):
             if plain_word == "":
                 continue
 
-            mixed_text += translate(plain_word, src_lang, trg_lang)[0]
+            mixed_text += translate(model, tokenizer, plain_word, src_lang, trg_lang)[0]
 
             if word[-1] in string.punctuation:
                 mixed_text += word[-1]
@@ -52,12 +49,16 @@ class MixedLanguagePerturbation(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    tgt_languages = ["es", "de", "fr", "zh"]
 
     def __init__(self, seed=0):
         super().__init__(seed)
+        
+        self.model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
+        self.tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
 
     def generate(self, sentence: str):
-        pertubed = mixed_language(text=sentence, prob=0.3, src_lang="en", trg_lang="de", seed=self.seed)
+        pertubed = mixed_language(self.model, self.tokenizer, text=sentence, prob=0.3, src_lang="en", trg_lang="de", seed=self.seed)
         return pertubed
 
 """
