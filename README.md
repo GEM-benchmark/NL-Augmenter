@@ -1,6 +1,6 @@
 # NL-Augmenter 🦎 → 🐍
 
-The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. We invite submissions of transformations to this framework by way of GitHub pull request, through August 1, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework. 
+The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. We invite submissions of transformations to this framework by way of GitHub pull request, through September 1, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework. 
 
 The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
@@ -8,8 +8,8 @@ The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
 | Due date          | Description                                                                 |
 | ------------------ | -----------                                                                 |
-| August 1, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
-| August 22, 2021 | Review process for pull request above must be complete           |
+| September  1, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
+| September 22, 2021 | Review process for pull request above must be complete           |
 
 A transformation can be revised between the pull request submission and pull request merge deadlines. We will provide reviewer feedback to help with the revisions.
 
