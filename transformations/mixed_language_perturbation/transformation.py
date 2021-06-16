@@ -68,11 +68,11 @@ if __name__ == '__main__':
     tf = MixedLanguagePerturbation()
     sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
-    for sentence in ["Andrew finally returned the French book to Chris that I bought last week",
-                     "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
-                     "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
-                     "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
-                     "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."]:
+    for sentence in ["Andrew finally returned the Comic book to Chris that I bought last week",
+                     "Chris borroed the Comic book from Andrew last weekend",
+                     "Turn off the light please",
+                     "I love cat",
+                     "Thomas loves to cook chicken every Monday"]:
         test_cases.append({
             "class": tf.name(),
             "inputs": {"sentence": sentence}, "outputs": {"sentence": tf.generate(sentence)}}
