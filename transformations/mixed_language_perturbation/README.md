@@ -1,7 +1,7 @@
 # Mixed Language Perturbation 🦎  + ⌨️ → 🐍
 This perturbation translates words in the text from English to other languages (e.g., German). It can be used to test the robustness of a model in a multilingual setting.
 
-Author name: Genta Indra Winata (giwinata@connect.ust.hk) and Samuel Cahyawijaya (scahyawijaya@connect.ust.hk)
+Author names: Genta Indra Winata (giwinata@connect.ust.hk), Samuel Cahyawijaya (scahyawijaya@connect.ust.hk), and Bryan Wilie (bryanwilie92@gmail.com).
 
 ## What type of a transformation is this?
 This transformation acts as a perturbation to test robustness. Few words were picked at random with a probability and translated to the target language.
@@ -10,7 +10,7 @@ This transformation acts as a perturbation to test robustness. Few words were pi
 This perturbation would benefit all tasks with a sentence/paragraph/document as input like text classification, text generation, etc.
 
 ## Previous Work
-(1) Mixed-Language Training (Published in AAAI 2020):
+(1) Mixed-Language Training (Published in AAAI 2020)
 ```bibtex
 @inproceedings{liu2020attention,
   title={Attention-informed mixed-language training for zero-shot cross-lingual task-oriented dialogue systems},
