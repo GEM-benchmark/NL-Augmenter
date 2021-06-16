@@ -57,7 +57,7 @@ class SpellCheckerPerturbation(SentenceOperation):
                 if (
                     replacement
                     and replacement != word
-                    and is_case_same(replacement, word)
+                    and is_case_same(replacement[0], word[0])
                 ):
                     split_text[idx] = replacement
         perturbed_text: str = " ".join(split_text)
