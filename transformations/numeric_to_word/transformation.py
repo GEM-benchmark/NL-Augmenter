@@ -66,7 +66,7 @@ def butter_finger(text, prob=0.1, keyboard="querty", seed=0):
 
 
 """
-Butter Finger implementation borrowed from https://github.com/alexyorke/butter-fingers.
+Number to Word implementation borrowed from https://github.com/alexyorke/butter-fingers.
 """
 
 
