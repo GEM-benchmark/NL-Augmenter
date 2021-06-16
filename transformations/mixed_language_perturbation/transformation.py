@@ -27,7 +27,7 @@ def mixed_language(model, tokenizer, text, prob=0.1, src_lang="en", trg_lang="fr
 
         if mixed_text != "":
             mixed_text += " "
-        if random.choice(range(0, 100)) <= prob_mix:
+        if random.choice(range(0, 100)) < prob_mix:
             plain_word = word.translate(str.maketrans('', '', string.punctuation)).strip()
 
             if plain_word == "":
