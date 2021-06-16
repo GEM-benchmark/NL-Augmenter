@@ -26,3 +26,6 @@ sentencepiece==0.1.95
 # for code format
 black==21.5b2
 pre-commit==2.13.0
+
+#for number-to-word
+inflect==5.3.0
