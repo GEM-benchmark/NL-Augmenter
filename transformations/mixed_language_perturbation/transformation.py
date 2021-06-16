@@ -17,17 +17,15 @@ def translate(model, tokenizer, text, src_lang, target_lang):
     res = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
     return res
 
-def mixed_language(model, tokenizer, text, prob=0.1, src_lang="en", trg_lang="fr", seed=0):
+def mixed_language(model, tokenizer, text, prob_mix=0.1, src_lang="en", trg_lang="fr", seed=0):
     random.seed(seed)
 
     words = text.split()
     mixed_text = ""
     for word in words:
-        prob_mix = int(prob * 100)
-
         if mixed_text != "":
             mixed_text += " "
-        if random.choice(range(0, 100)) < prob_mix:
+        if random.random() < prob_mix:
             plain_word = word.translate(str.maketrans('', '', string.punctuation)).strip()
 
             if plain_word == "":
@@ -40,6 +38,7 @@ def mixed_language(model, tokenizer, text, prob=0.1, src_lang="en", trg_lang="fr
         else:
             mixed_text += word
 
+    print(text, mixed_text)
     return mixed_text
 
 class MixedLanguagePerturbation(SentenceOperation):
@@ -50,14 +49,18 @@ class MixedLanguagePerturbation(SentenceOperation):
     languages = ["en"]
     tgt_languages = ["es", "de", "fr", "zh"]
 
-    def __init__(self, seed=0):
+    def __init__(self, seed=0, prob_mix=0.3, src_lang="en", trg_lang="de"):
         super().__init__(seed)
         
         self.model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
         self.tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
+        
+        self.prob_mix=prob_mix
+        self.src_lang=src_lang
+        self.trg_lang=trg_lang
 
     def generate(self, sentence: str):
-        pertubed = mixed_language(self.model, self.tokenizer, text=sentence, prob=0.3, src_lang="en", trg_lang="de", seed=self.seed)
+        pertubed = mixed_language(self.model, self.tokenizer, text=sentence, prob_mix=self.prob_mix, src_lang=self.src_lang, trg_lang=self.trg_lang, seed=self.seed)
         return pertubed
 
 """
