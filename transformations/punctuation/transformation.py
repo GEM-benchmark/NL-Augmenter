@@ -7,7 +7,7 @@ from tasks.TaskTypes import TaskType
 
 class Punctuation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-    locales = ["en"]
+    languages = ["en"]
 
     def __init__(self):
         super().__init__()

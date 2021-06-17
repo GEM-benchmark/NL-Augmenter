@@ -7,10 +7,10 @@
                 "op": ">",
                 "threshold": 3
             },
-            "filter_args": {
+            "inputs": {
                 "sentence": "Andrew played cricket in India"
             },
-            "output": true
+            "outputs": true
         },
         {
             "class": "SentenceAndTargetLengthFilter",
@@ -18,11 +18,11 @@
                 "ops": [">", "<"],
                 "thresholds": [3, 10]
             },
-            "filter_args": {
+            "inputs": {
                 "sentence": "Andrew played cricket in India",
                 "target": "Andrew finally returned the French book to Chris that I bought last week."
             },
-            "output": false
+            "outputs": false
         }
     ]
 }

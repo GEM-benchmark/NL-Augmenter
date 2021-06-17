@@ -2,6 +2,8 @@
 This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise erupting 
 from keyboard typos making common spelling errors.
 
+Author name: Kaustubh Dhole (email)
+
 ## What type of a transformation is this?
 This transformation acts like a perturbation to test robustness. Few letters picked at random are replaced with letters 
 which are at keyboard positions near the source letter. Generated transformations display high similarity to the 
@@ -11,7 +13,7 @@ source sentences i.e. the code outputs highly precise generations.
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, etc. 
 
-```python evaluate.py -t back_translation -task TEXT_CLASSIFICATION```
+```python evaluate.py -t ButterFingersPerturbation -task TEXT_CLASSIFICATION```
 ```model_name = "aychang/roberta-base-imdb"```
 The accuracy of a RoBERTa model (fine-tuned on IMDB) (model: "aychang/roberta-base-imdb") 
 on a subset of IMDB sentiment dataset = 95.74

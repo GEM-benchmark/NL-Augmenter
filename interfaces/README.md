@@ -16,12 +16,14 @@ We also welcome pull-requests of newer interfaces. To add a new interface, follo
 1) Create a new python file - "YourInterface.py" in the interfaces folder
 2) Inside this python file, define a class with the appropriate inputs for the generate and the filter functions.
     ```python
-    class YourInterface(abc.ABC):
+   from interfaces.Operation import Operation
+   
+   class YourInterface(Operation):
     ``` 
     A good idea would be to look at existing interfaces like [`SentenceOperation`](../interfaces/SentenceOperation.py) and [`QuestionAnswerOperation`](../interfaces/QuestionAnswerOperation.py)
-3) [Optional] Now, you can create a transformation corresponding to `YourInterface` with the usual steps mentioned [on the main page](../README.md)
+3) [Optional] Now, you can create a transformation and a filter corresponding to `YourInterface` with the usual steps mentioned [on the main page](../README.md)
 4) [Optional] To gauge the effectiveness of your transformation, you can call a HuggingFace model and [evaluate](../evaluation) it over a HuggingFace dataset with the following command
     ```bash
-    python evaluate.py -t name_of_the_transformation
+    python evaluate.py -t NameOfTransformationClass
     ```
    That's it! You can now measure your transformation with this simple command!

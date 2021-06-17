@@ -2,7 +2,7 @@
 
 
 class Operation(object):
-    locales = None
+    languages = None
     tasks = None
     seed = 0
     heavy = False
@@ -19,7 +19,7 @@ class Operation(object):
 
     @classmethod
     def domain(cls):
-        return cls.tasks, cls.locales
+        return cls.tasks, cls.languages
 
     @classmethod
     def name(cls):
