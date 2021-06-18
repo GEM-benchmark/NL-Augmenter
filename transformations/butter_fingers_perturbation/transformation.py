@@ -88,6 +88,7 @@ class ButterFingersPerturbation(SentenceOperation):
 
 """
 # Sample code to demonstrate usage. Can also assist in adding test cases.
+# You don't need to keep this code in your transformation.
 if __name__ == '__main__':
     import json
 
