@@ -1,0 +1,98 @@
+{
+  "type": "quora_trained_t5_for_qa",
+  "test_cases": [
+    {
+      "class": "QuoraT5QaPairGenerator",
+      "inputs": {
+        "context": "Southampton is a port city on England's south coast.",
+        "question": "Where is Southampton located?",
+        "answers": [
+          "on England's south coast",
+          "in England"
+        ]
+      },
+      "outputs": {
+        "context": "Southampton is a port city on England's south coast.",
+        "question": "Where is Southampton?",
+        "answers": [
+          "on England's south coast",
+          "in England"
+        ]
+      }
+    },
+    {
+      "class": "QuoraT5QaPairGenerator",
+      "inputs": {
+        "context": "The ICC World Test Championship is a league competition for Test cricket run by the International Cricket Council (ICC), which started on 1 August 2019. It is intended to be the premier championship for Test cricket.",
+        "question": "Which is the premier championship for Test Cricket?",
+        "answers": [
+          "The ICC World Test Championship",
+          "World Test Championship"
+        ]
+      },
+      "outputs": {
+        "context": "The ICC World Test Championship is a league competition for Test cricket run by the International Cricket Council (ICC), which started on 1 August 2019. It is intended to be the premier championship for Test cricket.",
+        "question": "Which cricket season does the ICC define as the premier tests?",
+        "answers": [
+          "The ICC World Test Championship",
+          "World Test Championship"
+        ]
+      }
+    },
+    {
+      "class": "QuoraT5QaPairGenerator",
+      "inputs": {
+        "context": "Andrew Ng's Machine Learning course on Coursera is a great place to get started in data science.",
+        "question": "Which course should I take to get started in data science?",
+        "answers": [
+          "Andrew Ng's Machine Learning course on Coursera",
+          "Machine Learning course on Coursera"
+        ]
+      },
+      "outputs": {
+        "context": "Andrew Ng's Machine Learning course on Coursera is a great place to get started in data science.",
+        "question": "What are the best courses to get started with data science?",
+        "answers": [
+          "Andrew Ng's Machine Learning course on Coursera",
+          "Machine Learning course on Coursera"
+        ]
+      }
+    },
+    {
+      "class": "QuoraT5QaPairGenerator",
+      "inputs": {
+        "context": "Southampton is a port city on England's south coast.",
+        "question": "Which is the port city on England's south coast?",
+        "answers": [
+          "Southampton"
+        ]
+      },
+      "outputs": {
+        "context": "Southampton is a port city on England's south coast.",
+        "question": "Which port town on the south coast of England?",
+        "answers": [
+          "Southampton"
+        ]
+      }
+    },
+    {
+      "class": "QuoraT5QaPairGenerator",
+      "inputs": {
+        "context": "Andrew Ng's Machine Learning course on Coursera is a great place to get started in data science.",
+        "question": "Whose course should I take to get started in data science?",
+        "answers": [
+          "Andrew Ng",
+          "Coursera"
+        ]
+      },
+      "outputs": {
+        "context": "Andrew Ng's Machine Learning course on Coursera is a great place to get started in data science.",
+        "question": "How can I get started in data science?",
+        "answers": [
+          "Andrew Ng",
+          "Coursera"
+        ]
+      }
+    }
+  ]
+}
