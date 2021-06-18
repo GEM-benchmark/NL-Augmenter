@@ -1,6 +1,7 @@
+import numpy as np
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-import numpy as np
+
 
 class SwapCharactersPerturbation(SentenceOperation):
     tasks = [
@@ -13,12 +14,12 @@ class SwapCharactersPerturbation(SentenceOperation):
     def __init__(self, seed=0):
         super().__init__(seed)
 
-    def generate(self, sentence: str, prob = .05):
+    def generate(self, sentence: str, prob=0.05):
         pertubed = self.swap_characters(text=sentence, prob=prob, seed=self.seed)
         return pertubed
 
     def swap_characters(self, text, prob=0.05, seed=0):
-        max_seed = 2**32
+        max_seed = 2 ** 32
         # seed with hash so each text of same length gets different treatment
         np.random.seed((seed + sum([ord(c) for c in text])) % max_seed)
         # np.random.seed((seed) % max_seed)
@@ -35,7 +36,7 @@ class SwapCharactersPerturbation(SentenceOperation):
         text = list(text)
         # swap
         for index in indices_to_swap:
-            text[index], text[index+1] = text[index+1], text[index]
+            text[index], text[index + 1] = text[index + 1], text[index]
         # convert to string
-        text = ''.join(text)
+        text = "".join(text)
         return text
