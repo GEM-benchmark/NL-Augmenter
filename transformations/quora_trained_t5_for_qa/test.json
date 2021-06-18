@@ -32,7 +32,7 @@
       },
       "outputs": {
         "context": "The ICC World Test Championship is a league competition for Test cricket run by the International Cricket Council (ICC), which started on 1 August 2019. It is intended to be the premier championship for Test cricket.",
-        "question": "Which cricket season does the ICC define as the premier tests?",
+        "question": "What is the premier championship of Test cricket?",
         "answers": [
           "The ICC World Test Championship",
           "World Test Championship"
@@ -69,7 +69,7 @@
       },
       "outputs": {
         "context": "Southampton is a port city on England's south coast.",
-        "question": "Which port town on the south coast of England?",
+        "question": "What is the best port city at the south coast of England?",
         "answers": [
           "Southampton"
         ]
@@ -87,7 +87,7 @@
       },
       "outputs": {
         "context": "Andrew Ng's Machine Learning course on Coursera is a great place to get started in data science.",
-        "question": "How can I get started in data science?",
+        "question": "Which course should one take to become a data scientist?",
         "answers": [
           "Andrew Ng",
           "Coursera"
