@@ -14,7 +14,7 @@ class SentenceOperation(Operation):
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
 
-    "locales" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
+    "languages" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
     "en_IN"
     """
 
@@ -33,17 +33,17 @@ class SentenceAndTargetOperation(Operation):
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
 
-    "src_locales", "tgt_locales :: The locales and/or languages for which this perturbation is applicable. eg. "es",
+    "languages", "tgt_languages :: The locales and/or languages for which this perturbation is applicable. eg. "es",
     "mr","en_IN"
     """
 
-    src_locales = None
-    tgt_locales = None
+    languages = None
+    tgt_languages = None
     tasks = None
 
     @classmethod
     def domain(cls):
-        return cls.tasks, cls.src_locales, cls.tgt_locales
+        return cls.tasks, cls.languages, cls.tgt_languages
 
     def generate(self, sentence: str, target: str) -> Tuple[str, str]:
         raise NotImplementedError
@@ -60,17 +60,17 @@ class SentenceAndTargetsOperation(Operation):
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
 
-    "src_locales", "tgt_locales :: The locales and/or languages for which this perturbation is applicable. eg. "es",
+    "languages", "tgt_languages :: The locales and/or languages for which this perturbation is applicable. eg. "es",
     "mr","en_IN"
     """
 
-    src_locales = None
-    tgt_locales = None
+    languages = None
+    tgt_languages = None
     tasks = None
 
     @classmethod
     def domain(cls):
-        return cls.tasks, cls.src_locales, cls.tgt_locales
+        return cls.tasks, cls.languages, cls.tgt_languages
 
     def generate(self, sentence: str, target: List[str]) -> Tuple[str, List[str]]:
         raise NotImplementedError

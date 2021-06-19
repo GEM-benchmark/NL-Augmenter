@@ -6,7 +6,7 @@ from tasks.TaskTypes import TaskType
 
 class BackTranslation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-    locales = ["en"]
+    languages = ["en"]
     heavy = True
 
     def __init__(self):

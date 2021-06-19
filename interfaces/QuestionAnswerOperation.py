@@ -10,7 +10,7 @@ class QuestionAnswerOperation(Operation):
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
 
-    "locales" :: The locales and/or languages for which these perturbation are applicable. eg. "es",
+    "languages" :: The locales and/or languages for which these perturbation are applicable. eg. "es",
     "mr","en_IN". If the context, question and answer are in separate locales, the implementation can
     accordingly override the domain(cls) function.
     """

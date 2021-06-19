@@ -11,7 +11,7 @@ and expects the answers still to be the same. Note that this perturbation might 
 
 class RedundantContextForQa(QuestionAnswerOperation):
     tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
-    locales = "All"
+    languages = ["en"]
 
     def __init__(self):
         super().__init__()
@@ -25,7 +25,7 @@ class RedundantContextForQa(QuestionAnswerOperation):
 
 class QuestionInCaps(QuestionAnswerOperation):
     tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
-    locales = "All"
+    languages = ["en"]
 
     def __init__(self):
         super().__init__()

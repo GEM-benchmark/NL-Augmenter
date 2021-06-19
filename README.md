@@ -1,6 +1,6 @@
 # NL-Augmenter 🦎 → 🐍
 
-The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. We invite submissions of transformations to this framework by way of GitHub pull request, through August 1, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework. 
+The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: introducing spelling errors, translating to a different language, randomizing names and numbers, paraphrasing ... and whatever creative augmentation you contribute to the benchmark. We invite submissions of transformations to this framework by way of GitHub pull request, through September 1, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework. 
 
 The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
@@ -8,8 +8,8 @@ The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
 | Due date          | Description                                                                 |
 | ------------------ | -----------                                                                 |
-| August 1, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
-| August 22, 2021 | Review process for pull request above must be complete           |
+| September  1, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
+| September 22, 2021 | Review process for pull request above must be complete           |
 
 A transformation can be revised between the pull request submission and pull request merge deadlines. We will provide reviewer feedback to help with the revisions.
 
@@ -29,6 +29,13 @@ The transformations which are already accepted to NL-Augmenter are summarized in
 <a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly see transformations and filters in action, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb). 
 
 ## Installation
+
+**Requirements**
+
+* Python 3.7
+
+**Instructions**
+
 ```bash
 # When creating a new transformation, replace this with your forked repository (see below)
 git clone https://github.com/GEM-benchmark/NL-Augmenter.git
@@ -63,10 +70,11 @@ cd my_awesome_transformation
 ### Creating a transformation
 1. In the file `transformation.py`, rename the class `ButterFingersPerturbation` to `MyAwesomeTransformation` and choose one of the interfaces from the `interfaces/` folder. See the full list of options [here.](interfaces)
 2. Now put all your creativity in implementing the `generate` method. If you intend to use external libraries, add them with their version numbers in [`requirements.txt`](requirements.txt)
+3. Update `my_awesome_transformation/README.md` to describe your transformation.
 
 **Testing and evaluating** (Optional)
 
-Once you are done, add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently and update `my_awesome_transformation/README.md` to describe your transformation.
+Once you are done, add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently. 
 
 Once the transformation is ready, test it:
 ```bash

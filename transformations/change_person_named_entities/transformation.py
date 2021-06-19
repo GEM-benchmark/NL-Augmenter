@@ -9,7 +9,7 @@ from tasks.TaskTypes import TaskType
 
 class ChangePersonNamedEntities(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-    locales = ["en"]
+    languages = ["en"]
 
     def __init__(self, n=1, seed=0):
         # TODO: Do not repeat parse computations.

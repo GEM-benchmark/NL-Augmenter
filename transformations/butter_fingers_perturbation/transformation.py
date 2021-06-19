@@ -76,7 +76,7 @@ class ButterFingersPerturbation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
-    locales = ["en"]
+    languages = ["en"]
 
     def __init__(self, seed=0):
         super().__init__(seed)
@@ -88,6 +88,7 @@ class ButterFingersPerturbation(SentenceOperation):
 
 """
 # Sample code to demonstrate usage. Can also assist in adding test cases.
+# You don't need to keep this code in your transformation.
 if __name__ == '__main__':
     import json
 

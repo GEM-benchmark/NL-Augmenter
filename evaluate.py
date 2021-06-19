@@ -7,9 +7,7 @@ parser = argparse.ArgumentParser(
     description="This is the evaluate function. This will evaluate your specified "
                 "transformation on pre-defined models."
 )
-parser.add_argument("-l", "--locale", help="locale to evaluate over", default="en")
-parser.add_argument("-srcl", "--src_locale", help="locale to evaluate over", default="en")
-parser.add_argument("-tgtl", "--tgt_locale", help="locale to evaluate over", default="en")
+parser.add_argument("-l", "--language", help="language to evaluate over", default="en")
 parser.add_argument("--transformation", "-t", required=True)
 parser.add_argument("--task_type", "-task", help="type of the task")
 parser.add_argument(
@@ -29,7 +27,7 @@ parser.add_argument(
 
 """
 Just run this file using the following command:
-  python evaluate.py -t butter_fingers_perturbation
+  python evaluate.py -t ButterFingersPerturbation
 """
 if __name__ == "__main__":
     args = parser.parse_args()
@@ -41,15 +39,15 @@ if __name__ == "__main__":
     implementation = get_implementation(args.transformation)
     # Use the tasks and the locales of an implementation to retrieve an HF model and a test set.
     if len(implementation.domain()) == 2: # domain should have name and locale.
-        locales = implementation.locales
-        if locales != "All" and args.locale not in locales:
+        languages = implementation.languages
+        if languages != "All" and args.language not in languages:
             raise ValueError(
                 f"The specified transformation is applicable only for the locales={locales}."
             )
         evaluate(
             implementation,
             args.task_type,
-            args.locale,
+            args.language,
             args.model,
             args.dataset,
             args.percentage_of_examples,
@@ -69,8 +67,8 @@ if __name__ == "__main__":
         evaluate_mt(
             implementation,
             args.task_type,
-            args.src_locale,
-            args.tgt_locale,
+            args.language,
+            args.tgt_language,
             args.model,
             args.dataset,
             args.percentage_of_examples,

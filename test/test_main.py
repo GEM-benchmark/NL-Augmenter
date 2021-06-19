@@ -1,14 +1,9 @@
 import pytest
 
-from TestRunner import convert_to_camel_case, TransformationRuns2
+from TestRunner import OperationRuns
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
 from interfaces.TaggingOperation import TaggingOperation
-
-
-def print_no_test_cases_found(cls_name):
-    folder_name = convert_to_camel_case(cls_name)
-    print(f"No test cases found for {cls_name}. Add a file named `test.json` in {folder_name}")
 
 
 def execute_sentence_operation_test_case(transformation, test):
@@ -51,7 +46,7 @@ def test_operation(transformation_name, filter_name):
         
 
 def execute_test_case_for_transformation(transformation_name):
-    tx = TransformationRuns2(transformation_name)
+    tx = OperationRuns(transformation_name)
     for transformation, test in zip(tx.operations, tx.operation_test_cases):
         if isinstance(transformation, SentenceOperation):
             execute_sentence_operation_test_case(transformation, test)
@@ -64,7 +59,7 @@ def execute_test_case_for_transformation(transformation_name):
 
 
 def execute_test_case_for_filter(filter_name):
-    tx = TransformationRuns2(filter_name, "filters")
+    tx = OperationRuns(filter_name, "filters")
     for filter, test in zip(tx.operations, tx.operation_test_cases):
         filter_args = test["inputs"]
         output = filter.filter(**filter_args)
