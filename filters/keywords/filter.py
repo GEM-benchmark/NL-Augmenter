@@ -7,7 +7,7 @@ from typing import List
 
 class TextContainsKeywordsFilter(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-    locales = ["en"]
+    languages = ["en"]
 
     def __init__(self, keywords: List[str] = []):
         super().__init__()

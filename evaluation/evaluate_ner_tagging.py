@@ -33,10 +33,13 @@ def create_prediction_seq(prediction, expected_seq_length):
             seq.append(tag)
     return seq
 
+
 """
 TODO: this implementation should change - needs to be done dataset wise
 """
-def evaluate(operation, model_name, dataset_name, split='validation[:20%]', evaluate_filter=False):
+
+
+def evaluate(operation, evaluate_filter, model_name, dataset_name, split='validation[:20%]'):
     # load modal
     if model_name is None:
         model_name = "dslim/bert-base-NER"

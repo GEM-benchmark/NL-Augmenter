@@ -11,7 +11,7 @@ def sacrebleu_score(hypotheses, references):
     return corpus_bleu(hypotheses, [references]).score
 
 
-def evaluate(operation, model_name, dataset_name, split="test[:20%]", evaluate_filter=False):
+def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"):
     # load model
     if model_name is None:
         model_name = "sshleifer/distilbart-xsum-12-6"

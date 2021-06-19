@@ -6,7 +6,7 @@ from dataset import KeyValueDataset
 from tasks.TaskTypes import TaskType
 
 
-def evaluate(operation, model_name, dataset_name, split="validation[:20%]", evaluate_filter=False):
+def evaluate(operation, evaluate_filter, model_name, dataset_name, split="validation[:20%]"):
     # (1) load model
     if model_name is None:
         model_name = "mrm8488/bert-tiny-5-finetuned-squadv2"

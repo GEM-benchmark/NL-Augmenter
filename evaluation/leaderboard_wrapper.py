@@ -5,7 +5,7 @@ import pandas as pd
 
 
 from tasks.TaskTypes import TaskType
-from TestRunner import TransformationRuns
+from TestRunner import OperationRuns
 from evaluation.evaluation_engine import execute_model
 
 """This is a dict for default models to be included in the leaderboard.
@@ -28,7 +28,6 @@ DEFAULT_LEADERBOARD_MODELS = {
     "TABLE_TO_TEXT": [],
     "RDF_TO_TEXT": [],
     "RDF_TO_RDF": [],
-    "TEXT_TAGGING": [],
     "QUESTION_GENERATION": [],
     "AMR_TO_TEXT": [],
     "E2E_TASK": [],
@@ -56,7 +55,7 @@ def create_leaderboard_for_task(task_type, trans_names_to_run=None, percentage_o
         #  TODO: this might be more useful somewhere else.
         raise ValueError(f"{task_type} does not exist.")
     task_name = TaskType(task_type).name
-    all_trans = list(TransformationRuns.get_all_transformations_for_task(task_type))
+    all_trans = list(OperationRuns.get_all_operations_for_task(task_type))
     all_trans_names = {t.name(): i for i, t in enumerate(all_trans)}
     transformations = []
     if trans_names_to_run is not None:

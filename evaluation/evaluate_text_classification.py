@@ -5,7 +5,7 @@ from dataset import TextLineDataset
 
 
 def evaluate(
-        operation, model_name, dataset_name, split="test[:20%]", input_key=None, evaluate_filter=False):
+        operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"):
     # TODO: extend the task to other classification tasks that's not sentiment analysis.
     # (1) load model
     if model_name is None:
@@ -47,6 +47,7 @@ def evaluate(
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
     return performance
+
 
 def evaluate_dataset(text_classification_pipeline, dataset):
     def is_positive(label):

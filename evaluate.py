@@ -8,7 +8,8 @@ parser = argparse.ArgumentParser(
                 "transformation on pre-defined models."
 )
 parser.add_argument("-l", "--language", help="language to evaluate over", default="en")
-parser.add_argument("--transformation", "-t", required=True)
+parser.add_argument("--transformation", "-t", required=False)
+parser.add_argument("--filter", "-f", required=False)
 parser.add_argument("--task_type", "-task", help="type of the task")
 parser.add_argument(
     "--model",
@@ -25,24 +26,36 @@ parser.add_argument(
     "-p", "--percentage_of_examples", help="percentage of examples to test", default=20
 )
 
+
+
+
+
 """
 Just run this file using the following command:
   python evaluate.py -t ButterFingersPerturbation
 """
+
+
 if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.transformation is None and args.filter is None:
-        raise ValueError("Both transformation and filter can't be none.")
+        raise ValueError("Both transformation and filter can't be None. Either specify the name of "
+                         "a transformation class (-t) "
+                         "or a filter class (-f)")
 
     # Identify the transformation that the user has mentioned.
-    implementation = get_implementation(args.transformation)
+    if_filter = args.transformation is None
+    if args.transformation:
+        implementation = get_implementation(args.transformation)
+    else:
+        implementation = get_implementation(args.filter, "filters")
     # Use the tasks and the locales of an implementation to retrieve an HF model and a test set.
     if len(implementation.domain()) == 2: # domain should have name and locale.
         languages = implementation.languages
         if languages != "All" and args.language not in languages:
             raise ValueError(
-                f"The specified transformation is applicable only for the locales={locales}."
+                f"The specified transformation is applicable only for the locales={languages}."
             )
         evaluate(
             implementation,
@@ -51,6 +64,7 @@ if __name__ == "__main__":
             args.model,
             args.dataset,
             args.percentage_of_examples,
+            if_filter
         )
     # (2) checks for MT are here!
     elif hasattr(implementation, "src_locales") and hasattr(implementation, "tgt_locales"):
