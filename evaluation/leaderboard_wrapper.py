@@ -1,8 +1,8 @@
 import sys
+
 sys.path.append("..")
 sys.path.append("../..")
 import pandas as pd
-
 
 from tasks.TaskTypes import TaskType
 from TestRunner import OperationRuns
@@ -11,13 +11,12 @@ from evaluation.evaluation_engine import execute_model
 """This is a dict for default models to be included in the leaderboard.
 Each entry is a combination of (MODEL_NAME, DATA_NAME) used in 
 Huggingface: https://huggingface.co/
-"""    
+"""
 DEFAULT_LEADERBOARD_MODELS = {
-    
     "QUESTION_ANSWERING": [
         ("deepset/roberta-base-squad2", "squad"),
         ("bert-large-uncased-whole-word-masking-finetuned-squad", "squad"),
-        #("distilbert-base-cased-distilled-squad", "squad")
+        # ("distilbert-base-cased-distilled-squad", "squad")
     ],
     "TEXT_CLASSIFICATION": [
         # sentiment analysis
@@ -34,18 +33,20 @@ DEFAULT_LEADERBOARD_MODELS = {
 }
 
 
-def create_leaderboard_for_task(task_type, trans_names_to_run=None, percentage_of_examples=20):
-    """Given a task type, the function runs a list of perations
-    and return a 
+def create_leaderboard_for_task(
+    task_type, trans_names_to_run=None, percentage_of_examples=20
+):
+    """Given a task type, the function runs a list of operations
+    and return a
 
     Args:
         task_type (Literal): Task as specified in tasks.taskTypes.
-        trans_names_to_run (List[str], optional): 
-            Can choose to only run some of the transformations, 
-            by giving a list of names for a given transformation. 
+        trans_names_to_run (List[str], optional):
+            Can choose to only run some of the transformations,
+            by giving a list of names for a given transformation.
             Defaults to None.
-        percentage_of_examples (int, optional): 
-            The percentage of examples to perturb. 
+        percentage_of_examples (int, optional):
+            The percentage of examples to perturb.
             Defaults to 1.
 
     Raises:
@@ -67,11 +68,13 @@ def create_leaderboard_for_task(task_type, trans_names_to_run=None, percentage_o
     else:
         transformations = all_trans
     # filtered transformations
-    print(f"""
+    print(
+        f"""
     Creating leaderboard for task: [{task_name}].
     Transformations being run:
     \t{", ".join([t.name() for t in transformations])}
-    """)
+    """
+    )
     result_dict = {t.name(): {"Transformation": t.name()} for t in transformations}
     for model_name, dataset_name in DEFAULT_LEADERBOARD_MODELS[task_name]:
         # TODO: should we try to allow passing in models, rather than model names?
@@ -80,21 +83,21 @@ def create_leaderboard_for_task(task_type, trans_names_to_run=None, percentage_o
         print(f"---- Evaluating {model_name} on {dataset_name} -----")
         for trans in transformations:
             print(f"| Transformation: {trans.name()}")
-            #try:
             if True:
                 result = execute_model(
                     implementation=trans.__class__,
                     task_type=task_name,
                     model_name=model_name,
                     dataset=dataset_name,
-                    percentage_of_examples=percentage_of_examples)
+                    percentage_of_examples=percentage_of_examples,
+                )
                 if "accuracy" in result:
                     key, pt_key = "accuracy", "pt_accuracy"
                 if "bleu" in result:
                     key, pt_key = "bleu", "pt_bleu"
-                result_dict[trans.name()][f"{model_name}\n({dataset_name})"] = result[key]-result[pt_key]
-            #except:
-            #    continue
+                result_dict[trans.name()][f"{model_name}\n({dataset_name})"] = (
+                    result[key] - result[pt_key]
+                )
     df_result = pd.DataFrame(list(result_dict.values()))
     print("Finished! The leaderboard:")
     print(df_result.to_markdown(index=False))
@@ -102,8 +105,8 @@ def create_leaderboard_for_task(task_type, trans_names_to_run=None, percentage_o
     df_result.to_csv(filename)
     print("Saved the result to f{filename}")
     return result_dict
-            
-        
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     for task_type in TaskType:
         create_leaderboard_for_task(task_type)
