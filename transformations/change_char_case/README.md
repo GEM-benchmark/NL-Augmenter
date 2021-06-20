@@ -9,14 +9,15 @@ This transformation acts like a perturbation to test robustness. Few letters pic
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, text generation, etc. 
 
+For example, when running RoBERTa on IMDB dataset
+
 ```
 python evaluate.py -t ChangeCharCase -task TEXT_CLASSIFICATION --model="aychang/roberta-base-imdb"
 ```
 
-The accuracy of a RoBERTa model (fine-tuned on IMDB) (model: "aychang/roberta-base-imdb") 
-on a 10% subset of IMDB sentiment dataset with a 10% case changes = 95.74
-The accuracy of the same model on the perturbed set = 88.26
-
+- The accuracy on a 10% subset of the IMDB sentiment dataset is 96.0
+- The accuracy of the same model on the perturbed set when changing 10% chars is 91.12
+- The accuracy of the same model on the perturbed set when changing 20% chars is 88.08
 
 
 ## What are the limitations of this transformation?
