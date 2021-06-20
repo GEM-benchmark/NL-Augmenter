@@ -51,7 +51,7 @@ if __name__ == "__main__":
     else:
         implementation = get_implementation(args.filter, "filters")
     # Use the tasks and the locales of an implementation to retrieve an HF model and a test set.
-    if len(implementation.domain()) == 2: # domain should have name and locale.
+    if True: # domain should have name and locale.
         languages = implementation.languages
         if languages != "All" and args.language not in languages:
             raise ValueError(
@@ -65,25 +65,4 @@ if __name__ == "__main__":
             args.dataset,
             args.percentage_of_examples,
             if_filter
-        )
-    # (2) checks for MT are here!
-    elif hasattr(implementation, "src_locales") and hasattr(implementation, "tgt_locales"):
-        src_locales = implementation.src_locales
-        if src_locales != "All" and args.src_locale not in src_locales:
-            raise ValueError(
-                f"The specified transformation is applicable only for the locales={src_locales}."
-            )
-        tgt_locales = implementation.tgt_locales
-        if tgt_locales != "All" and args.tgt_locale not in tgt_locales:
-            raise ValueError(
-                f"The specified transformation is applicable only for the locales={src_locales}."
-            )
-        evaluate_mt(
-            implementation,
-            args.task_type,
-            args.language,
-            args.tgt_language,
-            args.model,
-            args.dataset,
-            args.percentage_of_examples,
         )
