@@ -87,17 +87,17 @@ class SentimentEmojiAugmenter(SentenceAndTargetOperation):
         return additions
 
 
-"""
 
+"""
 # Sample code to demonstrate adding test cases.
 
 if __name__ == '__main__':
 
     tf = SentimentEmojiAugmenter()
     test_cases = []
-    src = ["The dog was happily wagging its tail.", "Ram und Sita waren glücklich verheiratet."
+    src = ["The dog was happily wagging its tail.", "Ram und Sita waren glücklich verheiratet.",
                                                     "Le film était bien meilleur que les 100 derniers que j'ai regardés !",
-           "這部電影比我最近看的 100 部要好得多！"
+           "這部電影比我最近看的 100 部要好得多！",
            "भारत आणि कॅनडा चांगले मित्र आहेत.", "Tujuh orang terluka!",
            "அது மிக மோசமான படம், அதற்கு நான் மீண்டும் பணம் கொடுக்கவில்லை."]
     tgt = ["pos", "pos", "pos", "pos", "pos", "neg", "neg"]
@@ -110,5 +110,6 @@ if __name__ == '__main__':
         )
     json_file = {"type": tf.name(), "test_cases": test_cases}
     print(str(json_file))
+
 
 """
