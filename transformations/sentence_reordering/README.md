@@ -9,6 +9,12 @@ This transformation could shuffle sentence order in the input text, which could 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks on text classification and generation. 
 
+Benchmark results:
+
+- Sentiment analysis: we run sentiment analysis on a 10% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 95.64.
+
+- Text summarization: we run text summarization on a 10% sample of the xsum dataset. The original bleu is 15.25 and the perturbed bleu is 12.73.
+
 ## Related work
 
 This is very similar to the `Sentence Permutation` noising method in the BART paper. 
