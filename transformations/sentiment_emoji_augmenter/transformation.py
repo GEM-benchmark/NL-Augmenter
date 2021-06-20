@@ -7,6 +7,7 @@ from tasks.TaskTypes import TaskType
 """
 Adds a positive labelled emoji as well as a positive emoteicon for positive sentences and vice versa. 
 And neutral smiley for unlabelled and neutral sentences.
+Since IMDB has labels +1 --> str(target) in ["1", "pos", "positive"] is used to determine if it's positive.
 """
 
 emoji = {  # (facial expression, sentiment)-keys
@@ -54,9 +55,9 @@ class SentimentEmojiAugmenter(SentenceAndTargetOperation):
     def generate(self, sentence: str, target: str):
         if target is None:
             emotions = self.get_emotions("neutral")
-        elif target.startswith("pos"):
+        elif str(target) in ["1", "pos", "positive"]:
             emotions = self.get_emotions("pos")
-        elif target.startswith("neg"):
+        elif str(target) in ["0", "neg", "negative"]:
             emotions = self.get_emotions("neg")
         else:
             emotions = self.get_emotions("neutral")
@@ -84,6 +85,7 @@ class SentimentEmojiAugmenter(SentenceAndTargetOperation):
             random.seed(self.seed)
             additions.extend(random.sample(emoticons.get(key), 1))
         return additions
+
 
 """
 
