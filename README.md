@@ -60,7 +60,7 @@ cd NL-Augmenter
 git checkout -b my_awesome_transformation
 ```
 We will base our transformation on an existing example.
-Create a new transformation directory by copying over an existing transformation:
+Create a new transformation directory by copying over an existing transformation. You can choose to copy from other [transformation directories](interfaces) depending on the task you wish to create a transformation for. We strongly suggest you to look at some of the other [transformations](transformations) first.
 ```bash
 cd transformations/
 cp -r butter_fingers_perturbation my_awesome_transformation
