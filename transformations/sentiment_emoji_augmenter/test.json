@@ -1,0 +1,60 @@
+{
+  "type": "SentimentEmojiAugmenter",
+  "test_cases": [
+    {
+      "class": "SentimentEmojiAugmenter",
+      "inputs": {
+        "sentence": "The dog was happily wagging its tail.",
+        "target": "pos"
+      },
+      "outputs": {
+        "sentence": "The dog was happily wagging its tail. 😎",
+        "target": "pos"
+      }
+    },
+    {
+      "class": "SentimentEmojiAugmenter",
+      "inputs": {
+        "sentence": "Ram und Sita waren glücklich verheiratet.Le film était bien meilleur que les 100 derniers que j'ai regardés !",
+        "target": "pos"
+      },
+      "outputs": {
+        "sentence": "Ram und Sita waren glücklich verheiratet.Le film était bien meilleur que les 100 derniers que j'ai regardés ! 😎",
+        "target": "pos"
+      }
+    },
+    {
+      "class": "SentimentEmojiAugmenter",
+      "inputs": {
+        "sentence": "這部電影比我最近看的 100 部要好得多！भारत आणि कॅनडा चांगले मित्र आहेत.",
+        "target": "pos"
+      },
+      "outputs": {
+        "sentence": "這部電影比我最近看的 100 部要好得多！भारत आणि कॅनडा चांगले मित्र आहेत. 😎",
+        "target": "pos"
+      }
+    },
+    {
+      "class": "SentimentEmojiAugmenter",
+      "inputs": {
+        "sentence": "Tujuh orang terluka!",
+        "target": "pos"
+      },
+      "outputs": {
+        "sentence": "Tujuh orang terluka! 😎",
+        "target": "pos"
+      }
+    },
+    {
+      "class": "SentimentEmojiAugmenter",
+      "inputs": {
+        "sentence": "அது மிக மோசமான படம், அதற்கு நான் மீண்டும் பணம் கொடுக்கவில்லை.",
+        "target": "pos"
+      },
+      "outputs": {
+        "sentence": "அது மிக மோசமான படம், அதற்கு நான் மீண்டும் பணம் கொடுக்கவில்லை. 😎",
+        "target": "pos"
+      }
+    }
+  ]
+}
