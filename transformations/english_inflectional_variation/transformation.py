@@ -74,7 +74,7 @@ class EnglishInflectionalVariation(SentenceOperation):
                 if inflections[1]:
                     # Use inflection distribution for weighted random sampling if specified
                     # Otherwise unweighted
-                    random.seed(self.seed)
+                    random.seed(self.seed+len(word))
                     inflection = random.choices(inflections[1])[0][1]
                     new_tokens[i] = inflection
         return new_tokens
