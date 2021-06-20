@@ -1,0 +1,50 @@
+{
+  "type": "synonym_substitution",
+  "test_cases": [
+    {
+      "class": "SynonymSubstitution",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": {
+        "sentence": "Andrew finally come back the french book to Chris that I bought last workweek"
+      }
+    },
+    {
+      "class": "SynonymSubstitution",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": {
+        "sentence": "Sentences with gapping , such as Paul like coffee bean and Mary tea , lack an overt predicate to indicate the relation between two or more argument ."
+      }
+    },
+    {
+      "class": "SynonymSubstitution",
+      "inputs": {
+        "sentence": "Albany Theatre is a historic theater in Albany, Georgia. It was added to the National Register of Historic Places on August 21, 2006."
+      },
+      "outputs": {
+        "sentence": "Albany Theatre is a historic theater in Albany , Georgia . It was lend to the national Register of Historic Places on August 21 , 2006 ."
+      }
+    },
+    {
+      "class": "SynonymSubstitution",
+      "inputs": {
+        "sentence": "The Royal Air Force (RAF) is the United Kingdom's aerial warfare force. It was formed towards the end of the First World War on 1 April 1918, becoming the first independent air force in the world, by regrouping the Royal Flying Corps (RFC) and the Royal Naval Air Service (RNAS)."
+      },
+      "outputs": {
+        "sentence": "The Royal Air Force ( RAF ) is the joined Kingdom 's aeriform warfare force . It was formed towards the conclusion of the first World War on 1 April 1918 , become the first independent air effect in the world , by regrouping the royal Flying Corps ( RFC ) and the royal naval Air Service ( RNAS ) ."
+      }
+    },
+    {
+      "class": "SynonymSubstitution",
+      "inputs": {
+        "sentence": "A pisco sour is a cocktail typical of South American cuisine. The drink's name is a combination of the word pisco, which is its base liquor, and the term sour, in reference to sour citrus juice and sweetener components."
+      },
+      "outputs": {
+        "sentence": "A pisco sour is a cocktail distinctive of South american cuisine . The drink 's name is a combination of the word pisco , which is its base liquor , and the terminus sourness , in character to sour citrus juice and sweetener components ."
+      }
+    }
+  ]
+}
