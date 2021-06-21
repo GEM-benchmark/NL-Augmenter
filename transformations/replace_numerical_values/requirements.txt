@@ -1,3 +1,0 @@
-# for ReplaceNumericalValues
-num2words==0.5.10
-word2number==1.1
