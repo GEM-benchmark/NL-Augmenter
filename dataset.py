@@ -72,7 +72,7 @@ class TextLineDataset(BaseDataset):
         return TextLineDataset(filtered_data, filtered_labels)
 
     def apply_transformation(
-        self, transformation: SentenceOperation
+            self, transformation: SentenceOperation
     ) -> TextLineDataset:
         transformed_data = []
         print("Applying transformation:")
@@ -122,10 +122,10 @@ class KeyValueDataset(BaseDataset):
     # fields: list of relavent keys (e.g. to your sentence/target, context/question/answer, etc.)
     #         The number of keys should be aligned with the transform/filter operation.
     def __init__(
-        self,
-        data: List[dict],
-        task_type=TaskType.TEXT_TO_TEXT_GENERATION,
-        fields: List[str] = None,
+            self,
+            data: List[dict],
+            task_type=TaskType.TEXT_TO_TEXT_GENERATION,
+            fields: List[str] = None,
     ):
         super(KeyValueDataset, self).__init__(data)
         self.task_type = task_type
@@ -187,7 +187,7 @@ class KeyValueDataset(BaseDataset):
     # this function is an adapter and will call the corresponding filter function for the task
     # subfields: the fields to apply filter, it is a subset of self.fields
     def apply_filter(
-        self, filter: Operation, subfields: List[str] = None
+            self, filter: Operation, subfields: List[str] = None
     ) -> KeyValueDataset:
         filter_func, _ = self._analyze(subfields)
 
@@ -204,21 +204,21 @@ class KeyValueDataset(BaseDataset):
         return filter.filter(sentence)
 
     def _apply_sentence_and_target_filter(
-        self, datapoint: dict, filter: SentenceAndTargetOperation
+            self, datapoint: dict, filter: SentenceAndTargetOperation
     ):
         sentence = datapoint[self.fields[0]]
         target = datapoint[self.fields[1]]
         return filter.filter(sentence, target)
 
     def _apply_sentence_and_targets_filter(
-        self, datapoint: dict, filter: SentenceAndTargetsOperation
+            self, datapoint: dict, filter: SentenceAndTargetsOperation
     ):
         sentence = datapoint[self.fields[0]]
         targets = [datapoint[target_key] for target_key in self.fields[1:]]
         return filter.filter(sentence, targets)
 
     def _apply_question_answer_filter(
-        self, datapoint: dict, filter: QuestionAnswerOperation
+            self, datapoint: dict, filter: QuestionAnswerOperation
     ):
         context = datapoint[self.fields[0]]
         question = datapoint[self.fields[1]]
@@ -228,20 +228,20 @@ class KeyValueDataset(BaseDataset):
     # this function is an adapter and will call the corresponding transform function for the task
     # subfields: the fields to apply transformation, it is a subset of self.fields
     def apply_transformation(
-        self, transformation: Operation, subfields: List[str] = None
+            self, transformation: Operation, subfields: List[str] = None
     ) -> KeyValueDataset:
         _, transformation_func = self._analyze(subfields)
         transformed_data = []
         print("Applying transformation:")
         for datapoint in tqdm(self.data):
-            transformed_data.append(
+            transformed_data.extend(
                 transformation_func(datapoint.copy(), transformation)
             )  # don't want self.data to be changed
 
         return KeyValueDataset(transformed_data, self.task_type, self.fields)
 
     def _apply_sentence_transformation(
-        self, datapoint: dict, transformation: SentenceOperation
+            self, datapoint: dict, transformation: SentenceOperation
     ):
         sentence = datapoint[self.fields[0]]
         transformed_sentence = transformation.generate(sentence)
@@ -249,7 +249,7 @@ class KeyValueDataset(BaseDataset):
         return datapoint
 
     def _apply_sentence_and_target_transformation(
-        self, datapoint: dict, transformation: SentenceAndTargetOperation
+            self, datapoint: dict, transformation: SentenceAndTargetOperation
     ):
         sentence = datapoint[self.fields[0]]
         target = datapoint[self.fields[1]]
@@ -261,38 +261,40 @@ class KeyValueDataset(BaseDataset):
         return datapoint
 
     def _apply_sentence_and_targets_transformation(
-        self, datapoint: dict, transformation: SentenceAndTargetsOperation
+            self, datapoint: dict, transformation: SentenceAndTargetsOperation
     ):
         sentence = datapoint[self.fields[0]]
         targets = [datapoint[target_key] for target_key in self.fields[1:]]
-        transformed_sentence, transformed_targets = transformation.generate(
+        transformed = transformation.generate(
             sentence, targets
         )
-
-        datapoint[self.fields[0]] = transformed_sentence
-        for i, target_key in enumerate(self.fields[1:]):
-            datapoint[target_key] = transformed_targets[i]
-
-        return datapoint
+        datapoints = []
+        for to in transformed:
+            datapoint_n = dict()
+            datapoint_n[self.fields[0]] = to[0]
+            for i, target_key in enumerate(self.fields[1:]):
+                datapoint[target_key] = to[1][i]
+            datapoints.append(datapoint_n)
+        return datapoints
 
     def _apply_question_answer_transformation(
-        self, datapoint: dict, transformation: QuestionAnswerOperation
+            self, datapoint: dict, transformation: QuestionAnswerOperation
     ):
         context = datapoint[self.fields[0]]
         question = datapoint[self.fields[1]]
         answers = [datapoint[answer_key] for answer_key in self.fields[2:]]
-        (
-            transformed_context,
-            transformed_question,
-            transformed_answers,
-        ) = transformation.generate(context, question, answers)
+        transformed = transformation.generate(context, question, answers)
 
-        datapoint[self.fields[0]] = transformed_context
-        datapoint[self.fields[1]] = transformed_question
-        for i, answers_key in enumerate(self.fields[2:]):
-            datapoint[answers_key] = transformed_answers[i]
+        datapoints = []
+        for to in transformed:
+            datapoint_n = dict()
+            datapoint_n[self.fields[0]] = to[0]
+            datapoint_n[self.fields[1]] = to[1]
+            for i, answers_key in enumerate(self.fields[2:]):
+                datapoint_n[answers_key] = to[i]
+            datapoints.append(datapoint_n)
 
-        return datapoint
+        return datapoints
 
     def __iter__(self):
         for datapoint in self.data:
@@ -303,10 +305,10 @@ class KeyValueDataset(BaseDataset):
 
     def _sanity_check(self, other: KeyValueDataset):
         assert (
-            self.data[0].keys() == other.data[0].keys()
+                self.data[0].keys() == other.data[0].keys()
         ), "You cannot do dataset operation on datasets with different keys"
         assert (
-            self.task_type == other.task_type
+                self.task_type == other.task_type
         ), "You cannot do dataset operation on datasets for different tasks"
         assert len(self.fields) == len(
             other.fields

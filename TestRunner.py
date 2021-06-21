@@ -139,7 +139,7 @@ def get_implementation(clazz: str, search="transformations"):
         if operation.name() == clazz:
             return operation
     raise ValueError(
-        f"No class called {clazz} found. Check if you've spelled it right!"
+        f"No class called {clazz} found in the {search} folder. Check if you've spelled it right!"
     )
 
 
