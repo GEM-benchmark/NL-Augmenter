@@ -57,7 +57,7 @@ class TextLineDataset(BaseDataset):
         self.labels = labels
         self.mapping = {datapoint: label
                         for datapoint, label in zip(self.data, self.labels)}
-        
+
     @classmethod
     def from_huggingface(cls, dataset, fields):
         data = []
@@ -67,24 +67,37 @@ class TextLineDataset(BaseDataset):
             labels.append(example[fields[1]])
         return cls(data, labels)
 
-    def apply_filter(self, filter: SentenceOperation) -> TextLineDataset:
+    def apply_filter(self, filter) -> TextLineDataset:
         filtered_data = []
         filtered_labels = []
         print("Applying filtering:")
-        for datapoint, label in tqdm(zip(self.data, self.labels), total=len(self.data)):
-            if filter.filter(datapoint):
-                filtered_data.append(datapoint)
-                filtered_labels.append(label)
+        if isinstance(filter, SentenceOperation):
+            for datapoint, label in tqdm(zip(self.data, self.labels), total=len(self.data)):
+                if filter.filter(datapoint):
+                    filtered_data.append(datapoint)
+                    filtered_labels.append(label)
+            return TextLineDataset(filtered_data, filtered_labels)
+        if isinstance(filter, SentenceAndTargetOperation):
+            for datapoint, label in tqdm(zip(self.data, self.labels), total=len(self.data)):
+                if filter.filter(datapoint, label):
+                    filtered_data.append(datapoint)
+                    filtered_labels.append(label)
+            return TextLineDataset(filtered_data, filtered_labels)
 
-        return TextLineDataset(filtered_data, filtered_labels)
-
-    def apply_transformation(self, transformation: SentenceOperation) -> TextLineDataset:
+    def apply_transformation(self, transformation) -> TextLineDataset:
         transformed_data = []
         print("Applying transformation:")
-        for line in tqdm(self.data):
-            transformed_data.append(transformation.generate(line))
-
-        return TextLineDataset(transformed_data, self.labels)
+        if isinstance(transformation, SentenceOperation):
+            for line in tqdm(self.data):
+                transformed_data.append(transformation.generate(line))
+            return TextLineDataset(transformed_data, self.labels)
+        elif isinstance(transformation, SentenceAndTargetOperation):
+            transformed_labels = []
+            for line, label in zip(self.data, self.labels):
+                pt_line, pt_label = transformation.generate(line, label)
+                transformed_data.append(pt_line)
+                transformed_labels.append(pt_label)
+            return TextLineDataset(transformed_data, transformed_labels)
 
     def __iter__(self):
         for text, label in zip(self.data, self.labels):
@@ -150,7 +163,7 @@ class KeyValueDataset(BaseDataset):
     def _analyze(self, subfields: List[str]):
         if subfields is None:
             subfields = self.fields
-            
+
         assert set(subfields) <= set(
             self.fields), "Your can only choose from fields within {}".format(self.fields)
 
@@ -180,7 +193,7 @@ class KeyValueDataset(BaseDataset):
     # subfields: the fields to apply filter, it is a subset of self.fields
     def apply_filter(self, filter: Operation, subfields: List[str] = None) -> KeyValueDataset:
         filter_func, _ = self._analyze(subfields)
-        
+
         filtered_data = []
         print("Applying filtering:")
         for datapoint in tqdm(self.data):
@@ -188,7 +201,7 @@ class KeyValueDataset(BaseDataset):
                 filtered_data.append(datapoint)
 
         return KeyValueDataset(filtered_data, self.task_type, self.fields)
-    
+
     def _apply_sentence_filter(self, datapoint: dict, filter: SentenceOperation):
         sentence = datapoint[self.fields[0]]
         return filter.filter(sentence)
@@ -217,10 +230,10 @@ class KeyValueDataset(BaseDataset):
         print("Applying transformation:")
         for datapoint in tqdm(self.data):
             transformed_data.append(
-                transformation_func(datapoint.copy(), transformation)) # don't want self.data to be changed
+                transformation_func(datapoint.copy(), transformation))  # don't want self.data to be changed
 
         return KeyValueDataset(transformed_data, self.task_type, self.fields)
-    
+
     def _apply_sentence_transformation(self, datapoint: dict, transformation: SentenceOperation):
         sentence = datapoint[self.fields[0]]
         transformed_sentence = transformation.generate(sentence)
@@ -299,7 +312,7 @@ class KeyValueDataset(BaseDataset):
     def __or__(self, other: KeyValueDataset) -> KeyValueDataset:
         self._sanity_check(other)
         id2datapoint, identifier2id, identifiers = self._data2identifier(
-            self.data+other.data)
+            self.data + other.data)
         data = self._identifier2data(id2datapoint, identifier2id, identifiers)
         return KeyValueDataset(data, self.task_type, self.fields)
 
