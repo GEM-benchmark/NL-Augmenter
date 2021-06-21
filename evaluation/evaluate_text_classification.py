@@ -70,5 +70,5 @@ def evaluate_dataset(text_classification_pipeline, dataset):
             accuracy += 1
         total += 1
 
-    print(f"The accuracy on this subset = {100 * accuracy / total}")
+    print(f"The accuracy on this subset which has {total} examples= {100 * accuracy / total}")
     return np.round(100 * accuracy / total, 1), total

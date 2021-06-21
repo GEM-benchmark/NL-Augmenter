@@ -1,5 +1,5 @@
 from datasets import load_dataset
-from pandas import np
+import numpy as np
 from transformers import pipeline
 
 from dataset import KeyValueDataset
