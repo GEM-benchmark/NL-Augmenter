@@ -52,7 +52,7 @@ class BackTranslation(SentenceOperation):
         predicted_outputs = []
         for output in outputs:
             decoded = self.tokenizer_de_en.decode(output, skip_special_tokens=True)
-            predicted_outputs.append(decoded)
+            predicted_outputs.append(decoded) #TODO: this should be able to return multiple sequences
         if self.verbose:
             print(predicted_outputs)  # Machine learning is great, isn't it?
         return predicted_outputs

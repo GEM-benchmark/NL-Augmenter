@@ -30,6 +30,7 @@ class PunctuationWithRules(SentenceOperation):
 
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    heavy = True
 
     def __init__(self, rules=None, max_output=1):
         super().__init__()
