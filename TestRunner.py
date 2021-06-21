@@ -28,11 +28,6 @@ def load_test_cases(test_json):
         )
 
 
-def convert_to_snake_case(camel_case):
-    name = re.sub(r"(?<!^)(?=[A-Z])", "_", camel_case).lower()
-    return name
-
-
 class OperationRuns(object):
     def __init__(self, transformation_name, search="transformations"):
         if transformation_name == "light":
