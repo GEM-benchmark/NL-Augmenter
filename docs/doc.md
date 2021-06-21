@@ -42,7 +42,7 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific transformation. E.g., a perturbation which changes gendered pronouns could give insights about gender bias in models.
 
-**Adding New Libraries:** We welcome addition of libraries which are light and can be installed via `pip`. Every library should specify the version number associated and be added in requirements.txt. However, we discourage the use of heavy libraries for a few lines of code which could be manually written instead.
+**Adding New Libraries:** We welcome addition of libraries which are light and can be installed via `pip`. Every library should specify the version number associated and be added in the folder's own [requirements.txt](../transformations/punctuation). However, we discourage the use of heavy libraries for a few lines of code which could be manually written instead.
 
 **Description:** The `README.md` file should clearly explain what the transformation is attempting to generate as well as the importance of that transformation for the specified tasks.
 
