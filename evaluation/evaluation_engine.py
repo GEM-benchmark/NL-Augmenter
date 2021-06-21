@@ -5,7 +5,7 @@ from evaluation import (
     evaluate_text_classification,
 )
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
-from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
+from interfaces.SentenceOperation import SentenceOperation
 from interfaces.TaggingOperation import TaggingOperation
 from tasks.TaskTypes import TaskType
 
@@ -81,17 +81,6 @@ def execute_model(
     if locale is "en":
         if (
             isinstance(impl, SentenceOperation)
-            and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION
-        ):
-            return evaluate_text_classification.evaluate(
-                impl,
-                evaluate_filter,
-                model_name,
-                dataset,
-                split=f"test[:{percentage_of_examples}%]",
-            )
-        elif (
-            isinstance(impl, SentenceAndTargetOperation)
             and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION
         ):
             return evaluate_text_classification.evaluate(
