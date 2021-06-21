@@ -1,11 +1,11 @@
+import numpy as np
 from datasets import load_dataset
 from transformers import pipeline
-import numpy as np
+
 from dataset import TextLineDataset
 
 
-def evaluate(
-        operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"):
+def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"):
     # TODO: extend the task to other classification tasks that's not sentiment analysis.
     # (1) load model
     if model_name is None:
@@ -14,26 +14,33 @@ def evaluate(
     if dataset_name is None:
         dataset_name = "imdb"
         fields = ["text", "label"]
-    print(
-        f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
-    text_classification_pipeline = pipeline("sentiment-analysis", model=model_name, tokenizer=model_name)
-    performance = {"model_name": model_name,
-                   "split": split,
-                   "dataset_name": dataset_name}
+    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
+    text_classification_pipeline = pipeline(
+        "sentiment-analysis", model=model_name, tokenizer=model_name
+    )
+    performance = {
+        "model_name": model_name,
+        "split": split,
+        "dataset_name": dataset_name,
+    }
     if dataset_name in ["qqp", "sst2"]:
         # TODO: extend this to all the glue datasets.
-        hf_dataset = load_dataset('glue', dataset_name, split=split)
+        hf_dataset = load_dataset("glue", dataset_name, split=split)
         fields = ["sentence", "label"]
     else:
         hf_dataset = load_dataset(dataset_name, split=split)
 
-    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset")
+    print(
+        f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset"
+    )
 
-    dataset = TextLineDataset.from_huggingface(hf_dataset, ['text', 'label'])
+    dataset = TextLineDataset.from_huggingface(hf_dataset, ["text", "label"])
     if evaluate_filter:
         filtered_dataset = dataset.apply_filter(operation)
         print(f"Here is the performance of the model on the filtered set")
-        accuracy, total = evaluate_dataset(text_classification_pipeline, filtered_dataset)
+        accuracy, total = evaluate_dataset(
+            text_classification_pipeline, filtered_dataset
+        )
         performance["accuracy"] = accuracy
         performance["no_of_examples"] = total
     else:
@@ -63,5 +70,5 @@ def evaluate_dataset(text_classification_pipeline, dataset):
             accuracy += 1
         total += 1
 
-    print(f"The accuracy on this subset = {100 * accuracy / total}")
+    print(f"The accuracy on this subset which has {total} examples= {100 * accuracy / total}")
     return np.round(100 * accuracy / total, 1), total

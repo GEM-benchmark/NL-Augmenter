@@ -26,3 +26,7 @@ sentencepiece==0.1.95
 # for code format
 black==21.5b2
 pre-commit==2.13.0
+
+# for punctuation and cocco rules
+cucco==2.2.1
+fastpunct==2.0.2

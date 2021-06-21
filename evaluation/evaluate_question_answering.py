@@ -1,33 +1,35 @@
 from datasets import load_dataset
-from pandas import np
+import numpy as np
 from transformers import pipeline
 
 from dataset import KeyValueDataset
 from tasks.TaskTypes import TaskType
 
 
-def evaluate(operation, evaluate_filter, model_name, dataset_name, split="validation[:20%]"):
+def evaluate(
+    operation, evaluate_filter, model_name, dataset_name, split="validation[:20%]"
+):
     # (1) load model
     if model_name is None:
         model_name = "mrm8488/bert-tiny-5-finetuned-squadv2"
     # (2) load test set
     if dataset_name is None:
         dataset_name = "squad"
-    print(
-        f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
+    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
 
     hf_dataset = load_dataset(dataset_name, split=split)
     qa_pipeline = pipeline("question-answering", model=model_name, tokenizer=model_name)
 
     dataset = KeyValueDataset.from_huggingface(
-        hf_dataset, TaskType.QUESTION_ANSWERING, ['context', 'question', 'answers'])
+        hf_dataset, TaskType.QUESTION_ANSWERING, ["context", "question", "answers"]
+    )
 
     print(
         f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset"
     )
 
     if evaluate_filter:
-        filtered_dataset =  dataset.apply_filter(operation)
+        filtered_dataset = dataset.apply_filter(operation)
         print(f"Starting evaluation on the filtered dataset.")
         performance = evaluate_on_dataset(filtered_dataset, qa_pipeline)
     else:
@@ -54,9 +56,9 @@ def evaluate_on_dataset(dataset, qa_pipeline):
     total = 0
     for example in dataset:
         context, question, answers = example
-        prediction = qa_pipeline({"context": context, "question": question}, truncation=True)[
-            "answer"
-        ]
+        prediction = qa_pipeline(
+            {"context": context, "question": question}, truncation=True
+        )["answer"]
         if prediction in answers:
             accuracy += 1
         total += 1
