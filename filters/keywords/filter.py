@@ -1,5 +1,4 @@
 import spacy
-
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from typing import List

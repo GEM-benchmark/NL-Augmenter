@@ -1,0 +1,47 @@
+{
+    "type": "question_words_filter",
+    "test_cases": [
+        {
+            "class": "WhatQuestion",
+            "inputs": {
+                "sentence": "What happend in 1947 ?"
+            },
+            "outputs": true
+        },
+        {
+            "class": "WhoQuestion",
+            "inputs": {
+                "sentence": "Who is Helen Keller ?"
+            },
+            "outputs": true
+        },
+        {
+            "class": "WhichQuestion",
+            "inputs": {
+                "sentence": "Which of these books are interesting ?"
+            },
+            "outputs": true
+        },
+        {
+            "class": "WhenQuestion",
+            "inputs": {
+                "sentence": "When will Black Widow be released ?"
+            },
+            "outputs": true
+        },
+        {
+            "class": "WhereQuestion",
+            "inputs": {
+                "sentence": "Where was Mahatma Gandhi born ?"
+            },
+            "outputs": true
+        },
+        {
+            "class": "WhyQuestion",
+            "inputs": {
+                "sentence": "Why were people protesting ?"
+            },
+            "outputs": true
+        }
+    ]
+}
