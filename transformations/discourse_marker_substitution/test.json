@@ -1,0 +1,60 @@
+{
+  "type": "discourse_marker_substitution",
+  "test_cases": [
+    {
+      "class": "DiscourseMarkerSubstitution",
+      "inputs": {
+        "sentence": "A half-hour later, the woman is smiling and chatting; the demon seems to have gone"
+      },
+      "outputs": [
+        {
+          "sentence": "A half-hour subsequently, the woman is smiling and chatting; the demon seems to have gone"
+        }
+      ]
+    },
+    {
+      "class": "DiscourseMarkerSubstitution",
+      "inputs": {
+        "sentence": "I'm for the Giants today, but only because they lost yesterday. I love 'em both"
+      },
+      "outputs": [
+        {
+          "sentence": "I'm for the Giants today, but only since they lost yesterday. I love 'em both"
+        }
+      ]
+    },
+    {
+      "class": "DiscourseMarkerSubstitution",
+      "inputs": {
+        "sentence": "In fact, he did; the quotes above are from Mr. Baker's speech of two weeks ago"
+      },
+      "outputs": [
+        {
+          "sentence": "Additionally, he did; the quotes above are from Mr. Baker's speech of two weeks ago"
+        }
+      ]
+    },
+    {
+      "class": "DiscourseMarkerSubstitution",
+      "inputs": {
+        "sentence": "For example, we'll bet you thought that the stock market crashed two years ago. Wrong"
+      },
+      "outputs": [
+        {
+          "sentence": "For instance, we'll bet you thought that the stock market crashed two years ago. Wrong"
+        }
+      ]
+    },
+    {
+      "class": "DiscourseMarkerSubstitution",
+      "inputs": {
+        "sentence": "Besides, we have enough on our plate. There is plenty of work to be done on what we have"
+      },
+      "outputs": [
+        {
+          "sentence": "Additionally, we have enough on our plate. There is plenty of work to be done on what we have"
+        }
+      ]
+    }
+  ]
+}
