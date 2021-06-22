@@ -4,10 +4,10 @@
     {
       "class": "ContractionExpansions",
       "inputs": {
-        "sentence": "Alex can't afford to buy the that car"
+        "sentence": "Alex can't afford to buy that car"
       },
       "outputs": {
-        "sentence": "Alex cannot afford to buy the that car"
+        "sentence": "Alex cannot afford to buy that car"
       }
     },
     {
@@ -31,10 +31,10 @@
     {
       "class": "ContractionExpansions",
       "inputs": {
-        "sentence": "He is often doesn't come to school."
+        "sentence": "He often doesn't come to school."
       },
       "outputs": {
-        "sentence": "He is often does not come to school."
+        "sentence": "He often does not come to school."
       }
     },
     {
