@@ -1,0 +1,50 @@
+{
+  "type": "contraction_expansions_perturbation",
+  "test_cases": [
+    {
+      "class": "ContractionExpansions",
+      "inputs": {
+        "sentence": "Alex can't afford to buy the that car"
+      },
+      "outputs": {
+        "sentence": "Alex cannot afford to buy the that car"
+      }
+    },
+    {
+      "class": "ContractionExpansions",
+      "inputs": {
+        "sentence": "There is always another opportunity to be had down the road."
+      },
+      "outputs": {
+        "sentence": "There's always another opportunity to be had down the road."
+      }
+    },
+    {
+      "class": "ContractionExpansions",
+      "inputs": {
+        "sentence": "You can go ahead, I'll join you later."
+      },
+      "outputs": {
+        "sentence": "You can go ahead, I will join you later."
+      }
+    },
+    {
+      "class": "ContractionExpansions",
+      "inputs": {
+        "sentence": "He is often doesn't come to school."
+      },
+      "outputs": {
+        "sentence": "He is often does not come to school."
+      }
+    },
+    {
+      "class": "ContractionExpansions",
+      "inputs": {
+        "sentence": "Right now, I'm not sure what to wear to the interview."
+      },
+      "outputs": {
+        "sentence": "Right now, I am not sure what to wear to the interview."
+      }
+    }
+  ]
+}
