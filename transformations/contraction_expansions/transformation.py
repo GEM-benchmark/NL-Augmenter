@@ -1,4 +1,3 @@
-import random
 import re
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
@@ -9,11 +8,7 @@ Contractions and Expansions List(s) borrowed from https://github.com/marcotcr/ch
 
 
 class ContractionExpansions(SentenceOperation):
-    tasks = [
-        TaskType.TEXT_CLASSIFICATION,
-        TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
-    ]
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
     def __init__(self):
