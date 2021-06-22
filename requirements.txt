@@ -26,3 +26,8 @@ sentencepiece==0.1.95
 # for code format
 black==21.5b2
 pre-commit==2.13.0
+
+# for date format transformation
+dateparser==1.0.0
+Babel==2.9.1
+

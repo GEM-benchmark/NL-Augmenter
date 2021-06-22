@@ -1,0 +1,60 @@
+{
+  "type": "change_date_format",
+  "test_cases": [
+    {
+      "class": "ChangeDateFormat",
+      "inputs": {
+        "sentence": "Roger Federer (born 8 August 1981) is a Swiss professional tennis player."
+      },
+      "outputs": [
+        {
+          "sentence": "Roger Federer (born 8 Aug 1981) is a Swiss professional tennis player."
+        }
+      ]
+    },
+    {
+      "class": "ChangeDateFormat",
+      "inputs": {
+        "sentence": "As of 20 June 2021, 2.66 billion doses of COVID‑19 vaccine have been administered worldwide based on official reports from national health agencies."
+      },
+      "outputs": [
+        {
+          "sentence": "As of 20/06/2021, 2.66 billion doses of COVID‑19 vaccine have been administered worldwide based on official reports from national health agencies."
+        }
+      ]
+    },
+    {
+      "class": "ChangeDateFormat",
+      "inputs": {
+        "sentence": "The first known case of COVID-19 was identified in Wuhan, China in December 2019."
+      },
+      "outputs": [
+        {
+          "sentence": "The first known case of COVID-19 was identified in Wuhan, China in Dec 19."
+        }
+      ]
+    },
+    {
+      "class": "ChangeDateFormat",
+      "inputs": {
+        "sentence": "On Feb. 25, 2021, Twitter announced Super Follows, a subscription service allowing content creators to receive payments for their content."
+      },
+      "outputs": [
+        {
+          "sentence": "On 25/2/21, Twitter announced Super Follows, a subscription service allowing content creators to receive payments for their content."
+        }
+      ]
+    },
+    {
+      "class": "ChangeDateFormat",
+      "inputs": {
+        "sentence": "In August 2018, Apple became the first publicly traded U.S. company to be valued at over $1 trillion."
+      },
+      "outputs": [
+        {
+          "sentence": "In Aug 2018, Apple became the first publicly traded U.S. company to be valued at over $1 trillion."
+        }
+      ]
+    }
+  ]
+}
