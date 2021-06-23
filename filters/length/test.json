@@ -1,0 +1,28 @@
+{
+    "type": "length",
+    "test_cases": [
+        {
+            "class": "TextLengthFilter",
+            "args": {
+                "op": ">",
+                "threshold": 3
+            },
+            "inputs": {
+                "sentence": "Andrew played cricket in India"
+            },
+            "outputs": true
+        },
+        {
+            "class": "SentenceAndTargetLengthFilter",
+            "args": {
+                "ops": [">", "<"],
+                "thresholds": [3, 10]
+            },
+            "inputs": {
+                "sentence": "Andrew played cricket in India",
+                "target": "Andrew finally returned the French book to Chris that I bought last week."
+            },
+            "outputs": false
+        }
+    ]
+}
