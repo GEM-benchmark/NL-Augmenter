@@ -4,6 +4,11 @@ spacy==2.2.4
 # for back_translation
 torch==1.8.1
 
+# for numeric2word
+phonenumbers==8.12.25
+docopt==0.6.2
+num2words==0.5.10
+
 # for ReplaceNumericalValues
 num2words==0.5.10
 word2number==1.1
