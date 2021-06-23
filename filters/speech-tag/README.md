@@ -22,9 +22,9 @@ Example Speech Tags (see spacy framework):
 Inputs:
 
 - Array of speech tags (e.g. ["NOUN", "VERB"]), a single string is also possible
-- Array of integers of elementwise required occurences (e.g. [2, 4]), if a single integer is given same threshold is applied to all speech tags
+- Array of integers of elementwise required occurrences  (e.g. [2, 4]), if a single integer is given the same threshold is applied to all speech tags
 - Array of strings of comparison operations (e.g. ["<", ">"]), if a single string is given the same operation is applied to all speech tags
-- Optional: precentages flag to change the occurences to be treated as percentages
+- Optional: percentages  flag to change the occurrences  to be treated as percentages
 
 Supported operations:
 
