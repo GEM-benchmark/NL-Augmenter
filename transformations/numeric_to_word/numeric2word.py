@@ -2,6 +2,7 @@ import re
 import calendar
 import datetime
 import phonenumbers
+import time
 from num2words import num2words
 from phonenumbers import carrier, timezone, geocoder
 from supplements import symbol_to_currency_name_dict, TimeInWords2
@@ -65,14 +66,17 @@ def recognized_as_time(x):
             return False
 
 def recognized_as_phone_number(x):
-    """
-    Accepting phone number format with stripes
-    This function also do a check on the number whether it's a valid phone number or not
-    (can't accept a random phone number here)
-    phone_number = "+62-87986-123456"
-    """
-    my_number = phonenumbers.parse(x, "ID")
-    return phonenumbers.is_valid_number(my_number)
+    try:
+        """
+        Accepting phone number format with stripes
+        This function also do a check on the number whether it's a valid phone number or not
+        (can't accept a random phone number here)
+        phone_number = "+62-87986-123456"
+        """
+        my_number = phonenumbers.parse(x, None)
+        return phonenumbers.is_valid_number(my_number)
+    except:
+        return False
 
 def recognized_as_currency_symbols(x):
     return x in list(symbol_to_currency_name_dict.keys())
@@ -123,7 +127,10 @@ def general_numbers_to_words(x):
 ### Implementations 
 
 def numeric2word(token):
-    datestring_recognized, token = recognized_as_datestring(token)
+    datestring_recognized, new_token = recognized_as_datestring(token)
+    if type(new_token) != bool:
+        token = new_token
+
     if datestring_recognized:
         words = datestring_to_words(token)
         return words
