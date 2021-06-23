@@ -20,14 +20,17 @@ class SpeechTagFilter(SentenceOperation):
         speech_tags: Union[list, str],
         thresholds: Union[list, str],
         operations: Union[list, str],
-        percentages: bool = False
+        percentages: bool = False,
     ):
         super().__init__()
-        self.max_input_length = self.get_input_length(speech_tags, thresholds, operations)
+        self.max_input_length = self.get_input_length(
+            speech_tags, thresholds, operations
+        )
         self.final_operators = self.parse_operator(operations)
         self.final_speech_tags = self.convert_scalar_to_list(speech_tags)
         self.final_thresholds = self.convert_scalar_to_list(thresholds)
         self.nlp = spacy.load("en_core_web_sm")
+        self.percentages = percentages
 
     def get_input_length(self, speech_tags, thresholds, operations):
         all_inputs = [speech_tags, thresholds, operations]
@@ -64,10 +67,15 @@ class SpeechTagFilter(SentenceOperation):
 
     def filter(self, sentence):
         doc = self.nlp(sentence)
-        contained_speech_tags = doc.count_by(spacy.attrs.IDS['POS'])
+        contained_speech_tags = doc.count_by(spacy.attrs.IDS["POS"])
         human_readable_tags = {}
         for pos, count in contained_speech_tags.items():
-            human_readable_tags[doc.vocab[pos].text] = count
+            if self.percentages:
+                human_readable_tags[doc.vocab[pos].text] = (
+                    100.0 * count / sum(contained_speech_tags.values())
+                )
+            else:
+                human_readable_tags[doc.vocab[pos].text] = count
 
         # Go through each comparison, stop if one of them evaluates to False
         for curr_speech_tag, curr_threshold, curr_operator in zip(

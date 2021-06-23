@@ -36,6 +36,32 @@
                 "sentence": "It all happened between November 2007 and November 2008."
             },
             "outputs": true
+        },
+		{
+            "class": "SpeechTagFilter",
+            "args": {
+                "speech_tags": ["VERB", "NUM"],
+				"thresholds": [1, 90],
+				"operations": [">", "<"],
+				"percentages": true
+            },
+            "inputs": {
+                "sentence": "It all happened between November 2007 and November 2008."
+            },
+            "outputs": true
+        },
+		{
+            "class": "SpeechTagFilter",
+            "args": {
+                "speech_tags": ["VERB", "NUM"],
+				"thresholds": [5, 40],
+				"operations": [">", ">"],
+				"percentages": true
+            },
+            "inputs": {
+                "sentence": "It all happened between November 2007 and November 2008."
+            },
+            "outputs": false
         }
     ]
 }
