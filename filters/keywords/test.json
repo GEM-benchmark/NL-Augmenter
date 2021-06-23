@@ -10,6 +10,16 @@
                 "sentence": "Andrew played cricket in India"
             },
             "outputs": true
+        },
+		{
+            "class": "TextContainsKeywordsFilter",
+            "args": {
+                "keywords": ["sad"]
+            },
+            "inputs": {
+                "sentence": "Andrew played cricket in India"
+            },
+            "outputs": false
         }
     ]
 }
