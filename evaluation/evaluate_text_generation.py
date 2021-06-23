@@ -22,7 +22,7 @@ def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:
     print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
     hf_dataset = (
         load_dataset(dataset_name, "3.0.0", split=split)
-        if dataset_name is "xsum"
+        if dataset_name == "xsum"
         else load_dataset(dataset_name, split=split)
     )
 
