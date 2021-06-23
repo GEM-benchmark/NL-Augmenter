@@ -43,7 +43,7 @@ class OperationRuns(object):
             self._load_single_transformation_test_case(transformation_name, search)
 
     def _load_single_transformation_test_case(
-        self, transformation_name, search="transformations"
+            self, transformation_name, search="transformations"
     ):
         filters = []
         filter_test_cases = []
@@ -53,15 +53,18 @@ class OperationRuns(object):
         t_py = import_module(f"{search}.{transformation_name}")
         t_js = os.path.join(filters_dir, "test.json")
         filter_instance = None
+        prev_class_args = {}
         for test_case in load_test_cases(t_js):
             class_name = test_case["class"]
             class_args = test_case["args"] if "args" in test_case else {}
             # construct filter class with input args
             cls = getattr(t_py, class_name)
-            if (
-                filter_instance is None or filter_instance.name() != class_name
-            ):  # Check if already loaded
+            if (filter_instance is None
+                    or filter_instance.name() != class_name
+                    or prev_class_args != class_args):
                 filter_instance = cls(**class_args)
+                prev_class_args = class_args
+
             filters.append(filter_instance)
             filter_test_cases.append(test_case)
 
@@ -77,6 +80,7 @@ class OperationRuns(object):
             t_py = import_module(f"{search}.{m}")
             t_js = os.path.join(filters_dir, m, "test.json")
             filter_instance = None
+            prev_class_args = {}
             for test_case in load_test_cases(t_js):
                 class_name = test_case["class"]
                 class_args = test_case["args"] if "args" in test_case else {}
@@ -86,10 +90,12 @@ class OperationRuns(object):
                 if (not heavy) and is_heavy:
                     continue
                 else:
-                    if (
-                        filter_instance is None or filter_instance.name() != class_name
-                    ):  # Check if already loaded
+                    # Check if the same instance (i.e. with the same args is already loaded)
+                    if (filter_instance is None
+                            or filter_instance.name() != class_name
+                            or prev_class_args != class_args):
                         filter_instance = cls(**class_args)
+                        prev_class_args = class_args
 
                     filters.append(filter_instance)
                     filter_test_cases.append(test_case)
@@ -103,7 +109,7 @@ class OperationRuns(object):
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
         for (_, folder, _) in iter_modules(
-            [transformations_dir]
+                [transformations_dir]
         ):  # ---> ["back_translation", ...]
             yield folder
 
@@ -113,20 +119,20 @@ class OperationRuns(object):
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
         for (_, folder, _) in iter_modules(
-            [transformations_dir]
+                [transformations_dir]
         ):  # ---> ["back_translation", ...]
             t_py = import_module(f"{search}.{folder}")
             for name, obj in inspect.getmembers(t_py):
                 if (
-                    inspect.isclass(obj)
-                    and issubclass(obj, Operation)
-                    and not obj.__module__.startswith("interfaces")
+                        inspect.isclass(obj)
+                        and issubclass(obj, Operation)
+                        and not obj.__module__.startswith("interfaces")
                 ):
                     yield obj
 
     @staticmethod
     def get_all_operations_for_task(
-        query_task_type: TaskType, search="transformations"
+            query_task_type: TaskType, search="transformations"
     ) -> Iterable:
         # iterate through the modules in the current package
         for operation in OperationRuns.get_all_operations(search):
@@ -154,8 +160,8 @@ if __name__ == "__main__":
         print(x)
     print()
     for transformation in OperationRuns.get_all_operations_for_task(
-        TaskType.QUESTION_ANSWERING
+            TaskType.QUESTION_ANSWERING
     ):
         print(transformation.name())
         impl = transformation()
-        print(impl.generate("test", "test", ["test", "test"]))
+        print(impl.generate("context", "question", ["answer1", "answerN"]))
