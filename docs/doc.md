@@ -42,7 +42,7 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific transformation. E.g., a perturbation which changes gendered pronouns could give insights about gender bias in models.
 
-**Novelty:** Note that when you submit a transformation, you present it as your own work. So, if the crux of the logic depends on someone else’s implementation, it would be considered on a case-by-case basis. It is okay to base your implementation on someone else’s code, however novel contributions are in the best interest of NL-Augmenter. So, to keep in the lines with NL-Augmenter’s goal of creativity, co-authorship would require either one novel implementation or a reasonable number of non-novel implementations. If you are short on ideas, the organizers are happy to provide guidance.
+**Novelty:** Your transformation must improve the coverage of NL-Augmenter in a meaningful way. The idea behind your transformation need not be novel, but its contribution to the library must be different from the contributions of earlier submissions. If you are unsure if your idea would constitute a new contribution, please email the organizers at nl-augmenter@googlegroups.com and we are happy to help.
 
 **Adding New Libraries:** We welcome addition of libraries which are light and can be installed via `pip`. Every library should specify the version number associated and be added in the folder's own [requirements.txt](../transformations/punctuation). However, we discourage the use of heavy libraries for a few lines of code which could be manually written instead.
 
