@@ -2,7 +2,7 @@ checklist==0.0.10
 spacy==2.2.4
 
 # for back_translation
-torch==1.8.1
+torch
 
 # for numeric_to_word
 phonenumbers==8.12.25
