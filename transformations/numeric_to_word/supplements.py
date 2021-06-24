@@ -12,19 +12,21 @@ class TimeInWords2():
         mins = int(time_string.split(splitter)[1])
         header = "" #It is..
         msg=""
+        am_pm = "am"
         if (hrs >12):
             hrs=hrs-12
+            am_pm = "pm"
         if (mins == 0):
             hr = self.words[hrs-1]
-            msg=header + hr + " o'clock" #+ "."
+            msg=header + hr + " o'clock" + " " + am_pm #+ "."
         elif (mins < 31):      
                hr = self.words[hrs-1]
                mn = self.words[mins-1]
-               msg = header + mn + " past " + hr #+ "."
+               msg = header + mn + " past " + hr + " " + am_pm #+ "."
         else:
             hr = self.words[hrs]
             mn =self.words[(60 - mins-1)]
-            msg = header + mn + " to " + hr #+ "."
+            msg = header + mn + " to " + hr + " " + am_pm #+ "."
         return msg
     
 symbol_to_currency_name_dict = {"؋":"Afghanistani Afghani", 

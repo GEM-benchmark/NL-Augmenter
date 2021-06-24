@@ -1,8 +1,10 @@
 import re
+import time
+import string 
 import calendar
 import datetime
+import numpy as np
 import phonenumbers
-import time
 from num2words import num2words
 from phonenumbers import carrier, timezone, geocoder
 from supplements import symbol_to_currency_name_dict, TimeInWords2, abbreviated_currency_symbols_to_currency_name_dict
@@ -52,8 +54,20 @@ def recognized_as_datestring(x):
                                 return False, False
 
 def recognized_as_year(x):
-    if not (len(x) > 4) or not "+1371893178".isnumeric():
-        return bool(re.compile(r'.*([1-3][0-9]{3})').match("1"))
+    possible_year_list = [str(x) for x in np.arange(1,2090,1)]
+
+    begin_digit_index = re.search(r"\d", x).start()
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+        
+    after_assumed_year = x[end_digit_index:]
+    before_assumed_year = x[:begin_digit_index]
+    year = x[begin_digit_index:end_digit_index]
+    
+    checker = min([character in string.punctuation for character in after_assumed_year]+[True]) and \
+              min([character in string.punctuation for character in before_assumed_year]+[True]) and \
+              year in possible_year_list and (len(year) <= 4) and year.isnumeric()
+    if checker:
+        return bool(re.compile(r'.*([1-3][0-9]{3})').match(x))
     else:
         return False
 
@@ -69,13 +83,16 @@ def recognized_as_time(x):
             return False
 
 def recognized_as_phone_number(x):
+    """
+    Using https://github.com/daviddrysdale/python-phonenumbers,
+    a Python port of Google's libphonenumber library 
+    
+    Accepting VALID phone number format EVEN WITH STRIPES IN BETWEEN
+    This function also do a check on the number whether it's a valid phone number or not
+    (can't accept a random phone number here)
+    phone_number = "+62-87986-123456"
+    """
     try:
-        """
-        Accepting phone number format with stripes
-        This function also do a check on the number whether it's a valid phone number or not
-        (can't accept a random phone number here)
-        phone_number = "+62-87986-123456"
-        """
         my_number = phonenumbers.parse(x, None)
         return phonenumbers.is_valid_number(my_number)
     except:
@@ -94,29 +111,33 @@ def recognized_as_currency_symbols(x):
     # x = 'USD300' # True
     # x = '300USD' # True
     """
-    if bool(re.search(r'\d', x)):
-        begin_digit_index = re.search(r"\d", x).start()
-        end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+    begin_digit_index = re.search(r"\d", x).start()
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
 
-        currency_symbols = list(symbol_to_currency_name_dict.keys())
-        currency_abbreviations = list(abbreviated_currency_symbols_to_currency_name_dict.keys())
+    currency_symbols = list(symbol_to_currency_name_dict.keys())
+    currency_abbreviations = list(abbreviated_currency_symbols_to_currency_name_dict.keys())
 
-        if x[:begin_digit_index] in currency_symbols:
-            other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
-            return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
-        elif x[:begin_digit_index] in currency_abbreviations:
-            other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
-            return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
-        elif x[end_digit_index:] in currency_symbols:
-            other_end_non_numeric = x[:begin_digit_index]
-            return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
-        elif x[end_digit_index:] in currency_abbreviations:
-            other_end_non_numeric = x[:begin_digit_index]
-            return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
-        else:
-            return False
+    if x[:begin_digit_index] in currency_symbols:
+        other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
+        return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
+    elif x[:begin_digit_index] in currency_abbreviations:
+        other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
+        return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
+    elif x[end_digit_index:] in currency_symbols:
+        other_end_non_numeric = x[:begin_digit_index]
+        return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
+    elif x[end_digit_index:] in currency_abbreviations:
+        other_end_non_numeric = x[:begin_digit_index]
+        return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
     else:
         return False
+
+def recognized_as_long_number(x):
+    if x[0] == '+':
+        x = x[1:]
+    
+    threshold = 7
+    return len(x) >= threshold and x.isnumeric()
 
 def recognized_as_general_numbers(x):
     return x.isnumeric()
@@ -124,7 +145,7 @@ def recognized_as_general_numbers(x):
 ### Transformers
 
 def datestring_to_words(x):
-    words = num2words(x.day, to='ordinal') + ' of ' + calendar.month_name[x.month].lower() + ' ' + year_to_words(x.year)
+    words = num2words(x.day, to='ordinal') + ' of ' + calendar.month_name[x.month].lower() + ' ' + year_to_words(str(x.year))
     return words
 
 def time_to_words(x):
@@ -141,7 +162,15 @@ def time_to_words(x):
     return words
 
 def year_to_words(x):
-    words = ''.join(num2words(x, to='year').split(","))
+    begin_digit_index = re.search(r"\d", x).start()
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+
+    after_assumed_year = x[end_digit_index:]
+    before_assumed_year = x[:begin_digit_index]
+    year = x[begin_digit_index:end_digit_index]
+
+    year_word = ''.join(num2words(year, to='year').split(","))
+    words = "".join([before_assumed_year, year_word, after_assumed_year])
     return words
 
 def phonenum_to_words(x):
@@ -187,6 +216,19 @@ def currency_to_words(x):
         words = money + ' ' + currency
     return words
 
+def long_number_to_word(x):
+    numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    
+    if x[0] == '+':
+        x = x[1:]
+        words = 'plus '
+    else:
+        words = ''
+        
+    for number in x:
+        words = words + numbers[int(number)] + ' '
+    return words
+
 def general_numbers_to_words(x):
     """
     General number and decimals (Distance, weight, etc)
@@ -197,34 +239,33 @@ def general_numbers_to_words(x):
 ### Implementations 
 
 def recognize_transform(token):
-    datestring_recognized, new_token = recognized_as_datestring(token)
-    if type(new_token) != bool:
-        token = new_token
-
-    if datestring_recognized:
-        words = datestring_to_words(token)
-#         print('A')
-        return words
-    elif recognized_as_time(token):
-        words = time_to_words(token)
-#         print('B')
-        return words
-    elif recognized_as_year(token):
-        words = year_to_words(token)
-#         print('C')
-        return words
-    elif recognized_as_currency_symbols(token):
-        words = currency_to_words(token)
-#         print('D')
-        return words
-    elif recognized_as_general_numbers(token):
-        words = general_numbers_to_words(token)
-#         print('E')
-        return words
-    elif recognized_as_phone_number(token): 
-        words = phonenum_to_words(token)
-#         print('F')
-        return words
-    else: # ELSE: Numbers that not in the above stated formats, strings
-#         print('G')
+    if bool(re.search(r'\d', token)):
+        datestring_recognized, new_token = recognized_as_datestring(token)
+        if type(new_token) != bool:
+            token = new_token
+            
+        if datestring_recognized:
+            words = datestring_to_words(token)
+            return words
+        elif recognized_as_time(token):
+            words = time_to_words(token)
+            return words
+        elif recognized_as_year(token):
+            words = year_to_words(token)
+            return words
+        elif recognized_as_currency_symbols(token):
+            words = currency_to_words(token)
+            return words
+        elif recognized_as_phone_number(token): 
+            words = phonenum_to_words(token)
+            return words
+        elif recognized_as_long_number(token):
+            words = long_number_to_word(token)
+            return words
+        elif recognized_as_general_numbers(token):
+            words = general_numbers_to_words(token)
+            return words
+        else: # ELSE: Numbers that not in the above stated formats, strings
+            return token
+    else:
         return token
