@@ -1,20 +1,22 @@
+import numbers
 import random
+import re
+from fractions import Fraction
+
+import spacy
+from num2words import num2words
+from word2number import w2n
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-import spacy
-import numbers
-import re
-from fractions import Fraction
-from num2words import num2words
-from word2number import w2n
 
 
 class NumericalTransformation:
     nlp = None
 
-    def __init__(self):
+    def __init__(self, max_output=1):
         self.nlp = spacy.load("en_core_web_sm")
+        self.max_output = max_output
 
     def transform(self, input_text: str):
         doc = self.nlp(input_text)
@@ -23,7 +25,7 @@ class NumericalTransformation:
             new_value = None
 
             if entity.label_ == "CARDINAL" and not re.search(
-                    "[_]|[-]|[:]|[/]|[(]|[)]", entity.text
+                "[_]|[-]|[:]|[/]|[(]|[)]", entity.text
             ):
                 # Flag if the value has formatting:
                 has_formatting = False
@@ -109,13 +111,14 @@ class ReplaceNumericalValues(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
-    def __init__(self):
+    def __init__(self, max_output=1):
         random.seed(self.seed)
         super().__init__()
         self.numerical_transformation = NumericalTransformation()
+        self.max_output = max_output
 
     def generate(self, sentence: str):
         result = self.numerical_transformation.transform(sentence)
         if self.verbose:
             print(f"Perturbed Input from {self.name()} : {result}")
-        return result
+        return [result]

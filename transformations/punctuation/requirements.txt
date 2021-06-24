@@ -1,0 +1,3 @@
+# for punctuation and cocco rules
+cucco==2.2.1
+fastpunct==2.0.2
