@@ -9,25 +9,28 @@ from interfaces.TaggingOperation import TaggingOperation
 def execute_sentence_operation_test_case(transformation, test):
     filter_args = test["inputs"]
     outputs = test["outputs"]
-    output = transformation.generate(**filter_args)
-    assert output == outputs["sentence"]
+    perturbs = transformation.generate(**filter_args)
+    for pred_output, output in zip(perturbs, outputs):
+        assert pred_output == output["sentence"]
 
 
 def execute_sentence_target_operation_test_case(transformation, test):
     filter_args = test["inputs"]
     outputs = test["outputs"]
-    output, target = transformation.generate(**filter_args)
-    assert output == outputs["sentence"]
-    assert target == outputs["target"]
+    perturbs = transformation.generate(**filter_args)
+    for idx, (sentence, target) in enumerate(perturbs):
+        assert sentence == outputs[idx]["sentence"]
+        assert target == outputs[idx]["target"]
 
 
 def execute_ques_ans_test_case(transformation, test):
     filter_args = test["inputs"]
     outputs = test["outputs"]
-    context, question, answers = transformation.generate(**filter_args)
-    assert context == outputs["context"]
-    assert question == outputs["question"]
-    assert answers == outputs["answers"]
+    perturbs = transformation.generate(**filter_args)
+    for idx, (context, question, answers) in enumerate(perturbs):
+        assert context == outputs[idx]["context"]
+        assert question == outputs[idx]["question"]
+        assert answers == outputs[idx]["answers"]
 
 
 def execute_tagging_test_case(transformation, test):
@@ -35,15 +38,13 @@ def execute_tagging_test_case(transformation, test):
     token_sequence = filter_args["token_sequence"]
     tag_sequence = filter_args["tag_sequence"]
     outputs = test["outputs"]
-    output, tags = transformation.generate(token_sequence.split(" "), tag_sequence.split(" "))
-    assert output == outputs["token_sequence"].split(" ")
-    assert tags == outputs["tag_sequence"].split(" ")
+    perturbs = transformation.generate(
+        token_sequence.split(" "), tag_sequence.split(" ")
+    )
+    for idx, (p_tokens, p_tags) in enumerate(perturbs):
+        assert p_tokens == outputs[idx]["token_sequence"].split(" ")
+        assert p_tags == outputs[idx]["tag_sequence"].split(" ")
 
-
-def test_operation(transformation_name, filter_name):
-    execute_test_case_for_transformation(transformation_name)
-    execute_test_case_for_filter(filter_name)
-        
 
 def execute_test_case_for_transformation(transformation_name):
     tx = OperationRuns(transformation_name)
@@ -56,6 +57,8 @@ def execute_test_case_for_transformation(transformation_name):
             execute_ques_ans_test_case(transformation, test)
         elif isinstance(transformation, TaggingOperation):
             execute_tagging_test_case(transformation, test)
+        else:
+            print(f"Invalid transformation type: {transformation}")
 
 
 def execute_test_case_for_filter(filter_name):
@@ -64,6 +67,11 @@ def execute_test_case_for_filter(filter_name):
         filter_args = test["inputs"]
         output = filter.filter(**filter_args)
         assert output == test["outputs"], f"The filter should return {test['outputs']}"
+
+
+def test_operation(transformation_name, filter_name):
+    execute_test_case_for_transformation(transformation_name)
+    execute_test_case_for_filter(filter_name)
 
 
 def main():
