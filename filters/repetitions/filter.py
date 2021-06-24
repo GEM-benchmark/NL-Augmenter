@@ -11,7 +11,7 @@ class TextContainsRepetitionsFilter(SentenceOperation):
         super().__init__()
 
     def filter(self, sentence: str = None) -> bool:
-        words = sentence.split()
+        words = sentence.lower().split()
         for i in range(len(words)):
             if i > 0:
                 if words[i] == words[i-1]:
@@ -29,7 +29,7 @@ if __name__ == '__main__':
                      "I love cat cat !!",
                      "I I want to sleep",
                      "I want to sleep",
-                     "I really really cannot stay"]:
+                     "Hi hi I want to stay"]:
         test_cases.append({
             "class": tf.name(),
             "args": {},

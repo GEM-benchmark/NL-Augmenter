@@ -37,7 +37,7 @@
         "class": "TextContainsRepetitionsFilter",
         "args": {},
         "inputs": {
-          "sentence": "I really really cannot stay"
+          "sentence": "Hi hi I want to stay"
         },
         "outputs": true
       }
