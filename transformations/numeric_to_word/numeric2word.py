@@ -145,7 +145,7 @@ def recognized_as_general_numbers(x):
 ### Transformers
 
 def datestring_to_words(x):
-    words = num2words(x.day, to='ordinal') + ' of ' + calendar.month_name[x.month].lower() + ' ' + year_to_words(str(x.year))
+    words = 'the ' + num2words(x.day, to='ordinal') + ' of ' + calendar.month_name[x.month].lower() + ' ' + year_to_words(str(x.year))
     return words
 
 def time_to_words(x):
