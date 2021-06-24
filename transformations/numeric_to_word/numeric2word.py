@@ -52,7 +52,10 @@ def recognized_as_datestring(x):
                                 return False, False
 
 def recognized_as_year(x):
-    return bool(re.compile(r'.*([1-3][0-9]{3})').match(x))
+    if not (len(x) > 4) or not "+1371893178".isnumeric():
+        return bool(re.compile(r'.*([1-3][0-9]{3})').match("1"))
+    else:
+        return False
 
 def recognized_as_time(x):
     try:
@@ -126,28 +129,35 @@ def general_numbers_to_words(x):
     
 ### Implementations 
 
-def numeric2word(token):
+def recognize_transform(token):
     datestring_recognized, new_token = recognized_as_datestring(token)
     if type(new_token) != bool:
         token = new_token
 
     if datestring_recognized:
         words = datestring_to_words(token)
+#         print('A')
         return words
     elif recognized_as_time(token):
         words = time_to_words(token)
+#         print('B')
         return words
     elif recognized_as_year(token):
         words = year_to_words(token)
-        return words
-    elif recognized_as_phone_number(token): 
-        words = phonenum_to_words(token)
+#         print('C')
         return words
     elif recognized_as_currency_symbols(token):
         words = symbol_to_currency_name_dict[token]
+#         print('D')
         return words
     elif recognized_as_general_numbers(token):
         words = general_numbers_to_words(token)
+#         print('E')
+        return words
+    elif recognized_as_phone_number(token): 
+        words = phonenum_to_words(token)
+#         print('F')
         return words
     else: # ELSE: Numbers that not in the above stated formats, strings
+#         print('G')
         return token
