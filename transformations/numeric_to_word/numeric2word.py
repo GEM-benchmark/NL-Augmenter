@@ -5,7 +5,7 @@ import phonenumbers
 import time
 from num2words import num2words
 from phonenumbers import carrier, timezone, geocoder
-from supplements import symbol_to_currency_name_dict, TimeInWords2
+from supplements import symbol_to_currency_name_dict, TimeInWords2, abbreviated_currency_symbols_to_currency_name_dict
 
 ### Recognizers
 
@@ -82,7 +82,41 @@ def recognized_as_phone_number(x):
         return False
 
 def recognized_as_currency_symbols(x):
-    return x in list(symbol_to_currency_name_dict.keys())
+    """
+    # x = '$300US' # False
+    # x = '$300!@#' # False
+    # x = '300!@#' # False
+    # x = '!@#300$' # False
+    # x = '300US' # False
+
+    # x = '$300' # True
+    # x = '300$' # True
+    # x = 'USD300' # True
+    # x = '300USD' # True
+    """
+    if bool(re.search(r'\d', x)):
+        begin_digit_index = re.search(r"\d", x).start()
+        end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+
+        currency_symbols = list(symbol_to_currency_name_dict.keys())
+        currency_abbreviations = list(abbreviated_currency_symbols_to_currency_name_dict.keys())
+
+        if x[:begin_digit_index] in currency_symbols:
+            other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
+            return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
+        elif x[:begin_digit_index] in currency_abbreviations:
+            other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
+            return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
+        elif x[end_digit_index:] in currency_symbols:
+            other_end_non_numeric = x[:begin_digit_index]
+            return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
+        elif x[end_digit_index:] in currency_abbreviations:
+            other_end_non_numeric = x[:begin_digit_index]
+            return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
+        else:
+            return False
+    else:
+        return False
 
 def recognized_as_general_numbers(x):
     return x.isnumeric()
@@ -113,11 +147,44 @@ def year_to_words(x):
 def phonenum_to_words(x):
     numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
     
-    x = re.sub("[^0-9]", "", x)
+    if '+' in x:
+        if x.index('+') == 0:
+            words = 'plus '
+    else:
+        words = ''
     
-    words = ''
+    x = re.sub("[^0-9]", "", x)
     for number in x:
         words = words + numbers[int(number)] + ' '
+    return words
+
+def currency_to_words(x):
+    currency_symbols = list(symbol_to_currency_name_dict.keys())
+    currency_abbreviations = list(abbreviated_currency_symbols_to_currency_name_dict.keys())
+
+    begin_digit_index = re.search(r"\d", x).start()
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+
+    if x[:begin_digit_index] in currency_symbols: #$300
+        number = re.sub("[^0-9]", "", x[begin_digit_index:])
+        money = ''.join(num2words(number).split(","))
+        currency = str.lower(symbol_to_currency_name_dict[x[:begin_digit_index]])
+        words = money + ' ' + currency
+    elif x[:begin_digit_index] in currency_abbreviations: #USD300
+        number = re.sub("[^0-9]", "", x[begin_digit_index:])
+        money = ''.join(num2words(number).split(","))
+        currency = str.lower(abbreviated_currency_symbols_to_currency_name_dict[x[:begin_digit_index]])
+        words = money + ' ' + currency
+    elif x[end_digit_index:] in currency_symbols: #300$
+        number = re.sub("[^0-9]", "", x[:end_digit_index])
+        money = ''.join(num2words(number).split(","))
+        currency = str.lower(symbol_to_currency_name_dict[x[end_digit_index:]])
+        words = money + ' ' + currency
+    elif x[end_digit_index:] in currency_abbreviations: #300USD
+        number = re.sub("[^0-9]", "", x[:end_digit_index])
+        money = ''.join(num2words(number).split(","))
+        currency = str.lower(abbreviated_currency_symbols_to_currency_name_dict[x[end_digit_index:]])
+        words = money + ' ' + currency
     return words
 
 def general_numbers_to_words(x):
@@ -147,7 +214,7 @@ def recognize_transform(token):
 #         print('C')
         return words
     elif recognized_as_currency_symbols(token):
-        words = symbol_to_currency_name_dict[token]
+        words = currency_to_words(token)
 #         print('D')
         return words
     elif recognized_as_general_numbers(token):
