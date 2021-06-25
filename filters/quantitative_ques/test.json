@@ -1,0 +1,47 @@
+{
+   "type": "quantitative_question",
+   "test_cases": [
+      {
+         "class": "QuantitativeQuestion",
+         "inputs": {
+            "sentence": "How long will it take?"
+         },
+         "outputs": true
+      },
+      {
+         "class": "QuantitativeQuestion",
+         "inputs": {
+            "sentence": "How come I can't see her?"
+         },
+         "outputs": false
+      },
+      {
+         "class": "QuantitativeQuestion",
+         "inputs": {
+            "sentence": "How does this work?"
+         },
+         "outputs": false
+      },
+      {
+         "class": "QuantitativeQuestion",
+         "inputs": {
+            "sentence": "Why do you say that?"
+         },
+         "outputs": false
+      },
+      {
+         "class": "QuantitativeQuestion",
+         "inputs": {
+            "sentence": "So far her prayers had been unanswered."
+         },
+         "outputs": false
+      },
+      {
+         "class": "QuantitativeQuestion",
+         "inputs": {
+            "sentence": "How far is Pattaya from Bangkok?"
+         },
+         "outputs": true
+      }
+   ]
+}
