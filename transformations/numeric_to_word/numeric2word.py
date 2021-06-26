@@ -194,22 +194,22 @@ def currency_to_words(x):
     end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
 
     if x[:begin_digit_index] in currency_symbols: #$300
-        number = re.sub("[^0-9]", "", x[begin_digit_index:])
+        number = re.sub("[^.0-9]", "", x[begin_digit_index:])
         money = ''.join(num2words(number).split(","))
         currency = str.lower(symbol_to_currency_name_dict[x[:begin_digit_index]])
         words = money + ' ' + currency
     elif x[:begin_digit_index] in currency_abbreviations: #USD300
-        number = re.sub("[^0-9]", "", x[begin_digit_index:])
+        number = re.sub("[^.0-9]", "", x[begin_digit_index:])
         money = ''.join(num2words(number).split(","))
         currency = str.lower(abbreviated_currency_symbols_to_currency_name_dict[x[:begin_digit_index]])
         words = money + ' ' + currency
     elif x[end_digit_index:] in currency_symbols: #300$
-        number = re.sub("[^0-9]", "", x[:end_digit_index])
+        number = re.sub("[^.0-9]", "", x[:end_digit_index])
         money = ''.join(num2words(number).split(","))
         currency = str.lower(symbol_to_currency_name_dict[x[end_digit_index:]])
         words = money + ' ' + currency
     elif x[end_digit_index:] in currency_abbreviations: #300USD
-        number = re.sub("[^0-9]", "", x[:end_digit_index])
+        number = re.sub("[^.0-9]", "", x[:end_digit_index])
         money = ''.join(num2words(number).split(","))
         currency = str.lower(abbreviated_currency_symbols_to_currency_name_dict[x[end_digit_index:]])
         words = money + ' ' + currency
