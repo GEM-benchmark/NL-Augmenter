@@ -1,0 +1,50 @@
+{
+  "type": "num2words",
+  "test_cases": [
+    {
+      "class": "num2words",
+      "inputs": {
+        "sentence": "He ate 0.25 of the pizza within the first 5 minutes."
+      },
+      "outputs": [{
+        "sentence": "He ate zero and 25/100 of the pizza within the first 5 minutes."
+      }]
+    },
+    {
+      "class": "num2words",
+      "inputs": {
+        "sentence": "He has returned from his office."
+      },
+      "outputs": [{
+        "sentence": "He has returned from his office."
+      }]
+    },
+    {
+      "class": "num2words",
+      "inputs": {
+        "sentence": "She has bought 100 apples."
+      },
+      "outputs": [{
+        "sentence": "She has bought one hundred apples."
+      }]
+    },
+    {
+      "class": "num2words",
+      "inputs": {
+        "sentence": "2 times 2 is 4."
+      },
+      "outputs": [{
+        "sentence": "two times two is four."
+      }]
+    },
+    {
+      "class": "num2words",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [{
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      }]
+    }
+  ]
+}
