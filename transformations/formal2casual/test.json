@@ -1,0 +1,50 @@
+{
+  "type": "formal2casual",
+  "test_cases": [
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "This car looks fascinating"
+      },
+      "outputs": [{
+         "sentence": "This car is so cool"
+      }]
+    },
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "He is very charming."
+      },
+      "outputs": [{
+        "sentence": "he is so cute."
+      }]
+    },
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "We went out for the weekend. We have a lot of things to tell you."
+      },
+      "outputs": [{
+        "sentence": "we went out for the weekend and we have alot of things to tell you."
+      }]
+    },
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "I really want to pursue this path going forward in my career."
+      },
+      "outputs": [{
+        "sentence": "i really want to do this in my career."
+      }]
+    },
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "I would be extremely fortunate to work alongside you."
+      },
+      "outputs": [{
+        "sentence": "I'd be so lucky to work with you."
+      }]
+    }
+  ]
+}
