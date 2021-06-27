@@ -1,0 +1,27 @@
+{
+  "type": "NegateStrengthen",
+  "test_cases": [
+    {
+      "class": "NegateStrengthen",
+      "inputs": {
+        "sentence": "1200 Japanese Canadians were sent to Greenwood because of the Japanese Canadian internment in 1942 .",
+        "target": "Direct Causal"
+      },
+      "outputs": [{
+        "sentence": "1200 Japanese Canadians were sent to Greenwood because of the Japanese Canadian internment in 1942 .",
+        "target": "Direct Causal"
+      }]
+    },
+    {
+      "class": "NegateStrengthen",
+      "inputs": {
+        "sentence": "1300 Japanese Canadians were sent to Greenwood because of the Japanese Canadian internment in 1942 .",
+        "target": "Direct Causal"
+      },
+      "outputs": [{
+        "sentence": "1300 Japanese Canadians were sent to Greenwood because of the Japanese Canadian internment in 1942 .",
+        "target": "Direct Causal"
+      }]
+    }
+  ]
+}
