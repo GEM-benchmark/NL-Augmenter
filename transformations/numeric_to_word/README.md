@@ -4,7 +4,7 @@ This transformation translates numbers in numeric form into words.
 Author names: Bryan Wilie (bryanwilie92@gmail.com), Genta Indra Winata (giwinata@connect.ust.hk), Samuel Cahyawijaya (scahyawijaya@connect.ust.hk)
 
 ## What type of a transformation is this?
-This transformation acts as a perturbation to test robustness to numbers when they are presented in the text form. Currently, we support the transformation from `general number (integer)`, `date`, `time`, `year`, `currency`, `phone`, and `long number`.
+This transformation acts as a perturbation to test robustness to numbers when they are presented in the text form. Currently, we support the transformation from `general number (integer)`, `date`, `time`, `year`, `currency`, `phone`, `long number`, and 'sticky_numbers (e.g. 2x, 5th, 8pm, 10%)'.
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks with a sentence/paragraph/document as input like text classification, text generation, etc.

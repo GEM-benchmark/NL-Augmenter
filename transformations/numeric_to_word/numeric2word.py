@@ -138,8 +138,16 @@ def recognized_as_long_number(x):
     threshold = 7
     return len(x) >= threshold and x.isnumeric()
 
+def recognized_as_sticky_numbers(x):
+    begin_digit_index = re.search(r"\d", x).start()
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+
+    first_part = x[begin_digit_index:end_digit_index]
+    last_part = x[end_digit_index:]
+    return re.search(r'^\d*[.,]?\d*$',first_part) and (last_part in ['st', 'nd', 'rd','th', '%'] or not re.search(r'\d', last_part))
+
 def recognized_as_general_numbers(x):
-    return x.isnumeric()
+    return bool(re.search(r'^\d*[.,]?\d*$',x)) and x[-1].isnumeric()
     
 ### Transformers
 
@@ -215,7 +223,7 @@ def currency_to_words(x):
         words = money + ' ' + currency
     return words
 
-def long_number_to_word(x):
+def long_number_to_words(x):
     numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
     
     if x[0] == '+':
@@ -226,6 +234,20 @@ def long_number_to_word(x):
         
     for number in x:
         words = words + numbers[int(number)] + ' '
+    return words
+
+def sticky_numbers_to_words(x):
+
+    begin_digit_index = re.search(r"\d", x).start()
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+
+    first_part = x[begin_digit_index:end_digit_index]
+    last_part = x[end_digit_index:]
+
+    if last_part in ['st', 'nd', 'rd', 'th']:
+        words = num2words(first_part, to='ordinal')
+    else:
+        words = num2words(first_part, to='cardinal') + ' ' +  last_part
     return words
 
 def general_numbers_to_words(x):
@@ -245,28 +267,41 @@ def recognize_transform(token):
             
         if datestring_recognized:
             words = datestring_to_words(token)
+#             print('A', words)
             return words
         elif recognized_as_time(token):
             words = time_to_words(token)
+#             print('B', words)
             return words
         elif recognized_as_year(token):
             words = year_to_words(token)
+#             print('C', words)
             return words
         elif recognized_as_currency_symbols(token):
             words = currency_to_words(token)
+#             print('D', words)
             return words
         elif recognized_as_phone_number(token): 
             words = phonenum_to_words(token)
+#             print('E', words)
             return words
         elif recognized_as_long_number(token):
-            words = long_number_to_word(token)
+            words = long_number_to_words(token)
+#             print('F', words)
+            return words
+        elif recognized_as_sticky_numbers(token):
+            words = sticky_numbers_to_words(token)
+#             print('G', words)
             return words
         elif recognized_as_general_numbers(token):
             words = general_numbers_to_words(token)
+#             print('H', words)
             return words
         else: # ELSE: Numbers that not in the above stated formats, strings
+#             print('I', token)
             return token
     else:
+#         print('J', token)
         return token
 
 ### Supplements
