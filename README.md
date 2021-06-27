@@ -1,6 +1,6 @@
 # NL-Augmenter 🦎 → 🐍
 
-The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: introducing spelling errors, translating to a different language, randomizing names and numbers, paraphrasing ... and whatever creative augmentation you contribute to the benchmark. We invite submissions of transformations to this framework by way of GitHub pull request, through September 1, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework. 
+The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: introducing spelling errors, translating to a different language, randomizing names and numbers, paraphrasing ... and whatever creative augmentation you contribute. We invite submissions of transformations to this framework by way of GitHub pull request, through September 1, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework. 
 
 The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
@@ -60,7 +60,7 @@ cd NL-Augmenter
 git checkout -b my_awesome_transformation
 ```
 We will base our transformation on an existing example.
-Create a new transformation directory by copying over an existing transformation:
+Create a new transformation directory by copying over an existing transformation. You can choose to copy from other [transformation directories](interfaces) depending on the task you wish to create a transformation for. We strongly suggest you to look at some of the other [transformations](transformations) first.
 ```bash
 cd transformations/
 cp -r butter_fingers_perturbation my_awesome_transformation
