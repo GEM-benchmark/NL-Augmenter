@@ -1,0 +1,50 @@
+{
+  "type": "casual2formal",
+  "test_cases": [
+    {
+      "class": "Casual2Formal",
+      "inputs": {
+        "sentence": "What you upto?"
+      },
+      "outputs": [{
+         "sentence": "What are you currently doing?"
+      }]
+    },
+    {
+      "class": "Casual2Formal",
+      "inputs": {
+        "sentence": "My mom is doing fine"
+      },
+      "outputs": [{
+        "sentence": "My mother is doing well."
+      }]
+    },
+    {
+      "class": "Casual2Formal",
+      "inputs": {
+        "sentence": "who gives a crap?"
+      },
+      "outputs": [{
+        "sentence": "Who cares about that?"
+      }]
+    },
+    {
+      "class": "Casual2Formal",
+      "inputs": {
+        "sentence": "That's really funny lol"
+      },
+      "outputs": [{
+        "sentence": "That is very funny."
+      }]
+    },
+    {
+      "class": "Casual2Formal",
+      "inputs": {
+        "sentence": "this thing's dope!!"
+      },
+      "outputs": [{
+        "sentence": "This thing is very good."
+      }]
+    }
+  ]
+}
