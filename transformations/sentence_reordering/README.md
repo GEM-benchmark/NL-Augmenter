@@ -1,5 +1,5 @@
 # Sentence reordering
-This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) by randomly shuffling sentences in the input text.
+This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) by randomly shuffling sentencesin the input text with coreference resolution to reduce ambiguity.
 
 Author name: Zijian Wang (zijwang@hotmail.com)
 
@@ -11,9 +11,8 @@ This perturbation would benefit all tasks on text classification and generation.
 
 Benchmark results:
 
-- Sentiment analysis: we run sentiment analysis on a 10% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 95.64.
+- Sentiment analysis: we run sentiment analysis on a 10% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 94.88.
 
-- Text summarization: we run text summarization on a 10% sample of the xsum dataset. The original bleu is 15.25 and the perturbed bleu is 12.73.
 
 ## Related work
 
@@ -28,6 +27,8 @@ This is very similar to the `Sentence Permutation` noising method in the BART pa
   year={2020}
 }
 ```
+
+The NeuralCoref model is from [Huggingface](https://github.com/huggingface/neuralcoref).
 
 
 ## What are the limitations of this transformation?
