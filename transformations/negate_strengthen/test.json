@@ -4,24 +4,53 @@
     {
       "class": "NegateStrengthen",
       "inputs": {
-        "sentence": "1200 Japanese Canadians were sent to Greenwood because of the Japanese Canadian internment in 1942 .",
+        "sentence": {
+          "sentence": "1200 Japanese Canadians were sent to Greenwood because of the Japanese Canadian internment in 1942 .",
+          "signal_id": 7
+        },
         "target": "Direct Causal"
       },
       "outputs": [{
-        "sentence": "1200 Japanese Canadians were sent to Greenwood because of the Japanese Canadian internment in 1942 .",
-        "target": "Direct Causal"
+        "sentence": "1200 Japanese Canadians were sent to Greenwood not because of the Japanese Canadian internment in 1942 .",
+        "target": "No Relationship"
       }]
     },
     {
       "class": "NegateStrengthen",
       "inputs": {
-        "sentence": "1300 Japanese Canadians were sent to Greenwood because of the Japanese Canadian internment in 1942 .",
+        "sentence": {
+          "sentence": "The extra light made the journey home easier and safer in the absence of street lighting .",
+          "signal_id": 7
+        },
         "target": "Direct Causal"
       },
       "outputs": [{
-        "sentence": "1300 Japanese Canadians were sent to Greenwood because of the Japanese Canadian internment in 1942 .",
+        "sentence": "The extra light made the journey home not easier nor safer in the absence of street lighting .",
+        "target": "No Relationship"
+      }]
+    },
+    {
+      "class": "NegateStrengthen",
+      "inputs": {
+        "sentence": "Moreover, TT genotype will reduce the risk of CAD in diabetic patients.",
         "target": "Direct Causal"
+      },
+      "outputs": [{
+        "sentence": "Moreover, TT genotype will not reduce the risk of CAD in diabetic patients.",
+        "target": "No Relationship"
+      }]
+    },
+    {
+      "class": "NegateStrengthen",
+      "inputs": {
+        "sentence": "She is related to John.",
+        "target": "Direct Relation"
+      },
+      "outputs": [{
+        "sentence": "She is not related to John.",
+        "target": "No Relationship"
       }]
     }
   ]
 }
+

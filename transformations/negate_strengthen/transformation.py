@@ -1,27 +1,53 @@
-import random
-
-from interfaces.SentenceOperation import SentenceAndTargetOperation
-import spacy
-from tasks.TaskTypes import TaskType
-
 """
 Motivation: Causal relations are sensitive to negations and strength, and 
 misinterpretation could lead to drastic conclusions. Models trained on corpus 
 without minimally augmented negated sentences mistakenly categorize a sentence
-as causal even though the sentence is negated (E.g. He did not cause her to fall.).
+as causal even though the sentence is negated.
 
 Source: This transformation is targetted at augmenting Causal Relations in text and 
 adapts the code from paper 'Causal Augmentation for Causal Sentence Classification' 
 at https://openreview.net/pdf/17eafef9e25b48eb90a9a7f32c4f52e21177cc73.pdf.
+E.g. "TyG is effective to identify individuals at risk for NAFLD." | "Direct Causal"
+--> "TyG is ineffective to identify individuals at risk for NAFLD." | "No Relationship"
 
 Test: Original test sentences are based on corpus AltLex (Hidey et al, 2016) 
 (https://github.com/chridey/altlex) and PubMed by (Yu et al, 2019)
 (https://github.com/junwang4/causal-language-use-in-science). More expected examples 
 and output grouped by grammar method is available in the Appendix of the code paper.
 
-Note: This augment may work for general relations too. 
-E.g. "She is related to John" --> "She is not related to John."
+Note: This augment may work for general relations too but the precision is lower for longer sentences.
+E.g. "She is related to John" | "Direct Relation" 
+--> "She is not related to John." | "No Relationship"
 """
+
+import random
+from interfaces.SentenceOperation import SentenceAndTargetOperation
+from tasks.TaskTypes import TaskType
+
+import re
+import spacy
+from spacy.tokenizer import Tokenizer
+import pandas as pd
+from nltk.corpus import wordnet
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.metrics import edit_distance
+from pattern.en import conjugate as conjugate_en
+
+_RE_COMBINE_WHITESPACE = re.compile(r"\s+")
+modal_verb_dict = {
+    'could': 'would',
+    'should': 'would',
+    'would': 'would',
+    'can': 'will',
+    'may': 'will',
+    'might': 'will',
+    'will': 'will'
+}
+# not sure why, first round of pattern.en always fails
+try:
+    conjugate_en(verb='testing',tense='present',number='singular')
+except:
+    pass
 
 class NegateStrengthen(SentenceAndTargetOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.SENTIMENT_ANALYSIS]
@@ -30,50 +56,353 @@ class NegateStrengthen(SentenceAndTargetOperation):
 
     def __init__(self, seed=0):
         super().__init__(seed)
+        # self.verbose=True
         self.nlp = spacy.load("en_core_web_sm")
+        self.nlp.tokenizer = Tokenizer(
+            self.nlp.vocab, 
+            prefix_search=re.compile('''^\\$[a-zA-Z0-9]''').search
+            )
+        self.wnl = WordNetLemmatizer()
         self.seed = seed
         random.seed(self.seed)
 
+
+    def text_to_spacy_table_info(self, _text):
+
+        doc = self.nlp(_text)
+
+        table = []
+        letters2word = {}
+        
+        # future to do: keep only relevant items
+        for idx, token in enumerate(doc):
+            letters2word[token.idx] = idx
+            table.append([token.text, token.lemma_, token.pos_, token.tag_, 
+                        token.dep_, token.shape_, token.is_alpha, token.is_stop,
+                        token.head.text, token.head.idx, token.head.pos_, 
+                        [child for child in token.children]])
+
+        table = pd.DataFrame(table)
+        table.columns = ['text', 'lemma', 'pos', 'pos_tag', 'dep', 'shape', 'is_alpha', 'is_stop', 
+                        'head_text', 'head_id', 'head_pos', 'children']
+        # convert idx from letter idx to word idx level
+        table['head_id'] = [letters2word[i] for i in table['head_id']]
+        if self.verbose:
+            print(table)
+
+        return table
+
+
+    def negation_rules(self, tgx, itemdict, text, pos, sentid2tid, method=[], \
+        num_tries=2, curr_try=0):
+
+        curr_try += 1
+        edit_id = tgx
+
+        if self.verbose:
+            print('before {}, actual {}, after {}'.format(pos[tgx-2], pos[tgx-1], pos[tgx]))
+        if curr_try > num_tries:
+            if self.verbose:
+                print('Max {} tries hit...'.format(num_tries))
+            method.append(None)
+            edit_id = None
+            text = None
+        elif pos[tgx-1][1][0:2] =='VB':
+            # if actual word is a modal type
+            if self.wnl.lemmatize(text[tgx-1],'v') in ['be', 'to', 'have', 'get', 'do'] \
+            or (pos[tgx-1][1] in ['MD']):
+                # if word is last word
+                if tgx>=len(text):
+                    method.append('VB_1_1')
+                    text[tgx-1] =  "<edit>not</edit> " + text[tgx-1]
+                # if word after is determiner of sorts
+                elif pos[tgx][1][0:2] in ['CD', 'DT']:
+                    method.append('VB_1_2')
+                    text[tgx] = "<edit>no</edit>"
+                # if word after is noun or description of a noun
+                elif pos[tgx][1][0:2] in ['JJ', 'NN', 'PR', 'WP', 'WD', 'DT']:
+                    method.append('VB_1_3')
+                    text[tgx-1] = text[tgx-1] + " <edit>not</edit>"
+                # if word after is VB
+                elif pos[tgx][1][0:2] =='VB':
+                    method.append('VB_1_4')
+                    text[tgx-1] = text[tgx-1] + " <edit>no</edit>"
+            # if word is the first word
+            elif tgx-1==0:
+                method.append('VB_2_1')
+                text[tgx-1] = "<edit>Not</edit> " + text[tgx-1].lower()
+            # if word before target is noun type
+            elif pos[tgx-2][1][0:2] in ['NN', 'PR', 'WP', 'WD', 'DT']:
+                method.append('VB_3_1')
+                text[tgx-1] = "<edit>did not</edit> " + self.wnl.lemmatize(text[tgx-1],'v')
+            # if word is last word
+            elif tgx>=len(text):
+                method.append('VB_4_1')
+                text[tgx-1] =  "<edit>not</edit> " + text[tgx-1]
+            # if word before target is AUX | if word after target is IN/TO
+            elif self.wnl.lemmatize(text[tgx-2],'v') in ['be', 'to', 'have', 'get', 'do'] \
+            or (pos[tgx-2][1] in ['MD'])\
+            or (pos[tgx][1] in ['IN', 'TO']):
+                method.append('VB_5_1')
+                text[tgx-1] = "<edit>not</edit> " + text[tgx-1]
+            else:
+                if self.verbose:
+                    print('Unable to find VB_X_X rule...')
+                method.append(None)
+                edit_id = None
+                text = None
+                # text[tgx-1] = "<edit>did not</edit> " + self.wnl.lemmatize(text[tgx-1],'v')
+        # if target is noun (e.g. as a result of)
+        elif pos[tgx-1][1][0:2] =='NN':
+            method.append('NN_1_1')
+            sent_id = int(itemdict['text'][tgx-1][1])
+            loc_id = tgx-sentid2tid[sent_id]
+
+            if sent_id+1 < len(sentid2tid):
+                doc = nlp(u' '.join(text[sentid2tid[sent_id]-1:sentid2tid[sent_id+1]-1]))
+            else:
+                doc = nlp(u' '.join(text[sentid2tid[sent_id]-1:]))
+
+            # print('Check if loc_id {} makes sense in doc: {}'.format(loc_id, doc))
+            dep_dict = {}
+            for ix, token in enumerate(doc):
+                dep_dict[token.idx] = [ix, token.text, token.head.text, token.head.idx]
+                if ix==loc_id:
+                    spacy_loc_id = token.idx
+
+            # print(text[sentid2tid[sent_id]-1:sentid2tid[sent_id+1]-1])
+            assert(dep_dict[spacy_loc_id][1]==text[tgx-1])
+            edit_id = sentid2tid[sent_id] + dep_dict[dep_dict[spacy_loc_id][3]][0]
+            # print('Editing root word edx "{}" | orx "{}"...'.format(text[edit_id], dep_dict[spacy_loc_id][2]))
+            text, method, edit_id = negation_rules(
+                edit_id, itemdict, text, pos, sentid2tid, method=method, 
+                num_tries=num_tries, curr_try=curr_try)
+        # if actual word is an adjective
+        elif pos[tgx-1][1][0:2] =='JJ':
+            # if adjective is last word
+            if tgx>=len(text):
+                method.append('JJ_1_1')
+                text[tgx-1] = "<edit>not</edit> " + text[tgx-1]
+            # if word after is positive conjunctions
+            elif text[tgx] in ['and', 'or']:
+                method.append('JJ_1_2')
+                text[tgx-1] = "<edit>not</edit> " + text[tgx-1]
+                text[tgx] = "<edit>nor</edit>"
+            else:
+                method.append('JJ_1_3')
+                text[tgx-1] = "<edit>not</edit> " + text[tgx-1]
+        # if actual word is an subornating conjunction (E.g. because, before, of)
+        elif pos[tgx-1][1][0:2] =='IN':
+            method.append('IN_1_1')
+            text[tgx-1] = "<edit>not</edit> " + text[tgx-1]
+        else:
+            if self.verbose:
+                print('Unable to find rule...')
+            method.append(None)
+            edit_id = None
+            text = None
+            # text[tgx-1] = "<edit>did not</edit> " + self.wnl.lemmatize(text[tgx-1],'v')
+        
+        return text, method, edit_id
+
+
+    def get_synonyms_antonyms(self, word):
+
+        # include self dictionary
+        cause_terms = ['cause', 'induce', 'trigger', 'affect', 'spark', 'incite', 'set']
+        opp_cause_terms = ['deter', 'defuse', 'impede', 'block']
+
+        # use wordnet dictionary
+        synonyms = [] 
+        antonyms = [] 
+
+        for syn in wordnet.synsets(word): 
+            for l in syn.lemmas():
+                synonyms.append(l.name()) 
+                if l.antonyms(): 
+                    antonyms.append(l.antonyms()[0].name()) 
+        
+        syn, ant = list(set(synonyms)), list(set(antonyms))
+
+        if (self.wnl.lemmatize(word,'v').lower() in cause_terms):
+            if (len(ant)==0):
+                ant = opp_cause_terms
+            if (len(syn)==0):
+                syn = cause_terms
+
+        return syn, ant
+
+
+    def fuzzy_match(self, s1, s2, min_prop=0.7):
+        if (s2 is None) or (s1 is None):
+            return False
+        elif s1 in s2:
+            return True
+        else:
+            max_dist = round(max(len(s1),len(s2))*(1-min_prop),0)
+            return edit_distance(s1,s2) <= max_dist
+
+
+    def improve_negation_flow(self, text, edit_id, edit_method):
+        """
+        current problems: 
+        might be using too many packages (can consider streamlining spacy, nltk, pattern)
+        """
+        tense = None
+        word = text[edit_id-1]
+        # check grammar of word
+        if conjugate_en(verb=word,tense='past',number='singular')==word:
+            tense = 'past'
+        elif conjugate_en(verb=word,tense='present',number='singular')==word:
+            tense = 'present'
+        elif conjugate_en(verb=word,tense='participle',number='singular')==word:
+            tense = 'participle'
+
+        syn, ant = self.get_synonyms_antonyms(word)
+        if len(ant)>0:
+            edit_word = random.choice(ant)
+            if tense is not None:
+                edit_word = conjugate_en(verb=edit_word,tense=tense,number='singular')
+            else:
+                if self.verbose:
+                    print('Caution: Unsure of tense of "{}" to "{}"...'.format(word, edit_word))
+            text[edit_id-1] = "" + edit_word + ""
+        else:
+            if self.verbose:
+                print('Unable to find an antonym...')
+            text = None
+            edit_word = None
+        return text, edit_word
+
+
+    def select_edit(self, edits_dict):
+
+        edit_id = edits_dict['edit_id']
+
+        if edits_dict['alt_text'] is not None:
+            alt_word = edits_dict['alt_text'][edit_id-1]
+            alt_word = self.wnl.lemmatize(re.sub('(\\<(\\/)*edit\\>)', '', alt_word))
+        else:
+            alt_word = None
+        not_word = edits_dict['edit_text'][edit_id-1]
+        orig_word = self.wnl.lemmatize(re.sub('(\\<(\\/)*edit\\>)', '', not_word))
+        not_word = re.sub('(\\<(\\/)*edit\\>)', '', not_word)
+
+        if self.verbose:
+            print('orig_word: {} | not_word: {} | alt_word: {}'.format(orig_word, not_word, alt_word))
+
+        if self.fuzzy_match(orig_word, alt_word, min_prop=0.7):
+            return re.sub('(\\<(\\/)*edit\\>)', '', ' '.join(edits_dict['alt_text']))
+        else:
+            return re.sub('(\\<(\\/)*edit\\>)', '', ' '.join(edits_dict['edit_text']))
+
+
+    def text_to_negated_edits(self, _text, sentid2tid, get_roots=None):
+        # clean multiple whitespaces
+        _text = _RE_COMBINE_WHITESPACE.sub(" ", _text).strip()
+        text = _text.split(' ')
+
+        # start with root verb of sentence
+        table = self.text_to_spacy_table_info(_text)
+        if get_roots is None:
+            get_roots = table[([True if t[0:2] =='VB' else False for t in table['pos_tag']]) & (table['dep'] == 'ROOT')].index
+        if self.verbose:
+            print(">>>>> get_roots: ", get_roots)
+        
+        # format into ESC format for convenience (not efficient)
+        itemdict = {'text': [(int(idx+1),0,int(idx),t) for idx, t in enumerate(text)]}
+
+        t_dict = {}
+        for jx, root in enumerate(get_roots):
+            # check if root has acomp
+            if table.loc[root,'lemma'] in ['be', 'to', 'have', 'get', 'do'] or (table.loc[root,'pos_tag'] in ['MD']):
+                if len(table[(table['dep'].isin(['acomp','attr'])) & (table['head_id']==root)])>0:
+                    root = table[(table['dep'].isin(['acomp','attr'])) & (table['head_id']==root)].index[0]
+                    if self.verbose:
+                        print('new root: {}'.format(table.loc[root, 'text']))
+                    # to do: check if new root has conj, negate them too
+            
+            from nltk import pos_tag
+            edit_text, method, edit_id = self.negation_rules(
+                root+1, itemdict, text.copy(), pos_tag(text),
+                # table['text'].values, table['pos_tag'].values, 
+                sentid2tid, method=[], num_tries=2)
+
+            if self.verbose:
+                print(">>>>> edit_text: ", edit_text)
+
+            # improve text flow
+            if None not in method and len(method)>0:
+                alt_text, alt_word = self.improve_negation_flow(_text.split(' '), edit_id, method)
+                # if method is nor format
+                if alt_text is not None:
+                    if method[-1]=='JJ_1_2':
+                        alt_text, alt_word_2 = self.improve_negation_flow(alt_text.copy(), edit_id+2, method)
+                        alt_word = [alt_word, alt_word_2]
+            else:
+                alt_word = None
+                alt_text = None
+
+            # keep only successful edits
+            if None not in method:
+                t_dict[jx] = {
+                    'edit_text': edit_text,
+                    'edit_id': edit_id,
+                    'edit_method': method,
+                    'alt_word': alt_word,
+                    'alt_text': alt_text
+                }
+
+        return t_dict
+
+
     def generate(self, sentence: str, target: str):
 
-        print('>>>>>>> sentence: ',sentence)
-        print('>>>>>>> target: ',target)
+        if isinstance(sentence, dict):
+            # if inputs include location of word to negate
+            # e.g. AltLex dataset has this info
+            get_roots = [sentence['signal_id']]
+            sentence = sentence['sentence']
+        else:
+            get_roots = None
 
-        # perturbed_sentences = []
-        # perturbed_targets = []
+        if self.verbose:
+            print('>>>>>>> sentence: ',sentence)
+            print('>>>>>>> target: ',target)
 
+        # Negation: Direct Causal -> No Relationship
+        if target in ['Direct Causal', 'Direct Relation']:
+            # You can indicate specific word location under "get_roots" as a list of index
+            # especially if you already know the root word you wish to negate upon. 
+            # If unspecified, we revert to Root Verbs based on spacy dependency parser.
 
-        # perturbed_sentences.append(sentence) 
-        # perturbed_targets.append(target)
+            sentid2tid = {0: 1} # fixed since only one-sentence per doc
+            t_dict = self.text_to_negated_edits(sentence, sentid2tid, get_roots=get_roots)
 
-        # if self.verbose:
-        #     print(
-        #         f"Perturbed Input from {self.name()} : \nSource: {perturbed_sentences}\nLabel: {perturbed_targets}"
-        #     )
+            if self.verbose:
+                print(">>>>>> t_dict: ", t_dict)
+
+            if len(t_dict)>0:
+                # Found available negation
+                perturbed_sentences = []
+                for k, v in t_dict.items():
+                    # Select edit or alt edit
+                    perturbed_sentence = self.select_edit(v)
+                    # Store output
+                    perturbed_sentences.append(perturbed_sentence)
+                perturbed_target = 'No Relationship'
+            else:
+                # Did not find available negation
+                perturbed_sentences = ["NA"]
+                perturbed_target = "NA"
+        else:
+            pass
         
-        perturbed_items  = [(sentence, target)]
+        # current NLAugmenter set up makes it hard to check more than 1 edit while checking in order
+        # for now, we only keep the first possible edit per example
+        perturbed_items  = [(perturbed_sentences[0], perturbed_target)]
+
+        if self.verbose:
+            print(">>>>>> perturbed_items: ", perturbed_items)
 
         return perturbed_items
-
-
-"""
-# Sample code to demonstrate adding test cases.
-if __name__ == '__main__':
-    tf = SentimentEmojiAugmenter()
-    test_cases = []
-    src = ["The dog was happily wagging its tail.", "Ram und Sita waren glücklich verheiratet.",
-                                                    "Le film était bien meilleur que les 100 derniers que j'ai regardés !",
-           "這部電影比我最近看的 100 部要好得多！",
-           "भारत आणि कॅनडा चांगले मित्र आहेत.", "Tujuh orang terluka!",
-           "அது மிக மோசமான படம், அதற்கு நான் மீண்டும் பணம் கொடுக்கவில்லை."]
-    tgt = ["pos", "pos", "pos", "pos", "pos", "neg", "neg"]
-    for sentence, target in zip(src, tgt):
-        sentence_o, target_o = tf.generate(sentence, target)
-        test_cases.append({
-            "class": tf.name(),
-            "inputs": {"sentence": sentence, "target": target},
-            "outputs": {"sentence": sentence_o, "target": target_o}}
-        )
-    json_file = {"type": tf.name(), "test_cases": test_cases}
-    print(str(json_file))
-""" 
