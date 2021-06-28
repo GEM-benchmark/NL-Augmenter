@@ -24,6 +24,9 @@ MODAL_STRENGTHEN_DICT = {
     'will': 'will'
 }
 # initialise
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+
 try:
     conjugate_en(verb='testing',tense='present',number='singular')
 except:
