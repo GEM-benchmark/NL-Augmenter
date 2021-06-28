@@ -146,8 +146,17 @@ def recognized_as_sticky_numbers(x):
     last_part = x[end_digit_index:]
     return re.search(r'^\d*[.,]?\d*$',first_part) and (last_part in ['st', 'nd', 'rd','th', '%'] or not re.search(r'\d', last_part)) and x[0].isnumeric()
 
-def recognized_as_math_formula_equal(x):
-    return '=' in x
+def recognized_as_math_formula_equality(x):
+    matches = []
+    for equality_sign in ['=', '<', '<=', '=>', '>', '!=']:
+        if equality_sign in x and x.count(equality_sign) == 1:
+            matches.append(True)
+        else:
+            matches.append(False)
+    return sum(matches)>0
+
+def recognized_as_math_bracket(x):
+    return x[0] == '(' and recognized_as_sticky_numbers(x[1:])
 
 def recognized_as_general_numbers(x):
     return x.replace(',','').replace('.','').isnumeric() and x[-1].isnumeric()
@@ -250,12 +259,28 @@ def sticky_numbers_to_words(x):
     if last_part in ['st', 'nd', 'rd', 'th']:
         words = num2words(first_part, to='ordinal')
     else:
-        words = num2words(first_part, to='cardinal') + ' ' +  last_part
+        words = num2words(first_part, to='cardinal') + ' ' +  last_part if len(last_part) > 0 else num2words(first_part, to='cardinal')
     return words
 
-def math_formula_equal_to_words(x):
-    before_equal = x[:x.index('=')]
-    after_equal = x[(x.index('=')+1):]
+def math_formula_equality_to_words(x):
+    equality_sign_index_list = []
+    for equality_sign in ['=', '<', '<=', '=>', '>', '!=']:
+        equality_sign_index_list.append(x.find(equality_sign))
+    
+    equality_sign_index_numpy = np.array(equality_sign_index_list)
+    count_match = sum(equality_sign_index_numpy > 0)
+    if count_match > 1:
+        equality_sign_index = max(equality_sign_index_numpy)
+    elif count_match == 1:
+        equality_sign_index = list(equality_sign_index_numpy > 0).index(True)
+        
+    equality_sign = ['=', '<', '<=', '=>', '>', '!='][equality_sign_index]
+    
+    begin_equality_sign_index_in_word = x.index(equality_sign)
+    end_equality_sign_index_in_word = x.index(equality_sign)+len(equality_sign)
+
+    before_equal = x[:begin_equality_sign_index_in_word]
+    after_equal = x[end_equality_sign_index_in_word:]
 
     begin_digit_index = re.search(r"\d", after_equal).start()
     end_digit_index = len(after_equal) - re.search(r"\d", after_equal[::-1]).start()
@@ -265,8 +290,11 @@ def math_formula_equal_to_words(x):
 
     after_equal = num2words(first_part) + ' ' +  last_part
 
-    words = before_equal + ' = ' + after_equal
+    words = before_equal + ' ' + equality_sign + ' ' + after_equal
     return words
+
+def math_bracket_to_words(x):
+    return '( ' + sticky_numbers_to_words(x[1:])
 
 def general_numbers_to_words(x):
     """
@@ -334,15 +362,19 @@ def recognize_transform(token):
             words = sticky_numbers_to_words(token)
 #             print('H', words)
             return words
-        elif recognized_as_math_formula_equal(token):
-            words = math_formula_equal_to_words(token)
+        elif recognized_as_math_formula_equality(token):
+            words = math_formula_equality_to_words(token)
 #             print('I', words)
             return words
+        elif recognized_as_math_bracket(token):
+            words = math_bracket_to_words(token)
+#             print('J', words)
+            return words
         else: # ELSE: Numbers that not in the above stated formats, strings
-#             print('J', token)
+#             print('K', token)
             return token
     else:
-#         print('K', token)
+#         print('L', token)
         return token
 
 ### Supplements
