@@ -82,7 +82,7 @@ if __name__ == '__main__':
                      "Thomas loves to cook chicken every Monday"]:
         test_cases.append({
             "class": tf.name(),
-            "inputs": {"sentence": sentence}, "outputs": {"sentence": tf.generate(sentence)}}
+            "inputs": {"sentence": sentence}, "outputs": [{"sentence": tf.generate(sentence)}]}
         )
     json_file = {"type": "mixed_language_perturbation", "test_cases": test_cases}
     # json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
