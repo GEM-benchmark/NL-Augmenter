@@ -107,3 +107,7 @@ Alternatively, you can do so from the GitHub website.
 ## How do I create a filter?
 
 We also accept pull-requests for creating [filters](filters) which identify interesting subpopulations of a dataset. The process to add a new filter is just the same as above. All filter implementations require implementing `.filter` instead of `.generate` and need to be placed in the [filters](filters) folder. So, just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters simply return True or False! For step-by-step instructions, follow [these](filters) steps.
+
+## Most Creative Implementations 🏆
+
+After all pull-requests have been merged, 3 of the most creative implementations would be selected and announced on this README page.
