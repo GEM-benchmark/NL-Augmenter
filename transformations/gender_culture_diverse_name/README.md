@@ -1,6 +1,6 @@
 # gender culture diverse name transformantion 👨 ️→ 🐍🧔🏾
 This transformation changes a name with another, considering gender and cultural diversity.
-Example: Rachel --> Swati, Phoebe --> Toshiko, Joey --> Margarita, Chandler --> Rami, Monica --> Jean-jacques
+Example: Rachel --> Leanne, Phoebe --> Muawiya, Joey --> Brunhilda, Chandler --> Rosalie, Monica --> Badiah
 
 Contributor: Xudong Shen, National University of Singapore (xudong.shen@u.nus.edu)
 

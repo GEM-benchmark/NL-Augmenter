@@ -9,7 +9,14 @@ import os
 import re
 import json
 import random
+import hashlib
 from checklist.perturb import process_ret
+
+def hash(input:str):
+    t_value = input.encode('utf8')
+    h = hashlib.sha256(t_value)
+    n = int(h.hexdigest(),base=16)
+    return n
 
 class change_gender_culture_diverse_name:
     def __init__(self, data_path, retain_gender=False, retain_culture=False) -> None:
@@ -63,7 +70,7 @@ class change_gender_culture_diverse_name:
         """
 
         if seed is not None:
-            np.random.seed(seed)
+            random.seed(seed)
         ents = [x.text for x in doc.ents if np.all([a.ent_type_ == 'PERSON' for a in x])]
         ret = []
         ret_m = []
@@ -83,15 +90,15 @@ class change_gender_culture_diverse_name:
                 else:
                     country_choose_from = self.countries
             
-            new_countries = random.choices(country_choose_from, k=n)
-            new_genders = random.choices(gender_choose_from, k=n)
-            new_names = [random.choice(self.names[c][n]) for c,n in zip(new_countries, new_genders)]
-            if not capito:
-                new_names = [n.lower() for n in new_names]
-            
-            for new_name in new_names:
-                ret.append(re.sub(r'\b%s\b' % re.escape(name), new_name, doc.text))
-                ret_m.append((name, new_name))
+                new_countries = random.choices(country_choose_from, k=n)
+                new_genders = random.choices(gender_choose_from, k=n)
+                new_names = [random.choice(self.names[c][n]) for c,n in zip(new_countries, new_genders)]
+                if not capito:
+                    new_names = [n.lower() for n in new_names]
+                
+                for new_name in new_names:
+                    ret.append(re.sub(r'\b%s\b' % re.escape(name), new_name, doc.text))
+                    ret_m.append((name, new_name))
         
         return process_ret(ret, ret_m=ret_m, n=n, meta=meta)
                 
@@ -121,7 +128,7 @@ class gender_culture_diverse_name(SentenceOperation):
             )
 
     def generate(self, sentence: str):
-        np.random.seed(self.seed)
+        random.seed(self.seed + hash(sentence))
         perturbed = Perturb.perturb(
             [self.nlp(sentence)], 
             self.changer.apply, 
@@ -136,6 +143,10 @@ class gender_culture_diverse_name(SentenceOperation):
 
 
 test = gender_culture_diverse_name()
-sentence = 'Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.'
+# sentence = 'Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.'
+# sentence = 'Phoebe Buffay is an eccentric masseuse and musician.'
+# sentence = 'Joey has many short-term girlfriends.'
+# sentence = 'Joeys roommate Chandler Bing is a sarcastic and self-deprecating IT manager.'
+sentence = 'Monica was overweight as a child.'
 p = test.generate(sentence)
 print(p[0])
