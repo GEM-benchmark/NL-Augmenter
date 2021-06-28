@@ -2,6 +2,8 @@
 This transformation changes a name with another, considering gender and cultural diversity.
 Example: Rachel --> Swati, Phoebe --> Toshiko, Joey --> Margarita, Chandler --> Rami, Monica --> Jean-jacques
 
+Contributor: Xudong Shen, National University of Singapore (xudong.shen@u.nus.edu)
+
 ## What does this transformation do?
 For a recognized name, this transformation randomly samples a (country, gender) pair, and samples a new name from that (country, gender).
 This transformation also allows sampling new names from the same sex, country, or both.
