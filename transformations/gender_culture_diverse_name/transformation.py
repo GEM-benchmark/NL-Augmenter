@@ -9,7 +9,6 @@ import os
 import re
 import json
 import random
-import itertools
 from checklist.perturb import process_ret
 
 class change_gender_culture_diverse_name:
