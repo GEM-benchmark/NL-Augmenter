@@ -7,16 +7,16 @@
         "sentence": "Andrew finally returned the Comic book to Chris that I bought last week"
       },
       "outputs": {
-        "sentence": "Andrew finally returned Die Comic book to Chris that I bought last Woche"
+        "sentence": "Andrew finally returned die Comic book to Chris that I bought last woche"
       }
     },
     {
       "class": "MixedLanguagePerturbation",
       "inputs": {
-        "sentence": "Chris borroed the Comic book from Andrew last weekend"
+        "sentence": "Chris borrowed the Comic book from Andrew last weekend"
       },
       "outputs": {
-        "sentence": "Chris borroed the Komik book from Andrew last weekend"
+        "sentence": "Chris borrowed the Komik book from Andrew last weekend"
       }
     },
     {
@@ -25,7 +25,7 @@
         "sentence": "Turn off the light please"
       },
       "outputs": {
-        "sentence": "Turn off the Licht please"
+        "sentence": "Turn off the licht please"
       }
     },
     {
@@ -43,7 +43,7 @@
         "sentence": "Thomas loves to cook chicken every Monday"
       },
       "outputs": {
-        "sentence": "Thomas loves to Kochen chicken every Monday"
+        "sentence": "Thomas loves to kochen chicken every Monday"
       }
     }
   ]
