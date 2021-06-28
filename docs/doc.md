@@ -9,7 +9,7 @@
     * [Evaluating the transformation](#evaluating-the-transformation)
     * [Writing a good filter](#Writing-a-good-filter)
     * [What is the purpose of test.json](#What-is-the-purpose-of-test.json)
-    * [Three Most Creative Implementations](#Three-Most-Creative-Implementations)
+    * [Three Most Creative Implementations](#Three-Most-Creative-Implementations-🏆)
 
 
 ## Motivation
