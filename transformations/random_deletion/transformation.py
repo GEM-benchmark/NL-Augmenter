@@ -17,10 +17,6 @@ def random_deletion(text, prob=0.1):
     text_tf = text_tf if len(text_tf) > 0 else text[random.randint(0,N-1)]
     return [text_tf]
 
-"""
-Butter Finger implementation borrowed from https://github.com/alexyorke/butter-fingers.
-"""
-
 
 class RandomDeletion(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
