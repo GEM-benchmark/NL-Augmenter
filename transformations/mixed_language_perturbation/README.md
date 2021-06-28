@@ -1,7 +1,10 @@
 # Mixed Language Perturbation 🦎  + ⌨️ → 🐍
 This perturbation translates randomly picked words in the text from English to other languages (e.g., German). It can be used to test the robustness of a model in a multilingual setting.
 
-Author names: Genta Indra Winata (giwinata@connect.ust.hk / The Hong Kong University of Science and Technology), Samuel Cahyawijaya (scahyawijaya@connect.ust.hk / The Hong Kong University of Science and Technology), and Bryan Wilie (bryanwilie92@gmail.com / Institut Teknologi Bandung).
+Author names: 
+- Genta Indra Winata (giwinata@connect.ust.hk, The Hong Kong University of Science and Technology), 
+- Samuel Cahyawijaya (scahyawijaya@connect.ust.hk, The Hong Kong University of Science and Technology)
+- Bryan Wilie (bryanwilie92@gmail.com, Institut Teknologi Bandung).
 
 ## What type of a transformation is this?
 This transformation acts as a perturbation to test robustness. Few words were picked at random with a probability and translated to the target language.
