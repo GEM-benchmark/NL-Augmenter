@@ -26,7 +26,7 @@ The transformations which are already accepted to NL-Augmenter are summarized in
 
 ## Colab notebook
 
-<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly see transformations and filters in action, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb). 
+<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly see transformations and filters in action, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb).
 
 ## Installation
 
@@ -108,6 +108,6 @@ Alternatively, you can do so from the GitHub website.
 
 We also accept pull-requests for creating [filters](filters) which identify interesting subpopulations of a dataset. The process to add a new filter is just the same as above. All filter implementations require implementing `.filter` instead of `.generate` and need to be placed in the [filters](filters) folder. So, just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters simply return True or False! For step-by-step instructions, follow [these](filters) steps.
 
-## Most Creative Implementations 🏆
+### Most Creative Implementations 🏆
 
-After all pull-requests have been merged, 3 of the most creative implementations would be selected and announced on this README page.
+After all pull-requests have been merged, 3 of the [most creative implementations](docs/doc.md#Three-most-creative-Implementations) would be selected and featured on this README page and on the NL-Augmenter [webpage](https://gem-benchmark.com/nl_augmenter).
