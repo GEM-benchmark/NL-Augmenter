@@ -32,12 +32,78 @@
     {
       "class": "NegateStrengthen",
       "inputs": {
+        "sentence": "TyG is effective to identify individuals at risk for NAFLD.",
+        "target": "Direct Causal"
+      },
+      "outputs": [{
+        "sentence": "TyG is ineffective to identify individuals at risk for NAFLD.",
+        "target": "No Relationship"
+      }]
+    },
+    {
+      "class": "NegateStrengthen",
+      "inputs": {
+        "sentence": "Moreover, TT genotype may reduce the risk of CAD in diabetic patients.",
+        "target": "Conditional Causal"
+      },
+      "outputs": [{
+        "sentence": "Moreover, TT genotype will reduce the risk of CAD in diabetic patients.",
+        "target": "Direct Causal"
+      }]
+    },
+    {
+      "class": "NegateStrengthen",
+      "inputs": {
         "sentence": "Moreover, TT genotype will reduce the risk of CAD in diabetic patients.",
         "target": "Direct Causal"
       },
       "outputs": [{
         "sentence": "Moreover, TT genotype will not reduce the risk of CAD in diabetic patients.",
         "target": "No Relationship"
+      }]
+    },
+    {
+      "class": "NegateStrengthen",
+      "inputs": {
+        "sentence": "Collectively, these findings indicate that energy-matched high intensity and moderate intensity exercise are effective at decreasing IHL and NAFLD risk.",
+        "target": "Direct Causal"
+      },
+      "outputs": [{
+        "sentence": "Collectively, these findings did not indicate that energy-matched high intensity and moderate intensity exercise are effective at decreasing IHL and NAFLD risk.",
+        "target": "No Relationship"
+      }]
+    },
+    {
+      "class": "NegateStrengthen",
+      "inputs": {
+        "sentence": "The rs7044343 polymorphism could be involved in regulating the production of IL-33.",
+        "target": "Conditional Causal"
+      },
+      "outputs": [{
+        "sentence": "The rs7044343 polymorphism was involved in regulating the production of IL-33.",
+        "target": "Direct Causal"
+      }]
+    },    
+    {
+      "class": "NegateStrengthen",
+      "inputs": {
+        "sentence": "Thus, mammographic density should possibly influence adjuvant therapy decisions in the future.",
+        "target": "Conditional Causal"
+      },
+      "outputs": [{
+        "sentence": "Thus, mammographic density would influence adjuvant therapy decisions in the future.",
+        "target": "Direct Causal"
+      }]
+    },
+    {
+      "class": "NegateStrengthen",
+      "inputs": {
+        "sentence": "hsTnI may have a role in personalizing preventive strategies in patients with diabetes mellitus based on risk.",
+        "target": "Conditional Causal"
+      },
+      "outputs": [{
+        "sentence": "hsTnI had a role in personalizing preventive strategies in patients with diabetes mellitus based on risk.",
+        "target": "Direct Causal"
       }]
     },
     {

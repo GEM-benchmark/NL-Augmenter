@@ -31,10 +31,12 @@ import pandas as pd
 from nltk.corpus import wordnet
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.metrics import edit_distance
+from nltk import pos_tag
 from pattern.en import conjugate as conjugate_en
 
 _RE_COMBINE_WHITESPACE = re.compile(r"\s+")
-modal_verb_dict = {
+MODAL_TYPE_LEMMA = ['be', 'to', 'have', 'get', 'do']
+MODAL_STRENGTHEN_DICT = {
     'could': 'would',
     'should': 'would',
     'would': 'would',
@@ -43,11 +45,12 @@ modal_verb_dict = {
     'might': 'will',
     'will': 'will'
 }
-# not sure why, first round of pattern.en always fails
+# initialise
 try:
     conjugate_en(verb='testing',tense='present',number='singular')
 except:
     pass
+
 
 class NegateStrengthen(SentenceAndTargetOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.SENTIMENT_ANALYSIS]
@@ -78,13 +81,10 @@ class NegateStrengthen(SentenceAndTargetOperation):
         for idx, token in enumerate(doc):
             letters2word[token.idx] = idx
             table.append([token.text, token.lemma_, token.pos_, token.tag_, 
-                        token.dep_, token.shape_, token.is_alpha, token.is_stop,
-                        token.head.text, token.head.idx, token.head.pos_, 
-                        [child for child in token.children]])
+                        token.dep_, token.head.text, token.head.idx, token.head.pos_])
 
         table = pd.DataFrame(table)
-        table.columns = ['text', 'lemma', 'pos', 'pos_tag', 'dep', 'shape', 'is_alpha', 'is_stop', 
-                        'head_text', 'head_id', 'head_pos', 'children']
+        table.columns = ['text', 'lemma', 'pos', 'pos_tag', 'dep', 'head_text', 'head_id', 'head_pos']
         # convert idx from letter idx to word idx level
         table['head_id'] = [letters2word[i] for i in table['head_id']]
         if self.verbose:
@@ -107,24 +107,24 @@ class NegateStrengthen(SentenceAndTargetOperation):
             method.append(None)
             edit_id = None
             text = None
-        elif pos[tgx-1][1][0:2] =='VB':
+        elif pos[tgx-1][0:2] =='VB':
             # if actual word is a modal type
-            if self.wnl.lemmatize(text[tgx-1],'v') in ['be', 'to', 'have', 'get', 'do'] \
-            or (pos[tgx-1][1] in ['MD']):
+            if self.wnl.lemmatize(text[tgx-1],'v') in MODAL_TYPE_LEMMA \
+            or (pos[tgx-1] in ['MD']):
                 # if word is last word
                 if tgx>=len(text):
                     method.append('VB_1_1')
                     text[tgx-1] =  "<edit>not</edit> " + text[tgx-1]
                 # if word after is determiner of sorts
-                elif pos[tgx][1][0:2] in ['CD', 'DT']:
+                elif pos[tgx][0:2] in ['CD', 'DT']:
                     method.append('VB_1_2')
                     text[tgx] = "<edit>no</edit>"
                 # if word after is noun or description of a noun
-                elif pos[tgx][1][0:2] in ['JJ', 'NN', 'PR', 'WP', 'WD', 'DT']:
+                elif pos[tgx][0:2] in ['JJ', 'NN', 'PR', 'WP', 'WD', 'DT']:
                     method.append('VB_1_3')
                     text[tgx-1] = text[tgx-1] + " <edit>not</edit>"
                 # if word after is VB
-                elif pos[tgx][1][0:2] =='VB':
+                elif pos[tgx][0:2] =='VB':
                     method.append('VB_1_4')
                     text[tgx-1] = text[tgx-1] + " <edit>no</edit>"
             # if word is the first word
@@ -132,7 +132,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
                 method.append('VB_2_1')
                 text[tgx-1] = "<edit>Not</edit> " + text[tgx-1].lower()
             # if word before target is noun type
-            elif pos[tgx-2][1][0:2] in ['NN', 'PR', 'WP', 'WD', 'DT']:
+            elif pos[tgx-2][0:2] in ['NN', 'PR', 'WP', 'WD', 'DT']:
                 method.append('VB_3_1')
                 text[tgx-1] = "<edit>did not</edit> " + self.wnl.lemmatize(text[tgx-1],'v')
             # if word is last word
@@ -140,9 +140,9 @@ class NegateStrengthen(SentenceAndTargetOperation):
                 method.append('VB_4_1')
                 text[tgx-1] =  "<edit>not</edit> " + text[tgx-1]
             # if word before target is AUX | if word after target is IN/TO
-            elif self.wnl.lemmatize(text[tgx-2],'v') in ['be', 'to', 'have', 'get', 'do'] \
-            or (pos[tgx-2][1] in ['MD'])\
-            or (pos[tgx][1] in ['IN', 'TO']):
+            elif self.wnl.lemmatize(text[tgx-2],'v') in MODAL_TYPE_LEMMA \
+            or (pos[tgx-2] in ['MD'])\
+            or (pos[tgx] in ['IN', 'TO']):
                 method.append('VB_5_1')
                 text[tgx-1] = "<edit>not</edit> " + text[tgx-1]
             else:
@@ -153,7 +153,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
                 text = None
                 # text[tgx-1] = "<edit>did not</edit> " + self.wnl.lemmatize(text[tgx-1],'v')
         # if target is noun (e.g. as a result of)
-        elif pos[tgx-1][1][0:2] =='NN':
+        elif pos[tgx-1][0:2] =='NN':
             method.append('NN_1_1')
             sent_id = int(itemdict['text'][tgx-1][1])
             loc_id = tgx-sentid2tid[sent_id]
@@ -178,7 +178,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
                 edit_id, itemdict, text, pos, sentid2tid, method=method, 
                 num_tries=num_tries, curr_try=curr_try)
         # if actual word is an adjective
-        elif pos[tgx-1][1][0:2] =='JJ':
+        elif pos[tgx-1][0:2] =='JJ':
             # if adjective is last word
             if tgx>=len(text):
                 method.append('JJ_1_1')
@@ -192,7 +192,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
                 method.append('JJ_1_3')
                 text[tgx-1] = "<edit>not</edit> " + text[tgx-1]
         # if actual word is an subornating conjunction (E.g. because, before, of)
-        elif pos[tgx-1][1][0:2] =='IN':
+        elif pos[tgx-1][0:2] =='IN':
             method.append('IN_1_1')
             text[tgx-1] = "<edit>not</edit> " + text[tgx-1]
         else:
@@ -292,40 +292,41 @@ class NegateStrengthen(SentenceAndTargetOperation):
             print('orig_word: {} | not_word: {} | alt_word: {}'.format(orig_word, not_word, alt_word))
 
         if self.fuzzy_match(orig_word, alt_word, min_prop=0.7):
-            return re.sub('(\\<(\\/)*edit\\>)', '', ' '.join(edits_dict['alt_text']))
+            return edits_dict['alt_text']
         else:
-            return re.sub('(\\<(\\/)*edit\\>)', '', ' '.join(edits_dict['edit_text']))
+            return edits_dict['edit_text']
+
+
+    def format_text(self, _text):
+        return re.sub(' +', ' ', re.sub('(\\<(\\/)*edit\\>)', '', ' '.join(_text)))
 
 
     def text_to_negated_edits(self, _text, sentid2tid, get_roots=None):
         # clean multiple whitespaces
         _text = _RE_COMBINE_WHITESPACE.sub(" ", _text).strip()
         text = _text.split(' ')
+        pos = [p[1] for p in pos_tag(text)]
 
-        # start with root verb of sentence
+        # get roots based on dep info from spacy
         table = self.text_to_spacy_table_info(_text)
         if get_roots is None:
             get_roots = table[([True if t[0:2] =='VB' else False for t in table['pos_tag']]) & (table['dep'] == 'ROOT')].index
         if self.verbose:
             print(">>>>> get_roots: ", get_roots)
-        
-        # format into ESC format for convenience (not efficient)
         itemdict = {'text': [(int(idx+1),0,int(idx),t) for idx, t in enumerate(text)]}
 
         t_dict = {}
         for jx, root in enumerate(get_roots):
-            # check if root has acomp
-            if table.loc[root,'lemma'] in ['be', 'to', 'have', 'get', 'do'] or (table.loc[root,'pos_tag'] in ['MD']):
+            # check if root has acomp, adjust root
+            if table.loc[root,'lemma'] in MODAL_TYPE_LEMMA or (table.loc[root,'pos_tag'] in ['MD']):
                 if len(table[(table['dep'].isin(['acomp','attr'])) & (table['head_id']==root)])>0:
                     root = table[(table['dep'].isin(['acomp','attr'])) & (table['head_id']==root)].index[0]
                     if self.verbose:
                         print('new root: {}'.format(table.loc[root, 'text']))
-                    # to do: check if new root has conj, negate them too
             
-            from nltk import pos_tag
+            # using root loc, negate
             edit_text, method, edit_id = self.negation_rules(
-                root+1, itemdict, text.copy(), pos_tag(text),
-                # table['text'].values, table['pos_tag'].values, 
+                root+1, itemdict, text, pos,
                 sentid2tid, method=[], num_tries=2)
 
             if self.verbose:
@@ -356,29 +357,81 @@ class NegateStrengthen(SentenceAndTargetOperation):
         return t_dict
 
 
+    def text_to_stronger_edits(self, _text, sentid2tid):
+        # clean multiple whitespaces
+        _text = _RE_COMBINE_WHITESPACE.sub(" ", _text).strip()
+        text = _text.split(' ')
+
+        # get weaker words for converting
+        table = self.text_to_spacy_table_info(_text)
+        get_roots = table[table['lemma'].isin(MODAL_STRENGTHEN_DICT.keys())].index
+        itemdict = {'text': [(int(idx+1),0,int(idx),t) for idx, t in enumerate(text)]}
+
+        t_dict = {}
+        for jx, root in enumerate(get_roots):
+            
+            if table.loc[root+1,'lemma']=='be':
+                text[root] = "<edit>was</edit>"
+                text[root+1] = ""
+                method = ['MOD_2_1']
+            elif  table.loc[root+1,'lemma']=='have':
+                if table.loc[root+2,'lemma']=='be':
+                    text[root] = "<edit>was</edit>"
+                    text[root+1] = ""
+                    text[root+2] = ""
+                    method = ['MOD_3_2']
+                else:
+                    text[root] = "<edit>had</edit>"
+                    text[root+1] = ""
+                    method = ['MOD_3_1'] 
+            elif (table.loc[root,'pos_tag']=='MD') and (table.loc[root+1,'pos_tag']=='RB'):
+                text[root] = '<edit>'+ MODAL_STRENGTHEN_DICT[text[root]] + '</edit>'
+                text[root+1] = ""
+                # text[root+2] = conjugate_en(verb=text[root+2],tense='past',number='singular')
+                method = ['MOD_4_1']
+            else:
+                text[root] = '<edit>'+ MODAL_STRENGTHEN_DICT[text[root]] + '</edit>'
+                method = ['MOD_1_1']
+            
+            edit_text = text
+            edit_id = root
+
+            # keep only successful edits
+            if None not in method:
+                t_dict[jx] = {
+                    'edit_text': edit_text,
+                    'edit_id': edit_id,
+                    'edit_method': method,
+                    'alt_word': None,
+                    'alt_text': None
+                }
+
+        return t_dict
+
+
     def generate(self, sentence: str, target: str):
 
         if isinstance(sentence, dict):
-            # if inputs include location of word to negate
-            # e.g. AltLex dataset has this info
+            # You can indicate specific word location with var "get_roots" as a list of index
+            # especially if you already know the root word you wish to negate/strengthen upon. 
+            # E.g. AltLex dataset has "signal_id" info
             get_roots = [sentence['signal_id']]
             sentence = sentence['sentence']
         else:
+            # If unspecified, we revert to Root Verbs based on spacy dependency parser.
             get_roots = None
 
         if self.verbose:
             print('>>>>>>> sentence: ',sentence)
             print('>>>>>>> target: ',target)
 
-        # Negation: Direct Causal -> No Relationship
+        sentid2tid = {0: 1} # fixed since only one-sentence per doc
+        perturbed_sentences = ["NA"]
+        perturbed_target = "NA"
+        
         if target in ['Direct Causal', 'Direct Relation']:
-            # You can indicate specific word location under "get_roots" as a list of index
-            # especially if you already know the root word you wish to negate upon. 
-            # If unspecified, we revert to Root Verbs based on spacy dependency parser.
-
-            sentid2tid = {0: 1} # fixed since only one-sentence per doc
+            # Negation: Direct Causal -> No Relationship
             t_dict = self.text_to_negated_edits(sentence, sentid2tid, get_roots=get_roots)
-
             if self.verbose:
                 print(">>>>>> t_dict: ", t_dict)
 
@@ -387,18 +440,31 @@ class NegateStrengthen(SentenceAndTargetOperation):
                 perturbed_sentences = []
                 for k, v in t_dict.items():
                     # Select edit or alt edit
-                    perturbed_sentence = self.select_edit(v)
+                    perturbed_sentence = self.format_text(self.select_edit(v))
                     # Store output
                     perturbed_sentences.append(perturbed_sentence)
                 perturbed_target = 'No Relationship'
-            else:
-                # Did not find available negation
-                perturbed_sentences = ["NA"]
-                perturbed_target = "NA"
+
+        elif target == 'Conditional Causal':
+            # Strengthen: Conditional Causal -> Direct Causal
+            t_dict = self.text_to_stronger_edits(sentence, sentid2tid)
+            if self.verbose:
+                print(">>>>>> t_dict: ", t_dict)
+
+            if len(t_dict)>0:
+                # Found available strengthening
+                perturbed_sentences = []
+                for k, v in t_dict.items():
+                    # Format sentence
+                    perturbed_sentence = self.format_text(v['edit_text'])
+                    # Store output
+                    perturbed_sentences.append(perturbed_sentence)
+                perturbed_target = 'Direct Causal'
         else:
+            # Any future conversion implementations
             pass
         
-        # current NLAugmenter set up makes it hard to check more than 1 edit while checking in order
+        # Current NLAugmenter set up makes it hard to check more than 1 edit while checking in order
         # for now, we only keep the first possible edit per example
         perturbed_items  = [(perturbed_sentences[0], perturbed_target)]
 
