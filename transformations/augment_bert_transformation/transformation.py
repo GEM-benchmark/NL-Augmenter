@@ -14,8 +14,10 @@ class AugmentBERTTransformation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_output=1, hf_model_id="bert-base-uncased"):
+    def __init__(self, seed=0, max_output=1):
         super().__init__(seed)
+        random.seed(seed)
+        hf_model_id = "bert-base-cased"
         self.max_output = max_output
         self.tokenizer = AutoTokenizer.from_pretrained(hf_model_id)
         self.model = AutoModelWithLMHead.from_pretrained(hf_model_id)
@@ -64,7 +66,7 @@ if __name__ == "__main__":
     import json
     from TestRunner import convert_to_snake_case
 
-    tf = AugmentBERTTransformation(max_output=3)
+    tf = AugmentBERTTransformation(max_output=1)
     sentence = (
         "Andrew finally returned the French book to Chris that I bought last week"
     )
