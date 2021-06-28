@@ -31,14 +31,17 @@ def mixed_language(model, tokenizer, text, prob_mix=0.1, src_lang="en", trg_lang
             if plain_word == "":
                 continue
 
-            mixed_text += translate(model, tokenizer, plain_word, src_lang, trg_lang)[0].lower()
+            if not word[0].isupper(): # lower case
+                mixed_text += translate(model, tokenizer, plain_word, src_lang, trg_lang)[0].lower()
+            else:
+                mixed_text += translate(model, tokenizer, plain_word, src_lang, trg_lang)[0]
 
             if word[-1] in string.punctuation:
                 mixed_text += word[-1]
         else:
             mixed_text += word
 
-    print(text, mixed_text)
+    # print(text, mixed_text)
     return mixed_text
 
 class MixedLanguagePerturbation(SentenceOperation):
@@ -48,6 +51,7 @@ class MixedLanguagePerturbation(SentenceOperation):
     ]
     languages = ["en"]
     tgt_languages = ["es", "de", "fr", "zh"]
+    heavy = True
 
     def __init__(self, seed=0, prob_mix=0.3, src_lang="en", trg_lang="de"):
         super().__init__(seed)
@@ -72,7 +76,7 @@ if __name__ == '__main__':
     sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
     for sentence in ["Andrew finally returned the Comic book to Chris that I bought last week",
-                     "Chris borroed the Comic book from Andrew last weekend",
+                     "Chris borrowed the Comic book from Andrew last weekend",
                      "Turn off the light please",
                      "I love cat",
                      "Thomas loves to cook chicken every Monday"]:
