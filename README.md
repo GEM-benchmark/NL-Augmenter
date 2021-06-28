@@ -8,6 +8,8 @@ The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
 | Due date          | Description                                                                 |
 | ------------------ | -----------                                                                 |
+|  July 25, 2021   | Pull request must be opened to be invited as a reviewer and be included in the framework & associated paper |
+|  August 15, 2021   | Review process for pull request above must be complete to be invited as a reviewer and be included in the framework & associated paper |
 | August 31, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
 | September 22, 2021 | Review process for pull request above must be complete           |
 
