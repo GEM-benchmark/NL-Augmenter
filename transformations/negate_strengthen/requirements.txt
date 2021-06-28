@@ -1,2 +1,1 @@
-# for NegateStrengthen
 pattern3==3.0.0
