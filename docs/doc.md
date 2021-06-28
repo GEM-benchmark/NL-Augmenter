@@ -9,7 +9,7 @@
     * [Evaluating the transformation](#evaluating-the-transformation)
     * [Writing a good filter](#Writing-a-good-filter)
     * [What is the purpose of test.json](#What-is-the-purpose-of-test.json)
-    * [Three Most Creative Implementations](#Three-Most-Creative-Implementations-🏆)
+    * [Three Most Creative Implementations](#Three-Most-Creative-Implementations)
 
 
 ## Motivation
@@ -73,6 +73,6 @@ Filters are qualifying conditions on the input data which help identify informat
 ## What is the purpose of test.json
 The `test.json` simply serves to keep track of the core logic of transformation that you intend. While working with the code to and fro, you don't want to mistakenly change the output of someone else's code. Additionally, it makes reviewing much simpler as it gives a quick look into the examples that your logic generates.   
 
-## Three Most Creative Implementations 🏆
-After all pull-requests have been merged, 3 of the most creative implementations would be selected and featured on this README page. The selection would be done by the [organizers of NL-Augmenter](https://gem-benchmark.com/nl_augmenter). The minimum requirement to be featured as "most creative" is novelty of implementation i.e. must be the participant's own work.
+## Three Most Creative Implementations
+ 🏆  🏆  🏆 After all pull-requests have been merged, 3 of the most creative implementations would be selected and featured on this README page. The selection would be done by the [organizers of NL-Augmenter](https://gem-benchmark.com/nl_augmenter). The minimum requirement to be featured as "most creative" is novelty of implementation i.e. must be the participant's own work.
 
