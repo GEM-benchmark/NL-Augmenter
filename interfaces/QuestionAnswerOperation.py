@@ -17,7 +17,7 @@ class QuestionAnswerOperation(Operation):
 
     def generate(
         self, context: str, question: str, answers: [str]
-    ) -> Tuple[str, str, List[str]]:
+    ) -> List[Tuple[str, str, List[str]]]:
         raise NotImplementedError
 
     def filter(self, context: str, question: str, answers: [str]) -> bool:
