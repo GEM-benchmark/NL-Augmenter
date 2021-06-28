@@ -1,0 +1,8 @@
+README.md
+setup.py
+NL_Augmenter.egg-info/PKG-INFO
+NL_Augmenter.egg-info/SOURCES.txt
+NL_Augmenter.egg-info/dependency_links.txt
+NL_Augmenter.egg-info/requires.txt
+NL_Augmenter.egg-info/top_level.txt
+test/test_main.py

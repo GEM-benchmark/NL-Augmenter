@@ -135,28 +135,6 @@ class gender_culture_diverse_name(SentenceOperation):
         )
         return perturbed_texts
 
-test = gender_culture_diverse_name()
-with open('man.json', 'r') as f:
-    man = json.load(f)
-with open('woman.json', 'r') as f:
-    woman = json.load(f)
-all_names = set(man + woman)
-
-all_num = len( all_names.intersection(test.changer.name_all))
-cc = []
-for code in test.changer.countries:
-    us = set( test.changer.names[code]['M'] + test.changer.names[code]['F'] )
-    frac = len(us.intersection(all_names)) / all_num
-    cc.append([code, frac])
-import pandas as pd
-A = pd.DataFrame(cc)
-B = A.sort_values([1], ascending=False)
-
-
-
-
-
-
 
 test = gender_culture_diverse_name()
 sentence = 'Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.'
