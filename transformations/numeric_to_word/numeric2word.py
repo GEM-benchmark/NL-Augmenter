@@ -116,20 +116,39 @@ def recognized_as_currency_symbols(x):
     currency_symbols = list(symbol_to_currency_name_dict.keys())
     currency_abbreviations = list(abbreviated_currency_symbols_to_currency_name_dict.keys())
 
-    if x[:begin_digit_index] in currency_symbols:
+    if x.find('.') > -1:
+        front_checker = x[:begin_digit_index-1]
+    else:
+        front_checker = x[:begin_digit_index]
+    
+    if x.find('.') > -1:
+        back_checker = x[end_digit_index:]
+    else:
+        back_checker = x[end_digit_index:]
+    
+    if front_checker in currency_symbols:
         other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
-    elif x[:begin_digit_index] in currency_abbreviations:
+    elif front_checker in currency_abbreviations:
         other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
-    elif x[end_digit_index:] in currency_symbols:
-        other_end_non_numeric = x[:begin_digit_index]
+    elif back_checker in currency_symbols:
+        if x.find('.') > -1:
+            other_end_non_numeric = x[:begin_digit_index-1]
+        else:
+            other_end_non_numeric = x[:begin_digit_index]
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
-    elif x[end_digit_index:] in currency_abbreviations:
-        other_end_non_numeric = x[:begin_digit_index]
+    elif back_checker in currency_abbreviations:
+        if x.find('.') > -1:
+            other_end_non_numeric = x[:begin_digit_index-1]
+        else:
+            other_end_non_numeric = x[:begin_digit_index]
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
     else:
         return False
+    
+def recognized_as_cents(x):
+    return ('¢' in x or x[-1] == 'c') and x[-2].isnumeric() and re.sub('[¢c,.]', "", x).isnumeric()
 
 def recognized_as_long_number(x):
     if x[0] == '+':
@@ -137,6 +156,9 @@ def recognized_as_long_number(x):
     
     threshold = 7
     return len(x) >= threshold and x.isnumeric()
+
+def recognized_as_long_number_with_stripes(x):
+    return len(re.sub('[0-9-]','',x)) == 0
 
 def recognized_as_sticky_numbers(x):
     begin_digit_index = re.search(r"\d", x).start()
@@ -212,28 +234,71 @@ def currency_to_words(x):
 
     begin_digit_index = re.search(r"\d", x).start()
     end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+    
+    front_checker = re.sub("[.]", "", x[:begin_digit_index])
+    back_checker = x[end_digit_index:]
 
-    if x[:begin_digit_index] in currency_symbols: #$300
-        number = re.sub("[^.0-9]", "", x[begin_digit_index:])
-        money = ''.join(num2words(number).split(","))
-        currency = str.lower(symbol_to_currency_name_dict[x[:begin_digit_index]])
-        words = money + ' ' + currency
-    elif x[:begin_digit_index] in currency_abbreviations: #USD300
-        number = re.sub("[^.0-9]", "", x[begin_digit_index:])
-        money = ''.join(num2words(number).split(","))
-        currency = str.lower(abbreviated_currency_symbols_to_currency_name_dict[x[:begin_digit_index]])
-        words = money + ' ' + currency
-    elif x[end_digit_index:] in currency_symbols: #300$
+    if front_checker in currency_symbols: # $300
+        if x.find('.') > -1:
+            number = re.sub("[^.0-9]", "", x[begin_digit_index-1:])
+            print(number, x[:begin_digit_index])
+            currency = str.lower(symbol_to_currency_name_dict[re.sub("[.]", "", x[:begin_digit_index])])
+            if len(number[number.index('.')+1:]) > 0 and len(number[:number.index('.')])==0:
+                if int(number[number.index('.')+1:]) > 1:
+                    words = num2words(number[number.index('.')+1:]) + ' ' + currency + ' cents'
+                elif int(number[number.index('.')+1:]) == 1:
+                    words = num2words(number[number.index('.')+1:]) + ' ' + currency + ' cent'
+            else:
+                words = num2words(number) + ' ' + currency       
+        else:
+            number = re.sub("[^.0-9]", "", x[begin_digit_index:])
+            currency = str.lower(symbol_to_currency_name_dict[re.sub("[.]", "", x[:begin_digit_index])])
+            words = num2words(number) + ' ' + currency
+    elif front_checker in currency_abbreviations: # USD300
+        if x.find('.') > -1:
+            number = re.sub("[^.0-9]", "", x[begin_digit_index-1:])
+            print(number, x[:begin_digit_index])
+            currency = str.lower(abbreviated_currency_symbols_to_currency_name_dict[re.sub("[.]", "", x[:begin_digit_index])])
+            if len(number[number.index('.')+1:]) > 0 and len(number[:number.index('.')])==0:
+                if int(number[number.index('.')+1:]) > 1:
+                    words = num2words(number[number.index('.')+1:]) + ' ' + currency + ' cents'
+                elif int(number[number.index('.')+1:]) == 1:
+                    words = num2words(number[number.index('.')+1:]) + ' ' + currency + ' cent'
+            else:
+                words = num2words(number) + ' ' + currency   
+        else:
+            number = re.sub("[^.0-9]", "", x[begin_digit_index:])
+            currency = str.lower(abbreviated_currency_symbols_to_currency_name_dict[re.sub("[.]", "", x[:begin_digit_index])])
+            words = num2words(number) + ' ' + currency
+    elif back_checker in currency_symbols: # 300$
         number = re.sub("[^.0-9]", "", x[:end_digit_index])
-        money = ''.join(num2words(number).split(","))
         currency = str.lower(symbol_to_currency_name_dict[x[end_digit_index:]])
-        words = money + ' ' + currency
-    elif x[end_digit_index:] in currency_abbreviations: #300USD
-        number = re.sub("[^.0-9]", "", x[:end_digit_index])
-        money = ''.join(num2words(number).split(","))
+        if number.find('.') > -1 and len(number[number.index('.')+1:]) > 0 and len(number[:number.index('.')])==0:
+            if int(number[number.index('.')+1:]) > 1:
+                words = num2words(number[number.index('.')+1:]) + ' ' + currency + ' cents'
+            elif int(number[number.index('.')+1:]) == 1:
+                words = num2words(number[number.index('.')+1:]) + ' ' + currency + ' cent'
+        else:
+            words = num2words(number) + ' ' + currency
+    elif back_checker in currency_abbreviations: # 300USD
+        number = re.sub("[^.0-9]", "", x[:end_digit_index])     
         currency = str.lower(abbreviated_currency_symbols_to_currency_name_dict[x[end_digit_index:]])
-        words = money + ' ' + currency
+        if number.find('.') > -1 and len(number[number.index('.')+1:]) > 0 and len(number[:number.index('.')])==0:
+            if int(number[number.index('.')+1:]) > 1:
+                words = num2words(number[number.index('.')+1:]) + ' ' + currency + ' cents'
+            elif int(number[number.index('.')+1:]) == 1:
+                words = num2words(number[number.index('.')+1:]) + ' ' + currency + ' cent'
+        else:
+            words = num2words(number) + ' ' + currency
     return words
+
+def cents_to_words(x):
+    begin_digit_index = re.search(r"\d", x).start()
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+
+    first_part = x[begin_digit_index:end_digit_index]
+
+    return num2words(first_part) + ' cents'
 
 def long_number_to_words(x):
     numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
@@ -246,6 +311,21 @@ def long_number_to_words(x):
         
     for number in x:
         words = words + numbers[int(number)] + ' '
+    return words
+
+def long_number_with_stripes_to_words(x):
+    words = ''
+    for i, char in enumerate(x):
+        if char.isnumeric():
+            if i == len(x)-1:
+                words = words + num2words(char) 
+            else:
+                words = words + num2words(char) + ' '
+        else:
+            if i == len(x):
+                words = words + char 
+            else:
+                words = words + char + ' '
     return words
 
 def sticky_numbers_to_words(x):
@@ -350,31 +430,39 @@ def recognize_transform(token):
             words = currency_to_words(token)
 #             print('E', words)
             return words
+        elif recognized_as_cents(token):
+            words = cents_to_words(token)
+#             print('F', words)
+            return words
         elif recognized_as_phone_number(token): 
             words = phonenum_to_words(token)
-#             print('F', words)
+#             print('G', words)
             return words
         elif recognized_as_long_number(token):
             words = long_number_to_words(token)
-#             print('G', words)
+#             print('H', words)
+            return words
+        elif recognized_as_long_number_with_stripes(token):
+            words = long_number_with_stripes_to_words(token)
+#             print('I', words)
             return words
         elif recognized_as_sticky_numbers(token):
             words = sticky_numbers_to_words(token)
-#             print('H', words)
+#             print('J', words)
             return words
         elif recognized_as_math_formula_equality(token):
             words = math_formula_equality_to_words(token)
-#             print('I', words)
+#             print('K', words)
             return words
         elif recognized_as_math_bracket(token):
             words = math_bracket_to_words(token)
-#             print('J', words)
+#             print('L', words)
             return words
         else: # ELSE: Numbers that not in the above stated formats, strings
-#             print('K', token)
+#             print('M', token)
             return token
     else:
-#         print('L', token)
+#         print('N', token)
         return token
 
 ### Supplements
