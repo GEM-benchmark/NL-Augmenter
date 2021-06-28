@@ -65,7 +65,7 @@ class MixedLanguagePerturbation(SentenceOperation):
 
     def generate(self, sentence: str):
         pertubed = mixed_language(self.model, self.tokenizer, text=sentence, prob_mix=self.prob_mix, src_lang=self.src_lang, trg_lang=self.trg_lang, seed=self.seed)
-        return pertubed
+        return [pertubed]
 
 """
 # Sample code to demonstrate usage. Can also assist in adding test cases.
