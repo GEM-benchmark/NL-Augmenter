@@ -11,5 +11,3 @@ build/
 *.log
 .env
 .venv
-NL_Augmenter.egg-info/
-transformations/sentiment_emoji_augmenter/

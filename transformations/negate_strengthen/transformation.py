@@ -1,25 +1,3 @@
-"""
-Motivation: Causal relations are sensitive to negations and strength, and 
-misinterpretation could lead to drastic conclusions. Models trained on corpus 
-without minimally augmented negated sentences mistakenly categorize a sentence
-as causal even though the sentence is negated.
-
-Source: This transformation is targetted at augmenting Causal Relations in text and 
-adapts the code from paper 'Causal Augmentation for Causal Sentence Classification' 
-at https://openreview.net/pdf/17eafef9e25b48eb90a9a7f32c4f52e21177cc73.pdf.
-E.g. "TyG is effective to identify individuals at risk for NAFLD." | "Direct Causal"
---> "TyG is ineffective to identify individuals at risk for NAFLD." | "No Relationship"
-
-Test: Original test sentences are based on corpus AltLex (Hidey et al, 2016) 
-(https://github.com/chridey/altlex) and PubMed by (Yu et al, 2019)
-(https://github.com/junwang4/causal-language-use-in-science). More expected examples 
-and output grouped by grammar method is available in the Appendix of the code paper.
-
-Note: This augment may work for general relations too but the precision is lower for longer sentences.
-E.g. "She is related to John" | "Direct Relation" 
---> "She is not related to John." | "No Relationship"
-"""
-
 import random
 from interfaces.SentenceOperation import SentenceAndTargetOperation
 from tasks.TaskTypes import TaskType
