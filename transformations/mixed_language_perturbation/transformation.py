@@ -33,7 +33,7 @@ def mixed_language(model, tokenizer, text, prob=0.1, src_lang="en", trg_lang="fr
             if plain_word == "":
                 continue
 
-            mixed_text += translate(model, tokenizer, plain_word, src_lang, trg_lang)[0]
+            mixed_text += translate(model, tokenizer, plain_word, src_lang, trg_lang)[0].lower()
 
             if word[-1] in string.punctuation:
                 mixed_text += word[-1]
