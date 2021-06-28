@@ -144,10 +144,13 @@ def recognized_as_sticky_numbers(x):
 
     first_part = x[begin_digit_index:end_digit_index]
     last_part = x[end_digit_index:]
-    return re.search(r'^\d*[.,]?\d*$',first_part) and (last_part in ['st', 'nd', 'rd','th', '%'] or not re.search(r'\d', last_part))
+    return re.search(r'^\d*[.,]?\d*$',first_part) and (last_part in ['st', 'nd', 'rd','th', '%'] or not re.search(r'\d', last_part)) and x[0].isnumeric()
+
+def recognized_as_math_formula_equal(x):
+    return '=' in x
 
 def recognized_as_general_numbers(x):
-    return bool(re.search(r'^\d*[.,]?\d*$',x)) and x[-1].isnumeric()
+    return x.replace(',','').replace('.','').isnumeric() and x[-1].isnumeric()
     
 ### Transformers
 
@@ -250,10 +253,44 @@ def sticky_numbers_to_words(x):
         words = num2words(first_part, to='cardinal') + ' ' +  last_part
     return words
 
+def math_formula_equal_to_words(x):
+    before_equal = x[:x.index('=')]
+    after_equal = x[(x.index('=')+1):]
+
+    begin_digit_index = re.search(r"\d", after_equal).start()
+    end_digit_index = len(after_equal) - re.search(r"\d", after_equal[::-1]).start()
+
+    first_part = after_equal[begin_digit_index:end_digit_index]
+    last_part = after_equal[end_digit_index:]
+
+    after_equal = num2words(first_part) + ' ' +  last_part
+
+    words = before_equal + ' = ' + after_equal
+    return words
+
 def general_numbers_to_words(x):
     """
     General number and decimals (Distance, weight, etc)
     """
+    if ',' in x:
+        # find the last_comma_till_the_end_of_numerical_char_after_last_comma
+        last_comma_index = max([i for i, ltr in enumerate(x) if ltr == ','])
+
+        count = 0
+        for i in np.arange(last_comma_index+1, len(x), 1):
+            if x[i].isnumeric():
+                count = count + 1
+            else:
+                break
+
+        if count == 3:
+            # last comma until the first comma is not needed
+            x = x.replace(',','')
+
+        if count != 3:
+            # last comma is actually dot, there'll only 1 comma in this case
+            x = x[:last_comma_index] + '.' + x[last_comma_index+1:]
+        
     words = ''.join(num2words(x).split(","))
     return words
     
@@ -269,39 +306,43 @@ def recognize_transform(token):
             words = datestring_to_words(token)
 #             print('A', words)
             return words
+        elif recognized_as_general_numbers(token):
+            words = general_numbers_to_words(token)
+#             print('B', words)
+            return words
         elif recognized_as_time(token):
             words = time_to_words(token)
-#             print('B', words)
+#             print('C', words)
             return words
         elif recognized_as_year(token):
             words = year_to_words(token)
-#             print('C', words)
+#             print('D', words)
             return words
         elif recognized_as_currency_symbols(token):
             words = currency_to_words(token)
-#             print('D', words)
+#             print('E', words)
             return words
         elif recognized_as_phone_number(token): 
             words = phonenum_to_words(token)
-#             print('E', words)
+#             print('F', words)
             return words
         elif recognized_as_long_number(token):
             words = long_number_to_words(token)
-#             print('F', words)
+#             print('G', words)
             return words
         elif recognized_as_sticky_numbers(token):
             words = sticky_numbers_to_words(token)
-#             print('G', words)
-            return words
-        elif recognized_as_general_numbers(token):
-            words = general_numbers_to_words(token)
 #             print('H', words)
             return words
+        elif recognized_as_math_formula_equal(token):
+            words = math_formula_equal_to_words(token)
+#             print('I', words)
+            return words
         else: # ELSE: Numbers that not in the above stated formats, strings
-#             print('I', token)
+#             print('J', token)
             return token
     else:
-#         print('J', token)
+#         print('K', token)
         return token
 
 ### Supplements
