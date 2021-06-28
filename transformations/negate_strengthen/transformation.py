@@ -6,6 +6,7 @@ import re
 import spacy
 from spacy.tokenizer import Tokenizer
 import pandas as pd
+import nltk
 from nltk.corpus import wordnet
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.metrics import edit_distance
