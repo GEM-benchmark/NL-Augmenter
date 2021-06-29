@@ -40,37 +40,40 @@ class TransformerReplace(SentenceOperation):
 
     def __init__(
         self,
-        replace_probability=0.2,
+        n=1,
         spacy_model="en_core_web_sm",
         transformer_model="distilroberta-base",
         top_k=5,
+        context_text="",
         device=-1,
         pos_tokens: Set[Literal[POS_TYPES]] = set(get_args(POS_TYPES)),
         sample_top_k=False,
+        seed=0,
     ):
-        super().__init__()
-        self.replace_probability = replace_probability
-        self.nlp = spacy.load(spacy_model)
+        super().__init__(seed=seed)
+        self.n = n
+        self.nlp = spacy.load(spacy_model, disable=["ner", "lemmatizer"])
         self.fill_pipeline = pipeline(
             "fill-mask", model=transformer_model, top_k=top_k, device=device
         )
         self.pos_tokens = pos_tokens
         self.sample_top_k = sample_top_k
-        random.seed(self.seed)
 
-    def _replace_tokens(self) -> bool:
-        return random.random() < self.replace_probability
+        # context text get's prepended to sentence - can be used to prime transformer predictions
+        self.context_text = context_text
 
     def get_masked_sentences_from_sentence(
         self, doc: spacy.tokens.Doc
     ) -> Tuple[List[str], List[OriginalWord]]:
+        random.seed(self.seed)
         masked_texts = []
         original_words = []
         for token in doc:
-            if token.pos_ in self.pos_tokens and self._replace_tokens():
+            if token.pos_ in self.pos_tokens:
                 masked_texts.append(
                     (
-                        doc[: token.i].text
+                        self.context_text
+                        + doc[: token.i].text
                         + " "
                         + self.fill_pipeline.tokenizer.mask_token
                         + " "
@@ -78,7 +81,12 @@ class TransformerReplace(SentenceOperation):
                     ).strip()
                 )
                 original_words.append(OriginalWord(token.i, token.text))
-        return (masked_texts, original_words)
+
+        # select n words to replace
+        selection = random.sample(list(zip(masked_texts, original_words)), self.n)
+        masked_texts, original_words = zip(*selection)
+
+        return (list(masked_texts), list(original_words))
 
     def generate_from_predictions(
         self,
@@ -122,10 +130,10 @@ class TransformerReplace(SentenceOperation):
             # else if last word then complete sentence
             elif i + 1 == len(original_words):
                 new_text += " " + doc[original_words[i].index + 1 :].text
-        return new_text
+        return new_text.strip()
 
     def generate(self, sentence: str) -> List[str]:
-        doc = self.nlp(sentence)
+        doc = self.nlp(sentence, disable=["ner", "lemmatizer"])
         masked_texts, original_words = self.get_masked_sentences_from_sentence(doc)
         if len(masked_texts) > 0:
             predictions = self.fill_pipeline(masked_texts)
@@ -135,27 +143,3 @@ class TransformerReplace(SentenceOperation):
             return [new_sentence]
         else:
             return [sentence]
-
-
-# """
-# # Sample code to demonstrate usage. Can also assist in adding test cases.
-# # You don't need to keep this code in your transformation.
-# if __name__ == '__main__':
-#     import jsontransformation.py
-#     from TestRunner import convert_to_snake_case
-
-#     tf = ButterFingersPerturbation(max_output=3)
-#     sentence = "Andrew finally returned the French book to Chris that I bought last week"
-#     test_cases = []
-#     for sentence in ["Andrew finally returned the French book to Chris that I bought last week",
-#                      "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
-#                      "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
-#                      "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
-#                      "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."]:
-#         test_cases.append({
-#             "class": tf.name(),
-#             "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
-#         )
-#     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-#     print(json.dumps(json_file))
-# """
