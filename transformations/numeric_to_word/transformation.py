@@ -18,10 +18,12 @@ class NumericToWord(SentenceOperation):
     def generate(self, sentence: str):
         pertubed = ""
         words = sentence.split()
-        for word in words:
+        for i, word in enumerate(words):
+            prev_word = sentence.split()[i-1] if i > 0 else ' ' # beginning of sentence
+            next_word = sentence.split()[i+1] if i < len(sentence.split())-1 else ' ' # end of sentence
             if pertubed != "":
                 pertubed += " "
-            perturbed += numeric2word(word, seed=self.seed)
+            perturbed += numeric2word.recognize_transform(word, prev_word, next_word)
         return pertubed
 
 # if __name__ == '__main__':
