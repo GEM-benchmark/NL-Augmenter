@@ -19,6 +19,7 @@ class RandomUpperPerturbation(SentenceOperation):
 
     def __init__(self, seed=0, max_output=1, corrupt_proportion=0.1):
         super().__init__(seed)
+        random.seed(seed)
         self.max_output = max_output
         self.corrupt_proportion = corrupt_proportion
 
