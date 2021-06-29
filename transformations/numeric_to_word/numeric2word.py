@@ -6,9 +6,15 @@ import datetime
 import numpy as np
 import phonenumbers
 from num2words import num2words
+from unidecode import unidecode
 from phonenumbers import carrier, timezone, geocoder
 
+special_numbers = ['911']
+
 ### Recognizers
+
+def recognized_as_power_of_ten(word, prev_word):
+    return word[:2] == '10' and unidecode(prev_word) == 'x'
 
 def recognized_as_datestring(x):
     """
@@ -188,7 +194,7 @@ def recognized_as_long_number(x):
     return len(x) >= threshold and x.isnumeric()
 
 def recognized_as_long_number_with_stripes(x):
-    return len(re.sub('[0-9-]','',x)) == 0
+    return len(re.sub('[0-9-]','',x)) == 0 and len(x) > 8
 
 def recognized_as_sticky_numbers(x):
     begin_digit_index = re.search(r"\d", x).start()
@@ -222,6 +228,9 @@ def recognized_as_special_phone_number(x):
 
 def recognized_as_general_numbers(x):
     return x.replace(',','').replace('.','').isnumeric() and x[-1].isnumeric()
+
+def recognized_as_special_numbers(x):
+    return x in special_numbers
     
 ### Transformers
 
@@ -268,8 +277,11 @@ def phonenum_to_words(x):
         words = ''
     
     x = re.sub("[^0-9]", "", x)
-    for number in x:
-        words = words + numbers[int(number)] + ' '
+    for i, number in enumerate(x):
+        if i == len(x)-1:
+            words = words + numbers[int(number)]
+        else:
+            words = words + numbers[int(number)] + ' '
     return words
 
 def currency_to_words(x):
@@ -351,8 +363,11 @@ def long_number_to_words(x):
     else:
         words = ''
         
-    for number in x:
-        words = words + numbers[int(number)] + ' '
+    for i, number in enumerate(x):
+        if i == len(x)-1:
+            words = words + numbers[int(number)]
+        else:
+            words = words + numbers[int(number)] + ' '
     return words
 
 def long_number_with_stripes_to_words(x):
@@ -364,7 +379,7 @@ def long_number_with_stripes_to_words(x):
             else:
                 words = words + num2words(char) + ' '
         else:
-            if i == len(x):
+            if i == len(x)-1:
                 words = words + char 
             else:
                 words = words + char + ' '
@@ -446,81 +461,89 @@ def general_numbers_to_words(x):
     
 ### Implementations 
 
-def recognize_transform(token):
-    if bool(re.search(r'\d', token)):
-        datestring_recognized, new_datetoken = recognized_as_datestring(token)
-        incomplete_date_recognized, new_incomplete_date_token = recognized_as_incomplete_date(token)
-        if type(new_incomplete_date_token) != bool:
-            token = new_incomplete_date_token
-        elif type(new_datetoken) != bool:
-            token = new_datetoken
-            
+def recognize_transform(word, prev_word, next_word):
+    
+    if recognized_as_power_of_ten(word, prev_word):
+        words = 'ten power ' + num2words(unidecode(word[2:]))
+        return words
+    elif bool(re.search(r'\d', word)):
+        datestring_recognized, new_dateword = recognized_as_datestring(word)
+        incomplete_date_recognized, new_incomplete_date_word = recognized_as_incomplete_date(word)
+        if type(new_incomplete_date_word) != bool:
+            word = new_incomplete_date_word
+        elif type(new_dateword) != bool:
+            word = new_dateword
+
         if datestring_recognized:
-            words = datestring_to_words(token)
-#             print('A', token, words)
+            words = datestring_to_words(word)
+#             print('A', word, words)
             return words
         elif incomplete_date_recognized:
-            words = incompelete_date_to_words(token)
-#             print('B', token, words)
+            words = incompelete_date_to_words(word)
+#             print('B', word, words)
             return words
-        elif recognized_as_general_numbers(token):
-            words = general_numbers_to_words(token)
-#             print('C', token, words)
+        elif recognized_as_special_numbers(word):
+            words = phonenum_to_words(word)
+#             print('C', word, words)
             return words
-        elif recognized_as_time(token):
-            words = time_to_words(token)
-#             print('D', token, words)
+        elif recognized_as_general_numbers(word):
+            words = general_numbers_to_words(word)
+#             print('D', word, words)
             return words
-        elif recognized_as_year(token):
-            words = year_to_words(token)
-#             print('E', token, words)
+        elif recognized_as_time(word):
+            words = time_to_words(word)
+#             print('E', word, words)
             return words
-        elif recognized_as_currency_symbols(token):
-            words = currency_to_words(token)
-#             print('F', token, words)
+        elif recognized_as_year(word):
+            words = year_to_words(word)
+#             print('F', word, words)
             return words
-        elif recognized_as_cents(token):
-            words = cents_to_words(token)
-#             print('G', token, words)
+        elif recognized_as_currency_symbols(word):
+            words = currency_to_words(word)
+#             print('G', word, words)
             return words
-        elif recognized_as_phone_number(token): 
-            words = phonenum_to_words(token)
-#             print('H', token, words)
+        elif recognized_as_cents(word):
+            words = cents_to_words(word)
+#             print('H', word, words)
             return words
-        elif recognized_as_special_phone_number(token):
-#             print('I', token, words)
-            words = token[0] + ' ' + phonenum_to_words(token) + token[-1]
+        elif recognized_as_phone_number(word): 
+            words = phonenum_to_words(word)
+#             print('I', word, words)
             return words
-        elif recognized_as_long_number(token):
-            words = long_number_to_words(token)
-#             print('J', token, words)
+        elif recognized_as_special_phone_number(word):
+            words = word[0] + ' ' + phonenum_to_words(word) + ' ' + word[-1]
+#             print('J', word, words)
             return words
-        elif recognized_as_long_number_with_stripes(token):
-            words = long_number_with_stripes_to_words(token)
-#             print('K', token, words)
+        elif recognized_as_long_number(word):
+            words = long_number_to_words(word)
+#             print('K', word, words)
             return words
-        elif recognized_as_sticky_numbers(token):
-            words = sticky_numbers_to_words(token)
-#             print('L', token, words)
+        elif recognized_as_long_number_with_stripes(word):
+            words = long_number_with_stripes_to_words(word)
+#             print('L', word, words)
             return words
-        elif recognized_as_math_formula_equality(token):
-            words = math_formula_equality_to_words(token)
-#             print('M', token, words)
+        elif recognized_as_sticky_numbers(word):
+            words = sticky_numbers_to_words(word)
+#             print('M', word, words)
             return words
-        elif recognize_numeric_in_begin_end_bracket(token):
-            words = token[0] + recognize_transform(token[1:-1]) + token[-1]
-#             print('O', token, words)
+        elif recognized_as_math_formula_equality(word):
+            words = math_formula_equality_to_words(word)
+#             print('N', word, words)
             return words
-        elif recognized_as_math_bracket(token):
-            words = math_bracket_to_words(token)
-#             print('P', token, words)
+        elif recognize_numeric_in_begin_end_bracket(word):
+            words = word[0] + recognize_transform(word[1:-1], ' ', ' ') + word[-1]
+#             print('O', word, words)
+            return words
+        elif recognized_as_math_bracket(word):
+            words = math_bracket_to_words(word)
+#             print('P', word, words)
             return words
         else: # ELSE: Numbers that not in the above stated formats, strings
-#             print('Q', token)
-            return token
+#             print('Q', word)
+            return word
     else:
-#         print('R', token)
-        return token
+#         print('R', word)
+        return word
 
 ### Supplements
 
