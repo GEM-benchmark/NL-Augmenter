@@ -16,6 +16,16 @@ special_numbers = ['911']
 def recognized_as_power_of_ten(word, prev_word):
     return word[:2] == '10' and unidecode(prev_word) == 'x'
 
+def recognized_as_range_not_sticky(word, next_word):
+    if bool(re.search(r'\d', word)) and not next_word[0].isnumeric() and word.find('-') > -1:
+        begin_digit_index = re.search(r"\d", word).start()
+        end_digit_index = len(word) - re.search(r"\d", word[::-1]).start()
+
+        first_part = word[begin_digit_index:end_digit_index]
+        last_part = word[end_digit_index:]
+
+        return bool(re.search(r'^\d*[-]?\d*$',first_part)) and len(last_part) == 0 and word[0].isnumeric()
+
 def recognized_as_datestring(x):
     """
     As per formats listed in the https://en.wikipedia.org/wiki/Date_format_by_country, accepting:
@@ -202,7 +212,15 @@ def recognized_as_sticky_numbers(x):
 
     first_part = x[begin_digit_index:end_digit_index]
     last_part = x[end_digit_index:]
-    return re.search(r'^\d*[.,]?\d*$',first_part) and (last_part in ['st', 'nd', 'rd','th', '%'] or not re.search(r'\d', last_part)) and x[0].isnumeric()
+    return bool(re.search(r'^\d*[.,]?\d*$',first_part)) and (last_part in ['st', 'nd', 'rd','th', '%'] or not re.search(r'\d', last_part)) and x[0].isnumeric()
+
+def recognized_as_sticky_range(x):
+    begin_digit_index = re.search(r"\d", x).start()
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+
+    first_part = x[begin_digit_index:end_digit_index]
+    last_part = x[end_digit_index:]
+    return bool(re.search(r'^\d*[-]?\d*$',first_part)) and len(last_part) > 0 and not re.search(r'\d', last_part) and x[0].isnumeric()
 
 def recognized_as_math_formula_equality(x):
     matches = []
@@ -399,6 +417,16 @@ def sticky_numbers_to_words(x):
         words = num2words(first_part, to='cardinal') + ' ' +  last_part if len(last_part) > 0 else num2words(first_part, to='cardinal')
     return words
 
+def sticky_range_to_words(x):
+    begin_digit_index = re.search(r"\d", x).start()
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+
+    first_part = x[begin_digit_index:end_digit_index]
+    last_part = x[end_digit_index:]
+    
+    words = num2words(first_part[:first_part.index('-')]) + ' to ' +  num2words(first_part[first_part.index('-')+1:]) + ' ' + last_part
+    return words
+
 def math_formula_equality_to_words(x):
     equality_sign_index_list = []
     for equality_sign in ['=', '<', '<=', '=>', '>', '!=']:
@@ -466,6 +494,9 @@ def recognize_transform(word, prev_word, next_word):
     if recognized_as_power_of_ten(word, prev_word):
         words = 'ten power ' + num2words(unidecode(word[2:]))
         return words
+    elif recognized_as_range_not_sticky(word, next_word):
+        words = sticky_range_to_words(word)[:-1]
+        return words
     elif bool(re.search(r'\d', word)):
         datestring_recognized, new_dateword = recognized_as_datestring(word)
         incomplete_date_recognized, new_incomplete_date_word = recognized_as_incomplete_date(word)
@@ -526,23 +557,27 @@ def recognize_transform(word, prev_word, next_word):
             words = sticky_numbers_to_words(word)
 #             print('M', word, words)
             return words
+        elif recognized_as_sticky_range(word):
+            words = sticky_range_to_words(word)
+#             print('N', word, words)
+            return words
         elif recognized_as_math_formula_equality(word):
             words = math_formula_equality_to_words(word)
-#             print('N', word, words)
+#             print('O', word, words)
             return words
         elif recognize_numeric_in_begin_end_bracket(word):
             words = word[0] + recognize_transform(word[1:-1], ' ', ' ') + word[-1]
-#             print('O', word, words)
+#             print('P', word, words)
             return words
         elif recognized_as_math_bracket(word):
             words = math_bracket_to_words(word)
-#             print('P', word, words)
+#             print('Q', word, words)
             return words
         else: # ELSE: Numbers that not in the above stated formats, strings
-#             print('Q', word)
+#             print('R', word)
             return word
     else:
-#         print('R', word)
+#         print('S', word)
         return word
 
 ### Supplements
