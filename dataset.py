@@ -246,7 +246,7 @@ class KeyValueDataset(BaseDataset):
         sentence = datapoint[self.fields[0]]
         transformed_sentence = transformation.generate(sentence)
         datapoint[self.fields[0]] = transformed_sentence
-        return datapoint
+        return [datapoint]
 
     def _apply_sentence_and_target_transformation(
             self, datapoint: dict, transformation: SentenceAndTargetOperation
@@ -258,7 +258,7 @@ class KeyValueDataset(BaseDataset):
         )
         datapoint[self.fields[0]] = transformed_sentence
         datapoint[self.fields[1]] = transformed_target
-        return datapoint
+        return [datapoint]
 
     def _apply_sentence_and_targets_transformation(
             self, datapoint: dict, transformation: SentenceAndTargetsOperation
@@ -273,7 +273,7 @@ class KeyValueDataset(BaseDataset):
             datapoint_n = dict()
             datapoint_n[self.fields[0]] = to[0]
             for i, target_key in enumerate(self.fields[1:]):
-                datapoint[target_key] = to[1][i]
+                datapoint[target_key] = to[1][1+i] # targets starting from pos 1
             datapoints.append(datapoint_n)
         return datapoints
 
@@ -291,7 +291,7 @@ class KeyValueDataset(BaseDataset):
             datapoint_n[self.fields[0]] = to[0]
             datapoint_n[self.fields[1]] = to[1]
             for i, answers_key in enumerate(self.fields[2:]):
-                datapoint_n[answers_key] = to[i]
+                datapoint_n[answers_key] = to[2+i] # answers starting from pos 2
             datapoints.append(datapoint_n)
 
         return datapoints
