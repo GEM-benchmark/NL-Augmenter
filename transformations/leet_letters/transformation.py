@@ -1,3 +1,5 @@
+import random
+
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -45,11 +47,24 @@ class LeetLetters(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, seed: int = 0, max_leet: float = 0.5):
+        super().__init__(seed=seed)
+        self.max_leet = max_leet
+        self.seed
 
     def generate(self, sentence: str):
-        perturbed = ""
+        random.seed(self.seed)
+        max_leet_replacements = int(self.max_leet * len(sentence))
+
+        # Determine what to replace
+        leet_candidates = []
         for letter in sentence:
-            perturbed += leet_letter_mappings.get(letter, letter)
-        return perturbed
+            if letter in leet_letter_mappings:
+                leet_candidates.append(sentence.index(letter), leet_letter_mappings[letter])
+        leet_replacements = random.sample(leet_candidates, max_leet_replacements)
+
+        # Conduct replacement
+        for idx, leet in leet_replacements:
+            sentence[idx] = leet
+            
+        return sentence

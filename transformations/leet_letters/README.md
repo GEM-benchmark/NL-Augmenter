@@ -1,7 +1,10 @@
 # Leet Letters 🦎 + 🎮 → 🐍
-This perturbation replaces letters with leet, a common encoding used in gaming. For example: Leet -> L33t
+This perturbation replaces letters with leet, a common encoding used in gaming. The maximum amount of replacements in a sentence is configurable.
+For example: Leet -> L33t
 
-Author name: Niklas Muennighoff (muennighoff@stu.pku.edu.cn)
+Author name: Niklas Muennighoff
+Author email: muennighoff@stu.pku.edu.cn
+Author Affiliation: Peking University
 
 ## What type of a transformation is this?
 This transformation acts like a perturbation to test robustness and visual intuition of letters. 
