@@ -3,8 +3,7 @@ spacy==2.2.4
 nltk==3.6.2
 
 # for sentence_reordering
-neuralcoref
---no-binary neuralcoref
+neuralcoref @ git+https://github.com/huggingface/neuralcoref.git
 
 # for back_translation
 torch
