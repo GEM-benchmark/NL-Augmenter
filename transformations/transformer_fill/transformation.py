@@ -1,6 +1,7 @@
 import random
 from collections import namedtuple
-from typing import Any, List, Literal, Set, Tuple, get_args
+from typing import Any, List, Set, Tuple
+from typing_extensions import Literal, get_args
 
 import spacy
 import torch
@@ -31,7 +32,7 @@ POS_TYPES = Literal[
 OriginalWord = namedtuple("OriginalWord", ["index", "text"])
 
 
-class TransformerReplace(SentenceOperation):
+class TransformerFill(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = [
         "en"
@@ -40,16 +41,27 @@ class TransformerReplace(SentenceOperation):
 
     def __init__(
         self,
-        n=1,
-        spacy_model="en_core_web_sm",
-        transformer_model="distilroberta-base",
-        top_k=5,
-        context_text="",
-        device=-1,
+        n: int = 1,
+        spacy_model: str = "en_core_web_sm",
+        transformer_model: str = "distilroberta-base",
+        top_k: int = 5,
+        context_text: str = "",
+        device: int = -1,
         pos_tokens: Set[Literal[POS_TYPES]] = set(get_args(POS_TYPES)),
-        sample_top_k=False,
-        seed=0,
+        sample_top_k: bool = False,
+        seed: int = 0,
     ):
+        """
+        Args:
+            n (int): The number of tokens to change in the sentence.
+            spacy_model (str): The spacy model to use to identify tokens by POS tag
+            transformer_model (str): The Huggingface transformer model used
+            top_k (int): How many candidate words to consider (should be greater > 1 in case word is same as the one being replaced)
+            context_text (str): Text to prepend sentence with, to guide model predictions
+            device (int): Pass index of GPU if needed
+            pos_tokens (Set[Literal[POS_TYPES]]): a set of POS types by which to find potential tokens to replace
+            sample_top_k (bool): whether or not to sample from the top_k tokens instead of selecting the best match
+        """
         super().__init__(seed=seed)
         self.n = n
         self.nlp = spacy.load(spacy_model, disable=["ner", "lemmatizer"])
