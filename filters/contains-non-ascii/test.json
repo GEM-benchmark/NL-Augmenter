@@ -1,0 +1,40 @@
+{
+    "type": "keywords",
+    "test_cases": [
+        {
+            "class": "TextContainsNonAsciiFilter",
+            "inputs": {
+                "sentence": "Andrew played cricket in India."
+            },
+            "outputs": false
+        },
+        {
+            "class": "TextContainsNonAsciiFilter",
+            "inputs": {
+                "sentence": "Your mail adress seems to be incomplete: \"andrew-plays-cricket@india\"!"
+            },
+            "outputs": false
+        },
+        {
+            "class": "TextContainsNonAsciiFilter",
+            "inputs": {
+                "sentence": "That souvenir sure was expensive at 60£.. or was it 60€?"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextContainsNonAsciiFilter",
+            "inputs": {
+                "sentence": "I ❤️ New York"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextContainsNonAsciiFilter",
+            "inputs": {
+                "sentence": "Yes, I love my brandnew fully portable Vacu3000™."
+            },
+            "outputs": true
+        }
+    ]
+}
