@@ -1,7 +1,7 @@
 import numpy as np
 import spacy
 
-from interfaces.SentenceOperation import SentenceOperation
+from interfaces.SentenceOperation import SentenceAndTargetOperation
 from tasks.TaskTypes import TaskType
 
 import os
@@ -11,13 +11,14 @@ import random
 import hashlib
 from checklist.perturb import process_ret
 
+
 def hash(input:str):
     t_value = input.encode('utf8')
     h = hashlib.sha256(t_value)
     n = int(h.hexdigest(),base=16)
     return n
 
-class change_gender_culture_diverse_name:
+class change_gender_culture_diverse_name_two_way:
     def __init__(self, data_path, retain_gender=False, retain_culture=False) -> None:
 
         self.retain_gender = retain_gender
@@ -46,7 +47,7 @@ class change_gender_culture_diverse_name:
                     else:
                         self.name2country[name].add(country)
 
-    def apply(self, doc, n=10, max_output=10, seed=None):
+    def apply(self, doc, tar, n=10, max_output=10, seed=None):
         """Replace names with another name, considering gender and cultural diversity
 
         Parameters
@@ -71,7 +72,8 @@ class change_gender_culture_diverse_name:
         if seed is not None:
             random.seed(seed)
         ents = [x.text for x in doc.ents if np.all([a.ent_type_ == 'PERSON' for a in x])]
-        ret = []
+        ret_s = []
+        ret_t = []
         ret_m = []
         for x in ents:
             name = x.split()[0]
@@ -96,20 +98,22 @@ class change_gender_culture_diverse_name:
                     new_names = [n.lower() for n in new_names]
                 
                 for new_name in new_names:
-                    ret.append(re.sub(r'\b%s\b' % re.escape(name), new_name, doc.text))
+                    ret_s.append(re.sub(r'\b%s\b' % re.escape(name), new_name, doc.text))
+                    ret_t.append(re.sub(r'\b%s\b' % re.escape(name), new_name, tar))
                     ret_m.append((name, new_name))
         
-        if len(ret) > max_output:
-            idxs = random.choices(range(len(ret)), k=max_output)
-            return [ret[idx] for idx in idxs], [ret_m[idx] for idx in idxs]
+        if len(ret_s) > max_output:
+            idxs = random.choices(range(len(ret_s)), k=max_output)
+            return [ret_s[idx] for idx in idxs], [ret_t[idx] for idx in idxs], [ret_m[idx] for idx in idxs]
         else:
-            return ret, ret_m
+            return ret_s, ret_t, ret_m
                 
 
 
-class gender_culture_diverse_name(SentenceOperation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+class gender_culture_diverse_name_two_way(SentenceAndTargetOperation):
+    tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    tgt_languages = ['en']
 
     def __init__(self, n=1, seed=0, max_output=1, retain_gender=False, retain_culture=False, data_path=None):
         super().__init__(seed)
@@ -118,30 +122,41 @@ class gender_culture_diverse_name(SentenceOperation):
         self.max_output = max_output
 
         if data_path is None:
-            self.changer = change_gender_culture_diverse_name(
+            self.changer = change_gender_culture_diverse_name_two_way(
                 os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data.json'),
                 retain_gender, 
                 retain_culture
             )
         else:
-            self.changer = change_gender_culture_diverse_name(
+            self.changer = change_gender_culture_diverse_name_two_way(
                 data_path,
                 retain_gender, 
                 retain_culture
             )
 
-    def generate(self, sentence: str):
+    def generate(self, sentence: str, target: str):
         random.seed(self.seed + hash(sentence))
-        perturbed_texts, _ = self.changer.apply(self.nlp(sentence), self.n, self.max_output)
+        perturbed_source, perturbed_target, _ = self.changer.apply(self.nlp(sentence), target, self.n, self.max_output)
 
-        return perturbed_texts
+        return [(perturbed_source, perturbed_target)]
 
+from TestRunner import convert_to_snake_case
+tf = gender_culture_diverse_name_two_way()
+src = ["Andrew finally returned the French book to Chris that I bought last week",
+           "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate"
+           " to indicate the relation between two or more arguments."]
+tgt = ["Andrew did not return the French book to Chris that was bought earlier",
+           "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!", ]
 
-test = gender_culture_diverse_name()
-# sentence = 'Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.'
-# sentence = 'Phoebe Buffay is an eccentric masseuse and musician.'
-# sentence = 'Joey has many short-term girlfriends.'
-# sentence = 'Chandler Bing is a sarcastic and self-deprecating IT manager.'
-sentence = 'Monica was overweight as a child.'
-p = test.generate(sentence)
-print(p[0])
+test_cases = []
+for idx, (sentence, target) in enumerate(zip(src, tgt)):
+        perturbeds = tf.generate(sentence, target)
+        test_cases.append({
+            "class": tf.name(),
+            "inputs": {"sentence": sentence, "target": target},
+            "outputs": []}
+        )
+        for sentence, target in perturbeds:
+            test_cases[idx]["outputs"].append({"sentence": sentence, "target": target})
+
+A = 1
