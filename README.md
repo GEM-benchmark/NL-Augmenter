@@ -8,7 +8,9 @@ The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
 | Due date          | Description                                                                 |
 | ------------------ | -----------                                                                 |
-| September  1, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
+|  July 25, 2021   | Pull request must be opened to be invited as a reviewer and be included in the framework & associated paper |
+|  August 15, 2021   | Review process for pull request above must be complete to be invited as a reviewer and be included in the framework & associated paper |
+| August 31, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
 | September 22, 2021 | Review process for pull request above must be complete           |
 
 A transformation can be revised between the pull request submission and pull request merge deadlines. We will provide reviewer feedback to help with the revisions.
@@ -26,7 +28,7 @@ The transformations which are already accepted to NL-Augmenter are summarized in
 
 ## Colab notebook
 
-<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly see transformations and filters in action, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb). 
+<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly see transformations and filters in action, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb).
 
 ## Installation
 
@@ -107,3 +109,7 @@ Alternatively, you can do so from the GitHub website.
 ## How do I create a filter?
 
 We also accept pull-requests for creating [filters](filters) which identify interesting subpopulations of a dataset. The process to add a new filter is just the same as above. All filter implementations require implementing `.filter` instead of `.generate` and need to be placed in the [filters](filters) folder. So, just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters simply return True or False! For step-by-step instructions, follow [these](filters) steps.
+
+### Most Creative Implementations 🏆
+
+After all pull-requests have been merged, 3 of the [most creative implementations](docs/doc.md#Three-most-creative-Implementations) would be selected and featured on this README page and on the NL-Augmenter [webpage](https://gem-benchmark.com/nl_augmenter).
