@@ -52,6 +52,36 @@ def recognized_as_datestring(x):
                             except ValueError:
                                 return False, False
 
+def recognized_as_incomplete_date(x):
+    """
+    As per formats listed in the https://en.wikipedia.org/wiki/Date_format_by_country, accepting:
+    
+    x = '01/2020'
+    x = '2020/01'
+    x = '20/01'
+    x = '01/20'
+    
+    Accepting only the separator /
+    """
+    
+    try:
+        datetime_x = datetime.datetime.strptime(x, '%Y/%m')
+        return True, datetime_x
+    except ValueError:
+        try:
+            datetime_x = datetime.datetime.strptime(x, '%y/%m')
+            return True, datetime_x
+        except ValueError:
+            try:
+                datetime_x = datetime.datetime.strptime(x, '%m/%Y')
+                return True, datetime_x
+            except ValueError:
+                try:
+                    datetime_x = datetime.datetime.strptime(x, '%m/%y')
+                    return True, datetime_x
+                except ValueError:
+                    return False, False
+
 def recognized_as_year(x):
     possible_year_list = [str(x) for x in np.arange(1,2090,1)]
 
@@ -187,6 +217,9 @@ def recognize_numeric_in_begin_end_bracket(x):
 def recognized_as_math_bracket(x):
     return x[0] == '(' and recognized_as_sticky_numbers(x[1:])
 
+def recognized_as_special_phone_number(x):
+    return x[0] in '*#' and x[-1] in '*#'
+
 def recognized_as_general_numbers(x):
     return x.replace(',','').replace('.','').isnumeric() and x[-1].isnumeric()
     
@@ -194,6 +227,10 @@ def recognized_as_general_numbers(x):
 
 def datestring_to_words(x):
     words = 'the ' + num2words(x.day, to='ordinal') + ' of ' + calendar.month_name[x.month].lower() + ' ' + year_to_words(str(x.year))
+    return words
+
+def incompelete_date_to_words(x):
+    words = calendar.month_name[x.month].lower() + ' ' + year_to_words(str(x.year))
     return words
 
 def time_to_words(x):
@@ -411,13 +448,20 @@ def general_numbers_to_words(x):
 
 def recognize_transform(token):
     if bool(re.search(r'\d', token)):
-        datestring_recognized, new_token = recognized_as_datestring(token)
-        if type(new_token) != bool:
-            token = new_token
+        datestring_recognized, new_datetoken = recognized_as_datestring(token)
+        incomplete_date_recognized, new_incomplete_date_token = recognized_as_incomplete_date(token)
+        if type(new_incomplete_date_token) != bool:
+            token = new_incomplete_date_token
+        elif type(new_datetoken) != bool:
+            token = new_datetoken
             
         if datestring_recognized:
             words = datestring_to_words(token)
 #             print('A', token, words)
+            return words
+        elif incomplete_date_recognized:
+            words = incompelete_date_to_words(token)
+#             print('AA', token, words)
             return words
         elif recognized_as_general_numbers(token):
             words = general_numbers_to_words(token)
@@ -443,35 +487,39 @@ def recognize_transform(token):
             words = phonenum_to_words(token)
 #             print('G', token, words)
             return words
+        elif recognized_as_special_phone_number(token):
+#             print('H', token, words)
+            words = token[0] + ' ' + phonenum_to_words(token) + token[-1]
+            return words
         elif recognized_as_long_number(token):
             words = long_number_to_words(token)
-#             print('H', token, words)
+#             print('I', token, words)
             return words
         elif recognized_as_long_number_with_stripes(token):
             words = long_number_with_stripes_to_words(token)
-#             print('I', token, words)
+#             print('J', token, words)
             return words
         elif recognized_as_sticky_numbers(token):
             words = sticky_numbers_to_words(token)
-#             print('J', token, words)
+#             print('K', token, words)
             return words
         elif recognized_as_math_formula_equality(token):
             words = math_formula_equality_to_words(token)
-#             print('K', token, words)
+#             print('L', token, words)
             return words
         elif recognize_numeric_in_begin_end_bracket(token):
             words = token[0] + recognize_transform(token[1:-1]) + token[-1]
-#             print('L', token, words)
+#             print('M', token, words)
             return words
         elif recognized_as_math_bracket(token):
             words = math_bracket_to_words(token)
-#             print('M', token, words)
+#             print('N', token, words)
             return words
         else: # ELSE: Numbers that not in the above stated formats, strings
-#             print('N', token)
+#             print('O', token)
             return token
     else:
-#         print('O', token)
+#         print('P', token)
         return token
 
 ### Supplements
