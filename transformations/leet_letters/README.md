@@ -1,6 +1,5 @@
 # Leet Letters 🦎 + 🎮 → 🐍
-This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise erupting 
-from keyboard typos making common spelling errors.
+This perturbation replaces letters with leet, a common encoding used in gaming. For example: Leet -> L33t
 
 Author name: Niklas Muennighoff (muennighoff@stu.pku.edu.cn)
 
