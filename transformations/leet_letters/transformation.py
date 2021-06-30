@@ -60,7 +60,7 @@ class LeetLetters(SentenceOperation):
         leet_candidates = []
         for letter in sentence:
             if letter in leet_letter_mappings:
-                leet_candidates.append(sentence.index(letter), leet_letter_mappings[letter])
+                leet_candidates.append((sentence.index(letter), leet_letter_mappings[letter]))
         leet_replacements = random.sample(leet_candidates, max_leet_replacements)
 
         # Conduct replacement
