@@ -11,7 +11,16 @@ class QuantitativeQuestion(QuestionAnswerOperation):
         super().__init__()
         self.nlp = spacy.load("en_core_web_sm")
         # Covers the broad types of quant questions: distance , age , measurable , un-measurable
-        self.quant_ques = ['many','far','close','long','much','old']
+        self.quant_ques = ['many','much',
+                           'close','far',
+                           'young','old',
+                           'short','tall'
+                           'heavy','light'
+                           'narrow','wide',
+                           'deep','shallow',
+                           'broad','thin',
+                           'near','long']
+
 
     def filter(self,context:str = None,question: str = None,answers:str = None) -> bool:
         tokenized = self.nlp(question, disable=["parser", "tagger", "ner"])
