@@ -1,0 +1,75 @@
+{
+  "type": "question_to_statement",
+  "test_cases": [
+    {
+      "class": "QuestionToStatement",
+      "inputs": {
+        "sentence": "Did Sally finally return the french book to Chris?"
+      },
+      "outputs": [
+        {
+          "sentence": "Did Sally finally return the french book to Chris?"
+        },
+        {
+          "sentence": "Sally finally returned the french book to Chris"
+        }
+      ]
+    },
+    {
+      "class": "QuestionToStatement",
+      "inputs": {
+        "sentence": "Did the American National Shipment company really break its own fleet?"
+      },
+      "outputs": [
+        {
+          "sentence": "Did the American National Shipment company really break its own fleet?"
+        },
+        {
+          "sentence": "The American National Shipment company really broke its own fleet"
+        }
+      ]
+    },
+    {
+      "class": "QuestionToStatement",
+      "inputs": {
+        "sentence": "Couldn't she just quickly leave?"
+      },
+      "outputs": [
+        {
+          "sentence": "Couldn't she just quickly leave?"
+        },
+        {
+          "sentence": "She could just quickly leave"
+        }
+      ]
+    },
+    {
+      "class": "QuestionToStatement",
+      "inputs": {
+        "sentence": "Shall you begone, lad?"
+      },
+      "outputs": [
+        {
+          "sentence": "Shall you begone, lad?"
+        },
+        {
+          "sentence": "You shall begone, lad"
+        }
+      ]
+    },
+    {
+      "class": "QuestionToStatement",
+      "inputs": {
+        "sentence": "Has Buzz Aldrin, the first person who walked on the moon, brought back some aliens?"
+      },
+      "outputs": [
+        {
+          "sentence": "Has Buzz Aldrin, the first person who walked on the moon, brought back some aliens?"
+        },
+        {
+          "sentence": "Buzz Aldrin, the first person who walked on the moon, has brought back some aliens"
+        }
+      ]
+    }
+  ]
+}
