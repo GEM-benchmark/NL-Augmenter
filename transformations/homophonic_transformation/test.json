@@ -1,0 +1,41 @@
+{
+  "type": "random_homophonic_replacement",
+  "test_cases": [
+    {"class": "RandomHomophonicReplacement",
+      "input": {
+        "sentence": "The world is a beautiful place ."
+      },
+      "output": {
+        "sentence": "The whirled is a beautiful plaice ."
+      }
+    },
+    {
+      "class": "RandomHomophonicReplacement",
+      "input": {
+        "sentence": "Some children are buying stationary ."
+      },
+      "output": {
+        "sentence": "Some children r buying stationery ."
+      }
+    },
+    {
+      "class": "RandomHomophonicReplacement",
+      "input": {
+        "sentence": "The queen was walking with her cousin ."
+      },
+      "output": {
+        "sentence": "The quean was walking with her cozen ."
+      }
+    },
+    {
+      "class": "RandomHomophonicReplacement",
+      "input": {
+        "sentence": "The prophesy about census was right ."
+      },
+      "output": {
+        "sentence": "The prophecy about sense was rate ."
+      }
+    }
+  ]
+}
+
