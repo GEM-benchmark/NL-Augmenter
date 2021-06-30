@@ -147,7 +147,6 @@ class SuspectingParaphraser(QuestionAnswerOperation):
             return [(context, question, answers)]
 
         paraphrased = self._transform(question)
-        print(paraphrased)
         return [(context, paraphrased, answers)]
 
 
