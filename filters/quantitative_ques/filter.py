@@ -14,8 +14,8 @@ class QuantitativeQuestion(QuestionAnswerOperation):
         self.quant_ques = ['many','much',
                            'close','far',
                            'young','old',
-                           'short','tall'
-                           'heavy','light'
+                           'short','tall',
+                           'heavy','light',
                            'narrow','wide',
                            'deep','shallow',
                            'broad','thin',
