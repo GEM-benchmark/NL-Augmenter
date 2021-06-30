@@ -34,6 +34,19 @@ This perturbation would benefit all tasks with a sentence/paragraph/document as 
   year={2021}
 }
 ```
+(3) M2M100 Model, Beyond English-Centric Multilingual Machine Translation (JMLR 2021)
+```
+@article{fan2021beyond,
+  title={Beyond english-centric multilingual machine translation},
+  author={Fan, Angela and Bhosale, Shruti and Schwenk, Holger and Ma, Zhiyi and El-Kishky, Ahmed and Goyal, Siddharth and Baines, Mandeep and Celebi, Onur and Wenzek, Guillaume and Chaudhary, Vishrav and others},
+  journal={Journal of Machine Learning Research},
+  volume={22},
+  number={107},
+  pages={1--48},
+  year={2021}
+}
+
+```
 
 ## What are the limitations of this transformation?
 The transformation's outputs are dependent on the accuracy of the individual translation models and generally would generate simpler text or more popularly used text.
