@@ -1,6 +1,4 @@
 import spacy
-import sys
-sys.path.append('/home/tanay/Documents/GEM/NL-Augmenter')
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
