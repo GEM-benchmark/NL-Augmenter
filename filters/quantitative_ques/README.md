@@ -5,12 +5,15 @@
 This filter is used to identify the quantitative questions <br>
 ### Evaluation Results
 
-default model and datasets were used : `mrm8488/bert-tiny-5-finetuned-squadv2`, validation[:20%] split of the `squad`
+default model and datasets were used 
+model: `mrm8488/bert-tiny-5-finetuned-squadv2`, 
+split: 20% 
+dataset: `squad`
 
 | Question type | Number of samples| EM|
 |--------------------|------|--------|
 |All| 2114| 60.31|
-| Quant | 230| 70.86|
+|Quant | 230| 70.86|
 |Non Quant|1884| 59.02|
 
 
@@ -20,3 +23,4 @@ This filter can be used to sepearte out quantiative questions, it helps to analy
 
 ## What are the limitations of this filter?
 This is a simple filter and separtes out questions based lexical and context-free matching
+Does not consider quantitative questions involving max/min comparison
