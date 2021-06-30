@@ -1,0 +1,50 @@
+{
+  "type": "normalize_tp_ascii",
+  "test_cases": [
+    {
+      "class": "NormalizeToASCII",
+      "inputs": {
+        "sentence": "I allmänhet tror jag att det skulle vara bäst om vi åker till Österrike."
+      },
+      "outputs": [{
+        "sentence": "I allmanhet tror jag att det skulle vara bast om vi aker till Osterrike."
+      }]
+    },
+    {
+      "class": "NormalizeToASCII",
+      "inputs": {
+        "sentence": "Überhaupt denke ich, es wäre am besten, wenn wir in den Urlaub nach Österreich fahren."
+      },
+      "outputs": [{
+        "sentence": "Uberhaupt denke ich, es ware am besten, wenn wir in den Urlaub nach Osterreich fahren."
+      }]
+    },
+    {
+      "class": "NormalizeToASCII",
+      "inputs": {
+        "sentence": "Ранняя пташка ловит червя."
+      },
+      "outputs": [{
+        "sentence": "Ranniaia ptashka lovit chervia."
+      }]
+    },
+    {
+      "class": "NormalizeToASCII",
+      "inputs": {
+        "sentence": "Pythonは素晴らしい言語です。"
+      },
+      "outputs": [{
+        "sentence": "PythonhaSu Qing rasiiYan Yu desu. "
+      }]
+    },
+    {
+      "class": "NormalizeToASCII",
+      "inputs": {
+        "sentence": "Mọi người đều có bao nhiêu sự phù phiếm cũng như anh ta thiếu ý thức."
+      },
+      "outputs": [{
+        "sentence": "Moi nguoi deu co bao nhieu su phu phiem cung nhu anh ta thieu y thuc."
+      }]
+    }
+  ]
+}
