@@ -26,3 +26,8 @@ sentencepiece==0.1.95
 # for code format
 black==21.5b2
 pre-commit==2.13.0
+
+# for diverse paraphrase dips
+gensim==4.0.1
+nltk==3.6.2
+
