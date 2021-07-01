@@ -65,7 +65,7 @@ def extract_hashtags(sentence):
 
 def get_hash_tags(sentence, seed=0, max_outputs=1):
     # method for adding hashtags to sentence
-    #random.seed(seed)
+    random.seed(seed)
     hashtag_list = extract_hashtags(sentence)
     transformation_list = []
     for _ in range(max_outputs):
