@@ -5,7 +5,11 @@ import pandas as pd
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
+
+import nltk
+nltk.download('punkt')
 from nltk import word_tokenize
+
 
 """
 Multilingual Lexicon Perturbation
