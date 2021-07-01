@@ -9,8 +9,8 @@ class BackTranslation(SentenceOperation):
     languages = ["en"]
     heavy = True
 
-    def __init__(self, seed=0, max_output=1, num_beams=2):
-        super().__init__(seed, max_output=max_output)
+    def __init__(self, seed=0, max_outputs=1, num_beams=2):
+        super().__init__(seed, max_outputs=max_outputs)
         if self.verbose:
             print("Starting to load English to German Translation Model.\n")
         name_en_de = "facebook/wmt19-en-de"
@@ -46,7 +46,7 @@ class BackTranslation(SentenceOperation):
     def de2en(self, input):
         input_ids = self.tokenizer_de_en.encode(input, return_tensors="pt")
         outputs = self.model_de_en.generate(
-            input_ids, num_return_sequences=self.max_output, num_beams=self.num_beams
+            input_ids, num_return_sequences=self.max_outputs, num_beams=self.num_beams
         )
         predicted_outputs = []
         for output in outputs:

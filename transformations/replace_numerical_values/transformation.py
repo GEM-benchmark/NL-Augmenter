@@ -14,9 +14,9 @@ from tasks.TaskTypes import TaskType
 class NumericalTransformation:
     nlp = None
 
-    def __init__(self, seed=0, max_output=1):
+    def __init__(self, seed=0, max_outputs=1):
         self.nlp = spacy.load("en_core_web_sm")
-        self.max_output = max_output
+        self.max_outputs = max_outputs
         self.seed = seed
 
     def transform(self, input_text: str):
@@ -111,9 +111,9 @@ class ReplaceNumericalValues(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_output=1):
-        super().__init__(seed, max_output=max_output)
-        self.numerical_transformation = NumericalTransformation(seed, max_output)
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
+        self.numerical_transformation = NumericalTransformation(seed, max_outputs)
 
     def generate(self, sentence: str):
         result = self.numerical_transformation.transform(sentence)

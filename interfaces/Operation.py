@@ -6,12 +6,12 @@ class Operation(object):
     tasks = None
     seed = 0
     heavy = False
-    max_output = 1
+    max_outputs = 1
 
-    def __init__(self, seed=0, verbose=False, max_output=1):
+    def __init__(self, seed=0, verbose=False, max_outputs=1):
         self.seed = seed
         self.verbose = verbose
-        self.max_output = max_output
+        self.max_outputs = max_outputs
         if self.verbose:
             print(f"Loading Operation {self.name()}")
 

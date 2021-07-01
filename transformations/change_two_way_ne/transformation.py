@@ -19,8 +19,8 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
     languages = ["en"]
     tgt_languages = ["en"]
 
-    def __init__(self, first_only=False, last_only=False, n=1, seed=0, max_output=1):
-        super().__init__(seed, max_output=max_output)
+    def __init__(self, first_only=False, last_only=False, n=1, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy.load("en_core_web_sm")
         self.first_only = first_only  # first name
         self.last_only = last_only  # last name
