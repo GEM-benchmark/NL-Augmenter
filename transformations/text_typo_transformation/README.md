@@ -10,7 +10,7 @@ minimum # of letters to be replaced/swapped in each word, maximum # of letters t
 minimum # of words to be augmented, maximum # of words to be augmented, number of augmentations to be performed for each text,
 list of target words that the augmenter should prioritize to augment first are given as arguments.
 
-####Example:
+Examples:
 1. Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001  --> Jujal Dev Dosanjh served as 3r3d Premier of Brittish Columbia frome 2000 to 2001
 2. Andrew finally returned the French book to Chris that I bought last week -->  ndrew finally returned the French book ot Chris thta I bojght last week
 ## What tasks does it intend to benefit?
