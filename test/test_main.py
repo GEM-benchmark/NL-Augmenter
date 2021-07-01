@@ -6,12 +6,23 @@ from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOpe
 from interfaces.TaggingOperation import TaggingOperation
 
 
+def get_assert_message(transformation, expected_output, predicted_output):
+    transformation_name = transformation.__class__.__name__
+    return (
+        f"Mis-match in expected and predicted output for {transformation_name} transformation: \n "
+        f"Expected Output: {expected_output} \n "
+        f"Predicted Output: {predicted_output}"
+    )
+
+
 def execute_sentence_operation_test_case(transformation, test):
     filter_args = test["inputs"]
     outputs = test["outputs"]
     perturbs = transformation.generate(**filter_args)
     for pred_output, output in zip(perturbs, outputs):
-        assert pred_output == output["sentence"]
+        assert pred_output == output["sentence"], get_assert_message(
+            transformation, output["sentence"], pred_output
+        )
 
 
 def execute_sentence_target_operation_test_case(transformation, test):
@@ -19,8 +30,12 @@ def execute_sentence_target_operation_test_case(transformation, test):
     outputs = test["outputs"]
     perturbs = transformation.generate(**filter_args)
     for idx, (sentence, target) in enumerate(perturbs):
-        assert sentence == outputs[idx]["sentence"]
-        assert target == outputs[idx]["target"]
+        assert sentence == outputs[idx]["sentence"], get_assert_message(
+            transformation, outputs[idx]["sentence"], sentence
+        )
+        assert target == outputs[idx]["target"], get_assert_message(
+            transformation, outputs[idx]["target"], target
+        )
 
 
 def execute_ques_ans_test_case(transformation, test):
@@ -28,9 +43,15 @@ def execute_ques_ans_test_case(transformation, test):
     outputs = test["outputs"]
     perturbs = transformation.generate(**filter_args)
     for idx, (context, question, answers) in enumerate(perturbs):
-        assert context == outputs[idx]["context"]
-        assert question == outputs[idx]["question"]
-        assert answers == outputs[idx]["answers"]
+        assert context == outputs[idx]["context"], get_assert_message(
+            transformation, outputs[idx]["context"], context
+        )
+        assert question == outputs[idx]["question"], get_assert_message(
+            transformation, outputs[idx]["question"], question
+        )
+        assert answers == outputs[idx]["answers"], get_assert_message(
+            transformation, outputs[idx]["answers"], answers
+        )
 
 
 def execute_tagging_test_case(transformation, test):
@@ -38,12 +59,16 @@ def execute_tagging_test_case(transformation, test):
     token_sequence = filter_args["token_sequence"]
     tag_sequence = filter_args["tag_sequence"]
     outputs = test["outputs"]
-    perturbs = transformation.generate(
-        token_sequence.split(" "), tag_sequence.split(" ")
-    )
+    perturbs = transformation.generate(token_sequence.split(), tag_sequence.split())
     for idx, (p_tokens, p_tags) in enumerate(perturbs):
-        assert p_tokens == outputs[idx]["token_sequence"].split(" ")
-        assert p_tags == outputs[idx]["tag_sequence"].split(" ")
+        expected_tokens = outputs[idx]["token_sequence"].split()
+        expected_tags = outputs[idx]["tag_sequence"].split()
+        assert p_tokens == expected_tokens, get_assert_message(
+            transformation, expected_tokens, p_tokens
+        )
+        assert p_tags == expected_tags, get_assert_message(
+            transformation, expected_tags, p_tags
+        )
 
 
 def execute_test_case_for_transformation(transformation_name):
