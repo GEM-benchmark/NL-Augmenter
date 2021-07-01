@@ -1,0 +1,49 @@
+{
+  "type": "hashtag_generation",
+  "test_cases": [
+    {
+      "class": "HashtagGeneration",
+      "inputs": {
+        "sentence": "I love domino's pizza ."
+      },
+      "outputs": [{
+        "sentence": "I love domino's pizza .#Love#Pizza"
+      }, {
+        "sentence": "I love domino's pizza .#Pizza#Domino'SPizza"
+      }]
+    },
+    {
+      "class": "HashtagGeneration",
+      "inputs": {
+        "sentence": "Many people like T20 cricket these days ."
+      },
+      "outputs": [{
+        "sentence": "Many people like T20 cricket these days .#People#Cricket#T20"
+      }, {
+        "sentence": "Many people like T20 cricket these days .#Cricket#ManyPeople"
+      }]
+    },
+    {
+      "class": "HashtagGeneration",
+      "inputs": {
+        "sentence": "Attention is all you need ."
+      },
+      "outputs": [{
+        "sentence": "Attention is all you need . #Attention"
+      }, {
+        "sentence": "Attention is all you need .#Attention"
+      }]
+    },
+    {
+      "class": "HashtagGeneration",
+      "inputs": {
+        "sentence": "Natural Language Processing research is awesome."
+      },
+      "outputs": [{
+        "sentence": "Natural Language Processing research is awesome. #NaturalLanguageProcessingResearch"
+      }, {
+        "sentence": "Natural Language Processing research is awesome.#Research"
+      }]
+    }
+  ]
+}
