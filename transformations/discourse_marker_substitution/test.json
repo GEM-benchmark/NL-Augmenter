@@ -4,55 +4,55 @@
     {
       "class": "DiscourseMarkerSubstitution",
       "inputs": {
-        "sentence": "A half-hour later, the woman is smiling and chatting; the demon seems to have gone"
+        "sentence": "They always seem to come a bit later than you expect. When they do hit, they hit fast"
       },
       "outputs": [
         {
-          "sentence": "A half-hour subsequently, the woman is smiling and chatting; the demon seems to have gone"
+          "sentence": "They always seem to come a bit subsequently than you expect. When they do hit, they hit fast"
         }
       ]
     },
     {
       "class": "DiscourseMarkerSubstitution",
       "inputs": {
-        "sentence": "I'm for the Giants today, but only because they lost yesterday. I love 'em both"
+        "sentence": "I like rather tea, because it is at the end of the day.\" She serves high Russian tea, at 5 p.m"
       },
       "outputs": [
         {
-          "sentence": "I'm for the Giants today, but only since they lost yesterday. I love 'em both"
+          "sentence": "I like rather tea, since it is at the end of the day.\" She serves high Russian tea, at 5 p.m"
         }
       ]
     },
     {
       "class": "DiscourseMarkerSubstitution",
       "inputs": {
-        "sentence": "In fact, he did; the quotes above are from Mr. Baker's speech of two weeks ago"
+        "sentence": "She was untrained and, in one botched job killed a client. Her remorse was shallow and brief"
       },
       "outputs": [
         {
-          "sentence": "Additionally, he did; the quotes above are from Mr. Baker's speech of two weeks ago"
+          "sentence": "She was untrained additionally, in one botched job killed a client. Her remorse was shallow and brief"
         }
       ]
     },
     {
       "class": "DiscourseMarkerSubstitution",
       "inputs": {
-        "sentence": "For example, we'll bet you thought that the stock market crashed two years ago. Wrong"
+        "sentence": "I felt betrayed,\" he later said. Worse, Salomon's timing had been off"
       },
       "outputs": [
         {
-          "sentence": "For instance, we'll bet you thought that the stock market crashed two years ago. Wrong"
+          "sentence": "I felt betrayed,\" he subsequently said. Worse, Salomon's timing had been off"
         }
       ]
     },
     {
       "class": "DiscourseMarkerSubstitution",
       "inputs": {
-        "sentence": "Besides, we have enough on our plate. There is plenty of work to be done on what we have"
+        "sentence": "The Fuji, to be sure, has blemishes too. It ripens later than most apples"
       },
       "outputs": [
         {
-          "sentence": "Additionally, we have enough on our plate. There is plenty of work to be done on what we have"
+          "sentence": "The Fuji, to be sure, has blemishes too. It ripens subsequently than most apples"
         }
       ]
     }
