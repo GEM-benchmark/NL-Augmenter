@@ -28,6 +28,8 @@ Note that a name can be popular in multiple countries.
 
 The names are from several sources, primarily the World Gender Name Dictionary (WGND) 2.0 [1]. Other sources include BIG-bench project [2], wikipedia [3,4].
 
+We use country or territory code with the the ISO 3166-1 alpha-2 standard. The complete list of countries that are covered in this transformation: AU, CA, BE, GB, CN, AE, BH, CH, DZ, EG, ER, IQ, JO, KM, KW, LB, LY, MA, MR, OM, QA, SA, SD, SO, SY, TN, YE, IE, IN, US, ES, NL, FI, SE, EE, LV, DE, DK, NO, IS, NZ, AF, AZ, IR, AG, BB, BD, BI, BW, BZ, CB, CM, CY, DM, FJ, GD, GH, GY, JM, KE, KI, KN, LC, LR, LS, ME, MH, MT, MU, MW, NG, NR, PG, PH, PW, RS, RW, SB, SC, SL, SZ, TO, TT, TV, UG, VC, VU, WS, ZA, ZM, ZW, AT, BF, BJ, CD, CF, CG, CI, DJ, FR, GA, GN, HT, IL, LI, LU, MC, MG, ML, NE, PL, SN, TD, TG, LK, CZ, KZ, UZ, AL, BA, KS, TR, IT, MK, HR, HU, PT, SM, LT, AM, BY, MD, RU, RO, GR, SK, UA, BG, SI, KP, JP.
+
 ## What are the limitations of this transformation?
 (1) the quality of non-English origin names might be limited because we rely on external sources and are unable to manually verify.
 
