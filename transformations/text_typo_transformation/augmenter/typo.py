@@ -1,6 +1,6 @@
 import json
 from typing import List, Optional
-from utils import (
+from transformations.text_typo_transformation.utils import (
     detokenize,
     get_aug_idxes,
     tokenize,
@@ -13,7 +13,9 @@ from nlpaug.util import Action, Method  # @manual
 
 class MisspellingReplacement(object):
     def __init__(self, misspelling_dict_path: str):
-        local_misspelling_dict_path = "misspelling.json"
+        local_misspelling_dict_path = (
+            "transformations/text_typo_transformation/misspelling.json"
+        )
         with open(local_misspelling_dict_path) as json_file:
             self.dictionary = json.load(json_file)
 

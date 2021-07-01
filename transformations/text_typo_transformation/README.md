@@ -11,10 +11,18 @@ minimum # of words to be augmented, maximum # of words to be augmented, number o
 list of target words that the augmenter should prioritize to augment first are given as arguments.
 
 ####Example:
-Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001  --> Jujal Dev Dosanjh served as 3r3d Premier of Brittish Columbia frome 2000 to 2001
+1. Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001  --> Jujal Dev Dosanjh served as 3r3d Premier of Brittish Columbia frome 2000 to 2001
+2. Andrew finally returned the French book to Chris that I bought last week -->  ndrew finally returned the French book ot Chris thta I bojght last week
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, etc. 
+
+```python evaluate.py -t TextTypoTransformation -task TEXT_CLASSIFICATION```
+```model_name = "aychang/roberta-base-imdb"```
+
+The accuracy of a RoBERTa model (fine-tuned on IMDB) (model: "aychang/roberta-base-imdb") 
+on a subset of IMDB sentiment dataset = 95.74
+The accuracy of the same model on the perturbed set = 84.68
 
 ## Previous Work
 1) Text Typo Transformation borrowed from this code https://github.com/facebookresearch/AugLy

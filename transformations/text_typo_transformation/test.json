@@ -7,7 +7,7 @@
         "sentence": "Andrew finally returned the French book to Chris that I bought last week"
       },
       "outputs": [{
-        "sentence": "Anrdew finally returned the French book to Chris that I bought last ewek"
+        "sentence": "Andrew finally returned the French book ot Chris thta I bojght last week"
       }]
     },
     {
@@ -16,7 +16,7 @@
         "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
       },
       "outputs": [{
-        "sentence": "Sentences wih gapipng, suxh sa Palu likes coffee anbd Mary eta, lack an overt predicate ot indicate the relation between two or more arguments."
+        "sentence": "Sentences iwth gpaping, suhc as Pauo likes coffee and Mray tea, lack an overt predicate ot indicate tghe relation between two pr more arguments."
       }]
     },
     {
@@ -25,7 +25,7 @@
         "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
       },
       "outputs": [{
-        "sentence": "Apice in Wonderland is a 2010 American l7ve-action / aniamted darl fantasy adventure film"
+        "sentence": "Alice in Wonderland si a 2010 Amsrican live-action / animated dark famdasy adventire film"
       }]
     },
     {
@@ -34,7 +34,7 @@
         "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
       },
       "outputs": [{
-        "sentence": "Jujal Dev Dosanjh served as 3r3d Premier of Brittish Columbia frome 2000 to 2001"
+        "sentence": "Ujjal Dev Doeanjh served as 33rd Preimer of British Columbia fomr 2000 to 200@"
       }]
     },
     {
@@ -43,7 +43,7 @@
         "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
       },
       "outputs": [{
-        "sentence": "Neuroplasticity si a continuous processing alowing sh)rt-term, <edium-term, anbd ling-term remodeling fo the neuronosynaptic organization."
+        "sentence": "Neuroplasticity is a continous processing alowing shkrt-term, medium-term, and long-trem remodeling of thw neuronosynaptic organiztion."
       }]
     }
   ]

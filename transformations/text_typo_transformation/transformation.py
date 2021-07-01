@@ -2,7 +2,10 @@ from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 from typing import Any, Callable, Dict, List, Optional, Union
-import typo as a
+from transformations.text_typo_transformation.augmenter import typo as a
+import random
+
+random.seed(2021)
 
 
 def simulate_typos(
@@ -15,7 +18,7 @@ def simulate_typos(
     aug_word_min: int = 1,
     aug_word_max: int = 1000,
     n: int = 1,
-    misspelling_dict_path: str = "misspelling.json",
+    misspelling_dict_path: str = "transformations/text_typo_transformation/misspelling.json",
     priority_words: Optional[List[str]] = None,
 ) -> List[str]:
     """
@@ -78,12 +81,12 @@ class TextTypoTransformation(SentenceOperation):
         self.max_output = max_output
 
     def generate(self, sentence: str):
-        return simulate_typos(sentence)
+        return [simulate_typos(sentence)]
 
 
 """
-# Sample code to demonstrate usage. Can also assist in adding test cases.
-# You don't need to keep this code in your transformation.
+# # Sample code to demonstrate usage. Can also assist in adding test cases.
+# # You don't need to keep this code in your transformation.
 if __name__ == "__main__":
     import json
     from TestRunner import convert_to_snake_case
@@ -100,12 +103,9 @@ if __name__ == "__main__":
         "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
         "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
     ]:
-        test_cases.append(
-            {
-                "class": tf.name(),
-                "inputs": {"sentence": sentence},
-                "outputs": {"sentence": tf.generate(sentence)},
-            }
+        test_cases.append({
+            "class": tf.name(),
+            "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
