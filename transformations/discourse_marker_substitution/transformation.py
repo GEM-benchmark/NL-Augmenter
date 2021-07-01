@@ -94,7 +94,7 @@ def discourse_marker_substitution(text, seed=0, max_output=1):
     random.seed(seed)
     perturbed_texts = []
     for _ in range(max_output):
-        present_markers = [m for m in MARKER_TO_CLASS if m in text.lower()]
+        present_markers = [m for m in MARKER_TO_CLASS if m in text.lower().split()]
 
         if not present_markers:
             return [text]
@@ -127,7 +127,6 @@ class DiscourseMarkerSubstitution(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
 
