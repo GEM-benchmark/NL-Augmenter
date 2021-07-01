@@ -1,0 +1,50 @@
+{
+  "type": "text_typo_transformation",
+  "test_cases": [
+    {
+      "class": "TextTypoTransformation",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "Anrdew finally returned the French book to Chris that I bought last ewek"
+      }]
+    },
+    {
+      "class": "TextTypoTransformation",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [{
+        "sentence": "Sentences wih gapipng, suxh sa Palu likes coffee anbd Mary eta, lack an overt predicate ot indicate the relation between two or more arguments."
+      }]
+    },
+    {
+      "class": "TextTypoTransformation",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "Apice in Wonderland is a 2010 American l7ve-action / aniamted darl fantasy adventure film"
+      }]
+    },
+    {
+      "class": "TextTypoTransformation",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [{
+        "sentence": "Jujal Dev Dosanjh served as 3r3d Premier of Brittish Columbia frome 2000 to 2001"
+      }]
+    },
+    {
+      "class": "TextTypoTransformation",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [{
+        "sentence": "Neuroplasticity si a continuous processing alowing sh)rt-term, <edium-term, anbd ling-term remodeling fo the neuronosynaptic organization."
+      }]
+    }
+  ]
+}
