@@ -7,10 +7,10 @@
         "sentence": "He finally returned the French book to Chris that I bought last week",
         "target": "He did not return the French book to Chris that was bought earlier"
       },
-      "outputs": {
+      "outputs": [{
         "sentence": "He finally returned the French book to Austin that I bought last week",
         "target": "He did not return the French book to Austin that was bought earlier"
-      }
+      }]
     },
     {
       "class": "ChangeTwoWayNe",
@@ -18,10 +18,10 @@
         "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
         "target": "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!"
       },
-      "outputs": {
+      "outputs": [{
         "sentence": "Sentences with gapping, such as Paul likes coffee and Alyssa tea, lack an overt predicate to indicate the relation between two or more arguments.",
         "target": "Gapped sentences such as Paul likes coffee and Alyssa tea, lack an overt predicate!"
-      }
+      }]
     },
     {
       "class": "ChangeTwoWayNe",
@@ -29,10 +29,10 @@
         "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
         "target": "Alice in Wonderland is a 2010 film"
       },
-      "outputs": {
+      "outputs": [{
         "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
         "target": "Alice in Wonderland is a 2010 film"
-      }
+      }]
     },
     {
       "class": "ChangeTwoWayNe",
@@ -40,10 +40,10 @@
         "sentence": "Jacob Oram served as 33rd Premier of British Columbia from 2000 to 2001",
         "target": "Jacob Oram served from 2000 to 2001 successfully"
       },
-      "outputs": {
+      "outputs": [{
         "sentence": "Jacob Oram served as 33rd Premier of British Columbia from 2000 to 2001",
         "target": "Jacob Oram served from 2000 to 2001 successfully"
-      }
+      }]
     },
     {
       "class": "ChangeTwoWayNe",
@@ -51,10 +51,10 @@
         "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
         "target": "Neuroplasticity is a continuous processing!"
       },
-      "outputs": {
+      "outputs": [{
         "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
         "target": "Neuroplasticity is a continuous processing!"
-      }
+      }]
     }
   ]
 }

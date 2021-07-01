@@ -2,49 +2,40 @@
   "type": "punctuation",
   "test_cases": [
     {
-      "class": "Punctuation",
+      "class": "PunctuationWithRules",
       "inputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+        "sentence": "if you are feeling good then go to school otherwise take rest at home"
       },
-      "outputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week."
-      }
+      "outputs": [{
+        "sentence": "If you are feeling good, then go to school, otherwise take rest at home."
+      }]
     },
     {
-      "class": "Punctuation",
+      "class": "PunctuationWithRules",
       "inputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+        "sentence": "hello sam how are you"
       },
-      "outputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments"
-      }
+      "outputs": [{
+        "sentence": "Hello Sam, how are you?"
+      }]
     },
     {
-      "class": "Punctuation",
+      "class": "PunctuationWithRules",
       "inputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+        "sentence": "alex buy me a pizza i will help you to complete your homework"
       },
-      "outputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film."
-      }
+      "outputs": [{
+        "sentence": "Alex, buy me a pizza, I will help you to complete your homework."
+      }]
     },
     {
-      "class": "Punctuation",
+      "class": "PunctuationWithRules",
       "inputs": {
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+        "sentence": "hey sam how are you doing please invite alex on your wedding"
       },
-      "outputs": {
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001."
-      }
-    },
-    {
-      "class": "Punctuation",
-      "inputs": {
-        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
-      },
-      "outputs": {
-        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization"
-      }
+      "outputs": [{
+        "sentence": "Hey Sam, how are you doing please invite Alex on your wedding?"
+      }]
     }
   ]
 }
