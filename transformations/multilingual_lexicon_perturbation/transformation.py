@@ -104,4 +104,4 @@ class MultilingualLexiconPerturbation(SentenceOperation):
 
     def generate(self, sentence: str):
         pertubed_sentence = perturb_sentence(lexicon_df=self.lexicon_df, text=sentence, prob_mix=self.prob_mix, src_lang=self.src_lang, trg_lang=self.trg_lang, seed=self.seed)
-        return pertubed_sentence
+        return [pertubed_sentence]
