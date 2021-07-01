@@ -5,8 +5,6 @@ from typing import Any, Callable, Dict, List, Optional, Union
 from transformations.text_typo_transformation.augmenter import typo as a
 import random
 
-random.seed(2021)
-
 
 def simulate_typos(
     texts: Union[str, List[str]],
@@ -79,6 +77,7 @@ class TextTypoTransformation(SentenceOperation):
     def __init__(self, seed=0, max_output=1):
         super().__init__(seed)
         self.max_output = max_output
+        random.seed(self.seed)
 
     def generate(self, sentence: str):
         return [simulate_typos(sentence)]
@@ -103,9 +102,12 @@ if __name__ == "__main__":
         "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
         "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
     ]:
-        test_cases.append({
-            "class": tf.name(),
-            "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
+        test_cases.append(
+            {
+                "class": tf.name(),
+                "inputs": {"sentence": sentence},
+                "outputs": [{"sentence": o} for o in tf.generate(sentence)],
+            }
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
