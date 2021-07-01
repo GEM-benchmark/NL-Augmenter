@@ -81,8 +81,7 @@ class ButterFingersPerturbation(SentenceOperation):
     languages = ["en"]
 
     def __init__(self, seed=0, max_output=1):
-        super().__init__(seed)
-        self.max_output = max_output
+        super().__init__(seed, max_output=max_output)
 
     def generate(self, sentence: str):
         perturbed_texts = butter_finger(

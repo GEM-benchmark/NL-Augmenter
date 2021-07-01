@@ -23,7 +23,7 @@ jobs:
         python3 -m pip install --upgrade pip
         pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
         pip3 install ./
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
     - name: Test with pytest
       run: |
         pytest -s --t=light --f=light

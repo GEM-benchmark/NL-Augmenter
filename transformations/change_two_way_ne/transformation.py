@@ -20,12 +20,11 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
     tgt_languages = ["en"]
 
     def __init__(self, first_only=False, last_only=False, n=1, seed=0, max_output=1):
-        super().__init__(seed)
+        super().__init__(seed, max_output=max_output)
         self.nlp = spacy.load("en_core_web_sm")
         self.first_only = first_only  # first name
         self.last_only = last_only  # last name
         self.n = n
-        self.max_output = max_output
 
     def generate(self, sentence: str, target: str):
         np.random.seed(self.seed)
@@ -80,9 +79,10 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
         if len(ret) > 0 and ret[0] != sentence:
             perturbed_source = ret[0]
             perturbed_target = outs[0]
-            print(
-                f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}"
-            )
+            if self.verbose:
+                print(
+                    f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}"
+                )
             return [(perturbed_source, perturbed_target)]
 
         # (2) add location named entities

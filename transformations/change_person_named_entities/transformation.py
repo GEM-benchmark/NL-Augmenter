@@ -12,10 +12,9 @@ class ChangePersonNamedEntities(SentenceOperation):
 
     def __init__(self, n=1, seed=0, max_output=2):
         # TODO: Do not repeat parse computations.
-        super().__init__(seed)
+        super().__init__(seed, max_output=max_output)
         self.nlp = spacy.load("en_core_web_sm")
         self.n = n
-        self.max_output = max_output
 
     def generate(self, sentence: str):
         np.random.seed(self.seed)

@@ -9,8 +9,8 @@ class BackTranslation(SentenceOperation):
     languages = ["en"]
     heavy = True
 
-    def __init__(self, max_output=1, num_beams=2):
-        super().__init__()
+    def __init__(self, seed=0, max_output=1, num_beams=2):
+        super().__init__(seed, max_output=max_output)
         if self.verbose:
             print("Starting to load English to German Translation Model.\n")
         name_en_de = "facebook/wmt19-en-de"
@@ -22,7 +22,6 @@ class BackTranslation(SentenceOperation):
         name_de_en = "facebook/wmt19-de-en"
         self.tokenizer_de_en = FSMTTokenizer.from_pretrained(name_de_en)
         self.model_de_en = FSMTForConditionalGeneration.from_pretrained(name_de_en)
-        self.max_output = max_output
         self.num_beams = num_beams
         if self.verbose:
             print("Completed loading German to English Translation Model.\n")
@@ -52,11 +51,12 @@ class BackTranslation(SentenceOperation):
         predicted_outputs = []
         for output in outputs:
             decoded = self.tokenizer_de_en.decode(output, skip_special_tokens=True)
-            predicted_outputs.append(decoded) #TODO: this should be able to return multiple sequences
+            # TODO: this should be able to return multiple sequences
+            predicted_outputs.append(decoded)
         if self.verbose:
             print(predicted_outputs)  # Machine learning is great, isn't it?
         return predicted_outputs
 
     def generate(self, sentence: str):
-        perturbeds = self.back_translate(sentence)
-        return perturbeds
+        perturbs = self.back_translate(sentence)
+        return perturbs

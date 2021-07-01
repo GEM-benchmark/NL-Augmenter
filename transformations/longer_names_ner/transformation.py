@@ -16,10 +16,9 @@ class LongerNamesNer(TaggingOperation):
     languages = "All"
     no_of_repeats = 2  # values should not be larger than 3-4
 
-    def __init__(self, no_of_repeats=2, max_output=1):
-        super().__init__()
+    def __init__(self, seed=0, no_of_repeats=2, max_output=1):
+        super().__init__(seed, max_output=max_output)
         self.no_of_repeats = no_of_repeats
-        self.max_output = max_output
 
     def generate(
         self, token_sequence: List[str], tag_sequence: List[str]
