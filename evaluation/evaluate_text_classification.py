@@ -5,7 +5,9 @@ from transformers import pipeline
 from dataset import TextLineDataset
 
 
-def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"):
+def evaluate(
+    operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"
+):
     # TODO: extend the task to other classification tasks that's not sentiment analysis.
     # (1) load model
     if model_name is None:
@@ -13,7 +15,9 @@ def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:
     # (2) load test set
     if dataset_name is None:
         dataset_name = "imdb"
-    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
+    print(
+        f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model."
+    )
     text_classification_pipeline = pipeline(
         "sentiment-analysis", model=model_name, tokenizer=model_name
     )
@@ -35,19 +39,23 @@ def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:
     dataset = TextLineDataset.from_huggingface(hf_dataset, ["text", "label"])
     if evaluate_filter:
         filtered_dataset = dataset.apply_filter(operation)
-        print(f"Here is the performance of the model on the filtered set")
+        print("Here is the performance of the model on the filtered set")
         accuracy, total = evaluate_dataset(
             text_classification_pipeline, filtered_dataset
         )
         performance["accuracy"] = accuracy
         performance["no_of_examples"] = total
     else:
-        accuracy, total = evaluate_dataset(text_classification_pipeline, dataset)
+        accuracy, total = evaluate_dataset(
+            text_classification_pipeline, dataset
+        )
         performance["accuracy"] = accuracy
         performance["no_of_examples"] = total
         pt_dataset = dataset.apply_transformation(operation)
-        print(f"Here is the performance of the model on the transformed set")
-        accuracy, _ = evaluate_dataset(text_classification_pipeline, pt_dataset)
+        print("Here is the performance of the model on the transformed set")
+        accuracy, _ = evaluate_dataset(
+            text_classification_pipeline, pt_dataset
+        )
         performance["pt_accuracy"] = accuracy
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
@@ -63,7 +71,9 @@ def evaluate_dataset(text_classification_pipeline, dataset):
 
     for example in dataset:
         raw_text, label = example
-        pred = text_classification_pipeline(raw_text, truncation=True)[0]["label"]
+        pred = text_classification_pipeline(raw_text, truncation=True)[0][
+            "label"
+        ]
         if is_positive(pred) == is_positive(label):
             accuracy += 1
         total += 1
