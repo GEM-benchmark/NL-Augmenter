@@ -1,7 +1,8 @@
 [flake8]
 exclude = venv
-ignore = E501, W503, E226
+ignore = E501, W503, E226, F407
 
 ; E501: Line too long
 ; W503: Line break occurred before binary operator
 ; E226: Missing white space around arithmetic operator
+; F407: an undefined __future__ feature name was imported
