@@ -62,7 +62,7 @@ class GenderSwap(SentenceOperation):
                 # If the word is gendered, replace it with its counterpart
                 y = word.lower().replace(raw, self.pairs[raw])
 
-                # Bring casing of the first letter back
+                # Bring back casing of the first letter
                 y = self._copy_casing(word, y)
 
                 output.append(y)
