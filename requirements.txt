@@ -1,5 +1,6 @@
 checklist==0.0.10
 spacy==2.2.4
+pyinflect==0.5.1
 
 # for back_translation
 torch
