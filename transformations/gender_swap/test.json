@@ -11,7 +11,7 @@
       }]
     },
     {
-    "class": "GenderSwap",
+      "class": "GenderSwap",
       "inputs": {
         "sentence": "hehe he!"
       },
@@ -20,12 +20,21 @@
       }]
     },
     {
-    "class": "GenderSwap",
+      "class": "GenderSwap",
       "inputs": {
         "sentence": "son-in-law, is it yours? No, it's step-father's..."
       },
       "outputs": [{
         "sentence": "daughter-in-law, is it yours? No, it's step-mother's..."
+      }]
+    },
+    {
+      "class": "GenderSwap",
+      "inputs": {
+        "sentence": "This sentence contains no gendered keywords and will remain unchannged."
+      },
+      "outputs": [{
+        "sentence": "This sentence contains no gendered keywords and will remain unchannged."
       }]
     }
   ]
