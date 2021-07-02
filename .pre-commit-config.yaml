@@ -6,3 +6,30 @@ repos:
     hooks:
     - id: black
       language_version: python3
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+    -   id: trailing-whitespace
+    -   id: check-yaml
+    -   id: check-ast
+    -   id: check-json
+    -   id: check-merge-conflict
+    -   id: detect-private-key
+-   repo: https://gitlab.com/PyCQA/flake8
+    rev: 3.9.2
+    hooks:
+    -   id: flake8
+-   repo: https://github.com/PyCQA/isort
+    rev: 5.9.1
+    hooks:
+    -   id: isort
+        args: []
+        files: .
+-   repo: local
+    hooks:
+    -   id: test
+        name: test
+        entry: make
+        args: ["test"]
+        language: system
+        pass_filenames: false
