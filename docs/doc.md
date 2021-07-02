@@ -9,6 +9,7 @@
     * [Evaluating the transformation](#evaluating-the-transformation)
     * [Writing a good filter](#Writing-a-good-filter)
     * [What is the purpose of test.json](#What-is-the-purpose-of-test.json)
+    * [Three Most Creative Implementations](#Three-Most-Creative-Implementations)
 
 
 ## Motivation
@@ -42,7 +43,9 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific transformation. E.g., a perturbation which changes gendered pronouns could give insights about gender bias in models.
 
-**Adding New Libraries:** We welcome addition of libraries which are light and can be installed via `pip`. Every library should specify the version number associated and be added in the folder's own [requirements.txt](../transformations/punctuation). However, we discourage the use of heavy libraries for a few lines of code which could be manually written instead.
+**Novelty:** Your transformation must improve the coverage of NL-Augmenter in a meaningful way. The idea behind your transformation need not be novel, but its contribution to the library must be different from the contributions of earlier submissions. If you are unsure if your idea would constitute a new contribution, please email the organizers at nl-augmenter@googlegroups.com and we are happy to help.
+
+**Adding New Libraries:** We welcome addition of libraries which are light and can be installed via `pip`. Every library should specify the version number associated and be added in a new [requirements.txt](../transformations/punctuation) in the transformation's own folder. However, we discourage the use of heavy libraries for a few lines of code which could be manually written instead. Please ensure that the libraries have either Apache 2 or MIT License. 
 
 **Description:** The `README.md` file should clearly explain what the transformation is attempting to generate as well as the importance of that transformation for the specified tasks.
 
@@ -69,3 +72,7 @@ Filters are qualifying conditions on the input data which help identify informat
 
 ## What is the purpose of test.json
 The `test.json` simply serves to keep track of the core logic of transformation that you intend. While working with the code to and fro, you don't want to mistakenly change the output of someone else's code. Additionally, it makes reviewing much simpler as it gives a quick look into the examples that your logic generates.   
+
+## Three Most Creative Implementations
+ 🏆  🏆  🏆 After all pull-requests have been merged, 3 of the most creative implementations would be selected and featured on this README page. The selection would be done by the [organizers of NL-Augmenter](https://gem-benchmark.com/nl_augmenter). The minimum requirement to be featured as "most creative" is novelty of implementation i.e. must be the participant's own work.
+

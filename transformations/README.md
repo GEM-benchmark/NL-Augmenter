@@ -5,7 +5,7 @@ This directory contains transformations that are part of the Natural Language Au
 | Transformation                             | Description                                                                       
 | ------- | -----------                          
 | [back_translation](back_translation)              | Converts an English sentence to German and back to English                
-| [butter_fingers_perturbation](butter_fingers_perturbation)     | Adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise erupting from keyboard typos making common spelling errors.  
+| [butter_fingers_perturbation](butter_fingers_perturbation)     | Adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise emanating from keyboard typos making common spelling errors.  
 | [change_person_named_entities](change_person_named_entities)        | Changes person named entities: Alex travels to the city everyday! --> Jacob travels to the city everyday! 
 | [change_two_way_ne](change_two_way_ne)                   | Changes the named entity in the source sentence and reflects the same change in the target sentence. Benefits Machine Translation tasks.
 | [longer_names_ner](longer_names_ner)        | Elongates person names: Russel Peters is a comedian. --> Russel J. M. Peters is a comedian.  
