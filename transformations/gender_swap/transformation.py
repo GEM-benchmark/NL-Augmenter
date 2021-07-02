@@ -26,13 +26,19 @@ class GenderSwap(SentenceOperation):
 
         for word in words:
 
+            # `raw` will be a lower case word containing only alphabetic
+            #  characters (and maybe a dash, but only beween letters).
+            #  We will use `raw` as a key in our gendered dictionary.
             raw = word.lower()
 
+            # Edge case: "son's..." --> 'son...'. Dots will be filter out later
+            raw = raw.replace("'s", "")
+
             # Filter all non-alphabetic and non-dash character.
-            # Dash is a special case for entities like "step-son".
+            # Dash is a special case for entities like 'step-son'.
             raw = ''.join(c for c in raw if c.isalpha() or c=='-').lower()
             
-            # Edge case "step-son-": --> we want "step-son" ony.
+            # Edge case 'step-son-': --> we want 'step-son' ony.
             raw = raw.strip('-')
             raw = raw.lower()
 
