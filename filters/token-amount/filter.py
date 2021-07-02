@@ -17,9 +17,9 @@ class TokenAmountFilter(SentenceOperation):
 
     def __init__(
         self,
-        keywords: Union[list, str],
-        thresholds: Union[list, str],
-        operations: Union[list, str],
+        keywords: Union[list, str] = None,
+        thresholds: Union[list, str] = None,
+        operations: Union[list, str] = None,
     ):
         super().__init__()
         self.max_input_length = self.get_input_length(keywords, thresholds, operations)
