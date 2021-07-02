@@ -18,6 +18,15 @@
       "outputs": [{
         "sentence": "hehe she!"
       }]
+    },
+    {
+    "class": "GenderSwap",
+      "inputs": {
+        "sentence": "son-in-law, is it yours? No, it's step-father's."
+      },
+      "outputs": [{
+        "sentence": "daughter-in-law, is it yours? No, it's step-mother's."
+      }]
     }
   ]
 }

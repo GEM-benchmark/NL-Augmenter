@@ -25,13 +25,20 @@ class GenderSwap(SentenceOperation):
         words = sentence.split(' ')
 
         for word in words:
-            # Filter all non-alphabetic chars in word and then lowercase
-            raw = ''.join(c for c in word if c.isalpha()).lower()
+
+            raw = word.lower()
+
+            # Filter all non-alphabetic and non-dash character.
+            # Dash is a special case for entities like "step-son".
+            raw = ''.join(c for c in raw if c.isalpha() or c=='-').lower()
+            
+            # Edge case "step-son-": --> we want "step-son" ony.
+            raw = raw.strip('-')
+            raw = raw.lower()
 
             if raw in self.pairs:
                 # If the word is gendered, replace it with its counterpart
-                y = word.lower()
-                y = y.replace(raw, self.pairs[raw])
+                y = word.lower().replace(raw, self.pairs[raw])
                 output.append(y)
             else:
                 output.append(word)
