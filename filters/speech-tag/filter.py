@@ -17,9 +17,9 @@ class SpeechTagFilter(SentenceOperation):
 
     def __init__(
         self,
-        speech_tags: Union[list, str],
-        thresholds: Union[list, str],
-        operations: Union[list, str],
+        speech_tags: Union[list, str] = ["NOUN", "VERB"],
+        thresholds: Union[list, str] = [2, 2],
+        operations: Union[list, str] = [">", ">"],
         percentages: bool = False,
     ):
         super().__init__()
