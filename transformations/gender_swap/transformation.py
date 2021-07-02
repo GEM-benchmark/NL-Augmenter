@@ -8,16 +8,17 @@ from .gender_pairs import GENDER_PAIRS
 TODO desc
 """
 
+
 class GenderSwap(SentenceOperation):
-    tasks = [ # TODO verify it
+    tasks = [  # TODO verify it
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, seed: int = 0, max_outputs: int = 1) -> None:
+        super().__init__(seed, max_outputs)
         self.pairs = GENDER_PAIRS
 
     def _copy_casing(self, target: str, input: str) -> str:
@@ -29,7 +30,7 @@ class GenderSwap(SentenceOperation):
             input = input[0].upper() + input[1:]
 
         return input
-        
+
     def _normalize(self, word: str) -> str:
         """Normalize a word to contain only alphabetic characters
         (and maybe a dash, but only between letters).
@@ -41,20 +42,20 @@ class GenderSwap(SentenceOperation):
 
         # Filter all non-alphabetic and non-dash character.
         # Dash is a special case for entities like 'step-son'.
-        raw = ''.join(c for c in raw if c.isalpha() or c=='-').lower()
-        
+        raw = "".join(c for c in raw if c.isalpha() or c == "-").lower()
+
         # Edge case 'step-son-': --> we want 'step-son' ony.
-        raw = raw.strip('-')
+        raw = raw.strip("-")
         raw = raw.lower()
 
         return raw
 
     def generate(self, sentence: str) -> List[str]:
         output = []
-        words = sentence.split(' ')
+        words = sentence.split(" ")
 
         for word in words:
-            
+
             raw = self._normalize(word)
 
             if raw in self.pairs:
@@ -68,14 +69,4 @@ class GenderSwap(SentenceOperation):
             else:
                 output.append(word)
 
-        return [' '.join(output)]
-
-
-if __name__ == '__main__':
-    import json
-    from TestRunner import convert_to_snake_case
-
-    gs = GenderSwap()
-    y = gs._get_pairs()
-
-    print(y)
+        return [" ".join(output)]
