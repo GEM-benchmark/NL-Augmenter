@@ -8,9 +8,6 @@ torch
 num2words==0.5.10
 word2number==1.1
 
-# for CloseHomophonesSwap
-SoundsLike==0.0.11
-
 # for test cases
 pytest==6.2.4
 

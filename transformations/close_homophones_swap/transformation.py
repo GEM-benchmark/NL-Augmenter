@@ -14,9 +14,8 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-def close_homophones_swap(text, corrupt_prob, seed=0, max_output=1):
+def close_homophones_swap(text, corrupt_prob, seed=0, max_output=1, nlp = None):
     random.seed(seed)
-    nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
     perturbed_texts = []
     spaces = [True if tok.whitespace_ else False for tok in doc]
@@ -51,9 +50,10 @@ class CloseHomophonesSwap(SentenceOperation):
     def __init__(self, seed=0, max_output=1):
         super().__init__(seed)
         self.max_output = max_output
+        self.nlp = spacy.load("en_core_web_sm")
 
     def generate(self, sentence: str):
         perturbed_texts = close_homophones_swap(
-            text=sentence, corrupt_prob=0.5, seed=self.seed, max_output=self.max_output
+            text=sentence, corrupt_prob=0.5, seed=self.seed, max_output=self.max_output, nlp = self.nlp
         )
         return perturbed_texts
