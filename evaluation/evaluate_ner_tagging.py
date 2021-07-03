@@ -1,13 +1,22 @@
-from datasets import load_dataset
-from transformers import pipeline
 import numpy as np
+from datasets import load_dataset
 from seqeval.metrics import accuracy_score
+from transformers import pipeline
 
 
 def convert_ner_ids_to_tags(ner_tags):
     # convert list of ner ids [0,1,2,0] to list of ner tags ['0', 'B-PER', 'I-PER', '0']
     ner_tag_sequence = []
-    ner_tag_dict = {1: 'B-PER', 2: 'I-PER', 3: 'B-ORG', 4: 'I-ORG', 5: 'B-LOC', 6: 'I-LOC', 7: 'B-MISC', 8: 'I-MISC'}
+    ner_tag_dict = {
+        1: "B-PER",
+        2: "I-PER",
+        3: "B-ORG",
+        4: "I-ORG",
+        5: "B-LOC",
+        6: "I-LOC",
+        7: "B-MISC",
+        8: "I-MISC",
+    }
     for tag in ner_tags:
         ner_tag_sequence.append(ner_tag_dict.get(tag, "0"))  # '0', tag for no ner token
     return ner_tag_sequence
@@ -18,18 +27,19 @@ def create_prediction_seq(prediction, expected_seq_length):
     # input : model output in the form [[], [{ner-info}], [{ner-info}], []]
     # output : ['0', 'B-PER', 'I-PER', '0']
     if (
-            prediction == []):  # corner case where model prediction is [] and gold label is not []. ex: example["tokens"] = [',']
-        return ['0'] * expected_seq_length
+        prediction == []
+    ):  # corner case where model prediction is [] and gold label is not []. ex: example["tokens"] = [',']
+        return ["0"] * expected_seq_length
     seq = []
     tag = ""
     for item in prediction:
-        if (len(item) == 0):
-            seq.append('0')
+        if len(item) == 0:
+            seq.append("0")
         else:
-            if (isinstance(item, list)):
-                tag = item[0]['entity']
-            elif (isinstance(item, dict)):  # to handle a corner case
-                tag = item['entity']
+            if isinstance(item, list):
+                tag = item[0]["entity"]
+            elif isinstance(item, dict):  # to handle a corner case
+                tag = item["entity"]
             seq.append(tag)
     return seq
 
@@ -39,7 +49,9 @@ TODO: this implementation should change - needs to be done dataset wise
 """
 
 
-def evaluate(operation, evaluate_filter, model_name, dataset_name, split='validation[:20%]'):
+def evaluate(
+    operation, evaluate_filter, model_name, dataset_name, split="validation[:20%]"
+):
     # load modal
     if model_name is None:
         model_name = "dslim/bert-base-NER"
@@ -57,18 +69,22 @@ def evaluate(operation, evaluate_filter, model_name, dataset_name, split='valida
     if evaluate_filter:
         filter_true_average_score = 0.0
         filter_false_average_score = 0.0
-        filter_true_count = 0  # This will track the number of examples where the filter is +ve
-        filter_false_count = 0  # This will track the number of examples where the filter is -ve
+        filter_true_count = (
+            0  # This will track the number of examples where the filter is +ve
+        )
+        filter_false_count = (
+            0  # This will track the number of examples where the filter is -ve
+        )
     for example in dataset:
         # Calculating the performance on the original set
-        gold_tag_seq = convert_ner_ids_to_tags(example['ner_tags'])
-        prediction = tagging_pipeline(example['tokens'])
+        gold_tag_seq = convert_ner_ids_to_tags(example["ner_tags"])
+        prediction = tagging_pipeline(example["tokens"])
         predicted_tag_seq = create_prediction_seq(prediction, len(gold_tag_seq))
         score = accuracy_score([gold_tag_seq], [predicted_tag_seq])
         average_score += score
         if evaluate_filter:
             # The Operation is a "filter"
-            if operation.filter(example['tokens'], gold_tag_seq):
+            if operation.filter(example["tokens"], gold_tag_seq):
                 filter_true_average_score += score
                 filter_true_count += 1
             else:
@@ -77,16 +93,23 @@ def evaluate(operation, evaluate_filter, model_name, dataset_name, split='valida
         else:
             # The Operation is a "transformation"
             # Calculating the performance on the perturbed set
-            trans_input, trans_gold_tag_seq = operation.generate(example['tokens'], gold_tag_seq)
+            # TODO: Needs to handle for multiple outputs.
+            trans_input, trans_gold_tag_seq = operation.generate(
+                example["tokens"], gold_tag_seq
+            )
             trans_gold_tag_seq = convert_ner_ids_to_tags(trans_gold_tag_seq)
             transformed_input_prediction = tagging_pipeline(trans_input)
-            trans_predicted_tag_seq = create_prediction_seq(transformed_input_prediction, len(trans_gold_tag_seq))
+            trans_predicted_tag_seq = create_prediction_seq(
+                transformed_input_prediction, len(trans_gold_tag_seq)
+            )
             pt_score = accuracy_score([trans_gold_tag_seq], [trans_predicted_tag_seq])
             average_pertubed_score += pt_score
 
     average_score = average_score / len(dataset) * 100
 
-    print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset")
+    print(
+        f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset"
+    )
     print(f"The average accuracy on a subset of {dataset_name} = {average_score}")
     performance = {
         "model_name": model_name,
@@ -96,11 +119,15 @@ def evaluate(operation, evaluate_filter, model_name, dataset_name, split='valida
     }
     if evaluate_filter:
         filter_true_average_score = filter_true_average_score / filter_true_count * 100
-        filter_false_average_score = filter_false_average_score / filter_false_count * 100
+        filter_false_average_score = (
+            filter_false_average_score / filter_false_count * 100
+        )
         print(
-            f"The average accuracy of {filter_true_count} examples which pass the filter = {filter_true_average_score}")
+            f"The average accuracy of {filter_true_count} examples which pass the filter = {filter_true_average_score}"
+        )
         print(
-            f"The average accuracy of {filter_false_count} examples which fail the filter = {filter_false_average_score}")
+            f"The average accuracy of {filter_false_count} examples which fail the filter = {filter_false_average_score}"
+        )
         performance["filter_true_count"] = filter_true_count
         performance["filter_false_count"] = filter_false_count
         performance["filter_true_average_score"] = filter_true_average_score
