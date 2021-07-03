@@ -1,5 +1,5 @@
 {
-  "type": "hashtag_generation",
+  "type": "add_hashtags",
   "test_cases": [
     {
       "class": "HashtagGeneration",
