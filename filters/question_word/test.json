@@ -1,47 +1,62 @@
 {
-    "type": "question_words_filter",
+    "type": "question_type_filter",
     "test_cases": [
         {
-            "class": "WhatQuestion",
-            "inputs": {
-                "sentence": "What happend in 1947 ?"
-            },
-            "outputs": true
+           "class": "NumericQuestion",
+           "inputs": {
+              "context":"The journey from Delhi to New York takes 14 hours",
+              "question": "How long does the journey take?",
+              "answers":["14",
+                         "14 hours"]
+           },
+           "outputs": true
         },
         {
-            "class": "WhoQuestion",
-            "inputs": {
-                "sentence": "Who is Helen Keller ?"
-            },
-            "outputs": true
+           "class": "WhereQuestion",
+           "inputs": {
+              "context":"The journey from Delhi to New York takes 14 hours",
+              "question": "Where is Delhi located ?",
+              "answers":["in India",
+                         "India"]
+           },
+           "outputs": true
         },
         {
-            "class": "WhichQuestion",
-            "inputs": {
-                "sentence": "Which of these books are interesting ?"
-            },
-            "outputs": true
+           "class": "PersonQuestion",
+           "inputs": {
+              "context":"Sams' father is 60 years old, his name is Robert",
+              "question": "What is Sam's fathers name",
+              "answers":["Robert"]
+           },
+           "outputs": true
         },
         {
-            "class": "WhenQuestion",
-            "inputs": {
-                "sentence": "When will Black Widow be released ?"
-            },
-            "outputs": true
+           "class": "CommonNounPhraseQuestion",
+           "inputs": {
+              "context":"",
+              "question": "",
+              "answers":["property damage"]
+           },
+           "outputs": true
         },
         {
-            "class": "WhereQuestion",
+            "class": "VerbPhraseQuestion",
             "inputs": {
-                "sentence": "Where was Mahatma Gandhi born ?"
+               "context":"",
+               "question": "",
+               "answers":["returned to Earth"]
             },
             "outputs": true
-        },
-        {
-            "class": "WhyQuestion",
+         },
+         {
+            "class": "AdjectivePhraseQuestion",
             "inputs": {
-                "sentence": "Why were people protesting ?"
+               "context":"",
+               "question": "",
+               "answers":["third largest"]
             },
             "outputs": true
-        }
-    ]
-}
+         }
+     ]
+  }
+  
