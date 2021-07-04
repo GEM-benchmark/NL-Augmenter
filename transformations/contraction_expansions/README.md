@@ -1,10 +1,10 @@
 # Contractions and Expansions Perturbation 🦎  +  → 🐍
 This perturbation adds commonly used contractions/expansions: I'm --> I am or I am --> I'm
 
-Author name: Tanay Dixit, Ananya B Sai
+Authors: Tanay Dixit, Ananya B Sai
 
 ## What type of a transformation is this?
-This transformation acts like a perturbation and makes lexical subsitutions. 
+This transformation acts like a perturbation and makes lexical substitutions. 
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
@@ -31,5 +31,4 @@ text generation, etc.
 }
 ```
 ## What are the limitations of this transformation?
-The transformation's outputs are too simple to be used for data augmentation. Unlike a paraphraser, it is not capable of
-generating linguistically diverse text.
+Unlike a paraphraser, it is not capable of generating linguistically diverse text.
