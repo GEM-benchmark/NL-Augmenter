@@ -4,7 +4,7 @@ nltk==3.6.2
 stanza==1.2.1
 
 # for back_translation
-torch==1.8.1
+torch
 
 # for ReplaceNumericalValues
 num2words==0.5.10

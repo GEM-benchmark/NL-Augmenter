@@ -7,10 +7,13 @@
         "token_sequence": "Manmohan Singh served as the PM of India .",
         "tag_sequence": "B-PER I-PER O O O O O B-COUNTRY O"
       },
-      "outputs": {
+      "outputs": [{
         "token_sequence": "Manmohan Y M Singh served as the PM of India .",
         "tag_sequence": "B-PER I-PER I-PER I-PER O O O O O B-COUNTRY O"
-      }
+      },{
+        "token_sequence": "Manmohan Y M Singh served as the PM of India .",
+        "tag_sequence": "B-PER I-PER I-PER I-PER O O O O O B-COUNTRY O"
+      }]
     },
     {
       "class": "LongerNamesNer",
@@ -18,10 +21,10 @@
         "token_sequence": "Neil Alden Armstrong was an American astronaut",
         "tag_sequence": "B-PER I-PER I-PER O O B-COUNTRY O"
       },
-      "outputs": {
+      "outputs": [{
         "token_sequence": "Neil Y M Alden Armstrong was an American astronaut",
         "tag_sequence": "B-PER I-PER I-PER I-PER I-PER O O B-COUNTRY O"
-      }
+      }]
     }
   ]
 }
