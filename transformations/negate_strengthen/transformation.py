@@ -12,6 +12,7 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.metrics import edit_distance
 from nltk import pos_tag
 from pattern.en import conjugate as conjugate_en
+from typing import Union
 
 _RE_COMBINE_WHITESPACE = re.compile(r"\s+")
 MODAL_TYPE_LEMMA = ['be', 'to', 'have', 'get', 'do']
@@ -39,9 +40,9 @@ class NegateStrengthen(SentenceAndTargetOperation):
     languages = ["en"]
     tgt_languages = ["en"]
 
-    def __init__(self, seed=0):
+    def __init__(self, seed=0, verbose=False):
         super().__init__(seed)
-        # self.verbose=True
+        self.verbose = verbose
         self.nlp = spacy.load("en_core_web_sm")
         self.nlp.tokenizer = Tokenizer(
             self.nlp.vocab, 
@@ -391,7 +392,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
         return t_dict
 
 
-    def generate(self, sentence: str, target: str):
+    def generate(self, sentence: Union[dict, str], target: str):
 
         if isinstance(sentence, dict):
             # You can indicate specific word location with var "get_roots" as a list of index
