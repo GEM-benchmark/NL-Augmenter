@@ -11,8 +11,8 @@ This perturbation would benefit all tasks on text classification and generation.
 
 Benchmark results:
 
-- Sentiment analysis: we run sentiment analysis on a 10% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 94.88.
-
+- Sentiment analysis: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 956 and the perturbed accuracy is 95.2.
+- Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original BLEU is 15.99 and the perturbed BLEU is 9.75.
 
 ## Related work
 
@@ -28,7 +28,19 @@ This is very similar to the `Sentence Permutation` noising method in the BART pa
 }
 ```
 
-The NeuralCoref model is from [Huggingface](https://github.com/huggingface/neuralcoref).
+The coreference resolution model is from the following paper
+
+```bibtex
+@inproceedings{lee2018higher,
+  title={Higher-Order Coreference Resolution with Coarse-to-Fine Inference},
+  author={Lee, Kenton and He, Luheng and Zettlemoyer, Luke},
+  booktitle={Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 2 (Short Papers)},
+  pages={687--692},
+  year={2018}
+}
+```
+
+We use its [AllenNLP implementation](https://demo.allennlp.org/coreference-resolution).
 
 
 ## What are the limitations of this transformation?
