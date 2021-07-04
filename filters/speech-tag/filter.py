@@ -45,7 +45,7 @@ class SpeechTagFilter(SentenceOperation):
                 lengths[key] = 1
 
         unique_lengths = set(lengths.values())
-        if len(unique_lengths) == 1:
+        if unique_lengths == {1}:
             return 1
         elif len(unique_lengths) > 2:
             raise ValueError("One or more lists given with non-matching lengths")
