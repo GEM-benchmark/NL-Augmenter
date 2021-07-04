@@ -1,3 +1,4 @@
+import itertools
 import random
 
 from interfaces.SentenceOperation import SentenceOperation
@@ -8,61 +9,62 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-def butter_finger(text, prob=0.1, keyboard="querty", seed=0):
+def butter_finger(text, prob=0.1, keyboard="querty", seed=0, max_outputs=1):
     random.seed(seed)
-    keyApprox = {}
+    key_approx = {}
 
     if keyboard == "querty":
-        keyApprox["q"] = "qwasedzx"
-        keyApprox["w"] = "wqesadrfcx"
-        keyApprox["e"] = "ewrsfdqazxcvgt"
-        keyApprox["r"] = "retdgfwsxcvgt"
-        keyApprox["t"] = "tryfhgedcvbnju"
-        keyApprox["y"] = "ytugjhrfvbnji"
-        keyApprox["u"] = "uyihkjtgbnmlo"
-        keyApprox["i"] = "iuojlkyhnmlp"
-        keyApprox["o"] = "oipklujm"
-        keyApprox["p"] = "plo['ik"
+        key_approx["q"] = "qwasedzx"
+        key_approx["w"] = "wqesadrfcx"
+        key_approx["e"] = "ewrsfdqazxcvgt"
+        key_approx["r"] = "retdgfwsxcvgt"
+        key_approx["t"] = "tryfhgedcvbnju"
+        key_approx["y"] = "ytugjhrfvbnji"
+        key_approx["u"] = "uyihkjtgbnmlo"
+        key_approx["i"] = "iuojlkyhnmlp"
+        key_approx["o"] = "oipklujm"
+        key_approx["p"] = "plo['ik"
 
-        keyApprox["a"] = "aqszwxwdce"
-        keyApprox["s"] = "swxadrfv"
-        keyApprox["d"] = "decsfaqgbv"
-        keyApprox["f"] = "fdgrvwsxyhn"
-        keyApprox["g"] = "gtbfhedcyjn"
-        keyApprox["h"] = "hyngjfrvkim"
-        keyApprox["j"] = "jhknugtblom"
-        keyApprox["k"] = "kjlinyhn"
-        keyApprox["l"] = "lokmpujn"
+        key_approx["a"] = "aqszwxwdce"
+        key_approx["s"] = "swxadrfv"
+        key_approx["d"] = "decsfaqgbv"
+        key_approx["f"] = "fdgrvwsxyhn"
+        key_approx["g"] = "gtbfhedcyjn"
+        key_approx["h"] = "hyngjfrvkim"
+        key_approx["j"] = "jhknugtblom"
+        key_approx["k"] = "kjlinyhn"
+        key_approx["l"] = "lokmpujn"
 
-        keyApprox["z"] = "zaxsvde"
-        keyApprox["x"] = "xzcsdbvfrewq"
-        keyApprox["c"] = "cxvdfzswergb"
-        keyApprox["v"] = "vcfbgxdertyn"
-        keyApprox["b"] = "bvnghcftyun"
-        keyApprox["n"] = "nbmhjvgtuik"
-        keyApprox["m"] = "mnkjloik"
-        keyApprox[" "] = " "
+        key_approx["z"] = "zaxsvde"
+        key_approx["x"] = "xzcsdbvfrewq"
+        key_approx["c"] = "cxvdfzswergb"
+        key_approx["v"] = "vcfbgxdertyn"
+        key_approx["b"] = "bvnghcftyun"
+        key_approx["n"] = "nbmhjvgtuik"
+        key_approx["m"] = "mnkjloik"
+        key_approx[" "] = " "
     else:
         print("Keyboard not supported.")
 
-    probOfTypo = int(prob * 100)
-
-    buttertext = ""
-    for letter in text:
-        lcletter = letter.lower()
-        if not lcletter in keyApprox.keys():
-            newletter = lcletter
-        else:
-            if random.choice(range(0, 100)) <= probOfTypo:
-                newletter = random.choice(keyApprox[lcletter])
+    prob_of_typo = int(prob * 100)
+    perturbed_texts = []
+    for _ in itertools.repeat(None, max_outputs):
+        butter_text = ""
+        for letter in text:
+            lcletter = letter.lower()
+            if not lcletter in key_approx.keys():
+                new_letter = lcletter
             else:
-                newletter = lcletter
-        # go back to original case
-        if not lcletter == letter:
-            newletter = newletter.upper()
-        buttertext += newletter
-
-    return buttertext
+                if random.choice(range(0, 100)) <= prob_of_typo:
+                    new_letter = random.choice(key_approx[lcletter])
+                else:
+                    new_letter = lcletter
+            # go back to original case
+            if not lcletter == letter:
+                new_letter = new_letter.upper()
+            butter_text += new_letter
+        perturbed_texts.append(butter_text)
+    return perturbed_texts
 
 
 """
@@ -78,12 +80,14 @@ class ButterFingersPerturbation(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=0):
-        super().__init__(seed)
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
 
     def generate(self, sentence: str):
-        pertubed = butter_finger(text=sentence, prob=0.05, seed=self.seed)
-        return pertubed
+        perturbed_texts = butter_finger(
+            text=sentence, prob=0.05, seed=self.seed, max_outputs=self.max_outputs
+        )
+        return perturbed_texts
 
 
 """
@@ -91,8 +95,9 @@ class ButterFingersPerturbation(SentenceOperation):
 # You don't need to keep this code in your transformation.
 if __name__ == '__main__':
     import json
+    from TestRunner import convert_to_snake_case
 
-    tf = ButterFingersPerturbation()
+    tf = ButterFingersPerturbation(max_outputs=3)
     sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
     for sentence in ["Andrew finally returned the French book to Chris that I bought last week",
@@ -102,7 +107,7 @@ if __name__ == '__main__':
                      "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."]:
         test_cases.append({
             "class": tf.name(),
-            "inputs": {"sentence": sentence}, "outputs": {"sentence": tf.generate(sentence)}}
+            "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
