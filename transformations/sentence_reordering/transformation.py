@@ -7,14 +7,14 @@ nltk.download("punkt")  # required for sent_tokenize
 from nltk.tokenize import sent_tokenize
 import random
 
-import spacy
+# coref resolution from allennlp
+# ref: https://demo.allennlp.org/coreference-resolution
+import allennlp_models.tagging
+from allennlp.predictors.predictor import Predictor
 
-nlp = spacy.load("en_core_web_sm")
-
-# Add neural coref to SpaCy's pipe
-import neuralcoref
-
-neuralcoref.add_to_pipe(nlp)
+predictor = Predictor.from_path(
+    "https://storage.googleapis.com/allennlp-public-models/coref-spanbert-large-2021.03.10.tar.gz"
+)
 
 
 """
@@ -25,7 +25,7 @@ Base Class for implementing the different input transformations a generation sho
 def sentence_reordering(text, seed):
     random.seed(seed)
     # resolve coref
-    text = nlp(text)._.coref_resolved
+    text = predictor.coref_resolved(document=text)
 
     # tokenize and shuffle
     text_split = sent_tokenize(text)
