@@ -13,7 +13,6 @@ def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:
     # (2) load test set
     if dataset_name is None:
         dataset_name = "imdb"
-        fields = ["text", "label"]
     print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
     text_classification_pipeline = pipeline(
         "sentiment-analysis", model=model_name, tokenizer=model_name
@@ -26,7 +25,6 @@ def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:
     if dataset_name in ["qqp", "sst2"]:
         # TODO: extend this to all the glue datasets.
         hf_dataset = load_dataset("glue", dataset_name, split=split)
-        fields = ["sentence", "label"]
     else:
         hf_dataset = load_dataset(dataset_name, split=split)
 
@@ -70,5 +68,7 @@ def evaluate_dataset(text_classification_pipeline, dataset):
             accuracy += 1
         total += 1
 
-    print(f"The accuracy on this subset which has {total} examples= {100 * accuracy / total}")
+    print(
+        f"The accuracy on this subset which has {total} examples= {100 * accuracy / total}"
+    )
     return np.round(100 * accuracy / total, 1), total
