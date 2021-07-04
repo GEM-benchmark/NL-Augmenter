@@ -161,11 +161,15 @@ class ContractionExpansions(SentenceOperation):
         Returns
         -------
         list
-            List of strings with contractions expanded or contracted, or []
+            List of strings with contractions expanded or contracted
+            if no contractions are possible returns the same sentence
         """
         expanded = [self.expand_contractions(sentence), self.contract(sentence)]
         return [t for t in expanded if t != sentence]
 
     def generate(self, sentence):
         pertubed = self.contractions(sentence)
-        return pertubed
+        if pertubed !=[]:
+            return pertubed
+        else:
+            return [sentence]

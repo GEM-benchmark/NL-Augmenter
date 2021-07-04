@@ -45,6 +45,28 @@
       "outputs": [{
         "sentence": "Right now, I am not sure what to wear to the interview."
       }]
+    },
+    {
+      "class": "ContractionExpansions",
+      "inputs": {
+        "sentence": "He is a doctor, but she's a teacher."
+      },
+      "outputs": [{
+        "sentence": "He is a doctor, but she is a teacher."
+      },
+      {
+        "sentence": "He's a doctor, but she's a teacher."
+      }
+    ]
+    },
+    {
+      "class": "ContractionExpansions",
+      "inputs": {
+        "sentence": "Return same sentence when no contraction is present"
+      },
+      "outputs": [{
+        "sentence": "Return same sentence when no contraction is present"
+      }]
     }
   ]
 }
