@@ -5,6 +5,28 @@ This filter helps identify the question category either based on question word o
 
 ## Why is measuring performance on this split important?
 This filter provides a fine-grained analysis of question answering systems,helps to identify possible biases towards some categories of questions.
+### Evaluation
+| Question Type | Number of Samples | EM|
+|---------------|-----------|----|
+| Numeric |356 |70.22|
+| Date    |193  |79.79|
+| Person   |301 |65.44|
+| Location |176 |56.86|
+| Common noun phrases |411| 56.20|
+| Adjective phrases  |267| 49.43|
+| Verb Phrases |134 | 40.29|
+
+One can infer that answers involving phrases are more challenging
+
+| Question Type | Number of Samples | EM|
+|---------------|-----------|----|
+|Where | 120| 57.5|
+|What | 1117| 55.59  |
+|Which | 106 | 58.49  |
+|Who |  353  |  66.57  |
+|Why |  22  |   27.27  |
+
+One can infere tha "Why" type of questions are difficult to answer 
 
 ## Related Work
 ```bibtex
