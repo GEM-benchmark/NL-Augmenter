@@ -5,32 +5,10 @@ from tasks.TaskTypes import TaskType
 # for sent tokenizer
 import spacy
 
-nlp = spacy.load("en_core_web_sm")
-
 # coref resolution from allennlp
 # ref: https://demo.allennlp.org/coreference-resolution
 import allennlp_models.tagging
 from allennlp.predictors.predictor import Predictor
-
-predictor = Predictor.from_path(
-    "https://storage.googleapis.com/allennlp-public-models/coref-spanbert-large-2021.03.10.tar.gz"
-)
-
-
-"""
-Base Class for implementing the different input transformations a generation should be robust against.
-"""
-
-
-def sentence_reordering(text, seed, coref_model):
-    random.seed(seed)
-    # resolve coref
-    text = coref_model.coref_resolved(document=text)
-
-    # tokenize and shuffle
-    text_split = [i.text for i in nlp(text).sents]
-    random.shuffle(text_split)
-    return " ".join(text_split)
 
 
 """
@@ -47,15 +25,23 @@ class SentenceReordering(SentenceOperation):
 
     def __init__(self, seed=42, max_output=1):
         super().__init__(seed)
+        self.seed = seed
+        self.nlp = spacy.load("en_core_web_sm")
         self.max_output = max_output
         self.coref_model = Predictor.from_path(
             "https://storage.googleapis.com/allennlp-public-models/coref-spanbert-large-2021.03.10.tar.gz"
         )
 
     def generate(self, sentence: str):
-        pertubed = [
-            sentence_reordering(
-                text=sentence, seed=self.seed, coref_model=self.coref_model
-            )
-        ]
+        pertubed = [self.sentence_reordering(text=sentence)]
         return pertubed
+
+    def sentence_reordering(self, text):
+        random.seed(self.seed)
+        # resolve coref
+        text = self.coref_model.coref_resolved(document=text)
+
+        # tokenize and shuffle
+        text_split = [i.text for i in self.nlp(text).sents]
+        random.shuffle(text_split)
+        return " ".join(text_split)
