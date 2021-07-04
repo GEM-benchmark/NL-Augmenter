@@ -18,9 +18,9 @@ dataset: `squad`
 
 
 ## Why is measuring performance on this split important?
-This filter can be used to separate out quantiative questions, it helps to analyse models performance on questions which require numerical understanding.It is also useful to study possible biases in question generation. <br>Evaluation Results hint towards the fact that non quantitative questions are more challenging hence measuring performance along this split is important  <br>
+This filter can be used to separate out quantitative questions, it helps to analyse models performance on questions which require numerical understanding.It is also useful to study possible biases in question generation. <br>Evaluation Results hint towards the fact that non quantitative questions are more challenging hence measuring performance along this split is important  <br>
 
 
 ## What are the limitations of this filter?
-This is a simple filter and separtes out questions based on lexical and context-free matching.
+This is a simple filter and separates out questions based on lexical and context-free matching.
 Does not consider quantitative questions involving max/min comparison
