@@ -69,27 +69,33 @@ class TokenAmountFilter(SentenceOperation):
             else [ops[op] for _ in range(self.max_input_length)]
         )
 
+    @staticmethod
+    def check_exisiting_bounds(bounds, key, position):
+        if bounds[key][position] is not None:
+            raise ValueError(
+                f"Invalid Bounds: Two operations given for the same speech tag '{key}' that alternate the same bound at position '{position}'"
+            )
+
     def sanity_check(self):
         bounds = defaultdict(lambda: [None, None])
         for curr_keyword, curr_threshold, curr_operator in zip(
             self.final_keywords, self.final_thresholds, self.final_operators
         ):
             if curr_operator == operator.gt:
+                self.check_exisiting_bounds(bounds, curr_keyword, 0)
                 bounds[curr_keyword][0] = curr_threshold + 1
             elif curr_operator == operator.ge:
+                self.check_exisiting_bounds(bounds, curr_keyword, 0)
                 bounds[curr_keyword][0] = curr_threshold
             elif curr_operator == operator.lt:
+                self.check_exisiting_bounds(bounds, curr_keyword, 1)
                 bounds[curr_keyword][1] = curr_threshold - 1
             elif curr_operator == operator.le:
+                self.check_exisiting_bounds(bounds, curr_keyword, 1)
                 bounds[curr_keyword][1] = curr_threshold
             elif curr_operator == operator.eq:
-                if (
-                    bounds[curr_keyword][0] is not None
-                    or bounds[curr_keyword][1] is not None
-                ):
-                    raise ValueError(
-                        "Invalid Bounds: Two equal operations given for the same keyword"
-                    )
+                self.check_exisiting_bounds(bounds, curr_keyword, 0)
+                self.check_exisiting_bounds(bounds, curr_keyword, 1)
                 bounds[curr_keyword][0] = curr_threshold
                 bounds[curr_keyword][1] = curr_threshold
 
