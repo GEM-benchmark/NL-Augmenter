@@ -7,7 +7,7 @@
         "sentence": "Alex can't afford to buy that car"
       },
       "outputs": {
-        "sentence": "Alex cannot afford to buy that car"
+        "sentence": ["Alex cannot afford to buy that car"]
       }
     },
     {
@@ -16,7 +16,7 @@
         "sentence": "There is always another opportunity to be had down the road."
       },
       "outputs": {
-        "sentence": "There's always another opportunity to be had down the road."
+        "sentence": ["There's always another opportunity to be had down the road."]
       }
     },
     {
@@ -25,7 +25,7 @@
         "sentence": "You can go ahead, I'll join you later."
       },
       "outputs": {
-        "sentence": "You can go ahead, I will join you later."
+        "sentence": ["You can go ahead, I will join you later."]
       }
     },
     {
@@ -34,7 +34,7 @@
         "sentence": "He often doesn't come to school."
       },
       "outputs": {
-        "sentence": "He often does not come to school."
+        "sentence": ["He often does not come to school."]
       }
     },
     {
@@ -43,7 +43,7 @@
         "sentence": "Right now, I'm not sure what to wear to the interview."
       },
       "outputs": {
-        "sentence": "Right now, I am not sure what to wear to the interview."
+        "sentence": ["Right now, I am not sure what to wear to the interview."]
       }
     }
   ]

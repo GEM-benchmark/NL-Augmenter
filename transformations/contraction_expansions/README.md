@@ -1,7 +1,7 @@
 # Contractions and Expansions Perturbation 🦎  +  → 🐍
 This perturbation adds commonly used contractions/expansions: I'm --> I am or I am --> I'm
 
-Author name: Tanay Dixit (dixittanay@gmail.com)
+Author name: Tanay Dixit, Ananya B Sai
 
 ## What type of a transformation is this?
 This transformation acts like a perturbation and makes lexical subsitutions. 
