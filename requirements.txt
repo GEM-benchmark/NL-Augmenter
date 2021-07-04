@@ -1,9 +1,10 @@
-checklist==0.0.10
+checklist==0.0.11
 spacy==2.2.4
 nltk==3.6.2
 
 # for sentence_reordering
-neuralcoref
+allennlp==2.5.0
+allennlp-models==2.5.0
 
 # for back_translation
 torch
