@@ -1,7 +1,7 @@
 import operator
 import spacy
 
-from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
+from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from collections import defaultdict
 from typing import Union
@@ -18,7 +18,7 @@ class TokenAmountFilter(SentenceOperation):
     def __init__(
         self,
         keywords: Union[list, str] = None,
-        thresholds: Union[list, str] = None,
+        thresholds: Union[list, int] = None,
         operations: Union[list, str] = None,
     ):
         super().__init__()
@@ -27,18 +27,26 @@ class TokenAmountFilter(SentenceOperation):
         self.final_keywords = self.convert_scalar_to_list(keywords)
         self.final_thresholds = self.convert_scalar_to_list(thresholds)
         self.nlp = spacy.load("en_core_web_sm")
+        self.sanity_check()
 
     def get_input_length(self, keywords, thresholds, operations):
         all_inputs = [keywords, thresholds, operations]
         lengths = defaultdict(int)
-        for user_input in all_inputs:
+        for key, user_input in zip(
+            ["keywords", "thresholds", "operations"], all_inputs
+        ):
             if isinstance(user_input, list):
-                lengths[len(user_input)] += 1
+                lengths[key] = len(user_input)
+            else:
+                lengths[key] = 1
 
-        if len(list(lengths.keys())) > 1:
+        unique_lengths = set(lengths.values())
+        if len(unique_lengths) == 1:
+            return 1
+        elif len(unique_lengths) > 2:
             raise ValueError("One or more lists given with non-matching lengths")
 
-        return list(lengths.keys())[0]
+        return max(unique_lengths)
 
     def convert_scalar_to_list(self, pos_scalar):
         return (
@@ -60,6 +68,38 @@ class TokenAmountFilter(SentenceOperation):
             if isinstance(op, list)
             else [ops[op] for _ in range(self.max_input_length)]
         )
+
+    def sanity_check(self):
+        bounds = defaultdict(lambda: [None, None])
+        for curr_keyword, curr_threshold, curr_operator in zip(
+            self.final_keywords, self.final_thresholds, self.final_operators
+        ):
+            if curr_operator == operator.gt:
+                bounds[curr_keyword][0] = curr_threshold + 1
+            elif curr_operator == operator.ge:
+                bounds[curr_keyword][0] = curr_threshold
+            elif curr_operator == operator.lt:
+                bounds[curr_keyword][1] = curr_threshold - 1
+            elif curr_operator == operator.le:
+                bounds[curr_keyword][1] = curr_threshold
+            elif curr_operator == operator.eq:
+                if (
+                    bounds[curr_keyword][0] is not None
+                    or bounds[curr_keyword][1] is not None
+                ):
+                    raise ValueError(
+                        "Invalid Bounds: Two equal operations given for the same keyword"
+                    )
+                bounds[curr_keyword][0] = curr_threshold
+                bounds[curr_keyword][1] = curr_threshold
+
+        for curr_keyword, curr_bounds in bounds.items():
+            if curr_bounds[0] is None or curr_bounds[1] is None:
+                continue
+            if curr_bounds[0] > curr_bounds[1]:
+                raise ValueError(
+                    f"Invalid Bounds: The bounds for the keyword '{curr_keyword}' are falsely specified and always return false since the lower bound is '{curr_bounds[0]}' and the upper bound is '{curr_bounds[1]}'"
+                )
 
     def filter(self, sentence):
         tokenized = self.nlp(sentence, disable=["parser", "tagger", "ner"])
