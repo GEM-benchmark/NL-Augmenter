@@ -54,18 +54,24 @@ class change_gender_culture_diverse_name_two_way:
         ----------
         doc : spacy.token.Doc
             input
-        meta : bool
-            if True, will return list of (orig_name, new_name) as meta
+        tar : str
+            target sentence
         n : int
             number of names to replace original names with
+        max_output: int
+            maximum number of perturbed sentences to output
         seed : int
             random seed
 
         Returns
         -------
-        list(str)
-            if meta=True, returns (list(str), list(tuple))
-            Strings with names replaced.
+        ret_s, ret_t, ret_m
+            ret_s: list
+                list of perturbed source sentences
+            ret_t: list
+                list of perturbed target sentences
+            ret_m: list( (old_name, new_name) )
+                list of (old_name, new_name) pairs
 
         """
 
@@ -140,23 +146,24 @@ class gender_culture_diverse_name_two_way(SentenceAndTargetOperation):
 
         return [(perturbed_source, perturbed_target)]
 
-from TestRunner import convert_to_snake_case
-tf = gender_culture_diverse_name_two_way()
-src = ["Andrew finally returned the French book to Chris that I bought last week",
-           "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate"
-           " to indicate the relation between two or more arguments."]
-tgt = ["Andrew did not return the French book to Chris that was bought earlier",
-           "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!", ]
+if __name__ == '__main__':
+    from TestRunner import convert_to_snake_case
+    tf = gender_culture_diverse_name_two_way()
+    src = ["Andrew finally returned the French book to Chris that I bought last week",
+            "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate"
+            " to indicate the relation between two or more arguments."]
+    tgt = ["Andrew did not return the French book to Chris that was bought earlier",
+            "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!", ]
 
-test_cases = []
-for idx, (sentence, target) in enumerate(zip(src, tgt)):
-        perturbeds = tf.generate(sentence, target)
-        test_cases.append({
-            "class": tf.name(),
-            "inputs": {"sentence": sentence, "target": target},
-            "outputs": []}
-        )
-        for sentence, target in perturbeds:
-            test_cases[idx]["outputs"].append({"sentence": sentence, "target": target})
+    test_cases = []
+    for idx, (sentence, target) in enumerate(zip(src, tgt)):
+            perturbeds = tf.generate(sentence, target)
+            test_cases.append({
+                "class": tf.name(),
+                "inputs": {"sentence": sentence, "target": target},
+                "outputs": []}
+            )
+            for sentence, target in perturbeds:
+                test_cases[idx]["outputs"].append({"sentence": sentence, "target": target})
 
-A = 1
+    A = 1

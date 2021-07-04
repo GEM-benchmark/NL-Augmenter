@@ -53,18 +53,20 @@ class change_gender_culture_diverse_name:
         ----------
         doc : spacy.token.Doc
             input
-        meta : bool
-            if True, will return list of (orig_name, new_name) as meta
         n : int
             number of names to replace original names with
+        max_output: int
+            maximum number of perturbed sentences to output
         seed : int
             random seed
 
         Returns
         -------
-        list(str)
-            if meta=True, returns (list(str), list(tuple))
-            Strings with names replaced.
+        ret, ret_m
+            ret: list
+                list of perturbed sentences
+            ret_m: [(old_name), (new_name),...]
+                list of (old_name, new_name) pairs
 
         """
 
@@ -136,12 +138,12 @@ class gender_culture_diverse_name(SentenceOperation):
 
         return perturbed_texts
 
-
-test = gender_culture_diverse_name()
-# sentence = 'Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.'
-# sentence = 'Phoebe Buffay is an eccentric masseuse and musician.'
-# sentence = 'Joey has many short-term girlfriends.'
-# sentence = 'Chandler Bing is a sarcastic and self-deprecating IT manager.'
-sentence = 'Monica was overweight as a child.'
-p = test.generate(sentence)
-print(p[0])
+if __name__ == '__main__':
+    test = gender_culture_diverse_name()
+    # sentence = 'Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.'
+    # sentence = 'Phoebe Buffay is an eccentric masseuse and musician.'
+    # sentence = 'Joey has many short-term girlfriends.'
+    # sentence = 'Chandler Bing is a sarcastic and self-deprecating IT manager.'
+    sentence = 'Monica was overweight as a child.'
+    p = test.generate(sentence)
+    print(p[0])
