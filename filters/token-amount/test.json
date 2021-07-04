@@ -84,6 +84,18 @@
                 "sentence": "Andrew played cricket in a soccer stadium in India at 9pm in shorts"
             },
             "outputs": false
+        },
+		{
+            "class": "TokenAmountFilter",
+            "args": {
+                "keywords": "in",
+				"thresholds": 2,
+				"operations": ">"
+            },
+            "inputs": {
+                "sentence": "Andrew played cricket in a soccer stadium in India at 9pm in shorts"
+            },
+            "outputs": true
         }
     ]
 }
