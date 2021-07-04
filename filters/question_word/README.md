@@ -6,6 +6,7 @@ This filter helps identify the question category either based on question word o
 ## Why is measuring performance on this split important?
 This filter provides a fine-grained analysis of question answering systems,helps to identify possible biases towards some categories of questions.
 ### Evaluation
+Using default datasets and models 
 | Question Type | Number of Samples | EM|
 |---------------|-----------|----|
 | Numeric |356 |70.22|
@@ -26,7 +27,7 @@ One can infer that answers involving phrases are more challenging
 |Who |  353  |  66.57  |
 |Why |  22  |   27.27  |
 
-One can infere tha "Why" type of questions are difficult to answer 
+One can infer that "Why" type of questions are difficult to answer 
 
 ## Related Work
 ```bibtex
