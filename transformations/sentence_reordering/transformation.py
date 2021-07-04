@@ -28,7 +28,7 @@ def sentence_reordering(text, seed, coref_model):
     text = coref_model.coref_resolved(document=text)
 
     # tokenize and shuffle
-    text_split = [i for i in nlp(text).sents]
+    text_split = [i.text for i in nlp(text).sents]
     random.shuffle(text_split)
     return " ".join(text_split)
 
