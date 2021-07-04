@@ -238,6 +238,14 @@ def recognize_numeric_in_begin_end_bracket(x):
                    (x[0] == '<' and x[-1] == '>')
     return is_bracketed
 
+def recognize_numeric_beside_end_bracket(x):
+    return x[-1] == ')' or\
+           x[-1] == ']' or\
+           x[-1] == '}' or\
+           x[-2] == ')' or\
+           x[-2] == ']' or\
+           x[-2] == '}'
+
 def recognized_as_math_bracket(x):
     return x[0] == '(' and recognized_as_sticky_numbers(x[1:])
 
@@ -247,8 +255,14 @@ def recognized_as_special_phone_number(x):
 def recognized_as_general_numbers(x):
     return x.replace(',','').replace('.','').isnumeric() and x[-1].isnumeric()
 
+def recognized_as_negatives(x):
+    return x[0] == '-'
+
 def recognized_as_special_numbers(x):
     return x in special_numbers
+
+def recognize_natural_log(x):
+    return x[:2] == 'e('
     
 ### Transformers
 
@@ -486,7 +500,17 @@ def general_numbers_to_words(x):
         
     words = ''.join(num2words(x).split(","))
     return words
-    
+
+def numeric_beside_end_bracket_to_words(x):
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+    words = recognize_transform(x[:end_digit_index], ' ', ' ') + ' ' + x[end_digit_index:]
+    return words
+
+def natural_log_to_words(x):
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+    words = 'e ( ' + recognize_transform(x[2:end_digit_index], ' ', ' ') + ' ' + x[end_digit_index:]
+    return words
+
 ### Implementations 
 
 def recognize_transform(word, prev_word, next_word):
@@ -517,67 +541,79 @@ def recognize_transform(word, prev_word, next_word):
             words = phonenum_to_words(word)
 #             print('C', word, words)
             return words
+        elif recognized_as_negatives(word):
+            words = "minus " + recognize_transform(word[1:], ' ', ' ')
+#             print('D', word, words)
+            return words
         elif recognized_as_general_numbers(word):
             words = general_numbers_to_words(word)
-#             print('D', word, words)
+#             print('E', word, words)
             return words
         elif recognized_as_time(word):
             words = time_to_words(word)
-#             print('E', word, words)
+#             print('F', word, words)
             return words
         elif recognized_as_year(word):
             words = year_to_words(word)
-#             print('F', word, words)
+#             print('G', word, words)
             return words
         elif recognized_as_currency_symbols(word):
             words = currency_to_words(word)
-#             print('G', word, words)
+#             print('H', word, words)
             return words
         elif recognized_as_cents(word):
             words = cents_to_words(word)
-#             print('H', word, words)
+#             print('I', word, words)
             return words
         elif recognized_as_phone_number(word): 
             words = phonenum_to_words(word)
-#             print('I', word, words)
+#             print('J', word, words)
             return words
         elif recognized_as_special_phone_number(word):
             words = word[0] + ' ' + phonenum_to_words(word) + ' ' + word[-1]
-#             print('J', word, words)
+#             print('K', word, words)
             return words
         elif recognized_as_long_number(word):
             words = long_number_to_words(word)
-#             print('K', word, words)
+#             print('L', word, words)
             return words
         elif recognized_as_long_number_with_stripes(word):
             words = long_number_with_stripes_to_words(word)
-#             print('L', word, words)
+#             print('M', word, words)
             return words
         elif recognized_as_sticky_numbers(word):
             words = sticky_numbers_to_words(word)
-#             print('M', word, words)
+#             print('N', word, words)
             return words
         elif recognized_as_sticky_range(word):
             words = sticky_range_to_words(word)
-#             print('N', word, words)
+#             print('O', word, words)
             return words
         elif recognized_as_math_formula_equality(word):
             words = math_formula_equality_to_words(word)
-#             print('O', word, words)
+#             print('P', word, words)
+            return words
+        elif recognize_natural_log(word):
+            words = natural_log_to_words(word)
+#             print('Q', word, words)
             return words
         elif recognize_numeric_in_begin_end_bracket(word):
             words = word[0] + recognize_transform(word[1:-1], ' ', ' ') + word[-1]
-#             print('P', word, words)
+#             print('R', word, words)
+            return words
+        elif recognize_numeric_beside_end_bracket(word):
+            words = numeric_beside_end_bracket_to_words(word)
+#             print('S', word, words)
             return words
         elif recognized_as_math_bracket(word):
             words = math_bracket_to_words(word)
-#             print('Q', word, words)
+#             print('T', word, words)
             return words
         else: # ELSE: Numbers that not in the above stated formats, strings
-#             print('R', word)
+#             print('U', word)
             return word
     else:
-#         print('S', word)
+#         print('V', word)
         return word
 
 ### Supplements
