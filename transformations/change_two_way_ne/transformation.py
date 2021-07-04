@@ -1,10 +1,10 @@
-import numpy as np
 import re
 
+import numpy as np
+import spacy
 from checklist.perturb import Perturb
 
 from interfaces.SentenceOperation import SentenceAndTargetOperation
-import spacy
 from tasks.TaskTypes import TaskType
 
 
@@ -19,8 +19,8 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
     languages = ["en"]
     tgt_languages = ["en"]
 
-    def __init__(self, first_only=False, last_only=False, n=1, seed=0):
-        super().__init__(seed)
+    def __init__(self, first_only=False, last_only=False, n=1, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy.load("en_core_web_sm")
         self.first_only = first_only  # first name
         self.last_only = last_only  # last name
@@ -51,8 +51,8 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
             if len(x.split()) > 1:
                 l = x.split()[1]
                 if (
-                        len(l) > 2
-                        and l.capitalize() not in Perturb.data["name_set"]["last"]
+                    len(l) > 2
+                    and l.capitalize() not in Perturb.data["name_set"]["last"]
                 ):
                     continue
             else:
@@ -79,10 +79,11 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
         if len(ret) > 0 and ret[0] != sentence:
             perturbed_source = ret[0]
             perturbed_target = outs[0]
-            print(
-                f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}"
-            )
-            return perturbed_source, perturbed_target
+            if self.verbose:
+                print(
+                    f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}"
+                )
+            return [(perturbed_source, perturbed_target)]
 
         # (2) add location named entities
         ents = [x.text for x in doc.ents if np.all([a.ent_type_ == "GPE" for a in x])]
@@ -108,31 +109,33 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
             print(
                 f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}"
             )
-        return perturbed_source, perturbed_target
+        return [(perturbed_source, perturbed_target)]
 
 
 """
-
 # Sample code to demonstrate adding test cases.
 
 if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
+
     tf = ChangeTwoWayNe()
     sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
     src = ["Andrew finally returned the French book to Chris that I bought last week",
-                     "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate" 
-                     " to indicate the relation between two or more arguments."]
+           "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate"
+           " to indicate the relation between two or more arguments."]
     tgt = ["Andrew did not return the French book to Chris that was bought earlier",
-                     "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!",]
-    for sentence, target in zip(src, tgt):
-        sentence_o, target_o = tf.generate(sentence, target)
+           "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!", ]
+    for idx, (sentence, target) in enumerate(zip(src, tgt)):
+        perturbeds = tf.generate(sentence, target)
         test_cases.append({
             "class": tf.name(),
             "inputs": {"sentence": sentence, "target": target},
-            "outputs": {"sentence": sentence_o, "target": target_o}}
+            "outputs": []}
         )
+        for sentence, target in perturbeds:
+            test_cases[idx]["outputs"].append({"sentence": sentence, "target": target})
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
 """

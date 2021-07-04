@@ -12,7 +12,7 @@
           "solar power, nuclear power or geothermal energy"
         ]
       },
-      "outputs": {
+      "outputs": [{
         "context": "Steam engines are external combustion engines, where the working fluid is separate from the combustion products. Non-combustion heat sources such as solar power, nuclear power or geothermal energy may be used. Steam engines are external combustion engines, where the working fluid is separate from the combustion products. Non-combustion heat sources such as solar power, nuclear power or geothermal energy may be used.",
         "question": "Along with geothermal and nuclear, what is a notable non-combustion heat source?",
         "answers": [
@@ -20,7 +20,7 @@
           "solar power",
           "solar power, nuclear power or geothermal energy"
         ]
-      }
+      }]
     },
     {
       "class": "RedundantContextForQa",
@@ -33,7 +33,7 @@
           "northwest"
         ]
       },
-      "outputs": {
+      "outputs": [{
         "context": "From Italy, the disease spread northwest across Europe, striking France, Spain, Portugal and England by June 1348, then turned and spread east through Germany and Scandinavia from 1348 to 1350. From Italy, the disease spread northwest across Europe, striking France, Spain, Portugal and England by June 1348, then turned and spread east through Germany and Scandinavia from 1348 to 1350.",
         "question": "Which direction did the disease first move in?",
         "answers": [
@@ -41,7 +41,7 @@
           "Europe",
           "northwest"
         ]
-      }
+      }]
     },
     {
       "class": "QuestionInCaps",
@@ -54,7 +54,7 @@
           "northwest"
         ]
       },
-      "outputs": {
+      "outputs": [{
         "context": "From Italy, the disease spread northwest across Europe, striking France, Spain, Portugal and England by June 1348, then turned and spread east through Germany and Scandinavia from 1348 to 1350.",
         "question": "WHICH DIRECTION DID THE DISEASE FIRST MOVE IN?",
         "answers": [
@@ -65,7 +65,7 @@
           "EUROPE",
           "NORTHWEST"
         ]
-      }
+      }]
     }
   ]
 }
