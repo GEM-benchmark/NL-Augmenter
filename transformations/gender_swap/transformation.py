@@ -10,7 +10,7 @@ TODO desc
 
 
 class GenderSwap(SentenceOperation):
-    tasks = [  # TODO verify it
+    tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
