@@ -25,6 +25,8 @@ class QuestionToStatement(SentenceOperation):
     def __init__(self, seed=0, max_output=1):
         super().__init__(seed)
         np.random.seed(seed)
+        nltk.download("punkt")
+
         self.seed = seed
         self.max_output = max_output
 
