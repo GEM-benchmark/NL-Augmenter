@@ -31,12 +31,15 @@ def recognize_transform(word, prev_word, next_word):
     # transforming by looking at previous or next words
     if recognized_as_power_of_ten(word, prev_word):
         words = 'ten power ' + num2words(unidecode(word[2:]))
+#         print('1', word, words)
         return words
     elif recognized_as_range_not_sticky(word, next_word):
         words = sticky_range_to_words(word)[:-1]
+#         print('2', word, words)
         return words
     elif recognized_as_date_word(word, prev_word, next_word):
         words = date_word_to_words(word, prev_word, next_word)
+#         print('3', word, words)
         return words
     
     elif bool(re.search(r'\d', word)):
@@ -146,7 +149,9 @@ def recognized_as_power_of_ten(word, prev_word):
     return word[:2] == '10' and unidecode(prev_word) == 'x'
 
 def recognized_as_range_not_sticky(word, next_word):
-    if bool(re.search(r'\d', word)) and not next_word[0].isnumeric() and word.find('-') > -1:
+    stripe_index = word.find('-')
+
+    if bool(re.search(r'\d', word)) and word.find('-') > -1 and len(word[:stripe_index]) <= 2 and len(word[stripe_index+1:]) <= 2:
         begin_digit_index = re.search(r"\d", word).start()
         end_digit_index = len(word) - re.search(r"\d", word[::-1]).start()
 
@@ -154,6 +159,8 @@ def recognized_as_range_not_sticky(word, next_word):
         last_part = word[end_digit_index:]
 
         return bool(re.search(r'^\d*[-]?\d*$',first_part)) and len(last_part) == 0 and word[0].isnumeric()
+    else:
+        return False
     
 def recognized_as_date_word(word, prev_word, next_word):
     return (prev_word in month_words or next_word in month_words) and word.isnumeric() and int(word) <= 31
