@@ -11,18 +11,12 @@ from phonenumbers import carrier, timezone, geocoder
 
 special_numbers = ['911']
 
-month_words = ["January", "Jan",
-               "February", "Feb",
-               "March", "Mar",
-               "April", "Apr",
-               "May",
-               "June", "Jun",
-               "July", "Jul",
-               "August", "Aug",
-               "September", "Sep", "Sept",
-               "October", "Oct",
-               "November", "Nov",
-               "December", "Dec"]
+month_words = ["january", "jan", "february", "feb",
+               "march", "mar", "april", "apr",
+               "may", "june", "jun", "july", "jul",
+               "august", "aug", "september", "sep", 
+               "sept", "october", "oct", "november", 
+               "nov", "december", "dec"]
 
 ### Implementations 
 
@@ -80,13 +74,13 @@ def recognize_transform(word, prev_word, next_word):
             words = time_to_words(word)
 #             print('G', word, words)
             return words
-        elif recognized_as_currency_symbols(word):
-            words = currency_to_words(word)
-#             print('H', word, words)
-            return words
         elif recognized_as_cents(word, prev_word, next_word):
             words = cents_to_words(word)
 #             print('I', word, words)
+            return words
+        elif recognized_as_currency_symbols(word):
+            words = currency_to_words(word)
+#             print('H', word, words)
             return words
         elif recognized_as_phone_number(word): 
             words = phonenum_to_words(word)
@@ -167,7 +161,7 @@ def recognized_as_range_not_sticky(word, next_word):
         return False
     
 def recognized_as_date_word(word, prev_word, next_word):
-    return (prev_word in month_words or next_word in month_words) and word.isnumeric() and int(word) <= 31
+    return (prev_word.lower() in month_words or next_word.lower() in month_words) and word.isnumeric() and int(word) <= 31
 
 def recognized_as_datestring(x):
     """
@@ -303,38 +297,48 @@ def recognized_as_currency_symbols(x):
     begin_digit_index = re.search(r"\d", x).start()
     end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
 
-    currency_symbols = list(symbol_to_currency_name_dict.keys())
-    currency_abbreviations = list(abbreviated_currency_symbols_to_currency_name_dict.keys())
+    currency_symbols = list(numeric2word.symbol_to_currency_name_dict.keys())
+    currency_abbreviations = list(numeric2word.abbreviated_currency_symbols_to_currency_name_dict.keys())
+    
+    found_dot = x.find('.') > -1
 
-    if x.find('.') > -1:
+    if not found_dot: 
         front_checker = x[:begin_digit_index-1]
+        back_checker = x[end_digit_index:]
+        print('1', front_checker)
+        print('1', back_checker)
     else:
         front_checker = x[:begin_digit_index]
-    
-    if x.find('.') > -1:
         back_checker = x[end_digit_index:]
-    else:
-        back_checker = x[end_digit_index:]
+        print('2', front_checker)
+        print('2', back_checker)
+        if len(front_checker)>0:
+            front_checker = front_checker[:-1] if front_checker[-1] == '.' else front_checker
+        else:
+            back_checker = back_checker[:-1] if back_checker[-1] == '.' else back_checker
+        print('2', front_checker)
+        print('2', back_checker)
+        
+    print(front_checker, back_checker)
     
     if front_checker in currency_symbols:
         other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
+        print('A', other_end_non_numeric)
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
     elif front_checker in currency_abbreviations:
         other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
+        print('B', other_end_non_numeric)
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
     elif back_checker in currency_symbols:
-        if x.find('.') > -1:
-            other_end_non_numeric = x[:begin_digit_index-1]
-        else:
-            other_end_non_numeric = x[:begin_digit_index]
+        other_end_non_numeric = x[end_digit_index:]
+        print('C', other_end_non_numeric)
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
     elif back_checker in currency_abbreviations:
-        if x.find('.') > -1:
-            other_end_non_numeric = x[:begin_digit_index-1]
-        else:
-            other_end_non_numeric = x[:begin_digit_index]
+        other_end_non_numeric = x[end_digit_index:]
+        print('D', other_end_non_numeric)
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
     else:
+        print('E')
         return False
     
 def recognized_as_cents(x, prev_word, next_word):
