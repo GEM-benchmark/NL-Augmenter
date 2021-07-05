@@ -45,4 +45,6 @@ We use its [AllenNLP implementation](https://demo.allennlp.org/coreference-resol
 
 ## What are the limitations of this transformation?
 
-This transformation will only change the input text that has more than one sentence.
+This transformation will only change the input text that has more than one sentence. 
+
+There are still cases where coref only could not handle. For example, there could be ellipsis problems as demonstrated by [this paper on narrative reordering](https://arxiv.org/pdf/2104.06669v1.pdf). We leave these as future work for simplicity. 
