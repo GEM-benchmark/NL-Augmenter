@@ -1,0 +1,71 @@
+{
+  "type": "sentence_reordering",
+  "test_cases": [
+    {
+      "class": "SentenceReordering",
+      "inputs": {
+        "sentence": "The Novikov conjecture is one of the most important unsolved problems in topology. It is named for Sergei Novikov who originally posed the conjecture in 1965. The Novikov conjecture concerns the homotopy invariance of certain polynomials in the Pontryagin classes of a manifold, arising from the fundamental group. According to the Novikov conjecture, the higher signatures, which are certain numerical invariants of smooth manifolds, are homotopy invariants."
+      },
+      "outputs": [
+        {
+          "sentence": "The Novikov conjecture concerns the homotopy invariance of certain polynomials in the Pontryagin classes of a manifold, arising from the fundamental group. The Novikov conjecture is named for Sergei Novikov who originally posed The Novikov conjecture in 1965. According to The Novikov conjecture, the higher signatures, which are certain numerical invariants of smooth manifolds, are homotopy invariants. The Novikov conjecture is one of the most important unsolved problems in topology."
+        }
+      ]
+    },
+    {
+      "class": "SentenceReordering",
+      "inputs": {
+        "sentence": "Albany Theatre is a historic theater in Albany, Georgia. It was added to the National Register of Historic Places on August 21, 2006. The Albany Theatre opened on September 12, 1927. The theatre is no longer in operation. It is located at 107 North Jackson Street."
+      },
+      "outputs": [
+        {
+          "sentence": "Albany Theatre is no longer in operation. Albany Theatre was added to the National Register of Historic Places on August 21, 2006. Albany Theatre opened on September 12, 1927. Albany Theatre is located at 107 North Jackson Street. Albany Theatre is a historic theater in Albany, Georgia."
+        }
+      ]
+    },
+    {
+      "class": "SentenceReordering",
+      "inputs": {
+        "sentence": "Intertoys is a Dutch store-chain founded in 1976 that specialised in toys, multimedia and electronics. It is headquartered in Amsterdam."
+      },
+      "outputs": [
+        {
+          "sentence": "Intertoys is headquartered in Amsterdam. Intertoys is a Dutch store-chain founded in 1976 that specialised in toys, multimedia and electronics."
+        }
+      ]
+    },
+    {
+      "class": "SentenceReordering",
+      "inputs": {
+        "sentence": "QuantumScape is an American company that does research about solid state lithium metal batteries for electric cars. The company is headquartered in San Jose, California and employs around 200 people. Investors include Bill Gates and Volkswagen."
+      },
+      "outputs": [
+        {
+          "sentence": "QuantumScape is headquartered in San Jose, California and employs around 200 people. QuantumScape is an American company that does research about solid state lithium metal batteries for electric cars. Investors include Bill Gates and Volkswagen."
+        }
+      ]
+    },
+    {
+      "class": "SentenceReordering",
+      "inputs": {
+        "sentence": "Sousmoulins is a commune in the Charente-Maritime department in southwestern France. The Seugne forms part of the commune's northeastern border."
+      },
+      "outputs": [
+        {
+          "sentence": "The Seugne forms part of a commune in the Charente-Maritime department in southwestern France's northeastern border. Sousmoulins is a commune in the Charente-Maritime department in southwestern France."
+        }
+      ]
+    },
+    {
+      "class": "SentenceReordering",
+      "inputs": {
+        "sentence": "John is a great person. He resides in Australia. Peter is also a great person. He resides in India."
+      },
+      "outputs": [
+        {
+          "sentence": "Peter is also a great person. John resides in Australia. Peter resides in India. John is a great person."
+        }
+      ]
+    }
+  ]
+}

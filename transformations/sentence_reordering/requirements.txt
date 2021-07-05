@@ -1,0 +1,3 @@
+# for sentence_reordering
+allennlp==2.5.0
+allennlp-models==2.5.0
