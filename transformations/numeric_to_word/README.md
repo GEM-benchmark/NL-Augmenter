@@ -31,15 +31,15 @@ This transformation translates numbers in numeric form form written amongst the 
     - general phone number
     - special phone number ('*#')
 
-This transformation also translates the cases existed in:
+This transformation also translates the cases existed in test samples taken from:
 - [SemEval 2019 Task 10: Math Question Answering](https://www.aclweb.org/anthology/S19-2153.pdf)
 - [ChemistryQA](https://openreview.net/pdf?id=oeHTRAehiFF)
 - [PubmedQA](https://www.aclweb.org/anthology/D19-1259.pdf)
 - [SMD / KVRET](https://www.aclweb.org/anthology/2020.findings-emnlp.215/)
 - [Mathematics Dataset](https://openreview.net/pdf?id=H1gR5iR5FX)
+- [PubMed 200k RCT](https://www.aclweb.org/anthology/I17-2052.pdf)
 
 Will be adding the capability to cater cases in:
-- [PubMed 200k RCT](https://www.aclweb.org/anthology/I17-2052.pdf)
 - [BBC News](https://www.kaggle.com/c/learn-ai-bbc)
 
 The tested cases are listed in `test.json`, the transformation will return the text (no transformation), whenever the numeric cases is not recognized.
