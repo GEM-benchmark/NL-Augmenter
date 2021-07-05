@@ -68,16 +68,16 @@ def recognize_transform(word, prev_word, next_word):
             words = "minus " + recognize_transform(word[1:], ' ', ' ')
 #             print('D', word, words)
             return words
+        elif recognized_as_year(word):
+            words = year_to_words(word)
+#             print('E', word, words)
+            return words
         elif recognized_as_general_numbers(word):
             words = general_numbers_to_words(word)
-#             print('E', word, words)
+#             print('F', word, words)
             return words
         elif recognized_as_time(word):
             words = time_to_words(word)
-#             print('F', word, words)
-            return words
-        elif recognized_as_year(word):
-            words = year_to_words(word)
 #             print('G', word, words)
             return words
         elif recognized_as_currency_symbols(word):
@@ -116,15 +116,15 @@ def recognize_transform(word, prev_word, next_word):
             words = math_formula_equality_to_words(word)
 #             print('P', word, words)
             return words
-        elif recognize_natural_log(word):
+        elif recognized_as_natural_log(word):
             words = natural_log_to_words(word)
 #             print('Q', word, words)
             return words
-        elif recognize_numeric_in_begin_end_bracket(word):
+        elif recognized_as_numeric_in_begin_end_bracket(word):
             words = word[0] + recognize_transform(word[1:-1], ' ', ' ') + word[-1]
 #             print('R', word, words)
             return words
-        elif recognize_numeric_beside_end_bracket(word):
+        elif recognized_as_numeric_beside_end_bracket(word):
             words = numeric_beside_end_bracket_to_words(word)
 #             print('S', word, words)
             return words
@@ -136,11 +136,15 @@ def recognize_transform(word, prev_word, next_word):
             words = additional_number_to_words(word)
 #             print('U', word, words)
             return words
+        elif recognized_as_fraction(word):
+            words = fraction_to_words(word)
+#             print('V', word, words)
+            return words
         else: # ELSE: Numbers that not in the above stated formats, strings
-#             print('V', word)
+#             print('W', word)
             return word
     else:
-#         print('W', word)
+#         print('X', word)
         return word
 
 ### Recognizers
@@ -151,7 +155,7 @@ def recognized_as_power_of_ten(word, prev_word):
 def recognized_as_range_not_sticky(word, next_word):
     stripe_index = word.find('-')
 
-    if bool(re.search(r'\d', word)) and word.find('-') > -1 and len(word[:stripe_index]) <= 2 and len(word[stripe_index+1:]) <= 2:
+    if bool(re.search(r'\d', word)) and stripe_index > -1 and len(word[:stripe_index]) <= 3 and len(word[stripe_index+1:]) <= 3:
         begin_digit_index = re.search(r"\d", word).start()
         end_digit_index = len(word) - re.search(r"\d", word[::-1]).start()
 
@@ -238,7 +242,7 @@ def recognized_as_incomplete_date(x):
                     return False, False
 
 def recognized_as_year(x):
-    possible_year_list = [str(x) for x in np.arange(1,2090,1)]
+    possible_year_list = [str(x) for x in np.arange(1001,2090,1)]
 
     begin_digit_index = re.search(r"\d", x).start()
     end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
@@ -250,8 +254,9 @@ def recognized_as_year(x):
     checker = min([character in string.punctuation for character in after_assumed_year]+[True]) and \
               min([character in string.punctuation for character in before_assumed_year]+[True]) and \
               year in possible_year_list and (len(year) <= 4) and year.isnumeric()
+    
     if checker:
-        return bool(re.compile(r'.*([1-3][0-9]{3})').match(x))
+        return bool(re.compile(r'.*([1-3][0-9]{3})').match(x)) and len(set(x) - {'0'}) >= 3
     else:
         return False
 
@@ -373,14 +378,14 @@ def recognized_as_math_formula_equality(x):
             matches.append(False)
     return sum(matches)>0
 
-def recognize_numeric_in_begin_end_bracket(x):
+def recognized_as_numeric_in_begin_end_bracket(x):
     is_bracketed = (x[0] == '(' and x[-1] == ')') or\
                    (x[0] == '[' and x[-1] == ']') or\
                    (x[0] == '{' and x[-1] == '}') or\
                    (x[0] == '<' and x[-1] == '>')
     return is_bracketed
 
-def recognize_numeric_beside_end_bracket(x):
+def recognized_as_numeric_beside_end_bracket(x):
     return x[-1] == ')' or\
            x[-1] == ']' or\
            x[-1] == '}' or\
@@ -403,8 +408,12 @@ def recognized_as_negatives(x):
 def recognized_as_special_numbers(x):
     return x in special_numbers
 
-def recognize_natural_log(x):
+def recognized_as_natural_log(x):
     return x[:2] == 'e('
+
+def recognized_as_fraction(x):
+    divider_index = x.find('/')
+    return len(x[:divider_index]) <= 2 and len(x[divider_index+1:]) <= 2 and bool(re.search(r'\d', x)) and divider_index > -1
     
 ### Transformers
 
@@ -662,6 +671,28 @@ def numeric_beside_end_bracket_to_words(x):
 def natural_log_to_words(x):
     end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
     words = 'e ( ' + recognize_transform(x[2:end_digit_index], ' ', ' ') + ' ' + x[end_digit_index:]
+    return words
+
+def fraction_to_words(x):
+    divider_index = x.find('/')
+    
+    numerator = x[:divider_index]
+    denominator = x[divider_index+1:]
+    
+    if numerator == '1' and denominator == '2':
+        words = 'a half'
+    elif numerator == '1' and denominator == '3':
+        words = 'a third'
+    elif numerator == '2' and denominator == '3':
+        words = 'two third'
+    elif numerator == '1' and denominator == '4':
+        words = 'a quarter'
+    elif numerator == '2' and denominator == '4':
+        words = 'two quarter'
+    elif numerator == '3' and denominator == '4':
+        words = 'three quarter'
+    else:
+        words = num2words(numerator) + ' over ' + num2words(denominator)
     return words
 
 ### Supplements
