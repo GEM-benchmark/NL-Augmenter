@@ -11,12 +11,14 @@ from phonenumbers import carrier, timezone, geocoder
 
 special_numbers = ['911']
 
-month_words = ["january", "jan", "february", "feb",
-               "march", "mar", "april", "apr",
-               "may", "june", "jun", "july", "jul",
-               "august", "aug", "september", "sep", 
-               "sept", "october", "oct", "november", 
-               "nov", "december", "dec"]
+math_sign = ['=', '<', '<=', '=>', '>', '!=', "**"]
+
+month_words = ["january", "jan", "jan.", "february", "feb", "feb.",
+               "march", "mar", "mar.", "april", "apr", "apr.",
+               "may", "june", "jun", "jun.", "july", "jul", "jul.",
+               "august", "aug", "aug.", "september", "sep", "sep.", 
+               "sept", "sept.", "october", "oct", "oct.", "november", 
+               "nov", "nov.", "december", "dec", "dec."]
 
 ### Implementations 
 
@@ -76,11 +78,11 @@ def recognize_transform(word, prev_word, next_word):
             return words
         elif recognized_as_cents(word, prev_word, next_word):
             words = cents_to_words(word)
-#             print('I', word, words)
+#             print('H', word, words)
             return words
         elif recognized_as_currency_symbols(word):
             words = currency_to_words(word)
-#             print('H', word, words)
+#             print('I', word, words)
             return words
         elif recognized_as_phone_number(word): 
             words = phonenum_to_words(word)
@@ -134,11 +136,15 @@ def recognize_transform(word, prev_word, next_word):
             words = fraction_to_words(word)
 #             print('V', word, words)
             return words
-        else: # ELSE: Numbers that not in the above stated formats, strings
+        elif recognized_as_m_bn_currency(word):
+            words = m_bn_currency_to_words(word)
 #             print('W', word)
+            return words
+        else: # ELSE: Numbers that not in the above stated formats, strings
+#             print('X', word)
             return word
     else:
-#         print('X', word)
+#         print('Y', word)
         return word
 
 ### Recognizers
@@ -300,7 +306,7 @@ def recognized_as_currency_symbols(x):
     currency_symbols = list(symbol_to_currency_name_dict.keys())
     currency_abbreviations = list(abbreviated_currency_symbols_to_currency_name_dict.keys())
     
-    found_dot = x.find('.') > -1
+    found_dot = (x.find('.') > -1 or x.find(',') > -1)
 
     if not found_dot: 
         front_checker = x[:begin_digit_index-1]
@@ -310,9 +316,9 @@ def recognized_as_currency_symbols(x):
         back_checker = x[end_digit_index:]
 
         if len(front_checker)>0:
-            front_checker = front_checker[:-1] if front_checker[-1] == '.' else front_checker
+            front_checker = front_checker[:-1] if (front_checker[-1] in ['.', ',']) else front_checker
         else:
-            back_checker = back_checker[:-1] if back_checker[-1] == '.' else back_checker
+            back_checker = back_checker[:-1] if (back_checker[-1] in ['.', ',']) else back_checker
     
     if front_checker in currency_symbols:
         other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
@@ -363,7 +369,7 @@ def recognized_as_sticky_range(x):
 
 def recognized_as_math_formula_equality(x):
     matches = []
-    for equality_sign in ['=', '<', '<=', '=>', '>', '!=']:
+    for equality_sign in math_sign:
         if equality_sign in x and x.count(equality_sign) == 1:
             matches.append(True)
         else:
@@ -406,6 +412,9 @@ def recognized_as_natural_log(x):
 def recognized_as_fraction(x):
     divider_index = x.find('/')
     return len(x[:divider_index]) <= 2 and len(x[divider_index+1:]) <= 2 and bool(re.search(r'\d', x)) and divider_index > -1
+
+def recognized_as_m_bn_currency(x):
+    return (x[-1] == 'm' or 'bn' in x) and bool(re.search(r"\d", x))
     
 ### Transformers
 
@@ -597,7 +606,7 @@ def sticky_range_to_words(x):
 
 def math_formula_equality_to_words(x):
     equality_sign_index_list = []
-    for equality_sign in ['=', '<', '<=', '=>', '>', '!=']:
+    for equality_sign in math_sign:
         equality_sign_index_list.append(x.find(equality_sign))
     
     equality_sign_index_numpy = np.array(equality_sign_index_list)
@@ -607,7 +616,7 @@ def math_formula_equality_to_words(x):
     elif count_match == 1:
         equality_sign_index = list(equality_sign_index_numpy > 0).index(True)
         
-    equality_sign = ['=', '<', '<=', '=>', '>', '!='][equality_sign_index]
+    equality_sign = math_sign[equality_sign_index]
     
     begin_equality_sign_index_in_word = x.index(equality_sign)
     end_equality_sign_index_in_word = x.index(equality_sign)+len(equality_sign)
@@ -620,10 +629,9 @@ def math_formula_equality_to_words(x):
 
     first_part = after_equal[begin_digit_index:end_digit_index]
     last_part = after_equal[end_digit_index:]
+    after_equal = recognize_transform(first_part,'','') + ' ' + recognize_transform(last_part,'','')
 
-    after_equal = num2words(first_part) + ' ' +  last_part
-
-    words = before_equal + ' ' + equality_sign + ' ' + after_equal
+    words = recognize_transform(before_equal,'','') + ' ' + equality_sign + ' ' + after_equal
     return words
 
 def math_bracket_to_words(x):
@@ -719,6 +727,18 @@ class TimeInWords2():
             mn =self.words[(60 - mins-1)]
             msg = header + mn + " to " + hr + " " + am_pm #+ "."
         return msg
+    
+def m_bn_currency_to_words(x):
+    end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
+    
+    word_list = recognize_transform(x[:end_digit_index], '', '').split()
+    
+    m_or_bn = x[end_digit_index:].split(',')[0]
+    sticky_following = x[end_digit_index:].split(',')[1:]
+    currency = [word_list[-1]]
+    
+    words = ' '.join(word_list[:-1] + [m_or_bn] + currency + sticky_following)
+    return words
     
 symbol_to_currency_name_dict = {"؋":"Afghanistani Afghani", 
                                 "₼":"Azerbaijani Manat",

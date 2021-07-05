@@ -18,6 +18,7 @@ This transformation translates numbers in numeric form form written amongst the 
     - numeric in math_bracket
     - special numbers (911)
     - currency (with the currency symbols and cents)
+    - and more ..
 - Datetime
     - incomplete_date
         - '01/2020'
@@ -39,8 +40,6 @@ This transformation also translates the cases existed in test samples taken from
 - [SMD / KVRET](https://www.aclweb.org/anthology/2020.findings-emnlp.215/)
 - [Mathematics Dataset](https://openreview.net/pdf?id=H1gR5iR5FX)
 - [PubMed 200k RCT](https://www.aclweb.org/anthology/I17-2052.pdf)
-
-Will be adding the capability to cater cases in:
 - [BBC News](https://www.kaggle.com/c/learn-ai-bbc)
 
 The tested cases are listed in `test.json`, the transformation will return the text (no transformation), whenever the numeric cases is not recognized.
@@ -54,4 +53,26 @@ This transformation acts as a perturbation to test robustness in numbers underst
 This perturbation would benefit all tasks with a sentence/paragraph/document as input like text classification, text generation, etc.
 
 ## What are the limitations of this transformation?
-The transformation does not transform numbers in numeric form written amongst the cases that we not listed in the above cases.
+The transformation does not transform numbers in numeric form that could be catered but , e.g.:
+- "N2"
+- "USD300!@#!"
+- "(\$12,235)"
+- "My phone number is 628782" -> considered defaultly as general numbers, will be read as six hundred and twenty-eight...
+- "5.05" -> considered defaultly as a decimal, not an hour and minutes
+- Only cater 1 prev and 1 next words, e.g.
+    input: the sequel took $44.7m (£23.2m) between 24 and 26 december  according to studio estimates
+    output: the sequel took $44.7m (£23.2m) between twenty-four and twenty-sixth of december according to studio estimates
+    
+Other cases that hasn't yet transformed, but maybe catered in near future:
+- "HD5A"
+- "C8H18"
+- "NH4NO3"
+- "231321412A2312BDSA"
+- "ACTRN12613000290796"
+    
+Other cases that were not listed in the above cases, imaginable, but hasn't yet seen in any of the dataset samples:
+- "(-0.5" 
+- "+17.5%"
+- "5:05:30"
+- "01 Sep. 11"
+- "Jan 28 \'09"
