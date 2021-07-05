@@ -6,6 +6,7 @@ This transformation translates numbers in numeric form form written amongst the 
     - negatives (-0.5)
     - percentage
     - natural log (e(9))
+    - fraction
     - long number
     - long number with stripes
     - sticky ranges ( (1-2) )
