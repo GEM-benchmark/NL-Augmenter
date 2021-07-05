@@ -10,6 +10,7 @@ word2number==1.1
 
 # for SuspectingParaphraser
 pyinflect==0.5.1
+gender-guesser==0.4.0
 
 # for test cases
 pytest==6.2.4
