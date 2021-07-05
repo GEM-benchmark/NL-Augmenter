@@ -4,12 +4,10 @@ from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from .gender_pairs import GENDER_PAIRS
 
-"""
-TODO desc
-"""
-
 
 class GenderSwap(SentenceOperation):
+    """Swaps all gendered words in a given sentence with their counterparts."""
+
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
