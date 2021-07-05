@@ -297,48 +297,36 @@ def recognized_as_currency_symbols(x):
     begin_digit_index = re.search(r"\d", x).start()
     end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
 
-    currency_symbols = list(numeric2word.symbol_to_currency_name_dict.keys())
-    currency_abbreviations = list(numeric2word.abbreviated_currency_symbols_to_currency_name_dict.keys())
+    currency_symbols = list(symbol_to_currency_name_dict.keys())
+    currency_abbreviations = list(abbreviated_currency_symbols_to_currency_name_dict.keys())
     
     found_dot = x.find('.') > -1
 
     if not found_dot: 
         front_checker = x[:begin_digit_index-1]
         back_checker = x[end_digit_index:]
-        print('1', front_checker)
-        print('1', back_checker)
     else:
         front_checker = x[:begin_digit_index]
         back_checker = x[end_digit_index:]
-        print('2', front_checker)
-        print('2', back_checker)
+
         if len(front_checker)>0:
             front_checker = front_checker[:-1] if front_checker[-1] == '.' else front_checker
         else:
             back_checker = back_checker[:-1] if back_checker[-1] == '.' else back_checker
-        print('2', front_checker)
-        print('2', back_checker)
-        
-    print(front_checker, back_checker)
     
     if front_checker in currency_symbols:
         other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
-        print('A', other_end_non_numeric)
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
     elif front_checker in currency_abbreviations:
         other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
-        print('B', other_end_non_numeric)
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
     elif back_checker in currency_symbols:
         other_end_non_numeric = x[end_digit_index:]
-        print('C', other_end_non_numeric)
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
     elif back_checker in currency_abbreviations:
         other_end_non_numeric = x[end_digit_index:]
-        print('D', other_end_non_numeric)
         return other_end_non_numeric in currency_symbols or other_end_non_numeric in currency_abbreviations or len(other_end_non_numeric) == 0
     else:
-        print('E')
         return False
     
 def recognized_as_cents(x, prev_word, next_word):
@@ -422,9 +410,9 @@ def recognized_as_fraction(x):
 ### Transformers
 
 def date_word_to_words(word, prev_word, next_word):
-    if prev_word in month_words:
+    if prev_word.lower() in month_words:
         words = num2words(word, ordinal = True) 
-    elif next_word in month_words:
+    elif next_word.lower() in month_words:
         words = num2words(word, ordinal = True) + ' of'
     return words
 
