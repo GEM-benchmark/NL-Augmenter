@@ -42,12 +42,12 @@ This transformation also translates the cases existed in test samples taken from
 - [PubMed 200k RCT](https://www.aclweb.org/anthology/I17-2052.pdf)
 - [BBC News](https://www.kaggle.com/c/learn-ai-bbc)
 
-The tested cases are listed in `test.json`, the transformation will return the text (no transformation), whenever the numeric cases is not recognized.
+The 80 tested cases are listed in `test.json`, the transformation will return the text (no transformation), whenever the numeric cases is not recognized.
 
 Author names: Bryan Wilie (bryanwilie92@gmail.com), Genta Indra Winata (giwinata@connect.ust.hk), Samuel Cahyawijaya (scahyawijaya@connect.ust.hk)
 
 ## What type of a transformation is this?
-This transformation acts as a perturbation to test robustness in numbers understanding and generation when they are presented in the text form.
+This transformation acts as a perturbation to test robustness in numbers understanding and generation when they are presented in the text form. 
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks with a sentence/paragraph/document as input like text classification, text generation, etc.
@@ -61,7 +61,8 @@ The transformation does not transform numbers in numeric form that could be cate
 - "5.05" -> considered defaultly as a decimal, not an hour and minutes
 - Only cater 1 prev and 1 next words, e.g.
     input: the sequel took $44.7m (£23.2m) between 24 and 26 december  according to studio estimates
-    output: the sequel took $44.7m (£23.2m) between twenty-four and twenty-sixth of december according to studio estimates
+    output: the sequel took forty-four point seven m dollar (twenty-three point two m pound) between twenty-four and twenty-sixth of december according to studio estimates
+    remark: notice the difference of cardinality on twenty-four and twenty-sixth
     
 Other cases that hasn't yet transformed, but maybe catered in near future:
 - "HD5A"
