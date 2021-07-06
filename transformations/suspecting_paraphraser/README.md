@@ -1,5 +1,5 @@
 # Suspecting Paraphraser 🦎  + ⌨️ → 🐍
-This paraphraser transforms a yes/no question into a subjunctive one, which helps to add more question specific informality to the dataset. 
+This paraphraser transforms a yes/no question into a ![tag question](https://www.englishclub.com/grammar/tag-questions.htm), which helps to add more question specific informality to the dataset. 
 
 Example: "Did the American National Shipment company really break its own fleet?" -> "The American National Shipment company really broke its own fleet, didn't it?"
 
