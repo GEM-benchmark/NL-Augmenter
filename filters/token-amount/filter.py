@@ -73,7 +73,7 @@ class TokenAmountFilter(SentenceOperation):
     def check_exisiting_bounds(bounds, key, position):
         if bounds[key][position] is not None:
             raise ValueError(
-                f"Invalid Bounds: Two operations given for the same speech tag '{key}' that alternate the same bound at position '{position}'"
+                f"Invalid Bounds: Two operations given for the same keyword '{key}' that alternate the same bound at position '{position}'"
             )
 
     def sanity_check(self):
