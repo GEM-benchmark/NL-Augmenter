@@ -1,0 +1,75 @@
+{
+   "type": "MixTransliteration",
+   "test_cases": [
+      {
+         "class": "MixTransliteration",
+         "args": {
+            "source_lang": "hin"
+         },
+         "inputs": {
+            "sentence": "कितने साल के हो"
+         },
+         "outputs": [
+            {
+               "sentence": "kitne saal ke ho"
+            }
+         ]
+      },
+      {
+         "class": "MixTransliteration",
+         "args": {
+            "source_lang": "hin"
+         },
+         "inputs": {
+            "sentence": "कांग्रेस पार्टी अध्यक्ष सोनिया गांधी, तमिलनाडु की मुख्यमंत्री"
+         },
+         "outputs": [
+            {
+               "sentence": "congress party adhyaksh sonia gandhi, tamilnadu kii mukhyamantri"
+            }
+         ]
+      },
+      {
+         "class": "MixTransliteration",
+         "args": {
+            "source_lang": "hin"
+         },
+         "inputs": {
+            "sentence": "आपका हालचाल कैसे है ?"
+         },
+         "outputs": [
+            {
+               "sentence": "aapkaa haalchaal kaise he ?"
+            }
+         ]
+      },
+      {
+         "class": "MixTransliteration",
+         "args": {
+            "source_lang": "hin"
+         },
+         "inputs": {
+            "sentence": "My name is Tom और मैं लंदन में रहता हूँ"
+         },
+         "outputs": [
+            {
+               "sentence": "My name is Tom or main landan main rahata hoon"
+            }
+         ]
+      },
+      {
+         "class": "MixTransliteration",
+         "args": {
+            "source_lang": "hin"
+         },
+         "inputs": {
+            "sentence": "परीक्षण मामलों को जोड़ने में भी सहायता कर सकता है"
+         },
+         "outputs": [
+            {
+               "sentence": "pareekshan maamalon ko jodne main bhi sahaayta kar saktaa he"
+            }
+         ]
+      }
+   ]
+}
