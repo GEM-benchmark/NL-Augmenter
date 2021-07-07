@@ -2,39 +2,59 @@
     "type": "keywords",
     "test_cases": [
         {
-            "class": "TextContainsNonAsciiFilter",
+            "class": "TextEncodingFilter",
             "inputs": {
                 "sentence": "Andrew played cricket in India."
             },
             "outputs": false
         },
         {
-            "class": "TextContainsNonAsciiFilter",
+            "class": "TextEncodingFilter",
             "inputs": {
                 "sentence": "Your mail adress seems to be incomplete: \"andrew-plays-cricket@india\"!"
             },
             "outputs": false
         },
         {
-            "class": "TextContainsNonAsciiFilter",
+            "class": "TextEncodingFilter",
             "inputs": {
                 "sentence": "That souvenir sure was expensive at 60£.. or was it 60€?"
             },
             "outputs": true
         },
         {
-            "class": "TextContainsNonAsciiFilter",
+            "class": "TextEncodingFilter",
             "inputs": {
                 "sentence": "I ❤️ New York"
             },
             "outputs": true
         },
         {
-            "class": "TextContainsNonAsciiFilter",
+            "class": "TextEncodingFilter",
             "inputs": {
                 "sentence": "Yes, I love my brandnew fully portable Vacu3000™."
             },
             "outputs": true
+        },
+        {
+            "class": "TextEncodingFilter",
+            "inputs": {
+                "sentence": "Yes, I ❤️ my brandnew fully portable Vacu3000™ for just 80€."
+            },
+            "args": {
+                "encoding": "utf8"
+            },
+            "outputs": false
+        },
+        {
+            "class": "TextEncodingFilter",
+            "inputs": {
+                "sentence": "κόσμε𝄞𤽜㒨"
+            },
+            "args": {
+                "encoding": "utf8"
+            },
+            "outputs": false
         }
     ]
 }
