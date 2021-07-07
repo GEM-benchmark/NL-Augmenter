@@ -140,10 +140,10 @@ class gender_culture_diverse_name(SentenceOperation):
 
 if __name__ == '__main__':
     test = gender_culture_diverse_name()
-    # sentence = 'Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.'
+    sentence = 'Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.'
     # sentence = 'Phoebe Buffay is an eccentric masseuse and musician.'
     # sentence = 'Joey has many short-term girlfriends.'
     # sentence = 'Chandler Bing is a sarcastic and self-deprecating IT manager.'
-    sentence = 'Monica was overweight as a child.'
+    # sentence = 'Monica was overweight as a child.'
     p = test.generate(sentence)
     print(p[0])

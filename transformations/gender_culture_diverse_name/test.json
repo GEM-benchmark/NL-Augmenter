@@ -7,7 +7,7 @@
         "sentence": "Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."
       },
       "outputs": [{
-        "sentence": "Nanette Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."
+        "sentence": "Salome Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."
       }]
     },
     {
@@ -16,7 +16,7 @@
         "sentence": "Phoebe Buffay is an eccentric masseuse and musician."
       },
       "outputs": [{
-        "sentence": "Sarai Buffay is an eccentric masseuse and musician."
+        "sentence": "Rihab Buffay is an eccentric masseuse and musician."
       }]
     },
     {
@@ -25,7 +25,7 @@
         "sentence": "Joey has many short-term girlfriends."
       },
       "outputs": [{
-        "sentence": "Terry has many short-term girlfriends."
+        "sentence": "Clarinda has many short-term girlfriends."
       }]
     },
     {
@@ -34,7 +34,7 @@
         "sentence": "Chandler Bing is a sarcastic and self-deprecating IT manager."
       },
       "outputs": [{
-        "sentence": "Rudy Bing is a sarcastic and self-deprecating IT manager."
+        "sentence": "Deon Bing is a sarcastic and self-deprecating IT manager."
       }]
     },
     {
@@ -43,7 +43,7 @@
         "sentence": "Monica was overweight as a child."
       },
       "outputs": [{
-        "sentence": "Hania was overweight as a child."
+        "sentence": "Lamya was overweight as a child."
       }]
     }
   ]
