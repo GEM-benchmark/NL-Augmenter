@@ -38,6 +38,7 @@ This suggests that the same can be used to augment/test multi-lingual models to 
 
 ## Citations
 
+```bibtex
 @inproceedings{Bhat:2014:ISS:2824864.2824872,
     author = {Bhat, Irshad Ahmad and Mujadia, Vandan and Tammewar, Aniruddha and Bhat, Riyaz Ahmad and Shrivastava, Manish}, 
     title = {IIIT-H System Submission for FIRE2014 Shared Task on Transliterated Search}, 
@@ -52,6 +53,9 @@ This suggests that the same can be used to augment/test multi-lingual models to 
     address = {New York, NY, USA}, 
     keywords = {Information Retrieval, Language Identification, Language Modeling, Perplexity, Transliteration},
 }
+```
+
+```bibtex
 @misc{datta2020languageagnostic,
     title={Language-agnostic Multilingual Modeling}, 
     author={Arindrima Datta and Bhuvana Ramabhadran and Jesse Emond and Anjuli Kannan and Brian Roark},
@@ -60,6 +64,7 @@ This suggests that the same can be used to augment/test multi-lingual models to 
     archivePrefix={arXiv},
     primaryClass={eess.AS}
 }
+```
 
 ## What are the limitations of this transformation?
 The accuracy of the transformation is limited to implementation of the transliterated system and certain spelling discrepancies may exist.
