@@ -4,7 +4,7 @@ from tasks.TaskTypes import TaskType
 
 class TextEncodingFilter(SentenceOperation):
     tasks = [e for e in TaskType]
-    languages = ["en", "de"]
+    languages = ["all"]
 
     def __init__(self, encoding: str = "ascii"):
         super().__init__()
