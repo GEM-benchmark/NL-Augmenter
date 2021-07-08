@@ -1,22 +1,26 @@
+import numbers
 import random
+import re
+from fractions import Fraction
+
+import spacy
+from num2words import num2words
+from word2number import w2n
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-import spacy
-import numbers
-import re
-from fractions import Fraction
-from num2words import num2words
-from word2number import w2n
 
 
 class NumericalTransformation:
     nlp = None
 
-    def __init__(self):
+    def __init__(self, seed=0, max_outputs=1):
         self.nlp = spacy.load("en_core_web_sm")
+        self.max_outputs = max_outputs
+        self.seed = seed
 
     def transform(self, input_text: str):
+        random.seed(self.seed)
         doc = self.nlp(input_text)
 
         for entity in doc.ents:
@@ -75,11 +79,9 @@ class NumericalTransformation:
                         value_tens = self.value_tens_count(num_value)
                         new_value = random.randint(0, value_tens)
                         new_value = num2words(new_value)
-                    except ValueError as ve:
+                    except ValueError:
                         print(
-                            "Value: {} is not recognised as an alpha-number".format(
-                                cardinal_value
-                            )
+                            f"Value: {cardinal_value} is not recognised as an alpha-number"
                         )
 
             if new_value:
@@ -107,15 +109,14 @@ class NumericalTransformation:
 
 class ReplaceNumericalValues(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-    locales = ["en"]
+    languages = ["en"]
 
-    def __init__(self):
-        random.seed(self.seed)
-        super().__init__()
-        self.numerical_transformation = NumericalTransformation()
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
+        self.numerical_transformation = NumericalTransformation(seed, max_outputs)
 
     def generate(self, sentence: str):
         result = self.numerical_transformation.transform(sentence)
         if self.verbose:
             print(f"Perturbed Input from {self.name()} : {result}")
-        return result
+        return [result]

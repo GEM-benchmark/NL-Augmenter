@@ -6,10 +6,20 @@
             "args": {
                 "keywords": ["in", "at"]
             },
-            "filter_args": {
+            "inputs": {
                 "sentence": "Andrew played cricket in India"
             },
-            "output": true
+            "outputs": true
+        },
+        {
+            "class": "TextContainsKeywordsFilter",
+            "args": {
+                "keywords": ["sad"]
+            },
+            "inputs": {
+                "sentence": "Andrew played cricket in India"
+            },
+            "outputs": false
         }
     ]
 }

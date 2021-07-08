@@ -20,11 +20,11 @@ jobs:
         python-version: 3.7
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python3 -m pip install --upgrade pip
         pip install pytest
         pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz
         pip install ./
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
     - name: Test with pytest
       run: |
-        pytest -s --t=light
+        pytest -s --t=light --f=light

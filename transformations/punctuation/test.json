@@ -1,24 +1,41 @@
 {
-  "type": "without_punctuation",
+  "type": "punctuation",
   "test_cases": [
     {
-      "input": "Andrew finally returned the French book to Chris that I bought last week",
-      "output": "Andrew finally returned the French book to Chris that I bought last week."
+      "class": "PunctuationWithRules",
+      "inputs": {
+        "sentence": "if you are feeling good then go to school otherwise take rest at home"
+      },
+      "outputs": [{
+        "sentence": "If you are feeling good, then go to school, otherwise take rest at home."
+      }]
     },
     {
-      "input": "Did Andrew finally return the French book to Chris that I bought last week?",
-      "output": "Did Andrew finally return the French book to Chris that I bought last week"
-    },{
-      "input": "Data augmentation faces substantial challenges, specifically for NLP, and with these challenges, new opportunities for future work arise.",
-      "output": "Data augmentation faces substantial challenges, specifically for NLP, and with these challenges, new opportunities for future work arise"
+      "class": "PunctuationWithRules",
+      "inputs": {
+        "sentence": "hello sam how are you"
+      },
+      "outputs": [{
+        "sentence": "Hello Sam, how are you?"
+      }]
     },
     {
-      "input": "There are many works which have investigated DA for NMT",
-      "output": "There are many works which have investigated DA for NMT."
+      "class": "PunctuationWithRules",
+      "inputs": {
+        "sentence": "alex buy me a pizza i will help you to complete your homework"
+      },
+      "outputs": [{
+        "sentence": "Alex, buy me a pizza, I will help you to complete your homework."
+      }]
     },
     {
-      "input": "Good data augmentation practices would help make DA work more accessible!!!",
-      "output": "Good data augmentation practices would help make DA work more accessible"
+      "class": "PunctuationWithRules",
+      "inputs": {
+        "sentence": "hey sam how are you doing please invite alex on your wedding"
+      },
+      "outputs": [{
+        "sentence": "Hey Sam, how are you doing please invite Alex on your wedding?"
+      }]
     }
   ]
 }

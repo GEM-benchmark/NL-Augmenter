@@ -2,12 +2,49 @@
   "type": "replace_numerical_values",
   "test_cases": [
     {
-      "input": "Andrew finally returned the French book to Chris that I bought last week",
-      "output": "Andrew finally returned the French book to Chris that I bought last week"
+      "class": "ReplaceNumericalValues",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      }]
     },
     {
-      "input": "Andrew finally returned the five French books to Chris that contains 53.45 pages.",
-      "output": "Andrew finally returned the six French books to Chris that contains 75.80 pages."
+      "class": "ReplaceNumericalValues",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [{
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between six or more arguments."
+      }]
+    },
+    {
+      "class": "ReplaceNumericalValues",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      }]
+    },
+    {
+      "class": "ReplaceNumericalValues",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [{
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      }]
+    },
+    {
+      "class": "ReplaceNumericalValues",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [{
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      }]
     }
   ]
 }

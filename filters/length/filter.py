@@ -12,9 +12,9 @@ A filter on text length (number of tokens).
 
 class TextLengthFilter(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-    locales = ["en"]
+    languages = ["en"]
 
-    def __init__(self, op: str = None, threshold: int = None):
+    def __init__(self, op: str = ">", threshold: int = 10):
         super().__init__()
         self.operator = self.parse_operator(op)
         self.threshold = threshold
@@ -44,7 +44,7 @@ An Example filter for SentenceAndTargetOperation interface.
 class SentenceAndTargetLengthFilter(SentenceAndTargetOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     src_locales = ["en"]
-    tgt_locales = ["en"]
+    tgt_languages = ["en"]
 
     def __init__(self, ops: List[str] = None, thresholds: List[int] = None):
         super().__init__()

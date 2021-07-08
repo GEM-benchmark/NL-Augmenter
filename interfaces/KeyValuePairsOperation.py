@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, List
 
 from interfaces.Operation import Operation
 
@@ -11,13 +11,13 @@ class KeyValuePairsOperation(Operation):
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
 
-    "locales" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
+    "languages" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
     "en_IN"
     """
 
     def generate(
         self, meaning_representation: dict, reference: str
-    ) -> Tuple[dict, str]:
+    ) -> List[Tuple[dict, str]]:
         raise NotImplementedError
 
     def filter(self, meaning_representation: dict, reference: str) -> bool:
