@@ -74,6 +74,12 @@ class SuspectingParaphraser(QuestionAnswerOperation):
         )
 
         first_verb = doc[verb_position]
+        
+        # If 'did' is our modal, the verb will be in a present tense 
+        # It means that we need to inflect it to the past one (VBD)
+        # (Did John _drink_ my tea? -> John _drank_ my tea, didn't he?)
+        # Otherwise, the verb is already in a good form and we can use
+        # it directly
         if modal == "did":
             demodded = first_verb._.inflect("VBD")
         else:
