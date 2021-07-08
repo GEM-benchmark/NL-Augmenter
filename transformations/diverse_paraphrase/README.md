@@ -6,9 +6,9 @@ This transformation is a multi-output sentence level paraphrase generation model
 
 It has support for 4 candidate selection methods:
 
-a) dips: Based on Kumar et. al. 2019. (See Below)
-b) diverse_beam: Based on Vijaykumar et. al 2018. (See Below)
-c) beam: Selects top `num_outputs` candidates in the beam search.
+a) dips: Based on Kumar et. al. 2019. (See Below)\
+b) diverse_beam: Based on Vijaykumar et. al 2018. (See Below)\
+c) beam: Selects top `num_outputs` candidates in the beam search.\
 d) random: Randomly selects `num_outputs` candidates.
 
 Eg:
@@ -17,8 +17,9 @@ Eg:
 >>> t.generate('Joe Biden is the President of USA.')
 ```
 
-Replace augmenter with any of the above mentioned options. 
-Default: augmenter='dips', num_outputs=4. 
+Replace augmenter with any of the above mentioned options. \
+\
+Default: augmenter='dips', num_outputs=4. \
 In most cases, dips should be the preferred choice.
 
 ## What tasks does it intend to benefit?

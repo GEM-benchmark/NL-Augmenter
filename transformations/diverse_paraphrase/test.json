@@ -11,13 +11,13 @@
                     "sentence": "Andrew eventually gave Chris the French book, which I bought last week."
                 },
                 {
-                    "sentence": "Andrew eventually returned the French book I'd bought last week to Chris."
+                    "sentence": "Andrew finally returned the French book to Chris, which I bought last week."
                 },
                 {
                     "sentence": "Andrew eventually gave Chris back the French book I had bought last week."
                 },
                 {
-                    "sentence": "Andrew finally returned the French book to Chris, which I bought last week."
+                    "sentence": "Andrew eventually returned the French book I'd bought last week to Chris."
                 }
             ]
         },
@@ -28,16 +28,16 @@
             },
             "outputs": [
                 {
-                    "sentence": "Gap-closing sentences, such as Paul likes coffee and Maria-Tee, have no obvious predicate to indicate the relationship between two or more arguments."
-                },
-                {
-                    "sentence": "Gap-closing phrases, such as Paul likes coffee and Mary tea, do not have an obvious predicate to indicate the relationship between two or more arguments."
+                    "sentence": "Sentences with loopholes, such as Paul likes coffee and Mary tea, have no obvious predicate to indicate the relationship between two or more arguments."
                 },
                 {
                     "sentence": "Sentences with gaps, such as Paul likes coffee and Mary tea, have no obvious predicate to indicate the relationship between two or more arguments."
                 },
                 {
                     "sentence": "Gap-closing sentences, like Paul likes coffee and Maria tea, have no obvious predicate to indicate the relationship between two or more arguments."
+                },
+                {
+                    "sentence": "Gap-closing phrases, such as Paul likes coffee and Mary tea, do not have an obvious predicate to indicate the relationship between two or more arguments."
                 }
             ]
         },
@@ -48,16 +48,16 @@
             },
             "outputs": [
                 {
-                    "sentence": "Alice in Wonderland is an American live-action / animated Dark Fantasy adventure film from 2010."
+                    "sentence": "Alice in Wonderland is a American live-action / animated dark fantasy adventure film from 2010"
                 },
                 {
                     "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure film from the year 2010"
                 },
                 {
-                    "sentence": "Alice in Wonderland is a American live-action / animated dark fantasy adventure film from 2010"
+                    "sentence": "Alice in Wonderland is an American live action / animated dark fantasy adventure movie from 2010."
                 },
                 {
-                    "sentence": "Alice in Wonderland is an American live action / animated dark fantasy adventure movie from 2010."
+                    "sentence": "Alice in Wonderland is an American live-action / animated Dark Fantasy adventure film from 2010."
                 }
             ]
         },
@@ -68,16 +68,16 @@
             },
             "outputs": [
                 {
-                    "sentence": "Ujjal Dev Dosanjh served as the 33rd Prime Minister of British Columbia from 2000 to 2001"
+                    "sentence": "Ujjal Dev Dosanjh was the 33rd Prime Minister of British Columbia between 2000 and 2001."
                 },
                 {
                     "sentence": "Ujjal Dev Dosanjh was 33 Prime Minister of British Columbia from 2000 to 2001"
                 },
                 {
-                    "sentence": "Ujjal Dev Dosanjh was the 33rd Prime Minister of British Columbia between 2000 and 2001."
+                    "sentence": "Ujjal Dev Dosanjh was 33rd prime minister of British Columbia from 2000 to 2001"
                 },
                 {
-                    "sentence": "Ujjal Dev Dosanjh was 33rd prime minister of British Columbia from 2000 to 2001"
+                    "sentence": "Ujjal Dev Dosanjh served as the 33rd Prime Minister of British Columbia from 2000 to 2001"
                 }
             ]
         },
@@ -88,10 +88,10 @@
             },
             "outputs": [
                 {
-                    "sentence": "Neuroplasticity is a continuous processing, which enables a short-term, medium-term and long-term transformation of the neuronosynaptic organization."
+                    "sentence": "Neuroplasticity is a continuous processing that allows a short-term, medium-term and long-term transformation of the neuronosynaptic organization."
                 },
                 {
-                    "sentence": "Neuroplasticity is a continuous processing that allows a short-term, medium-term and long-term transformation of the neuronosynaptic organization."
+                    "sentence": "Neuroplasticity is a continuous processing, which enables a short-term, medium-term and long-term transformation of the neuronosynaptic organization."
                 },
                 {
                     "sentence": "Neuroplasticity is a continuous process that enables a short-term, medium-term and long-term transformation of neuronosynaptic organisation."

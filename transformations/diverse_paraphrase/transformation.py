@@ -35,9 +35,9 @@ class DiverseParaphrase(SentenceOperation):
                     num_outputs, augmenter
                 )
             )
-            print("Primary choices for augmenter : {}. \n".format(str(choices)))
+            print("Primary options for augmenter : {}. \n".format(str(choices)))
             print(
-                "Default: augmenter='dips', num_outputs=5. Change using DiverseParaphrase(augmenter=<choices>, num_outputs=<num_outputs>)\n"
+                "Default: augmenter='dips', num_outputs=4. Change using DiverseParaphrase(augmenter=<option>, num_outputs=<num_outputs>)\n"
             )
             print("Starting to load English to German Translation Model.\n")
 

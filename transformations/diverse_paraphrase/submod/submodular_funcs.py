@@ -6,6 +6,7 @@ import difflib
 import pickle
 from time import time
 import os
+import torch
 
 import urllib.request
 from tqdm import tqdm
@@ -15,54 +16,18 @@ from numpy import dot
 from numpy.linalg import norm
 import gzip
 import urllib
-from gensim import models
+from torchtext.vocab import GloVe
 from pathlib import Path
 
-#####################################################################################################################
-
-########################################### RBF QUALITY FUNCTION ####################################################
 
 model = None
 
 
-def get_model():
-    HANDLE = "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"
-
-    class DownloadProgressBar(tqdm):
-        def update_to(self, b=1, bsize=1, tsize=None):
-            if tsize is not None:
-                self.total = tsize
-            self.update(b * bsize - self.n)
-
-    def download_url(url, output_path):
-        with DownloadProgressBar(
-            unit="B", unit_scale=True, miniters=1, desc=url.split("/")[-1]
-        ) as t:
-            urllib.request.urlretrieve(
-                url, filename=output_path, reporthook=t.update_to
-            )
-
-    try:
-        home = str(Path.home())
-        home = os.path.join(home, ".cache", "word2vec")
-    except:
-        home = ".data"
-    os.makedirs(home, exist_ok=True)
-    embedding_path = os.path.join(home, "GoogleNews-vectors-negative300.bin.gz")
-    if not os.path.exists(embedding_path):
-        download_url(HANDLE, embedding_path)
-    try:
-        model = models.KeyedVectors.load_word2vec_format(embedding_path, binary=True)
-    except:
-        if os.path.isfile(embedding_path):
-            os.remove(embedding_path)
-        model = get_model()
-    return model
-
-
 def trigger_dips():
     global model
-    model = get_model()
+    def unk_init(x):
+        return torch.randn_like(x)
+    model = GloVe('6B', unk_init=unk_init)
 
 
 cos_sim = lambda a, b: dot(a, b) / (norm(a) * norm(b))
@@ -70,16 +35,8 @@ rbf = lambda a, b, sigma: np.exp(-(np.sum((a - b) ** 2)) / sigma ** 2)
 
 
 def sent2wvec(s):
-    v = []
-    for w in s:
-        try:
-            vec = model[w]
-            v.append(vec)
-        except:
-            vec = np.random.random(300)
-            v.append(vec)
-
-    v = np.array(v)
+    v = model.get_vecs_by_tokens(s, lower_case_backup=True)
+    v = v.detach().cpu().numpy()
     return v
 
 
