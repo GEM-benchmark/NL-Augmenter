@@ -1,0 +1,47 @@
+{
+    "type": "add_noun_definition",
+    "test_cases": [
+        {
+            "class": "AddNounDefinition",
+            "inputs": {
+                "sentence": "Andrew finally returned the Comic book to Chris that I bought last week"
+            },
+            "outputs": "andrew finally returned the comic book(publication of comics art) to chris that i bought last week(time unit equal to seven days)"
+        },
+        {
+            "class": "AddNounDefinition",
+            "inputs": {
+                "sentence": "Chris borrowed the Comic book from Andrew last weekend"
+            },
+            "outputs": "chris borrowed the comic book(publication of comics art) from andrew last weekend"
+        },
+        {
+            "class": "AddNounDefinition",
+            "inputs": {
+                "sentence": "Turn off the light please"
+            },
+            "outputs": "turn off the light please(english word indicating politeness)"
+        },
+        {
+            "class": "AddNounDefinition",
+            "inputs": {
+                "sentence": "I love cat"
+            },
+            "outputs": "i love cat(domesticated felid species)"
+        },
+        {
+            "class": "AddNounDefinition",
+            "inputs": {
+                "sentence": "Thomas loves to cook chicken every Monday"
+            },
+            "outputs": "thomas loves to cook chicken(subspecies of domesticated bird) every monday"
+        },
+        {
+            "class": "AddNounDefinition",
+            "inputs": {
+                "sentence": "John killed Mary with a gun"
+            },
+            "outputs": "john killed mary with a gun(ranged weapon that shoots projectiles)"
+        }
+    ]
+}
