@@ -9,7 +9,7 @@ Author email: pawan.rajpoot2411@gmail.com
 Author Affiliation: Rakuten India
 
 ## What type of a transformation is this?
-This transformation add noun definitions to the sentence using DBPedia short descriptions.
+This transformation add noun definitions to the sentence using wiki (Wikipedia tools https://pypi.org/project/wptools/) short descriptions.
 
 
 ## What tasks does it intend to benefit?
