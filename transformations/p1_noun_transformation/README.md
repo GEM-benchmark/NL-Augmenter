@@ -1,6 +1,6 @@
 # Adding Noun Definitions
-This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise erupting 
-from keyboard typos making common spelling errors.
+This transformation adds noun definitions to all types of text sources (sentence, paragraph, etc.) 
+
 
 Author name: Pawan Kumar Rajpoot
 
@@ -13,7 +13,7 @@ This transformation add noun definitions to the sentence using DBPedia short des
 
 
 ## What tasks does it intend to benefit?
-This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
+This transformation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, etc.  This adds more contextual knowledge to the model training.
 Also it gives real world knowledge.
 
