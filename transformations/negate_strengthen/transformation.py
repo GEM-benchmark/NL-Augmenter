@@ -14,6 +14,7 @@ from nltk import pos_tag
 from pattern.en import conjugate as conjugate_en
 from typing import Union
 
+# defaults
 _RE_COMBINE_WHITESPACE = re.compile(r"\s+")
 MODAL_TYPE_LEMMA = ['be', 'to', 'have', 'get', 'do']
 MODAL_STRENGTHEN_DICT = {
@@ -25,10 +26,8 @@ MODAL_STRENGTHEN_DICT = {
     'might': 'will',
     'will': 'will'
 }
-# initialise
-nltk.download('wordnet')
-nltk.download('averaged_perceptron_tagger')
 
+# intialise
 try:
     conjugate_en(verb='testing',tense='present',number='singular')
 except:
@@ -42,6 +41,12 @@ class NegateStrengthen(SentenceAndTargetOperation):
 
     def __init__(self, seed=0, verbose=False):
         super().__init__(seed)
+
+        # downloads
+        nltk.download('wordnet')
+        nltk.download('averaged_perceptron_tagger')
+
+        # initialise
         self.verbose = verbose
         self.nlp = spacy.load("en_core_web_sm")
         self.nlp.tokenizer = Tokenizer(
