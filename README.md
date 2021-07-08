@@ -114,3 +114,6 @@ We also accept pull-requests for creating [filters](filters) which identify inte
 ### Most Creative Implementations 🏆
 
 After all pull-requests have been merged, 3 of the [most creative implementations](docs/doc.md#Three-most-creative-Implementations) would be selected and featured on this README page and on the NL-Augmenter [webpage](https://gem-benchmark.com/nl_augmenter).
+
+### License 🏆
+Some transformations use a separate license. For full license details, refer to the license file in the transformations's/filter's directory.
