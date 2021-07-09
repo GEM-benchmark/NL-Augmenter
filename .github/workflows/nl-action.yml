@@ -21,9 +21,9 @@ jobs:
     - name: Install dependencies
       run: |
         python3 -m pip install --upgrade pip
-        python -m spacy download en_core_web_sm
         pip3 install ./
         if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+        python3 -m spacy download en_core_web_sm
     - name: Test with pytest
       run: |
         pytest -s --t=light --f=light
