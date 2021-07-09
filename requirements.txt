@@ -27,8 +27,3 @@ sentencepiece==0.1.95
 black==21.5b2
 pre-commit==2.13.0
 
-# for AddNounDefinition
-setuptools==57.1.0
-wptools==0.4.17
-beautifulsoup4==4.9.3
-nltk==3.6.2
