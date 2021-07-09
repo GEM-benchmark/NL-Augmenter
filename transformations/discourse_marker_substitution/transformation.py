@@ -1,52 +1,13 @@
 import random
 import re
 
+from collections import defaultdict
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 """
 Substitution of discourse markers with semantically equivalent marker
 """
-
-CLASS_TO_MARKERS = {
-    "Comparison.Contrast": ["but", "however", "on the contrary"],
-    "Comparison.Contrast.Juxtaposition": ["by comparison", "whereas"],
-    "Contingency.Cause.Reason": ["because", "as", "since", "inasmuch as"],
-    "Contingency.Cause.Result": [
-        "so",
-        "as a result",
-        "consequently",
-        "thus",
-        "therefore",
-        "accordingly",
-        "hence",
-    ],
-    "Expansion.Alternative.Chosen alternative": ["instead"],
-    "Expansion.Alternative.Conjunctive": ["or"],
-    "Expansion.Conjunction": [
-        "and",
-        "in fact",
-        "while",
-        "also",
-        "furthermore",
-        "in addition",
-        "meanwhile",
-        "moreover",
-        "similarly",
-        "further",
-        "in turn",
-        "likewise",
-        "besides",
-        "additionally",
-    ],
-    "Expansion.Instantiation": ["for example", "for instance"],
-    "Expansion.Restatement.Equivalence": ["in other words"],
-    "Expansion.Restatement.Generalization": ["in sum"],
-    "Expansion.Restatement.Specification": ["specifically", "in particular"],
-    "Temporal.Asynchronous.Precedence": ["then", "subsequently", "finally", "later"],
-    "Temporal.Asynchronous.Succession": ["previously", "earlier", "after"],
-    "Temporal.Synchrony": ["at the time", "when", "at the same time"],
-}
 
 MARKER_TO_CLASS = {
     "accordingly,": "Contingency.Cause.Result",
@@ -89,8 +50,16 @@ MARKER_TO_CLASS = {
     "thus": "Contingency.Cause.Result",
 }
 
+CLASS_TO_MARKERS = defaultdict(list)
+for (k, v) in MARKER_TO_CLASS.items():
+    CLASS_TO_MARKERS[v].append(k)
+CLASS_TO_MARKERS = dict(CLASS_TO_MARKERS)
+
 
 def discourse_marker_substitution(text, seed=0, max_output=1):
+    """Performs a ubstitution of discourse markers with semantically equivalent marker
+    in the input text
+    """
     random.seed(seed)
     perturbed_texts = []
     for _ in range(max_output):
