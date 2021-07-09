@@ -76,7 +76,8 @@ def get_hash_tags(sentence, be_class_verb, subj_obj_list, seed=0, max_outputs=1,
 class HashtagGeneration(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
-        TaskType.TEXT_TO_TEXT_GENERATION
+        TaskType.TEXT_TO_TEXT_GENERATION,
+        TaskType.SENTIMENT_ANALYSIS,
     ]
     languages = ["en"]
 
