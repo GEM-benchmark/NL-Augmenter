@@ -44,7 +44,7 @@ git clone https://github.com/GEM-benchmark/NL-Augmenter.git
 cd NL-Augmenter
 python setup.py sdist
 pip install -e .
-pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
+python -m spacy download en_core_web_sm
 ```
 
 ## How do I create a transformation?
