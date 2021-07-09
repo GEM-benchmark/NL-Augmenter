@@ -116,4 +116,4 @@ We also accept pull-requests for creating [filters](filters) which identify inte
 After all pull-requests have been merged, 3 of the [most creative implementations](docs/doc.md#Three-most-creative-Implementations) would be selected and featured on this README page and on the NL-Augmenter [webpage](https://gem-benchmark.com/nl_augmenter).
 
 ### License
-Some transformations use a separate license. For full license details, refer to the license file in the transformations's/filter's directory.
+Some transformations include components released under a different (permissive, open source) license. For license details, refer to the `README.md` and any license files in the transformations's or filter's directory.
