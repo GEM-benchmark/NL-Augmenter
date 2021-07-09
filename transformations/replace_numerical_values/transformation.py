@@ -6,7 +6,7 @@ from fractions import Fraction
 import spacy
 from num2words import num2words
 from word2number import w2n
-
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -15,7 +15,7 @@ class NumericalTransformation:
     nlp = None
 
     def __init__(self, seed=0, max_outputs=1):
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.max_outputs = max_outputs
         self.seed = seed
 

@@ -4,6 +4,7 @@ from TestRunner import OperationRuns
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
 from interfaces.TaggingOperation import TaggingOperation
+from initialize import initialize_models
 
 
 def get_assert_message(transformation, expected_output, predicted_output):
@@ -95,6 +96,7 @@ def execute_test_case_for_filter(filter_name):
 
 
 def test_operation(transformation_name, filter_name):
+    initialize_models()
     execute_test_case_for_transformation(transformation_name)
     execute_test_case_for_filter(filter_name)
 
