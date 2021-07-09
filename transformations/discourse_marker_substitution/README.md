@@ -1,6 +1,7 @@
 # Discourse Marker Substitution 
 This perturbation replaces a discourse marker in a sentence by a semantically equivalent marker.
-
+It is currently implemented for the english language and could be extended to other languages for which discourse relation corpus exists.
+This method assumes untokenized text and uses whitespace tokenization.
 Author name: Damien Sileo (damien.sileo@kuleuven.be)
 
 ## What type of a transformation is this?
