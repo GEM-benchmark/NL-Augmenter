@@ -15,13 +15,17 @@ class BackTranslation(SentenceOperation):
             print("Starting to load English to German Translation Model.\n")
         name_en_de = "facebook/wmt19-en-de"
         self.tokenizer_en_de = FSMTTokenizer.from_pretrained(name_en_de)
-        self.model_en_de = FSMTForConditionalGeneration.from_pretrained(name_en_de)
+        self.model_en_de = FSMTForConditionalGeneration.from_pretrained(
+            name_en_de
+        )
         if self.verbose:
             print("Completed loading English to German Translation Model.\n")
             print("Starting to load German to English Translation Model:")
         name_de_en = "facebook/wmt19-de-en"
         self.tokenizer_de_en = FSMTTokenizer.from_pretrained(name_de_en)
-        self.model_de_en = FSMTForConditionalGeneration.from_pretrained(name_de_en)
+        self.model_de_en = FSMTForConditionalGeneration.from_pretrained(
+            name_de_en
+        )
         self.num_beams = num_beams
         if self.verbose:
             print("Completed loading German to English Translation Model.\n")
@@ -38,7 +42,9 @@ class BackTranslation(SentenceOperation):
     def en2de(self, input):
         input_ids = self.tokenizer_en_de.encode(input, return_tensors="pt")
         outputs = self.model_en_de.generate(input_ids)
-        decoded = self.tokenizer_en_de.decode(outputs[0], skip_special_tokens=True)
+        decoded = self.tokenizer_en_de.decode(
+            outputs[0], skip_special_tokens=True
+        )
         if self.verbose:
             print(decoded)  # Maschinelles Lernen ist großartig, oder?
         return decoded
@@ -46,11 +52,15 @@ class BackTranslation(SentenceOperation):
     def de2en(self, input):
         input_ids = self.tokenizer_de_en.encode(input, return_tensors="pt")
         outputs = self.model_de_en.generate(
-            input_ids, num_return_sequences=self.max_outputs, num_beams=self.num_beams
+            input_ids,
+            num_return_sequences=self.max_outputs,
+            num_beams=self.num_beams,
         )
         predicted_outputs = []
         for output in outputs:
-            decoded = self.tokenizer_de_en.decode(output, skip_special_tokens=True)
+            decoded = self.tokenizer_de_en.decode(
+                output, skip_special_tokens=True
+            )
             # TODO: this should be able to return multiple sequences
             predicted_outputs.append(decoded)
         if self.verbose:

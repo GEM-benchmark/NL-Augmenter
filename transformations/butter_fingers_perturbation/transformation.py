@@ -52,7 +52,7 @@ def butter_finger(text, prob=0.1, keyboard="querty", seed=0, max_outputs=1):
         butter_text = ""
         for letter in text:
             lcletter = letter.lower()
-            if not lcletter in key_approx.keys():
+            if lcletter not in key_approx.keys():
                 new_letter = lcletter
             else:
                 if random.choice(range(0, 100)) <= prob_of_typo:
@@ -85,7 +85,10 @@ class ButterFingersPerturbation(SentenceOperation):
 
     def generate(self, sentence: str):
         perturbed_texts = butter_finger(
-            text=sentence, prob=0.05, seed=self.seed, max_outputs=self.max_outputs
+            text=sentence,
+            prob=0.05,
+            seed=self.seed,
+            max_outputs=self.max_outputs,
         )
         return perturbed_texts
 

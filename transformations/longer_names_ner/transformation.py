@@ -40,7 +40,9 @@ class LongerNamesNer(TaggingOperation):
             for _ in itertools.repeat(None, self.max_outputs):
                 if next < len(tag_seq) and i_tag == tag_seq[next]:
                     for _ in range(self.no_of_repeats):
-                        random_upper_letter = chr(random.randint(ord("A"), ord("Z")))
+                        random_upper_letter = chr(
+                            random.randint(ord("A"), ord("Z"))
+                        )
                         token_seq.insert(next, random_upper_letter)
                         tag_seq.insert(next, i_tag)
                     perturbed_sentences.append((token_seq, tag_seq))

@@ -1,4 +1,4 @@
-from typing import Tuple, List
+from typing import List, Tuple
 
 from interfaces.Operation import Operation
 
@@ -72,7 +72,9 @@ class SentenceAndTargetsOperation(Operation):
     def domain(cls):
         return cls.tasks, cls.languages, cls.tgt_languages
 
-    def generate(self, sentence: str, target: List[str]) -> List[Tuple[str, List[str]]]:
+    def generate(
+        self, sentence: str, target: List[str]
+    ) -> List[Tuple[str, List[str]]]:
         raise NotImplementedError
 
     def filter(self, sentence: str, target: List[str]) -> bool:
