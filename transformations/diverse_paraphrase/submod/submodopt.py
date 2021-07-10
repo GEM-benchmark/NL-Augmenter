@@ -14,11 +14,41 @@ from transformations.diverse_paraphrase.submod.submodular_funcs import (
 
 
 class SubmodularOpt:
+    """
+    A class used to select final candidates for diverse paraphrasing
+    using submodular optimization
+
+    """
     def __init__(self, V=None, v=None, **kwargs):
+        """
+        Parameters
+        ---
+
+        V : list of str
+            Ground Set Generations from which candidates are selected
+        v : str
+            Sentence which is used to select semantically equivalent
+            outputs
+        """
         self.v = v
         self.V = V
 
     def initialize_function(self, lam, a1=1.0, a2=1.0, b1=1.0, b2=1.0):
+        """
+        Parameters
+        ---
+
+        lam: float (0 <= lam <= 1.)
+            Determines fraction of weight assigned to the diversity and fidelity(quality) components
+        a1 : float
+            Weight assigned to semantic similarity based on word-vectors of V and v.
+        a2 : float
+            Weight assigned to semantic similarity based on lexical overlaps between V and v.
+        b1 : float
+            Weight assigned to n gram diversity within candidates in V.
+        b2 : float
+            Weight assigned to coverage function to obtain diversity within candidates in V.
+        """
         self.a1 = a1
         self.a2 = a2
         self.b1 = b1
