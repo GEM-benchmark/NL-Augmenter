@@ -32,13 +32,6 @@ Ukrainian (uk), Urdu (ur), Uzbek (uz), Vietnamese (vi), Wolof (wo), Xhosa (xh), 
 
 FOLDER_PATH = '/'.join(os.path.abspath(__file__).split('/')[:-1])
 
-def translate(model, tokenizer, text, src_lang, target_lang):
-    tokenizer.src_lang = src_lang
-    encoded = tokenizer(text, return_tensors="pt")
-    generated_tokens = model.generate(**encoded, forced_bos_token_id=tokenizer.get_lang_id(target_lang))
-    res = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
-    return res
-
 def perturb_sentence(lexicon_df, text, prob_mix=0.5, src_lang="en", trg_lang="zh", seed=0):
     random.seed(seed)
     l_df = lexicon_df.set_index(src_lang)
