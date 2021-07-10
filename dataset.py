@@ -100,8 +100,32 @@ class TextLineDataset(BaseDataset):
     ) -> TextLineDataset:
         transformed_data = []
         print("Applying transformation:")
+
+        # calculating ratio of transformed example to unchanged example
+        successful_num = 0
+        failed_num = 0
+
         for line in tqdm(self.data):
-            transformed_data.extend(transformation.generate(line))
+            pt_examples = transformation.generate(line)
+            successful_pt, failed_pt = transformation.compare(
+                line, pt_examples
+            )
+            successful_num += successful_pt
+            failed_num += failed_pt
+
+            transformed_data.extend(pt_examples)
+
+        total_num = successful_num + failed_num
+
+        print(
+            "Finished transformation! {} examples generated from {} original examples, with {} successfully transformed and {} unchanged ({} perturb rate)".format(
+                total_num,
+                len(self.data),
+                successful_num,
+                failed_num,
+                successful_num / total_num,
+            )
+        )
 
         return TextLineDataset(transformed_data, self.labels)
 
@@ -264,10 +288,32 @@ class KeyValueDataset(BaseDataset):
         _, transformation_func = self._analyze(subfields)
         transformed_data = []
         print("Applying transformation:")
+        
+        # calculating ratio of transformed example to unchanged example
+        successful_num = 0
+        failed_num = 0
+        
         for datapoint in tqdm(self.data):
-            transformed_data.extend(
-                transformation_func(datapoint.copy(), transformation)
-            )  # don't want self.data to be changed
+            pt_examples = transformation_func(datapoint.copy(), transformation)
+            successful_pt, failed_pt = transformation.compare(
+                datapoint, pt_examples
+            )
+            successful_num += successful_pt
+            failed_num += failed_pt
+            
+            transformed_data.extend(pt_examples)  # don't want self.data to be changed
+        
+        total_num = successful_num + failed_num
+
+        print(
+            "Finished transformation! {} examples generated from {} original examples, with {} successfully transformed and {} unchanged ({} perturb rate)".format(
+                total_num,
+                len(self.data),
+                successful_num,
+                failed_num,
+                successful_num / total_num,
+            )
+        )
 
         return KeyValueDataset(transformed_data, self.task_type, self.fields)
 
