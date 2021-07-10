@@ -1,8 +1,5 @@
 import random
-import stanza
-
-stanza.download("en")
-
+import spacy
 import nltk
 
 nltk.download("wordnet")
@@ -35,7 +32,7 @@ def untokenize(words):
     return step6.strip()
 
 
-def synonym_substitution(text, stanza_pipeline, seed=42, prob=0.5, max_outputs=1):
+def synonym_substitution(text, spacy_pipeline, seed=42, prob=0.5, max_outputs=1):
     random.seed(seed)
     upos_wn_dict = {
         "VERB": "v",
@@ -44,24 +41,24 @@ def synonym_substitution(text, stanza_pipeline, seed=42, prob=0.5, max_outputs=1
         "ADJ": "s",
     }
 
-    doc = stanza_pipeline(text)
+    doc = spacy_pipeline(text)
     results = []
     for _ in range(max_outputs):
         result = []
-        for sent in doc.sentences:
-            for word_dict in sent.words:
-                word = word_dict.text
-                wn_pos = upos_wn_dict.get(word_dict.upos)
-                if wn_pos is None:
-                    result.append(word)
+        for token in doc:
+            word = token.text
+            wn_pos = upos_wn_dict.get(token.pos_)
+            if wn_pos is None:
+                result.append(word)
+            else:
+                syns = wordnet.synsets(word, pos=wn_pos)
+                syns = [syn.name().split(".")[0] for syn in syns]
+                syns = [syn for syn in syns if syn != word]
+                if len(syns) > 0 and random.random() < prob:
+                    result.append(random.choice(syns).replace("_", " "))
                 else:
-                    syns = wordnet.synsets(word, pos=wn_pos)
-                    syns = [syn.name().split(".")[0] for syn in syns]
-                    syns = [syn for syn in syns if syn != word]
-                    if len(syns) > 0 and random.random() < prob:
-                        result.append(random.choice(syns).replace("_", " "))
-                    else:
-                        result.append(word)
+                    result.append(word)
+
         # detokenize sentences
         result = untokenize(result)
         if result not in results:
@@ -84,13 +81,13 @@ class SynonymSubstitution(SentenceOperation):
 
     def __init__(self, seed=42, prob=0.5, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        self.stanza_pipeline = stanza.Pipeline("en", processors="tokenize,mwt,pos")
+        self.spacy_pipeline = spacy.load("en_core_web_sm")
         self.prob = prob
 
     def generate(self, sentence: str):
         perturbed = synonym_substitution(
             text=sentence,
-            stanza_pipeline=self.stanza_pipeline,
+            spacy_pipeline=self.spacy_pipeline,
             seed=self.seed,
             prob=self.prob,
             max_outputs=self.max_outputs,

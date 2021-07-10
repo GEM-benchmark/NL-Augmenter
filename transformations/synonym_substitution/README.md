@@ -12,9 +12,9 @@ This perturbation would benefit all tasks on text classification and generation.
 
 Benchmark results:
 
-- Sentiment analysis: we run sentiment analysis on a 10% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 93.36.
+- Sentiment analysis: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 94.8.
 
-- Text summarization: we run text summarization on a 10% sample of the xsum dataset. The original bleu is 15.25 and the perturbed bleu is 12.27.
+- Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original bleu is 15.99 and the perturbed bleu is 12.65.
 
 ## Related Work
 The tokenization and POS tagging were done using Stanza
@@ -48,4 +48,4 @@ The synonyms are based on WordNet via NLTK
 
 
 ## What are the limitations of this transformation?
-The space of synonyms depends on WordNet and could be limited.
+The space of synonyms depends on WordNet and could be limited. The transformation might introduce non-grammatical segments.
