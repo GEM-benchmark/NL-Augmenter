@@ -1,9 +1,16 @@
 from __future__ import annotations
-from typing import Iterable
+
+from typing import Iterable, List
+
 from tqdm import tqdm
 
-from interfaces.SentenceOperation import *
+from interfaces import Operation
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
+from interfaces.SentenceOperation import (
+    SentenceAndTargetOperation,
+    SentenceAndTargetsOperation,
+    SentenceOperation,
+)
 from tasks.TaskTypes import TaskType
 
 
@@ -12,25 +19,39 @@ class BaseDataset(Iterable):
         self.data = data
 
     def apply_filter(self, condition: Operation):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def apply_transformation(self, transformation: Operation):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def __iter__(self):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def __len__(self):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def __or__(self, other):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def __and__(self, other):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def __sub__(self, other):
-        raise NotImplementedError("BaseDataset does not implement this function")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function"
+        )
 
 
 """
@@ -48,7 +69,8 @@ class TextLineDataset(BaseDataset):
         ), "The number of datapoint should be the same as the number of labels"
         self.labels = labels
         self.mapping = {
-            datapoint: label for datapoint, label in zip(self.data, self.labels)
+            datapoint: label
+            for datapoint, label in zip(self.data, self.labels)
         }
 
     @classmethod
@@ -64,7 +86,9 @@ class TextLineDataset(BaseDataset):
         filtered_data = []
         filtered_labels = []
         print("Applying filtering:")
-        for datapoint, label in tqdm(zip(self.data, self.labels), total=len(self.data)):
+        for datapoint, label in tqdm(
+            zip(self.data, self.labels), total=len(self.data)
+        ):
             if filter.filter(datapoint):
                 filtered_data.append(datapoint)
                 filtered_labels.append(label)
@@ -135,7 +159,10 @@ class KeyValueDataset(BaseDataset):
     @classmethod
     def from_huggingface(cls, dataset, task_type, fields):
         data = []
-        if task_type not in [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]:
+        if task_type not in [
+            TaskType.QUESTION_ANSWERING,
+            TaskType.QUESTION_GENERATION,
+        ]:
             for example in dataset:
                 data.append({key: example[key] for key in fields})
         else:
@@ -178,7 +205,9 @@ class KeyValueDataset(BaseDataset):
             else:
                 self.operation_type = "question_answer"
 
-        filter_func = self.__getattribute__("_apply_" + self.operation_type + "_filter")
+        filter_func = self.__getattribute__(
+            "_apply_" + self.operation_type + "_filter"
+        )
         transformation_func = self.__getattribute__(
             "_apply_" + self.operation_type + "_transformation"
         )
@@ -199,7 +228,9 @@ class KeyValueDataset(BaseDataset):
 
         return KeyValueDataset(filtered_data, self.task_type, self.fields)
 
-    def _apply_sentence_filter(self, datapoint: dict, filter: SentenceOperation):
+    def _apply_sentence_filter(
+        self, datapoint: dict, filter: SentenceOperation
+    ):
         sentence = datapoint[self.fields[0]]
         return filter.filter(sentence)
 
@@ -271,7 +302,9 @@ class KeyValueDataset(BaseDataset):
             datapoint_n = dict()
             datapoint_n[self.fields[0]] = to[0]
             for i, target_key in enumerate(self.fields[1:]):
-                datapoint[target_key] = to[1][1 + i]  # targets starting from pos 1
+                datapoint[target_key] = to[1][
+                    1 + i
+                ]  # targets starting from pos 1
             datapoints.append(datapoint_n)
         return datapoints
 
@@ -289,7 +322,9 @@ class KeyValueDataset(BaseDataset):
             datapoint_n[self.fields[0]] = to[0]
             datapoint_n[self.fields[1]] = to[1]
             for i, answers_key in enumerate(self.fields[2:]):
-                datapoint_n[answers_key] = to[2 + i]  # answers starting from pos 2
+                datapoint_n[answers_key] = to[
+                    2 + i
+                ]  # answers starting from pos 2
             datapoints.append(datapoint_n)
 
         return datapoints
@@ -319,7 +354,9 @@ class KeyValueDataset(BaseDataset):
         for idx, datapoint in enumerate(data):
             id2datapoint[idx] = datapoint
             # "|||" is a naive separator
-            identifier = "|||".join([datapoint[field] for field in self.fields])
+            identifier = "|||".join(
+                [datapoint[field] for field in self.fields]
+            )
             identifiers.append(identifier)
             identifier2id[identifier] = idx
         identifiers = set(identifiers)  # remove duplicates
@@ -341,7 +378,9 @@ class KeyValueDataset(BaseDataset):
 
     def __and__(self, other: KeyValueDataset) -> KeyValueDataset:
         self._sanity_check(other)
-        id2datapoint, identifier2id, identifiers = self._data2identifier(self.data)
+        id2datapoint, identifier2id, identifiers = self._data2identifier(
+            self.data
+        )
         _, _, identifiers2 = self._data2identifier(other.data)
 
         identifiers = identifiers.intersection(identifiers2)
@@ -350,7 +389,9 @@ class KeyValueDataset(BaseDataset):
 
     def __sub__(self, other: KeyValueDataset) -> KeyValueDataset:
         self._sanity_check(other)
-        id2datapoint, identifier2id, identifiers = self._data2identifier(self.data)
+        id2datapoint, identifier2id, identifiers = self._data2identifier(
+            self.data
+        )
         _, _, identifiers2 = self._data2identifier(other.data)
 
         identifiers = identifiers.difference(identifiers2)
