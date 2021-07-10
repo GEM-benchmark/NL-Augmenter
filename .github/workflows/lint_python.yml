@@ -11,7 +11,7 @@ jobs:
       - run: black --check . || true
       - run: codespell --ignore-words-list="fro,ist,oder" || true  # --skip=""
       - run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-      - run: flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88 --show-source --statistics
+      - run: flake8 . --count --exit-zero --max-complexity=10 --max-line-length=152 --show-source --statistics
       - run: isort --check-only --profile black . || true
       - run: pip install -r requirements.txt https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
       - run: mypy --install-types --non-interactive . || true
