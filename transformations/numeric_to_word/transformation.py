@@ -24,7 +24,7 @@ class NumericToWord(SentenceOperation):
             if perturbed != "":
                 perturbed += " "
             perturbed += recognize_transform(word, prev_word, next_word)
-        return perturbed
+        return [perturbed]
 
 # if __name__ == '__main__':
 #     import json
