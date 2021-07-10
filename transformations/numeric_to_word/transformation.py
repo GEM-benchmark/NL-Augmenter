@@ -1,6 +1,6 @@
 import random
 import string
-import numeric2word
+from .numeric2word import recognize_transform
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
@@ -16,15 +16,15 @@ class NumericToWord(SentenceOperation):
         super().__init__(seed)
 
     def generate(self, sentence: str):
-        pertubed = ""
+        perturbed = ""
         words = sentence.split()
         for i, word in enumerate(words):
             prev_word = sentence.split()[i-1] if i > 0 else ' ' # beginning of sentence
             next_word = sentence.split()[i+1] if i < len(sentence.split())-1 else ' ' # end of sentence
-            if pertubed != "":
-                pertubed += " "
-            perturbed += numeric2word.recognize_transform(word, prev_word, next_word)
-        return pertubed
+            if perturbed != "":
+                perturbed += " "
+            perturbed += recognize_transform(word, prev_word, next_word)
+        return perturbed
 
 # if __name__ == '__main__':
 #     import json
