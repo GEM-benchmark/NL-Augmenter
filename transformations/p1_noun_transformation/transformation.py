@@ -97,11 +97,10 @@ class AddNounDefinition(SentenceOperation):
 
     def generate(self, sentence: str):
         extended_text = get_noun_definitions(sentence, self.cached_stop_words)
-        return extended_text
+        res_data = [{"sentence": extended_text}]
+        return res_data
 
-
-# Sample code to demonstrate usage. Can also assist in adding test cases.
-# You don't need to keep this code in your transformation.
+'''
 if __name__ == '__main__':
 
     tf = AddNounDefinition()
@@ -119,4 +118,6 @@ if __name__ == '__main__':
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     with open('test.json', 'w', encoding='utf-8') as f:
-        json.dump(json_file, f, ensure_ascii=False, indent=4)
+        json.dump(json_file, f, ensure_ascii=False, indent=2)
+'''
+
