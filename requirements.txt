@@ -1,7 +1,5 @@
 checklist==0.0.10
 spacy==2.2.4
-pandas>=1.2.0
-nltk==3.6.2
 
 # for back_translation
 torch
