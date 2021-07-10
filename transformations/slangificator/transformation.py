@@ -39,7 +39,7 @@ def slangifyPoS(
             indChosenRepl = indAllPosRepl[indChosenRepl]  # index of that replacement
 
             if PoS == "Noun":  # Treat plular case for nouns
-                # Take plural or signular form. Note only for nouns
+                # Take plural or singular form. Note only for nouns
                 if token.tag_ == "NN" or token.tag_ == "NNP":
                     temp = Dictionary[1][
                         indChosenRepl
@@ -76,7 +76,7 @@ def slangify(
 ):
     random.seed(seed)
 
-    nlp = self.nlp  # get an instnace of the tokenizer
+    nlp = self.nlp  # get an instance of the tokenizer
     perturbed_texts = []  # output for all perturbed texts
 
     # Load dictionaries
@@ -173,7 +173,7 @@ class Slangificator(SentenceOperation):
 
         pathDic = os.path.dirname(os.path.abspath(__file__))
 
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")  # get an instnace of the tokenizer
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")  # get an instance of the tokenizer
 
         # Load dictionaries
         self.Slang_Nouns = [

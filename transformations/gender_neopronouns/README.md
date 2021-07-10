@@ -30,7 +30,7 @@ Example:
 He like himself. ↔️ Ey likes emself **OR** Ze likes zirself etc.
 ```
 The neopronoun list is sourced from [Neopronouns-Explained resource](https://intercultural.uncg.edu/wp-content/uploads/Neopronouns-Explained-UNCG-Intercultural-Engagement.pdf) curated by UNC Greensboro and [LGBTA WIKI](https://lgbta.wikia.org/wiki/Neopronouns).
-Refer to [this](https://github.com/vinayprabhu/neo_pronouns_gen) Github repo for the [dataset construction details](https://github.com/vinayprabhu/neo_pronouns_gen/blob/main/dataset_generate_neopronouns.ipynb), [examples](https://github.com/vinayprabhu/neo_pronouns_gen/blob/main/data/df_examples_neo.csv) and [pronounciation key](https://github.com/vinayprabhu/neo_pronouns_gen/blob/main/data/df_pronounce_neo.csv).
+Refer to [this](https://github.com/vinayprabhu/neo_pronouns_gen) Github repo for the [dataset construction details](https://github.com/vinayprabhu/neo_pronouns_gen/blob/main/dataset_generate_neopronouns.ipynb), [examples](https://github.com/vinayprabhu/neo_pronouns_gen/blob/main/data/df_examples_neo.csv) and [pronunciation key](https://github.com/vinayprabhu/neo_pronouns_gen/blob/main/data/df_pronounce_neo.csv).
 
 ## What tasks does it intend to benefit?
 As things stand, NLP models such as those deployed for neural translation fail to recognize the neopronouns and often treats them as proper nouns. For example, Google translate translates the sentence _Ve likes verself_ to ವೀ ತನ್ನನ್ನು ತಾನೇ ಇಷ್ಟಪಡುತ್ತಾನೆ into Kannada which reads _(Someone named) Vee likes himself_! Also, as revealed in this survey titled [Toward Gender-Inclusive Coreference Resolution](https://arxiv.org/pdf/1910.13913.pdf), _"Only 7.1% (one paper!) considers neopronouns and/or specific singular THEY."_

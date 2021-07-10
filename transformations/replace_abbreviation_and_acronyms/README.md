@@ -64,7 +64,7 @@ For example: `the new York stadium` for `the NY stadium`.
 The transformation's outputs are too simple to be used for data augmentation as a standalone module.
 However, combined with other modules, this transformation helps to improve the understanding of the context, and generates simple but precise similar sentences (same semantic similarity).
 
-The transformation from the expanded form to the short form might be context dependant 
+The transformation from the expanded form to the short form might be context dependent 
 (this might help to improve robustness in some context, e.g.: medical context).
 
 It is relatively easy to provide a new list of accepted acronyms and abbreviations when using the transformation (by modifying the file `abbreviations.txt`).

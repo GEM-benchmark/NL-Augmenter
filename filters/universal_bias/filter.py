@@ -67,7 +67,7 @@ class UniversalBiasFilter(SentenceOperation):
                 set(majority)
             )
 
-            # If the intersection occured, the intersection_minority and intersection_majority will contain at least one common keyword
+            # If the intersection occurred, the intersection_minority and intersection_majority will contain at least one common keyword
             # use this intersection information to get the value for the corresponding flags
             minority_flag = len(intersection_minority) > 0
             majority_flag = len(intersection_majority) > 0
@@ -174,7 +174,7 @@ class UniversalBiasFilter(SentenceOperation):
         majority_percentage = 100 * float(majority_count) / float(len(sentences))
 
 
-        # If the mumber of sentences in terms of percentage in the minority group
+        # If the number of sentences in terms of percentage in the minority group
         # is lower than in the majority group, set bias to True
         # Note, that the neutral group is not taken into account in this calculation
         if minority_percentage < majority_percentage:
