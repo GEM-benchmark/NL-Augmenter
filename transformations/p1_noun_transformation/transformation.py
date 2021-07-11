@@ -83,8 +83,7 @@ def get_noun_definitions(inp_sent, cached_stop_words):
 class AddNounDefinition(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
-        TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
+        TaskType.TEXT_TO_TEXT_GENERATION
     ]
     languages = ["en"]
 
