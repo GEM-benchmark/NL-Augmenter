@@ -18,6 +18,33 @@
       "outputs": [{
         "sentence": "53N73NC35 W17H 64991N6, 5UCH 45 94UL L1K35 C0FF33 4ND M4RY 734, L4CK 4N 0V3R7 9R3D1C473 70 1ND1C473 7H3 R3L4710N 837W33N 7W0 0R M0R3 4R6UM3N75."
       }]
+    },
+    {
+      "class": "CharacterToNumber",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film."
+      },
+      "outputs": [{
+        "sentence": "4L1C3 1N W0ND3RL4ND 15 4 2010 4M3R1C4N L1V3-4C710N/4N1M473D D4RK F4N745Y 4DV3N7UR3 F1LM."
+      }]
+    },
+    {
+      "class": "CharacterToNumber",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001."
+      },
+      "outputs": [{
+        "sentence": "UJJ4L D3V D054NJH 53RV3D 45 33RD 9R3M13R 0F 8R1715H C0LUM814 FR0M 2000 70 2001."
+      },
+      {
+        "class": "CharacterToNumber",
+        "inputs": {
+          "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+        },
+        "outputs": [{
+          "sentence": "N3UR09L4571C17Y 15 4 C0N71NU0U5 9R0C3551N6 4LL0W1N6 5H0R7-73RM, M3D1UM-73RM, 4ND L0N6-73RM R3M0D3L1N6 0F 7H3 N3UR0N05YN4971C 0R64N124710N."
+        }]
+      }]
     }
   ]
 }

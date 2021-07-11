@@ -8,7 +8,7 @@ This transformation acts replacing characters by visually similar numbers
 
 ## What tasks does it intend to benefit?
 
-This perturbation would be of special interests to those models that must first recognise hand-writting before carrying out its task. It should help increase robustness of such models.
+This perturbation would be of special interests to those models that must first recognise hand-writting before carrying out its task. It should help increase robustness of such models, and allows them to behave more human-like.
 
 ## Previous Work
 
