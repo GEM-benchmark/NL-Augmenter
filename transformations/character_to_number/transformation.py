@@ -31,10 +31,11 @@ class CharacterToNumber(SentenceOperation):
         return final_string
 
     def generate(self, sentence: str):
-        perturbs = self.transform(sentence)
+        perturbs = [self.transform(sentence)]
         return perturbs
 
 
+'''
 if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
@@ -52,3 +53,4 @@ if __name__ == '__main__':
         print('converted sentence', converted_sentence)
         print('target', target)
         assert(target == converted_sentence)
+'''
