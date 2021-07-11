@@ -1,5 +1,6 @@
 import pytest
 
+from initialize import initialize_models
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import (
     SentenceAndTargetOperation,
@@ -102,6 +103,7 @@ def execute_test_case_for_filter(filter_name):
 
 
 def test_operation(transformation_name, filter_name):
+    initialize_models()
     execute_test_case_for_transformation(transformation_name)
     execute_test_case_for_filter(filter_name)
 

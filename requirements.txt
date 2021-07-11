@@ -1,5 +1,5 @@
 checklist==0.0.11
-spacy==2.2.4
+spacy==3.0.0
 
 # for back_translation
 torch

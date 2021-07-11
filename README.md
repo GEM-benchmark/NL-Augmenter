@@ -1,6 +1,6 @@
 # NL-Augmenter 🦎 → 🐍
 
-The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: introducing spelling errors, translating to a different language, randomizing names and numbers, paraphrasing ... and whatever creative augmentation you contribute. We invite submissions of transformations to this framework by way of GitHub pull request, through September 1, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework. 
+The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: introducing spelling errors, translating to a different language, randomizing names and numbers, paraphrasing ... and whatever creative augmentation you contribute. We invite submissions of transformations to this framework by way of GitHub pull request, through September 1, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework.
 
 The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
@@ -44,7 +44,7 @@ git clone https://github.com/GEM-benchmark/NL-Augmenter.git
 cd NL-Augmenter
 python setup.py sdist
 pip install -e .
-pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
+pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz
 ```
 
 ## How do I create a transformation?
@@ -77,7 +77,7 @@ cd my_awesome_transformation
 
 **Testing and evaluating** (Optional)
 
-Once you are done, add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently. 
+Once you are done, add at least 5 example pairs as test cases in the file `test.json` so that no one breaks your code inadvertently.
 
 Once the transformation is ready, test it:
 ```bash
@@ -86,7 +86,7 @@ pytest -s --t=my_awesome_transformation
 If you would like to evaluate your transformation against a common 🤗HuggingFace model, we encourage you to check [evaluation](evaluation)
 
 **Code Styling** To standardized the code we use the [black](https://github.com/psf/black) code formatter which will run at the time of pre-commit.
-To use the pre-commit hook, install `pre-commit` with `pip install pre-commit` (should already be installed if you followed the above instructions). 
+To use the pre-commit hook, install `pre-commit` with `pip install pre-commit` (should already be installed if you followed the above instructions).
 Then run `pre-commit install` to install the hook. On future commits, you should see the black code formatter is run on all python files you've staged for commit.
 
 ### Submitting
