@@ -1,0 +1,23 @@
+{
+  "type": "character_to_number",
+  "test_cases": [
+    {
+      "class": "CharacterToNumber",
+      "inputs": {
+        "sentence": "andrew finally returned the French book to chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "4NDR3W F1N4LLY R37URN3D 7H3 FR3NCH 800K 70 CHR15 7H47 1 80U6H7 L457 W33K"
+      }]
+    },
+    {
+      "class": "CharacterToNumber",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [{
+        "sentence": "53N73NC35 W17H 64991N6, 5UCH 45 94UL L1K35 C0FF33 4ND M4RY 734, L4CK 4N 0V3R7 9R3D1C473 70 1ND1C473 7H3 R3L4710N 837W33N 7W0 0R M0R3 4R6UM3N75."
+      }]
+    }
+  ]
+}
