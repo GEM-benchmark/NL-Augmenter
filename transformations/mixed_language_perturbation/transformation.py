@@ -70,14 +70,16 @@ class MixedLanguagePerturbation(SentenceOperation):
         self.model = M2M100ForConditionalGeneration.from_pretrained(
             "facebook/m2m100_418M"
         )
-        self.tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
+        self.tokenizer = M2M100Tokenizer.from_pretrained(
+            "facebook/m2m100_418M"
+        )
 
         self.prob_mix = prob_mix
         self.src_lang = src_lang
         self.trg_lang = trg_lang
 
     def generate(self, sentence: str):
-        pertubed = mixed_language(
+        perturbeds = mixed_language(
             self.model,
             self.tokenizer,
             text=sentence,
@@ -86,7 +88,7 @@ class MixedLanguagePerturbation(SentenceOperation):
             trg_lang=self.trg_lang,
             seed=self.seed,
         )
-        return [pertubed]
+        return [perturbeds]
 
 
 """
