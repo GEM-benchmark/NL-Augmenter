@@ -12,9 +12,9 @@ This perturbation would benefit all tasks on text classification and generation.
 
 Benchmark results:
 
-- Sentiment analysis: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 95.6.
+- Sentiment analysis: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 94.0.
 
-- Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original bleu is 15.99 and the perturbed bleu is 12.21.
+- Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original bleu is 15.99 and the perturbed bleu is 11.80.
 
 ## Related Work
 The tokenization and POS tagging were done using Stanza
