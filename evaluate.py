@@ -1,13 +1,15 @@
 import argparse
 
-from TestRunner import get_implementation
 from evaluation.evaluation_engine import evaluate
+from TestRunner import get_implementation
 
 parser = argparse.ArgumentParser(
     description="This is the evaluate function. This will evaluate your specified "
     "transformation on pre-defined models."
 )
-parser.add_argument("-l", "--language", help="language to evaluate over", default="en")
+parser.add_argument(
+    "-l", "--language", help="language to evaluate over", default="en"
+)
 parser.add_argument("--transformation", "-t", required=False)
 parser.add_argument("--filter", "-f", required=False)
 parser.add_argument("--task_type", "-task", help="type of the task")
@@ -23,7 +25,10 @@ parser.add_argument(
     "Note that the dataset should be in HF-datasets.",
 )
 parser.add_argument(
-    "-p", "--percentage_of_examples", help="percentage of examples to test", default=20
+    "-p",
+    "--percentage_of_examples",
+    help="percentage of examples to test",
+    default=20,
 )
 
 
