@@ -1,20 +1,20 @@
 # Synonym Substitution
-This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) by randomly substituting words with their synonyms. 
+This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) by randomly substituting words with their synonyms.
 
 Author name: Zijian Wang (zijwang@hotmail.com)
 
 ## What type of a transformation is this?
-This transformation could augment the semantic representation of the sentence as well as test model robustness by substituting words with their synonyms. 
+This transformation could augment the semantic representation of the sentence as well as test model robustness by substituting words with their synonyms.
 
 
 ## What tasks does it intend to benefit?
-This perturbation would benefit all tasks on text classification and generation. 
+This perturbation would benefit all tasks on text classification and generation.
 
 Benchmark results:
 
-- Sentiment analysis: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 94.8.
+- Sentiment analysis: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 95.6.
 
-- Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original bleu is 15.99 and the perturbed bleu is 12.65.
+- Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original bleu is 15.99 and the perturbed bleu is 12.21.
 
 ## Related Work
 The tokenization and POS tagging were done using Stanza
