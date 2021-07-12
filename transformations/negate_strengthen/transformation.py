@@ -40,7 +40,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
     languages = ["en"]
     tgt_languages = ["en"]
 
-    def __init__(self, max_outputs=1, max_num_tries=2, seed=0, verbose=False):
+    def __init__(self, max_outputs=1, seed=0, verbose=False):
         super().__init__(seed)
 
         # downloads
@@ -55,9 +55,9 @@ class NegateStrengthen(SentenceAndTargetOperation):
             prefix_search=re.compile('''^\\$[a-zA-Z0-9]''').search
             )
         self.wnl = WordNetLemmatizer()
-        self.seed = seed
-        self.num_tries = max_num_tries
         self.max_outputs = max_outputs
+        self.num_tries = 2 # fixed number of max recursion tries
+        self.seed = seed
         random.seed(self.seed)
 
 
