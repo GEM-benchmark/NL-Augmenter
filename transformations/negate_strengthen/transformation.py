@@ -49,7 +49,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
 
         # initialise
         self.verbose = verbose
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.nlp.tokenizer = Tokenizer(
             self.nlp.vocab, 
             prefix_search=re.compile('''^\\$[a-zA-Z0-9]''').search
