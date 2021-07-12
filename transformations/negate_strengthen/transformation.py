@@ -142,12 +142,11 @@ class NegateStrengthen(SentenceAndTargetOperation):
         # if target is noun (e.g. as a result of)
         elif pos[tgx-1][0:2] =='NN':
             method.append('NN_1_1')
-            loc_id = tgx-1
-            doc = self.nlp(' '.join(text))
+            doc = self.nlp(u' '.join(text))
             dep_dict = {}
             for ix, token in enumerate(doc):
                 dep_dict[token.idx] = [ix, token.text, token.head.text, token.head.idx]
-                if ix==loc_id:
+                if ix==tgx-1:
                     spacy_loc_id = token.idx
             assert(dep_dict[spacy_loc_id][1]==text[tgx-1])
             edit_id = 1 + dep_dict[dep_dict[spacy_loc_id][3]][0]
