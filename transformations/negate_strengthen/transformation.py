@@ -382,6 +382,12 @@ class NegateStrengthen(SentenceAndTargetOperation):
 
 
     def generate(self, sentence: Union[dict, str], target: str):
+        """
+        The current available transformation of targets are :
+            * "Direct Causal" -> "No Relationship"
+            * "Conditional Causal" -> "Direct Causal"
+            * "Direct Relation" -> "No Relationship"
+        """
 
         if isinstance(sentence, dict):
             # You can indicate specific word location with var "get_roots" as a list of index

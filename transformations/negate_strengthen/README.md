@@ -25,6 +25,11 @@ Note: This augment may work for general relations too (shown below), but is not 
 --> "She is not related to John." | "No Relationship"
 ```
 
+In summary, the current available transformation of targets are 
+* "Direct Causal" -> "No Relationship"
+* "Conditional Causal" -> "Direct Causal"
+* "Direct Relation" -> "No Relationship"
+
 **Author name:** Fiona Anting Tan <br>
 **Author email:** tan.f@u.nus.edu <br>
 **Author Affiliation:** Institute of Data Science, National University of Singapore
