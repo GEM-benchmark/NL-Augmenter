@@ -139,7 +139,6 @@ class NegateStrengthen(SentenceAndTargetOperation):
                 method.append(None)
                 edit_id = None
                 text = None
-                # text[tgx-1] = "<edit>did not</edit> " + self.wnl.lemmatize(text[tgx-1],'v')
         # if target is noun (e.g. as a result of)
         elif pos[tgx-1][0:2] =='NN':
             method.append('NN_1_1')
@@ -151,17 +150,14 @@ class NegateStrengthen(SentenceAndTargetOperation):
             else:
                 doc = nlp(u' '.join(text[sentid2tid[sent_id]-1:]))
 
-            # print('Check if loc_id {} makes sense in doc: {}'.format(loc_id, doc))
             dep_dict = {}
             for ix, token in enumerate(doc):
                 dep_dict[token.idx] = [ix, token.text, token.head.text, token.head.idx]
                 if ix==loc_id:
                     spacy_loc_id = token.idx
 
-            # print(text[sentid2tid[sent_id]-1:sentid2tid[sent_id+1]-1])
             assert(dep_dict[spacy_loc_id][1]==text[tgx-1])
             edit_id = sentid2tid[sent_id] + dep_dict[dep_dict[spacy_loc_id][3]][0]
-            # print('Editing root word edx "{}" | orx "{}"...'.format(text[edit_id], dep_dict[spacy_loc_id][2]))
             text, method, edit_id = negation_rules(
                 edit_id, itemdict, text, pos, sentid2tid, method=method, 
                 num_tries=num_tries, curr_try=curr_try)
@@ -189,7 +185,6 @@ class NegateStrengthen(SentenceAndTargetOperation):
             method.append(None)
             edit_id = None
             text = None
-            # text[tgx-1] = "<edit>did not</edit> " + self.wnl.lemmatize(text[tgx-1],'v')
         
         return text, method, edit_id
 
@@ -375,7 +370,6 @@ class NegateStrengthen(SentenceAndTargetOperation):
             elif (table.loc[root,'pos_tag']=='MD') and (table.loc[root+1,'pos_tag']=='RB'):
                 text[root] = '<edit>'+ MODAL_STRENGTHEN_DICT[text[root]] + '</edit>'
                 text[root+1] = ""
-                # text[root+2] = conjugate_en(verb=text[root+2],tense='past',number='singular')
                 method = ['MOD_4_1']
             else:
                 text[root] = '<edit>'+ MODAL_STRENGTHEN_DICT[text[root]] + '</edit>'
