@@ -83,7 +83,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
         return table
 
 
-    def negation_rules(self, tgx, itemdict, text, pos, sentid2tid, method=[], curr_try=0):
+    def negation_rules(self, tgx, itemdict, text, pos, method=[], curr_try=0):
 
         curr_try += 1
         edit_id = tgx
@@ -144,23 +144,17 @@ class NegateStrengthen(SentenceAndTargetOperation):
         elif pos[tgx-1][0:2] =='NN':
             method.append('NN_1_1')
             sent_id = int(itemdict['text'][tgx-1][1])
-            loc_id = tgx-sentid2tid[sent_id]
-
-            if sent_id+1 < len(sentid2tid):
-                doc = nlp(u' '.join(text[sentid2tid[sent_id]-1:sentid2tid[sent_id+1]-1]))
-            else:
-                doc = nlp(u' '.join(text[sentid2tid[sent_id]-1:]))
-
+            loc_id = tgx-1
+            doc = self.nlp(' '.join(text))
             dep_dict = {}
             for ix, token in enumerate(doc):
                 dep_dict[token.idx] = [ix, token.text, token.head.text, token.head.idx]
                 if ix==loc_id:
                     spacy_loc_id = token.idx
-
             assert(dep_dict[spacy_loc_id][1]==text[tgx-1])
-            edit_id = sentid2tid[sent_id] + dep_dict[dep_dict[spacy_loc_id][3]][0]
+            edit_id = 1 + dep_dict[dep_dict[spacy_loc_id][3]][0]
             text, method, edit_id = self.negation_rules(
-                edit_id, itemdict, text, pos, sentid2tid, method=method, curr_try=curr_try)
+                edit_id, itemdict, text, pos, method=method, curr_try=curr_try)
         # if actual word is an adjective
         elif pos[tgx-1][0:2] =='JJ':
             # if adjective is last word
@@ -284,7 +278,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
         return re.sub(' +', ' ', re.sub('(\\<(\\/)*edit\\>)', '', ' '.join(_text)))
 
 
-    def text_to_negated_edits(self, _text, sentid2tid, get_roots=None):
+    def text_to_negated_edits(self, _text, get_roots=None):
         # clean multiple whitespaces
         _text = _RE_COMBINE_WHITESPACE.sub(" ", _text).strip()
         text = _text.split(' ')
@@ -309,8 +303,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
             
             # using root loc, negate
             edit_text, method, edit_id = self.negation_rules(
-                root+1, itemdict, text, pos,
-                sentid2tid, method=[])
+                root+1, itemdict, text, pos, method=[])
 
             if self.verbose:
                 print(">>>>> edit_text: ", edit_text)
@@ -340,7 +333,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
         return t_dict
 
 
-    def text_to_stronger_edits(self, _text, sentid2tid):
+    def text_to_stronger_edits(self, _text):
         # clean multiple whitespaces
         _text = _RE_COMBINE_WHITESPACE.sub(" ", _text).strip()
         text = _text.split(' ')
@@ -407,13 +400,12 @@ class NegateStrengthen(SentenceAndTargetOperation):
             print('>>>>>>> sentence: ',sentence)
             print('>>>>>>> target: ',target)
 
-        sentid2tid = {0: 1} # fixed since only one-sentence per doc
         perturbed_sentences = ["NA"]
         perturbed_target = "NA"
         
         if target in ['Direct Causal', 'Direct Relation']:
             # Negation: Direct Causal -> No Relationship
-            t_dict = self.text_to_negated_edits(sentence, sentid2tid, get_roots=get_roots)
+            t_dict = self.text_to_negated_edits(sentence, get_roots=get_roots)
             if self.verbose:
                 print(">>>>>> t_dict: ", t_dict)
 
@@ -429,7 +421,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
 
         elif target == 'Conditional Causal':
             # Strengthen: Conditional Causal -> Direct Causal
-            t_dict = self.text_to_stronger_edits(sentence, sentid2tid)
+            t_dict = self.text_to_stronger_edits(sentence)
             if self.verbose:
                 print(">>>>>> t_dict: ", t_dict)
 
