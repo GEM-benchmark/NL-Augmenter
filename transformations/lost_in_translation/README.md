@@ -22,6 +22,9 @@ This perturbation is intended for the `SentenceOperation` task, although it may 
 ## Usage
 The `LostInTranslation` class supports a number of options. A list of languages (`lang`) can be passed, and encode-decode cycles draw from this list in different manners via the `how` argument. The default behavior is `strict` which simply iterates through the list as-is; this was selected for reproducibility of `task.json`. However, the transformation is intended to use the `random` strategy, in which successive language layers are drawn from the provided list with replacement. `layers` specifies the total number of encode-decode cycles, and in the case of both `strict` and `layers>len(langs)` will restart the list from the beginning.
 
+## Data and code provenance
+This code was based upon the `ButterFingersPerturbation` transformation template. The en->xx and xx->en models are provided by the Helsinki-NLP OpusMT project, cited below.
+
 ## Previous Work
 BackTranslation: https://github.com/GEM-benchmark/NL-Augmenter/tree/main/transformations/back_translation
 
