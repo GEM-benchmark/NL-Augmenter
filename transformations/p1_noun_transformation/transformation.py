@@ -79,7 +79,15 @@ def get_noun_definitions(inp_sent, cached_stop_words):
         inp_sent = inp_sent.replace(key_phrase, key_phrase + "(" + phrase_definition.lower() + ")")
     return (inp_sent)
 
-
+'''
+search for noun phrases from wikidata lookup 
+and then add definitions in braces after 
+phrase occurences to add more context
+NOTE: requires three nltk downloads 
+1. nltk.download('stopwords')
+2. nltk.download('punkt')
+3. nltk.download('averaged_perceptron_tagger')
+'''
 class AddNounDefinition(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
@@ -89,9 +97,6 @@ class AddNounDefinition(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        # nltk.download('stopwords')
-        # nltk.download('punkt')
-        # nltk.download('averaged_perceptron_tagger')
         self.cached_stop_words = stopwords.words("english")
 
     def generate(self, sentence: str):
