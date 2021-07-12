@@ -1,0 +1,14 @@
+{
+  "type": "pronoun_to_noun_transformation",
+  "test_cases": [
+    {
+      "class": "PronounToNounTransformation",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "He finally returned the French book to him that I bought last week"
+      }]
+    }
+  ]
+}
