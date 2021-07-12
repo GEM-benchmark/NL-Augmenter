@@ -153,46 +153,46 @@ class SuspectingParaphraser(QuestionAnswerOperation):
         return [(context, paraphrased, answers)]
 
 
-if __name__ == "__main__":
-    import json
+# if __name__ == "__main__":
+#     import json
 
-    from TestRunner import convert_to_snake_case
+#     from TestRunner import convert_to_snake_case
 
-    tf = SuspectingParaphraser()
+#     tf = SuspectingParaphraser()
 
-    test_cases = []
-    for i, sentence in enumerate(
-        [
-            "Did Sally finally return the french book to Chris?",
-            "Did the American National Shipment company really break its own fleet?",
-            "Couldn't she just leave?",
-            "Shall you begone, lad?",
-            "Has Buzz Aldrin, the first person who walked on the moon, brought back some aliens?",
-        ]
-    ):
-        res = tf.generate("", sentence, [])
-        test_cases.append(
-            {
-                "class": tf.name(),
-                "inputs": {"context": "", "question": sentence, "answers": []},
-                "outputs": [],
-            }
-        )
+#     test_cases = []
+#     for i, sentence in enumerate(
+#         [
+#             "Did Sally finally return the french book to Chris?",
+#             "Did the American National Shipment company really break its own fleet?",
+#             "Couldn't she just leave?",
+#             "Shall you begone, lad?",
+#             "Has Buzz Aldrin, the first person who walked on the moon, brought back some aliens?",
+#         ]
+#     ):
+#         res = tf.generate("", sentence, [])
+#         test_cases.append(
+#             {
+#                 "class": tf.name(),
+#                 "inputs": {"context": "", "question": sentence, "answers": []},
+#                 "outputs": [],
+#             }
+#         )
 
-        for p_context, p_question, p_answers in res:
-            print(sentence)
-            print(p_question)
-            print()
-            test_cases[i]["outputs"].append(
-                {
-                    "context": p_context,
-                    "question": p_question,
-                    "answers": p_answers,
-                }
-            )
+#         for p_context, p_question, p_answers in res:
+#             print(sentence)
+#             print(p_question)
+#             print()
+#             test_cases[i]["outputs"].append(
+#                 {
+#                     "context": p_context,
+#                     "question": p_question,
+#                     "answers": p_answers,
+#                 }
+#             )
 
-    json_file = {
-        "type": convert_to_snake_case(tf.name()),
-        "test_cases": test_cases,
-    }
-    print(json.dumps(json_file))
+#     json_file = {
+#         "type": convert_to_snake_case(tf.name()),
+#         "test_cases": test_cases,
+#     }
+#     print(json.dumps(json_file))
