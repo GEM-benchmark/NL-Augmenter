@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-import gender_guesser.detector as gender
+from gender_extractor import GenderExtractor
 import nltk
 import numpy as np
 
@@ -29,7 +29,7 @@ class SuspectingParaphraser(QuestionAnswerOperation):
 
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
-        self.gender_detector = gender.Detector()
+        self.gender_detector = GenderExtractor()
         self.pronouns = ["he", "she", "it", "they"]
         self.static_pronouns = ["i", "we", "you", *self.pronouns]
 
@@ -103,7 +103,7 @@ class SuspectingParaphraser(QuestionAnswerOperation):
                 prob = {i: 0 for i in self.pronouns}
                 prob["it"] = 1
             else:
-                noun_gender = self.gender_detector.get_gender(subject)
+                noun_gender = self.gender_detector.extract_gender(subject)
 
                 if noun_gender in ["male", "mostly_male"]:
                     prob = {i: self._pronoun_alt for i in self.pronouns}
@@ -137,6 +137,7 @@ class SuspectingParaphraser(QuestionAnswerOperation):
 
         doc = self.nlp(question)
         token = doc[0]
+        print(token, token.pos_)
         if token.pos_ != "AUX":
             return False
 
