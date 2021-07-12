@@ -3,8 +3,12 @@ from typing import List, Tuple
 import gender_guesser.detector as gender
 import nltk
 import numpy as np
+
+# Spacy needs this module, but it's used only implicitly
+import pyinflect  # noqa: F401
 import spacy
 
+from initialize import spacy_nlp
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
 
@@ -23,7 +27,8 @@ class SuspectingParaphraser(QuestionAnswerOperation):
         np.random.seed(seed)
         nltk.download("punkt")
 
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+
         self.gender_detector = gender.Detector()
         self.pronouns = ["he", "she", "it", "they"]
         self.static_pronouns = ["i", "we", "you", *self.pronouns]
