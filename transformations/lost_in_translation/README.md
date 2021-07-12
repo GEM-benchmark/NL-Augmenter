@@ -17,7 +17,7 @@ more arguments."
 Author name: M. Yee
 
 ## What type of a transformation is this?
-For few encode-decode layers, LiT functions similarly to BackTranslation, in that its output is analgous to a light paraphraser. However, complexity and information loss increase with addition of subsequent layers, allowing users to specify the degree to which the input should be corrupted via the `layers` argument. LiT is remiscent of the game of "telephone in some ways.
+For few encode-decode layers, LiT functions similarly to BackTranslation, in that its output is analgous to a light paraphraser. However, complexity and information loss increase with addition of subsequent layers, allowing users to specify the degree to which the input should be corrupted via the `layers` argument. LiT is reminiscent of the game of "telephone" in some ways.
 
 ## What tasks does it intend to benefit?
 This perturbation is intended for the `SentenceOperation` task, although it may be suited for a machine translation task as well.
