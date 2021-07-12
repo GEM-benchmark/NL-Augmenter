@@ -27,7 +27,7 @@ MODAL_STRENGTHEN_DICT = {
     'will': 'will'
 }
 
-# intialise
+# intialize
 try:
     conjugate_en(verb='testing',tense='present',number='singular')
 except:
@@ -39,7 +39,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
     languages = ["en"]
     tgt_languages = ["en"]
 
-    def __init__(self, seed=0, verbose=False):
+    def __init__(self, spacy_nlp=None, max_outputs=1, max_num_tries=2, seed=0, verbose=False):
         super().__init__(seed)
 
         # downloads
@@ -55,6 +55,8 @@ class NegateStrengthen(SentenceAndTargetOperation):
             )
         self.wnl = WordNetLemmatizer()
         self.seed = seed
+        self.num_tries = max_num_tries
+        self.max_outputs = max_outputs
         random.seed(self.seed)
 
 
@@ -81,17 +83,16 @@ class NegateStrengthen(SentenceAndTargetOperation):
         return table
 
 
-    def negation_rules(self, tgx, itemdict, text, pos, sentid2tid, method=[], \
-        num_tries=2, curr_try=0):
+    def negation_rules(self, tgx, itemdict, text, pos, sentid2tid, method=[], curr_try=0):
 
         curr_try += 1
         edit_id = tgx
 
         if self.verbose:
             print('before {}, actual {}, after {}'.format(pos[tgx-2], pos[tgx-1], pos[tgx]))
-        if curr_try > num_tries:
+        if curr_try > self.num_tries:
             if self.verbose:
-                print('Max {} tries hit...'.format(num_tries))
+                print('Max {} tries hit...'.format(self.num_tries))
             method.append(None)
             edit_id = None
             text = None
@@ -158,9 +159,8 @@ class NegateStrengthen(SentenceAndTargetOperation):
 
             assert(dep_dict[spacy_loc_id][1]==text[tgx-1])
             edit_id = sentid2tid[sent_id] + dep_dict[dep_dict[spacy_loc_id][3]][0]
-            text, method, edit_id = negation_rules(
-                edit_id, itemdict, text, pos, sentid2tid, method=method, 
-                num_tries=num_tries, curr_try=curr_try)
+            text, method, edit_id = self.negation_rules(
+                edit_id, itemdict, text, pos, sentid2tid, method=method, curr_try=curr_try)
         # if actual word is an adjective
         elif pos[tgx-1][0:2] =='JJ':
             # if adjective is last word
@@ -310,7 +310,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
             # using root loc, negate
             edit_text, method, edit_id = self.negation_rules(
                 root+1, itemdict, text, pos,
-                sentid2tid, method=[], num_tries=2)
+                sentid2tid, method=[])
 
             if self.verbose:
                 print(">>>>> edit_text: ", edit_text)
@@ -446,9 +446,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
             # Any future conversion implementations
             pass
         
-        # Current NLAugmenter set up makes it hard to check more than 1 edit while checking in order
-        # for now, we only keep the first possible edit per example
-        perturbed_items  = [(perturbed_sentences[0], perturbed_target)]
+        perturbed_items  = [(perturbed_sentences[i], perturbed_target) for i in range(self.max_outputs)]
 
         if self.verbose:
             print(">>>>>> perturbed_items: ", perturbed_items)
