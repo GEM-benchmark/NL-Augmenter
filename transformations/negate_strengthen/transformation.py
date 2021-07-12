@@ -83,7 +83,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
         return table
 
 
-    def negation_rules(self, tgx, itemdict, text, pos, method=[], curr_try=0):
+    def negation_rules(self, tgx, text, pos, method=[], curr_try=0):
 
         curr_try += 1
         edit_id = tgx
@@ -143,7 +143,6 @@ class NegateStrengthen(SentenceAndTargetOperation):
         # if target is noun (e.g. as a result of)
         elif pos[tgx-1][0:2] =='NN':
             method.append('NN_1_1')
-            sent_id = int(itemdict['text'][tgx-1][1])
             loc_id = tgx-1
             doc = self.nlp(' '.join(text))
             dep_dict = {}
@@ -154,7 +153,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
             assert(dep_dict[spacy_loc_id][1]==text[tgx-1])
             edit_id = 1 + dep_dict[dep_dict[spacy_loc_id][3]][0]
             text, method, edit_id = self.negation_rules(
-                edit_id, itemdict, text, pos, method=method, curr_try=curr_try)
+                edit_id, text, pos, method=method, curr_try=curr_try)
         # if actual word is an adjective
         elif pos[tgx-1][0:2] =='JJ':
             # if adjective is last word
@@ -290,7 +289,6 @@ class NegateStrengthen(SentenceAndTargetOperation):
             get_roots = table[([True if t[0:2] =='VB' else False for t in table['pos_tag']]) & (table['dep'] == 'ROOT')].index
         if self.verbose:
             print(">>>>> get_roots: ", get_roots)
-        itemdict = {'text': [(int(idx+1),0,int(idx),t) for idx, t in enumerate(text)]}
 
         t_dict = {}
         for jx, root in enumerate(get_roots):
@@ -302,8 +300,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
                         print('new root: {}'.format(table.loc[root, 'text']))
             
             # using root loc, negate
-            edit_text, method, edit_id = self.negation_rules(
-                root+1, itemdict, text, pos, method=[])
+            edit_text, method, edit_id = self.negation_rules(root+1, text, pos, method=[])
 
             if self.verbose:
                 print(">>>>> edit_text: ", edit_text)
@@ -341,7 +338,6 @@ class NegateStrengthen(SentenceAndTargetOperation):
         # get weaker words for converting
         table = self.text_to_spacy_table_info(_text)
         get_roots = table[table['lemma'].isin(MODAL_STRENGTHEN_DICT.keys())].index
-        itemdict = {'text': [(int(idx+1),0,int(idx),t) for idx, t in enumerate(text)]}
 
         t_dict = {}
         for jx, root in enumerate(get_roots):
