@@ -3,15 +3,18 @@ Lost in Translation (LiT) is a generalization of the BackTranslation transformat
 
 Example:
 ```
-Input: "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+Input: "Sentences with gapping, such as Paul likes coffee and Mary tea,
+lack an overt predicate to indicate the relation between two or more 
+arguments."
 
 Layers (5): en -> es -> de -> zh -> fr -> ru -> en
 
-Output: "Because Paul loves coffee and tea, there is a gap in the verdict, and there is no clear prerequisite for the relationship between two or more arguments."
+Output: "Because Paul loves coffee and tea, there is a gap in the verdict,
+and there is no clear prerequisite for the relationship between two or 
+more arguments."
 ```
 
 Author name: M. Yee
-Author email: yeem@csail.mit.edu
 
 ## What type of a transformation is this?
 For few encode-decode layers, LiT functions similarly to BackTranslation, in that its output is analgous to a light paraphraser. However, complexity and information loss increase with addition of subsequent layers, allowing users to specify the degree to which the input should be corrupted via the `layers` argument. LiT is remiscent of the game of "telephone in some ways.
