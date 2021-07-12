@@ -1,5 +1,5 @@
 setuptools
 beautifulsoup4==4.9.3
 nltk==3.6.2
-git+git://github.com/pawan2411/wptools@30738f1
+wptools @ git+git://github.com/pawan2411/wptools@30738f1
 requests
