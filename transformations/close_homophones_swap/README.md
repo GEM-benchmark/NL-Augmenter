@@ -15,13 +15,13 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 text generation, etc. 
 
 ## Previous Work
-1) There has been some recent work studying how to create human-like behavior using phonetic information:
+1) There has been some recent work studying the adversarial effects of swapping out similarly sounding words:
 ```bibtex
-@article{eger2019text,
-  title={Text processing like humans do: Visually attacking and shielding NLP systems},
-  author={Eger, Steffen and {\c{S}}ahin, G{\"o}zde G{\"u}l and R{\"u}ckl{\'e}, Andreas and Lee, Ji-Ung and Schulz, Claudia and Mesgar, Mohsen and Swarnkar, Krishnkant and Simpson, Edwin and Gurevych, Iryna},
-  journal={arXiv preprint arXiv:1903.11508},
-  year={2019}
+@article{eger2020hero,
+  title={From Hero to Z$\backslash$'eroe: A Benchmark of Low-Level Adversarial Attacks},
+  author={Eger, Steffen and Benz, Yannik},
+  journal={arXiv preprint arXiv:2010.05648},
+  year={2020}
 }
 ```
 
