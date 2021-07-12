@@ -1,11 +1,9 @@
-from typing import Tuple, List
-import nltk
-from pyinflect import getInflection
-import spacy
-import gender_guesser.detector as gender
-from enum import Enum
-import numpy as np
+from typing import List, Tuple
 
+import gender_guesser.detector as gender
+import nltk
+import numpy as np
+import spacy
 
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
@@ -46,9 +44,9 @@ class SuspectingParaphraser(QuestionAnswerOperation):
         modal = str(doc[0]).lower()
         token = doc[0]
 
-        verb_position = [i for i in range(len(doc)) if str(doc[i]) == token.head.text][
-            0
-        ]
+        verb_position = [
+            i for i in range(len(doc)) if str(doc[i]) == token.head.text
+        ][0]
 
         rest_of_sentence = [i for i in text[verb_position:]]
 
@@ -64,8 +62,8 @@ class SuspectingParaphraser(QuestionAnswerOperation):
         )
 
         first_verb = doc[verb_position]
-        
-        # If 'did' is our modal, the verb will be in a present tense 
+
+        # If 'did' is our modal, the verb will be in a present tense
         # It means that we need to inflect it to the past one (VBD)
         # (Did John _drink_ my tea? -> John _drank_ my tea, didn't he?)
         # Otherwise, the verb is already in a good form and we can use
@@ -74,7 +72,9 @@ class SuspectingParaphraser(QuestionAnswerOperation):
             demodded = first_verb._.inflect("VBD")
         else:
             demodded = modal + " " + str(first_verb)
-        sentence = sentence.replace(str(first_verb), str(demodded)).replace("?", "")
+        sentence = sentence.replace(str(first_verb), str(demodded)).replace(
+            "?", ""
+        )
 
         ending = self._resolve_ending(doc, modal)
         result = sentence + ending
@@ -84,7 +84,6 @@ class SuspectingParaphraser(QuestionAnswerOperation):
         try:
             subject = str([tok for tok in doc if (tok.dep_ == "nsubj")][0])
         except IndexError:
-            print(doc)
             return ", right?"
 
         prob = {i: 1 / len(self.pronouns) for i in self.pronouns}
@@ -150,6 +149,7 @@ class SuspectingParaphraser(QuestionAnswerOperation):
 
 if __name__ == "__main__":
     import json
+
     from TestRunner import convert_to_snake_case
 
     tf = SuspectingParaphraser()
@@ -178,8 +178,15 @@ if __name__ == "__main__":
             print(p_question)
             print()
             test_cases[i]["outputs"].append(
-                {"context": p_context, "question": p_question, "answers": p_answers}
+                {
+                    "context": p_context,
+                    "question": p_question,
+                    "answers": p_answers,
+                }
             )
 
-    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    # print(json.dumps(json_file))
+    json_file = {
+        "type": convert_to_snake_case(tf.name()),
+        "test_cases": test_cases,
+    }
+    print(json.dumps(json_file))
