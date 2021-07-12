@@ -1,12 +1,17 @@
 import pytest
 
+
+from initialize import initialize_models
+
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import (
     SentenceAndTargetOperation,
     SentenceOperation,
 )
 from interfaces.TaggingOperation import TaggingOperation
-from initialize import initialize_models
+
+from TestRunner import OperationRuns
+
 
 
 def get_assert_message(transformation, expected_output, predicted_output):

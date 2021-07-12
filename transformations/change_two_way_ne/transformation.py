@@ -3,6 +3,7 @@ import re
 import numpy as np
 import spacy
 from checklist.perturb import Perturb
+
 from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceAndTargetOperation
 from tasks.TaskTypes import TaskType

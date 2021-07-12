@@ -1,9 +1,14 @@
 import operator
-from initialize import spacy_nlp
-from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
-from tasks.TaskTypes import TaskType
 from typing import List
+
 import spacy
+
+from initialize import spacy_nlp
+from interfaces.SentenceOperation import (
+    SentenceAndTargetOperation,
+    SentenceOperation,
+)
+from tasks.TaskTypes import TaskType
 
 """
 A filter on text length (number of tokens).

@@ -10,6 +10,7 @@ This directory contains transformations that are part of the Natural Language Au
 | [change_two_way_ne](change_two_way_ne)                   | Changes the named entity in the source sentence and reflects the same change in the target sentence. Benefits Machine Translation tasks.
 <<<<<<< HEAD
 | [longer_names_ner](longer_names_ner)        | Elongates person names: Russel Peters is a comedian. --> Russel J. M. Peters is a comedian.  
+| [mixed_language_perturbation](mixed_language_perturbation) | This perturbation translates randomly picked words in the text from English to other languages (e.g., German). It can be used to test the robustness of a model in a multilingual setting.
 | [without_punctuation](punctuation)        | Hello Sam, how are you? --> hello sam how are you
 =======
 | [longer_names_ner](longer_names_ner)        | Elongates person names: Russel Peters is a comedian. --> Russel J. M. Peters is a comedian. 
