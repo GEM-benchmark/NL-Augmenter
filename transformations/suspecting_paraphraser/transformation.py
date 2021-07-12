@@ -15,30 +15,20 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-class Pronouns:
-    HE = 0
-    SHE = 1
-    IT = 2
-    THEY = 3
-
-
 class SuspectingParaphraser(QuestionAnswerOperation):
     tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
 
     languages = ["en"]
 
-    def __init__(self, seed=0, max_output=1, pronoun_mod=0.9):
-        super().__init__(seed)
+    def __init__(self, seed=0, max_outputs=1, pronoun_mod=0.9):
+        super().__init__(seed, max_outputs=max_outputs)
         np.random.seed(seed)
         nltk.download("punkt")
-
-        self.seed = seed
-        self.max_output = max_output
 
         self.nlp = spacy.load("en_core_web_sm")
         self.gender_detector = gender.Detector()
         self.pronouns = ["he", "she", "it", "they"]
-        self.static_pronouns = ["i", "you", *self.pronouns]
+        self.static_pronouns = ["i", "we", "you", *self.pronouns]
 
         self._special_endings = {
             "may": "may {} not",
@@ -97,7 +87,7 @@ class SuspectingParaphraser(QuestionAnswerOperation):
             print(doc)
             return ", right?"
 
-        prob = np.ones(len(self.pronouns)) / len(self.pronouns)
+        prob = {i: 1 / len(self.pronouns) for i in self.pronouns}
 
         tagged = [(X.text, X.label_) for X in doc.ents]
         if subject.lower() in self.static_pronouns:
@@ -106,22 +96,22 @@ class SuspectingParaphraser(QuestionAnswerOperation):
                 pronoun = "I"
         else:
             if len(tagged) > 0 and tagged[0][1] != "PERSON":
-                prob = [0] * len(self.pronouns)
-                prob[Pronouns.IT] = 1
+                prob = {i: 0 for i in self.pronouns}
+                prob["it"] = 1
             else:
                 noun_gender = self.gender_detector.get_gender(subject)
 
                 if noun_gender in ["male", "mostly_male"]:
-                    prob = [self._pronoun_alt] * len(self.pronouns)
-                    prob[Pronouns.HE] = self.pronoun_mod
+                    prob = {i: self._pronoun_alt for i in self.pronouns}
+
+                    prob["he"] = self.pronoun_mod
 
                 elif noun_gender in ["female", "mostly_female"]:
-                    prob = [self._pronoun_alt] * len(self.pronouns)
-                    prob[Pronouns.SHE] = self.pronoun_mod
+                    prob = {i: self._pronoun_alt for i in self.pronouns}
 
-            pronoun = np.random.choice(self.pronouns, p=prob)
-        if modal == "have" and (pronoun in ["he", "she", "it"]):
-            modal = "has"
+                    prob["she"] = self.pronoun_mod
+
+            pronoun = np.random.choice(self.pronouns, p=list(prob.values()))
 
         ending = ", "
         if modal in self._special_endings.keys():
@@ -184,9 +174,12 @@ if __name__ == "__main__":
         )
 
         for p_context, p_question, p_answers in res:
+            print(sentence)
+            print(p_question)
+            print()
             test_cases[i]["outputs"].append(
                 {"context": p_context, "question": p_question, "answers": p_answers}
             )
 
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    print(json.dumps(json_file))
+    # print(json.dumps(json_file))
