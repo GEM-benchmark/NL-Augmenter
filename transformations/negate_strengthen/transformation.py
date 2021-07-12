@@ -41,7 +41,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
     tgt_languages = ["en"]
 
     def __init__(self, max_outputs=1, seed=0, verbose=False):
-        super().__init__(seed)
+        super().__init__(seed=seed, max_outputs=max_outputs)
 
         # downloads
         nltk.download('wordnet')
@@ -55,9 +55,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
             prefix_search=re.compile('''^\\$[a-zA-Z0-9]''').search
             )
         self.wnl = WordNetLemmatizer()
-        self.max_outputs = max_outputs
         self.num_tries = 2 # fixed number of max recursion tries
-        self.seed = seed
         random.seed(self.seed)
 
 
