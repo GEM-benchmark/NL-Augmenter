@@ -18,6 +18,11 @@ Base Class for implementing the different input transformations a generation sho
 
 
 class SuspectingParaphraser(QuestionAnswerOperation):
+    """ This paraphraser transforms a yes/no question into a tag one.
+     
+    Example: "Did the American National Shipment company really break its own fleet?" 
+    -> "The American National Shipment company really broke its own fleet, didn't it?"
+    """
     tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
 
     languages = ["en"]
