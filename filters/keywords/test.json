@@ -11,7 +11,11 @@
             },
             "outputs": true
         },
+<<<<<<< HEAD
         {
+=======
+		{
+>>>>>>> 4f585e1 (formatting)
             "class": "TextContainsKeywordsFilter",
             "args": {
                 "keywords": ["sad"]
