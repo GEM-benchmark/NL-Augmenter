@@ -1,4 +1,5 @@
 import random
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceAndTargetOperation
 from tasks.TaskTypes import TaskType
 
@@ -39,7 +40,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
     languages = ["en"]
     tgt_languages = ["en"]
 
-    def __init__(self, spacy_nlp=None, max_outputs=1, max_num_tries=2, seed=0, verbose=False):
+    def __init__(self, max_outputs=1, max_num_tries=2, seed=0, verbose=False):
         super().__init__(seed)
 
         # downloads
