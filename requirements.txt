@@ -8,7 +8,7 @@ torch
 num2words==0.5.10
 word2number==1.1
 
-# for test cases and coverage
+# for test cases
 pytest==6.2.4
 pytest-cov==2.12.1
 
