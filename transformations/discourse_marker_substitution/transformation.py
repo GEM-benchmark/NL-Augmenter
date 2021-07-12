@@ -57,7 +57,7 @@ CLASS_TO_MARKERS = dict(CLASS_TO_MARKERS)
 
 
 def discourse_marker_substitution(text, seed=0, max_output=1):
-    """Performs a ubstitution of discourse markers with semantically equivalent marker
+    """Performs a substitution of discourse markers with semantically equivalent marker
     in the input text
     """
     random.seed(seed)
