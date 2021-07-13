@@ -78,9 +78,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
         # Make the question:
         # If there is an auxiliary, make q: [AUX] [SUBJ] [LEFT] [VERB] [RIGHT]
         if auxiliary is not None:
-            infinitive = verb_head._.inflect('VB') + verb_head.whitespace_
             questions = [auxiliary.text_with_ws.capitalize() + subject_phrase +
-                         head_left + infinitive + head_right]
+                         head_left + verb_head.text_with_ws + head_right]
 
         # If it's a be verb, make q: [BE] [SUBJ] [LEFT] [RIGHT]
         elif verb_head.lemma == self.nlp.vocab.strings['be']:
