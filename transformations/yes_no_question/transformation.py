@@ -102,7 +102,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
         all_left_tokens = doc[:verb_head.i]
         head_left_tokens = [token for token in all_left_tokens if
                             token != subject_head and subject_head not in
-                            token.ancestors]
+                            token.ancestors and token != auxiliary and
+                            auxiliary not in token.ancestors]
         head_left = ''.join(token.text_with_ws for token in head_left_tokens)
 
         # Get object, adverbs, prepositional phrases, etc.:
