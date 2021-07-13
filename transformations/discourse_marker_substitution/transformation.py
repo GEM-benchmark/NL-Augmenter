@@ -52,7 +52,7 @@ MARKER_TO_CLASS = {
 
 CLASS_TO_MARKERS = defaultdict(list)
 for (k, v) in MARKER_TO_CLASS.items():
-    CLASS_TO_MARKERS[v].append(k)
+    CLASS_TO_MARKERS[v].append(k.rstrip(','))
 CLASS_TO_MARKERS = dict(CLASS_TO_MARKERS)
 
 
