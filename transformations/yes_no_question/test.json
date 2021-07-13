@@ -81,6 +81,24 @@
       "outputs": [{
         "sentence": "Is Dave not going to Seattle?"
       }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "Faria decides to share with Dantès all of his knowledge and experience, as well as the countless treasures that are hidden on the island of Monte Cristo."
+      },
+      "outputs": [{
+        "sentence": "Does Faria decide to share with Dantès all of his knowledge and experience, as well as the countless treasures that are hidden on the island of Monte Cristo?"
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "He has decided that you aren't ready yet."
+      },
+      "outputs": [{
+        "sentence": "Has he decided that you aren't ready yet?"
+      }]
     }
   ]
 }
