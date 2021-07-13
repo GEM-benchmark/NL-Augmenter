@@ -5,7 +5,7 @@
 This filter filters example which contain a numeric value.
 Author: Suchitra Dubey
 Email: suchitra27288@gmail.com
-Affiliation:
+Affiliation: Acko
 
 ## Why is measuring performance on this split important?
 This filter can be used to create splits. Filtering out and testing on examples 
