@@ -83,10 +83,11 @@ class YesNoQuestionPerturbation(SentenceOperation):
         # All other verbs, make q: [DO] [SUBJ] [VERB] [ETC]
         else:
             morph = verb_head.morph.to_dict()
-            tense = morph['Tense']
+            tense = morph.get('Tense')
             if tense == 'Past':
                 auxiliary = 'Did '
-            elif morph['Person'] == 'Three' and morph['Number'] == 'Sing':
+            elif morph.get('Person') == 'Three' and \
+                    morph.get('Number') == 'Sing':
                 auxiliary = 'Does '
             else:
                 auxiliary = 'Do '
