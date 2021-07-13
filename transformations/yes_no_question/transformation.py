@@ -54,25 +54,24 @@ class YesNoQuestionPerturbation(SentenceOperation):
 
         # Get object, adverbs, prepositional phrases, etc.:
         # FIXME: I think we have to fix contractions here
-        etc = [str(token) for right in verb_head.rights for token in
-               right.subtree]
+        head_right = ''.join([token.text_with_ws for right in verb_head.rights for
+                       token in right.subtree])
         # Change last token to "?"
-        if len(etc) and etc[-1] in {'.', '!'}:
-            etc[-1] = '?'
-        else:
-            etc.append('?')
+        if len(head_right) and head_right[-1] in {'.', '!'}:
+            head_right = head_right[:-1]
+        head_right += '?'
 
         # Make the question:
         # If there is an auxiliary, make q: [AUX] [SUBJ] [VERB] [ETC]
         if auxiliary is not None:
             tokens = [str(auxiliary).capitalize()] + subject_phrase_tokens + \
-                     [verb_head._.inflect('VB')] + etc
-            questions = [self.detokenizer.detokenize(tokens)]
+                     [verb_head._.inflect('VB')]
+            questions = [self.detokenizer.detokenize(tokens) + head_right]
 
         # If it's a be verb, make q: [BE] [SUBJ] [ETC]
         elif verb_head.lemma == self.nlp.vocab.strings['be']:
-            tokens = [str(verb_head)] + subject_phrase_tokens + etc
-            questions = [self.detokenizer.detokenize(tokens)]
+            tokens = [str(verb_head)] + subject_phrase_tokens
+            questions = [self.detokenizer.detokenize(tokens) + head_right]
 
         # All other verbs, make q: [DO] [SUBJ] [VERB] [ETC]
         else:
@@ -86,8 +85,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 auxiliary = 'Do'
             infinitive = verb_head._.inflect('VB')
 
-            tokens = [auxiliary] + subject_phrase_tokens + [infinitive] + etc
-            questions = [self.detokenizer.detokenize(tokens)]
+            tokens = [auxiliary] + subject_phrase_tokens + [infinitive]
+            questions = [self.detokenizer.detokenize(tokens) + head_right]
 
         return questions
 
