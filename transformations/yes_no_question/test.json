@@ -45,6 +45,42 @@
       "outputs": [{
         "sentence": "Is neuroplasticity a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization?"
       }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "He'd gone to the store with Michael two days earlier."
+      },
+      "outputs": [{
+        "sentence": "Had he gone to the store with Michael two days earlier?"
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "She didn't see me."
+      },
+      "outputs": [{
+        "sentence": "Did she not see me?"
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "Vikram isn't from Canada."
+      },
+      "outputs": [{
+        "sentence": "Is Vikram not from Canada?"
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "Dave isn't going to Seattle."
+      },
+      "outputs": [{
+        "sentence": "Is Dave not going to Seattle?"
+      }]
     }
   ]
 }
