@@ -155,6 +155,7 @@ class gender_culture_diverse_name(SentenceOperation):
 
         return perturbed_texts
 
+"""
 if __name__ == '__main__':
     test = gender_culture_diverse_name()
     sentence = 'Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.'
@@ -163,3 +164,4 @@ if __name__ == '__main__':
     # sentence = 'Chandler Bing is a sarcastic and self-deprecating IT manager.'
     # sentence = 'Monica was overweight as a child.'
     p = test.generate(sentence)
+"""

@@ -178,8 +178,9 @@ class gender_culture_diverse_name_two_way(SentenceAndTargetOperation):
         random.seed(self.seed + hash(sentence))
         perturbed_source, perturbed_target, _ = self.changer.apply(self.nlp(sentence), target, self.n, self.max_output)
 
-        return [(perturbed_source, perturbed_target)]
+        return [(perturbed_source[idx], perturbed_target[idx]) for idx in range(len(perturbed_source))]
 
+"""
 if __name__ == '__main__':
     from TestRunner import convert_to_snake_case
     tf = gender_culture_diverse_name_two_way()
@@ -199,3 +200,4 @@ if __name__ == '__main__':
             )
             for sentence, target in perturbeds:
                 test_cases[idx]["outputs"].append({"sentence": sentence, "target": target})
+"""

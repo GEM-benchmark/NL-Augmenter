@@ -7,16 +7,10 @@
         "sentence": "Andrew finally returned the French book to Chris that I bought last week",
         "target": "Andrew did not return the French book to Chris that was bought earlier"
       },
-      "outputs": [
-        {
-          "sentence": [
-            "Essie finally returned the French book to Chris that I bought last week"
-          ],
-          "target": [
-            "Essie did not return the French book to Chris that was bought earlier"
-          ]
-        }
-      ]
+      "outputs": [{
+          "sentence": "Essie finally returned the French book to Chris that I bought last week",
+          "target": "Essie did not return the French book to Chris that was bought earlier"
+        }]
     },
     {
       "class": "gender_culture_diverse_name_two_way",
@@ -24,16 +18,10 @@
         "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
         "target": "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!"
       },
-      "outputs": [
-        {
-          "sentence": [
-            "Sentences with gapping, such as Paul likes coffee and Achilles tea, lack an overt predicate to indicate the relation between two or more arguments."
-          ],
-          "target": [
-            "Gapped sentences such as Paul likes coffee and Achilles tea, lack an overt predicate!"
-          ]
-        }
-      ]
+      "outputs": [{
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Achilles tea, lack an overt predicate to indicate the relation between two or more arguments.",
+        "target": "Gapped sentences such as Paul likes coffee and Achilles tea, lack an overt predicate!"
+      }]
     }
   ]
 }
