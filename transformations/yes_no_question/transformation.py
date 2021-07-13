@@ -15,6 +15,12 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
+def uncapitalize(string: str):
+    if len(string):
+        return string[0].lower() + string[1:]
+    return ''
+
+
 class YesNoQuestionPerturbation(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
@@ -43,19 +49,20 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 auxiliary = child
 
         # Look for root token of subject
-        subject_head, subject_phrase_tokens = None, []
+        subject_head = None
         for child in verb_head.children:
             if child.dep == nsubj:
                 subject_head = child
-                subject_phrase_tokens = [str(t) if t.pos == PROPN else
-                                         str(t).lower() for t in
-                                         subject_head.subtree]
                 break
+        subject_phrase_tokens = [t.text_with_ws if t.pos == PROPN
+                                 else uncapitalize(t.text_with_ws)
+                                 for t in subject_head.subtree]
+        subject_phrase = ''.join(subject_phrase_tokens)
 
         # Get object, adverbs, prepositional phrases, etc.:
         # FIXME: I think we have to fix contractions here
-        head_right = ''.join([token.text_with_ws for right in verb_head.rights for
-                       token in right.subtree])
+        head_right = ''.join([token.text_with_ws for right in verb_head.rights
+                              for token in right.subtree])
         # Change last token to "?"
         if len(head_right) and head_right[-1] in {'.', '!'}:
             head_right = head_right[:-1]
@@ -65,30 +72,25 @@ class YesNoQuestionPerturbation(SentenceOperation):
         # If there is an auxiliary, make q: [AUX] [SUBJ] [VERB] [ETC]
         if auxiliary is not None:
             infinitive = verb_head._.inflect('VB') + verb_head.whitespace_
-            questions = [
-                str(auxiliary).capitalize() + self.detokenizer.detokenize(
-                    subject_phrase_tokens) + infinitive + head_right]
+            questions = [str(auxiliary).capitalize() + subject_phrase +
+                         infinitive + head_right]
 
         # If it's a be verb, make q: [BE] [SUBJ] [ETC]
         elif verb_head.lemma == self.nlp.vocab.strings['be']:
-            questions = [verb_head.text_with_ws + self.detokenizer.detokenize(
-                subject_phrase_tokens) + head_right]
+            questions = [verb_head.text_with_ws + subject_phrase + head_right]
 
         # All other verbs, make q: [DO] [SUBJ] [VERB] [ETC]
         else:
             morph = verb_head.morph.to_dict()
             tense = morph['Tense']
             if tense == 'Past':
-                auxiliary = 'Did'
+                auxiliary = 'Did '
             elif morph['Person'] == 'Three' and morph['Number'] == 'Sing':
-                auxiliary = 'Does'
+                auxiliary = 'Does '
             else:
-                auxiliary = 'Do'
+                auxiliary = 'Do '
             infinitive = verb_head._.inflect('VB') + verb_head.whitespace_
-
-            tokens = [auxiliary] + subject_phrase_tokens
-            questions = [self.detokenizer.detokenize(tokens) + infinitive +
-                         head_right]
+            questions = [auxiliary + subject_phrase + infinitive + head_right]
 
         return questions
 
