@@ -128,6 +128,7 @@ class gender_culture_diverse_name(SentenceOperation):
         'ru', 'et', 'uz', 'gl', 'sq', 
         'ee', 'fi', 'cy'
         ]
+    # language code following ISO 639-1 standard
 
     def __init__(self, n=1, seed=0, max_output=1, retain_gender=False, retain_culture=False, data_path=None):
         super().__init__(seed)
