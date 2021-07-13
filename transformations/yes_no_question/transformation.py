@@ -59,6 +59,13 @@ class YesNoQuestionPerturbation(SentenceOperation):
                                  for t in subject_head.subtree]
         subject_phrase = ''.join(subject_phrase_tokens)
 
+        # Get pre-verb adverbs, etc.:
+        all_left_tokens = doc[:verb_head.i]
+        head_left_tokens = [token for token in all_left_tokens if
+                            token != subject_head and subject_head not in
+                            token.ancestors]
+        head_left = ''.join(token.text_with_ws for token in head_left_tokens)
+
         # Get object, adverbs, prepositional phrases, etc.:
         # FIXME: I think we have to fix contractions here
         head_right = ''.join([token.text_with_ws for token in
@@ -69,18 +76,18 @@ class YesNoQuestionPerturbation(SentenceOperation):
         head_right += '?'
 
         # Make the question:
-        # If there is an auxiliary, make q: [AUX] [SUBJ] [VERB] [ETC]
+        # If there is an auxiliary, make q: [AUX] [SUBJ] [LEFT] [VERB] [RIGHT]
         if auxiliary is not None:
             infinitive = verb_head._.inflect('VB') + verb_head.whitespace_
             questions = [auxiliary.text_with_ws.capitalize() + subject_phrase +
-                         infinitive + head_right]
+                         head_left + infinitive + head_right]
 
-        # If it's a be verb, make q: [BE] [SUBJ] [ETC]
+        # If it's a be verb, make q: [BE] [SUBJ] [LEFT] [RIGHT]
         elif verb_head.lemma == self.nlp.vocab.strings['be']:
             questions = [verb_head.text_with_ws.capitalize() + subject_phrase +
-                         head_right]
+                         head_left + head_right]
 
-        # All other verbs, make q: [DO] [SUBJ] [VERB] [ETC]
+        # All other verbs, make q: [DO] [SUBJ] [LEFT] [VERB] [RIGHT]
         else:
             morph = verb_head.morph.to_dict()
             tense = morph.get('Tense')
@@ -92,7 +99,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
             else:
                 auxiliary = 'Do '
             infinitive = verb_head._.inflect('VB') + verb_head.whitespace_
-            questions = [auxiliary + subject_phrase + infinitive + head_right]
+            questions = [auxiliary + subject_phrase + head_left + infinitive +
+                         head_right]
 
         return questions
 
