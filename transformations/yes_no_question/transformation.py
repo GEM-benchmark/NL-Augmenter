@@ -14,11 +14,50 @@ from tasks.TaskTypes import TaskType
 Base Class for implementing the different input transformations a generation should be robust against.
 """
 
+AUXILIARY_CONTRACTIONS = {
+    "'d": "Would ",
+    "'ve": "Have "
+}
+BE_VERB_CONTRACTIONS = {
+    "'s": "Is ",
+    "": ""
+}
+
 
 def uncapitalize(string: str):
     if len(string):
         return string[0].lower() + string[1:]
     return ''
+
+
+def front_auxiliary(auxiliary: Token) -> str:
+    if auxiliary.text == "'d":
+        if 'Part' in auxiliary.head.morph.get('VerbForm'):
+            return 'Had '
+        else:
+            return 'Would '
+    elif auxiliary.text == "'s":
+        if 'Past' in auxiliary.head.morph.get('Tense'):
+            return 'Has '
+        else:
+            return 'Is '
+    elif auxiliary.text == "'ve":
+        return 'Have '
+    elif auxiliary.text == "'ll":
+        return 'Will '
+    else:
+        return auxiliary.text.capitalize() + ' '
+
+
+def front_be_verb(be_verb: Token) -> str:
+    if be_verb.text == "'s":
+        return 'Is '
+    elif be_verb.text == "'re":
+        return 'Are '
+    elif be_verb.text == "'m":
+        return 'Am '
+    else:
+        return be_verb.text.capitalize() + ' '
 
 
 class YesNoQuestionPerturbation(SentenceOperation):
@@ -78,13 +117,14 @@ class YesNoQuestionPerturbation(SentenceOperation):
         # Make the question:
         # If there is an auxiliary, make q: [AUX] [SUBJ] [LEFT] [VERB] [RIGHT]
         if auxiliary is not None:
-            questions = [auxiliary.text_with_ws.capitalize() + subject_phrase +
-                         head_left + verb_head.text_with_ws + head_right]
+            new_auxiliary = front_auxiliary(auxiliary)
+            questions = [new_auxiliary + subject_phrase + head_left +
+                         verb_head.text_with_ws + head_right]
 
         # If it's a be verb, make q: [BE] [SUBJ] [LEFT] [RIGHT]
         elif verb_head.lemma == self.nlp.vocab.strings['be']:
-            questions = [verb_head.text_with_ws.capitalize() + subject_phrase +
-                         head_left + head_right]
+            new_be_verb = front_be_verb(verb_head)
+            questions = [new_be_verb + subject_phrase + head_left + head_right]
 
         # All other verbs, make q: [DO] [SUBJ] [LEFT] [VERB] [RIGHT]
         else:
