@@ -101,7 +101,7 @@ class AddNounDefinition(SentenceOperation):
 
     def generate(self, sentence: str):
         extended_text = get_noun_definitions(sentence, self.cached_stop_words)
-        res_data = [{"sentence": extended_text}]
+        res_data = [extended_text]
         return res_data
 
 '''
