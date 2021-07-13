@@ -14,15 +14,6 @@ from tasks.TaskTypes import TaskType
 Base Class for implementing the different input transformations a generation should be robust against.
 """
 
-AUXILIARY_CONTRACTIONS = {
-    "'d": "Would ",
-    "'ve": "Have "
-}
-BE_VERB_CONTRACTIONS = {
-    "'s": "Is ",
-    "": ""
-}
-
 
 def uncapitalize(string: str):
     if len(string):
@@ -33,31 +24,31 @@ def uncapitalize(string: str):
 def front_auxiliary(auxiliary: Token) -> str:
     if auxiliary.text == "'d":
         if 'Part' in auxiliary.head.morph.get('VerbForm'):
-            return 'Had '
+            return 'Had'
         else:
-            return 'Would '
+            return 'Would'
     elif auxiliary.text == "'s":
         if 'Past' in auxiliary.head.morph.get('Tense'):
-            return 'Has '
+            return 'Has'
         else:
-            return 'Is '
+            return 'Is'
     elif auxiliary.text == "'ve":
-        return 'Have '
+        return 'Have'
     elif auxiliary.text == "'ll":
-        return 'Will '
+        return 'Will'
     else:
-        return auxiliary.text.capitalize() + ' '
+        return auxiliary.text.capitalize()
 
 
 def front_be_verb(be_verb: Token) -> str:
     if be_verb.text == "'s":
-        return 'Is '
+        return 'Is'
     elif be_verb.text == "'re":
-        return 'Are '
+        return 'Are'
     elif be_verb.text == "'m":
-        return 'Am '
+        return 'Am'
     else:
-        return be_verb.text.capitalize() + ' '
+        return be_verb.text.capitalize()
 
 
 class YesNoQuestionPerturbation(SentenceOperation):
@@ -96,7 +87,7 @@ class YesNoQuestionPerturbation(SentenceOperation):
         subject_phrase_tokens = [t.text_with_ws if t.pos == PROPN
                                  else uncapitalize(t.text_with_ws)
                                  for t in subject_head.subtree]
-        subject_phrase = ''.join(subject_phrase_tokens)
+        subject_phrase = ''.join(subject_phrase_tokens).strip()
 
         # Get pre-verb adverbs, etc.:
         all_left_tokens = doc[:verb_head.i]
@@ -104,7 +95,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
                             token != subject_head and subject_head not in
                             token.ancestors and token != auxiliary and
                             auxiliary not in token.ancestors]
-        head_left = ''.join(token.text_with_ws for token in head_left_tokens)
+        head_left = ''.join(token.text_with_ws for token in
+                            head_left_tokens).strip()
 
         # Get object, adverbs, prepositional phrases, etc.:
         # FIXME: I think we have to fix contractions here
@@ -119,28 +111,34 @@ class YesNoQuestionPerturbation(SentenceOperation):
         # If there is an auxiliary, make q: [AUX] [SUBJ] [LEFT] [VERB] [RIGHT]
         if auxiliary is not None:
             new_auxiliary = front_auxiliary(auxiliary)
-            questions = [new_auxiliary + subject_phrase + head_left +
-                         verb_head.text_with_ws + head_right]
+            questions = [
+                self.detokenizer.detokenize(
+                    filter(len, [new_auxiliary, subject_phrase, head_left,
+                                 verb_head.text, head_right]))]
 
         # If it's a be verb, make q: [BE] [SUBJ] [LEFT] [RIGHT]
         elif verb_head.lemma == self.nlp.vocab.strings['be']:
             new_be_verb = front_be_verb(verb_head)
-            questions = [new_be_verb + subject_phrase + head_left + head_right]
+            questions = [
+                self.detokenizer.detokenize(
+                    filter(len, [new_be_verb, subject_phrase, head_left,
+                                 head_right]))]
 
         # All other verbs, make q: [DO] [SUBJ] [LEFT] [VERB] [RIGHT]
         else:
             morph = verb_head.morph.to_dict()
             tense = morph.get('Tense')
             if tense == 'Past':
-                auxiliary = 'Did '
+                auxiliary = 'Did'
             elif morph.get('Person') == 'Three' and \
                     morph.get('Number') == 'Sing':
-                auxiliary = 'Does '
+                auxiliary = 'Does'
             else:
-                auxiliary = 'Do '
-            infinitive = verb_head._.inflect('VB') + verb_head.whitespace_
-            questions = [auxiliary + subject_phrase + head_left + infinitive +
-                         head_right]
+                auxiliary = 'Do'
+            infinitive = verb_head._.inflect('VB')
+            questions = [self.detokenizer.detokenize(
+                filter(len, [auxiliary, subject_phrase, head_left, infinitive,
+                             head_right]))]
 
         return questions
 
