@@ -118,8 +118,40 @@ class change_gender_culture_diverse_name_two_way:
 
 class gender_culture_diverse_name_two_way(SentenceAndTargetOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
-    languages = ["en"]
-    tgt_languages = ['en']
+    languages = ['el', 'sr', 'ja', 'lt', 'en', 
+        'ar', 'sa', 'ta', 'te', 'rw', 
+        'ff', 'ro', 'zh', 'es', 'fa', 
+        'hy', 'hi', 'ak', 'mk', 'is', 
+        'st', 'xh', 'pt', 'sv', 'fr', 
+        'az', 'mi', 'af', 'ko', 'gu', 
+        'de', 'kk', 'mt', 'zu', 'nn', 
+        'tl', 'be', 'so', 'pl', 'ca', 
+        'da', 'bn', 'rn', 'ns', 'nb', 
+        'tt', 'kn', 'ti', 'ha', 'eu', 
+        'tr', 'si', 'pa', 'sw', 'sl', 
+        'bg', 'lv', 'hr', 'uk', 'mr', 
+        'sk', 'ps', 'bs', 'se', 'he', 
+        'tn', 'it', 'hu', 'cs', 'nl', 
+        'ru', 'et', 'uz', 'gl', 'sq', 
+        'ee', 'fi', 'cy'
+        ]
+    tgt_languages = ['el', 'sr', 'ja', 'lt', 'en', 
+        'ar', 'sa', 'ta', 'te', 'rw', 
+        'ff', 'ro', 'zh', 'es', 'fa', 
+        'hy', 'hi', 'ak', 'mk', 'is', 
+        'st', 'xh', 'pt', 'sv', 'fr', 
+        'az', 'mi', 'af', 'ko', 'gu', 
+        'de', 'kk', 'mt', 'zu', 'nn', 
+        'tl', 'be', 'so', 'pl', 'ca', 
+        'da', 'bn', 'rn', 'ns', 'nb', 
+        'tt', 'kn', 'ti', 'ha', 'eu', 
+        'tr', 'si', 'pa', 'sw', 'sl', 
+        'bg', 'lv', 'hr', 'uk', 'mr', 
+        'sk', 'ps', 'bs', 'se', 'he', 
+        'tn', 'it', 'hu', 'cs', 'nl', 
+        'ru', 'et', 'uz', 'gl', 'sq', 
+        'ee', 'fi', 'cy'
+        ]
 
     def __init__(self, n=1, seed=0, max_output=1, retain_gender=False, retain_culture=False, data_path=None):
         super().__init__(seed)
