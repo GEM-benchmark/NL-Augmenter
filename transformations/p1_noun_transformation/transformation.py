@@ -83,10 +83,7 @@ def get_noun_definitions(inp_sent, cached_stop_words):
 search for noun phrases from wikidata lookup 
 and then add definitions in braces after 
 phrase occurences to add more context
-NOTE: requires three nltk downloads 
-1. nltk.download('stopwords')
-2. nltk.download('punkt')
-3. nltk.download('averaged_perceptron_tagger')
+NOTE: requires three nltk downloads (only 1 time)
 '''
 class AddNounDefinition(SentenceOperation):
     tasks = [
@@ -96,6 +93,9 @@ class AddNounDefinition(SentenceOperation):
     languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=1):
+        nltk.download('stopwords')
+        nltk.download('punkt')
+        nltk.download('averaged_perceptron_tagger')
         super().__init__(seed, max_outputs=max_outputs)
         self.cached_stop_words = stopwords.words("english")
 
