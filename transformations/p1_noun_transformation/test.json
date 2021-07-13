@@ -1,71 +1,71 @@
 {
- "type": "add_noun_definition",
- "test_cases": [
-  {
-   "class": "AddNounDefinition",
-   "inputs": {
-    "sentence": "Andrew finally returned the Comic book to Chris that I bought last week"
-   },
-   "outputs": [
+  "type": "add_noun_definition",
+  "test_cases": [
     {
-     "sentence": "andrew finally returned the comic book(publication of comics art) to chris that i bought last week(time unit equal to seven days)"
-    }
-   ]
-  },
-  {
-   "class": "AddNounDefinition",
-   "inputs": {
-    "sentence": "Chris borrowed the Comic book from Andrew last weekend"
-   },
-   "outputs": [
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "Andrew finally returned the Comic book to Chris that I bought last week"
+      },
+      "outputs": [
+        {
+          "sentence": "andrew finally returned the comic book(publication of comics art) to chris that i bought last week(time unit equal to seven days)"
+        }
+      ]
+    },
     {
-     "sentence": "chris borrowed the comic book(publication of comics art) from andrew last weekend"
-    }
-   ]
-  },
-  {
-   "class": "AddNounDefinition",
-   "inputs": {
-    "sentence": "Turn off the light please"
-   },
-   "outputs": [
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "Chris borrowed the Comic book from Andrew last weekend"
+      },
+      "outputs": [
+        {
+          "sentence": "chris borrowed the comic book(publication of comics art) from andrew last weekend"
+        }
+      ]
+    },
     {
-     "sentence": "turn off the light please(english word indicating politeness)"
-    }
-   ]
-  },
-  {
-   "class": "AddNounDefinition",
-   "inputs": {
-    "sentence": "I love cat"
-   },
-   "outputs": [
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "Turn off the light please"
+      },
+      "outputs": [
+        {
+          "sentence": "turn off the light please(english word indicating politeness)"
+        }
+      ]
+    },
     {
-     "sentence": "i love cat(domesticated felid species)"
-    }
-   ]
-  },
-  {
-   "class": "AddNounDefinition",
-   "inputs": {
-    "sentence": "Thomas loves to cook chicken every Monday"
-   },
-   "outputs": [
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "I love cat"
+      },
+      "outputs": [
+        {
+          "sentence": "i love cat(domesticated felid species)"
+        }
+      ]
+    },
     {
-     "sentence": "thomas loves to cook chicken(subspecies of domesticated bird) every monday"
-    }
-   ]
-  },
-  {
-   "class": "AddNounDefinition",
-   "inputs": {
-    "sentence": "John killed Mary with a gun"
-   },
-   "outputs": [
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "Thomas loves to cook chicken every Monday"
+      },
+      "outputs": [
+        {
+          "sentence": "thomas loves to cook chicken(subspecies of domesticated bird) every monday"
+        }
+      ]
+    },
     {
-     "sentence": "john killed mary with a gun(ranged weapon that shoots projectiles)"
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "John killed Mary with a gun"
+      },
+      "outputs": [
+        {
+          "sentence": "john killed mary with a gun(ranged weapon that shoots projectiles)"
+        }
+      ]
     }
-   ]
-  }
- ]
+  ]
 }

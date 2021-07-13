@@ -101,7 +101,7 @@ class AddNounDefinition(SentenceOperation):
 
     def generate(self, sentence: str):
         extended_text = get_noun_definitions(sentence, self.cached_stop_words)
-        res_data = [{"sentence": extended_text}]
+        res_data = [extended_text]
         return res_data
 
 '''
@@ -118,7 +118,7 @@ if __name__ == '__main__':
     for sentence in all_sents:
         test_cases.append({
             "class": tf.name(),
-            "inputs": {"sentence": sentence}, "outputs": tf.generate(sentence)}
+            "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     with open('test.json', 'w', encoding='utf-8') as f:
