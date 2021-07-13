@@ -3,34 +3,34 @@
   "test_cases": [
     {
       "class": "TextContainsNumberFilter",
-      "input": {
+      "inputs": {
         "sentence": "I bought 5 mangoes from the market ."
       },
-      "output": true
+      "outputs": true
     }, {
       "class": "TextContainsNumberFilter",
-      "input": {
+      "inputs": {
         "sentence": "Where can I find some good online marketing courses ."
       },
-      "output": false
+      "outputs": false
     }, {
       "class": "TextContainsNumberFilter",
-      "input": {
+      "inputs": {
         "sentence": "John bought a car worth dollar twenty five thousand ."
       },
-      "output": true
+      "outputs": true
     }, {
       "class": "TextContainsNumberFilter",
-      "input": {
+      "inputs": {
         "sentence": "Khilji attacked India in eleventh century ."
       },
-      "output": true
+      "outputs": true
     }, {
       "class": "TextContainsNumberFilter",
-      "input": {
+      "inputs": {
         "sentence": "Taj mahal is the 7th wonder of the world ."
       },
-      "output": true
+      "outputs": true
     }
   ]
 }
