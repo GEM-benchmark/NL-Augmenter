@@ -79,11 +79,13 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 auxiliary = child
 
         # Look for root token of subject
-        subject_head = None
         for child in verb_head.children:
             if child.dep == nsubj:
                 subject_head = child
                 break
+        # If there's no root subject, just give up
+        else:
+            return []
         subject_phrase_tokens = [t.text_with_ws if t.pos == PROPN
                                  else uncapitalize(t.text_with_ws)
                                  for t in subject_head.subtree]
@@ -101,7 +103,6 @@ class YesNoQuestionPerturbation(SentenceOperation):
                             head_left_tokens).strip()
 
         # Get object, adverbs, prep. phrases, etc. (expand "n't" to "not"):
-        # FIXME: I think we have to fix contractions here
         head_right = ''.join('not ' if token.text == "n't" and token.head in
                              (verb_head, auxiliary) else token.text_with_ws
                              for token in doc[verb_head.i + 1:])
