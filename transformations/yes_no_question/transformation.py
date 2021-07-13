@@ -1,5 +1,6 @@
-from typing import Union
 import spacy
+from typing import Union
+from initialize import spacy_nlp
 import pyinflect
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 from spacy.symbols import nsubj, aux, PROPN
@@ -24,7 +25,7 @@ class YesNoQuestionPerturbation(SentenceOperation):
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
         self.detokenizer = TreebankWordDetokenizer()
-        self.nlp = spacy.load('en_core_web_sm')
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load('en_core_web_sm')
 
     def generate(self, sentence: str):
         # TODO: Handle compound sentences
@@ -52,6 +53,7 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 break
 
         # Get object, adverbs, prepositional phrases, etc.:
+        # FIXME: I think we have to fix contractions here
         etc = [str(token) for right in verb_head.rights for token in
                right.subtree]
         # Change last token to "?"
