@@ -47,7 +47,7 @@ class YesNoQuestionPerturbation(SentenceOperation):
         for child in verb_head.children:
             if child.dep == nsubj:
                 subject_head = child
-                subject_phrase_tokens = [str(t) if t.pos != PROPN else
+                subject_phrase_tokens = [str(t) if t.pos == PROPN else
                                          str(t).lower() for t in
                                          subject_head.subtree]
                 break
