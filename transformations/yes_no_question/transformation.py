@@ -61,8 +61,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
 
         # Get object, adverbs, prepositional phrases, etc.:
         # FIXME: I think we have to fix contractions here
-        head_right = ''.join([token.text_with_ws for right in verb_head.rights
-                              for token in right.subtree])
+        head_right = ''.join([token.text_with_ws for token in
+                              doc[verb_head.i+1:]])
         # Change last token to "?"
         if len(head_right) and head_right[-1] in {'.', '!'}:
             head_right = head_right[:-1]
