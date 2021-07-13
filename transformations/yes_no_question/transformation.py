@@ -64,14 +64,15 @@ class YesNoQuestionPerturbation(SentenceOperation):
         # Make the question:
         # If there is an auxiliary, make q: [AUX] [SUBJ] [VERB] [ETC]
         if auxiliary is not None:
-            tokens = [str(auxiliary).capitalize()] + subject_phrase_tokens + \
-                     [verb_head._.inflect('VB')]
-            questions = [self.detokenizer.detokenize(tokens) + head_right]
+            infinitive = verb_head._.inflect('VB') + verb_head.whitespace_
+            questions = [
+                str(auxiliary).capitalize() + self.detokenizer.detokenize(
+                    subject_phrase_tokens) + infinitive + head_right]
 
         # If it's a be verb, make q: [BE] [SUBJ] [ETC]
         elif verb_head.lemma == self.nlp.vocab.strings['be']:
-            tokens = [str(verb_head)] + subject_phrase_tokens
-            questions = [self.detokenizer.detokenize(tokens) + head_right]
+            questions = [verb_head.text_with_ws + self.detokenizer.detokenize(
+                subject_phrase_tokens) + head_right]
 
         # All other verbs, make q: [DO] [SUBJ] [VERB] [ETC]
         else:
@@ -83,10 +84,11 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 auxiliary = 'Does'
             else:
                 auxiliary = 'Do'
-            infinitive = verb_head._.inflect('VB')
+            infinitive = verb_head._.inflect('VB') + verb_head.whitespace_
 
-            tokens = [auxiliary] + subject_phrase_tokens + [infinitive]
-            questions = [self.detokenizer.detokenize(tokens) + head_right]
+            tokens = [auxiliary] + subject_phrase_tokens
+            questions = [self.detokenizer.detokenize(tokens) + infinitive +
+                         head_right]
 
         return questions
 
