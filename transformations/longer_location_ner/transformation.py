@@ -9,22 +9,22 @@ I am travelling to London. --> I am travelling to South/Central London.
 """
 
 
-def pick_random_word():
+def pick_random_word(seed):
     # pick random "pre" or "post" pertub type with respective word
+    random.seed(seed)
     pre_word_list = ["East", "West", "South", "North", "Eastern", "Western", "Central"]
     post_word_list = ["City", "Republic"]
     if bool(random.getrandbits(1)):
-        pertub_type = "pre"
+        perturb_type = "pre"
         selected_word = random.choice(pre_word_list)
     else:
-        pertub_type = "post"
+        perturb_type = "post"
         selected_word = random.choice(post_word_list)
-    return selected_word, pertub_type
+    return selected_word, perturb_type
 
 
 def create_token_and_tag(b_index, i_index, b_tag, i_tag, token_seq, tag_seq, seed):
-    random.seed(seed)
-    word, pertub_type = pick_random_word()
+    word, pertub_type = pick_random_word(seed)
     if pertub_type == "pre":
         token_seq.insert(b_index, word)
         tag_seq.insert(b_index, b_tag)
@@ -39,9 +39,8 @@ class LongerLocationNer(TaggingOperation):
     tasks = [TaskType.TEXT_TAGGING]
     languages = "All"
 
-    def __init__(self, max_outputs=1):
-        super().__init__()
-        self.max_outputs= max_outputs
+    def __init__(self, max_outputs=1, seed = 0):
+        super().__init__(seed, max_outputs=max_outputs)
 
     def generate(
         self, token_sequence: List[str], tag_sequence: List[str]
@@ -66,29 +65,29 @@ class LongerLocationNer(TaggingOperation):
                 tag_seq = tag_sequence.copy()
         return perturbed_sentences
 
-# if __name__ == '__main__':
-#     import json
-#     from TestRunner import convert_to_snake_case
-#     tf = LongerLocationNer(max_outputs=1)
-#     test_cases = []
-#     src = ["I am travelling to London .",
-#            "Edison was born in Ohio .",
-#            "Michael Jordan is a professor at Berkeley .",
-#            "Google head office is located in California ."]
-#     tgt = ["O O O O B-LOC O",
-#            "B-PER O O O B-LOC O",
-#            "B-PER I-PER O O O O B-LOC O",
-#            "B-ORG O O O O O B-LOC O"]
-#
-#     for i, (token_sequence, tag_sequence) in enumerate(zip(src, tgt)):
-#         sentences = tf.generate(token_sequence.split(" "), tag_sequence.split(" "))
-#         test_cases.append({
-#             "class": tf.name(),
-#             "inputs": {"token_sequence": token_sequence, "tag_sequence":tag_sequence},
-#             "outputs": []}
-#         )
-#         for sentence, target in sentences:
-#             test_cases[i]["outputs"].append({"token_sequence": " ".join(sentence)
-#                                                 , "tag_sequence":" ".join(target)})
-#     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases":test_cases}
-#     print(json.dumps(json_file))
+if __name__ == '__main__':
+    import json
+    from TestRunner import convert_to_snake_case
+    tf = LongerLocationNer(max_outputs=1)
+    test_cases = []
+    src = ["I am travelling to London .",
+           "Edison was born in Ohio .",
+           "Michael Jordan is a professor at Berkeley .",
+           "Google head office is located in California ."]
+    tgt = ["O O O O B-LOC O",
+           "B-PER O O O B-LOC O",
+           "B-PER I-PER O O O O B-LOC O",
+           "B-ORG O O O O O B-LOC O"]
+
+    for i, (token_sequence, tag_sequence) in enumerate(zip(src, tgt)):
+        sentences = tf.generate(token_sequence.split(" "), tag_sequence.split(" "))
+        test_cases.append({
+            "class": tf.name(),
+            "inputs": {"token_sequence": token_sequence, "tag_sequence":tag_sequence},
+            "outputs": []}
+        )
+        for sentence, target in sentences:
+            test_cases[i]["outputs"].append({"token_sequence": " ".join(sentence)
+                                                , "tag_sequence":" ".join(target)})
+    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases":test_cases}
+    print(json.dumps(json_file))
