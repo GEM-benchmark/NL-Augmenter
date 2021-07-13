@@ -1,0 +1,50 @@
+{
+  "type": "mixed_language_perturbation",
+  "test_cases": [
+    {
+      "class": "MixedLanguagePerturbation",
+      "inputs": {
+        "sentence": "Andrew finally returned the Comic book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "Andrew finally returned die Comic book to Chris that I bought last woche"
+      }]
+    },
+    {
+      "class": "MixedLanguagePerturbation",
+      "inputs": {
+        "sentence": "Chris borrowed the Comic book from Andrew last weekend"
+      },
+      "outputs": [{
+        "sentence": "Chris borrowed the Komik book from Andrew last weekend"
+      }]
+    },
+    {
+      "class": "MixedLanguagePerturbation",
+      "inputs": {
+        "sentence": "Turn off the light please"
+      },
+      "outputs": [{
+        "sentence": "Turn off the licht please"
+      }]
+    },
+    {
+      "class": "MixedLanguagePerturbation",
+      "inputs": {
+        "sentence": "I love cat"
+      },
+      "outputs": [{
+        "sentence": "I love cat"
+      }]
+    },
+    {
+      "class": "MixedLanguagePerturbation",
+      "inputs": {
+        "sentence": "Thomas loves to cook chicken every Monday"
+      },
+      "outputs": [{
+        "sentence": "Thomas loves to kochen chicken every Monday"
+      }]
+    }
+  ]
+}
