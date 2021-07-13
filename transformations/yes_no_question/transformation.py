@@ -89,19 +89,21 @@ class YesNoQuestionPerturbation(SentenceOperation):
                                  for t in subject_head.subtree]
         subject_phrase = ''.join(subject_phrase_tokens).strip()
 
-        # Get pre-verb adverbs, etc.:
+        # Get pre-verb adverbs, etc. (expand "n't" to "not"):
         all_left_tokens = doc[:verb_head.i]
         head_left_tokens = [token for token in all_left_tokens if
                             token != subject_head and subject_head not in
                             token.ancestors and token != auxiliary and
                             auxiliary not in token.ancestors]
-        head_left = ''.join(token.text_with_ws for token in
+        head_left = ''.join('not ' if token.text == "n't"
+                            else token.text_with_ws for token in
                             head_left_tokens).strip()
 
-        # Get object, adverbs, prepositional phrases, etc.:
+        # Get object, adverbs, prep. phrases, etc. (expand "n't" to "not"):
         # FIXME: I think we have to fix contractions here
-        head_right = ''.join([token.text_with_ws for token in
-                              doc[verb_head.i+1:]])
+        head_right = ''.join('not ' if token.text == "n't" else
+                             token.text_with_ws for token in
+                             doc[verb_head.i + 1:])
         # Change last token to "?"
         if len(head_right) and head_right[-1] in {'.', '!'}:
             head_right = head_right[:-1]
