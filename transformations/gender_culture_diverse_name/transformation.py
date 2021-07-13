@@ -163,5 +163,3 @@ if __name__ == '__main__':
     # sentence = 'Chandler Bing is a sarcastic and self-deprecating IT manager.'
     # sentence = 'Monica was overweight as a child.'
     p = test.generate(sentence)
-    print(p[0])
-    A = 1

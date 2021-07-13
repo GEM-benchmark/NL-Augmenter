@@ -199,5 +199,3 @@ if __name__ == '__main__':
             )
             for sentence, target in perturbeds:
                 test_cases[idx]["outputs"].append({"sentence": sentence, "target": target})
-
-    A = 1
