@@ -1,5 +1,10 @@
-import itertools
-import random
+from typing import Union
+import spacy
+import pyinflect
+from nltk.tokenize.treebank import TreebankWordDetokenizer
+from spacy.symbols import nsubj, aux, PROPN
+from spacy.tokens import Token
+from spacy.tokens.doc import Doc
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
@@ -9,88 +14,80 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-def butter_finger(text, prob=0.1, keyboard="querty", seed=0, max_outputs=1):
-    random.seed(seed)
-    key_approx = {}
-
-    if keyboard == "querty":
-        key_approx["q"] = "qwasedzx"
-        key_approx["w"] = "wqesadrfcx"
-        key_approx["e"] = "ewrsfdqazxcvgt"
-        key_approx["r"] = "retdgfwsxcvgt"
-        key_approx["t"] = "tryfhgedcvbnju"
-        key_approx["y"] = "ytugjhrfvbnji"
-        key_approx["u"] = "uyihkjtgbnmlo"
-        key_approx["i"] = "iuojlkyhnmlp"
-        key_approx["o"] = "oipklujm"
-        key_approx["p"] = "plo['ik"
-
-        key_approx["a"] = "aqszwxwdce"
-        key_approx["s"] = "swxadrfv"
-        key_approx["d"] = "decsfaqgbv"
-        key_approx["f"] = "fdgrvwsxyhn"
-        key_approx["g"] = "gtbfhedcyjn"
-        key_approx["h"] = "hyngjfrvkim"
-        key_approx["j"] = "jhknugtblom"
-        key_approx["k"] = "kjlinyhn"
-        key_approx["l"] = "lokmpujn"
-
-        key_approx["z"] = "zaxsvde"
-        key_approx["x"] = "xzcsdbvfrewq"
-        key_approx["c"] = "cxvdfzswergb"
-        key_approx["v"] = "vcfbgxdertyn"
-        key_approx["b"] = "bvnghcftyun"
-        key_approx["n"] = "nbmhjvgtuik"
-        key_approx["m"] = "mnkjloik"
-        key_approx[" "] = " "
-    else:
-        print("Keyboard not supported.")
-
-    prob_of_typo = int(prob * 100)
-    perturbed_texts = []
-    for _ in itertools.repeat(None, max_outputs):
-        butter_text = ""
-        for letter in text:
-            lcletter = letter.lower()
-            if lcletter not in key_approx.keys():
-                new_letter = lcletter
-            else:
-                if random.choice(range(0, 100)) <= prob_of_typo:
-                    new_letter = random.choice(key_approx[lcletter])
-                else:
-                    new_letter = lcletter
-            # go back to original case
-            if not lcletter == letter:
-                new_letter = new_letter.upper()
-            butter_text += new_letter
-        perturbed_texts.append(butter_text)
-    return perturbed_texts
-
-
-"""
-Butter Finger implementation borrowed from https://github.com/alexyorke/butter-fingers.
-"""
-
-
-class ButterFingersPerturbation(SentenceOperation):
+class YesNoQuestionPerturbation(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
+        self.detokenizer = TreebankWordDetokenizer()
+        self.nlp = spacy.load('en_core_web_sm')
 
     def generate(self, sentence: str):
-        perturbed_texts = butter_finger(
-            text=sentence,
-            prob=0.05,
-            seed=self.seed,
-            max_outputs=self.max_outputs,
-        )
-        return perturbed_texts
+        # TODO: Handle compound sentences
+        doc: Doc = self.nlp(sentence)
+
+        # Look for sentence verb head, starting with first token
+        verb_head: Token = doc[0]
+        while verb_head != verb_head.head:
+            verb_head = verb_head.head
+
+        # Look for auxiliary verb
+        auxiliary: Union[Token, str, None] = None
+        for child in verb_head.children:
+            if child.dep == aux:
+                auxiliary = child
+
+        # Look for root token of subject
+        subject_head, subject_phrase_tokens = None, []
+        for child in verb_head.children:
+            if child.dep == nsubj:
+                subject_head = child
+                subject_phrase_tokens = [str(t) if t.pos != PROPN else
+                                         str(t).lower() for t in
+                                         subject_head.subtree]
+                break
+
+        # Get object, adverbs, prepositional phrases, etc.:
+        etc = [str(token) for right in verb_head.rights for token in
+               right.subtree]
+        # Change last token to "?"
+        if len(etc) and etc[-1] in {'.', '!'}:
+            etc[-1] = '?'
+        else:
+            etc.append('?')
+
+        # Make the question:
+        # If there is an auxiliary, make q: [AUX] [SUBJ] [VERB] [ETC]
+        if auxiliary is not None:
+            tokens = [str(auxiliary).capitalize()] + subject_phrase_tokens + \
+                     [verb_head._.inflect('VB')] + etc
+            questions = [self.detokenizer.detokenize(tokens)]
+
+        # If it's a be verb, make q: [BE] [SUBJ] [ETC]
+        elif verb_head.lemma == self.nlp.vocab.strings['be']:
+            tokens = [verb_head] + subject_phrase_tokens + etc
+            questions = [self.detokenizer.detokenize(tokens)]
+
+        # All other verbs, make q: [DO] [SUBJ] [VERB] [ETC]
+        else:
+            morph = verb_head.morph.to_dict()
+            tense = morph['Tense']
+            if tense == 'Past':
+                auxiliary = 'Did'
+            elif morph['Person'] == 'Three' and morph['Number'] == 'Sing':
+                auxiliary = 'Does'
+            else:
+                auxiliary = 'Do'
+            infinitive = verb_head._.inflect('VB')
+
+            tokens = [auxiliary] + subject_phrase_tokens + [infinitive] + etc
+            questions = [self.detokenizer.detokenize(tokens)]
+
+        return questions
 
 
 """
