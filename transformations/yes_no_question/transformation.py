@@ -71,7 +71,7 @@ class YesNoQuestionPerturbation(SentenceOperation):
 
         # If it's a be verb, make q: [BE] [SUBJ] [ETC]
         elif verb_head.lemma == self.nlp.vocab.strings['be']:
-            tokens = [verb_head] + subject_phrase_tokens + etc
+            tokens = [str(verb_head)] + subject_phrase_tokens + etc
             questions = [self.detokenizer.detokenize(tokens)]
 
         # All other verbs, make q: [DO] [SUBJ] [VERB] [ETC]
