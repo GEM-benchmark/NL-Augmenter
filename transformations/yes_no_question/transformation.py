@@ -96,8 +96,9 @@ class YesNoQuestionPerturbation(SentenceOperation):
                             token.ancestors and token != auxiliary and
                             auxiliary not in token.ancestors]
         head_left = ''.join('not ' if token.text == "n't" and token.head in
-                            (verb_head, auxiliary) else token.text_with_ws for
-                            token in head_left_tokens).strip()
+                            (verb_head, auxiliary) else
+                            uncapitalize(token.text_with_ws) for token in
+                            head_left_tokens).strip()
 
         # Get object, adverbs, prep. phrases, etc. (expand "n't" to "not"):
         # FIXME: I think we have to fix contractions here
