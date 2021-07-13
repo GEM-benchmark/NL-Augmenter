@@ -23,9 +23,3 @@ Input: "Barack Obama gave a book to me".
 
 Output: "barack obama(44th president of the united states) gave a book(medium for recording information in the form of writing or images) to me"
 
-
-
-## Previous Work
-NA
-## What are the limitations of this transformation?
-NA

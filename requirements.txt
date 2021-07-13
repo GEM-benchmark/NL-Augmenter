@@ -8,9 +8,8 @@ torch
 num2words==0.5.10
 word2number==1.1
 
-# for test cases and coverage
+# for test cases
 pytest==6.2.4
-pytest-cov==2.12.1
 
 # for evaluation
 datasets==1.7.0
@@ -27,5 +26,3 @@ sentencepiece==0.1.95
 # for code format
 black==21.5b2
 pre-commit==2.13.0
-flake8==3.9.2
-isort==5.9.1
