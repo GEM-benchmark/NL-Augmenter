@@ -43,7 +43,7 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific transformation. E.g., a perturbation which changes gendered pronouns could give insights about gender bias in models.
 
-**Novelty:** Your transformation must improve the coverage of NL-Augmenter in a meaningful way. The idea behind your transformation need not be novel, but its contribution to the library must be different from the contributions of earlier submissions. If you are unsure if your idea would constitute a new contribution, please email the organizers at nl-augmenter@googlegroups.com and we are happy to help.
+**Novelty:** Your transformation must improve the coverage of NL-Augmenter in a meaningful way. The idea behind your transformation need not be novel, but its contribution to the library **must be different from the contributions of earlier submissions**. If you are unsure if your idea would constitute a new contribution, please email the organizers at nl-augmenter@googlegroups.com and we are happy to help.
 
 **Adding New Libraries:** We welcome addition of libraries which are light and can be installed via `pip`. Every library should specify the version number associated and be added in a new [requirements.txt](../transformations/punctuation) in the transformation's own folder. However, we discourage the use of heavy libraries for a few lines of code which could be manually written instead. Please ensure that all libraries have MIT, Apache 2, BSD, or other permissive license. GPL-licensed libraries are not approved for NL-Augmenter. If you are unsure, please email the organizers at nl-augmenter@googlegroups.com. 
 
@@ -52,7 +52,7 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Data and code source:** The `README.md` file should have a subsection titled "Data and code provenance", which should describe where data or code came from, or that it was fully created by the author. This section should also disclose the license that any external data or code is released under.
 
-**Paraphrasers and Data Augmenters:** Besides perturbations, we welcome transformation methods that act like paraphrasers and data augmenters. For non-deterministic approaches, we encourage you to specify metrics which can provide an estimate of the generation quality. We prefer high precision transformation generators over low accuracy ones. And hence it's okay if your transformation selectively generates. If your transformation loads a deep-learning model, especially a heavy one (like BERT or T5 etc.), set the `heavy` parameter to `True`.
+**Paraphrasers and Data Augmenters:** Besides perturbations, we welcome transformation methods that act like paraphrasers and data augmenters. For non-deterministic approaches, we encourage you to specify metrics which can provide an estimate of the generation quality. We prefer high precision transformation generators over low accuracy ones. And hence it's okay if your transformation selectively generates. 
  
 **Test Cases:** We recommend you to add 5 examples in the file `test.json` as test cases for every added transformation. These examples serve as test cases and provide reviewers a sample of your transformation's output. The format of `test.json` can be borrowed from the sample transformations [here.](../interfaces) Addition of the the test cases is **not mandatory** but is encouraged.
 
