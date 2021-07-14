@@ -1,8 +1,18 @@
+from abc import ABC
+
 import torch
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from transformers import AutoModelForMaskedLM, AutoTokenizer, AutoModelForTokenClassification
+from transformers import (
+    AutoModelForMaskedLM,
+    AutoTokenizer,
+    AutoModelForTokenClassification,
+)
+from transformers.pipelines.token_classification import (
+    TokenClassificationPipeline,
+    AggregationStrategy,
+)
 from transformers import pipeline
 import re
 
@@ -11,13 +21,12 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-class PronounToNounTransformation(SentenceOperation):
+class PronounToNounTransformation(SentenceOperation, ABC):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.QUESTION_ANSWERING,
         TaskType.SENTIMENT_ANALYSIS,
-        TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
 
@@ -26,10 +35,11 @@ class PronounToNounTransformation(SentenceOperation):
         ner_model="dslim/bert-base-NER",
         ner_tokenizer="dslim/bert-base-NER",
         masking_model="distilroberta-base",
-        match_entities=["B-PER", "I-PER"],
+        match_entities=("PER"),
     ):
-        self.ner = pipeline(
-            "ner",
+        super().__init__()
+        self.ner = TokenClassificationPipeline(
+            aggregation_strategy=AggregationStrategy.SIMPLE,
             model=AutoModelForTokenClassification.from_pretrained(ner_model),
             tokenizer=AutoTokenizer.from_pretrained(ner_tokenizer, use_fast=True),
         )
@@ -41,27 +51,17 @@ class PronounToNounTransformation(SentenceOperation):
         self.match_entities = match_entities
 
     def generate(self, sentence: str):
-        entities = self.ner(sentence)
-        masked_sentence = self.replace_entities_by_mask(
-            sentence, entities, self.match_entities
-        )
-        masked_sentence = self.replace_mask(masked_sentence)
-
-        return self.mask(masked_sentence)
-
-    def replace_entities_by_mask(self, sentence, entities, match_entities):
+        entities = [
+            entity
+            for entity in self.ner(sentence)
+            if entity["entity_group"] in self.match_entities
+        ]
         masked_sentence = sentence
         for entity in entities:
-            tag = entity["entity"]
-            if tag in match_entities:
-                start = entity["start"]
-                end = entity["end"]
-                masked_sentence = (
-                    masked_sentence[0:start]
-                    + "#" * len(masked_sentence[start:end])
-                    + masked_sentence[end:]
-                )
+            start = entity["start"]
+            end = entity["end"]
+            masked_sentence = (
+                masked_sentence[0:start] + "<mask>" + masked_sentence[end:]
+            )
+            masked_sentence = self.mask(masked_sentence)[0]["sequence"]
         return masked_sentence
-
-    def replace_mask(self, masked_sentence):
-        return re.sub(r"#\S*#", "<mask>", masked_sentence)

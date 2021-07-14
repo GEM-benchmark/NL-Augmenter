@@ -13,7 +13,7 @@ pytest==6.2.4
 
 # for evaluation
 datasets==1.7.0
-transformers==4.6.1
+transformers==4.8.2
 sacrebleu==1.5.1
 seqeval==1.2.2
 
