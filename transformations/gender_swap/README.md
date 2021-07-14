@@ -1,12 +1,13 @@
 # Gender swap ♀️ ↔️ ♂️
 This transformation swaps all gendered words in a given sentence with their counterparts.
+By default, names are also randomly swapped.
 
 ## What type of a transformation is this?
 An example tells it all:
 ```
-He wants to become a programmer, as his father. ↔️ She wants to become a programmer, as her mother.
+Bob wants to become a programmer, as his father. ↔️ Alice wants to become a programmer, as her mother.
 ```
-The word list is taken from [1](https://arxiv.org/abs/1807.11714).
+The word list is taken from [1](https://arxiv.org/abs/1807.11714) and was extended with two possessive pronouns: 'his' and 'her'.
 
 
 ## What tasks does it intend to benefit?
@@ -48,3 +49,13 @@ While this transformation handles more complex cases like:
 
 it does not take sentence meaning and syntax into account.
 Thus, resulting sentences might lose meaning or might become ungrammatical.
+
+_Cumbersome case of female possessive pronoun_.
+Female possessive pronoun, _her_, that does not take object becomes _hers_.
+> That is _her_ bottle. ↔ That bottle is _hers_.
+
+This is not a case for male pronouns:
+
+> That is _his_ bottle. ↔ That bottle is _his_.
+
+Solving this problem requires pronoun resolution which was not implemented.
