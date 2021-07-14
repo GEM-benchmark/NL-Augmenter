@@ -36,6 +36,15 @@
       "outputs": [{
         "sentence": "This sentence contains no gendered keywords and will remain unchannged."
       }]
+    },
+    {
+      "class": "GenderSwap",
+      "inputs": {
+        "sentence": "{name} wants to be a programmer, as his father."
+      },
+      "outputs": [{
+        "sentence": "{name} wants to be a programmer, as her mother."
+      }]
     }
   ]
 }
