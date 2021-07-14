@@ -1,0 +1,53 @@
+{
+  "type": "srl_transformation",
+  "test_cases": [
+    {
+      "class": "CheckSrl",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "finally Andrew  returned the French book to Chris that I bought last week"},
+        {"sentence": "Andrew finally returned the French book to Chris that last week I bought "},
+        {"sentence": "Andrew finally returned last week the French book to Chris that  I bought "}
+      ]
+    },
+    {
+      "class": "CheckSrl",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [{
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      }]
+    },
+    {
+      "class": "CheckSrl",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      }]
+    },
+    {
+      "class": "CheckSrl",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [{
+        "sentence": "from 2000 to 2001 Ujjal Dev Dosanjh served as 33rd Premier of British Columbia "},
+        {"sentence": " Ujjal Dev Dosanjh served from 2000 to 2001 as 33rd Premier of British Columbia "
+      }]
+    },
+    {
+      "class": "CheckSrl",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [{
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      }]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+# for CloseHomophonesSwap
+allennlp==2.1.0
