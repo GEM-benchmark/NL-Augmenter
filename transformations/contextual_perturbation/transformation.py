@@ -5,12 +5,15 @@ import spacy
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
+
 class ContextualPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en", "de"]
 
-    def __init__(self, seed=0, max_outputs=1, top_k=10, language ="en", pos_to_change=['ADJ', 'VERB', 'NOUN', 'PROPN'], percentage=0.2):
+    def __init__(self, seed=0, max_outputs=1, top_k=10, language ="en", pos_to_change=['ADJ', 'VERB', 'NOUN', 'PROPN'],\
+                 percentage=0.2, verbose=False):
         super().__init__(seed, max_outputs=max_outputs)
+        self.verbose = verbose
         if self.verbose:
             print("Starting to load the cross-lingual XLM-R (base) model.\n")
         self.unmasker = pipeline('fill-mask', model='xlm-roberta-base', top_k=top_k)
@@ -92,3 +95,8 @@ class ContextualPerturbation(SentenceOperation):
     def generate(self, sentence: str):
         perturbations = self.select_and_apply_perturbations(sentence)
         return perturbations
+
+
+if __name__ == '__main__':
+    fuu = ContextualPerturbation(verbose=True)
+    fuu.generate("This is a fun little test run.")
