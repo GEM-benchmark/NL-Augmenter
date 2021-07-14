@@ -1,4 +1,6 @@
 """This list comes from appendix of https://arxiv.org/pdf/1807.11714.pdf
+
+It was extended with two possessive pronouns: 'his' and 'her'. 
 """
 
 GENDER_PAIRS = {
@@ -250,4 +252,6 @@ GENDER_PAIRS = {
     "businesswoman": "businessman",
     "girlfriends": "boyfriends",
     "moms": "dads",
+    "his": "her",  # Added
+    "her": "his",  # Added
 }
