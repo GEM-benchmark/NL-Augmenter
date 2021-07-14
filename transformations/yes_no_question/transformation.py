@@ -3,7 +3,7 @@ from typing import Union
 from initialize import spacy_nlp
 import pyinflect
 from nltk.tokenize.treebank import TreebankWordDetokenizer
-from spacy.symbols import nsubj, aux, PROPN
+from spacy.symbols import nsubj, aux, PROPN, cc
 from spacy.tokens import Token
 from spacy.tokens.doc import Doc
 
@@ -66,13 +66,17 @@ class YesNoQuestionPerturbation(SentenceOperation):
         self.nlp = spacy_nlp if spacy_nlp else spacy.load('en_core_web_sm')
 
     def generate(self, sentence: str):
-        # TODO: Handle compound sentences
         doc: Doc = self.nlp(sentence)
 
         # Look for sentence verb head, starting with first token
         verb_head: Token = doc[0]
         while verb_head != verb_head.head:
             verb_head = verb_head.head
+
+        # If there's a coordinating conjunction, give up
+        for child in verb_head.children:
+            if child.dep == cc:
+                return []
 
         # Look for auxiliary verb
         auxiliary: Union[Token, str, None] = None
