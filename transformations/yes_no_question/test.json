@@ -99,6 +99,22 @@
       "outputs": [{
         "sentence": "Has he decided that you aren't ready yet?"
       }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "He likes me because I cook for him."
+      },
+      "outputs": [{
+        "sentence": "Does he like me because I cook for him?"
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "He likes to walk and she likes to run."
+      },
+      "outputs": []
     }
   ]
 }
