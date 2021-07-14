@@ -48,7 +48,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
         nltk.download('averaged_perceptron_tagger')
 
         # initialise
-        self.verbose = verbose
+        self.verbose = True
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.nlp.tokenizer = Tokenizer(
             self.nlp.vocab, 
@@ -89,6 +89,9 @@ class NegateStrengthen(SentenceAndTargetOperation):
 
         if self.verbose:
             print('before {}, actual {}, after {}'.format(pos[tgx-2], pos[tgx-1], pos[tgx]))
+            print(tgx)
+            print(text)
+
         if curr_try > self.num_tries:
             if self.verbose:
                 print('Max {} tries hit...'.format(self.num_tries))
