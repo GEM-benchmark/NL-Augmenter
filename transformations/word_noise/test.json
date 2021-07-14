@@ -73,17 +73,14 @@
         "answers": [
           "northwest across",
           "Europe",
-          "northwest",
-          "NORTHWEST ACROSS",
-          "EUROPE",
-          "NORTHWEST"
+          "northwest"
         ]
       }]
     },
     {
       "class": "WordNoise",
       "args": {
-        "num_words": 7,
+        "num_words": 8,
         "concat_position": "any"
       },
       "inputs": {
@@ -94,7 +91,7 @@
         ]
       },
       "outputs": [{
-        "context": "Since forces are perceived as pushes or pulls, this can provide an intuitive understanding for describing forces. As with other physical concepts (e.g. temperature), the intuitive understanding of forces is quantified using precise operational definitions that are consistent with direct observations and compared to a standard measurement scale. Through experimentation, it is determined that laboratory measurements of forces are fully consistent with the conceptual definition of force offered by Newtonian mechanics. force fully operational physical observations using with temperature.",
+        "context": "Since forces are perceived as pushes or pulls, this can provide an intuitive understanding for describing forces. As with other physical concepts (e.g. temperature), the intuitive understanding of forces is quantified using precise operational definitions that are consistent with direct observations and compared to a standard measurement scale. Through experimentation, it is determined that laboratory measurements of forces are fully consistent with the conceptual definition of force offered by Newtonian mechanics. of fully precise physical direct using with temperature.",
         "question": "What offers a conceptual definition of force?",
         "answers": [
           "Newtonian mechanics"
@@ -104,7 +101,7 @@
     {
       "class": "WordNoise",
       "args": {
-        "num_words": 7,
+        "num_words": 8,
         "concat_position": "any",
         "remove_stop_words": true
       },
@@ -116,7 +113,7 @@
         ]
       },
       "outputs": [{
-        "context": "Since forces are perceived as pushes or pulls, this can provide an intuitive understanding for describing forces. As with other physical concepts (e.g. temperature), the intuitive understanding of forces is quantified using precise operational definitions that are consistent with direct observations and compared to a standard measurement scale. Through experimentation, it is determined that laboratory measurements of forces are fully consistent with the conceptual definition of force offered by Newtonian mechanics. definition forces precise concepts direct precise fully temperature.",
+        "context": "Since forces are perceived as pushes or pulls, this can provide an intuitive understanding for describing forces. As with other physical concepts (e.g. temperature), the intuitive understanding of forces is quantified using precise operational definitions that are consistent with direct observations and compared to a standard measurement scale. Through experimentation, it is determined that laboratory measurements of forces are fully consistent with the conceptual definition of force offered by Newtonian mechanics. offered consistent operational e.g. observations precise conceptual intuitive.",
         "question": "What offers a conceptual definition of force?",
         "answers": [
           "Newtonian mechanics"

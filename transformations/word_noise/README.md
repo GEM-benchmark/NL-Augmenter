@@ -1,5 +1,7 @@
 # Word Noise
-This transformation chooses a set of words at random from the context and the question and forms a sentence out of them. The sentence is then prepended or appended to the context. 
+This transformation chooses a set of words at random from the context and the question and forms a sentence out of them. The sentence is then prepended or appended to the context.
+
+Author: Saqib N. Shamsi
 
 ## What type of a transformation is this?
 This transformation is a perturbation to the context of the QA pair and is analogous to adding noise in image augmentation. The transformation is inspired by the **AddAny** method described in [Adversarial SQUAD](https://arxiv.org/abs/1707.07328). However, instead of probing the model to generate adversaries, we simply select words at random from the context and question and join them together into a sentence, ignoring the grammar. Thus, the method is model agnostic unlike **AddAny**.
