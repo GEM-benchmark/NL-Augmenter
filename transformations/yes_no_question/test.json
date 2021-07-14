@@ -22,15 +22,6 @@
     {
       "class": "YesNoQuestionPerturbation",
       "inputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
-      },
-      "outputs": [{
-        "sentence": "Is Alice in Wonderland a 2010 American live-action/animated dark fantasy adventure film?"
-      }]
-    },
-    {
-      "class": "YesNoQuestionPerturbation",
-      "inputs": {
         "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
       },
       "outputs": [{
