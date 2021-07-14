@@ -2,48 +2,223 @@
   "type": "gender_culture_diverse_name",
   "test_cases": [
     {
-      "class": "gender_culture_diverse_name",
+      "class": "GenderCultureDiverseName",
       "inputs": {
-        "sentence": "Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."
+        "sentence": "Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.",
+        "retain_gender": false,
+        "retain_culture": false
       },
       "outputs": [{
         "sentence": "Salome Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."
       }]
     },
     {
-      "class": "gender_culture_diverse_name",
+      "class": "GenderCultureDiverseName",
       "inputs": {
-        "sentence": "Phoebe Buffay is an eccentric masseuse and musician."
+        "sentence": "Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.",
+        "retain_gender": false,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Alex Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.",
+        "retain_gender": true,
+        "retain_culture": false
+      },
+      "outputs": [{
+        "sentence": "Charity Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.",
+        "retain_gender": true,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Georgiana Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Phoebe Buffay is an eccentric masseuse and musician.",
+        "retain_gender": false,
+        "retain_culture": false
       },
       "outputs": [{
         "sentence": "Rihab Buffay is an eccentric masseuse and musician."
       }]
     },
     {
-      "class": "gender_culture_diverse_name",
+      "class": "GenderCultureDiverseName",
       "inputs": {
-        "sentence": "Joey has many short-term girlfriends."
+        "sentence": "Phoebe Buffay is an eccentric masseuse and musician.",
+        "retain_gender": false,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Severus Buffay is an eccentric masseuse and musician."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Phoebe Buffay is an eccentric masseuse and musician.",
+        "retain_gender": true,
+        "retain_culture": false
+      },
+      "outputs": [{
+        "sentence": "Lynda Buffay is an eccentric masseuse and musician."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Phoebe Buffay is an eccentric masseuse and musician.",
+        "retain_gender": true,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Diana Buffay is an eccentric masseuse and musician."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Joey has many short-term girlfriends.",
+        "retain_gender": false,
+        "retain_culture": false
       },
       "outputs": [{
         "sentence": "Clarinda has many short-term girlfriends."
       }]
     },
     {
-      "class": "gender_culture_diverse_name",
+      "class": "GenderCultureDiverseName",
       "inputs": {
-        "sentence": "Chandler Bing is a sarcastic and self-deprecating IT manager."
+        "sentence": "Joey has many short-term girlfriends.",
+        "retain_gender": false,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Thady has many short-term girlfriends."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Joey has many short-term girlfriends.",
+        "retain_gender": true,
+        "retain_culture": false
+      },
+      "outputs": [{
+        "sentence": "Noel has many short-term girlfriends."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Joey has many short-term girlfriends.",
+        "retain_gender": true,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Marvin has many short-term girlfriends."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Chandler Bing is a sarcastic and self-deprecating IT manager.",
+        "retain_gender": false,
+        "retain_culture": false
       },
       "outputs": [{
         "sentence": "Deon Bing is a sarcastic and self-deprecating IT manager."
       }]
     },
     {
-      "class": "gender_culture_diverse_name",
+      "class": "GenderCultureDiverseName",
       "inputs": {
-        "sentence": "Monica was overweight as a child."
+        "sentence": "Chandler Bing is a sarcastic and self-deprecating IT manager.",
+        "retain_gender": false,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Charlotte Bing is a sarcastic and self-deprecating IT manager."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Chandler Bing is a sarcastic and self-deprecating IT manager.",
+        "retain_gender": true,
+        "retain_culture": false
+      },
+      "outputs": [{
+        "sentence": "Israel Bing is a sarcastic and self-deprecating IT manager."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Chandler Bing is a sarcastic and self-deprecating IT manager.",
+        "retain_gender": true,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Payton Bing is a sarcastic and self-deprecating IT manager."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Monica was overweight as a child.",
+        "retain_gender": false,
+        "retain_culture": false
       },
       "outputs": [{
         "sentence": "Lamya was overweight as a child."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Monica was overweight as a child.",
+        "retain_gender": false,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Toni was overweight as a child."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Monica was overweight as a child.",
+        "retain_gender": true,
+        "retain_culture": false
+      },
+      "outputs": [{
+        "sentence": "Prudence was overweight as a child."
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseName",
+      "inputs": {
+        "sentence": "Monica was overweight as a child.",
+        "retain_gender": true,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Bernardina was overweight as a child."
       }]
     }
   ]
