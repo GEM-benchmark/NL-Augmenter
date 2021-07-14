@@ -8,6 +8,7 @@ An example tells it all:
 Bob wants to become a programmer, as his father. ↔️ Alice wants to become a programmer, as her mother.
 ```
 The word list is taken from [1](https://arxiv.org/abs/1807.11714) and was extended with two possessive pronouns: 'his' and 'her'.
+The name list is taken form the CheckList paper [3].
 
 
 ## What tasks does it intend to benefit?
@@ -39,6 +40,16 @@ _[2]_
   journal={ArXiv},
   year={2020},
   volume={abs/1911.03842}
+}
+```
+
+_[3]_
+```bibtex
+@inproceedings{Ribeiro2020BeyondAB,
+  title={Beyond Accuracy: Behavioral Testing of NLP models with CheckList},
+  author={Marco T{\'u}lio Ribeiro and Tongshuang Wu and Carlos Guestrin and Sameer Singh},
+  booktitle={ACL},
+  year={2020}
 }
 ```
 
