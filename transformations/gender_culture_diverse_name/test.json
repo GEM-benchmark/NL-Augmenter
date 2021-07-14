@@ -1,0 +1,50 @@
+{
+  "type": "gender_culture_diverse_name",
+  "test_cases": [
+    {
+      "class": "gender_culture_diverse_name",
+      "inputs": {
+        "sentence": "Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."
+      },
+      "outputs": [{
+        "sentence": "Salome Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."
+      }]
+    },
+    {
+      "class": "gender_culture_diverse_name",
+      "inputs": {
+        "sentence": "Phoebe Buffay is an eccentric masseuse and musician."
+      },
+      "outputs": [{
+        "sentence": "Rihab Buffay is an eccentric masseuse and musician."
+      }]
+    },
+    {
+      "class": "gender_culture_diverse_name",
+      "inputs": {
+        "sentence": "Joey has many short-term girlfriends."
+      },
+      "outputs": [{
+        "sentence": "Clarinda has many short-term girlfriends."
+      }]
+    },
+    {
+      "class": "gender_culture_diverse_name",
+      "inputs": {
+        "sentence": "Chandler Bing is a sarcastic and self-deprecating IT manager."
+      },
+      "outputs": [{
+        "sentence": "Deon Bing is a sarcastic and self-deprecating IT manager."
+      }]
+    },
+    {
+      "class": "gender_culture_diverse_name",
+      "inputs": {
+        "sentence": "Monica was overweight as a child."
+      },
+      "outputs": [{
+        "sentence": "Lamya was overweight as a child."
+      }]
+    }
+  ]
+}
