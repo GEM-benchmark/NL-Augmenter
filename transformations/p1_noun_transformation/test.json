@@ -8,7 +8,7 @@
       },
       "outputs": [
         {
-          "sentence": "andrew finally returned the comic book(publication of comics art) to chris that i bought last week(time unit equal to seven days)"
+          "sentence": "Andrew finally returned the Comic book(publication of comics art) to Chris that I bought last week(time unit equal to seven days)"
         }
       ]
     },
@@ -19,7 +19,7 @@
       },
       "outputs": [
         {
-          "sentence": "chris borrowed the comic book(publication of comics art) from andrew last weekend"
+          "sentence": "Chris borrowed the Comic book(publication of comics art) from Andrew last weekend"
         }
       ]
     },
@@ -30,7 +30,7 @@
       },
       "outputs": [
         {
-          "sentence": "turn off the light please(english word indicating politeness)"
+          "sentence": "Turn off the light please(english word indicating politeness)"
         }
       ]
     },
@@ -41,7 +41,7 @@
       },
       "outputs": [
         {
-          "sentence": "i love cat(domesticated felid species)"
+          "sentence": "I love cat(domesticated felid species)"
         }
       ]
     },
@@ -52,7 +52,7 @@
       },
       "outputs": [
         {
-          "sentence": "thomas loves to cook chicken(subspecies of domesticated bird) every monday"
+          "sentence": "Thomas loves to cook chicken(subspecies of domesticated bird) every Monday"
         }
       ]
     },
@@ -63,7 +63,7 @@
       },
       "outputs": [
         {
-          "sentence": "john killed mary with a gun(ranged weapon that shoots projectiles)"
+          "sentence": "John killed Mary with a gun(ranged weapon that shoots projectiles)"
         }
       ]
     }

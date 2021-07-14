@@ -16,6 +16,11 @@ Base Class for implementing the different input transformations a generation sho
 
 
 def get_cd(phrase):
+    """
+    Returns a definition for noun phrase
+    Keyword arguments:
+    phrase -- phrase (str)
+    """
     sys.stdout = open(os.devnull, "w")
     sys.stderr = open(os.devnull, "w")
     so = wptools.page(phrase, silent=True).get_parse()
@@ -27,6 +32,12 @@ def get_cd(phrase):
 
 
 def stop_word_removal(text_all, cached_stop_words):
+    """
+    Returns text with removed stop words
+    Keyword arguments:
+    text_all -- list of all texts (list of str)
+    cached_stop_words -- list of all stopwords (list of str)
+    """
     new_text_all = []
     for text in text_all:
         text1 = ' '.join([word for word in text.split() if word not in cached_stop_words])
@@ -34,24 +45,45 @@ def stop_word_removal(text_all, cached_stop_words):
     return new_text_all
 
 
-def get_grams(sentence, N):
+def get_grams(sentence, n):
+    """
+    Returns phrases i.e. windowed sub
+    strings with range (1-N) window
+    Keyword arguments:
+    sentence -- utterance  (str)
+    n -- max_ngram (int)
+    """
     all_grams = []
-    for l in range(1, N + 1):
+    for l in range(1, n + 1):
         grams = [" ".join(sentence[i:i + l]) for i in range(len(sentence) - l + 1)]
         all_grams = all_grams + grams
     return all_grams
 
 
 def prep_sent(sentence, n, cached_stop_words):
-    list1 = list(set(stop_word_removal(get_grams(sentence.split(), n), cached_stop_words)))
-    list1 = list(filter(None, list1))
-    list1 = list(sorted(list1, key=len))[::-1]
-    return list1
+    """
+    Returns preprocessed n grams of sentence
+    Keyword arguments:
+    sentence -- utterance  (str)
+    n -- max_ngram (int)
+    cached_stop_words -- list of all stopwords (list of str)
+    """
+    clean_list = list(set(stop_word_removal(get_grams(sentence.split(), n), cached_stop_words)))
+    clean_list = list(filter(None, clean_list))
+    clean_list = list(sorted(clean_list, key=len))[::-1]
+    return clean_list
 
 
-def get_noun_definitions(inp_sent, cached_stop_words):
-    max_ngrams = 3
-    inp_sent = inp_sent.lower()
+def get_noun_definitions(inp_sent, cached_stop_words, max_ngrams):
+    """
+    Returns sentence with added noun
+    definitions in braces, appended post
+    original noun phrase.
+    Keyword arguments:
+    inp_sent -- utterance  (str)
+    cached_stop_words -- list of all stopwords (list of str)
+    max_ngrams -- max_ngram (int)
+    """
     tokens = nltk.word_tokenize(inp_sent)
     pos_tagged = nltk.pos_tag(tokens)
 
@@ -79,12 +111,15 @@ def get_noun_definitions(inp_sent, cached_stop_words):
         inp_sent = inp_sent.replace(key_phrase, key_phrase + "(" + phrase_definition.lower() + ")")
     return (inp_sent)
 
+
 '''
 search for noun phrases from wikidata lookup 
 and then add definitions in braces after 
 phrase occurences to add more context
 NOTE: requires three nltk downloads (only 1 time)
 '''
+
+
 class AddNounDefinition(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
@@ -98,11 +133,13 @@ class AddNounDefinition(SentenceOperation):
         nltk.download('averaged_perceptron_tagger')
         super().__init__(seed, max_outputs=max_outputs)
         self.cached_stop_words = stopwords.words("english")
+        self.max_ngrams = 3
 
     def generate(self, sentence: str):
-        extended_text = get_noun_definitions(sentence, self.cached_stop_words)
+        extended_text = get_noun_definitions(sentence, self.cached_stop_words, self.max_ngrams)
         res_data = [extended_text]
         return res_data
+
 
 '''
 if __name__ == '__main__':
@@ -121,7 +158,7 @@ if __name__ == '__main__':
             "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
+    print(json_file)
     with open('test.json', 'w', encoding='utf-8') as f:
         json.dump(json_file, f, ensure_ascii=False, indent=2)
 '''
-

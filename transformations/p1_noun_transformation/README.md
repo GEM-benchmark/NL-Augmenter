@@ -23,3 +23,7 @@ Input: "Barack Obama gave a book to me".
 
 Output: "barack obama(44th president of the united states) gave a book(medium for recording information in the form of writing or images) to me"
 
+
+## What are the limitations of this transformation?
+1. Noun recognition depends on NLTK library.
+2. Noun sense disambiguation depends on how wikidata performs (https://www.wikidata.org/wiki/Wikidata:Main_Page) 
