@@ -21,6 +21,9 @@
             },
             {
                "sentence":"Bucharest, a city in Europe, with a population of 1,877,155 inhabitants, is a large city"
+            },
+            {
+               "sentence":"Bucharest, the capital of Romania, is a large city"
             }
          ]
       },
@@ -41,6 +44,27 @@
             },
             {
                "sentence":"Klaus Iohannis is the current president of Romania, a country in Europe, with a population of 19,473,936 inhabitants, with the capital at Bucharest"
+            },
+            {
+               "sentence":"Klaus Iohannis is the current president of Romania (RO)"
+            },
+            {
+               "sentence":"Klaus Iohannis is the current president of Romania (ROU)"
+            },
+            {
+               "sentence":"Klaus Iohannis is the current president of Romania (RO/ROU)"
+            },
+            {
+               "sentence":"Klaus Iohannis is the current president of Romania, a country neighbouring Moldova, Hungary, Ukraine, Bulgaria and Serbia"
+            },
+            {
+               "sentence":"Klaus Iohannis is the current president of Romania, a country speaking primarily the Romanian language"
+            },
+            {
+               "sentence":"Klaus Iohannis is the current president of Romania, a country with 3 spoken languages"
+            },
+            {
+               "sentence":"Klaus Iohannis is the current president of Romania, a country with the 2 most spoken languages being Romanian and Hungarian"
             }
          ]
       },
@@ -63,6 +87,27 @@
                "sentence":"Romania, a country in Europe, with a population of 19,473,936 inhabitants, with the capital at Bucharest, and the United States have trade agreements"
             },
             {
+               "sentence":"Romania (RO), and the United States have trade agreements"
+            },
+            {
+               "sentence":"Romania (ROU), and the United States have trade agreements"
+            },
+            {
+               "sentence":"Romania (RO/ROU), and the United States have trade agreements"
+            },
+            {
+               "sentence":"Romania, a country neighbouring Moldova, Hungary, Ukraine, Bulgaria and Serbia, and the United States have trade agreements"
+            },
+            {
+               "sentence":"Romania, a country speaking primarily the Romanian language, and the United States have trade agreements"
+            },
+            {
+               "sentence":"Romania, a country with 3 spoken languages, and the United States have trade agreements"
+            },
+            {
+               "sentence":"Romania, a country with the 2 most spoken languages being Romanian and Hungarian, and the United States have trade agreements"
+            },
+            {
                "sentence":"Romania and the United States, a country in North America, have trade agreements"
             },
             {
@@ -73,6 +118,27 @@
             },
             {
                "sentence":"Romania and the United States, a country in North America, with a population of 327,167,434 inhabitants, with the capital at Washington, have trade agreements"
+            },
+            {
+               "sentence":"Romania and the United States (US), have trade agreements"
+            },
+            {
+               "sentence":"Romania and the United States (USA), have trade agreements"
+            },
+            {
+               "sentence":"Romania and the United States (US/USA), have trade agreements"
+            },
+            {
+               "sentence":"Romania and the United States, a country neighbouring Canada, Mexico and Cuba, have trade agreements"
+            },
+            {
+               "sentence":"Romania and the United States, a country speaking primarily the English language, have trade agreements"
+            },
+            {
+               "sentence":"Romania and the United States, a country with 4 spoken languages, have trade agreements"
+            },
+            {
+               "sentence":"Romania and the United States, a country with the 3 most spoken languages being English, Spanish and French, have trade agreements"
             }
          ]
       },
@@ -116,6 +182,27 @@
             },
             {
                "sentence":"Egypt, a country in Africa, with a population of 98,423,595 inhabitants, with the capital at Cairo, has many pyramids"
+            },
+            {
+               "sentence":"Egypt (EG), has many pyramids"
+            },
+            {
+               "sentence":"Egypt (EGY), has many pyramids"
+            },
+            {
+               "sentence":"Egypt (EG/EGY), has many pyramids"
+            },
+            {
+               "sentence":"Egypt, a country neighbouring Libya, Sudan, Israel and Palestinian Territory, has many pyramids"
+            },
+            {
+               "sentence":"Egypt, a country speaking primarily the Arabic language, has many pyramids"
+            },
+            {
+               "sentence":"Egypt, a country with 3 spoken languages, has many pyramids"
+            },
+            {
+               "sentence":"Egypt, a country with the 3 most spoken languages being Arabic, English and French, has many pyramids"
             }
          ]
       }
