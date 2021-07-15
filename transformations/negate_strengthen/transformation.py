@@ -149,7 +149,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
         elif pos[tgx-1][0:2] =='NN':
             method.append('NN_1_1')
             # ix=token.idx-1=tgx-1
-            edit_id = int(table.loc[tgx, 'head_id'])
+            edit_id = int(table.loc[tgx-1, 'head_id'])
             text, method, edit_id = self.negation_rules(
                 edit_id+1, table, pos=pos, method=method, curr_try=curr_try)
         # if actual word is an adjective
