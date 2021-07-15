@@ -48,7 +48,6 @@ class NegateStrengthen(SentenceAndTargetOperation):
         nltk.download('averaged_perceptron_tagger')
 
         # initialise
-        self.verbose = True
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.nlp.tokenizer = Tokenizer(
             self.nlp.vocab, 
@@ -82,16 +81,20 @@ class NegateStrengthen(SentenceAndTargetOperation):
         return table
 
 
-    def negation_rules(self, tgx, text, pos, method=[], curr_try=0):
+    def negation_rules(self, tgx, table, pos=None, method=[], curr_try=0):
+        """
+        Token index are:
+        'before {}, actual {}, after {}'.format(pos[tgx-2], pos[tgx-1], pos[tgx])
+        """
+        # get info
+        text = list(table['text'])
+        if pos is None:
+            # results are sensitive to pos_tag usage, we work with NLTK module
+            pos = [p[1] for p in pos_tag(text)]
 
+        # run
         curr_try += 1
         edit_id = tgx
-
-        if self.verbose:
-            print('before {}, actual {}, after {}'.format(pos[tgx-2], pos[tgx-1], pos[tgx]))
-            print(tgx)
-            print(text)
-
         if curr_try > self.num_tries:
             if self.verbose:
                 print('Max {} tries hit...'.format(self.num_tries))
@@ -145,16 +148,10 @@ class NegateStrengthen(SentenceAndTargetOperation):
         # if target is noun (e.g. as a result of)
         elif pos[tgx-1][0:2] =='NN':
             method.append('NN_1_1')
-            doc = self.nlp(u' '.join(text))
-            dep_dict = {}
-            for ix, token in enumerate(doc):
-                dep_dict[token.idx] = [ix, token.text, token.head.text, token.head.idx]
-                if ix==tgx-1:
-                    spacy_loc_id = token.idx
-            assert(dep_dict[spacy_loc_id][1]==text[tgx-1])
-            edit_id = 1 + dep_dict[dep_dict[spacy_loc_id][3]][0]
+            # ix=token.idx-1=tgx-1
+            edit_id = int(table.loc[tgx, 'head_id'])
             text, method, edit_id = self.negation_rules(
-                edit_id, text, pos, method=method, curr_try=curr_try)
+                edit_id+1, table, pos=pos, method=method, curr_try=curr_try)
         # if actual word is an adjective
         elif pos[tgx-1][0:2] =='JJ':
             # if adjective is last word
@@ -281,8 +278,6 @@ class NegateStrengthen(SentenceAndTargetOperation):
     def text_to_negated_edits(self, _text, get_roots=None):
         # clean multiple whitespaces
         _text = _RE_COMBINE_WHITESPACE.sub(" ", _text).strip()
-        text = _text.split(' ')
-        pos = [p[1] for p in pos_tag(text)]
 
         # get roots based on dep info from spacy
         table = self.text_to_spacy_table_info(_text)
@@ -301,7 +296,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
                         print('new root: {}'.format(table.loc[root, 'text']))
             
             # using root loc, negate
-            edit_text, method, edit_id = self.negation_rules(root+1, text, pos, method=[])
+            edit_text, method, edit_id = self.negation_rules(root+1, table, method=[])
 
             if self.verbose:
                 print(">>>>> edit_text: ", edit_text)
@@ -441,7 +436,7 @@ class NegateStrengthen(SentenceAndTargetOperation):
             # Any future conversion implementations
             pass
         
-        perturbed_items  = [(perturbed_sentences[i], perturbed_target) for i in range(self.max_outputs)]
+        perturbed_items  = list(set([(perturbed_sentences[i], perturbed_target) for i in range(self.max_outputs)]))
 
         if self.verbose:
             print(">>>>>> perturbed_items: ", perturbed_items)
