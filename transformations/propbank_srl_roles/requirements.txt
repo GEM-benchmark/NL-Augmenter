@@ -1,2 +1,2 @@
-# for CloseHomophonesSwap
-allennlp==2.1.0
+allennlp==2.5.0
+allennlp-models==2.5.0
