@@ -34,6 +34,9 @@ class PinyinTranscription(SentenceOperation):
         return pinyin
 
     def generate(self, sentence: str):
+        '''Convert sentence to space-separated pinyinized words.
+        Ex.: "你会讲中文吗？" -> "ni hui jiang zhongwen ma ？"
+        '''
         doc = self.nlp(sentence)
         tokens = [t.text_with_ws for t in doc]
         pinyin = ' '.join(self.word_to_pinyin(token) for token in tokens)
