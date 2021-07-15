@@ -1,0 +1,90 @@
+{
+  "type": "spelling_transformation",
+  "test_cases": [
+    {
+      "class": "SpellingTransformation",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [
+        {
+          "sentence": "Andrew finially reyterned ge freach books two Chris thta if bout lorst wek"
+        },
+        {
+          "sentence": "Andrew fianlly rotard thw Franch boak the Chris to iy brought lsat weeke"
+        },
+        {
+          "sentence": "Andrew finaly retond an Franch boak ot Chris at and boght lasd weak"
+        }
+      ]
+    },
+    {
+      "class": "SpellingTransformation",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [
+        {
+          "sentence": "Sentences withe gapping, suu was Paul like coffe aud Marry tea, lake and overt predicate two indecate ge relation vetween to os moor arguments."
+        },
+        {
+          "sentence": "Sentences wiht gapping, sach is Paul liks coffer anbd Marry tea, lake un overt predicate the indecate thw relation beteen wot all mroe arguments."
+        },
+        {
+          "sentence": "Sentences went gapping, sach aas Paul liks cofee a Marry tea, lake a overt predicate ot indecate an relation beeteen to all mooe arguments."
+        }
+      ]
+    },
+    {
+      "class": "SpellingTransformation",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [
+        {
+          "sentence": "Alice is Wonderland it the 2010 Ameracan live-action/animated drlak famdasy aventure flim"
+        },
+        {
+          "sentence": "Alice it Wonderland si ah 2010 Ameracan live-action/animated brek fantast aventure flim"
+        },
+        {
+          "sentence": "Alice i Wonderland as ah 2010 Ameracan live-action/animated dagy fantast aventure flim"
+        }
+      ]
+    },
+    {
+      "class": "SpellingTransformation",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [
+        {
+          "sentence": "Ujjal Dev Dosanjh surved was 33rd Premier op Brittish Columbia fraom 2000 two 2001"
+        },
+        {
+          "sentence": "Ujjal Dev Dosanjh surved is 33rd Premier ovoe Brittish Columbia ofomt 2000 the 2001"
+        },
+        {
+          "sentence": "Ujjal Dev Dosanjh surved aas 33rd Premier av Brittish Columbia fere 2000 ot 2001"
+        }
+      ]
+    },
+    {
+      "class": "SpellingTransformation",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [
+        {
+          "sentence": "Neuroplasticity it the contionus procesing allowing short-term, medium-term, aud long-term remodeling op ge neuronosynaptic organization."
+        },
+        {
+          "sentence": "Neuroplasticity si ah contineous proccessing allowing short-term, medium-term, anbd long-term remodeling ovoe thw neuronosynaptic organization."
+        },
+        {
+          "sentence": "Neuroplasticity as ah continious prcessing allowing short-term, medium-term, a long-term remodeling av an neuronosynaptic organization."
+        }
+      ]
+    }
+  ]
+}
