@@ -79,11 +79,6 @@ def code_switch(sentence, switch_dict, code_switch_rate):
 
 
 class MultilingualCodeSwitch(SentenceOperation):
-    tasks = [
-        TaskType.TEXT_TAGGING,
-        TaskType.TEXT_CLASSIFICATION,
-        TaskType.SENTIMENT_ANALYSIS,
-    ]
     languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=1, code_switch_rate=0.9):
