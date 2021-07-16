@@ -1,8 +1,8 @@
 import random
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from indictrans import Transliterator
-
+from transformations.mix_transliteration.transliterator import Transliterator
+from typing import Optional
 
 class MixTransliteration(SentenceOperation):
     '''
@@ -13,29 +13,25 @@ class MixTransliteration(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
-    languages = ["en"]
+    langs = [
+        'hin', 'guj', 'pan', 'ben', 'mal', 
+        'kan', 'tam', 'tel', 'ori', 'mar', 
+        'nep', 'bod', 'kok', 'asm'
+    ]
+    heavy = True
 
-    def __init__(self, source_lang:str):
+    def __init__(self, source_lang: str, seed: Optional[int] = 42):
         super().__init__()
-        random.seed(42)
-        '''
-        source_lang must be from:
-                   ['hin', 'guj', 'pan',
-                    'ben', 'mal', 'kan', 
-                    'tam', 'tel', 
-                    'ori', 'eng', 
-                    'mar', 'nep', 
-                    'bod', 'kok',
-                    'asm', 'urd']
-        '''
-        self.converter = Transliterator(source=source_lang, target='eng', build_lookup=True)
+        random.seed(seed)
+        assert source_lang in self.langs, ValueError(f"Incorrect source language, choose from {self.langs}")
+        self.converter = Transliterator(source=source_lang)
 
     def generate(self, sentence: str, prob_mix: int = 1):
-        temp_text = self.converter.transform(sentence)
+        temp_text = self.converter.transliterate(sentence)
         temp_tokens = temp_text.split(" ")
         input_tokens = sentence.split(" ")
         output_tokens = [] 
-        mixed = False # if foreign language exist,  ensures at least one is transliterated
+        mixed = False # if indic script exists, ensure at least one is transliterated
         for i in range(len(temp_tokens)):
             if temp_tokens[i] != input_tokens[i] and (random.random() < prob_mix or mixed == False):
                 output_tokens.append(temp_tokens[i])
@@ -44,4 +40,3 @@ class MixTransliteration(SentenceOperation):
                 output_tokens.append(input_tokens[i])
         output = " ".join(output_tokens)
         return [output]
-
