@@ -31,7 +31,7 @@ class EnglishInflectionalVariation(SentenceOperation):
         self.tokenizer = BertPreTokenizer()
         self.tagger = PerceptronTagger()
 
-    def generate(self, sentence: str) -> str:
+    def generate(self, sentence: str) -> List[str]:
         '''
         `inflection_distribution` should have the following structure: { PTB tag: int, ... , PTB tag: int }
         '''
@@ -47,7 +47,7 @@ class EnglishInflectionalVariation(SentenceOperation):
         perturbed = self.detokenize(perturbed_tokens)
 
         print(f"Perturbed Input from {self.name()} : {perturbed}")
-        return perturbed
+        return [perturbed]
 
     def detokenize(self, tokens: List[Tuple[str, Tuple[int, int]]]) -> str:
         prev_end = 0
@@ -90,8 +90,8 @@ class EnglishInflectionalVariationQAQuestionOnly(EnglishInflectionalVariation, Q
         `inflection_distribution` should have the following structure: { PTB tag: int, ... , PTB tag: int }
         Can be used for generating training data since the span indices of answers/context are unchanged.
         '''
-        perturbed_question = super().generate(question)
+        perturbed_question = super().generate(question)[0]
         
         print(f"Perturbed Input from {self.name()} : {perturbed_question}")
-        return context, perturbed_question, answers
+        return [context, perturbed_question, answers]
         
