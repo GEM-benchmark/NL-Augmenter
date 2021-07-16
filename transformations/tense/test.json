@@ -1,0 +1,75 @@
+{
+   "type": "tense_transformation",
+   "test_cases": [
+      {
+         "class": "TenseTransformation",
+         "args": {
+            "to_tense": "past"
+         },
+         "inputs": {
+            "sentence": "I will go to the park."
+         },
+         "outputs": [
+            {
+               "sentence": "I went to the park."
+            }
+         ]
+      },
+      {
+         "class": "TenseTransformation",
+         "args": {
+            "to_tense": "past"
+         },
+         "inputs": {
+            "sentence": "I can come to the party"
+         },
+         "outputs": [
+            {
+               "sentence": "I can came to the party"
+            }
+         ]
+      },
+      {
+         "class": "TenseTransformation",
+         "args": {
+            "to_tense": "past"
+         },
+         "inputs": {
+            "sentence": "I will go to the park"
+         },
+         "outputs": [
+            {
+               "sentence": "I went to the park"
+            }
+         ]
+      },
+      {
+         "class": "TenseTransformation",
+         "args": {
+            "to_tense": "past"
+         },
+         "inputs": {
+            "sentence": "I go to the park."
+         },
+         "outputs": [
+            {
+               "sentence": "I went to the park."
+            }
+         ]
+      },
+      {
+         "class": "TenseTransformation",
+         "args": {
+            "to_tense": "past"
+         },
+         "inputs": {
+            "sentence": "I visit the hospital"
+         },
+         "outputs": [
+            {
+               "sentence": "I visited the hospital"
+            }
+         ]
+      }
+   ]
+}
