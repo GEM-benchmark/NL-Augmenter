@@ -10,6 +10,38 @@
       "class": "EnglishInflectionalVariation",
       "input": "Andrew finally got the French book I sent to him two days ago.",
       "output": "Andrew finally get the French book I send to him two day ago."
+    },
+    {
+      "class": "EnglishInflectionalVariation",
+      "input": "Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life.",
+      "output": "Rachel Green, a sheltered but friendlier woman, flees her wedding days and wealthier yet unfulfilling lives."
+    },
+    {
+      "class": "EnglishInflectionalVariation",
+      "input": "The close was the highest since Aug. 15. Estimated volume was a light two million ounces",
+      "output": "The close was the higher since Aug. 15. Estimates volume was a lightest two million ounce"
+    },
+    {
+      "class": "EnglishInflectionalVariation",
+      "input": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
+      "output": "Ujjal Dev Dosanjh serve as 33rd Premiers of British Columbia from 2000 to 2001"
+    },
+    {
+      "class": "EnglishInflectionalVariationQAQuestionOnly",
+      "inputs": [{
+        "context": "Jim went to the pool instead of the gym yesterday.",
+        "question": "Did Jim go to the gym yesterday?",
+        "answers": [
+          "no"
+        ]
+      }],
+      "output": [{
+        "context": "Jim went to the pool instead of the gym yesterday.",
+        "question": "Did Jim go to the gyms yesterdays",
+        "answers": [
+          "no"
+        ]
+      }]
     }
   ]
 }
