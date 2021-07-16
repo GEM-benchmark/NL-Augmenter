@@ -1,5 +1,3 @@
-import itertools
-import random
 from initialize import spacy_nlp
 
 from interfaces.SentenceOperation import SentenceOperation
@@ -44,23 +42,22 @@ def get_object_phrase(root_token):
 def topicalize(original, to_move: [], verb):
     if has_parent_of_type(verb, ["conj", "cc"]):
         return topicalize_before_verb(original, to_move, verb)
-    topicalized = [("".join([n.string for n in to_move.copy()]).capitalize())]
-    topicalized.append(", ")
+    topicalized = [(" ".join([n.text for n in to_move.copy()]).capitalize())]
     for token in original:
         if token not in to_move:
-            topicalized.append(token.string)
-    return "".join(topicalized).strip()
+            topicalized.append(token.text)
+    return " ".join(topicalized).strip()
 
 
 def topicalize_before_verb(original, to_move: [], verb):
     before_verb = [token for token in original if token not in list(verb.subtree) and token.pos_ is not "PUNCT"]
-    topicalized = [token.string for token in before_verb]
-    topicalized.append("".join([n.string for n in to_move.copy()]).capitalize())
+    topicalized = [token.text for token in before_verb]
+    topicalized.append(" ".join([n.text for n in to_move.copy()]).capitalize())
     topicalized.append(", ")
     for token in original:
         if token not in to_move and token not in before_verb:
-            topicalized.append(token.string)
-    return "".join(topicalized).strip()
+            topicalized.append(token.text)
+    return " ".join(topicalized).strip()
 
 
 class Topicalisation(SentenceOperation):
@@ -70,8 +67,8 @@ class Topicalisation(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=42, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, seed=42, verbose=False):
+        super().__init__(seed, verbose=verbose)
         self.seed = seed
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
@@ -93,17 +90,20 @@ class Topicalisation(SentenceOperation):
         if len(sentences) > 1 and self.verbose:
             warnings.warn("Seems there are more than 1 sentences - Only the first sentence would be topicalized.")
         for parse in sentences:
-            for verb in get_tokens_of_pos_type(parse, ["VERB", "ADJ"]):
-                if self.verbose:
-                    print(f"VERB: {verb}")
-                object_phrase_opt = get_object_phrase(verb)
-                if object_phrase_opt.is_present() and not_topicalized(object_phrase_opt.get(),
-                                                                      verb) and check_if_any_parent_has(verb,
-                                                                                                        ["nsubj"]):
-                    topicalized = topicalize(parse, object_phrase_opt.get(), verb)
+            verbs_and_adjs = get_tokens_of_pos_type(parse, ["VERB", "ADJ"])
+            if len(
+                    verbs_and_adjs) < 4:  # This is only restricted to sentences with 1 or 2 verbs, else performance drops.
+                for verb in verbs_and_adjs:
                     if self.verbose:
-                        print(f"Topicalised: {topicalized}")
-                    generations.append(topicalized)
+                        print(f"VERB: {verb}")
+                    object_phrase_opt = get_object_phrase(verb)
+                    if object_phrase_opt.is_present() and not_topicalized(object_phrase_opt.get(),
+                                                                          verb) and check_if_any_parent_has(verb,
+                                                                                                            ["nsubj"]):
+                        topicalized = topicalize(parse, object_phrase_opt.get(), verb)
+                        if self.verbose:
+                            print(f"Topicalised: {topicalized}")
+                        generations.append(topicalized)
         return generations
 
 
@@ -114,14 +114,20 @@ if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
 
-    tf = ButterFingersPerturbation(max_outputs=3)
+    tf = Topicalisation(verbose=True)
     sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
-    for sentence in ["Andrew finally returned the French book to Chris that I bought last week",
+    for sentence in ["Shelly has indeed uncovered part of our plan.",
+                     "Andrew finally returned the French book to Chris that I bought last week",
+        "It tries to boast a huge charm factor",
+        "Bill is living in that one house on the hill.",
+        "It fizzles like a wet stick of dynamite, at the very end.",
+                     "no number of fantastic sets , extras , costumes and spectacular locales can disguise the emptiness at the center of the story .",
                      "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
                      "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
                      "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
-                     "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."]:
+                     "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
+                     "I won't eat that pizza."]:
         test_cases.append({
             "class": tf.name(),
             "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}

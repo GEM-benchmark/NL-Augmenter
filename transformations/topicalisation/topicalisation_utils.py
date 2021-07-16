@@ -24,9 +24,11 @@ def has_child_of_type(node, types: list):
 
 
 def get_tokens_of_pos_type(sentence, types: list):
+    tokens = []
     for token in sentence:
         if token.pos_ in types:
-            yield token
+            tokens.append(token)
+    return tokens
 
 
 def get_children_of_dep_type(verb, types: list):

@@ -1,50 +1,113 @@
 {
-  "type": "butter_fingers_perturbation",
+  "type": "topicalisation",
   "test_cases": [
     {
-      "class": "ButterFingersPerturbation",
+      "class": "Topicalisation",
+      "inputs": {
+        "sentence": "Shelly has indeed uncovered part of our plan."
+      },
+      "outputs": [
+        {
+          "sentence": "Part of our plan Shelly has indeed uncovered ."
+        }
+      ]
+    },
+    {
+      "class": "Topicalisation",
       "inputs": {
         "sentence": "Andrew finally returned the French book to Chris that I bought last week"
       },
-      "outputs": [{
-        "sentence": "Andgew finally returned the French book to Chrus thav I bought last week"
-      }]
+      "outputs": []
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "Topicalisation",
+      "inputs": {
+        "sentence": "It tries to boast a huge charm factor"
+      },
+      "outputs": [
+        {
+          "sentence": "A huge charm factor It tries to boast"
+        },
+        {
+          "sentence": "A huge charm factor It tries to boast"
+        }
+      ]
+    },
+    {
+      "class": "Topicalisation",
+      "inputs": {
+        "sentence": "Bill is living in that one house on the hill."
+      },
+      "outputs": [
+        {
+          "sentence": "That one house on the hill Bill is living in ."
+        }
+      ]
+    },
+    {
+      "class": "Topicalisation",
+      "inputs": {
+        "sentence": "It fizzles like a wet stick of dynamite, at the very end."
+      },
+      "outputs": [
+        {
+          "sentence": "A wet stick of dynamite It fizzles like , at the very end ."
+        }
+      ]
+    },
+    {
+      "class": "Topicalisation",
+      "inputs": {
+        "sentence": "no number of fantastic sets , extras , costumes and spectacular locales can disguise the emptiness at the center of the story ."
+      },
+      "outputs": [
+        {
+          "sentence": "The emptiness no number of fantastic sets , extras , costumes and spectacular locales can disguise at the center of the story ."
+        }
+      ]
+    },
+    {
+      "class": "Topicalisation",
       "inputs": {
         "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
       },
-      "outputs": [{
-        "sentence": "Senhences with gapping, such as Paul likes coffwe and Mary tea, lack an overt predicate to indicatx the relauion between two or more argumentd."
-      }]
+      "outputs": []
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "Topicalisation",
       "inputs": {
         "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
       },
-      "outputs": [{
-        "sentence": "Alife in Wonderland is a 2010 American live-action/abimatev dark fantasy adventure film"
-      }]
+      "outputs": []
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "Topicalisation",
       "inputs": {
         "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
       },
-      "outputs": [{
-        "sentence": "Ujjwl Dev Dosanjh served as 33rd Premier of Britush Conumbia from 2000 to 2001"
-      }]
+      "outputs": [
+        {
+          "sentence": "33rd premier of british columbia Ujjal Dev Dosanjh served as from 2000 to 2001"
+        }
+      ]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "Topicalisation",
       "inputs": {
         "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
       },
-      "outputs": [{
-        "sentence": "Neugoplasticity is a continuous processing alliwing vhort-term, medium-term, and long-term remodeling of the beuronosynaptic organization."
-      }]
+      "outputs": []
+    },
+    {
+      "class": "Topicalisation",
+      "inputs": {
+        "sentence": "I won't eat that pizza."
+      },
+      "outputs": [
+        {
+          "sentence": "That pizza I wo n't eat ."
+        }
+      ]
     }
   ]
 }
