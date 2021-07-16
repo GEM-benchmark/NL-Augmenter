@@ -12,4 +12,7 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 text generation, etc. 
 
 ## What are the limitations of this transformation?
-The transformation's outputs may lose some information in case of longer sequences and may not be exact.
+The transformation's outputs may lose some information in case of longer sequences and there may not be many changes.
+
+## Data and Code Provenance
+This transformation makes use of the code and model from: https://github.com/PrithivirajDamodaran/Styleformer
