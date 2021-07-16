@@ -1,14 +1,18 @@
 import numpy as np
 from datasets import load_dataset
-from sacrebleu import corpus_bleu
 from transformers import pipeline
-
+from rouge_score import rouge_scorer
 from dataset import KeyValueDataset
 from tasks.TaskTypes import TaskType
 
+scorer = rouge_scorer.RougeScorer(['rouge1'])
 
-def sacrebleu_score(hypotheses, references):
-    return corpus_bleu(hypotheses, [references]).score
+
+def rogue_score(hypotheses, references):
+    total_f1_scores = 0.0
+    for ref, hyp in zip(references, hypotheses):
+        total_f1_scores+=scorer.score(ref, hyp)['rouge1'][2] # [2] for f1 score
+    return total_f1_scores/len(hypotheses)
 
 
 def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"):
@@ -68,8 +72,8 @@ def transformation_performance(dataset, summarization_pipeline, transformation):
     print(f"Here is the performance of the model on the transformed set")
     pt_performance = performance_on_dataset(
         pt_dataset, summarization_pipeline
-    )  # 11.830 BLEU
-    return {"bleu": performance["bleu"], "pt_bleu": pt_performance["bleu"]}
+    )
+    return {"rouge": performance["rouge"], "pt_rouge": pt_performance["rouge"]}
 
 
 def performance_on_dataset(dataset, summarization_pipeline):
@@ -88,9 +92,9 @@ def performance_on_dataset(dataset, summarization_pipeline):
 
         references.append(gold_summary)
         raw_hypotheses.append(predicted_summary)
-    predicted_summary_score = sacrebleu_score(raw_hypotheses, references)  # 15.989 BLEU
+    predicted_summary_score = rogue_score(raw_hypotheses, references)
 
-    print(f"Predicted BLEU score = {predicted_summary_score}")
+    print(f"Predicted ROUGE score = {predicted_summary_score}")
     return {
-        "bleu": np.round(predicted_summary_score, 1),
+        "rouge": np.round(predicted_summary_score, 3),
     }
