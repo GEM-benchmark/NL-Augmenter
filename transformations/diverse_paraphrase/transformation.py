@@ -14,7 +14,6 @@ from transformations.diverse_paraphrase.submod.submodular_funcs import trigger_d
 class DiverseParaphrase(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
-    heavy = True
 
     def __init__(self, augmenter="dips", num_outputs=4):
         super().__init__()
