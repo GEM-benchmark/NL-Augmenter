@@ -26,8 +26,8 @@ class EnglishInflectionalVariation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     locales = ["en"]
     content_words = {'NOUN', 'VERB', 'ADJ'}
-    def __init__(self):
-        super().__init__()
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed=seed, max_outputs=max_outputs)
         self.tokenizer = BertPreTokenizer()
         self.tagger = PerceptronTagger()
 
@@ -41,13 +41,14 @@ class EnglishInflectionalVariation(SentenceOperation):
         pos_tagged = [(token, map_tag('en-ptb', 'universal', tag)) for (token, tag) in self.tagger.tag(tokens)]
         pos_tagged = [(tagged[0], '.') if '&' in tagged[0] else tagged for tagged in pos_tagged]
 
-        perturbed_tokens = self.randomly_inflect(tokens, pos_tagged)
-        perturbed_tokens = [(t, tokenized[i][1]) for i, t in enumerate(perturbed_tokens)]
+        random.seed(self.seed)
+        perturbed_tokens = [self.randomly_inflect(tokens, pos_tagged, random.randint(0, i*1000)) for i in range(self.max_outputs)]
+        perturbed_tokens = [[(t, tokenized[i][1]) for i, t in enumerate(sentence)] for sentence in perturbed_tokens]
 
-        perturbed = self.detokenize(perturbed_tokens)
+        perturbed_sentences = [self.detokenize(sentence) for sentence in perturbed_tokens]
 
-        print(f"Perturbed Input from {self.name()} : {perturbed}")
-        return [perturbed]
+        #print(f"Perturbed Input from {self.name()} : {perturbed}")
+        return perturbed_sentences
 
     def detokenize(self, tokens: List[Tuple[str, Tuple[int, int]]]) -> str:
         prev_end = 0
@@ -60,7 +61,7 @@ class EnglishInflectionalVariation(SentenceOperation):
             prev_end = positions[1]
         return ''.join(new_tokens)
 
-    def randomly_inflect(self, tokens: List[str], pos_tagged: List[Tuple[str, str]]) -> List[str]:
+    def randomly_inflect(self, tokens: List[str], pos_tagged: List[Tuple[str, str]], seed=0) -> List[str]:
         new_tokens = tokens.copy()
         for i, word in enumerate(tokens):
             lemmas = lemminflect.getAllLemmas(word)
@@ -74,24 +75,24 @@ class EnglishInflectionalVariation(SentenceOperation):
                 if inflections[1]:
                     # Use inflection distribution for weighted random sampling if specified
                     # Otherwise unweighted
-                    random.seed(self.seed+len(word))
+                    random.seed(seed+len(word))
                     inflection = random.choices(inflections[1])[0][1]
                     new_tokens[i] = inflection
         return new_tokens
 
 
-class EnglishInflectionalVariationQAQuestionOnly(EnglishInflectionalVariation, QuestionAnswerOperation):
-    def __init__(self):
-        super().__init__()
+class EnglishInflectionalVariationQAQuestionOnly(QuestionAnswerOperation):
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed=seed, max_outputs=max_outputs)
         self.tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
+        self.question_perturber = EnglishInflectionalVariation(seed=seed, max_outputs=max_outputs)
 
     def generate(self, context: str, question: str, answers: List[str]):
         '''
         `inflection_distribution` should have the following structure: { PTB tag: int, ... , PTB tag: int }
         Can be used for generating training data since the span indices of answers/context are unchanged.
         '''
-        perturbed_question = super().generate(question)[0]
+        perturbed_questions = self.question_perturber.generate(question)
         
-        print(f"Perturbed Input from {self.name()} : {perturbed_question}")
-        return [context, perturbed_question, answers]
-        
+        #print(f"Perturbed Input from {self.name()} : {perturbed_questions}")
+        return [(context, pq, answers) for pq in perturbed_questions]
