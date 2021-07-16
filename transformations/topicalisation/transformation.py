@@ -105,33 +105,3 @@ class Topicalisation(SentenceOperation):
                             print(f"Topicalised: {topicalized}")
                         generations.append(topicalized)
         return generations
-
-
-"""
-# Sample code to demonstrate usage. Can also assist in adding test cases.
-# You don't need to keep this code in your transformation.
-if __name__ == '__main__':
-    import json
-    from TestRunner import convert_to_snake_case
-
-    tf = Topicalisation(verbose=True)
-    sentence = "Andrew finally returned the French book to Chris that I bought last week"
-    test_cases = []
-    for sentence in ["Shelly has indeed uncovered part of our plan.",
-                     "Andrew finally returned the French book to Chris that I bought last week",
-        "It tries to boast a huge charm factor",
-        "Bill is living in that one house on the hill.",
-        "It fizzles like a wet stick of dynamite, at the very end.",
-                     "no number of fantastic sets , extras , costumes and spectacular locales can disguise the emptiness at the center of the story .",
-                     "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
-                     "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
-                     "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
-                     "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
-                     "I won't eat that pizza."]:
-        test_cases.append({
-            "class": tf.name(),
-            "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
-        )
-    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    print(json.dumps(json_file))
-"""
