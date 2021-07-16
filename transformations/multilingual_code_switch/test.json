@@ -1,0 +1,50 @@
+{
+  "type": "butter_fingers_perturbation",
+  "test_cases": [
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "Andrew finally واپس το frantses 圖書 to Chris that I купена آخری حوالہ недели"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [{
+        "sentence": "Sentences with gapping, such as Paul piace кафе y Mary tea, ขาด an overt predicate to پہچاننا la रिश्ता zwischen två or mas arguments."
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated sombre фантазия περιπέτεια film"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [{
+        "sentence": "Ujjal Dev Dosanjh zugestellt as 33rd Premier of British Columbia から 2000 to 2001"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [{
+        "sentence": "Neuroplasticity is a پیوستہ transformación allowing short-term, medium-term, そして long-term remodeling of the neuronosynaptic organization."
+      }]
+    }
+  ]
+}
