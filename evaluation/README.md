@@ -47,6 +47,12 @@ Here, we provide a leaderboards for each default task, by executing transformati
 ### Text Classification
 
 
+Default models and datasets:
+
+- [SST-2](https://huggingface.co/datasets/glue): [textattack/roberta-base-SST-2](https://huggingface.co/textattack/roberta-base-SST-2)
+- [IMDB](https://huggingface.co/datasets/imdb): [textattack/roberta-base-imdb](https://huggingface.co/textattack/roberta-base-imdb)
+- [QQP](https://huggingface.co/datasets/glue): [textattack/bert-base-uncased-QQP](https://huggingface.co/textattack/bert-base-uncased-QQP)
+- [MNLI](https://huggingface.co/datasets/multi_nli): [roberta-large-mnli](https://huggingface.co/roberta-large-mnli)
 
 ### Text-to-Text Generation
 ### Text Tagging

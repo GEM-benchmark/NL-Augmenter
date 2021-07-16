@@ -11,3 +11,6 @@ build/
 *.log
 .env
 .venv
+notebooks/leaderboard.ipynb
+.ipynb_checkpoints
+NL_Augmenter.egg-info
