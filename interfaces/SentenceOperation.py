@@ -1,4 +1,4 @@
-from typing import Tuple, List
+from typing import List, Tuple
 
 from interfaces.Operation import Operation
 
@@ -14,11 +14,11 @@ class SentenceOperation(Operation):
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
 
-    "locales" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
+    "languages" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
     "en_IN"
     """
 
-    def generate(self, sentence: str) -> str:
+    def generate(self, sentence: str) -> List[str]:
         raise NotImplementedError
 
     def filter(self, sentence: str) -> bool:
@@ -33,23 +33,19 @@ class SentenceAndTargetOperation(Operation):
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
 
-    "src_locales", "tgt_locales :: The locales and/or languages for which this perturbation is applicable. eg. "es",
+    "languages", "tgt_languages :: The locales and/or languages for which this perturbation is applicable. eg. "es",
     "mr","en_IN"
     """
 
-    src_locale = None
-    tgt_locale = None
+    languages = None
+    tgt_languages = None
     tasks = None
 
     @classmethod
     def domain(cls):
-        return cls.tasks, cls.src_locale, cls.tgt_locale
+        return cls.tasks, cls.languages, cls.tgt_languages
 
-    @classmethod
-    def name(cls):
-        return cls.__name__
-
-    def generate(self, sentence: str, target: str) -> Tuple[str, str]:
+    def generate(self, sentence: str, target: str) -> List[Tuple[str, str]]:
         raise NotImplementedError
 
     def filter(self, sentence: str, target: str) -> bool:
@@ -59,28 +55,26 @@ class SentenceAndTargetOperation(Operation):
 class SentenceAndTargetsOperation(Operation):
     """
     The base class for implementing sentence-pair-level perturbations and transformations. There can be
-    muliple targets eg. multiple references in machine translation.
+    multiple targets eg. multiple references in machine translation.
 
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
 
-    "src_locales", "tgt_locales :: The locales and/or languages for which this perturbation is applicable. eg. "es",
+    "languages", "tgt_languages :: The locales and/or languages for which this perturbation is applicable. eg. "es",
     "mr","en_IN"
     """
 
-    src_locale = None
-    tgt_locale = None
+    languages = None
+    tgt_languages = None
     tasks = None
 
     @classmethod
     def domain(cls):
-        return cls.tasks, cls.src_locale, cls.tgt_locale
+        return cls.tasks, cls.languages, cls.tgt_languages
 
-    @classmethod
-    def name(cls):
-        return cls.__name__
-
-    def generate(self, sentence: str, target: List[str]) -> Tuple[str, List[str]]:
+    def generate(
+        self, sentence: str, target: List[str]
+    ) -> List[Tuple[str, List[str]]]:
         raise NotImplementedError
 
     def filter(self, sentence: str, target: List[str]) -> bool:

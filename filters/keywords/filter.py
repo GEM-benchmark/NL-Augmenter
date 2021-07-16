@@ -1,18 +1,19 @@
-import spacy
-
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from typing import List
+from initialize import spacy_nlp
+import spacy
 
 
 class TextContainsKeywordsFilter(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-    locales = ["en"]
+    languages = ["en"]
 
-    def __init__(self, keywords: List[str] = None):
+    def __init__(self, keywords=None):
         super().__init__()
+        if keywords is None:
+            keywords = ["these", "keywords", "are", "only", "for", "demo"]
         self.keywords = keywords
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def filter(self, sentence: str = None) -> bool:
         tokenized = self.nlp(sentence, disable=["parser", "tagger", "ner"])

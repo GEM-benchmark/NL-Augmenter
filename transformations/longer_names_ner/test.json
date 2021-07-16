@@ -1,137 +1,30 @@
 {
-  "type": "butter_fingers_perturbation",
+  "type": "longer_names_ner",
   "test_cases": [
     {
-      "input_sequence": [
-        "Manmohan",
-        "Singh",
-        "served",
-        "as",
-        "the",
-        "PM",
-        "of",
-        "India",
-        "."
-      ],
-      "input_tag": [
-        "B-PER",
-        "I-PER",
-        "O",
-        "O",
-        "O",
-        "O",
-        "O",
-        "B-COUNTRY",
-        "O"
-      ],
-      "output_sequence": [
-        "Manmohan",
-        "M",
-        "Singh",
-        "served",
-        "as",
-        "the",
-        "PM",
-        "of",
-        "India",
-        "."
-      ],
-      "output_tag": [
-        "B-PER",
-        "I-PER",
-        "I-PER",
-        "O",
-        "O",
-        "O",
-        "O",
-        "O",
-        "B-COUNTRY",
-        "O"
-      ]
+      "class": "LongerNamesNer",
+      "inputs": {
+        "token_sequence": "Manmohan Singh served as the PM of India .",
+        "tag_sequence": "B-PER I-PER O O O O O B-COUNTRY O"
+      },
+      "outputs": [{
+        "token_sequence": "Manmohan Y M Singh served as the PM of India .",
+        "tag_sequence": "B-PER I-PER I-PER I-PER O O O O O B-COUNTRY O"
+      },{
+        "token_sequence": "Manmohan Y M Singh served as the PM of India .",
+        "tag_sequence": "B-PER I-PER I-PER I-PER O O O O O B-COUNTRY O"
+      }]
     },
     {
-      "input_sequence": [
-        "Neil",
-        "Alden",
-        "Armstrong",
-        "was",
-        "an",
-        "American",
-        "astronaut"
-      ],
-      "input_tag": [
-        "B-PER",
-        "I-PER",
-        "I-PER",
-        "O",
-        "O",
-        "B-COUNTRY",
-        "B-COUNTRY"
-      ],
-      "output_sequence": [
-        "Neil",
-        "Y",
-        "Alden",
-        "Armstrong",
-        "was",
-        "an",
-        "American",
-        "astronaut"
-      ],
-      "output_tag": [
-        "B-PER",
-        "I-PER",
-        "I-PER",
-        "I-PER",
-        "O",
-        "O",
-        "B-COUNTRY",
-        "B-COUNTRY"
-      ]
-    },
-    {
-      "input_sequence": [
-        "The",
-        "owner",
-        "of",
-        "the",
-        "mall",
-        "is",
-        "Anthony",
-        "Gonsalves."
-      ],
-      "input_tag": [
-        "The",
-        "owner",
-        "of",
-        "the",
-        "mall",
-        "is",
-        "B-PER",
-        "I-PER"
-      ],
-      "output_sequence": [
-        "The",
-        "owner",
-        "of",
-        "the",
-        "mall",
-        "is",
-        "Anthony",
-        "N",
-        "Gonsalves."
-      ],
-      "output_tag": [
-        "The",
-        "owner",
-        "of",
-        "the",
-        "mall",
-        "is",
-        "B-PER",
-        "I-PER",
-        "I-PER"
-      ]
+      "class": "LongerNamesNer",
+      "inputs": {
+        "token_sequence": "Neil Alden Armstrong was an American astronaut",
+        "tag_sequence": "B-PER I-PER I-PER O O B-COUNTRY O"
+      },
+      "outputs": [{
+        "token_sequence": "Neil Y M Alden Armstrong was an American astronaut",
+        "tag_sequence": "B-PER I-PER I-PER I-PER I-PER O O B-COUNTRY O"
+      }]
     }
   ]
 }
