@@ -6,8 +6,6 @@ from tasks.TaskTypes import TaskType
 
 CURRENT_FILE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
-random.seed(10043)
-
 """
 The bilingual dict code-switch method used here comes from paper "Word Translation Without Parallel Data" MUSE
 We utilize all language from this bilingual dictionary in default. 
@@ -61,7 +59,8 @@ link: https://arxiv.org/abs/2006.06402
 """
 
 
-def code_switch(sentence, switch_dict, code_switch_rate):
+def code_switch(sentence, switch_dict, code_switch_rate, seed):
+    random.seed(seed)
     words = sentence.split(" ")
     out = ""
     for word in words:
@@ -89,11 +88,13 @@ class MultilingualCodeSwitch(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1, code_switch_rate=0.9):
         super().__init__(seed, max_outputs=max_outputs)
+        self.seed = seed
         self.code_switch_rate = code_switch_rate
         self.switch_dict = load_dict()
 
     def generate(self, sentence: str):
-        return [code_switch(sentence, self.switch_dict, self.code_switch_rate)]
+
+        return [code_switch(sentence, self.switch_dict, self.code_switch_rate, self.seed)]
 
 
 if __name__ == "__main__":
