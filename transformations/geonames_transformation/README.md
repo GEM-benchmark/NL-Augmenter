@@ -36,6 +36,8 @@ Generated sentences:
 
 ## Data and code provenance
 This transformation makes use of city and country information obtained from GeoNames ( http://download.geonames.org/export/dump/ ).
+The GeoNames Gazetteer files are licensed under a Creative Commons Attribution 4.0 License,
+see https://creativecommons.org/licenses/by/4.0/ .
 Additionally, locale codes were used for obtaining the language names. This information was obtained from ( https://www.science.co.il/language/Locale-codes.php ).
 
 The code was written from scratch by the author for this project. An initial idea was explored for the purposes of my PhD thesis:
