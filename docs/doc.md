@@ -54,7 +54,7 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Paraphrasers and Data Augmenters:** Besides perturbations, we welcome transformation methods that act like paraphrasers and data augmenters. For non-deterministic approaches, we encourage you to specify metrics which can provide an estimate of the generation quality. We prefer high precision transformation generators over low accuracy ones. And hence it's okay if your transformation selectively generates. 
  
-**Test Cases:** We recommend you to add 5 examples in the file `test.json` as test cases for every added transformation. These examples serve as test cases and provide reviewers a sample of your transformation's output. The format of `test.json` can be borrowed from the sample transformations [here.](../interfaces) Addition of the the test cases is **not mandatory** but is encouraged.
+**Test Cases:** We recommend you to add at least 5 examples in the file `test.json` as test cases for every added transformation. These examples serve as test cases and provide reviewers a sample of your transformation's output. The format of `test.json` can be borrowed from the sample transformations [here.](../interfaces) A good set of    Addition of the the test cases is **not mandatory** but is encouraged.
 
 **Evaluating Robustness:** To make a stronger PR, a transformation's potential to act as a robustness tool should be tested via executing [`evaluate.py`](../evaluation) and the corresponding performance should be mentioned in the README. Evaluation should only be skipped in case there is no support in the [evaluation_engine](../evaluation).  
 
@@ -74,7 +74,7 @@ Filters are qualifying conditions on the input data which help identify informat
 
 
 ## What is the purpose of test.json
-The `test.json` simply serves to keep track of the core logic of transformation that you intend. While working with the code to and fro, you don't want to mistakenly change the output of someone else's code. Additionally, it makes reviewing much simpler as it gives a quick look into the examples that your logic generates.   
+The `test.json` simply serves to keep track of the core logic of transformation that you intend. While working with the code to and fro, you don't want to mistakenly change the output of someone else's code. Additionally, it makes reviewing much simpler as it gives a quick look into the examples that your logic generates. Besides, it is good practise to let users know the quality of the outputs the transformation generates. And hence this is also the place where you should display good as well as bad generations.
 
 ## Three Most Creative Implementations
  🏆  🏆  🏆 After all pull-requests have been merged, 3 of the most creative implementations would be selected and featured on this README page. The selection would be done by the [organizers of NL-Augmenter](https://gem-benchmark.com/nl_augmenter). The minimum requirement to be featured as "most creative" is novelty of implementation i.e. must be the participant's own work.
