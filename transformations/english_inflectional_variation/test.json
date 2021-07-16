@@ -4,12 +4,12 @@
     {
       "class": "EnglishInflectionalVariation",
       "inputs": {"sentence": "Andrew finally returned the French book to Chris that I bought last week"},
-      "outputs": [{"sentence": "Andrew finally return the French book to Chris that I buy last week"}]
+      "outputs": [{"sentence": "Andrew finally returning the French books to Chris that I buy last weeks"}]
     },
     {
       "class": "EnglishInflectionalVariation",
       "inputs": {"sentence": "Andrew finally got the French book I sent to him two days ago."},
-      "outputs": [{"sentence": "Andrew finally get the French book I send to him two day ago."}]
+      "outputs": [{"sentence": "Andrew finally gotten the French books I sent to him two days ago."}]
     },
     {
       "class": "EnglishInflectionalVariation",
@@ -37,7 +37,7 @@
       },
       "outputs": [{
         "context": "Jim went to the pool instead of the gym yesterday.",
-        "question": "Did Jim go to the gyms yesterdays",
+        "question": "Did Jim go to the gyms yesterdays?",
         "answers": [
           "no"
         ]
