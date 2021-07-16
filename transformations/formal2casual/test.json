@@ -45,6 +45,15 @@
       "outputs": [{
         "sentence": "I'd be so lucky to work with you."
       }]
+    },
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "This is not the type of service one would expect at a restaurant with such high prices."
+      },
+      "outputs": [{
+        "sentence": "this is not the kind of service one would expect at a restaurant with such high prices."
+      }]
     }
   ]
 }
