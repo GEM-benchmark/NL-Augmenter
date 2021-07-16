@@ -6,12 +6,13 @@ from tasks.TaskTypes import TaskType
 
 CURRENT_FILE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
+random.seed(10043)
+
 """
 The bilingual dict code-switch method used here comes from paper "Word Translation Without Parallel Data" MUSE
 We utilize all language from this bilingual dictionary in default. 
 link: https://arxiv.org/abs/1710.04087
 """
-
 
 def load_dict():
     dict_path = os.path.join(CURRENT_FILE_ROOT, "dict")
@@ -79,6 +80,11 @@ def code_switch(sentence, switch_dict, code_switch_rate):
 
 
 class MultilingualCodeSwitch(SentenceOperation):
+    tasks = [
+        TaskType.TEXT_TAGGING,
+        TaskType.TEXT_CLASSIFICATION,
+        TaskType.SENTIMENT_ANALYSIS,
+    ]
     languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=1, code_switch_rate=0.9):
@@ -87,13 +93,19 @@ class MultilingualCodeSwitch(SentenceOperation):
         self.switch_dict = load_dict()
 
     def generate(self, sentence: str):
-        return code_switch(sentence, self.switch_dict, self.code_switch_rate)
+        return [code_switch(sentence, self.switch_dict, self.code_switch_rate)]
 
 
-# if __name__ == "__main__":
-#     sc = MultilingualCodeSwitch()
-#     print(
-#         sc.generate(
-#             "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
-#         )
-#     )
+if __name__ == "__main__":
+    import json
+    sc = MultilingualCodeSwitch()
+    with open("test.json", "r") as f:
+        data = json.load(f)
+    new_data = []
+    for data_item in data['test_cases']:
+        data_item['outputs'][0]['sentence'] = sc.generate(data_item['inputs']['sentence'])[0]
+        new_data.append(data_item)
+    data['test_cases'] = new_data
+
+    with open("test.json", "w") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
