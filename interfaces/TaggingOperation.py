@@ -1,4 +1,4 @@
-from typing import Tuple, List
+from typing import List, Tuple
 
 from interfaces.Operation import Operation
 
@@ -23,5 +23,7 @@ class TaggingOperation(Operation):
     ) -> List[Tuple[List[str], List[str]]]:
         raise NotImplementedError
 
-    def filter(self, token_sequence: List[str], tag_sequence: List[str]) -> bool:
+    def filter(
+        self, token_sequence: List[str], tag_sequence: List[str]
+    ) -> bool:
         raise NotImplementedError
