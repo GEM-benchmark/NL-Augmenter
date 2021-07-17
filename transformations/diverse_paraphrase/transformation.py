@@ -15,10 +15,9 @@ class DiverseParaphrase(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
-    def __init__(self, augmenter="dips", num_outputs=4):
+    def __init__(self, augmenter="dips", num_outputs=3, seed=42):
         super().__init__()
 
-        seed = 42
         random.seed(seed)
         np.random.seed(seed)
         torch.manual_seed(seed)
@@ -36,7 +35,7 @@ class DiverseParaphrase(SentenceOperation):
             )
             print("Primary options for augmenter : {}. \n".format(str(choices)))
             print(
-                "Default: augmenter='dips', num_outputs=4. Change using DiverseParaphrase(augmenter=<option>, num_outputs=<num_outputs>)\n"
+                "Default: augmenter='dips', num_outputs=3. Change using DiverseParaphrase(augmenter=<option>, num_outputs=<num_outputs>)\n"
             )
             print("Starting to load English to German Translation Model.\n")
 

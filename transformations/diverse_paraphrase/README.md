@@ -13,13 +13,13 @@ d) random: Randomly selects `num_outputs` candidates.
 
 Eg:
 ```python
->>> t = DiverseParaphrase(augmenter='dips', num_outputs=4)
+>>> t = DiverseParaphrase(augmenter='dips', num_outputs=3)
 >>> t.generate('Joe Biden is the President of USA.')
 ```
 
 Replace augmenter with any of the above mentioned options. \
 \
-Default: augmenter='dips', num_outputs=4. \
+Default: augmenter='dips', num_outputs=3. \
 In most cases, dips should be the preferred choice.
 
 ## What tasks does it intend to benefit?

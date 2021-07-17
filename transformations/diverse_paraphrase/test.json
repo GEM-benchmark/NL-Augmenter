@@ -3,66 +3,89 @@
     "test_cases": [
         {
             "class": "DiverseParaphrase",
-            "inputs": {
-                "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+            "args": {
+                "augmenter": "dips"
             },
-            "outputs": [
-                {
-                    "sentence": "Andrew eventually gave Chris the French book, which I bought last week."
-                },
-                {
-                    "sentence": "Andrew finally returned the French book to Chris, which I bought last week."
-                },
-                {
-                    "sentence": "Andrew eventually gave Chris back the French book I had bought last week."
-                },
-                {
-                    "sentence": "Andrew eventually returned the French book I'd bought last week to Chris."
-                }
-            ]
-        },
-        {
-            "class": "DiverseParaphrase",
-            "inputs": {
-                "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
-            },
-            "outputs": [
-                {
-                    "sentence": "Sentences with loopholes, such as Paul likes coffee and Mary tea, have no obvious predicate to indicate the relationship between two or more arguments."
-                },
-                {
-                    "sentence": "Sentences with gaps, such as Paul likes coffee and Mary tea, have no obvious predicate to indicate the relationship between two or more arguments."
-                },
-                {
-                    "sentence": "Gap-closing sentences, like Paul likes coffee and Maria tea, have no obvious predicate to indicate the relationship between two or more arguments."
-                },
-                {
-                    "sentence": "Gap-closing phrases, such as Paul likes coffee and Mary tea, do not have an obvious predicate to indicate the relationship between two or more arguments."
-                }
-            ]
-        },
-        {
-            "class": "DiverseParaphrase",
             "inputs": {
                 "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
             },
             "outputs": [
                 {
-                    "sentence": "Alice in Wonderland is a American live-action / animated dark fantasy adventure film from 2010"
+                    "sentence": "Alice in Wonderland is a American live-action / animated dark fantasy adventure film from 2010."
                 },
                 {
                     "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure film from the year 2010"
                 },
                 {
-                    "sentence": "Alice in Wonderland is an American live action / animated dark fantasy adventure movie from 2010."
-                },
-                {
-                    "sentence": "Alice in Wonderland is an American live-action / animated Dark Fantasy adventure film from 2010."
+                    "sentence": "Alice in Wonderland is an American live action / animated dark fantasy adventure movie from 2010"
                 }
             ]
         },
         {
             "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "diverse_beam"
+            },
+            "inputs": {
+                "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+            },
+            "outputs": [
+                {
+                    "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure film from 2010."
+                },
+                {
+                    "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure movie from 2010."
+                },
+                {
+                    "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure film from 2010"
+                }
+            ]
+        },
+        {
+            "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "beam"
+            },
+            "inputs": {
+                "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+            },
+            "outputs": [
+                {
+                    "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure film from 2010."
+                },
+                {
+                    "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure movie from 2010."
+                },
+                {
+                    "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure film from 2010"
+                }
+            ]
+        },
+        {
+            "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "random"
+            },
+            "inputs": {
+                "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+            },
+            "outputs": [
+                {
+                    "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure film from 2010."
+                },
+                {
+                    "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure film from 2010"
+                },
+                {
+                    "sentence": "Alice in Wonderland is an American live-action / animated dark fantasy adventure from 2010"
+                }
+            ]
+        },
+        {
+            "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "dips"
+            },
             "inputs": {
                 "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
             },
@@ -71,10 +94,7 @@
                     "sentence": "Ujjal Dev Dosanjh was the 33rd Prime Minister of British Columbia between 2000 and 2001."
                 },
                 {
-                    "sentence": "Ujjal Dev Dosanjh was 33 Prime Minister of British Columbia from 2000 to 2001"
-                },
-                {
-                    "sentence": "Ujjal Dev Dosanjh was 33rd prime minister of British Columbia from 2000 to 2001"
+                    "sentence": "Ujjal Dev Dosanjh was the 33rd prime minister of British Columbia from 2000 to 2001"
                 },
                 {
                     "sentence": "Ujjal Dev Dosanjh served as the 33rd Prime Minister of British Columbia from 2000 to 2001"
@@ -83,21 +103,141 @@
         },
         {
             "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "diverse_beam"
+            },
+            "inputs": {
+                "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+            },
+            "outputs": [
+                {
+                    "sentence": "Ujjal Dev Dosanjh was the 33rd Prime Minister of British Columbia from 2000 to 2001"
+                },
+                {
+                    "sentence": "Ujjal Dev Dosanjh was 33rd Prime Minister of British Columbia from 2000 to 2001"
+                },
+                {
+                    "sentence": "Ujjal Dev Dosanjh was the 33rd Prime Minister of British Columbia between 2000 and 2001"
+                }
+            ]
+        },
+        {
+            "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "beam"
+            },
+            "inputs": {
+                "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+            },
+            "outputs": [
+                {
+                    "sentence": "Ujjal Dev Dosanjh was the 33rd Prime Minister of British Columbia from 2000 to 2001"
+                },
+                {
+                    "sentence": "Ujjal Dev Dosanjh was 33rd Prime Minister of British Columbia from 2000 to 2001"
+                },
+                {
+                    "sentence": "Ujjal Dev Dosanjh was the 33rd Prime Minister of British Columbia between 2000 and 2001"
+                }
+            ]
+        },
+        {
+            "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "random"
+            },
+            "inputs": {
+                "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+            },
+            "outputs": [
+                {
+                    "sentence": "Ujjal Dev Dosanjh was the 33rd Prime Minister of British Columbia from 2000 to 2001"
+                },
+                {
+                    "sentence": "Ujjal Dev Dosanjh was the 33rd Prime Minister of British Columbia between 2000 and 2001"
+                },
+                {
+                    "sentence": "Ujjal Dev Dosanjh was the 33rd Prime Minister of British Columbia from 2000 until 2001"
+                }
+            ]
+        },
+        {
+            "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "dips"
+            },
             "inputs": {
                 "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
             },
             "outputs": [
                 {
+                    "sentence": "Neuroplasticity is a continuous process that enables a short-term, medium-term and long-term transformation of neuronosynaptic organisation."
+                },
+                {
                     "sentence": "Neuroplasticity is a continuous processing that allows a short-term, medium-term and long-term transformation of the neuronosynaptic organization."
+                },
+                {
+                    "sentence": "Neuroplasticity is a continuous processing, which enables a short-term, medium-term and long-term transformation of the neuronosynaptic organization."
+                }
+            ]
+        },
+        {
+            "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "diverse_beam"
+            },
+            "inputs": {
+                "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+            },
+            "outputs": [
+                {
+                    "sentence": "Neuroplasticity is a continuous processing that enables a short-term, medium-term and long-term transformation of neuronosynaptic organization."
+                },
+                {
+                    "sentence": "Neuroplasticity is a continuous processing that enables a short-term, medium-term and long-term transformation of the neuronosynaptic organization."
+                },
+                {
+                    "sentence": "Neuroplasticity is a continuous processing that enables a short-term, medium-term and long-term transformation of neuronosynaptic organisation."
+                }
+            ]
+        },
+        {
+            "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "beam"
+            },
+            "inputs": {
+                "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+            },
+            "outputs": [
+                {
+                    "sentence": "Neuroplasticity is a continuous processing that enables a short-term, medium-term and long-term transformation of neuronosynaptic organization."
+                },
+                {
+                    "sentence": "Neuroplasticity is a continuous processing that enables a short-term, medium-term and long-term transformation of the neuronosynaptic organization."
+                },
+                {
+                    "sentence": "Neuroplasticity is a continuous processing that enables a short-term, medium-term and long-term transformation of neuronosynaptic organisation."
+                }
+            ]
+        },
+        {
+            "class": "DiverseParaphrase",
+            "args": {
+                "augmenter": "random"
+            },
+            "inputs": {
+                "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+            },
+            "outputs": [
+                {
+                    "sentence": "Neuroplasticity is a continuous process that enables a short-term, medium-term and long-term transformation of neuronosynaptic organization."
                 },
                 {
                     "sentence": "Neuroplasticity is a continuous processing, which enables a short-term, medium-term and long-term transformation of the neuronosynaptic organization."
                 },
                 {
-                    "sentence": "Neuroplasticity is a continuous process that enables a short-term, medium-term and long-term transformation of neuronosynaptic organisation."
-                },
-                {
-                    "sentence": "Neuroplasticity is a continuous processing that enables a short-term, medium-term, and long-term transformation of neuronosynaptic organization."
+                    "sentence": "Neuroplasticity is a continuous process that enables a short-term, medium-term and long-term transformation of the neuronosynaptic organisation."
                 }
             ]
         }
