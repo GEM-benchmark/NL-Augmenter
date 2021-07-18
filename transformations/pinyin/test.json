@@ -9,6 +9,15 @@
       "outputs": [{
         "sentence": "zai guojia zhanlu:e fangmian ， chongqing bei queding wei xibu da kaifa de zhongyao zhanlu:e zhidian 、 “ yidai yilu ” he changjiang jingjidai de lianjiedian 、 neilu kaifang gaodi 。"
       }]
+    },
+    {
+      "class": "PinyinTranscription",
+      "inputs": {
+        "sentence": "他持续研究统计力学与量子理论，这让他给出了粒子论与对于分子运动的解释。"
+      },
+      "outputs": [{
+        "sentence": "ta chixu yanjiu tongji lixue yu liangzi lilun ， zhe rang ta geichu le lizilun yu duiyu fenzi yundong de jieshi 。"
+      }]
     }
   ]
 }
