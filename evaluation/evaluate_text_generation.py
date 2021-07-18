@@ -5,14 +5,19 @@ from rouge_score import rouge_scorer
 from dataset import KeyValueDataset
 from tasks.TaskTypes import TaskType
 
-scorer = rouge_scorer.RougeScorer(['rouge1'])
+scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'])
 
 
 def rogue_score(hypotheses, references):
-    total_f1_scores = 0.0
+    one_gram_scores = 0.0
+    two_gram_scores = 0.0
+    rouge_L_scores = 0.0
     for ref, hyp in zip(references, hypotheses):
-        total_f1_scores+=scorer.score(ref, hyp)['rouge1'][2] # [2] for f1 score
-    return total_f1_scores/len(hypotheses)
+        scores=scorer.score(ref, hyp)
+        one_gram_scores+=scores['rouge1'][2] # [2] for f1 score
+        two_gram_scores+=scores['rouge2'][2]
+        rouge_L_scores+=scores['rougeL'][2]
+    return one_gram_scores/len(hypotheses), two_gram_scores/len(hypotheses), rouge_L_scores/len(hypotheses)
 
 
 def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"):
@@ -73,7 +78,9 @@ def transformation_performance(dataset, summarization_pipeline, transformation):
     pt_performance = performance_on_dataset(
         pt_dataset, summarization_pipeline
     )
-    return {"rouge": performance["rouge"], "pt_rouge": pt_performance["rouge"]}
+    return {"rouge1": performance["rouge1"], "pt_rouge1": pt_performance["rouge1"],
+            "rouge2": performance["rouge2"], "pt_rouge2": pt_performance["rouge2"],
+            "rougeL": performance["rougeL"], "pt_rougeL": pt_performance["rougeL"]}
 
 
 def performance_on_dataset(dataset, summarization_pipeline):
@@ -92,9 +99,13 @@ def performance_on_dataset(dataset, summarization_pipeline):
 
         references.append(gold_summary)
         raw_hypotheses.append(predicted_summary)
-    predicted_summary_score = rogue_score(raw_hypotheses, references)
+    predicted_summary_scores = rogue_score(raw_hypotheses, references)
 
-    print(f"Predicted ROUGE score = {predicted_summary_score}")
+    print(f"Predicted ROUGE-1 score = {predicted_summary_scores[0]},\n"
+          f"Predicted ROUGE-2 score = {predicted_summary_scores[1]},\n"
+          f"Predicted ROUGE-L score = {predicted_summary_scores[2]}")
     return {
-        "rouge": np.round(predicted_summary_score, 3),
+        "rouge1": np.round(predicted_summary_scores[0], 3),
+        "rouge2": np.round(predicted_summary_scores[1], 3),
+        "rougeL": np.round(predicted_summary_scores[2], 3)
     }
