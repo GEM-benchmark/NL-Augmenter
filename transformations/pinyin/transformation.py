@@ -26,8 +26,10 @@ class PinyinTranscription(SentenceOperation):
         syllables = self.g2pm(word, tone=False)
         pinyin = ''
         for i in range(len(syllables)):
-            # TODO: Check that this is correct in all cases
+            # FIXME: This will mess up inputs that contain these latin
+            #  characters
             syllable = syllables[i].replace('u:', 'v')
+            # TODO: Check that this is correct in all cases
             if i > 0 and len(word) and word[0] in VOWELS:
                 pinyin += "'" + syllable
             else:
