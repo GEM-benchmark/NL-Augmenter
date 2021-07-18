@@ -18,12 +18,14 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.7
+    - uses: actions/cache@v2
+      with:
+        path: ${{ env.pythonLocation }}
+        key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
     - name: Install dependencies
       run: |
-        python3 -m pip install --upgrade pip
-        pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
-        pip3 install ./
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f requirements.txt ]; then pip3 install --upgrade --upgrade-strategy eager -r requirements.txt -e . ; fi
+        pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz
     - name: Test with pytest
       run: |
         pytest -s --t=light --f=light

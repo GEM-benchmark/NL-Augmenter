@@ -40,10 +40,12 @@ class OperationRuns(object):
         elif transformation_name == "all":
             self._load_all_transformation_test_case(heavy=True, search=search)
         else:
-            self._load_single_transformation_test_case(transformation_name, search)
+            self._load_single_transformation_test_case(
+                transformation_name, search
+            )
 
     def _load_single_transformation_test_case(
-            self, transformation_name, search="transformations"
+        self, transformation_name, search="transformations"
     ):
         filters = []
         filter_test_cases = []
@@ -59,9 +61,11 @@ class OperationRuns(object):
             class_args = test_case["args"] if "args" in test_case else {}
             # construct filter class with input args
             cls = getattr(t_py, class_name)
-            if (filter_instance is None
-                    or filter_instance.name() != class_name
-                    or prev_class_args != class_args):
+            if (
+                filter_instance is None
+                or filter_instance.name() != class_name
+                or prev_class_args != class_args
+            ):
                 filter_instance = cls(**class_args)
                 prev_class_args = class_args
 
@@ -71,7 +75,9 @@ class OperationRuns(object):
         self.operations = filters
         self.operation_test_cases = filter_test_cases
 
-    def _load_all_transformation_test_case(self, heavy=False, search="transformations"):
+    def _load_all_transformation_test_case(
+        self, heavy=False, search="transformations"
+    ):
         filters = []
         filter_test_cases = []
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
@@ -91,9 +97,11 @@ class OperationRuns(object):
                     continue
                 else:
                     # Check if the same instance (i.e. with the same args is already loaded)
-                    if (filter_instance is None
-                            or filter_instance.name() != class_name
-                            or prev_class_args != class_args):
+                    if (
+                        filter_instance is None
+                        or filter_instance.name() != class_name
+                        or prev_class_args != class_args
+                    ):
                         filter_instance = cls(**class_args)
                         prev_class_args = class_args
 
@@ -109,7 +117,7 @@ class OperationRuns(object):
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
         for (_, folder, _) in iter_modules(
-                [transformations_dir]
+            [transformations_dir]
         ):  # ---> ["back_translation", ...]
             yield folder
 
@@ -119,20 +127,20 @@ class OperationRuns(object):
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
         for (_, folder, _) in iter_modules(
-                [transformations_dir]
+            [transformations_dir]
         ):  # ---> ["back_translation", ...]
             t_py = import_module(f"{search}.{folder}")
             for name, obj in inspect.getmembers(t_py):
                 if (
-                        inspect.isclass(obj)
-                        and issubclass(obj, Operation)
-                        and not obj.__module__.startswith("interfaces")
+                    inspect.isclass(obj)
+                    and issubclass(obj, Operation)
+                    and not obj.__module__.startswith("interfaces")
                 ):
                     yield obj
 
     @staticmethod
     def get_all_operations_for_task(
-            query_task_type: TaskType, search="transformations"
+        query_task_type: TaskType, search="transformations"
     ) -> Iterable:
         # iterate through the modules in the current package
         for operation in OperationRuns.get_all_operations(search):
@@ -160,7 +168,7 @@ if __name__ == "__main__":
         print(x)
     print()
     for transformation in OperationRuns.get_all_operations_for_task(
-            TaskType.QUESTION_ANSWERING
+        TaskType.QUESTION_ANSWERING
     ):
         print(transformation.name())
         impl = transformation()
