@@ -1,29 +1,23 @@
 # Pinyin Chinese Character Transcription 🀄  → 🅰
-This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise erupting 
-from keyboard typos making common spelling errors.
 
-Author name: Kaustubh Dhole
-Author email: __
-Author Affiliation: __
+This transformation transcribes Chinese characters into their Mandarin 
+pronunciation 
+
+Author name: Connor Boyle
+Author email: connor.bo@gmail.com
+Author Affiliation: University of Washington
 
 ## What type of a transformation is this?
-This transformation acts like a perturbation to test robustness. Few letters picked at random are replaced with letters 
-which are at keyboard positions near the source letter. Generated transformations display high similarity to the 
-source sentences i.e. the code outputs highly precise generations. 
+
+This transformation segments the input Mandarin sentence using Spacy's default
+Chinese NLP pipeline, then transcribes those segments (without tone markers) 
+using the Pinyin romanization scheme. The resulting outputs represent the 
+same content in a different writing system.
 
 ## What tasks does it intend to benefit?
-This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
-text generation, etc. 
 
-```python evaluate.py -t ButterFingersPerturbation -task TEXT_CLASSIFICATION```
-```model_name = "aychang/roberta-base-imdb"```
-The accuracy of a RoBERTa model (fine-tuned on IMDB) (model: "aychang/roberta-base-imdb") 
-on a subset of IMDB sentiment dataset = 95.74
-The accuracy of the same model on the perturbed set = 88.26
-
-The average bleu score of a distillbert model (fine-tuned on xsum) (model: "sshleifer/distilbart-xsum-12-6") 
-on a subset (10%) of xsum test dataset = 14.9104
-The average bleu score of same model on the pertubed set = 11.9221
+This task would benefit any Chinese NLP task that has a 
+sentence/paragraph/document as input.
 
 ## Previous Work
 
@@ -50,5 +44,7 @@ model described in this paper:
 
 ## What are the limitations of this transformation?
 
-The transformation's outputs are too simple to be used for data augmentation. Unlike a paraphraser, it is not capable of
- generating linguistically diverse text.
+Chinese word segmentation (CWS) is a difficult task. This transformation relies
+on Spacy's default segmentation, which is of unknown quality. Transcription to
+pinyin is also non-trivial, but the model used for that step is nearly 
+state-of-the-art, while remaining lightweight.
