@@ -27,10 +27,11 @@ class PinyinTranscription(SentenceOperation):
         pinyin = ''
         for i in range(len(syllables)):
             # TODO: Check that this is correct in all cases
+            syllable = syllables[i].replace('u:', 'v')
             if i > 0 and len(word) and word[0] in VOWELS:
-                pinyin += "'" + syllables[i]
+                pinyin += "'" + syllable
             else:
-                pinyin += syllables[i]
+                pinyin += syllable
         return pinyin
 
     def generate(self, sentence: str):
