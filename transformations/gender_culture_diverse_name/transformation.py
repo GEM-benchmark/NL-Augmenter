@@ -22,8 +22,6 @@ def hash(input:str):
 class ChangeGenderCultureDiverseName:
     def __init__(self, data_path) -> None:
 
-        self.retain_gender = retain_gender
-        self.retain_culture = retain_culture
         with open(data_path, 'r') as f:
             self.names = json.load(f)
         self.countries = list(self.names.keys())
@@ -150,14 +148,10 @@ class GenderCultureDiverseName(SentenceOperation):
         if data_path is None:
             self.changer = ChangeGenderCultureDiverseName(
                 os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data.json'),
-                retain_gender, 
-                retain_culture
             )
         else:
             self.changer = ChangeGenderCultureDiverseName(
                 data_path,
-                retain_gender, 
-                retain_culture
             )
 
     def generate(self, sentence: str, retain_gender: bool = False, retain_culture: bool = False):
