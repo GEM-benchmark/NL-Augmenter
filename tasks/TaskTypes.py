@@ -20,3 +20,6 @@ class TaskType(enum.Enum):
     SENTIMENT_ANALYSIS = (
         12,
     )  # This is a specific type of text classification with unique properties
+    PARAPHRASE_DETECTION = (13,)
+    TEXTUAL_ENTAILMENT = (14,)
+
