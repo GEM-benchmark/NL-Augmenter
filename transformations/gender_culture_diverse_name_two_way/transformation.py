@@ -18,11 +18,9 @@ def hash(input:str):
     n = int(h.hexdigest(),base=16)
     return n
 
-class change_gender_culture_diverse_name_two_way:
-    def __init__(self, data_path, retain_gender=False, retain_culture=False) -> None:
+class ChangeGenderCultureDiverseNameTwoWay:
+    def __init__(self, data_path) -> None:
 
-        self.retain_gender = retain_gender
-        self.retain_culture = retain_culture
         with open(data_path, 'r') as f:
             self.names = json.load(f)
         self.countries = list(self.names.keys())
@@ -46,8 +44,13 @@ class change_gender_culture_diverse_name_two_way:
                         self.name2country[name] = set([country])
                     else:
                         self.name2country[name].add(country)
+        
+        self.name_all = sorted(self.name_all)
+        for name in self.name_all:
+            self.name2gender[name] = sorted(self.name2gender[name])
+            self.name2country[name] = sorted(self.name2country[name])
 
-    def apply(self, doc, tar, n=10, max_output=10, seed=None):
+    def apply(self, doc, tar, retain_gender=False, retain_culture=False, n=10, max_output=10, seed=None):
         """Replace names with another name, considering gender and cultural diversity
 
         Parameters
@@ -58,6 +61,10 @@ class change_gender_culture_diverse_name_two_way:
             target sentence
         n : int
             number of names to replace original names with
+        retain_gender: bool
+            sample new names with the same gender
+        retain_culture: bool
+            sample new names with the same culture
         max_output: int
             maximum number of perturbed sentences to output
         seed : int
@@ -88,11 +95,11 @@ class change_gender_culture_diverse_name_two_way:
             if name in self.name_all:
                 gender = self.name2gender[name]
                 country = self.name2country[name]
-                if self.retain_gender:
+                if retain_gender:
                     gender_choose_from = gender
                 else:
                     gender_choose_from = self.genders
-                if self.retain_culture:
+                if retain_culture:
                     country_choose_from = country
                 else:
                     country_choose_from = self.countries
@@ -116,7 +123,7 @@ class change_gender_culture_diverse_name_two_way:
                 
 
 
-class gender_culture_diverse_name_two_way(SentenceAndTargetOperation):
+class GenderCultureDiverseNameTwoWay(SentenceAndTargetOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ['el', 'sr', 'ja', 'lt', 'en', 
         'ar', 'sa', 'ta', 'te', 'rw', 
@@ -155,35 +162,35 @@ class gender_culture_diverse_name_two_way(SentenceAndTargetOperation):
     
     # language code following ISO 639-1 standard
 
-    def __init__(self, n=1, seed=0, max_output=1, retain_gender=False, retain_culture=False, data_path=None):
+    def __init__(self, n=1, seed=0, max_output=1, data_path=None):
         super().__init__(seed)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.n = n
         self.max_output = max_output
 
         if data_path is None:
-            self.changer = change_gender_culture_diverse_name_two_way(
+            self.changer = ChangeGenderCultureDiverseNameTwoWay(
                 os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data.json'),
-                retain_gender, 
-                retain_culture
             )
         else:
-            self.changer = change_gender_culture_diverse_name_two_way(
+            self.changer = ChangeGenderCultureDiverseNameTwoWay(
                 data_path,
-                retain_gender, 
-                retain_culture
             )
 
-    def generate(self, sentence: str, target: str):
-        random.seed(self.seed + hash(sentence))
-        perturbed_source, perturbed_target, _ = self.changer.apply(self.nlp(sentence), target, self.n, self.max_output)
+    def generate(self, sentence: str, target: str, retain_gender: bool=False, retain_culture: bool=False):
+        seed = self.seed + hash(sentence) + retain_gender * 1 + retain_culture * 2
+        perturbed_source, perturbed_target, _ = self.changer.apply(
+            self.nlp(sentence), target, retain_gender, retain_culture, self.n, self.max_output, seed
+        )
 
         return [(perturbed_source[idx], perturbed_target[idx]) for idx in range(len(perturbed_source))]
+
 
 """
 if __name__ == '__main__':
     from TestRunner import convert_to_snake_case
-    tf = gender_culture_diverse_name_two_way()
+    import itertools
+    tf = GenderCultureDiverseNameTwoWay()
     src = ["Andrew finally returned the French book to Chris that I bought last week",
             "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate"
             " to indicate the relation between two or more arguments."]
@@ -192,12 +199,21 @@ if __name__ == '__main__':
 
     test_cases = []
     for idx, (sentence, target) in enumerate(zip(src, tgt)):
-            perturbeds = tf.generate(sentence, target)
+        for retain_gender, retain_culture in itertools.product([False, True],[False, True]):
+            inputs = {
+                "sentence": sentence,
+                "target": target,
+                "retain_gender": retain_gender,
+                "retain_culture": retain_culture
+            }
+            perturbeds = tf.generate(**inputs)
             test_cases.append({
                 "class": tf.name(),
-                "inputs": {"sentence": sentence, "target": target},
-                "outputs": []}
+                "inputs": {"sentence": sentence, 
+                    "target": target,
+                    "retain_gender": retain_gender,
+                    "retain_culture": retain_culture
+                    },
+                "outputs": [{"sentence": perturbeds[0][0], "target": perturbeds[0][1]}]}
             )
-            for sentence, target in perturbeds:
-                test_cases[idx]["outputs"].append({"sentence": sentence, "target": target})
 """
