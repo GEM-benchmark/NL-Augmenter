@@ -55,3 +55,35 @@ class SpellingTransformation(SentenceOperation):
                                             max_outputs=self.max_outputs,
                                             )
         return perturbed_texts
+
+if __name__ == '__main__':
+    from TestRunner import convert_to_snake_case
+
+    sentences =  [
+    "Andrew finally returned the French book to Chris that I bought last week",
+    "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
+    "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
+    "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
+    "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization." ]
+
+
+    tf = SpellingTransformation(max_outputs=3)
+
+    def generate_json(sentences):
+        test_cases = []
+        for sentence in sentences:
+            outputs = [{"sentence": o} for o in tf.generate(sentence)]
+            test_cases.append(
+            {
+            "class": tf.name(),
+            "inputs": {"sentence": sentence},
+                "outputs": outputs}
+            )
+        json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
+        return json_file
+
+    json_file = generate_json(sentences)
+
+    f = os.path.join('transformations', 'replace_spelling', 'test.json')
+    with open(f, 'w') as fp:
+        json.dump(json_file, fp, indent=2)
