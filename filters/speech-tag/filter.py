@@ -1,10 +1,12 @@
 import operator
-import spacy
-
-from interfaces.SentenceOperation import SentenceOperation
-from tasks.TaskTypes import TaskType
 from collections import defaultdict
 from typing import Union
+
+import spacy
+
+from initialize import spacy_nlp
+from interfaces.SentenceOperation import SentenceOperation
+from tasks.TaskTypes import TaskType
 
 """
 A filter on if the tokens contain specific speech tag a certain number of times.
@@ -29,7 +31,7 @@ class SpeechTagFilter(SentenceOperation):
         self.final_operators = self.parse_operator(operations)
         self.final_speech_tags = self.convert_scalar_to_list(speech_tags)
         self.final_thresholds = self.convert_scalar_to_list(thresholds)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.percentages = percentages
         self.sanity_check()
 
@@ -48,7 +50,9 @@ class SpeechTagFilter(SentenceOperation):
         if unique_lengths == {1}:
             return 1
         elif len(unique_lengths) > 2:
-            raise ValueError("One or more lists given with non-matching lengths")
+            raise ValueError(
+                "One or more lists given with non-matching lengths"
+            )
 
         return max(unique_lengths)
 
@@ -127,7 +131,9 @@ class SpeechTagFilter(SentenceOperation):
         for curr_speech_tag, curr_threshold, curr_operator in zip(
             self.final_speech_tags, self.final_thresholds, self.final_operators
         ):
-            if not curr_operator(human_readable_tags[curr_speech_tag], curr_threshold):
+            if not curr_operator(
+                human_readable_tags[curr_speech_tag], curr_threshold
+            ):
                 return False
 
         return True
