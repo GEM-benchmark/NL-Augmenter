@@ -8,7 +8,7 @@ from tasks.TaskTypes import TaskType
 def whitespace(text, remove_prob=0.1, add_prob=0.05, seed=0, max_outputs=1):
     random.seed(seed)
     perturbed_texts = []
-    for _ in itertools.repeat(None, max_outputs):
+    for _ in range(max_outputs):
         perturbed_text = []
         for char in text:
             random_num = random.random()
