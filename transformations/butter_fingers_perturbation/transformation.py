@@ -9,7 +9,7 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-def butter_finger(text, prob=0.1, keyboard="querty", seed=0, max_output=1):
+def butter_finger(text, prob=0.1, keyboard="querty", seed=0, max_outputs=1):
     random.seed(seed)
     key_approx = {}
 
@@ -48,11 +48,11 @@ def butter_finger(text, prob=0.1, keyboard="querty", seed=0, max_output=1):
 
     prob_of_typo = int(prob * 100)
     perturbed_texts = []
-    for _ in itertools.repeat(None, max_output):
+    for _ in itertools.repeat(None, max_outputs):
         butter_text = ""
         for letter in text:
             lcletter = letter.lower()
-            if not lcletter in key_approx.keys():
+            if lcletter not in key_approx.keys():
                 new_letter = lcletter
             else:
                 if random.choice(range(0, 100)) <= prob_of_typo:
@@ -80,13 +80,15 @@ class ButterFingersPerturbation(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_output=1):
-        super().__init__(seed)
-        self.max_output = max_output
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
 
     def generate(self, sentence: str):
         perturbed_texts = butter_finger(
-            text=sentence, prob=0.05, seed=self.seed, max_output=self.max_output
+            text=sentence,
+            prob=0.05,
+            seed=self.seed,
+            max_outputs=self.max_outputs,
         )
         return perturbed_texts
 
@@ -98,7 +100,7 @@ if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
 
-    tf = ButterFingersPerturbation(max_output=3)
+    tf = ButterFingersPerturbation(max_outputs=3)
     sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
     for sentence in ["Andrew finally returned the French book to Chris that I bought last week",

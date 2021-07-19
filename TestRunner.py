@@ -40,7 +40,9 @@ class OperationRuns(object):
         elif transformation_name == "all":
             self._load_all_transformation_test_case(heavy=True, search=search)
         else:
-            self._load_single_transformation_test_case(transformation_name, search)
+            self._load_single_transformation_test_case(
+                transformation_name, search
+            )
 
     def _load_single_transformation_test_case(
         self, transformation_name, search="transformations"
@@ -53,22 +55,29 @@ class OperationRuns(object):
         t_py = import_module(f"{search}.{transformation_name}")
         t_js = os.path.join(filters_dir, "test.json")
         filter_instance = None
+        prev_class_args = {}
         for test_case in load_test_cases(t_js):
             class_name = test_case["class"]
             class_args = test_case["args"] if "args" in test_case else {}
             # construct filter class with input args
             cls = getattr(t_py, class_name)
             if (
-                filter_instance is None or filter_instance.name() != class_name
-            ):  # Check if already loaded
+                filter_instance is None
+                or filter_instance.name() != class_name
+                or prev_class_args != class_args
+            ):
                 filter_instance = cls(**class_args)
+                prev_class_args = class_args
+
             filters.append(filter_instance)
             filter_test_cases.append(test_case)
 
         self.operations = filters
         self.operation_test_cases = filter_test_cases
 
-    def _load_all_transformation_test_case(self, heavy=False, search="transformations"):
+    def _load_all_transformation_test_case(
+        self, heavy=False, search="transformations"
+    ):
         filters = []
         filter_test_cases = []
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
@@ -77,6 +86,7 @@ class OperationRuns(object):
             t_py = import_module(f"{search}.{m}")
             t_js = os.path.join(filters_dir, m, "test.json")
             filter_instance = None
+            prev_class_args = {}
             for test_case in load_test_cases(t_js):
                 class_name = test_case["class"]
                 class_args = test_case["args"] if "args" in test_case else {}
@@ -86,10 +96,14 @@ class OperationRuns(object):
                 if (not heavy) and is_heavy:
                     continue
                 else:
+                    # Check if the same instance (i.e. with the same args is already loaded)
                     if (
-                        filter_instance is None or filter_instance.name() != class_name
-                    ):  # Check if already loaded
+                        filter_instance is None
+                        or filter_instance.name() != class_name
+                        or prev_class_args != class_args
+                    ):
                         filter_instance = cls(**class_args)
+                        prev_class_args = class_args
 
                     filters.append(filter_instance)
                     filter_test_cases.append(test_case)
@@ -158,4 +172,4 @@ if __name__ == "__main__":
     ):
         print(transformation.name())
         impl = transformation()
-        print(impl.generate("test", "test", ["test", "test"]))
+        print(impl.generate("context", "question", ["answer1", "answerN"]))
