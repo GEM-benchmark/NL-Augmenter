@@ -50,7 +50,7 @@ class SpellingTransformation(SentenceOperation):
 
     def generate(self, sentence: str):
         perturbed_texts = generate_sentences(text=sentence,
-                                            prob=0.50,
+                                            prob=0.20,
                                             seed=self.seed,
                                             max_outputs=self.max_outputs,
                                             )
