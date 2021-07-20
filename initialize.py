@@ -2,6 +2,7 @@ import spacy
 
 # Use this file to initialize all the heavy common packages shared by multiple transformation and filters.
 
+GLOBAL_SEED = 42
 spacy_nlp = None
 
 
