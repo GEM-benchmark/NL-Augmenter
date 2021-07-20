@@ -5,9 +5,9 @@ import nltk
 import spacy
 from nltk.corpus import wordnet
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.
@@ -38,9 +38,7 @@ def untokenize(words):
     return step6.strip()
 
 
-def synonym_substitution(
-    text, spacy_pipeline, prob=0.5, max_outputs=1
-):
+def synonym_substitution(text, spacy_pipeline, prob=0.5, max_outputs=1):
     upos_wn_dict = {
         "VERB": "v",
         "NOUN": "n",
@@ -88,7 +86,9 @@ class SynonymSubstitution(SentenceOperation):
 
     def __init__(self, prob=0.5, max_outputs=1):
         super().__init__(max_outputs=max_outputs)
-        self.spacy_pipeline = spacy.load("en_core_web_sm")
+        self.spacy_pipeline = (
+            spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        )
         self.prob = prob
         nltk.download("wordnet")
 

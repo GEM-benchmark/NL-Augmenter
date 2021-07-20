@@ -6,10 +6,12 @@ import numpy as np
 
 # The set random seed is shared across all other imports of random and numpy
 GLOBAL_SEED = 0
-random.seed(GLOBAL_SEED)
-np.random.seed(GLOBAL_SEED)
 
 spacy_nlp = None
+
+def set_seed():
+    random.seed(GLOBAL_SEED)
+    np.random.seed(GLOBAL_SEED)
 
 
 def initialize_models():

@@ -1,7 +1,4 @@
 import random
-from interfaces.SentenceOperation import SentenceOperation
-from tasks.TaskTypes import TaskType
-from initialize import spacy_nlp
 
 # for sent tokenizer
 import spacy
@@ -9,6 +6,10 @@ import spacy
 # coref resolution from allennlp
 # ref: https://demo.allennlp.org/coreference-resolution
 from allennlp.predictors.predictor import Predictor
+
+from initialize import spacy_nlp
+from interfaces.SentenceOperation import SentenceOperation
+from tasks.TaskTypes import TaskType
 
 """
 Shuffle sentence order
@@ -23,9 +24,8 @@ class SentenceReordering(SentenceOperation):
     languages = ["en"]
     heavy = True
 
-    def __init__(self, enable_coref=True, seed=42, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
-        self.seed = seed
+    def __init__(self, enable_coref=True, max_outputs=1):
+        super().__init__(max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.enable_coref = enable_coref
         if enable_coref:
@@ -38,7 +38,6 @@ class SentenceReordering(SentenceOperation):
         return perturbed
 
     def sentence_reordering(self, text):
-        random.seed(self.seed)
         # resolve coref
         if self.enable_coref:
             text = self.coref_model.coref_resolved(document=text)
