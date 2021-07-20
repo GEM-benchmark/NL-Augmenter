@@ -1,0 +1,56 @@
+{
+    "type": "lang",
+    "test_cases": [
+        {
+            "class": "LanguageFilter",
+            "args": {
+                "lang": ["en"]
+            },
+            "inputs": {
+                "sentence": "My hovercraft is full of eels"
+            },
+            "outputs": true
+        },
+        {
+            "class": "LanguageFilter",
+            "args": {
+                "lang": ["en"]
+            },
+            "inputs": {
+                "sentence": "Mein Luftkissenfahrzeug ist voller Aale"
+            },
+            "outputs": false
+        },
+        {
+            "class": "LanguageFilter",
+            "args": {
+                "lang": ["en", "de", "fr", "no"]
+            },
+            "inputs": {
+                "sentence": "Mein Luftkissenfahrzeug ist voller Aale"
+            },
+            "outputs": true
+        },
+        {
+            "class": "LanguageFilter",
+            "args": {
+                "lang": ["en", "de", "fr", "no"]
+            },
+            "inputs": {
+                "sentence": "Det er fullt av ål i luftputebåten min"
+            },
+            "outputs": true
+        },
+        {
+            "class": "LanguageFilter",
+            "args": {
+                "lang": ["en", "de", "fr", "no"],
+                "min_prob": 0.999
+            },
+            "inputs": {
+                "sentence": "Det er fullt av ål i luftputebåten min"
+            },
+            "outputs": false
+        }
+    ]
+}
