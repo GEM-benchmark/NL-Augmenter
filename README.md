@@ -15,7 +15,7 @@ The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
 A transformation can be revised between the pull request submission and pull request merge deadlines. We will provide reviewer feedback to help with the revisions.
 
-The transformations which are already accepted to NL-Augmenter are summarized in [this table](transformations/README.md). Transformations undergoing review can be seen as [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls).
+The transformations which are already accepted to NL-Augmenter are summarized in [the transformations folder](transformations). Transformations undergoing review can be seen as [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls).
 
 **Table of contents**
 
