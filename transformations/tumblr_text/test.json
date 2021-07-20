@@ -1,0 +1,51 @@
+{
+  "type": "tumbler_text",
+  "test_cases": [
+    {
+      "class": "TumblrText",
+      "inputs": {
+        "sentence": "hello"
+      },
+      "outputs": [{
+        "sentence": "h e l l o"
+      }]
+    },
+      {
+      "class": "TumblrText",
+      "inputs": {
+        "sentence": "foo"
+      },
+      "outputs": [{
+        "sentence": "f o o   b a r"
+      }]
+    },
+
+    {
+      "class": "TumblrText",
+      "inputs": {
+        "sentence": "Hello, how are you?"
+      },
+      "outputs": [{
+        "sentence": "H e l l o ,   h o w   a r e   y o u ?"
+      }]
+    },
+    {
+      "class": "TumblrText",
+      "inputs": {
+        "sentence": "inputs are char-tokenized so don't worry about 'punctuation', Mr.!"
+      },
+      "outputs": [{
+        "sentence": "i n p u t s   a r e   c h a r - t o k e n i z e d   s o   d o n ' t   w o r r y   a b o u t   ' p u n c t u a t i o n ' ,   M r . !"
+      }]
+    },
+    {
+      "class": "TumblrText",
+      "inputs": {
+        "sentence": "foo\tbar"
+      },
+      "outputs": [{
+        "sentence": "f o o \t b a r"
+      }]
+    },
+  ]
+}
