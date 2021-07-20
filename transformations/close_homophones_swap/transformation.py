@@ -9,8 +9,9 @@ from SoundsLike.SoundsLike import Search
 from spacy.attrs import LOWER, POS, ENT_TYPE, IS_ALPHA
 from spacy.tokens import Doc
 
-def close_homophones_swap(text, corrupt_prob, seed=0, max_outputs=1, nlp = None):
-    random.seed(seed)
+from initialize import spacy_nlp
+
+def close_homophones_swap(text, corrupt_prob, max_outputs=1, nlp = None):
     doc = nlp(text)
     perturbed_texts = []
     spaces = [True if tok.whitespace_ else False for tok in doc]
@@ -45,13 +46,13 @@ class CloseHomophonesSwap(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1):
-        super().__init__(seed)
+    def __init__(self, max_outputs=1):
+        super().__init__()
         self.max_outputs = max_outputs
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def generate(self, sentence: str):
         perturbed_texts = close_homophones_swap(
-            text=sentence, corrupt_prob=0.5, seed=self.seed, max_outputs=self.max_outputs, nlp = self.nlp
+            text=sentence, corrupt_prob=0.5, max_outputs=self.max_outputs, nlp = self.nlp
         )
         return perturbed_texts

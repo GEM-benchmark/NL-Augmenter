@@ -23,9 +23,8 @@ def translate(model, tokenizer, text, src_lang, target_lang):
 
 
 def mixed_language(
-    model, tokenizer, text, prob_mix=0.1, src_lang="en", trg_lang="fr", seed=0
+    model, tokenizer, text, prob_mix=0.1, src_lang="en", trg_lang="fr"
 ):
-    random.seed(seed)
 
     words = text.split()
     mixed_text = ""
@@ -63,9 +62,9 @@ class MixedLanguagePerturbation(SentenceOperation):
     heavy = True
 
     def __init__(
-        self, seed=0, prob_mix=0.3, src_lang="en", trg_lang="de", max_outputs=1
+        self, prob_mix=0.3, src_lang="en", trg_lang="de", max_outputs=1
     ):
-        super().__init__(seed, max_outputs=max_outputs)
+        super().__init__(max_outputs=max_outputs)
 
         self.model = M2M100ForConditionalGeneration.from_pretrained(
             "facebook/m2m100_418M"
@@ -85,8 +84,7 @@ class MixedLanguagePerturbation(SentenceOperation):
             text=sentence,
             prob_mix=self.prob_mix,
             src_lang=self.src_lang,
-            trg_lang=self.trg_lang,
-            seed=self.seed,
+            trg_lang=self.trg_lang
         )
         return [perturbeds]
 

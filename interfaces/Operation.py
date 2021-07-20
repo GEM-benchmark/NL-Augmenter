@@ -5,12 +5,10 @@ from typing import Tuple, List
 class Operation(object):
     languages = None
     tasks = None
-    seed = 0
     heavy = False
     max_outputs = 1
 
-    def __init__(self, seed=0, verbose=False, max_outputs=1):
-        self.seed = seed
+    def __init__(self, verbose=False, max_outputs=1):
         self.verbose = verbose
         self.max_outputs = max_outputs
         if self.verbose:

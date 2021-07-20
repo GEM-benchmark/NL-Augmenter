@@ -9,8 +9,7 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-def butter_finger(text, prob=0.1, keyboard="querty", seed=0, max_outputs=1):
-    random.seed(seed)
+def butter_finger(text, prob=0.1, keyboard="querty", max_outputs=1):
     key_approx = {}
 
     if keyboard == "querty":
@@ -80,15 +79,14 @@ class ButterFingersPerturbation(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, max_outputs=1):
+        super().__init__(max_outputs=max_outputs)
 
     def generate(self, sentence: str):
         perturbed_texts = butter_finger(
             text=sentence,
             prob=0.05,
-            seed=self.seed,
-            max_outputs=self.max_outputs,
+            max_outputs=self.max_outputs
         )
         return perturbed_texts
 

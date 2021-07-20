@@ -161,8 +161,8 @@ class GeoNamesTransformation(SentenceOperation):
             "AN": "Antarctica",
         }
 
-    def __init__(self, seed=0, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, max_outputs=1):
+        super().__init__(max_outputs=max_outputs)
 
         self.loadContinents()
         self.loadCountries()

@@ -32,8 +32,8 @@ class PunctuationWithRules(SentenceOperation):
     languages = ["en"]
     heavy = True
 
-    def __init__(self, seed=0, rules=None, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, rules=None, max_outputs=1):
+        super().__init__(max_outputs=max_outputs)
         self.fast_punct = FastPunct()
         self.normalizations = rules
         if self.normalizations:

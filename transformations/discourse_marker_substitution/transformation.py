@@ -56,11 +56,10 @@ for (k, v) in MARKER_TO_CLASS.items():
 CLASS_TO_MARKERS = dict(CLASS_TO_MARKERS)
 
 
-def discourse_marker_substitution(text, seed=0, max_output=1):
+def discourse_marker_substitution(text, max_output=1):
     """Performs a substitution of discourse markers with semantically equivalent marker
     in the input text
     """
-    random.seed(seed)
     perturbed_texts = []
     for _ in range(max_output):
         present_markers = [m for m in MARKER_TO_CLASS if m in text.lower().split()]
@@ -99,12 +98,12 @@ class DiscourseMarkerSubstitution(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_output=1):
-        super().__init__(seed)
+    def __init__(self, max_output=1):
+        super().__init__()
         self.max_output = max_output
 
     def generate(self, sentence: str):
         perturbed_texts = discourse_marker_substitution(
-            text=sentence, seed=self.seed, max_output=self.max_output
+            text=sentence, max_output=self.max_output
         )
         return perturbed_texts

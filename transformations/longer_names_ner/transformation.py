@@ -16,14 +16,13 @@ class LongerNamesNer(TaggingOperation):
     languages = "All"
     no_of_repeats = 2  # values should not be larger than 3-4
 
-    def __init__(self, seed=0, no_of_repeats=2, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, no_of_repeats=2, max_outputs=1):
+        super().__init__(max_outputs=max_outputs)
         self.no_of_repeats = no_of_repeats
 
     def generate(
         self, token_sequence: List[str], tag_sequence: List[str]
     ) -> List[Tuple[List[str], List[str]]]:
-        random.seed(self.seed)
         token_seq = token_sequence.copy()
         tag_seq = tag_sequence.copy()
         perturbed_sentences = []

@@ -13,8 +13,8 @@ class RedundantContextForQa(QuestionAnswerOperation):
     tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, max_outputs=1):
+        super().__init__(max_outputs=max_outputs)
 
     def generate(
         self, context: str, question: str, answers: [str]
@@ -27,8 +27,8 @@ class QuestionInCaps(QuestionAnswerOperation):
     tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, max_outputs=1):
+        super().__init__(max_outputs=max_outputs)
 
     def generate(
         self, context: str, question: str, answers: [str]

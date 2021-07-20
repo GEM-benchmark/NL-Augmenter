@@ -3,14 +3,13 @@ from transformers import FSMTForConditionalGeneration, FSMTTokenizer
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-
 class BackTranslation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
     heavy = True
 
-    def __init__(self, seed=0, max_outputs=1, num_beams=2):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, max_outputs=1, num_beams=2):
+        super().__init__(max_outputs=max_outputs)
         if self.verbose:
             print("Starting to load English to German Translation Model.\n")
         name_en_de = "facebook/wmt19-en-de"

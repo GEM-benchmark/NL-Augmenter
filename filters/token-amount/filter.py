@@ -1,6 +1,8 @@
 import operator
 import spacy
 
+from initialize import spacy_nlp
+
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from collections import defaultdict
@@ -26,7 +28,7 @@ class TokenAmountFilter(SentenceOperation):
         self.final_operators = self.parse_operator(operations)
         self.final_keywords = self.convert_scalar_to_list(keywords)
         self.final_thresholds = self.convert_scalar_to_list(thresholds)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.sanity_check()
 
     def get_input_length(self, keywords, thresholds, operations):

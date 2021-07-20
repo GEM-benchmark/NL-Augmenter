@@ -11,6 +11,8 @@ import random
 import hashlib
 from checklist.perturb import process_ret
 
+from initialize import spacy_nlp, GLOBAL_SEED
+
 def hash(input:str):
     t_value = input.encode('utf8')
     h = hashlib.sha256(t_value)
@@ -49,7 +51,7 @@ class ChangeGenderCultureDiverseName:
             self.name2gender[name] = sorted(self.name2gender[name])
             self.name2country[name] = sorted(self.name2country[name])
 
-    def apply(self, doc, retain_gender=False, retain_culture=False, n=10, max_output=10, seed=None):
+    def apply(self, doc, retain_gender=False, retain_culture=False, n=10, max_output=10):
         """Replace names with another name, considering gender and cultural diversity
 
         Parameters
@@ -64,8 +66,6 @@ class ChangeGenderCultureDiverseName:
             number of names to replace original names with
         max_output: int
             maximum number of perturbed sentences to output
-        seed : int
-            random seed
 
         Returns
         -------
@@ -76,9 +76,6 @@ class ChangeGenderCultureDiverseName:
                 list of (old_name, new_name) pairs
 
         """
-
-        if seed is not None:
-            random.seed(seed)
         ents = [x.text for x in doc.ents if np.all([a.ent_type_ == 'PERSON' for a in x])]
         ret = []
         ret_m = []
@@ -137,9 +134,9 @@ class GenderCultureDiverseName(SentenceOperation):
         ]
     # language code following ISO 639-1 standard
 
-    def __init__(self, n=1, seed=0, max_output=1, retain_gender=False, retain_culture=False, data_path=None):
-        super().__init__(seed)
-        self.nlp = spacy.load("en_core_web_sm")
+    def __init__(self, n=1, max_output=1, retain_gender=False, retain_culture=False, data_path=None):
+        super().__init__()
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.n = n
         self.max_output = max_output
 
@@ -153,9 +150,7 @@ class GenderCultureDiverseName(SentenceOperation):
             )
 
     def generate(self, sentence: str, retain_gender: bool = False, retain_culture: bool = False):
-        seed = self.seed + hash(sentence) + retain_gender * 1 + retain_culture * 2
-        perturbed_texts, _ = self.changer.apply(self.nlp(sentence), retain_gender, retain_culture, self.n, self.max_output, seed)
-
+        perturbed_texts, _ = self.changer.apply(self.nlp(sentence), retain_gender, retain_culture, self.n, self.max_output)
         return perturbed_texts
 
 

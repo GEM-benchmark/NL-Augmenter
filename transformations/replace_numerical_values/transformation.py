@@ -15,13 +15,11 @@ from tasks.TaskTypes import TaskType
 class NumericalTransformation:
     nlp = None
 
-    def __init__(self, seed=0, max_outputs=1):
+    def __init__(self, max_outputs=1):
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.max_outputs = max_outputs
-        self.seed = seed
 
     def transform(self, input_text: str):
-        random.seed(self.seed)
         doc = self.nlp(input_text)
 
         for entity in doc.ents:
@@ -112,10 +110,10 @@ class ReplaceNumericalValues(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, max_outputs=1):
+        super().__init__(max_outputs=max_outputs)
         self.numerical_transformation = NumericalTransformation(
-            seed, max_outputs
+            max_outputs
         )
 
     def generate(self, sentence: str):

@@ -8,7 +8,6 @@ from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceAndTargetOperation
 from tasks.TaskTypes import TaskType
 
-
 class ChangeTwoWayNe(SentenceAndTargetOperation):
     """
     Repository of names has been taken from the CheckList repo.
@@ -21,16 +20,15 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
     tgt_languages = ["en"]
 
     def __init__(
-        self, first_only=False, last_only=False, n=1, seed=0, max_outputs=1
+        self, first_only=False, last_only=False, n=1, max_outputs=1
     ):
-        super().__init__(seed, max_outputs=max_outputs)
+        super().__init__(max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.first_only = first_only  # first name
         self.last_only = last_only  # last name
         self.n = n
 
     def generate(self, sentence: str, target: str):
-        np.random.seed(self.seed)
         perturbed_source = sentence
         perturbed_target = target
         n = self.n

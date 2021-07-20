@@ -1,8 +1,14 @@
 import spacy
+import random
+import numpy as np
 
 # Use this file to initialize all the heavy common packages shared by multiple transformation and filters.
 
-GLOBAL_SEED = 42
+# The set random seed is shared across all other imports of random and numpy
+GLOBAL_SEED = 0
+random.seed(GLOBAL_SEED)
+np.random.seed(GLOBAL_SEED)
+
 spacy_nlp = None
 
 

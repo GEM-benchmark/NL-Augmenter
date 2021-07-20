@@ -3,9 +3,7 @@ import random
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-
-def change_char_case(text, prob=0.1, seed=0, max_outputs=1):
-    random.seed(seed)
+def change_char_case(text, prob=0.1, max_outputs=1):
     results = []
     for _ in range(max_outputs):
         result = []
@@ -34,11 +32,11 @@ class ChangeCharCase(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, max_outputs=1):
+        super().__init__(max_outputs=max_outputs)
 
     def generate(self, sentence: str):
         perturbed = change_char_case(
-            text=sentence, prob=0.1, seed=self.seed, max_outputs=self.max_outputs
+            text=sentence, prob=0.1, max_outputs=self.max_outputs
         )
         return perturbed

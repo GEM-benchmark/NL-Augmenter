@@ -39,9 +39,8 @@ def untokenize(words):
 
 
 def synonym_substitution(
-    text, spacy_pipeline, seed=42, prob=0.5, max_outputs=1
+    text, spacy_pipeline, prob=0.5, max_outputs=1
 ):
-    random.seed(seed)
     upos_wn_dict = {
         "VERB": "v",
         "NOUN": "n",
@@ -87,8 +86,8 @@ class SynonymSubstitution(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=42, prob=0.5, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, prob=0.5, max_outputs=1):
+        super().__init__(max_outputs=max_outputs)
         self.spacy_pipeline = spacy.load("en_core_web_sm")
         self.prob = prob
         nltk.download("wordnet")
@@ -97,7 +96,6 @@ class SynonymSubstitution(SentenceOperation):
         perturbed = synonym_substitution(
             text=sentence,
             spacy_pipeline=self.spacy_pipeline,
-            seed=self.seed,
             prob=self.prob,
             max_outputs=self.max_outputs,
         )
