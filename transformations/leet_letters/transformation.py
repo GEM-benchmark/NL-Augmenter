@@ -44,7 +44,7 @@ leet_letter_mappings = {
 
 
 class LeetLetters(SentenceOperation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     languages = ["en"]
 
     def __init__(self, seed: int = 0, max_leet: float = 0.5):
