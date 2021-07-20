@@ -65,7 +65,6 @@ class LeetLetters(SentenceOperation):
         # Conduct replacement
         sentence = list(sentence)
         for idx, leet in leet_replacements:
-            print(idx, leet)
             sentence[idx] = str(leet)
         sentence = "".join(sentence)
             
