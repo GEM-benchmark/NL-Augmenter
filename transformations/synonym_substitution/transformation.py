@@ -8,7 +8,6 @@ from nltk.corpus import wordnet
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-nltk.download("wordnet")
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.
@@ -92,6 +91,7 @@ class SynonymSubstitution(SentenceOperation):
         super().__init__(seed, max_outputs=max_outputs)
         self.spacy_pipeline = spacy.load("en_core_web_sm")
         self.prob = prob
+        nltk.download("wordnet")
 
     def generate(self, sentence: str):
         perturbed = synonym_substitution(
