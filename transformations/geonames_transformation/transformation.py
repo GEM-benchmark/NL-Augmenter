@@ -506,7 +506,6 @@ class GeoNamesTransformation(SentenceOperation):
 """
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 # You don't need to keep this code in your transformation.
-"""
 if __name__ == "__main__":
     import json
     from TestRunner import convert_to_snake_case
@@ -537,5 +536,4 @@ if __name__ == "__main__":
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
-"""
 """
