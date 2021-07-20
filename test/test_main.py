@@ -1,9 +1,13 @@
 import pytest
 
-from TestRunner import OperationRuns
+from initialize import initialize_models
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
-from interfaces.SentenceOperation import SentenceOperation, SentenceAndTargetOperation
+from interfaces.SentenceOperation import (
+    SentenceAndTargetOperation,
+    SentenceOperation,
+)
 from interfaces.TaggingOperation import TaggingOperation
+from TestRunner import OperationRuns
 
 
 def get_assert_message(transformation, expected_output, predicted_output):
@@ -59,7 +63,9 @@ def execute_tagging_test_case(transformation, test):
     token_sequence = filter_args["token_sequence"]
     tag_sequence = filter_args["tag_sequence"]
     outputs = test["outputs"]
-    perturbs = transformation.generate(token_sequence.split(), tag_sequence.split())
+    perturbs = transformation.generate(
+        token_sequence.split(), tag_sequence.split()
+    )
     for idx, (p_tokens, p_tags) in enumerate(perturbs):
         expected_tokens = outputs[idx]["token_sequence"].split()
         expected_tags = outputs[idx]["tag_sequence"].split()
@@ -91,10 +97,13 @@ def execute_test_case_for_filter(filter_name):
     for filter, test in zip(tx.operations, tx.operation_test_cases):
         filter_args = test["inputs"]
         output = filter.filter(**filter_args)
-        assert output == test["outputs"], f"The filter should return {test['outputs']}"
+        assert (
+            output == test["outputs"]
+        ), f"The filter should return {test['outputs']}"
 
 
 def test_operation(transformation_name, filter_name):
+    initialize_models()
     execute_test_case_for_transformation(transformation_name)
     execute_test_case_for_filter(filter_name)
 
