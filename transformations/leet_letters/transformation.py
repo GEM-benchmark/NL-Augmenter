@@ -50,7 +50,6 @@ class LeetLetters(SentenceOperation):
     def __init__(self, seed: int = 0, max_leet: float = 0.5):
         super().__init__(seed=seed)
         self.max_leet = max_leet
-        self.seed
 
     def generate(self, sentence: str):
         random.seed(self.seed)
@@ -61,10 +60,13 @@ class LeetLetters(SentenceOperation):
         for letter in sentence:
             if letter in leet_letter_mappings:
                 leet_candidates.append((sentence.index(letter), leet_letter_mappings[letter]))
-        leet_replacements = random.sample(leet_candidates, max_leet_replacements)
+        leet_replacements = random.choices(leet_candidates, k=max_leet_replacements)
 
         # Conduct replacement
+        sentence = list(sentence)
         for idx, leet in leet_replacements:
-            sentence[idx] = leet
+            print(idx, leet)
+            sentence[idx] = str(leet)
+        sentence = "".join(sentence)
             
         return sentence
