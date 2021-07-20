@@ -1,4 +1,6 @@
+import itertools
 import random
+from typing import List
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
@@ -47,25 +49,27 @@ class LeetLetters(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     languages = ["en"]
 
-    def __init__(self, seed: int = 0, max_leet: float = 0.5):
-        super().__init__(seed=seed)
+    def __init__(self, seed: int = 0, max_outputs: int = 1, max_leet: float = 0.5) -> None:
+        super().__init__(seed=seed, max_outputs=max_outputs)
         self.max_leet = max_leet
 
-    def generate(self, sentence: str):
+    def generate(self, sentence: str) -> List[str]:
         random.seed(self.seed)
         max_leet_replacements = int(self.max_leet * len(sentence))
+        perturbed_texts = []
+        # Perturb the input sentence max_output times
+        for _ in itertools.repeat(None, self.max_outputs):
+            # Determine what to replace
+            leet_candidates = []
+            for idx, letter in enumerate(sentence):
+                if letter in leet_letter_mappings:
+                    leet_candidates.append((idx, leet_letter_mappings[letter]))
+            leet_replacements = random.choices(leet_candidates, k=max_leet_replacements)
 
-        # Determine what to replace
-        leet_candidates = []
-        for letter in sentence:
-            if letter in leet_letter_mappings:
-                leet_candidates.append((sentence.index(letter), leet_letter_mappings[letter]))
-        leet_replacements = random.choices(leet_candidates, k=max_leet_replacements)
-
-        # Conduct replacement
-        sentence = list(sentence)
-        for idx, leet in leet_replacements:
-            sentence[idx] = str(leet)
-        sentence = "".join(sentence)
+            # Conduct replacement
+            sentence_list = list(sentence)
+            for idx, leet in leet_replacements:
+                sentence_list[idx] = str(leet)
+            perturbed_texts.append("".join(sentence_list))
             
-        return sentence
+        return perturbed_texts

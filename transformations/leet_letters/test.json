@@ -7,7 +7,7 @@
         "sentence": "Andrew finally returned the French book to Chris that I bought last week"
       },
       "outputs": [{
-        "sentence": "4ndr33 finall4 r3turn3d t43 Fr3nc4 600k t0 04ris t4at 1 60u94t last 333k"
+        "sentence": "4ndre3 finally returned t43 French 600k t0 04ris that 1 60u94t last 3e3k"
       }]
     },
     {
@@ -16,7 +16,7 @@
         "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
       },
       "outputs": [{
-        "sentence": "53nt3nc3s 3it4 9appin9, suc4 as Paul lik3s c0ff33 and Mar4 t3a, lack an 0v3rt pr3dicat3 t0 indicat3 t43 r3lati0n 63t333n t30 0r 30r3 ar9u33nts."
+        "sentence": "5entenc3s 3ith gappin9, such as Paul lik3s c0ff33 and Mary tea, lack an 0v3rt pr3dicat3 t0 indicate t43 r3lati0n b3t333n t30 0r 3or3 ar9u33nts."
       }]
     },
     {
@@ -25,7 +25,7 @@
         "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
       },
       "outputs": [{
-        "sentence": "4lic3 in W0nd3rland is a 2010 433rican liv3-acti0n/ani3at3d dark fantas4 adv3ntur3 fil3"
+        "sentence": "4lic3 in Wond3rland is a 2010 433rican liv3-acti0n/ani3at3d dark fantas4 adv3ntur3 fil3"
       }]
     },
     {
@@ -34,7 +34,7 @@
         "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
       },
       "outputs": [{
-        "sentence": "U77al 03v 00san74 s3rv3d as 33rd Pr33i3r 0f 8ritis4 00lu36ia fr03 2000 t0 2001"
+        "sentence": "U7jal 0ev D0san74 serv3d as 33rd Pr33i3r 0f 8ritis4 00lu36ia fr0m 2000 t0 2001"
       }]
     },
     {
@@ -43,7 +43,7 @@
         "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
       },
       "outputs": [{
-        "sentence": "113ur0plasticit4 is a c0ntinu0us pr0c3ssin9 all03in9 s40rt-t3r3, 33diu3-t3r3, and l0n9-t3r3 r330d3lin9 0f t43 n3ur0n0s4naptic 0r9anizati0n."
+        "sentence": "11europlasticit4 is a c0ntinuous proc3ssing all03in9 s40rt-ter3, 33diu3-t3r3, and l0n9-t3r3 re30d3lin9 0f t43 n3ur0n0s4naptic 0r9anizati0n."
       }]
     }
   ]
