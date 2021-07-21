@@ -4,6 +4,7 @@ import numpy as np
 import spacy
 from checklist.perturb import Perturb
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceAndTargetOperation
 from tasks.TaskTypes import TaskType
 
@@ -23,7 +24,7 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
         self, first_only=False, last_only=False, n=1, seed=0, max_outputs=1
     ):
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.first_only = first_only  # first name
         self.last_only = last_only  # last name
         self.n = n
