@@ -7,14 +7,12 @@ from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 import nltk
-nltk.download('punkt')
 from nltk import word_tokenize
-
 
 """
 Multilingual Lexicon Perturbation
 
-This perturbation translates words in the text from any supported languages (e.g., English) to other supported languages (e.g., German) by using a multilingual lexicon. It can be used to test the robustness of a model in a multilingual setting. 
+This perturbation helps to creates code-mixed sentences for both high-resource and low-resource languages (See supported languages below). This perturbation performs randomly translates words with a specified probability from any supported languages (e.g., English) to other supported languages (e.g., Chinese) by using a multilingual lexicon. Thus, it can be used to generate code-mixed training data to improve the robustness of a model in the multilingual and cross-lingual settings.
 
 There are 100 langauges supported as listed below:
 Afrikaans (af), Amharic (am), Arabic (ar), Asturian (ast), Azerbaijani (az), Bashkir (ba), Belarusian (be), Bulgarian (bg), Bengali (bn),
@@ -32,9 +30,9 @@ Ukrainian (uk), Urdu (ur), Uzbek (uz), Vietnamese (vi), Wolof (wo), Xhosa (xh), 
 
 FOLDER_PATH = '/'.join(os.path.abspath(__file__).split('/')[:-1])
 
-def perturb_sentence(lexicon_df, text, prob_mix=0.5, src_lang="en", trg_lang="zh", seed=0):
+def perturb_sentence(lexicon_df, text, prob_mix=0.5, mlt_src_lang="en", mlt_tgt_lang="zh", seed=0):
     random.seed(seed)
-    l_df = lexicon_df.set_index(src_lang)
+    l_df = lexicon_df.set_index(mlt_src_lang)
 
     words = word_tokenize(text)
     mixed_text = ""
@@ -54,9 +52,9 @@ def perturb_sentence(lexicon_df, text, prob_mix=0.5, src_lang="en", trg_lang="zh
                     continue
 
                 if not word[0].isupper(): # lower case
-                    perturbed_word = l_df.loc[plain_word, trg_lang]
+                    perturbed_word = l_df.loc[plain_word, mlt_tgt_lang]
                 else:
-                    perturbed_word = l_df.loc[plain_word, trg_lang].capitalize()
+                    perturbed_word = l_df.loc[plain_word, mlt_tgt_lang].capitalize()
                     
                 mixed_text += perturbed_word
             else:
@@ -81,20 +79,24 @@ class MultilingualLexiconPerturbation(SentenceOperation):
     ]    
     heavy = False
 
-    def __init__(self, seed=0, prob_mix=0.5, src_lang="en", trg_lang="zh"):
+    def __init__(self, seed=0, prob_mix=0.5, mlt_src_lang="en", mlt_tgt_lang="zh"):
         super().__init__(seed)
-        if src_lang not in self.supported_languages: 
-            raise ValueError(f'Invalid `src_lang` value "{src_lang}". Supported languages: {supported_languages}')
+        
+        # Download nltk `punkt` package
+        nltk.download('punkt')
+
+        if mlt_src_lang not in self.supported_languages: 
+            raise ValueError(f'Invalid `mlt_src_lang` value "{mlt_src_lang}". Supported languages: {supported_languages}')
             
-        if trg_lang not in self.supported_languages:
-            raise ValueError(f'Invalid `trg_lang` value "{trg_lang}". Supported languages: {supported_languages}')
+        if mlt_tgt_lang not in self.supported_languages:
+            raise ValueError(f'Invalid `mlt_tgt_lang` value "{mlt_tgt_lang}". Supported languages: {supported_languages}')
             
         self.lexicon_df = pd.read_pickle(f'{FOLDER_PATH}/multilingual_lexicon_uncased.xz')
         
         self.prob_mix=prob_mix
-        self.src_lang=src_lang
-        self.trg_lang=trg_lang
+        self.mlt_src_lang=mlt_src_lang
+        self.mlt_tgt_lang=mlt_tgt_lang
 
     def generate(self, sentence: str):
-        pertubed_sentence = perturb_sentence(lexicon_df=self.lexicon_df, text=sentence, prob_mix=self.prob_mix, src_lang=self.src_lang, trg_lang=self.trg_lang, seed=self.seed)
+        pertubed_sentence = perturb_sentence(lexicon_df=self.lexicon_df, text=sentence, prob_mix=self.prob_mix, mlt_src_lang=self.mlt_src_lang, mlt_tgt_lang=self.mlt_tgt_lang, seed=self.seed)
         return [pertubed_sentence]
