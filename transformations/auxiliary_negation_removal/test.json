@@ -51,13 +51,13 @@
       },
       "outputs": [
         {
-          "sentence1": "Alice in Wonderland is a 1997 American live-action/animated dark fantasy adventure film.",
-          "sentence2": "Alice in Wonderland is not an American animated, dark fantasy adventure film from 1997.",
+          "sentence1": "Alice in Wonderland isn't a 1997 American live-action/animated dark fantasy adventure film.",
+          "sentence2": "Alice in Wonderland is an American animated, dark fantasy adventure film from 1997.",
           "target": "0"
         },
         {
-          "sentence1": "Alice in Wonderland isn't a 1997 American live-action/animated dark fantasy adventure film.",
-          "sentence2": "Alice in Wonderland is an American animated, dark fantasy adventure film from 1997.",
+          "sentence1": "Alice in Wonderland is a 1997 American live-action/animated dark fantasy adventure film.",
+          "sentence2": "Alice in Wonderland is not an American animated, dark fantasy adventure film from 1997.",
           "target": "0"
         },
         {
