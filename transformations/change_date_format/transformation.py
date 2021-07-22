@@ -13,9 +13,10 @@ from tasks.TaskTypes import TaskType
 class DateFormatTransformation:
     nlp = None
 
-    def __init__(self, max_output=1):
+    def __init__(self, seed=0, max_output=1):
         self.nlp = spacy.load("en_core_web_sm")
         self.max_output = max_output
+        self.seed = seed
 
         self.ymd_formats = ["short", "medium", "long"]
         self.ym_formats = ["MMM Y", "MMMM Y", "MMM YY", "MMMM YY"]
@@ -81,6 +82,7 @@ class DateFormatTransformation:
         return date, has_year, has_month, has_day
 
     def transform(self, input_text: str):
+        random.seed(self.seed)
         doc = self.nlp(input_text)
 
         for entity in doc.ents:
@@ -124,10 +126,10 @@ class ChangeDateFormat(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, max_output=1):
+    def __init__(self, seed=0, max_output=1):
         random.seed(self.seed)
         super().__init__()
-        self.date_format_transformation = DateFormatTransformation()
+        self.date_format_transformation = DateFormatTransformation(seed, max_output)
         self.max_output = max_output
 
     def generate(self, sentence: str):
