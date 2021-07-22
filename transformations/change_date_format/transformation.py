@@ -141,30 +141,3 @@ class ChangeDateFormat(SentenceOperation):
         if self.verbose:
             print(f"Perturbed Input from {self.name()} : {result}")
         return result
-
-
-# Sample code to demonstrate usage.
-if __name__ == "__main__":
-    import json
-    from TestRunner import convert_to_snake_case
-
-    tf = ChangeDateFormat()
-    sentences = [
-        "Roger Federer (born 8 August 1981) is a Swiss professional tennis player.",
-        "As of 20 June 2021, 2.66 billion doses of COVID‑19 vaccine have been administered worldwide based on official reports from national health agencies.",
-        "The first known case of COVID-19 was identified in Wuhan, China in December 2019.",
-        "On Feb. 25, 2021, Twitter announced Super Follows, a subscription service allowing content creators to receive payments for their content.",
-        "In August 2018, Apple became the first publicly traded U.S. company to be valued at over $1 trillion.",
-    ]
-
-    test_cases = []
-    for sentence in sentences:
-        test_cases.append(
-            {
-                "class": tf.name(),
-                "inputs": {"sentence": sentence},
-                "outputs": [{"sentence": o} for o in tf.generate(sentence)],
-            }
-        )
-    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    print(json.dumps(json_file))
