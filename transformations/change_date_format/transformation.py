@@ -84,37 +84,41 @@ class DateFormatTransformation:
     def transform(self, input_text: str):
         random.seed(self.seed)
         doc = self.nlp(input_text)
+        transformed_texts = []
 
-        for entity in doc.ents:
-            new_value = None
+        for _ in range(self.max_output):
+            text = input_text
+            for entity in doc.ents:
+                new_value = None
 
-            if entity.label_ == "DATE":
-                date, has_year, has_month, has_day = self.parse_date(entity.text)
+                if entity.label_ == "DATE":
+                    date, has_year, has_month, has_day = self.parse_date(entity.text)
 
-                if date:
-                    if has_year and has_month and has_day:
-                        new_value = format_date(
-                            date,
-                            format=random.choice(self.ymd_formats),
-                            locale=random.choice(self.locales),
-                        )
-                    elif has_year and has_month:
-                        new_value = format_date(
-                            date,
-                            format=random.choice(self.ym_formats),
-                            locale=random.choice(self.locales),
-                        )
-                    elif has_month and has_day:
-                        new_value = format_date(
-                            date,
-                            format=random.choice(self.md_formats),
-                            locale=random.choice(self.locales),
-                        )
+                    if date:
+                        if has_year and has_month and has_day:
+                            new_value = format_date(
+                                date,
+                                format=random.choice(self.ymd_formats),
+                                locale=random.choice(self.locales),
+                            )
+                        elif has_year and has_month:
+                            new_value = format_date(
+                                date,
+                                format=random.choice(self.ym_formats),
+                                locale=random.choice(self.locales),
+                            )
+                        elif has_month and has_day:
+                            new_value = format_date(
+                                date,
+                                format=random.choice(self.md_formats),
+                                locale=random.choice(self.locales),
+                            )
 
-                if new_value:
-                    input_text = input_text.replace(entity.text, str(new_value))
+                    if new_value:
+                        text = text.replace(entity.text, str(new_value))
+            transformed_texts.append(text)
 
-        return input_text
+        return transformed_texts
 
 
 class ChangeDateFormat(SentenceOperation):
@@ -136,7 +140,7 @@ class ChangeDateFormat(SentenceOperation):
         result = self.date_format_transformation.transform(sentence)
         if self.verbose:
             print(f"Perturbed Input from {self.name()} : {result}")
-        return [result]
+        return result
 
 
 # Sample code to demonstrate usage.
