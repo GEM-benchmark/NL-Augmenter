@@ -1,5 +1,5 @@
 # Variable Character Perturbation 🦎 + 🎮 → 🐍
-This perturbation performes 5 way perturbations on non numeric words, either deletion insertion substitution swapping and duplication, with configurable probability and subset of perturbations to choose from.
+This perturbation performs 5 way perturbations on non numeric words, either deletion insertion substitution swapping and duplication, with configurable probability and subset of perturbations to choose from.
 
 For example: Banana -> Banan | Banabna | Banama | Baanna | Bannana
 
