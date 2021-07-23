@@ -175,8 +175,6 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
             )
 
         tgt_texts = self.tokenizer.batch_decode(preds.detach().cpu(), skip_special_tokens=True)
-        import code
-        code.interact(local=locals())
         assert len(tgt_texts) == self.num_beams, f'#tgt texts {len(tgt_texts)} does not match num beams {self.num_beams}'
 
         filtered = filter_generated_texts_with_distance_metric(
