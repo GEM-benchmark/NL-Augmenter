@@ -22,4 +22,5 @@ class TaskType(enum.Enum):
     )  # This is a specific type of text classification with unique properties
     PARAPHRASE_DETECTION = (13,)
     TEXTUAL_ENTAILMENT = (14,)
+    QUALITY_ESTIMATION = (15,)
 
