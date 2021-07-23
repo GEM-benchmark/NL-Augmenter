@@ -1,0 +1,90 @@
+{
+    "type": "variable_char_perturbation",
+    "test_cases": [
+        {
+            "class": "VariableCharPerturbation",
+            "inputs": {
+                "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+            },
+            "outputs": [
+                {
+                    "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+                },
+                {
+                    "sentence": "Andrew finally returned the French book to Chris that I bought last weeek"
+                },
+                {
+                    "sentence": "Andrew finally returned the French book to Chris tthat I bought last week"
+                }
+            ]
+        },
+        {
+            "class": "VariableCharPerturbation",
+            "inputs": {
+                "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+            },
+            "outputs": [
+                {
+                    "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+                },
+                {
+                    "sentence": "Sentences witth gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+                },
+                {
+                    "sentence": "Sentences with gapping, sucdh as Paul likegs coffee and Mary tea, lack an overt predicate to indipate the relation etween two or more arguments."
+                }
+            ]
+        },
+        {
+            "class": "VariableCharPerturbation",
+            "inputs": {
+                "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+            },
+            "outputs": [
+                {
+                    "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+                },
+                {
+                    "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+                },
+                {
+                    "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure ffilm"
+                }
+            ]
+        },
+        {
+            "class": "VariableCharPerturbation",
+            "inputs": {
+                "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+            },
+            "outputs": [
+                {
+                    "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+                },
+                {
+                    "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+                },
+                {
+                    "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+                }
+            ]
+        },
+        {
+            "class": "VariableCharPerturbation",
+            "inputs": {
+                "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+            },
+            "outputs": [
+                {
+                    "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+                },
+                {
+                    "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeeling of the neuronosynaptic organization."
+                },
+                {
+                    "sentence": "Neuroplasticity is a continuous pprocessing allowing short-term, medium-term, and long-term remhdeling of the neuronosynaptic organization."
+                }
+            ]
+        }
+    ]
+}
