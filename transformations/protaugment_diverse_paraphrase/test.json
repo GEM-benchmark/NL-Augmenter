@@ -1,4 +1,265 @@
 {
   "type": "protaugment_diverse_paraphrase",
-  "test_cases": []
+  "test_cases": [
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "bigram"
+      },
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [
+        {
+          "sentence": "Andrew returned Chris's French - book that Chris had purchased"
+        },
+        {
+          "sentence": "Andrew has returned Chris's French books that Chris bought for"
+        },
+        {
+          "sentence": "Finally Andrew returned Chris's French - book, which I"
+        },
+        {
+          "sentence": "Andrew is finally returning Chris's French - book, which"
+        },
+        {
+          "sentence": "Andrew is finally returning Chris's French - book that he"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "bigram"
+      },
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [
+        {
+          "sentence": "The Sentences of Gapping have a formal predicate that indicates that the two arguments have a relation, rather than a predicate."
+        },
+        {
+          "sentence": "The Sentences of Gapping have a formal predicate that indicates that the two arguments have a relation, rather than a predicate, that suggests the"
+        },
+        {
+          "sentence": "The Sentences of Gapping have a formal predicate that indicates that the two arguments have a relation."
+        },
+        {
+          "sentence": "The Sentences of Gapping are so-called \"gapping\" because they don't have a predicate that indicates that there is a relation"
+        },
+        {
+          "sentence": "The Sentences of Gapping are so-called \"gapping\" because they don't have a predicate that indicates that there is a relationship"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "bigram"
+      },
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [
+        {
+          "sentence": "Alice is an American animated horror film from 2010, based on the 2010 animated fantasy"
+        },
+        {
+          "sentence": "Alice is an American animated horror film in 2010, based on the 2010 animated animated"
+        },
+        {
+          "sentence": "Alice Adventures is an American animated horror film from 2010, based on the 2010 animated"
+        },
+        {
+          "sentence": "Alice Adventures is an American animated horror film from 2010."
+        },
+        {
+          "sentence": "Alice's Adventures is an American animated horror film from 2010."
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "bigram"
+      },
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [
+        {
+          "sentence": "In 2000-2001, J.D.D., served in the cabinet of the province of"
+        },
+        {
+          "sentence": "In 2000-2001, J.D.D., served in the cabinet of the British Columb"
+        },
+        {
+          "sentence": "From 2000 until 2001, J.D.D., the 33nd Premier was British Columbian"
+        },
+        {
+          "sentence": "From 2000 until 2001, J.D.D., served in the cabinet as the 34th"
+        },
+        {
+          "sentence": "From 2000 until 2001, J.D.D., served in the cabinet as the 33th"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "bigram"
+      },
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [
+        {
+          "sentence": "Neuromuscularity means a constant processing that allows short - term, medium - term, long - term remodel of a neuron - synaptic"
+        },
+        {
+          "sentence": "Neuromuscularity, or neuroplasticsity, is an extended processing that allows short - term, long -- term, short -- long --"
+        },
+        {
+          "sentence": "Neuromusculum is the continuous process allowing the short -- long --, medium -- --, and short -- stabilization of synaptic organization and the remod"
+        },
+        {
+          "sentence": "Neuromuscularity, or neuroplasticsity, is an extended processing that allows short - term, long -- term, short -- long -"
+        },
+        {
+          "sentence": "Neuromoleteness is the constant processing of synaptic organization that allows short term, long term, or long term modification of neuron - synaptic - organization"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "unigram"
+      },
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [
+        {
+          "sentence": "Andrew finally gave in to my request for a copy of my"
+        },
+        {
+          "sentence": "Andrew brought me a copy of France for Christmas, which is"
+        },
+        {
+          "sentence": "Andrew brought me a copy of France for Christmas, which was"
+        },
+        {
+          "sentence": "Andrew brought me a copy of France for my birthday this weekend"
+        },
+        {
+          "sentence": "And Andrew has finally brought back my copy of The English Book"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "unigram"
+      },
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [
+        {
+          "sentence": "The sentences in which gappers say things like “I like Coffee” and “Mary Tea” do not have a formal"
+        },
+        {
+          "sentence": "The sentences in which gappers say things like “I like Coffee” and “Mary Tea” do not have a direct"
+        },
+        {
+          "sentence": "The sentences in which gappers say things that sound like they mean something like a cup of hot chocolate and a mug of   iced"
+        },
+        {
+          "sentence": "The sentences that have been accompanied by gaps include sentences that do not indicate that there is a relationship between a pair of arguments but rather indicate"
+        },
+        {
+          "sentence": "The sentences that have been accompanied by gaps include sentences that do not indicate that they are related."
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "unigram"
+      },
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [
+        {
+          "sentence": "It is an animated live-action horror film, based on the Walt Disney animated"
+        },
+        {
+          "sentence": "It is an animated live-action horror film, adapted from the animated fairy tale"
+        },
+        {
+          "sentence": "In the world of Alice, the film is adapted as an animated live-action"
+        },
+        {
+          "sentence": "In the world of Alice, the film is based on the Walt Disney live action"
+        },
+        {
+          "sentence": "Amalie in the World is an Australian live-action horror-action-"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "unigram"
+      },
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [
+        {
+          "sentence": "Dilaji Banerjee, Minister of Provincial Affairs, United Kingdom, United States, United"
+        },
+        {
+          "sentence": "Dilaji Banerjee, Minister of Provincial Affairs, United Kingdom, United States, U"
+        },
+        {
+          "sentence": "In 2002, J.D. Dev Dosanjih was the 34th premier of the"
+        },
+        {
+          "sentence": "In 2002, J.D. Dev Dosanjih was the 34th Prime Minister in"
+        },
+        {
+          "sentence": "Dujal Dev Dosanjih was the 34th Prime Minister of the Canadian Province of"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "unigram"
+      },
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [
+        {
+          "sentence": "Neuromolecule - Polymer - - - Theoretical - - Structural - - Structure - Thencel - Structures - The Ne"
+        },
+        {
+          "sentence": "Neuromolecule - Polymer - - - Theoretical - - Structural - - Structure - Thencel - Structures - Thene"
+        },
+        {
+          "sentence": "Neuromusculatizing synaptic structure allows short -- short -- -- to short -- longer -- to stay in place for short -- to longer -- term"
+        },
+        {
+          "sentence": "Neuromusculatizing synaptic structure allows short -- short -- -- to short -- longer -- to stay in place for short -- to longer -- periods"
+        },
+        {
+          "sentence": "Neuromusculating synaptic structure allows short -- short -- -- short - term -- and short -- longer - term - modification to synaptic organization and its"
+        }
+      ]
+    }
+  ]
 }

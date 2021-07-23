@@ -121,7 +121,7 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
             beam_group_size: int = 4,
             diversity_penalty: float = 0.5,
             device: Union[torch.device, str] = "auto",
-            forbid_strategy: Union[ForbidStrategy, None] = None
+            forbid_strategy: Union[ForbidStrategy, str, None] = None
     ):
         # Random seed
         self.seed = seed
@@ -141,6 +141,17 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
         self.beam_group_size = beam_group_size
         self.num_beam_groups = self.num_beams // self.beam_group_size
         self.diversity_penalty = diversity_penalty
+
+        if type(forbid_strategy) == str:
+            if forbid_strategy == "bigram":
+                forbid_strategy = BigramForbidStrategy()
+            elif forbid_strategy == "unigram":
+                forbid_strategy = UnigramForbidStrategy(drop_chance=0.7)
+            else:
+                error_msg = f"Forbid stategy defined by string `{forbid_strategy}` not implemented yet."
+                logger.error(error_msg)
+                raise NotImplementedError(error_msg)
+
         self.forbid_strategy = forbid_strategy
 
         self.model_name = "tdopierre/ProtAugment-ParaphraseGenerator"
@@ -155,7 +166,10 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
 
         # If a forbidding strategy exists, then add those forbidden words to the batch
         if self.forbid_strategy:
-            bad_words_ids = self.forbid_strategy.bad_words_ids(special_ids=self.tokenizer.all_special_ids)
+            bad_words_ids = self.forbid_strategy.bad_words_ids(
+                special_ids=self.tokenizer.all_special_ids,
+                input_ids=batch["input_ids"]
+            )
 
             if len(bad_words_ids):
                 batch["bad_words_ids"] = bad_words_ids
@@ -193,19 +207,26 @@ if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
 
-    tf = ProtaugmentDiverseParaphrase()
-    sentence = "Andrew finally returned the French book to Chris that I bought last week"
-    out = tf.generate(sentence)
-    logger.error(f'tgt: {out}')
     test_cases = []
-    for sentence in ["Andrew finally returned the French book to Chris that I bought last week",
-                     "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
-                     "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
-                     "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
-                     "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."]:
-        test_cases.append({
-            "class": tf.name(),
-            "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
-        )
+
+    for arg_dict in (
+            {"forbid_strategy": "bigram"},
+            {"forbid_strategy": "unigram"},
+    ):
+        tf = ProtaugmentDiverseParaphrase(**arg_dict)
+
+        for sentence in ["Andrew finally returned the French book to Chris that I bought last week",
+                         "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
+                         "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
+                         "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
+                         "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."]:
+            test_cases.append({
+                "class": tf.name(),
+                "args": arg_dict,
+                "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
+            )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    print(json.dumps(json_file))
+    with open("transformations/protaugment_diverse_paraphrase/test.json", "w", encoding="utf-8") as file:
+        json.dump(json_file, file, indent=2, ensure_ascii=False)
+    print(json.dumps(json_file, indent=2, ensure_ascii=False))
+
