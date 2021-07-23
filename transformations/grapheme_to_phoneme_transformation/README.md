@@ -14,9 +14,6 @@ This transformation can help in testing robustness. Humans can understand what t
 This perturbation would benefit tasks on text classification and generation. 
 
 
-
-
-
 ## Related Work
 
 There are variety of works on grapheme to phoneme conversion. One of such works is[1]. Mohammad[2] highlights phoenem substituion as one of the transformations used in toxic comments.
@@ -44,4 +41,4 @@ There are variety of works on grapheme to phoneme conversion. One of such works 
 
 ## What are the limitations of this transformation?
 
-For this particular task we have used `pronouncing` python package which uses CMU pronouncing dictionary.
+For this particular task we have used `pronouncing` python package which uses CMU pronouncing dictionary which might not be exhaustive list of all grapheme to phoneme conversion. 
