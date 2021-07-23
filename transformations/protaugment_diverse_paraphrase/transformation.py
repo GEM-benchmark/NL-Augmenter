@@ -229,4 +229,3 @@ if __name__ == '__main__':
     with open("transformations/protaugment_diverse_paraphrase/test.json", "w", encoding="utf-8") as file:
         json.dump(json_file, file, indent=2, ensure_ascii=False)
     print(json.dumps(json_file, indent=2, ensure_ascii=False))
-
