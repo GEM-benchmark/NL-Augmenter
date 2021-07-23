@@ -1,0 +1,21 @@
+from typing import List, Tuple
+from interfaces.Operation import Operation
+
+"""
+Base Class for implementing the different input transformations a generation should be robust against.
+"""
+
+class SentencesOperation(Operation):
+    """
+    The base class for implementing corpus-level perturbations and transformations.
+    "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
+    given in tasks.TaskType.
+    "languages" :: The locales and/or languages for which this perturbation is applicable. eg. "es", "mr",
+    "en_IN"
+    """
+
+    def generate(self, sentences: [str]) -> List[str]:
+        raise NotImplementedError
+
+    def filter(self, sentences: str) -> bool:
+        raise NotImplementedError
