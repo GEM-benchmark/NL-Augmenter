@@ -23,7 +23,8 @@ This perturbation would benefit all tasks on text classification and generation.
 Benchmark results:
 
 - Text Classification: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 94.0.
-```{'accuracy': 96.0,
+```
+ {'accuracy': 96.0,
  'dataset_name': 'imdb',
  'model_name': 'aychang/roberta-base-imdb',
  'no_of_examples': 250,
@@ -31,7 +32,8 @@ Benchmark results:
  'split': 'test[:1%]'}
 ```
 - Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original bleu is 15.99 and the perturbed bleu is 13.5.
-```{'bleu': 16.0,
+```
+ {'bleu': 16.0,
  'pt_bleu': 13.5,
  'model_name': 'sshleifer/distilbart-xsum-12-6',
  'split': 'test[:1%]',
