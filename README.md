@@ -25,10 +25,14 @@ The transformations which are already accepted to NL-Augmenter are summarized in
 * [How do I create a filter?](#how-do-i-create-a-filter)
 * [Motivation](docs/doc.md#motivation)
 * [Review Criteria for Accepting Submissions](docs/doc.md#review-criteria-for-submissions)
+* [Informal And Untested Suggestions for Transformations](#informal-and-untested-suggestions-for-transformations)
 
 ## Colab notebook
 
 <a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly see transformations and filters in action, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb).
+
+## Informal And Untested Suggestions for Transformations
+There are some ideas and previous papers discussed informally [here](https://github.com/GEM-benchmark/NL-Augmenter/issues/75) which maybe useful to look at. Note that up untill now there have already been a lot of implementations spanning across morphological inflections, character level changes & random noise. 
 
 ## Installation
 
@@ -63,7 +67,7 @@ cd NL-Augmenter
 git checkout -b my_awesome_transformation
 ```
 We will base our transformation on an existing example.
-Create a new transformation directory by copying over an existing transformation. You can choose to copy from other [transformation directories](interfaces) depending on the task you wish to create a transformation for. We strongly suggest you to look at some of the existing [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls?q=is%3Aopen+is%3Apr+label%3Atransformation) [and merged transformations](transformations) first to avoid duplicating efforts.
+Create a new transformation directory by copying over an existing transformation. You can choose to copy from other [transformation directories](interfaces) depending on the task you wish to create a transformation for. Check some of the existing [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls?q=is%3Aopen+is%3Apr+label%3Atransformation) [and merged transformations](transformations) first to avoid duplicating efforts or creating transformations similar to previous ones.
 ```bash
 cd transformations/
 cp -r butter_fingers_perturbation my_awesome_transformation
