@@ -3,7 +3,7 @@ This perturbation adds noise to all types of text sources (sentence, paragraph, 
 
 Author1 name: Tshephisho Sefara
 
-Author1 email: sefarat@gmail.com
+Author1 email: sefaratj@gmail.com
 
 Author1 Affiliation: Council for Scientific and Industrial Research
 
