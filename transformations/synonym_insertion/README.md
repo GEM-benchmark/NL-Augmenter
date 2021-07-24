@@ -30,7 +30,13 @@ Benchmark results:
  'pt_accuracy': 94.0,
  'split': 'test[:1%]'}
 ```
-- Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original bleu is 15.99 and the perturbed bleu is ???.
+- Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original bleu is 15.99 and the perturbed bleu is 13.5.
+```{'bleu': 16.0,
+ 'pt_bleu': 13.5,
+ 'model_name': 'sshleifer/distilbart-xsum-12-6',
+ 'split': 'test[:1%]',
+ 'dataset_name': 'xsum'}
+```
 
 ## Related Work
 This perturbation is adapted from our TextAugmentation library https://github.com/dsfsi/textaugment
