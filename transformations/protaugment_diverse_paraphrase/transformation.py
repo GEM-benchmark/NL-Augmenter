@@ -187,6 +187,7 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
         return batch
 
     def generate(self, sentence: str):
+        set_seeds(self.seed)
         batch = self.prepare_batch(sentence=sentence)
         max_length = batch["input_ids"].shape[1]
         with torch.no_grad():
