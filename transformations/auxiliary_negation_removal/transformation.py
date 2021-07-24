@@ -26,6 +26,10 @@ class AuxiliaryNegationRemoval(SentencePairOperation):
         # Initialize Variables
         output_sentences = []
         changed_sentences = {}
+        if target == self.pos_label:
+            oposite_target = self.neg_label
+        elif target == self.neg_label:
+            oposite_target = self.pos_label
 
         for n, sentence in enumerate([sentence1, sentence2]):
             # Tokenize Sentence
@@ -34,10 +38,6 @@ class AuxiliaryNegationRemoval(SentencePairOperation):
             # Initialize Variables
             new_sentence = []
             changed = False
-            if target == self.pos_label:
-                oposite_target = self.neg_label
-            elif target == self.neg_label:
-                oposite_target = self.pos_label
 
             # Evaluate Tokens
             for token in doc:
