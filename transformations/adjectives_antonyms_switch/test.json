@@ -1,0 +1,121 @@
+{
+  "type": "adjectives_antonyms_switch",
+  "test_cases": [
+
+    {
+      "class": "AdjectivesAntonymsSwitch",
+      "inputs": {
+        "sentence1": "Anthony was a very tall boy.",
+        "sentence2": "He was a very big guy.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Anthony was a very short boy.",
+          "sentence2": "He was a very big guy.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Anthony was a very tall boy.",
+          "sentence2": "He was a very small guy.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Anthony was a very short boy.",
+          "sentence2": "He was a very small guy.",
+          "target": "1"
+        }
+      ]
+    },
+    {
+      "class": "AdjectivesAntonymsSwitch",
+      "inputs": {
+        "sentence1": "Amanda's mother was very beautiful.",
+        "sentence2": "Her mother was a good looking woman.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Amanda's mother was very ugly.",
+          "sentence2": "Her mother was a good looking woman.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Amanda's mother was very beautiful.",
+          "sentence2": "Her mother was a bad looking woman.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Amanda's mother was very ugly.",
+          "sentence2": "Her mother was a bad looking woman.",
+          "target": "1"
+        }
+      ]
+    },
+    {
+      "class": "AdjectivesAntonymsSwitch",
+      "inputs": {
+        "sentence1": "After the war he had become a rich man.",
+        "sentence2": "Thomas became very rich once the war was over.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "After the war he had become a poor man.",
+          "sentence2": "Thomas became very rich once the war was over.",
+          "target": "0"
+        },
+        {
+          "sentence1": "After the war he had become a rich man.",
+          "sentence2": "Thomas became very poor once the war was over.",
+          "target": "0"
+        },
+        {
+          "sentence1": "After the war he had become a poor man.",
+          "sentence2": "Thomas became very poor once the war was over.",
+          "target": "1"
+        }
+      ]
+    },
+    {
+      "class": "AdjectivesAntonymsSwitch",
+      "inputs": {
+        "sentence1": "Creating that sort of machinery required a very talented engineer.",
+        "sentence2": "You had to be very skillfull to make such a machine.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Creating that sort of machinery required a very untalented engineer.",
+          "sentence2": "You had to be very skillfull to make such a machine.",
+          "target": "0"
+        }
+      ]
+    },
+    {
+      "class": "AdjectivesAntonymsSwitch",
+      "inputs": {
+        "sentence1": "It was very wise to start working right away.",
+        "sentence2": "To sit there doing nothing was very stupid.",
+        "target": "0"
+      },
+      "outputs": [
+        {
+          "sentence1": "It was very foolish to start working right away.",
+          "sentence2": "To sit there doing nothing was very stupid.",
+          "target": "1"
+        },
+        {
+          "sentence1": "It was very wise to start working right away.",
+          "sentence2": "To sit there doing nothing was very smart.",
+          "target": "1"
+        },
+        {
+          "sentence1": "It was very foolish to start working right away.",
+          "sentence2": "To sit there doing nothing was very smart.",
+          "target": "0"
+        }
+      ]
+    }
+  ]
+}
