@@ -9,9 +9,9 @@ Author1 Affiliation: Council for Scientific and Industrial Research
 
 Author2 name: Vukosi Marivate
 
-Author2 email: vima@vima.co.za
+Author2 email: vukosi.marivate@cs.up.ac.za, vima@vima.co.za
 
-Author2 Affiliation: University of Pretoria
+Author2 Affiliation: Department of Computer Science, University of Pretoria
 
 ## What type of a transformation is this?
 This transformation could augment the semantic representation of the sentence as well as test model robustness by inserting synonyms of random words excluding punctuations and stopwords.
