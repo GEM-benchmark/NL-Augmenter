@@ -1,0 +1,60 @@
+{
+  "type": "sentence_additions",
+  "test_cases": [
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "John was not the person that I had imagined."
+      },
+      "outputs": [
+        {
+          "sentence": "John was not the person that I had imagined. I had thought that he would have strong qualities. I think I knew that I wanted to do something"
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "Hello, I'm a language model."
+      },
+      "outputs": [
+        {
+          "sentence": "Hello, I'm a language model. This language model knows lots of stuff about you. It knows where you live, what you like to eat, which movie you watch,"
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "Apple was founded by Steve Jobs, Steve Wozniak and Ronald Wayne in April 1976."
+      },
+      "outputs": [
+        {
+          "sentence": "Apple was founded by Steve Jobs, Steve Wozniak and Ronald Wayne in April 1976.\\n\\nSince then, it's grown to become the world's largest technology company"
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "Historically, the uncertainty principle has been confused with a related effect in physics, called the observer effect, which notes that measurements of certain systems cannot be made without affecting the system, that is, without changing something in a system."
+      },
+      "outputs": [
+        {
+          "sentence": "Historically, the uncertainty principle has been confused with a related effect in physics, called the observer effect, which notes that measurements of certain systems cannot be made without affecting the system, that is, without changing something in a system. The difference, in contrast, is that the uncertainty principle says that no amount of uncertainty in the measurement will affect the meaning"
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "Trinity Medical Imaging is one of the foremost providers of private nuclear medicine imaging in London and Surrey. We work with someof the finest nuclear medicine consultants from a wide variety of specialist fields, attracted from London's major teaching hospitals."
+      },
+      "outputs": [
+        {
+          "sentence": "Trinity Medical Imaging is one of the foremost providers of private nuclear medicine imaging in London and Surrey. We work with someof the finest nuclear medicine consultants from a wide variety of specialist fields, attracted from London's major teaching hospitals. We are also a leading provider for a wide range of diagnostic and clinical imaging tests and procedures, including brain tumour scans"
+        }
+      ]
+    }
+  ]
+}
