@@ -35,6 +35,12 @@ except:
     pass
 
 
+"""
+Negation Strengthen implementation targetted at augmenting 
+Causal Relations in text adapted from the paper at 
+https://openreview.net/pdf/17eafef9e25b48eb90a9a7f32c4f52e21177cc73.pdf.
+"""
+
 class NegateStrengthen(SentenceAndTargetOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.SENTIMENT_ANALYSIS]
     languages = ["en"]
