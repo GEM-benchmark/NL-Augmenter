@@ -10,8 +10,8 @@
         "retain_culture": false
       },
       "outputs": [{
-          "sentence": "Essie finally returned the French book to Chris that I bought last week",
-          "target": "Essie did not return the French book to Chris that was bought earlier"
+          "sentence": "Borka finally returned the French book to Chris that I bought last week",
+          "target": "Borka did not return the French book to Chris that was bought earlier"
         }]
     },
     {
@@ -23,8 +23,8 @@
         "retain_culture": true
       },
       "outputs": [{
-          "sentence": "Noelle finally returned the French book to Chris that I bought last week",
-          "target": "Noelle did not return the French book to Chris that was bought earlier"
+          "sentence": "Andrew finally returned the French book to Lorraine that I bought last week",
+          "target": "Andrew did not return the French book to Lorraine that was bought earlier"
         }]
     },
     {
@@ -36,8 +36,8 @@
         "retain_culture": false
       },
       "outputs": [{
-          "sentence": "Andrew finally returned the French book to Thomas that I bought last week",
-          "target": "Andrew did not return the French book to Thomas that was bought earlier"
+          "sentence": "Andrew finally returned the French book to Wenceslas that I bought last week",
+          "target": "Andrew did not return the French book to Wenceslas that was bought earlier"
         }]
     },
     {
@@ -49,8 +49,8 @@
         "retain_culture": true
       },
       "outputs": [{
-          "sentence": "Andrew finally returned the French book to Telesphore that I bought last week",
-          "target": "Andrew did not return the French book to Telesphore that was bought earlier"
+          "sentence": "Andrew finally returned the French book to Dorothea that I bought last week",
+          "target": "Andrew did not return the French book to Dorothea that was bought earlier"
         }]
     },
     {

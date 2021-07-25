@@ -22,7 +22,7 @@ def hash(input:str):
 class ChangeGenderCultureDiverseNameTwoWay:
     def __init__(self, data_path) -> None:
 
-        with open(data_path, 'r') as f:
+        with open(data_path, 'r', encoding="utf8") as f:
             self.names = json.load(f)
         self.countries = list(self.names.keys())
         self.genders = ['M', 'F']
