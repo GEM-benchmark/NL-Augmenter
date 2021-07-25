@@ -67,7 +67,7 @@ cd NL-Augmenter
 git checkout -b my_awesome_transformation
 ```
 We will base our transformation on an existing example.
-Create a new transformation directory by copying over an existing transformation. You can choose to copy from other [transformation directories](interfaces) depending on the task you wish to create a transformation for. Check some of the existing [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls?q=is%3Aopen+is%3Apr+label%3Atransformation) [and merged transformations](transformations) first to avoid duplicating efforts or creating transformations similar to previous ones.
+Create a new transformation directory by copying over an existing transformation. You can choose to copy from other [transformation directories](interfaces) depending on the task you wish to create a transformation for. Check some of the existing [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls?q=is%3Aopen+is%3Apr+label%3Atransformation) [and merged transformations](transformations) first to avoid duplicating efforts or creating transformations too similar to previous ones.
 ```bash
 cd transformations/
 cp -r butter_fingers_perturbation my_awesome_transformation
