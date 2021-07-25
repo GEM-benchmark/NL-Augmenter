@@ -1,10 +1,10 @@
 # Sentence additions
 This perturbation adds generated sentence to all types of text sources (sentence, paragraph, etc.) by passing the input text to a GPT-2 Text Generation model.
 
-Author name: Timothy Sum Hon Mun (timothy2200@gmail.com)
+Author name: Timothy Sum Hon Mun (timothy22000@gmail.com)
 
 ## What type of a transformation is this?
-This transformation will take in an input text and generate additional sentences to perturbe the inputs that have been show by Jia and Liang, 2017 to be impact model performance. This can be used to test model robustness. 
+This transformation will take in an input text and generate additional sentences to perturbe the inputs that have been shown by Jia and Liang, 2017 to impact model performance. This can be used to test model robustness. 
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks on text classification and generation. 
@@ -42,5 +42,5 @@ We use its implementation from huggingface (https://huggingface.co/gpt2).
 
 ## What are the limitations of this transformation?
 
-This transformation will only change the input text that has more than one sentence. 
+The text generated from this transformation is dependent on the pre-trained GPT-2 language model so it would perform less well on topics it has not seen. It is also less robust than the GPT-3 model which was trained on a much larger dataset and has more parameters.
 
