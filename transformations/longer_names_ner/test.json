@@ -22,7 +22,7 @@
         "tag_sequence": "B-PER I-PER I-PER O O B-COUNTRY O"
       },
       "outputs": [{
-        "token_sequence": "Neil Y M Alden Armstrong was an American astronaut",
+        "token_sequence": "Neil B N Alden Armstrong was an American astronaut",
         "tag_sequence": "B-PER I-PER I-PER I-PER I-PER O O B-COUNTRY O"
       }]
     }

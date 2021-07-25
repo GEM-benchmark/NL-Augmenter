@@ -15,7 +15,7 @@
         "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
       },
       "outputs": [{
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary Tee, lack an overt predicate to indicate Thee relation between two or Morr arguments."
+        "sentence": "Sentences with gapping, such as Pol likes coffee and Mary tea, lack an overt predicate to indicate the relation between two Err more arguments."
       }]
     }, {
       "class": "CloseHomophonesSwap",
@@ -23,7 +23,7 @@
         "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
       },
       "outputs": [{
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+        "sentence": "Alice in Wonderland is a 2010 American Liv-action/animated dark fantasy adventure film"
       }]
     }, {
       "class": "CloseHomophonesSwap",

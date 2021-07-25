@@ -16,7 +16,7 @@
         "sentence": "Chris borrowed the Comic book from Andrew last weekend"
       },
       "outputs": [{
-        "sentence": "Chris borrowed the Komik book from Andrew last weekend"
+        "sentence": "Chris borrowed the Comic book from Andrew last weekend"
       }]
     },
     {
@@ -25,7 +25,7 @@
         "sentence": "Turn off the light please"
       },
       "outputs": [{
-        "sentence": "Turn off the licht please"
+        "sentence": "Turn off die light please"
       }]
     },
     {
@@ -43,7 +43,7 @@
         "sentence": "Thomas loves to cook chicken every Monday"
       },
       "outputs": [{
-        "sentence": "Thomas loves to kochen chicken every Monday"
+        "sentence": "Thomas lieben to cook chicken every Monday"
       }]
     }
   ]
