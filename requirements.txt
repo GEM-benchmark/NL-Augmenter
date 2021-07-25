@@ -1,12 +1,12 @@
 checklist==0.0.11
-spacy==3.0.0
+spacy==3.0.6
 
 # for back_translation
 torch
 
 # for sentence_reordering
-allennlp==2.6.0
-allennlp-models==2.6.0
+allennlp==2.5.0
+allennlp-models==2.5.0
 
 # for ReplaceNumericalValues
 num2words==0.5.10
