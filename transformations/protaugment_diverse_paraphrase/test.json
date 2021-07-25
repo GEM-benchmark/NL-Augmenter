@@ -7,23 +7,23 @@
         "forbid_strategy": "bigram"
       },
       "inputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+        "sentence": "What should I do if the ATM \"stole\" my card?"
       },
       "outputs": [
         {
-          "sentence": "Andrew returned Chris's French - book that Chris had purchased"
+          "sentence": "What is the best way to deal with an ATM scam?"
         },
         {
-          "sentence": "Andrew has returned Chris's French books that Chris bought for"
+          "sentence": "What would be the best way to get my ATM card back if someone stole it?"
         },
         {
-          "sentence": "Finally Andrew returned Chris's French - book, which I"
+          "sentence": "What is the best thing I can do when my ATM has stolen my money?"
         },
         {
-          "sentence": "Andrew is finally returning Chris's French - book, which"
+          "sentence": "What does it take to steal a card from a bank ATM?"
         },
         {
-          "sentence": "Andrew is finally returning Chris's French - book that he"
+          "sentence": "What does it take to get a card from an ATM without a PIN or password?"
         }
       ]
     },
@@ -33,23 +33,23 @@
         "forbid_strategy": "bigram"
       },
       "inputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+        "sentence": "Please explain your exchange rate policy."
       },
       "outputs": [
         {
-          "sentence": "The Sentences of Gapping have a formal predicate that indicates that the two arguments have a relation, rather than a predicate."
+          "sentence": "How do you explain the exchange rates policy of the United States?"
         },
         {
-          "sentence": "The Sentences of Gapping have a formal predicate that indicates that the two arguments have a relation, rather than a predicate, that suggests the"
+          "sentence": "Can you explain the exchange rates policy of the U.S.?"
         },
         {
-          "sentence": "The Sentences of Gapping have a formal predicate that indicates that the two arguments have a relation."
+          "sentence": "\"How do you explain the exchange rates policy to me?\""
         },
         {
-          "sentence": "The Sentences of Gapping are so-called \"gapping\" because they don't have a predicate that indicates that there is a relation"
+          "sentence": "\"How do you explain the exchange rates policy?\"\""
         },
         {
-          "sentence": "The Sentences of Gapping are so-called \"gapping\" because they don't have a predicate that indicates that there is a relationship"
+          "sentence": "\"How do I explain our exchange rates?\"\""
         }
       ]
     },
@@ -59,23 +59,23 @@
         "forbid_strategy": "bigram"
       },
       "inputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+        "sentence": "change my house lights colour to blue"
       },
       "outputs": [
         {
-          "sentence": "Alice is an American animated horror film from 2010, based on the 2010 animated fantasy"
+          "sentence": "Change the color of the lights in your house from blue to green"
         },
         {
-          "sentence": "Alice is an American animated horror film in 2010, based on the 2010 animated animated"
+          "sentence": "I have changed the color of my lights from blue to green."
         },
         {
-          "sentence": "Alice Adventures is an American animated horror film from 2010, based on the 2010 animated"
+          "sentence": "I have changed the color of my lights from blue to red."
         },
         {
-          "sentence": "Alice Adventures is an American animated horror film from 2010."
+          "sentence": "How do I change the color of my bedroom lights from blue?"
         },
         {
-          "sentence": "Alice's Adventures is an American animated horror film from 2010."
+          "sentence": "Can you change the color of your house light bulbs?"
         }
       ]
     },
@@ -85,23 +85,23 @@
         "forbid_strategy": "bigram"
       },
       "inputs": {
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+        "sentence": "Add \"bohemian rapshody\" to my rock playlist"
       },
       "outputs": [
         {
-          "sentence": "In 2000-2001, J.D.D., served in the cabinet of the province of"
+          "sentence": "What is the best way to add a song to your playlist of rock?"
         },
         {
-          "sentence": "In 2000-2001, J.D.D., served in the cabinet of the British Columb"
+          "sentence": "What is the best way to add a song to your playlist of music?"
         },
         {
-          "sentence": "From 2000 until 2001, J.D.D., the 33nd Premier was British Columbian"
+          "sentence": "Can I add a song to the playlist of my favorite rock band?"
         },
         {
-          "sentence": "From 2000 until 2001, J.D.D., served in the cabinet as the 34th"
+          "sentence": "I want to add a song to the rock music playlist of my favorite artists."
         },
         {
-          "sentence": "From 2000 until 2001, J.D.D., served in the cabinet as the 33th"
+          "sentence": "I want to add a song to the rock music playlist of my friend."
         }
       ]
     },
@@ -111,23 +111,23 @@
         "forbid_strategy": "bigram"
       },
       "inputs": {
-        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+        "sentence": "Which soft drink does Madonna advertise for ?"
       },
       "outputs": [
         {
-          "sentence": "Neuromuscularity means a constant processing that allows short - term, medium - term, long - term remodel of a neuron - synaptic"
+          "sentence": "What is the best drink that Madonna advertises?"
         },
         {
-          "sentence": "Neuromuscularity, or neuroplasticsity, is an extended processing that allows short - term, long -- term, short -- long --"
+          "sentence": "What is the best drink that Madonna advertises in the world?"
         },
         {
-          "sentence": "Neuromusculum is the continuous process allowing the short -- long --, medium -- --, and short -- stabilization of synaptic organization and the remod"
+          "sentence": "What are some of the soft drinks that Madonna advertises?"
         },
         {
-          "sentence": "Neuromuscularity, or neuroplasticsity, is an extended processing that allows short - term, long -- term, short -- long -"
+          "sentence": "What soft drinks do Madonna advertize for in the magazine?"
         },
         {
-          "sentence": "Neuromoleteness is the constant processing of synaptic organization that allows short term, long term, or long term modification of neuron - synaptic - organization"
+          "sentence": "What is Madonna's Soft drink and what is it?"
         }
       ]
     },
@@ -137,23 +137,23 @@
         "forbid_strategy": "unigram"
       },
       "inputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+        "sentence": "What should I do if the ATM \"stole\" my card?"
       },
       "outputs": [
         {
-          "sentence": "Andrew finally gave in to my request for a copy of my"
+          "sentence": "How can you deal with a thief who stole your bank account account?"
         },
         {
-          "sentence": "Andrew brought me a copy of France for Christmas, which is"
+          "sentence": "How can you deal with a thief who stole your bank account account account?"
         },
         {
-          "sentence": "Andrew brought me a copy of France for Christmas, which was"
+          "sentence": "What would be a good way to deal with ATM theft?"
         },
         {
-          "sentence": "Andrew brought me a copy of France for my birthday this weekend"
+          "sentence": "Why did someone steal money from an ATM? How can you fix it?"
         },
         {
-          "sentence": "And Andrew has finally brought back my copy of The English Book"
+          "sentence": "Why did someone steal money from an ATM? How can you fix this?"
         }
       ]
     },
@@ -163,23 +163,23 @@
         "forbid_strategy": "unigram"
       },
       "inputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+        "sentence": "Please explain your exchange rate policy."
       },
       "outputs": [
         {
-          "sentence": "Sentences that are not overt predicate to suggest the relation of one argument to another don't have an overt predicate that indicates that the relation is"
+          "sentence": "I want to know how do I change my currency policies?"
         },
         {
-          "sentence": "Sentences that are not overt predicate to suggest the relation of one argument to another have no overt predicate."
+          "sentence": "How do I explain my currency change? Please explain."
         },
         {
-          "sentence": "Sentences in the case of Gaps have an overt predicate that indicates the relation of one argument to another."
+          "sentence": "How can we determine the value of the currency in the future?"
         },
         {
-          "sentence": "Sentences in the case of Gaps have an overt predicate that indicates the relation of one argument to the next."
+          "sentence": "Can I ask you for an explanation of the Exchange Rate Policy?"
         },
         {
-          "sentence": "Sentences in the case of Gaps have an overt predicate that indicates the relation of one argument."
+          "sentence": "How can we determine the value of the currency in India?"
         }
       ]
     },
@@ -189,23 +189,23 @@
         "forbid_strategy": "unigram"
       },
       "inputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+        "sentence": "change my house lights colour to blue"
       },
       "outputs": [
         {
-          "sentence": "Alice in the Alice - Adventures - 2011 American animated horror film, based on the"
+          "sentence": "How do I change the color of my bedroom light?"
         },
         {
-          "sentence": "Alice in the Alice - Adventures - 2011 American animated horror film, based on animated"
+          "sentence": "I changed the color of my curtains from blue and red."
         },
         {
-          "sentence": "Alice in the Alice - Adventures in Walt Disney's 2011 animated horror film."
+          "sentence": "I changed the color of my bedroom light from blue and red."
         },
         {
-          "sentence": "Alice in the Alice - Adventures film was adapted as an animated horror film in the"
+          "sentence": "I have changed the color of my House Lights from blue."
         },
         {
-          "sentence": "Alice in the Alice - Adventures film was adapted as an animated horror film by Walt"
+          "sentence": "Can you change the color of your bedroom light bulbs in blue?"
         }
       ]
     },
@@ -215,23 +215,23 @@
         "forbid_strategy": "unigram"
       },
       "inputs": {
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+        "sentence": "Add \"bohemian rapshody\" to my rock playlist"
       },
       "outputs": [
         {
-          "sentence": "From 2000 to 2001, J.D. D. Dutti was the 33th premier"
+          "sentence": "I like the sound of the song \"Boho,\" and I like it a lot more."
         },
         {
-          "sentence": "From 2000 to 2001, J.D. D.D., Minister of Finance and Minister of"
+          "sentence": "I like the sound of the song \"Boho,\" and I like the music of the soundtrack."
         },
         {
-          "sentence": "In 2001, J.D. Dutti was the 33th premier of the province of"
+          "sentence": "If you like the music, add the song \"Boho-Raptown,\" on your iPod."
         },
         {
-          "sentence": "In 2001, J.D. Dutti was the 33nd premier of the province of"
+          "sentence": "Add a song like \"Boho-Raptown,\" on my Rock Playlist for the weekend."
         },
         {
-          "sentence": "From 2000 to 2001, J.D. Dutti was the 33th premier of the"
+          "sentence": "Add a song like \"Boho-Raptown,\" on my Rock Playlist for the weekend."
         }
       ]
     },
@@ -241,23 +241,23 @@
         "forbid_strategy": "unigram"
       },
       "inputs": {
-        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+        "sentence": "Which soft drink does Madonna advertise for ?"
       },
       "outputs": [
         {
-          "sentence": "Neuromolecule - Polymer - - - Theoretical - - Structural - - Structure - Neuromulecule - - Expression -"
+          "sentence": "What are some of the best soft drinks to buy in the United States?"
         },
         {
-          "sentence": "Neuromolecule - Polymer - - - Theoretical - - Structural - - Structure - Neuromulecule - Structures:"
+          "sentence": "What is the best soft drinks to buy in the United States and why?"
         },
         {
-          "sentence": "Neuromolecule - polymerase - polymer - allows long term, short term, long term, and long - term remodel and reorganization to"
+          "sentence": "What is the best soft drinks to buy in the US?"
         },
         {
-          "sentence": "Neuromolecule - polymerase - polymer - allows long term, short term, long term, and long - term remodel and reorganization at"
+          "sentence": "What is the best soda to buy in the US?"
         },
         {
-          "sentence": "Neuromodulation allows short term, long term, and long term remodel and reorganization in neurons - synapses."
+          "sentence": "What is the best soda to buy in the UK for a date night?"
         }
       ]
     }

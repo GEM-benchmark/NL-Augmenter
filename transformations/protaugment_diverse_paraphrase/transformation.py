@@ -14,6 +14,7 @@ logging.basicConfig(
     format="%(asctime)s | %(name)s | %(levelname)s | %(message)s"
 )
 logger = logging.getLogger(name="protaugment_diverse_paraphrase")
+logger.setLevel(logging.INFO)
 
 """
 Protaugment's diverse paraphrase generation, from https://github.com/tdopierre/ProtAugment
@@ -105,7 +106,7 @@ class BigramForbidStrategy(ForbidStrategy):
             if special_ids:
                 row = [item for item in row if item not in special_ids]
             for i in range(0, len(row) - 1):
-                bad_words_ids.append(row[i: i + 2])
+                bad_words_ids.append(row[i : i + 2])
         return bad_words_ids
 
 
@@ -170,8 +171,10 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
     def prepare_batch(
         self, sentence: str
     ) -> Dict[str, Union[torch.Tensor, List[List[str]]]]:
-        batch = self.tokenizer.prepare_seq2seq_batch(
-            src_texts=[sentence], return_tensors="pt", max_length=512
+        batch = self.tokenizer.batch_encode_plus(
+            batch_text_or_text_pairs=[sentence],
+            return_tensors="pt",
+            max_length=512,
         )
         batch = {k: v.to(self.device) for k, v in batch.items()}
 
@@ -184,16 +187,22 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
 
             if len(bad_words_ids):
                 batch["bad_words_ids"] = bad_words_ids
+                bad_words = [
+                    [
+                        self.tokenizer.decode(word_id)
+                        for word_id in bad_ngram_ids
+                    ]
+                    for bad_ngram_ids in bad_words_ids
+                ]
+                logger.info(f"Forbidden tokens: {bad_words}")
         return batch
 
     def generate(self, sentence: str):
         set_seeds(self.seed)
         batch = self.prepare_batch(sentence=sentence)
-        max_length = batch["input_ids"].shape[1]
         with torch.no_grad():
             preds = self.model.generate(
                 **batch,
-                max_length=max_length,
                 num_beams=self.num_beams,
                 num_beam_groups=self.beam_group_size,
                 diversity_penalty=self.diversity_penalty,
@@ -209,7 +218,7 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
 
         filtered = filter_generated_texts_with_distance_metric(
             texts=[
-                tgt_texts[i: i + self.beam_group_size]
+                tgt_texts[i : i + self.beam_group_size]
                 for i in range(0, len(tgt_texts), self.beam_group_size)
             ],
             src=sentence,
@@ -236,11 +245,11 @@ if __name__ == "__main__":
         tf = ProtaugmentDiverseParaphrase(**arg_dict)
 
         for sentence in [
-            "Andrew finally returned the French book to Chris that I bought last week",
-            "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
-            "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
-            "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
-            "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
+            'What should I do if the ATM "stole" my card?',
+            "Please explain your exchange rate policy.",
+            "change my house lights colour to blue",
+            'Add "bohemian rapshody" to my rock playlist',
+            "Which soft drink does Madonna advertise for ?",
         ]:
             test_cases.append(
                 {
