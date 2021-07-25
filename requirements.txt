@@ -5,8 +5,8 @@ spacy==3.0.0
 torch
 
 # for sentence_reordering
-allennlp==2.1.0
-allennlp-models==2.1.0
+allennlp==2.6.0
+allennlp-models==2.6.0
 
 # for ReplaceNumericalValues
 num2words==0.5.10
