@@ -29,7 +29,10 @@ def emojify(sentence, nlp, word_to_emoji, prob=1, seed=0, max_outputs=1):
                         if digit in word_to_emoji:
                             emoji = random.choice(word_to_emoji[digit])
                         transformed_sentence += emoji
-                    transformed_sentence += ' '
+
+                    if ' ' in token.text_with_ws:
+                        transformed_sentence += ' '
+
                 else:
                     transformed_sentence += token.text_with_ws
 
@@ -39,7 +42,11 @@ def emojify(sentence, nlp, word_to_emoji, prob=1, seed=0, max_outputs=1):
 
                     # Randomly choose a emoji candidate for this token
                     emoji = random.choice(word_to_emoji[lemma])
-                    transformed_sentence += emoji + ' '
+                    transformed_sentence += emoji
+
+                    if ' ' in token.text_with_ws:
+                        transformed_sentence += ' '
+
                 else:
                     transformed_sentence += token.text_with_ws
                     
