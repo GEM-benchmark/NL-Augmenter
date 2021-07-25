@@ -30,8 +30,7 @@ Ukrainian (uk), Urdu (ur), Uzbek (uz), Vietnamese (vi), Wolof (wo), Xhosa (xh), 
 
 FOLDER_PATH = '/'.join(os.path.abspath(__file__).split('/')[:-1])
 
-def perturb_sentence(lexicon_df, text, prob_mix=0.5, mlt_src_lang="en", mlt_tgt_lang="zh", seed=0):
-    random.seed(seed)
+def perturb_sentence(lexicon_df, text, prob_mix=0.5, mlt_src_lang="en", mlt_tgt_lang="zh"):
     l_df = lexicon_df.set_index(mlt_src_lang)
 
     words = word_tokenize(text)
@@ -79,8 +78,8 @@ class MultilingualLexiconPerturbation(SentenceOperation):
     ]    
     heavy = False
 
-    def __init__(self, seed=0, prob_mix=0.5, mlt_src_lang="en", mlt_tgt_lang="zh"):
-        super().__init__(seed)
+    def __init__(self, prob_mix=0.5, mlt_src_lang="en", mlt_tgt_lang="zh"):
+        super().__init__()
         
         # Download nltk `punkt` package
         nltk.download('punkt')
@@ -98,5 +97,5 @@ class MultilingualLexiconPerturbation(SentenceOperation):
         self.mlt_tgt_lang=mlt_tgt_lang
 
     def generate(self, sentence: str):
-        pertubed_sentence = perturb_sentence(lexicon_df=self.lexicon_df, text=sentence, prob_mix=self.prob_mix, mlt_src_lang=self.mlt_src_lang, mlt_tgt_lang=self.mlt_tgt_lang, seed=self.seed)
+        pertubed_sentence = perturb_sentence(lexicon_df=self.lexicon_df, text=sentence, prob_mix=self.prob_mix, mlt_src_lang=self.mlt_src_lang, mlt_tgt_lang=self.mlt_tgt_lang)
         return [pertubed_sentence]

@@ -4,27 +4,27 @@
     {
       "class": "EnglishInflectionalVariation",
       "inputs": {"sentence": "Andrew finally returned the French book to Chris that I bought last week"},
-      "outputs": [{"sentence": "Andrew finally returning the French books to Chris that I buy last weeks"}]
+      "outputs": [{"sentence": "Andrew finally return the French book to Chris that I buying last week"}]
     },
     {
       "class": "EnglishInflectionalVariation",
       "inputs": {"sentence": "Andrew finally got the French book I sent to him two days ago."},
-      "outputs": [{"sentence": "Andrew finally gotten the French books I sent to him two days ago."}]
+      "outputs": [{"sentence": "Andrew finally getting the French book I sent to him two day ago."}]
     },
     {
       "class": "EnglishInflectionalVariation",
       "inputs": {"sentence": "Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."},
-      "outputs": [{"sentence": "Rachel Green, a sheltered but friendlier woman, flees her wedding days and wealthier yet unfulfilling lives."}]
+      "outputs": [{"sentence": "Rachel Green, a sheltered but friendliest women, flee her wedding day and wealthier yet unfulfilling life."}]
     },
     {
       "class": "EnglishInflectionalVariation",
       "inputs": {"sentence": "The close was the highest since Aug. 15. Estimated volume was a light two million ounces"},
-      "outputs": [{"sentence": "The close was the higher since Aug. 15. Estimates volume was a lightest two million ounce"}]
+      "outputs": [{"sentence": "The close are the high since Aug. 15. Estimating volume is a light two million ounces"}]
     },
     {
       "class": "EnglishInflectionalVariation",
       "inputs": {"sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"},
-      "outputs": [{"sentence": "Ujjal Dev Dosanjh serve as 33rd Premiers of British Columbia from 2000 to 2001"}]
+      "outputs": [{"sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"}]
     },
     {
       "class": "EnglishInflectionalVariationQAQuestionOnly",
@@ -37,7 +37,7 @@
       },
       "outputs": [{
         "context": "Jim went to the pool instead of the gym yesterday.",
-        "question": "Did Jim go to the gyms yesterdays?",
+        "question": "Did Jim goes to the gym yesterday?",
         "answers": [
           "no"
         ]

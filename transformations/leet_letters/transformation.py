@@ -49,12 +49,11 @@ class LeetLetters(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     languages = ["en"]
 
-    def __init__(self, seed: int = 0, max_outputs: int = 1, max_leet: float = 0.5) -> None:
-        super().__init__(seed=seed, max_outputs=max_outputs)
+    def __init__(self, max_outputs: int = 1, max_leet: float = 0.5) -> None:
+        super().__init__(max_outputs=max_outputs)
         self.max_leet = max_leet
 
     def generate(self, sentence: str) -> List[str]:
-        random.seed(self.seed)
         max_leet_replacements = int(self.max_leet * len(sentence))
         perturbed_texts = []
         # Perturb the input sentence max_output times
