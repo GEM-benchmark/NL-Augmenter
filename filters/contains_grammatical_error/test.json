@@ -1,0 +1,45 @@
+{
+    "type": "contains_grammatical_error",
+    "test_cases": [
+        {
+            "class": "TextContainsGrammarError",
+            "args": {
+                "lang": "en-US"
+            },
+            "inputs": {
+                "sentence": "A sentence with a error in the Hitchhiker’s Guide tot he Galaxy"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextContainsGrammarError",
+            "args": {
+                "lang": "en-US"
+            },
+            "inputs": {
+                "sentence": "A perfectly grammatically correct sentence, just for test purposes"
+            },
+            "outputs": false
+        },
+        {
+            "class": "TextContainsGrammarError",
+            "args": {
+                "lang": "es"
+            },
+            "inputs": {
+                "sentence": "Deberías hacerlo tu."
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextContainsGrammarError",
+            "args": {
+                "lang": "es"
+            },
+            "inputs": {
+                "sentence": "Deberías hacerlo tú."
+            },
+            "outputs": false
+        }
+    ]
+}
