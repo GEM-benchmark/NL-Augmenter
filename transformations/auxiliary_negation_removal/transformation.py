@@ -114,7 +114,7 @@ if __name__ == '__main__':
     from TestRunner import convert_to_snake_case
     tf = AuxiliaryNegationRemoval(max_outputs=3)
     test_cases = []
-    for sentence1, sentence2, label in zip(["Andrew has not returned the French book to the library.",
+    for sentence1, sentence2, target in zip(["Andrew has not returned the French book to the library.",
                                      "Sentences with gapping, such as Paul likes coffee and Mary tea, do not have an overt predicate.",
                                      "Alice in Wonderland isn't a 1997 American live-action/animated dark fantasy adventure film.",
                                      "Ujjal Dev Dosanjh was not the 1st Premier of British Columbia from 1871 to 1872.",
@@ -133,8 +133,8 @@ if __name__ == '__main__':
                                     ):
         test_cases.append({
             "class": tf.name(),
-            "inputs": {"sentence1": sentence1, "sentence2": sentence2, "label": label},
-            "outputs": [{"sentence1": o[0], "sentence2": o[1], "label": o[2]} for o in tf.generate(sentence1, sentence2, label)]}
+            "inputs": {"sentence1": sentence1, "sentence2": sentence2, "target": target},
+            "outputs": [{"sentence1": o[0], "sentence2": o[1], "target": o[2]} for o in tf.generate(sentence1, sentence2, target)]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
