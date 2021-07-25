@@ -52,14 +52,6 @@ python evaluate.py -t EmojifyTransformation -task TEXT_CLASSIFICATION --model "a
 The accuracy of a RoBERTa model (fine-tuned on IMDB) (model: "aychang/roberta-base-imdb") on a subset of IMDB sentiment dataset = 96.0%.
 The accuracy of the same model on the perturbed set = 95.0%.
 
-```shell
-python evaluate.py -t EmojifyTransformation -task TEXT_CLASSIFICATION --model "sshleifer/distilbart-xsum-12-6" --dataset "xsum"
-```
-
-The average bleu score of a distillbert model (fine-tuned on xsum) (model: "sshleifer/distilbart-xsum-12-6") 
-on a subset (10%) of xsum test dataset = 14.9104
-The average bleu score of same model on the pertubed set = 11.9221
-
 ## Data and code provenance
 
 We create the english-to-emoji dictionary `emoji_dict.json` based on the open-source project (MIT license) [emojilib](https://github.com/muan/emojilib).
