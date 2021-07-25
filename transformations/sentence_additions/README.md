@@ -1,4 +1,4 @@
-# Sentence additions
+# Sentence Additions 🦎  + ⌨️ → 🐍
 This perturbation adds generated sentence to all types of text sources (sentence, paragraph, etc.) by passing the input text to a GPT-2 Text Generation model.
 
 Author name: Timothy Sum Hon Mun (timothy22000@gmail.com)
@@ -7,12 +7,7 @@ Author name: Timothy Sum Hon Mun (timothy22000@gmail.com)
 This transformation will take in an input text and generate additional sentences to perturbe the inputs that have been shown by Jia and Liang, 2017 to impact model performance. This can be used to test model robustness. 
 
 ## What tasks does it intend to benefit?
-This perturbation would benefit all tasks on text classification and generation. 
-
-Benchmark results:
-
-- Sentiment analysis: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 956 and the perturbed accuracy is 95.2.
-- Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original BLEU is 15.99 and the perturbed BLEU is 9.75.
+This perturbation would benefit all tasks on text classification and generation.
 
 ## Related work
 
