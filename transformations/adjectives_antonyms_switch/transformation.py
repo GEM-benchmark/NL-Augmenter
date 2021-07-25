@@ -116,7 +116,7 @@ if __name__ == '__main__':
     from TestRunner import convert_to_snake_case
     tf = AdjectivesAntonymsSwitch(max_outputs=3)
     test_cases = []
-    for sentence1, sentence2, label in zip([ "Anthony was a very tall boy.",
+    for sentence1, sentence2, target in zip([ "Anthony was a very tall boy.",
                                      "Amanda's mother was very beautiful.",
                                      "After the war he had become a rich man.",
                                      "Creating that sort of machinery required a very talented engineer.",
@@ -135,8 +135,8 @@ if __name__ == '__main__':
                                     ):
         test_cases.append({
             "class": tf.name(),
-            "inputs": {"sentence1": sentence1, "sentence2": sentence2, "label": label},
-            "outputs": [{"sentence1": o[0], "sentence2": o[1], "label": o[2]} for o in tf.generate(sentence1, sentence2, label)]}
+            "inputs": {"sentence1": sentence1, "sentence2": sentence2, "target": target},
+            "outputs": [{"sentence1": o[0], "sentence2": o[1], "target": o[2]} for o in tf.generate(sentence1, sentence2, target)]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
