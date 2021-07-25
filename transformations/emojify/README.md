@@ -1,4 +1,4 @@
-# Emojify 🔤 → 😉
+# Emojify 🔤 → 🦄
 
 This transformation augments the input sentence by swapping words into emojis with similar meanings. For example, it changes word `"movie"` to emoji `"🎬"`.
 
