@@ -1,0 +1,130 @@
+{
+    "type": "subject_object_switch",
+    "test_cases": [
+        {
+            "class": "SubjectObjectSwitch",
+            "inputs": {
+                "sentence1": "Andrew has not returned the French book to the library.",
+                "sentence2": "He hasn't brought back the library's books.",
+                "target": "1"
+            },
+            "outputs": [
+                {
+                    "sentence1": "the French book has not returned Andrew to the library.",
+                    "sentence2": "He hasn't brought back the library's books.",
+                    "target": "0"
+                },
+                {
+                    "sentence1": "Andrew has not returned the French book to the library.",
+                    "sentence2": "the library's books hasn't brought back He.",
+                    "target": "0"
+                },
+                {
+                    "sentence1": "the French book has not returned Andrew to the library.",
+                    "sentence2": "the library's books hasn't brought back He.",
+                    "target": "1"
+                }
+            ]
+        },
+        {
+            "class": "SubjectObjectSwitch",
+            "inputs": {
+                "sentence1": "John Locke and Adam Smith were born before Karl Marx and Friedrich Engels.",
+                "sentence2": "Karl Marx and Friedrich Engels were born after John Locke and Adam Smith.",
+                "target": "1"
+            },
+            "outputs": [
+                {
+                    "sentence1": "Karl Marx and Friedrich Engels were born before John Locke and Adam Smith.",
+                    "sentence2": "Karl Marx and Friedrich Engels were born after John Locke and Adam Smith.",
+                    "target": "0"
+                },
+                {
+                    "sentence1": "John Locke and Adam Smith were born before Karl Marx and Friedrich Engels.",
+                    "sentence2": "John Locke and Adam Smith were born after Karl Marx and Friedrich Engels.",
+                    "target": "0"
+                },
+                {
+                    "sentence1": "Karl Marx and Friedrich Engels were born before John Locke and Adam Smith.",
+                    "sentence2": "John Locke and Adam Smith were born after Karl Marx and Friedrich Engels.",
+                    "target": "1"
+                }
+            ]
+        },
+       {
+           "class": "SubjectObjectSwitch",
+           "inputs": {
+               "sentence1": "John loves Mary.",
+               "sentence2": "John really likes Mary.",
+               "target": "1"
+            },
+            "outputs": [
+                {
+                    "sentence1": "Mary loves John.",
+                    "sentence2": "John really likes Mary.",
+                    "target": "0"
+                },
+                {
+                    "sentence1": "John loves Mary.",
+                    "sentence2": "Mary really likes John.",
+                    "target": "0"
+                },
+                {
+                    "sentence1": "Mary loves John.",
+                    "sentence2": "Mary really likes John.",
+                    "target": "1"
+                }
+            ]
+        },
+        {
+            "class": "SubjectObjectSwitch",
+            "inputs": {
+                "sentence1": "Ujjal Dev Dosanjh was not the 1st Premier of British Columbia from 1871 to 1872.",
+                "sentence2": "U.D. Dosanjh wasn't the 1st Premier of British Columbia for a year from 1871.",
+                "target": "1"
+            },
+            "outputs": [
+                {
+                    "sentence1": "British Columbia was not the 1st Premier of Ujjal Dev Dosanjh from 1871 to 1872.",
+                    "sentence2": "U.D. Dosanjh wasn't the 1st Premier of British Columbia for a year from 1871.",
+                    "target": "0"
+                },
+                {
+                    "sentence1": "Ujjal Dev Dosanjh was not the 1st Premier of British Columbia from 1871 to 1872.",
+                    "sentence2": "British Columbia wasn't the 1st Premier of U.D. Dosanjh for a year from 1871.",
+                    "target": "0"
+                },
+                {
+                    "sentence1": "British Columbia was not the 1st Premier of Ujjal Dev Dosanjh from 1871 to 1872.",
+                    "sentence2": "British Columbia wasn't the 1st Premier of U.D. Dosanjh for a year from 1871.",
+                    "target": "1"
+                }
+            ]
+        },
+        {
+            "class": "SubjectObjectSwitch",
+            "inputs": {
+                "sentence1": "The fighters would not give up the fight.",
+                "sentence2": "The warriors would stay in the battle",
+                "target": "1"
+            },
+            "outputs": [
+                {
+                    "sentence1": "the fight would not give up The fighters.",
+                    "sentence2": "The warriors would stay in the battle",
+                    "target": "0"
+                },
+                {
+                    "sentence1": "The fighters would not give up the fight.",
+                    "sentence2": "the battle would stay in The warriors",
+                    "target": "0"
+                },
+                {
+                    "sentence1": "the fight would not give up The fighters.",
+                    "sentence2": "the battle would stay in The warriors",
+                    "target": "1"
+                }
+            ]
+        }
+    ]
+}
