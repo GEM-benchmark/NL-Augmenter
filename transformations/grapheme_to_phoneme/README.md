@@ -1,0 +1,75 @@
+# Grapheme to Phoneme Substituion
+
+This perturbration adds noise to sentences in the form of graphemes
+transliterated to phonemes.
+
+For randomly selected words in a sentence, words are changed to their phoenems.
+Grapheme to phoenem substitution is useful in human language techonlogies
+related to speech. An example of grapheme to phoenem substitution is
+`"permit"` ---> `[P ER0 M IH1 T']`. Since our goal here is to add noise to the
+sentence, we do not consider stress as indicated by numbers (`'permit'` is
+transformed as `permiht`). 
+
+Author name: 
+Rabin Banjade(rbnjade1@memphis.edu)
+Priti Oli (poli@memphis.edu)
+Marek Suppa (marek@mareksuppa.com)
+
+## What type of a transformation is this?
+
+This transformation can help in testing robustness. Humans can understand what
+the word refers to based on pronunciation and context to some extent. To some
+extent, this pertubation is similar to introducing spelling errors.
+
+## What tasks does it intend to benefit?
+
+This perturbation would benefit tasks on text classification and generation. 
+
+## Related Work
+
+There are variety of works on grapheme to phoneme conversion. One of such works
+is[1]. Mohammad [2] highlights phoneme substituion as one of the transformations
+used in toxic comments.
+
+Note that the `g2pE` package [3] is used for the actual grapheme-to-phoneme
+conversion, which combines the CMU Pronouncing dictionary (which is what the
+`pronouncing` package does) with a model based on neural network, making it
+possible to predict the phonemes even for words that are not part of the
+aforementioned dictionary, such as for instance `"disinherited"`.
+
+```
+1. @article{bisani2008joint,
+  title={Joint-sequence models for grapheme-to-phoneme conversion},
+  author={Bisani, Maximilian and Ney, Hermann},
+  journal={Speech communication},
+  volume={50},
+  number={5},
+  pages={434--451},
+  year={2008},
+  publisher={Elsevier}
+}
+
+
+2. @article{mohammad2018preprocessing,
+  title={Is preprocessing of text really worth your time for online comment classification?},
+  author={Mohammad, Fahim},
+  journal={arXiv preprint arXiv:1806.02908},
+  year={2018}
+}
+
+3. @misc{g2pE2019,
+  author = {Park, Kyubyong & Kim, Jongseok},
+  title = {g2pE},
+  year = {2019},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/Kyubyong/g2p}}
+}
+```
+
+
+
+## What are the limitations of this transformation?
+
+The model used in the `g2pE` can predict the incorrect graphemes, introducing
+a different type of noise in the transformation process.
