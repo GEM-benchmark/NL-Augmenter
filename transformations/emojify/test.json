@@ -1,0 +1,50 @@
+{
+  "type": "emojify",
+  "test_cases": [
+    {
+      "class": "EmojifyTransformation",
+      "inputs": {
+        "sentence": "Apple is looking at buying U.K. startup for $132 billion."
+      },
+      "outputs": [{
+        "sentence": "🍎 is 👀 at 🛍️ 🇬🇧 startup for $1️⃣3️⃣2️⃣ billion."
+      }]
+    },
+    {
+      "class": "EmojifyTransformation",
+      "inputs": {
+        "sentence": "We had to box part of the pizza to take it home and we were out the door by 6:42."
+      },
+      "outputs": [{
+        "sentence": "We 🈶 to 🥡 part of the pizza to take it 👩‍👩‍👦 and we were out the door by 6:42."
+      }]
+    },
+    {
+      "class": "EmojifyTransformation",
+      "inputs": {
+        "sentence": "The quick brown fox jumps over the lazy dog."
+      },
+      "outputs": [{
+        "sentence": "The quick 🟤 🦊 jumps over the lazy 🐕."
+      }]
+    },
+    {
+      "class": "EmojifyTransformation",
+      "inputs": {
+        "sentence": "Mumbai, Bengaluru, New Delhi are among the many famous places in India."
+      },
+      "outputs": [{
+        "sentence": "Mumbai, Bengaluru, 🆕 Delhi are among the many famous places in 🇮🇳."
+      }]
+    },
+    {
+      "class": "EmojifyTransformation",
+      "inputs": {
+        "sentence": "Oh, and their spring rolls and the accompanying peanuts and hot sauces were also delicious."
+      },
+      "outputs": [{
+        "sentence": "Oh, and their 🌱 🧻 and the accompanying 🥜 and 🌡️ sauces were also 😋."
+      }]
+    }
+  ]
+}
