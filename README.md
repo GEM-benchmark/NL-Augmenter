@@ -32,7 +32,7 @@ The transformations which are already accepted to NL-Augmenter are summarized in
 <a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly see transformations and filters in action, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Write_a_sample_transformation.ipynb).
 
 ## Some Ideas for Transformations
-There are some ideas and previous papers discussed informally [here](https://github.com/GEM-benchmark/NL-Augmenter/issues/75) which maybe useful to look at. Note that up untill now there have already been a lot of implementations spanning across morphological inflections, character level changes & random noise. 
+If you need inspiration for what transformations to implement, check out https://github.com/GEM-benchmark/NL-Augmenter/issues/75, where some ideas and previous papers are discussed. So far, contributions have focused on morphological inflections, character level changes, and random noise. The best new pull requests will be dissimilar from these existing contributions.
 
 ## Installation
 
