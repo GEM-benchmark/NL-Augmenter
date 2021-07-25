@@ -4,6 +4,10 @@ spacy==3.0.0
 # for back_translation
 torch
 
+# for sentence_reordering
+allennlp==2.1.0
+allennlp-models==2.1.0
+
 # for ReplaceNumericalValues
 num2words==0.5.10
 word2number==1.1
@@ -29,3 +33,4 @@ black==21.5b2
 pre-commit==2.13.0
 flake8==3.9.2
 isort==5.9.1
+
