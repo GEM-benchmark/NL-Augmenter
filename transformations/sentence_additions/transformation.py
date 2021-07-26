@@ -15,7 +15,7 @@ class SentenceAdditions(SentenceOperation):
     languages = ["en"]
     heavy = True
 
-    def __init__(self, seed=42, max_outputs=1, max_length=30, model='gpt2-xl'):
+    def __init__(self, seed=0, max_outputs=1, max_length=75, model='gpt2-xl'):
         super().__init__(seed, max_outputs=max_outputs)
         self.seed = seed
         self.model = model

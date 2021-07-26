@@ -4,14 +4,18 @@ This perturbation adds generated sentence to all types of text sources (sentence
 Author name: Timothy Sum Hon Mun (timothy22000@gmail.com)
 
 ## What type of a transformation is this?
-This transformation will take in an input text and generate additional sentences to perturbe the inputs that have been shown by Jia and Liang, 2017 to impact model performance. This can be used to test model robustness. 
+This transformation will take in an input text and generate additional sentences to perturbe the inputs that have been shown by Jia and Liang, 2017 to impact model performance. This can be used to test model robustness.
+
+The AddSent method in the paper which is in the Q&A setting requires mutation of the original question asked and generating a fake answer based on that. Then, converting them into a statement that is added a sentence to the input text as an adversarial example.
+
+This transformation uses GPT-2 to generate new grammatical sentence that will be added to the input text so it does not require any question mutation and fake answer.
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks on text classification and generation.
 
 ## Related work
 
-This is uses ideas that are related to the AddSent and AddOneSent adversarial examples covered in this EMNLP 2017 paper:
+This is inspired by ideas that are related to the AddSent and AddOneSent adversarial examples covered in this EMNLP 2017 paper:
 
 ```bibtex
 @article{jia2017adversarial,
