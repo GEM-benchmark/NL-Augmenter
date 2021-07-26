@@ -27,5 +27,8 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 }
 ```
 
+## Data and code provenance
+Two pip libraries in the transformation - dateparser and Babel have a BSD license.
+
 ## What are the limitations of this transformation?
 The transformation's outputs might be too simple in some cases.
