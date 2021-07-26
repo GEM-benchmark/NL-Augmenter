@@ -1,6 +1,7 @@
 import random
 
 import spacy
+from initialize import spacy_nlp
 import dateparser
 
 from babel.core import LOCALE_ALIASES
@@ -14,7 +15,7 @@ class DateFormatTransformation:
     nlp = None
 
     def __init__(self, seed=0, max_output=1):
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.max_output = max_output
         self.seed = seed
 
