@@ -8,9 +8,6 @@ torch
 num2words==0.5.10
 word2number==1.1
 
-# for PhoneticMatchFilter
-jellyfish==0.8.2
-
 # for test cases and coverage
 pytest==6.2.4
 pytest-cov==2.12.1
