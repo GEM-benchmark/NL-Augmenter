@@ -16,6 +16,18 @@ def butter_finger(text, prob=0.1, keyboard="pinyin", seed=0, max_outputs=1):
     if keyboard == "pinyin":
         key_approx["妈"] = "马吗嘛骂"
         key_approx["他"] = "塔踏塌嗒"
+        key_approx["q"] = "qwasedzx"
+        key_approx["q"] = "qwasedzx"
+        key_approx["w"] = "wqesadrfcx"
+        key_approx["e"] = "ewrsfdqazxcvgt"
+        key_approx["r"] = "retdgfwsxcvgt"
+        key_approx["t"] = "tryfhgedcvbnju"
+        key_approx["y"] = "ytugjhrfvbnji"
+        key_approx["u"] = "uyihkjtgbnmlo"
+        key_approx["i"] = "iuojlkyhnmlp"
+        key_approx["o"] = "oipklujm"
+        key_approx["p"] = "plo['ik"
+
         key_approx[" "] = " "
     else:
         print("Keyboard not supported.")
@@ -54,13 +66,14 @@ class ChineseButterFingersPerturbation(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1):
+    def __init__(self, seed=0, max_outputs=1, prob=0.1):
         super().__init__(seed, max_outputs=max_outputs)
+        self.prob = prob
 
     def generate(self, sentence: str):
         perturbed_texts = butter_finger(
             text=sentence,
-            prob=0.05,
+            prob=self.prob,
             seed=self.seed,
             max_outputs=self.max_outputs,
         )
