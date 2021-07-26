@@ -9,32 +9,20 @@ Author email: timothy22000@gmail.com
 This transformation perturbes Chinese input text to test robustness. Few Chinese characters that are picked at random will be replaced with characters 
 that have similar pinyin (based on the default Pinyin keyboards in Windows and Mac OS) where the user may accidentally select the wrong character from the returned results. 
 
-Generated transformations display high similarity to the 
-source sentences i.e. the code outputs highly precise generations. 
+It uses a database of 16142 Chinese characters and its associated pinyins to generate the perturbations.
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document with Chinese characters as input like text classification, 
 text generation, etc.
 
-## Previous Work 
+## Previous Work
 
-1) There has also been some recent work in the contrast sets of the GEM Benchmark (ACL 2021):
-```bibtex
-@article{DBLP:journals/corr/abs-2102-01672,
-  title     = {The {GEM} Benchmark: Natural Language Generation, its Evaluation and
-               Metrics},
-  journal   = {CoRR},
-  volume    = {abs/2102.01672},
-  year      = {2021},
-  url       = {https://arxiv.org/abs/2102.01672},
-  archivePrefix = {arXiv},
-  eprint    = {2102.01672},
-  timestamp = {Tue, 16 Feb 2021 16:58:52 +0100},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2102-01672.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
-}
-```
+1) Database for Chinese characters: https://github.com/pwxcoo/chinese-xinhua
 
 ## What are the limitations of this transformation?
-The transformation's outputs are too simple to be used for data augmentation. Unlike a paraphraser, it is not capable of
- generating linguistically diverse text.
+There could be Chinese characters that are not within the database of 16142 characters since there are over 50000 Chinese characters.
+However, the commonly utilized characters in modern Chinese are around 7000 - 8000 characters and most modern Chinese dictionaries will list around 16000 - 20000 characters so the database should cover most cases.
+
+The current implementation does not take into accents in Pinyin which indicates the intonation (such as ā, á, ǎ, and à). This is fine as commonly used Pinyin keyboards
+in Windows and MacOS do not take into accents anyways when typing Pinyin. Nevertheless, there are other types of keyboards that take into account the accents in Pinyin. This will be left as future work for the project.
+
