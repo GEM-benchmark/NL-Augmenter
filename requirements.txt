@@ -18,7 +18,7 @@ sacrebleu==1.5.1
 seqeval==1.2.2
 
 # for utility
-tqdm
+tqdm~=4.49.0
 
 # Google colab 2nd example
 sentencepiece==0.1.95
@@ -26,3 +26,8 @@ sentencepiece==0.1.95
 # for code format
 black==21.5b2
 pre-commit==2.13.0
+
+setuptools~=57.0.0
+pandas~=1.2.5
+numpy~=1.21.0
+requests~=2.25.1
