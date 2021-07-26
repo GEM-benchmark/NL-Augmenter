@@ -7,7 +7,7 @@ import os
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-def butter_finger(text, prob=0.3, keyboard="pinyin", seed=0, max_outputs=1):
+def butter_finger(text, prob=0.2, keyboard="pinyin", seed=0, max_outputs=1):
     random.seed(seed)
 
     prob_of_typo = prob * 100
@@ -16,12 +16,8 @@ def butter_finger(text, prob=0.3, keyboard="pinyin", seed=0, max_outputs=1):
         butter_text = ""
         for chinese_character in text:
             similar_pinyins = get_characters_with_similar_pinyin(chinese_character, keyboard)
-            if(similar_pinyins == ""):
-                print(similar_pinyins)
-            if random.choice(range(0, 100)) <= prob_of_typo and similar_pinyins != "":
-                print("Characters with similar chars_with_similar_pinyin :" + similar_pinyins)
 
-                print('Character being perturbed :' + chinese_character)
+            if random.choice(range(0, 100)) <= prob_of_typo and similar_pinyins != "":
                 new_chinese_character = random.choice(similar_pinyins)
             else:
                 new_chinese_character = chinese_character

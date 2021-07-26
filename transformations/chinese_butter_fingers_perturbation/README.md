@@ -1,20 +1,23 @@
 # Chinese Pinyin Butter Fingers Perturbation 🦎  + ⌨️ → 🐍
 This perturbation adds noise to all types of text sources containing Chinese characters (sentence, paragraph, etc.) proportional to noise erupting 
-from keyboard typos making common errors resulting from Chinese characters that have similiar Pinyin. 
+from keyboard typos making errors resulting from Chinese characters that have similiar Pinyin. 
 
 Author name: Timothy Sum Hon Mun
 Author email: timothy22000@gmail.com
 
 ## What type of a transformation is this?
-This transformation acts like a perturbation to test robustness. Few letters picked at random are replaced with letters 
-which are at keyboard positions near the source letter. Generated transformations display high similarity to the 
+This transformation perturbes Chinese input text to test robustness. Few Chinese characters that are picked at random will be replaced with characters 
+that have similar pinyin (based on the default Pinyin keyboards in Windows and Mac OS) where the user may accidentally select the wrong character from the returned results. 
+
+Generated transformations display high similarity to the 
 source sentences i.e. the code outputs highly precise generations. 
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document with Chinese characters as input like text classification, 
 text generation, etc.
 
-## Previous Work
+## Previous Work 
+
 1) There has also been some recent work in the contrast sets of the GEM Benchmark (ACL 2021):
 ```bibtex
 @article{DBLP:journals/corr/abs-2102-01672,
