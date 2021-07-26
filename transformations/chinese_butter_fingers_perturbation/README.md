@@ -15,9 +15,7 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 text generation, etc.
 
 ## Previous Work
-1) Butter Finger implementation borrowed from this code https://github.com/alexyorke/butter-fingers
-
-2) There has also been some recent work in the contrast sets of the GEM Benchmark (ACL 2021):
+1) There has also been some recent work in the contrast sets of the GEM Benchmark (ACL 2021):
 ```bibtex
 @article{DBLP:journals/corr/abs-2102-01672,
   title     = {The {GEM} Benchmark: Natural Language Generation, its Evaluation and
