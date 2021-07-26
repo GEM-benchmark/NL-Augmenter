@@ -1,0 +1,60 @@
+{
+    "type": "bias",
+    "test_cases": [
+        {
+            "class": "GenderBiasFilter",
+            "args": {
+            },
+            "inputs": {
+                "sentences": ["He is going to make a cake.",
+							  "She is going to program",
+							  "He likes washing dishes"]
+            },
+            "outputs": true
+        },
+         {
+            "class": "GenderBiasFilter",
+            "args": {
+            },
+            "inputs": {
+                "sentences": [ "He is going to make a cake.",
+							   "She is going to program",
+							   "She agreed to help him" ]
+            },
+            "outputs": false
+        },
+		{
+            "class": "GenderBiasFilter",
+            "args": {
+            },
+            "inputs": {
+                "sentences": [ "He is going to make a cake.",
+							   "She is going to program",
+							   "Nobody likes washing dishes"]
+            },
+            "outputs": false
+        },
+		{
+            "class": "GenderBiasFilter",
+            "args": {
+            },
+            "inputs": {
+                "sentences": ["He is going to make a cake.",
+							  "She is going to program",
+							  "His coat is dry"]
+            },
+            "outputs": true
+        },
+		{
+            "class": "GenderBiasFilter",
+            "args": {
+			},
+            "inputs": {
+                "sentences": ["He is going to make a cake.",
+							  "She is going to program",
+							  "Her coat is dry"]
+            },
+            "outputs": false
+        }
+    ]
+}
