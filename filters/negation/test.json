@@ -1,0 +1,36 @@
+{
+  "type": "negation",
+  "test_cases": [
+    {
+      "class": "NegationFilter",
+      "inputs": {
+        "sentence": "I didn't like pizza."
+      },
+      "outputs": true
+    }, {
+      "class": "NegationFilter",
+      "inputs": {
+        "sentence": "We shouldnt become a part of troll army on internet."
+      },
+      "outputs": true
+    }, {
+      "class": "NegationFilter",
+      "inputs": {
+        "sentence": "Anil Kumble is the highest wicket taker from India."
+      },
+      "outputs": false
+    }, {
+      "class": "NegationFilter",
+      "inputs": {
+        "sentence": "RNN can't resolve long terms dependency problems effectively."
+      },
+      "outputs": true
+    }, {
+      "class": "NegationFilter",
+      "inputs": {
+        "sentence": "John never want to open a bank account."
+      },
+      "outputs": true
+    }
+  ]
+}
