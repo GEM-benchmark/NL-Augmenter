@@ -1,4 +1,4 @@
-## Quantitative question filter
+## Code-Mixing Filter
 
 ## What type of a filter is this?
 
