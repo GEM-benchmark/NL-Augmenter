@@ -19,3 +19,4 @@ This directory contains transformations that are part of the Natural Language Au
 >>>>>>> 22e3f2b (Update README.md)
 | [replace_numerical_values](replace_numerical_values)        | Changes numerical values. Jason's 3 sisters want to move back to India --> Jason's 6 sisters want to move back to India
 | [redundant_context_for_qa](redundant_context_for_qa)        | Duplicates the context in a QA setting. (context, question, short-answer) --> (context+context, question, short-answer)
+| [lexical_counterfactual_generator](lexical_counterfactual_generator)        | Generates a counterfactual example. (sentence1, sentence2, label) --> (sentence1, sentence2, label)
