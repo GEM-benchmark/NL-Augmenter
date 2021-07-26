@@ -1,7 +1,8 @@
-import spacy
 import os
 import random
-from json import load, dump
+from json import load
+
+import spacy
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
@@ -12,11 +13,11 @@ def emojify(sentence, nlp, word_to_emoji, prob=1, seed=0, max_outputs=1):
     random.seed(seed)
     doc = nlp(sentence)
     results = []
-    
+
     for _ in range(max_outputs):
 
         # Reconstruct the sentence with replaced lemma
-        transformed_sentence = ''
+        transformed_sentence = ""
 
         for token in doc:
             lemma = token.lemma_.lower()
@@ -30,8 +31,8 @@ def emojify(sentence, nlp, word_to_emoji, prob=1, seed=0, max_outputs=1):
                             emoji = random.choice(word_to_emoji[digit])
                         transformed_sentence += emoji
 
-                    if ' ' in token.text_with_ws:
-                        transformed_sentence += ' '
+                    if " " in token.text_with_ws:
+                        transformed_sentence += " "
 
                 else:
                     transformed_sentence += token.text_with_ws
@@ -44,20 +45,20 @@ def emojify(sentence, nlp, word_to_emoji, prob=1, seed=0, max_outputs=1):
                     emoji = random.choice(word_to_emoji[lemma])
                     transformed_sentence += emoji
 
-                    if ' ' in token.text_with_ws:
-                        transformed_sentence += ' '
+                    if " " in token.text_with_ws:
+                        transformed_sentence += " "
 
                 else:
                     transformed_sentence += token.text_with_ws
-                    
+
             else:
                 # If lemma is not in the emoji dictionary, we keep it the same
                 transformed_sentence += token.text_with_ws
-        
+
         results.append(transformed_sentence)
-    
+
     return results
-        
+
 
 class EmojifyTransformation(SentenceOperation):
     tasks = [
@@ -67,31 +68,29 @@ class EmojifyTransformation(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1):
+    def __init__(self, seed=2022, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
 
         # Load the emoji dictionary
-        dict_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-            'emoji_dict.json')
-        self.word_to_emoji = load(open(dict_path, 'r'))
+        dict_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "emoji_dict.json"
+        )
+        self.word_to_emoji = load(open(dict_path, "r"))
 
         # Load the spacy nlp
         self.nlp = spacy.load("en_core_web_sm")
-
 
     def generate(self, sentence: str):
         """
         Emojify the sentence.
         """
-        
+
         perturbed_texts = emojify(
             sentence,
             self.nlp,
             self.word_to_emoji,
-            prob=0.9,
+            prob=1,
             seed=self.seed,
-            max_outputs=self.max_outputs
+            max_outputs=self.max_outputs,
         )
         return perturbed_texts
-
-
