@@ -26,80 +26,79 @@ class AuxiliaryNegationRemoval(SentencePairOperation):
         # Initialize Variables
         output_sentences = []
         changed_sentences = {}
+        
+        # Only process equivalent pairs
         if target == self.pos_label:
-            oposite_target = self.neg_label
-        elif target == self.neg_label:
-            oposite_target = self.pos_label
 
-        for n, sentence in enumerate([sentence1, sentence2]):
-            # Tokenize Sentence
-            doc = self.nlp(sentence)
+            for n, sentence in enumerate([sentence1, sentence2]):
+                # Tokenize Sentence
+                doc = self.nlp(sentence)
 
-            # Initialize Variables
-            new_sentence = []
-            changed = False
+                # Initialize Variables
+                new_sentence = []
+                changed = False
 
-            # Evaluate Tokens
-            for token in doc:
-                # Add Token to Output Sentence
-                new_sentence.append(token)
+                # Evaluate Tokens
+                for token in doc:
+                    # Add Token to Output Sentence
+                    new_sentence.append(token)
 
-                # Process Negations
-                if  token.lemma_.lower() == 'not':
-                    # Get not position
-                    not_index = token.i
+                    # Process Negations
+                    if  token.lemma_.lower() == 'not':
+                        # Get not position
+                        not_index = token.i
 
-                    # Process Auxiliaries
-                    if not_index > 0:
+                        # Process Auxiliaries
+                        if not_index > 0:
 
-                        # Get Previous Token
-                        previous_index = not_index - 1
-                        previous_surface = doc[previous_index].text
-                        previous_lowercase_surface = previous_surface.lower()
+                            # Get Previous Token
+                            previous_index = not_index - 1
+                            previous_surface = doc[previous_index].text
+                            previous_lowercase_surface = previous_surface.lower()
 
-                        # Remove Negation
-                        if previous_lowercase_surface in ['am',
-                                                          'are',
-                                                          'can',
-                                                          'could',
-                                                          'had',
-                                                          'has',
-                                                          'have',
-                                                          'is',
-                                                          'may',
-                                                          'might',
-                                                          'must',
-                                                          'shall',
-                                                          'should',
-                                                          'was',
-                                                          'were',
-                                                          'will',
-                                                          'would']:
-                            new_sentence = new_sentence[:-1]
-                            changed = True
-                        
-                            # Handle Spacing
-                            if token.text == "n't":
-                                new_sentence[-1] = self.nlp(previous_surface + ' ')[0]
+                            # Remove Negation
+                            if previous_lowercase_surface in ['am',
+                                                              'are',
+                                                              'can',
+                                                              'could',
+                                                              'had',
+                                                              'has',
+                                                              'have',
+                                                              'is',
+                                                              'may',
+                                                              'might',
+                                                              'must',
+                                                              'shall',
+                                                              'should',
+                                                              'was',
+                                                              'were',
+                                                              'will',
+                                                              'would']:
+                                new_sentence = new_sentence[:-1]
+                                changed = True
+                            
+                                # Handle Spacing
+                                if token.text == "n't":
+                                    new_sentence[-1] = self.nlp(previous_surface + ' ')[0]
 
-                        elif previous_lowercase_surface in ['do']:
-                            new_sentence = new_sentence[:-2]
-                            changed = True
+                            elif previous_lowercase_surface in ['do']:
+                                new_sentence = new_sentence[:-2]
+                                changed = True
 
-            if changed:
-                # Rebuild Sentence
-                new_sentence = [t.text + t.whitespace_ for t in new_sentence]
-                new_sentence = ''.join(new_sentence)
-                changed_sentences[n] = new_sentence
+                if changed:
+                    # Rebuild Sentence
+                    new_sentence = [t.text + t.whitespace_ for t in new_sentence]
+                    new_sentence = ''.join(new_sentence)
+                    changed_sentences[n] = new_sentence
         
         if 0 in changed_sentences.keys():
-            output_sentences.append((changed_sentences[0], sentence2, oposite_target))
+            output_sentences.append((changed_sentences[0], sentence2, self.neg_label))
         
         if 1 in changed_sentences.keys():
-            output_sentences.append((sentence1, changed_sentences[1], oposite_target))
+            output_sentences.append((sentence1, changed_sentences[1], self.neg_label))
         
         if 0 in changed_sentences.keys() and 1 in changed_sentences.keys():
-            output_sentences.append((changed_sentences[0], changed_sentences[1], target))
+            output_sentences.append((changed_sentences[0], changed_sentences[1], self.pos_label))
         
         if not output_sentences:
             output_sentences = [(sentence1, sentence2, target)]
@@ -123,12 +122,12 @@ if __name__ == '__main__':
                                      "Gapping sentences, such as Paul likes coffee and Mary tea, lack an overt predicate.",
                                      "Alice in Wonderland is not an American animated, dark fantasy adventure film from 1997.",
                                      "U.D. Dosanjh wasn't the 1st Premier of British Columbia for a year from 1871.",
-                                     "The warriors wouldn't stay in the battlefield."],
+                                     "The warriors wouldn't leave the battlefield."],
                                      ["1",
                                       "1",
                                       "1",
                                       "1",
-                                      "0"
+                                      "1"
                                      ]
                                     ):
         test_cases.append({

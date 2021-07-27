@@ -96,24 +96,24 @@
       "class": "AuxiliaryNegationRemoval",
       "inputs": {
         "sentence1": "The fighters would not give up.",
-        "sentence2": "The warriors wouldn't stay in the battlefield.",
-        "target": "0"
+        "sentence2": "The warriors wouldn't leave the battlefield.",
+        "target": "1"
       },
       "outputs": [
         {
           "sentence1": "The fighters would give up.",
-          "sentence2": "The warriors wouldn't stay in the battlefield.",
-          "target": "1"
+          "sentence2": "The warriors wouldn't leave the battlefield.",
+          "target": "0"
         },
         {
           "sentence1": "The fighters would not give up.",
-          "sentence2": "The warriors would stay in the battlefield.",
-          "target": "1"
+          "sentence2": "The warriors would leave the battlefield.",
+          "target": "0"
         },
         {
           "sentence1": "The fighters would give up.",
-          "sentence2": "The warriors would stay in the battlefield.",
-          "target": "0"
+          "sentence2": "The warriors would leave the battlefield.",
+          "target": "1"
         }
       ]
     }
