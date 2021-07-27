@@ -33,6 +33,7 @@ class SentenceAdditions(SentenceOperation):
         perturbed = []
         for sents_with_additions in outputs:
             for key, value in sents_with_additions.items():
+                print(value)
                 perturbed.append(value)
 
         return perturbed

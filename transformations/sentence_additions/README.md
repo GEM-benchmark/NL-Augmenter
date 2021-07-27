@@ -10,6 +10,12 @@ The AddSent method in the paper which is in the Q&A setting requires mutation of
 
 This transformation uses GPT-2 to generate new grammatical sentence that will be added to the input text so it does not require any question mutation and fake answer.
 
+Run code below to evaluate:
+```python evaluate.py -t ButterFingersPerturbation -task TEXT_CLASSIFICATION -m "textattack/roberta-base-SST-2" -d "sst2"```
+
+The accuracy of a RoBERTa model (fine-tuned on SST-2) (model: "textattack/roberta-base-SST-2") on a subset of SST-2 sentiment dataset = 95.74
+The accuracy of the same model on the perturbed set = 89.0
+
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks on text classification and generation.
 
