@@ -8,7 +8,7 @@
       },
       "outputs": [
         {
-          "sentence": "Roger Federer (born 8 Aug 1981) is a Swiss professional tennis player."
+          "sentence": "Roger Federer (born Aug. 8, 1981) is a Swiss professional tennis player."
         }
       ]
     },
@@ -30,7 +30,7 @@
       },
       "outputs": [
         {
-          "sentence": "The first known case of COVID-19 was identified in Wuhan, China in Dec 2019."
+          "sentence": "The first known case of COVID-19 was identified in Wuhan, China in December 19."
         }
       ]
     },
@@ -52,7 +52,7 @@
       },
       "outputs": [
         {
-          "sentence": "In Aug 2018, Apple became the first publicly traded U.S. company to be valued at over $1 trillion."
+          "sentence": "In August 18, Apple became the first publicly traded U.S. company to be valued at over $1 trillion."
         }
       ]
     }
