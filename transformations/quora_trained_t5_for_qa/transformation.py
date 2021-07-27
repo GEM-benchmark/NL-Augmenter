@@ -18,6 +18,7 @@ class QuoraT5QaPairGenerator(QuestionAnswerOperation):
         TaskType.QUESTION_GENERATION
     ]
     languages = ["en"]
+    heavy = True
 
     def __init__(self, seed=0, model_name="ramsrigouthamg/t5_paraphraser", max_len=256, num_return_sequences=3, top_k=40):
         super().__init__(seed)
