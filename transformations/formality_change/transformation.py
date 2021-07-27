@@ -64,6 +64,7 @@ adequacy = Adequacy()
 class Formal2Casual(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    heavy = True
 
     def __init__(self, num_beams=5, max_length=32, quality_filter=0.95, device=None):
         super().__init__()

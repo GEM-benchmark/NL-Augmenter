@@ -126,6 +126,7 @@ class AddNounDefinition(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION
     ]
     languages = ["en"]
+    heavy = True
 
     def __init__(self, seed=0, max_outputs=1):
         nltk.download('stopwords')
