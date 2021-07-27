@@ -1,0 +1,104 @@
+{
+  "type": "formality_change",
+  "test_cases": [
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "This car looks fascinating"
+      },
+      "outputs": [{
+         "sentence": "This car is so cool"
+      }]
+    },
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "He is very charming."
+      },
+      "outputs": [{
+        "sentence": "he is so cute."
+      }]
+    },
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "We went out for the weekend. We have a lot of things to tell you."
+      },
+      "outputs": [{
+        "sentence": "we went out for the weekend and we have alot of things to tell you."
+      }]
+    },
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "I really want to pursue this path going forward in my career."
+      },
+      "outputs": [{
+        "sentence": "i really want to do this in my career."
+      }]
+    },
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "I would be extremely fortunate to work alongside you."
+      },
+      "outputs": [{
+        "sentence": "I'd be so lucky to work with you."
+      }]
+    },
+    {
+      "class": "Formal2Casual",
+      "inputs": {
+        "sentence": "This is not the type of service one would expect at a restaurant with such high prices."
+      },
+      "outputs": [{
+        "sentence": "this is not the kind of service one would expect at a restaurant with such high prices."
+      }]
+    },
+    {
+      "class": "Casual2Formal",
+      "inputs": {
+        "sentence": "What you upto?"
+      },
+      "outputs": [{
+         "sentence": "What are you currently doing?"
+      }]
+    },
+    {
+      "class": "Casual2Formal",
+      "inputs": {
+        "sentence": "My mom is doing fine"
+      },
+      "outputs": [{
+        "sentence": "My mother is doing well."
+      }]
+    },
+    {
+      "class": "Casual2Formal",
+      "inputs": {
+        "sentence": "who gives a crap?"
+      },
+      "outputs": [{
+        "sentence": "Who cares about that?"
+      }]
+    },
+    {
+      "class": "Casual2Formal",
+      "inputs": {
+        "sentence": "That's really funny lol"
+      },
+      "outputs": [{
+        "sentence": "That is very funny."
+      }]
+    },
+    {
+      "class": "Casual2Formal",
+      "inputs": {
+        "sentence": "this thing's dope!!"
+      },
+      "outputs": [{
+        "sentence": "This thing is very good."
+      }]
+    }
+  ]
+}
