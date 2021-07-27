@@ -1,5 +1,5 @@
 # Quora Trained T5 for question paraphrases for QA Task ❓️ → 🐍❔
-This transformation creates new QA pairs by generating question paraphrases from a T5 model fine-tuned on Quora Question pairs.   
+This transformation creates new QA pairs in English by generating question paraphrases from a T5 model fine-tuned on Quora Question pairs (English question-question pairs).   
 
 ## What type of a transformation is this?
 This transformation acts like a paraphrase generator. Generated questions can have a very different surface form from the original question making it a strong paraphrase generator. A T5 model was fine tuned on the Quora Question Pairs dataset and is being used to generate question paraphrases.
