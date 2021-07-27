@@ -27,7 +27,6 @@ class LexicalCounterfactualGenerator(SentencePairOperation):
         TaskType.PARAPHRASE_DETECTION
     ]
     languages = ["en"]
-    heavy = True
     to_avoid = ["no", "not", "nowhere", "hardly", "barely", "nobody",
                 "none", "nothing", "neither", "nowhere", "never", "scarcely", "n't", "nt"]
 
