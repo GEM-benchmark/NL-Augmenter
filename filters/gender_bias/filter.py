@@ -41,12 +41,12 @@ class GenderBiasFilter(SentenceOperation):
                 feminine_flag = False
                 masculin_flag = False
                 neutral_flag = True
-                sentence_object = {
-                    "sentence": sentence,
-                    "feminine_flag": feminine_flag,
-                    "masculin_flag": masculin_flag,
-                    "neutral_flag": neutral_flag,
-                }
+            sentence_object = {
+                "sentence": sentence,
+                "feminine_flag": feminine_flag,
+                "masculin_flag": masculin_flag,
+                "neutral_flag": neutral_flag,
+            }
             flagged_sentences.append(sentence_object)
         return flagged_sentences
 
