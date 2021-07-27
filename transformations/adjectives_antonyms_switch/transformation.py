@@ -35,62 +35,63 @@ class AdjectivesAntonymsSwitch(SentencePairOperation):
         # Initialize Variables
         output_sentences = []
         changed_sentences = {}
+
+        # Only process equivalent pairs
         if target == self.pos_label:
-            oposite_target = self.neg_label
-        elif target == self.neg_label:
-            oposite_target = self.pos_label
 
-        for n, sentence in enumerate([sentence1, sentence2]):
-            # Tokenize Sentence
-            doc = self.nlp(sentence)
-
-            # Initialize Variables
-            new_sentence = []
-            changed = False
-
-            # Evaluate Tokens
-            for token in doc:
-                # Add Token to Output Sentence
-                new_sentence.append(token)
+            for n, sentence in enumerate([sentence1, sentence2]):
+                # Tokenize Sentence
+                doc = self.nlp(sentence)
 
                 # Initialize Variables
-                synsets = []
-                antonyms = []
+                new_sentence = []
+                changed = False
 
-                # Get Synset
-                if token.pos_ == "ADJ":
-                    synsets = wordnet.synsets(token.lemma_, "a")
-                    synsets = [s for s in synsets if ".a." in s.name()]
+                # Evaluate Tokens
+                for token in doc:
+                    # Add Token to Output Sentence
+                    new_sentence.append(token)
 
-                # Get Antonyms
-                if synsets:
-                    first_synset = synsets[0]
-                    lemmas = first_synset.lemmas()
-                    first_lemma = lemmas[0]
-                    antonyms = first_lemma.antonyms()
+                    # Initialize Variables
+                    synsets = []
+                    antonyms = []
 
-                # Get first Antonym
-                if antonyms:
-                    antonyms.sort(key=lambda x: str(x).split(".")[2])
-                    first_antonym = antonyms[0].name() + token.whitespace_
-                    antonym_token = self.nlp(first_antonym)[0]
-                    new_sentence[-1] = antonym_token
-                    changed = True
+                    # Get Synset
+                    if token.pos_ == "ADJ":
+                        synsets = wordnet.synsets(token.lemma_, "a")
+                        synsets = [s for s in synsets if ".a." in s.name()]
 
-            if changed:
-                # Rebuild Sentence
-                new_sentence = [t.text + t.whitespace_ for t in new_sentence]
-                new_sentence = "".join(new_sentence)
-                changed_sentences[n] = new_sentence
+                    # Get Antonyms
+                    if synsets:
+                        first_synset = synsets[0]
+                        lemmas = first_synset.lemmas()
+                        first_lemma = lemmas[0]
+                        antonyms = first_lemma.antonyms()
+
+                    # Get first Antonym
+                    if antonyms:
+                        antonyms.sort(key=lambda x: str(x).split(".")[2])
+                        first_antonym = antonyms[0].name() + token.whitespace_
+                        antonym_token = self.nlp(first_antonym)[0]
+                        new_sentence[-1] = antonym_token
+                        changed = True
+
+                if changed:
+                    # Rebuild Sentence
+                    new_sentence = [
+                        t.text + t.whitespace_ for t in new_sentence
+                    ]
+                    new_sentence = "".join(new_sentence)
+                    changed_sentences[n] = new_sentence
 
         if 0 in changed_sentences.keys() and changed_sentences[0] != sentence2:
             output_sentences.append(
-                (changed_sentences[0], sentence2, oposite_target)
+                (changed_sentences[0], sentence2, self.neg_label)
             )
 
         if 1 in changed_sentences.keys() and sentence1 != changed_sentences[1]:
             output_sentences.append(
-                (sentence1, changed_sentences[1], oposite_target)
+                (sentence1, changed_sentences[1], self.neg_label)
             )
 
         if (
@@ -99,7 +100,7 @@ class AdjectivesAntonymsSwitch(SentencePairOperation):
             and changed_sentences[0] != changed_sentences[1]
         ):
             output_sentences.append(
-                (changed_sentences[0], changed_sentences[1], target)
+                (changed_sentences[0], changed_sentences[1], self.pos_label)
             )
 
         if not output_sentences:
@@ -120,7 +121,7 @@ if __name__ == '__main__':
                                      "Amanda's mother was very beautiful.",
                                      "After the war he had become a rich man.",
                                      "Creating that sort of machinery required a very talented engineer.",
-                                     "It was very wise to start working right away."],
+                                     "It was very foolish to start working right away."],
                                     ["He was a very big guy.",
                                      "Her mother was a good looking woman.",
                                      "Thomas became very rich once the war was over.",
@@ -130,7 +131,7 @@ if __name__ == '__main__':
                                       "1",
                                       "1",
                                       "1",
-                                      "0"
+                                      "1"
                                      ]
                                     ):
         test_cases.append({

@@ -95,25 +95,25 @@
     {
       "class": "AdjectivesAntonymsSwitch",
       "inputs": {
-        "sentence1": "It was very wise to start working right away.",
+        "sentence1": "It was very foolish to start working right away.",
         "sentence2": "To sit there doing nothing was very stupid.",
-        "target": "0"
+        "target": "1"
       },
       "outputs": [
         {
-          "sentence1": "It was very foolish to start working right away.",
-          "sentence2": "To sit there doing nothing was very stupid.",
-          "target": "1"
-        },
-        {
           "sentence1": "It was very wise to start working right away.",
-          "sentence2": "To sit there doing nothing was very smart.",
-          "target": "1"
+          "sentence2": "To sit there doing nothing was very stupid.",
+          "target": "0"
         },
         {
           "sentence1": "It was very foolish to start working right away.",
           "sentence2": "To sit there doing nothing was very smart.",
           "target": "0"
+        },
+        {
+          "sentence1": "It was very wise to start working right away.",
+          "sentence2": "To sit there doing nothing was very smart.",
+          "target": "1"
         }
       ]
     }
