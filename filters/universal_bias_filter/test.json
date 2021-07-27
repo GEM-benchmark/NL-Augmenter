@@ -1,0 +1,75 @@
+{
+    "type": "bias",
+    "test_cases": [
+        {
+            "class": "UniversalBiasFilter",
+            "args": {
+                "target": ["she", "her", "hers"],
+				"test": ["he", "him", "his"]
+            },
+            "inputs": {
+                "sentences": ["He is going to make a cake.",
+							  "She is going to program",
+							  "Nobody likes washing dishes",
+							  "He agreed to help him"]
+            },
+            "outputs": true
+        },
+        {
+            "class": "UniversalBiasFilter",
+            "args": {
+                "target": ["she", "her", "hers"],
+				"test": ["he", "him", "his"]
+            },
+            "inputs": {
+                "sentences": ["He is going to make a cake.",
+							  "She is going to program",
+							  "Nobody likes washing dishes",
+							  "She agreed to help him"]
+            },
+            "outputs": false
+        },
+		{
+            "class": "UniversalBiasFilter",
+            "args": {
+                "target": ["elle", "madame", "maman"],
+				"test": ["il", "monsieur", "papa"]
+            },
+            "inputs": {
+                "sentences": ["Il va preparer un gateau",
+							  "Elle va créer un logiciel",
+							  "Personne n'aime pas laver la vaiselle",
+							  "Maman va à la conférence"]
+            },
+            "outputs": false
+        },
+		{
+            "class": "UniversalBiasFilter",
+            "args": {
+                "target": ["она", "мадам", "мама"],
+				"test": ["он", "сэр", "папа"]
+            },
+            "inputs": {
+                "sentences": ["Он собирается испечь торт",
+							  "Она создаст софт",
+							  "Никто не любит мыть посуду",
+							  "Мама идет на конференцию"]
+            },
+            "outputs": false
+        },
+		{
+            "class": "UniversalBiasFilter",
+            "args": {
+                "target": ["ona", "pani", "mama"],
+				"test": ["on", "pan", "ojciec"]
+            },
+            "inputs": {
+                "sentences": ["Pan upiecze ciasto",
+							  "Pani stworzy oprogramowanie",
+							  "Nikt nie lubi zmywać naczyń",
+							  "Mama jedzie na konferencję"]
+            },
+            "outputs": false
+        }
+    ]
+}
