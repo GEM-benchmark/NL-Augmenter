@@ -16,7 +16,7 @@ class BaseFilter(QuestionAnswerOperation):
 
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
         '''Determines if some keyword is present in the given question or not'''
-        tokenized = self.nlp(question, disable=["parser", "tagger", "ner"])
+        tokenized = self.nlp(question)
         tokenized = [token.text.lower() for token in tokenized]
         contained_keywords = set(tokenized).intersection(set(self.keywords))
         return bool(contained_keywords)
