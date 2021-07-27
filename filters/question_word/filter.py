@@ -3,6 +3,7 @@ from typing import List
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 import spacy
 from typing import List
+from initialize import spacy_nlp
 
 class BaseFilter(QuestionAnswerOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
@@ -11,9 +12,10 @@ class BaseFilter(QuestionAnswerOperation):
     def __init__(self, keywords: List[str] = []):
         super().__init__()
         self.keywords = keywords
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Determines if some keyword is present in the given question or not'''
         tokenized = self.nlp(question, disable=["parser", "tagger", "ner"])
         tokenized = [token.text.lower() for token in tokenized]
         contained_keywords = set(tokenized).intersection(set(self.keywords))
@@ -28,6 +30,8 @@ class WhereQuestion(BaseFilter):
         super().__init__(keywords=keywords)
 
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions with Where question words
+        Returns bool value'''
         return super().filter(context,question,answers)
 
 
@@ -39,6 +43,8 @@ class WhatQuestion(BaseFilter):
         super().__init__(keywords=keywords)
 
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions with What question words
+        Returns bool value'''
         return super().filter(context,question,answers)
 
 
@@ -50,6 +56,8 @@ class WhoQuestion(BaseFilter):
         super().__init__(keywords=keywords)
 
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions with Who question words
+        Returns bool value'''
         return super().filter(context,question,answers)
 
 class WhichQuestion(BaseFilter):
@@ -60,6 +68,8 @@ class WhichQuestion(BaseFilter):
         super().__init__(keywords=keywords)
 
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions with Which question words
+        Returns bool value'''
         return super().filter(context,question,answers)
 
 
@@ -71,6 +81,8 @@ class WhyQuestion(BaseFilter):
         super().__init__(keywords=keywords)
 
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions with Why question words
+        Returns bool value'''
         return super().filter(context,question,answers)
 
 
@@ -82,6 +94,8 @@ class WhenQuestion(BaseFilter):
         super().__init__(keywords=keywords)
 
     def filter(self,context:str = None ,question: str = None, answers:List[str] =  None) -> bool:
+        '''Filters out questions with When question words
+        Returns bool value'''
         return super().filter(context,question,answers)
 
 
@@ -91,9 +105,11 @@ class NumericQuestion(QuestionAnswerOperation):
 
     def __init__(self):
         super().__init__()
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
     
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions whose answer is a numeric(non dates)
+        Returns bool value'''
         for ans in answers:
             tokenized = self.nlp(ans)
             tags = [i.pos_ for i in tokenized]
@@ -108,9 +124,11 @@ class DateQuestion(QuestionAnswerOperation):
 
     def __init__(self):
         super().__init__()
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
     
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions whose answer is a Date
+        Returns bool value'''
         for ans in answers:
             tokenized = self.nlp(ans)
             tags = [i.pos_ for i in tokenized]
@@ -125,9 +143,11 @@ class PersonQuestion(QuestionAnswerOperation):
 
     def __init__(self):
         super().__init__()
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
     
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions whose answer is a named entity(Person)
+        Returns bool value'''
         if not NumericQuestion().filter(context = context,
                                 question= question,
                                 answers = answers):
@@ -144,9 +164,11 @@ class LocationQuestion(QuestionAnswerOperation):
 
     def __init__(self):
         super().__init__()
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
     
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions whose answer is a named entity(Location)
+        Returns bool value'''
         if not NumericQuestion().filter(context = context,
                                 question= question,
                                 answers = answers):
@@ -163,9 +185,11 @@ class CommonNounPhraseQuestion(QuestionAnswerOperation):
 
     def __init__(self):
         super().__init__()
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
     
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions whose answer is a common noun Phrase
+        Returns bool value'''
         if not NumericQuestion().filter(context = context,
                                 question= question,
                                 answers = answers):
@@ -183,9 +207,11 @@ class AdjectivePhraseQuestion(QuestionAnswerOperation):
 
     def __init__(self):
         super().__init__()
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
     
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions whose answer is a adjective based phrase
+        Returns bool value'''
         if not NumericQuestion().filter(context = [],
                                 question= [],
                                 answers = answers):
@@ -202,9 +228,11 @@ class VerbPhraseQuestion(QuestionAnswerOperation):
 
     def __init__(self):
         super().__init__()
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
     
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
+        '''Filters out questions whose answer is a verb based phrase
+        Returns bool value'''
         if not NumericQuestion().filter(context = [],
                                 question= [],
                                 answers = answers):
