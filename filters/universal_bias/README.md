@@ -29,7 +29,7 @@ f = UniversalBiasFilter(target, test)
 f.filter(sentences)
 ```
 Which returns `True`, as the number of sentences tagged as "target" is less than the number of sentences tagged as "test".
-You can also check the exact number by calling the `count_groups()` static method on the instance of the class and providing it with the extracted tags with the `flag_sentences()` static method:`
+You can also check the exact number by calling the `count_groups()` static method on the instance of the class and providing it with the extracted tags with the `flag_sentences()` static method:
 ```
 flagged_sentences = f.flag_sentences(sentences, target, test)
 target, test, neutral = f.count_groups(flagged_sentences)
