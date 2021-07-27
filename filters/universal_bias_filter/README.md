@@ -1,4 +1,4 @@
-## keywords filter
+## Universal bias filter
 
 ## What type of a filter is this?
 
