@@ -1,0 +1,47 @@
+{
+  "type": "english_inflectional_variation",
+  "test_cases": [
+    {
+      "class": "EnglishInflectionalVariation",
+      "inputs": {"sentence": "Andrew finally returned the French book to Chris that I bought last week"},
+      "outputs": [{"sentence": "Andrew finally returning the French books to Chris that I buy last weeks"}]
+    },
+    {
+      "class": "EnglishInflectionalVariation",
+      "inputs": {"sentence": "Andrew finally got the French book I sent to him two days ago."},
+      "outputs": [{"sentence": "Andrew finally gotten the French books I sent to him two days ago."}]
+    },
+    {
+      "class": "EnglishInflectionalVariation",
+      "inputs": {"sentence": "Rachel Green, a sheltered but friendly woman, flees her wedding day and wealthy yet unfulfilling life."},
+      "outputs": [{"sentence": "Rachel Green, a sheltered but friendlier woman, flees her wedding days and wealthier yet unfulfilling lives."}]
+    },
+    {
+      "class": "EnglishInflectionalVariation",
+      "inputs": {"sentence": "The close was the highest since Aug. 15. Estimated volume was a light two million ounces"},
+      "outputs": [{"sentence": "The close was the higher since Aug. 15. Estimates volume was a lightest two million ounce"}]
+    },
+    {
+      "class": "EnglishInflectionalVariation",
+      "inputs": {"sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"},
+      "outputs": [{"sentence": "Ujjal Dev Dosanjh serve as 33rd Premiers of British Columbia from 2000 to 2001"}]
+    },
+    {
+      "class": "EnglishInflectionalVariationQAQuestionOnly",
+      "inputs": {
+        "context": "Jim went to the pool instead of the gym yesterday.",
+        "question": "Did Jim go to the gym yesterday?",
+        "answers": [
+          "no"
+        ]
+      },
+      "outputs": [{
+        "context": "Jim went to the pool instead of the gym yesterday.",
+        "question": "Did Jim go to the gyms yesterdays?",
+        "answers": [
+          "no"
+        ]
+      }]
+    }
+  ]
+}

@@ -1,15 +1,16 @@
 import sys
 
-sys.path.append("..")
-sys.path.append("../..")
 import pandas as pd
 
-from tasks.TaskTypes import TaskType
-from TestRunner import OperationRuns
 from evaluation.evaluation_engine import execute_model
+from tasks.TaskTypes import TaskType
+from TestRunner import OperationRuns, get_implementation
+
+sys.path.append("..")
+sys.path.append("../..")
 
 """This is a dict for default models to be included in the leaderboard.
-Each entry is a combination of (MODEL_NAME, DATA_NAME) used in 
+Each entry is a combination of (MODEL_NAME, DATA_NAME) used in
 Huggingface: https://huggingface.co/
 """
 DEFAULT_LEADERBOARD_MODELS = {
@@ -20,6 +21,9 @@ DEFAULT_LEADERBOARD_MODELS = {
     ],
     "TEXT_CLASSIFICATION": [
         # sentiment analysis
+        ("textattack/roberta-base-SST-2", "sst2"),
+        ("textattack/bert-base-uncased-QQP", "qqp"),
+        ("roberta-large-mnli", "multi_nli"),
         ("textattack/roberta-base-imdb", "imdb"),
     ],
     "TEXT_TAGGING": [],
@@ -75,7 +79,9 @@ def create_leaderboard_for_task(
     \t{", ".join([t.name() for t in transformations])}
     """
     )
-    result_dict = {t.name(): {"Transformation": t.name()} for t in transformations}
+    result_dict = {
+        t.name(): {"Transformation": t.name()} for t in transformations
+    }
     for model_name, dataset_name in DEFAULT_LEADERBOARD_MODELS[task_name]:
         # TODO: should we try to allow passing in models, rather than model names?
         # in this leaderboard case the default implementation will cause unnecessary
@@ -83,9 +89,9 @@ def create_leaderboard_for_task(
         print(f"---- Evaluating {model_name} on {dataset_name} -----")
         for trans in transformations:
             print(f"| Transformation: {trans.name()}")
-            if True:
+            try:
                 result = execute_model(
-                    implementation=trans.__class__,
+                    implementation=get_implementation(trans.__name__),
                     task_type=task_name,
                     model_name=model_name,
                     dataset=dataset_name,
@@ -95,9 +101,9 @@ def create_leaderboard_for_task(
                     key, pt_key = "accuracy", "pt_accuracy"
                 if "bleu" in result:
                     key, pt_key = "bleu", "pt_bleu"
-                result_dict[trans.name()][f"{model_name}\n({dataset_name})"] = (
-                    result[key] - result[pt_key]
-                )
+                result_dict[trans.name()][f"{model_name.split('/')[-1]}"] = f"{result[key]}->{result[pt_key]} ({result[pt_key]-result[key]})"
+            except Exception as e:
+                print(f"\t Error on {trans.name()}: {e}")
     df_result = pd.DataFrame(list(result_dict.values()))
     print("Finished! The leaderboard:")
     print(df_result.to_markdown(index=False))

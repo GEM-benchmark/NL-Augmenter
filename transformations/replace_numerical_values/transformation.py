@@ -7,6 +7,7 @@ import spacy
 from num2words import num2words
 from word2number import w2n
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -15,7 +16,7 @@ class NumericalTransformation:
     nlp = None
 
     def __init__(self, seed=0, max_outputs=1):
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.max_outputs = max_outputs
         self.seed = seed
 
@@ -113,7 +114,9 @@ class ReplaceNumericalValues(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        self.numerical_transformation = NumericalTransformation(seed, max_outputs)
+        self.numerical_transformation = NumericalTransformation(
+            seed, max_outputs
+        )
 
     def generate(self, sentence: str):
         result = self.numerical_transformation.transform(sentence)
