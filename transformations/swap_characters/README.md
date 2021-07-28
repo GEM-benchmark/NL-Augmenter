@@ -4,9 +4,7 @@ This perturbation adds noise to all types of text sources (sentence, paragraph, 
 Author name: Taylor Sorensen (email: tsor1313@gmail.com)
 
 ## What type of a transformation is this?
-This transformation acts like a perturbation to test robustness. Few letters picked at random are replaced with letters 
-which are at keyboard positions near the source letter. Generated transformations display high similarity to the 
-source sentences i.e. the code outputs highly precise generations. This transformation especially can show robustness to typed data where many common errors are expected.
+This transformation acts as a robustness to common typographical errors. Often, when typing on a keyboard, people will accidentally swap two adjacent characters. This transformation serves a check on robustness to these common human errors.
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
