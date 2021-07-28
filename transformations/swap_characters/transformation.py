@@ -19,6 +19,14 @@ class SwapCharactersPerturbation(SentenceOperation):
         return [pertubed]
 
     def swap_characters(self, text, prob=0.05, seed=0):
+        """
+        Swaps characters in text, with probability prob for ang given pair.
+        Ex: 'apple' -> 'aplpe'
+        Arguments:
+            text (string): text to transform
+            prob (float): probability of any two characters swapping. Default: 0.05
+            seed (int): random seed
+        """
         max_seed = 2 ** 32
         # seed with hash so each text of same length gets different treatment.
         np.random.seed((seed + sum([ord(c) for c in text])) % max_seed)
