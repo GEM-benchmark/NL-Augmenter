@@ -1,9 +1,63 @@
 {
   "type": "adjectives_antonyms_switch",
   "test_cases": [
-
     {
-      "class": "AdjectivesAntonymsSwitch",
+      "class": "SentenceAdjectivesAntonymsSwitch",
+      "inputs": {
+        "sentence": "Anthony was a very tall boy."
+      },
+      "outputs": [
+        {
+          "sentence": "Anthony was a very short boy."
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdjectivesAntonymsSwitch",
+      "inputs": {
+        "sentence": "Amanda's mother was very beautiful."
+      },
+      "outputs": [
+        {
+          "sentence": "Amanda's mother was very ugly."
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdjectivesAntonymsSwitch",
+      "inputs": {
+        "sentence": "After the war he had become a rich man."
+      },
+      "outputs": [
+        {
+          "sentence": "After the war he had become a poor man."
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdjectivesAntonymsSwitch",
+      "inputs": {
+        "sentence": "Creating that sort of machinery required a very talented engineer."
+      },
+      "outputs": [
+        {
+          "sentence": "Creating that sort of machinery required a very untalented engineer."
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdjectivesAntonymsSwitch",
+      "inputs": {
+        "sentence": "It was very foolish to start working right away."
+      },
+      "outputs": [
+        {
+          "sentence": "It was very wise to start working right away."
+        }
+      ]
+    },
+    {
+      "class": "PairAdjectivesAntonymsSwitch",
       "inputs": {
         "sentence1": "Anthony was a very tall boy.",
         "sentence2": "He was a very big guy.",
@@ -28,7 +82,7 @@
       ]
     },
     {
-      "class": "AdjectivesAntonymsSwitch",
+      "class": "PairAdjectivesAntonymsSwitch",
       "inputs": {
         "sentence1": "Amanda's mother was very beautiful.",
         "sentence2": "Her mother was a good looking woman.",
@@ -53,7 +107,7 @@
       ]
     },
     {
-      "class": "AdjectivesAntonymsSwitch",
+      "class": "PairAdjectivesAntonymsSwitch",
       "inputs": {
         "sentence1": "After the war he had become a rich man.",
         "sentence2": "Thomas became very rich once the war was over.",
@@ -78,7 +132,7 @@
       ]
     },
     {
-      "class": "AdjectivesAntonymsSwitch",
+      "class": "PairAdjectivesAntonymsSwitch",
       "inputs": {
         "sentence1": "Creating that sort of machinery required a very talented engineer.",
         "sentence2": "You had to be very skillfull to make such a machine.",
@@ -93,7 +147,7 @@
       ]
     },
     {
-      "class": "AdjectivesAntonymsSwitch",
+      "class": "PairAdjectivesAntonymsSwitch",
       "inputs": {
         "sentence1": "It was very foolish to start working right away.",
         "sentence2": "To sit there doing nothing was very stupid.",

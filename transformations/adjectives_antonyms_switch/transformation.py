@@ -4,13 +4,13 @@ from nltk.corpus import wordnet
 from nltk.data import find
 
 from initialize import spacy_nlp
+from interfaces.SentenceOperation import SentenceOperation
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
 
 """
 Adjectives Antonyms Switch.
     Change adjectives for their antonyms generating a sentence with oposite meaning.
-    Can be applyed to both sentences, just the first, or just the second in a set of paired sentences.
 """
 
 
@@ -59,7 +59,34 @@ def adjectives_antonyms_switch(sentence, nlp):
     return (new_sentence, changed)
 
 
-class AdjectivesAntonymsSwitch(SentencePairOperation):
+class SentenceAdjectivesAntonymsSwitch(SentenceOperation):
+    tasks = [TaskType.PARAPHRASE_DETECTION]
+    languages = ["en"]
+
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        try:
+            find("corpora/wordnet")
+        except LookupError:
+            download("wordnet")
+            global wordnet
+            from nltk.corpus import wordnet
+
+    def generate(self, sentence: str):
+
+        # Initialize Variables
+        output_sentence = sentence
+
+        new_sentence, changed = adjectives_antonyms_switch(sentence, self.nlp)
+
+        if changed:
+            output_sentence = new_sentence
+
+        return [output_sentence]
+
+
+class PairAdjectivesAntonymsSwitch(SentencePairOperation):
     tasks = [TaskType.PARAPHRASE_DETECTION]
     languages = ["en"]
 
@@ -122,7 +149,21 @@ class AdjectivesAntonymsSwitch(SentencePairOperation):
 if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
-    tf = AdjectivesAntonymsSwitch(max_outputs=3)
+    tf = SentenceAdjectivesAntonymsSwitch(max_outputs=3)
+    test_cases = []
+    for sentence["Anthony was a very tall boy.",
+                 "Amanda's mother was very beautiful.",
+                 "After the war he had become a rich man.",
+                 "Creating that sort of machinery required a very talented engineer.",
+                 "It was very foolish to start working right away."]:
+        test_cases.append({
+            "class": tf.name(),
+            "inputs": {"sentence": sentence},
+            "outputs": [{"sentence": tf.generate(sentence)}]}
+        )
+    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
+    print(json.dumps(json_file))
+    tf = PairAdjectivesAntonymsSwitch(max_outputs=3)
     test_cases = []
     for sentence1, sentence2, target in zip([ "Anthony was a very tall boy.",
                                      "Amanda's mother was very beautiful.",
