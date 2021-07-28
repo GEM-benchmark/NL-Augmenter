@@ -17,9 +17,12 @@ class UniversalBiasFilter(SentenceOperation):
         :param sentences: sentences array
         :param target: array of keywords, describing potentially underrepresented population group
         :param test: array of keywords, describing dominating group 
-        :return: array of objects, containing the analysed sentence along with three flags, one of which is set to True
+        :return: array of objects, each containing the analyzed sentence along with three flags
         """
         flagged_sentences = []
+
+        # Check whether the sentences array is not empty, otherwise - inform the user
+        assert len(sentences) > 0, "You must provide at least one sentence for the analysis. Check the content of your sentences array you pass to the filter() method."
 
         for sentence in sentences:
             
@@ -135,6 +138,7 @@ class UniversalBiasFilter(SentenceOperation):
         :return: boolean, which is set to True if the the target group is underepresented  
         """
         biased = False
+        
         # Retrieve the flags for each of the sentences
         flagged_corpus = self.flag_sentences(sentences, self.target, self.test)
 
