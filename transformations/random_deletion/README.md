@@ -54,3 +54,5 @@ text generation, etc.
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
+## What are the limitations of this transformation?
+Some word deletion can alter the meaning of the sentence, e.g. negations.
