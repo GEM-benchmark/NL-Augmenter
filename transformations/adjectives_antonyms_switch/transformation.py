@@ -60,7 +60,7 @@ def adjectives_antonyms_switch(sentence, nlp):
 
 
 class SentenceAdjectivesAntonymsSwitch(SentenceOperation):
-    tasks = [TaskType.PARAPHRASE_DETECTION]
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=1):
@@ -149,17 +149,17 @@ class PairAdjectivesAntonymsSwitch(SentencePairOperation):
 if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
-    tf = SentenceAdjectivesAntonymsSwitch(max_outputs=3)
+    tf = SentenceAdjectivesAntonymsSwitch()
     test_cases = []
-    for sentence["Anthony was a very tall boy.",
-                 "Amanda's mother was very beautiful.",
-                 "After the war he had become a rich man.",
-                 "Creating that sort of machinery required a very talented engineer.",
-                 "It was very foolish to start working right away."]:
+    for sentence in ["Anthony was a very tall boy.",
+                     "Amanda's mother was very beautiful.",
+                     "After the war he had become a rich man.",
+                     "Creating that sort of machinery required a very talented engineer.",
+                     "It was very foolish to start working right away."]:
         test_cases.append({
             "class": tf.name(),
             "inputs": {"sentence": sentence},
-            "outputs": [{"sentence": tf.generate(sentence)}]}
+            "outputs": [{"sentence": o[0]} for o in tf.generate(sentence)]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
