@@ -7,8 +7,84 @@ from tasks.TaskTypes import TaskType
 """
 Subject Object Switch.
     Switches with each other the subject and object of English sentences.
-    Can be applyed to both sentences, the first, or the second in a set of paired sentences.
 """
+
+
+def subject_object_switch(sentence, nlp):
+
+    # Tokenize Sentence
+    doc = nlp(sentence)
+
+    # Initialize Variables
+    changed = False
+    chunks = {}
+    new_sentence = []
+    root_token = list(doc.sents)[0].root
+
+    # Evaluate Tokens
+    for token in doc:
+
+        # Evaluate subjects and objects
+        if "subj" in token.dep_ or "obj" in token.dep_:
+
+            # Initialize Variables
+            current_chunk = []
+            check = [token]
+
+            # Evaluate pending tokens
+            while check:
+                current_token = check.pop(0)
+                current_chunk.append(current_token)
+
+                # Get token children
+                for child in current_token.children:
+                    check.append(child)
+
+            # Sort by token index
+            current_chunk.sort(key=lambda x: x.i)
+
+            # Get chunk position
+            index = current_chunk[0].i
+
+            # Add chunk to list
+            chunks[index] = current_chunk
+
+    # Naively select candidate objects and subjects
+    candidate_subjects = [k for k in chunks.keys() if k < root_token.i]
+    candidate_objects = [k for k in chunks.keys() if k > root_token.i]
+
+    # If there are both, naively select a subject and an object
+    if candidate_subjects and candidate_objects:
+        subject_chunk = chunks[max(candidate_subjects)]
+        object_chunk = chunks[min(candidate_objects)]
+        changed = True
+
+        # Add tokens in the right order
+        new_sentence.extend(doc[i] for i in range(0, subject_chunk[0].i))
+        new_sentence.extend(
+            doc[i] for i in range(object_chunk[0].i, object_chunk[-1].i)
+        )
+        new_sentence.extend(
+            nlp(object_chunk[-1].text + subject_chunk[-1].whitespace_)
+        )
+        new_sentence.extend(
+            doc[i] for i in range(subject_chunk[-1].i + 1, object_chunk[0].i)
+        )
+        new_sentence.extend(
+            doc[i] for i in range(subject_chunk[0].i, subject_chunk[-1].i)
+        )
+        new_sentence.extend(
+            nlp(subject_chunk[-1].text + object_chunk[-1].whitespace_)
+        )
+        new_sentence.extend(
+            doc[i] for i in range(object_chunk[-1].i + 1, len(doc))
+        )
+
+    # Rebuild Sentence
+    new_sentence = [t.text + t.whitespace_ for t in new_sentence]
+    new_sentence = "".join(new_sentence)
+
+    return new_sentence, changed
 
 
 class SubjectObjectSwitch(SentencePairOperation):
@@ -31,91 +107,10 @@ class SubjectObjectSwitch(SentencePairOperation):
         if target == self.pos_label:
 
             for n, sentence in enumerate([sentence1, sentence2]):
-                # Tokenize Sentence
-                doc = self.nlp(sentence)
-
-                # Initialize Variables
-                chunks = {}
-                new_sentence = []
-                root_token = list(doc.sents)[0].root
-
-                # Evaluate Tokens
-                for token in doc:
-
-                    # Evaluate subjects and objects
-                    if "subj" in token.dep_ or "obj" in token.dep_:
-
-                        # Initialize Variables
-                        current_chunk = []
-                        check = [token]
-
-                        # Evaluate pending tokens
-                        while check:
-                            current_token = check.pop(0)
-                            current_chunk.append(current_token)
-
-                            # Get token cgildren
-                            for child in current_token.children:
-                                check.append(child)
-
-                        # Sort to chunk tokens
-                        current_chunk.sort(key=lambda x: x.i)
-
-                        # Get chunk position
-                        index = current_chunk[0].i
-
-                        # Add chunk to list
-                        chunks[index] = current_chunk
-
-                # Naively select candidate objects and subjects
-                candidate_subjects = [
-                    k for k in chunks.keys() if k < root_token.i
-                ]
-                candidate_objects = [
-                    k for k in chunks.keys() if k > root_token.i
-                ]
-
-                # If there are both, naively select a subject and an object
-                if candidate_subjects and candidate_objects:
-                    subject_chunk = chunks[max(candidate_subjects)]
-                    object_chunk = chunks[min(candidate_objects)]
-                    # Rebuild Sentence
-                    new_sentence.extend(
-                        doc[i] for i in range(0, subject_chunk[0].i)
-                    )
-                    new_sentence.extend(
-                        doc[i]
-                        for i in range(object_chunk[0].i, object_chunk[-1].i)
-                    )
-                    new_sentence.extend(
-                        self.nlp(
-                            object_chunk[-1].text
-                            + subject_chunk[-1].whitespace_
-                        )
-                    )
-                    new_sentence.extend(
-                        doc[i]
-                        for i in range(
-                            subject_chunk[-1].i + 1, object_chunk[0].i
-                        )
-                    )
-                    new_sentence.extend(
-                        doc[i]
-                        for i in range(subject_chunk[0].i, subject_chunk[-1].i)
-                    )
-                    new_sentence.extend(
-                        self.nlp(
-                            subject_chunk[-1].text
-                            + object_chunk[-1].whitespace_
-                        )
-                    )
-                    new_sentence.extend(
-                        doc[i] for i in range(object_chunk[-1].i + 1, len(doc))
-                    )
-                    new_sentence = [
-                        t.text + t.whitespace_ for t in new_sentence
-                    ]
-                    new_sentence = "".join(new_sentence)
+                new_sentence, changed = subject_object_switch(
+                    sentence, self.nlp
+                )
+                if changed:
                     changed_sentences[n] = new_sentence
 
         if 0 in changed_sentences.keys():
