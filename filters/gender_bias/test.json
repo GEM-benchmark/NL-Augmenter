@@ -4,6 +4,7 @@
         {
             "class": "GenderBiasFilter",
             "args": {
+				"language": "en"
             },
             "inputs": {
                 "sentences": ["He is going to make a cake.",
@@ -15,17 +16,20 @@
          {
             "class": "GenderBiasFilter",
             "args": {
+				"language": "fr"
             },
             "inputs": {
-                "sentences": [ "He is going to make a cake.",
-							   "She is going to program",
-							   "She agreed to help him" ]
+                "sentences": [ "Il va preparer un gateau",
+							  "Elle va créer un logiciel",
+							  "Personne n'aime pas faire la vaiselle",
+							  "Maman va à la conférence" ]
             },
             "outputs": false
         },
 		{
             "class": "GenderBiasFilter",
             "args": {
+				"language": "en"
             },
             "inputs": {
                 "sentences": [ "He is going to make a cake.",
@@ -37,6 +41,7 @@
 		{
             "class": "GenderBiasFilter",
             "args": {
+				"language": "en"
             },
             "inputs": {
                 "sentences": ["He is going to make a cake.",
@@ -48,6 +53,7 @@
 		{
             "class": "GenderBiasFilter",
             "args": {
+				"language": "en"
 			},
             "inputs": {
                 "sentences": ["He is going to make a cake.",
