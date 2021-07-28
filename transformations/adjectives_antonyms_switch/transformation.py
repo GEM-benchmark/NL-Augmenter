@@ -14,6 +14,51 @@ Adjectives Antonyms Switch.
 """
 
 
+def adjectives_antonyms_switch(sentence, nlp):
+
+    # Tokenize Sentence
+    doc = nlp(sentence)
+
+    # Initialize Variables
+    changed = False
+    new_sentence = []
+
+    # Evaluate Tokens
+    for token in doc:
+        # Add Token to Output Sentence
+        new_sentence.append(token)
+
+        # Initialize Variables
+        synsets = []
+        antonyms = []
+
+        # Get Synset
+        if token.pos_ == "ADJ":
+            synsets = wordnet.synsets(token.lemma_, "a")
+            synsets = [s for s in synsets if ".a." in s.name()]
+
+        # Get Antonyms
+        if synsets:
+            first_synset = synsets[0]
+            lemmas = first_synset.lemmas()
+            first_lemma = lemmas[0]
+            antonyms = first_lemma.antonyms()
+
+        # Get first Antonym
+        if antonyms:
+            antonyms.sort(key=lambda x: str(x).split(".")[2])
+            first_antonym = antonyms[0].name() + token.whitespace_
+            antonym_token = nlp(first_antonym)[0]
+            new_sentence[-1] = antonym_token
+            changed = True
+
+    # Rebuild Sentence
+    new_sentence = [t.text + t.whitespace_ for t in new_sentence]
+    new_sentence = "".join(new_sentence)
+
+    return (new_sentence, changed)
+
+
 class AdjectivesAntonymsSwitch(SentencePairOperation):
     tasks = [TaskType.PARAPHRASE_DETECTION]
     languages = ["en"]
@@ -40,48 +85,10 @@ class AdjectivesAntonymsSwitch(SentencePairOperation):
         if target == self.pos_label:
 
             for n, sentence in enumerate([sentence1, sentence2]):
-                # Tokenize Sentence
-                doc = self.nlp(sentence)
-
-                # Initialize Variables
-                new_sentence = []
-                changed = False
-
-                # Evaluate Tokens
-                for token in doc:
-                    # Add Token to Output Sentence
-                    new_sentence.append(token)
-
-                    # Initialize Variables
-                    synsets = []
-                    antonyms = []
-
-                    # Get Synset
-                    if token.pos_ == "ADJ":
-                        synsets = wordnet.synsets(token.lemma_, "a")
-                        synsets = [s for s in synsets if ".a." in s.name()]
-
-                    # Get Antonyms
-                    if synsets:
-                        first_synset = synsets[0]
-                        lemmas = first_synset.lemmas()
-                        first_lemma = lemmas[0]
-                        antonyms = first_lemma.antonyms()
-
-                    # Get first Antonym
-                    if antonyms:
-                        antonyms.sort(key=lambda x: str(x).split(".")[2])
-                        first_antonym = antonyms[0].name() + token.whitespace_
-                        antonym_token = self.nlp(first_antonym)[0]
-                        new_sentence[-1] = antonym_token
-                        changed = True
-
+                new_sentence, changed = adjectives_antonyms_switch(
+                    sentence, self.nlp
+                )
                 if changed:
-                    # Rebuild Sentence
-                    new_sentence = [
-                        t.text + t.whitespace_ for t in new_sentence
-                    ]
-                    new_sentence = "".join(new_sentence)
                     changed_sentences[n] = new_sentence
 
         if 0 in changed_sentences.keys() and changed_sentences[0] != sentence2:
