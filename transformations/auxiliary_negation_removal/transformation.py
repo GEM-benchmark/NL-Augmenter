@@ -130,7 +130,7 @@ class PairAuxiliaryNegationRemoval(SentencePairOperation):
 if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
-    tf = SentenceAuxiliaryNegationRemoval(max_outputs=3)
+    tf = SentenceAuxiliaryNegationRemoval()
     test_cases = []
     for sentence["Andrew has not returned the French book to the library.",
                  "Sentences with gapping, such as Paul likes coffee and Mary tea, do not have an overt predicate.",
@@ -140,11 +140,10 @@ if __name__ == '__main__':
         test_cases.append({
             "class": tf.name(),
             "inputs": {"sentence": sentence},
-            "outputs": [{"sentence": tf.generate(sentence1, sentence2, target)}]}
+            "outputs": [{"sentence": o[0]} for o in tf.generate(sentence)]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
-    
     tf = PairAuxiliaryNegationRemoval(max_outputs=3)
     test_cases = []
     for sentence1, sentence2, target in zip(["Andrew has not returned the French book to the library.",
