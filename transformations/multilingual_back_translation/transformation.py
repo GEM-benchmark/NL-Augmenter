@@ -10,6 +10,13 @@ Multilingual Back Translation.
 """
 
 
+def translate(sentence, src_lang, target_lang, model, tokenizer):
+    tokenizer.src_lang = src_lang
+    encoded_source_sentence = tokenizer(sentence, return_tensors="pt")
+    generated_target_tokens = model.generate(**encoded_source_sentence, forced_bos_token_id=tokenizer.get_lang_id(target_lang))
+    target_sentence = tokenizer.batch_decode(generated_target_tokens, skip_special_tokens=True)
+    return target_sentence
+
 class MultilingualBackTranslation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ['af' ,'am' ,'ar' ,'ast' ,'az' ,'ba' ,'be' ,'bg' ,'bn' ,'br' ,'bs' ,'ca' ,'ceb' ,'cs' ,'cy' ,'da' ,'de' ,'el' ,'en' ,'es' ,'et' ,'fa' ,'ff' ,'fi' ,'fr' ,'fy' ,'ga' ,'gd', 'gl' ,'gu' ,'ha' ,'he' ,'hi' ,'hr' ,'ht' ,'hu' ,'hy' ,'id' ,'ig' ,'ilo' ,'is' ,'it' ,'ja' ,'jv' ,'ka' ,'kk' ,'km' ,'kn' ,'ko' ,'lb' ,'lg' ,'ln' ,'lo' ,'lt' ,'lv' ,'mg' ,'mk' ,'ml' ,'mn' ,'mr' ,'ms' ,'my' ,'ne' ,'nl' ,'no' ,'ns' ,'oc' ,'or' ,'pa' ,'pl' ,'ps' ,'pt' ,'ro' ,'ru' ,'sd' ,'si' ,'sk' ,'sl' ,'so' ,'sq' ,'sr' ,'ss' ,'su' ,'sv' ,'sw' ,'ta' ,'th' ,'tl' ,'tn' ,'tr' ,'uk' ,'ur' ,'uz' ,'vi' ,'wo' ,'xh' ,'yi' ,'yo' ,'zh' ,'zu']
@@ -25,17 +32,11 @@ class MultilingualBackTranslation(SentenceOperation):
     def generate(self, sentence: str):
 
         # Source to Pivot
-        self.tokenizer.src_lang = self.src_lang
-        encoded_source_sentence = self.tokenizer(sentence, return_tensors="pt")
-        generated_pivot_tokens = self.model.generate(**encoded_source_sentence, forced_bos_token_id=self.tokenizer.get_lang_id(self.pivot_lang))
-        pivot_sentence = self.tokenizer.batch_decode(generated_pivot_tokens, skip_special_tokens=True)
+        pivot_sentence = translate(sentence, self.src_lang, self.pivot_lang, self.model, self.tokenizer)
     
         #Pivot to Source
         if self.pivot_lang != self.src_lang:
-            self.tokenizer.src_lang = self.pivot_lang
-            encoded_pivot_sentence = self.tokenizer(pivot_sentence, return_tensors="pt")
-            generated_source_tokens = self.model.generate(**encoded_pivot_sentence, forced_bos_token_id=self.tokenizer.get_lang_id(self.src_lang))
-            source_sentence = self.tokenizer.batch_decode(generated_source_tokens, skip_special_tokens=True)
+            source_sentence = translate(pivot_sentence, self.pivot_lang, self.src_lang, self.model, self.tokenizer)
         else:
             source_sentence = pivot_sentence
     
