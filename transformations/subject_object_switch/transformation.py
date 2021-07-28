@@ -1,6 +1,7 @@
 import spacy
 
 from initialize import spacy_nlp
+from interfaces.SentenceOperation import SentenceOperation
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
 
@@ -87,7 +88,28 @@ def subject_object_switch(sentence, nlp):
     return new_sentence, changed
 
 
-class SubjectObjectSwitch(SentencePairOperation):
+class SentenceSubjectObjectSwitch(SentenceOperation):
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    languages = ["en"]
+
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+
+    def generate(self, sentence: str):
+
+        # Initialize Variables
+        output_sentence = sentence
+
+        new_sentence, changed = subject_object_switch(sentence, self.nlp)
+
+        if changed:
+            output_sentence = new_sentence
+
+        return [output_sentence]
+
+
+class PairSubjectObjectSwitch(SentencePairOperation):
     tasks = [TaskType.PARAPHRASE_DETECTION]
     languages = ["en"]
 
@@ -140,7 +162,21 @@ class SubjectObjectSwitch(SentencePairOperation):
 if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
-    tf = SubjectObjectSwitch(max_outputs=3)
+    tf = SentenceSubjectObjectSwitch()
+    test_cases = []
+    for sentence in ["Andrew has not returned the French book to the library.",
+                     "John Locke and Adam Smith were born before Karl Marx and Friedrich Engels.",
+                     "John loves Mary.",
+                     "Ujjal Dev Dosanjh was not the 1st Premier of British Columbia from 1871 to 1872.",
+                     "The fighters would not give up the fight."]:
+        test_cases.append({
+            "class": tf.name(),
+            "inputs": {"sentence": sentence},
+            "outputs": [{"sentence": o[0]} for o in tf.generate(sentence)]}
+        )
+    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
+    print(json.dumps(json_file))
+    tf = PairSubjectObjectSwitch(max_outputs=3)
     test_cases = []
     for sentence1, sentence2, target in zip(["Andrew has not returned the French book to the library.",
                                      "John Locke and Adam Smith were born before Karl Marx and Friedrich Engels.",
