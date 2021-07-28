@@ -1,5 +1,5 @@
-from datasets import load_dataset
 import numpy as np
+from datasets import load_dataset
 from transformers import pipeline
 
 from dataset import KeyValueDataset
@@ -7,7 +7,11 @@ from tasks.TaskTypes import TaskType
 
 
 def evaluate(
-    operation, evaluate_filter, model_name, dataset_name, split="validation[:20%]"
+    operation,
+    evaluate_filter,
+    model_name,
+    dataset_name,
+    split="validation[:20%]",
 ):
     # (1) load model
     if model_name is None:
@@ -15,13 +19,19 @@ def evaluate(
     # (2) load test set
     if dataset_name is None:
         dataset_name = "squad"
-    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
+    print(
+        f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model."
+    )
 
     hf_dataset = load_dataset(dataset_name, split=split)
-    qa_pipeline = pipeline("question-answering", model=model_name, tokenizer=model_name)
+    qa_pipeline = pipeline(
+        "question-answering", model=model_name, tokenizer=model_name
+    )
 
     dataset = KeyValueDataset.from_huggingface(
-        hf_dataset, TaskType.QUESTION_ANSWERING, ["context", "question", "answers"]
+        hf_dataset,
+        TaskType.QUESTION_ANSWERING,
+        ["context", "question", "answers"],
     )
 
     print(
@@ -30,13 +40,13 @@ def evaluate(
 
     if evaluate_filter:
         filtered_dataset = dataset.apply_filter(operation)
-        print(f"Starting evaluation on the filtered dataset.")
+        print("Starting evaluation on the filtered dataset.")
         performance = evaluate_on_dataset(filtered_dataset, qa_pipeline)
     else:
-        print(f"Starting evaluation on the original dataset.")
+        print("Starting evaluation on the original dataset.")
         performance = evaluate_on_dataset(dataset, qa_pipeline)
 
-        print(f"Starting evaluation on the transformed dataset.")
+        print("Starting evaluation on the transformed dataset.")
         pt_dataset = dataset.apply_transformation(operation)
         pt_performance = evaluate_on_dataset(pt_dataset, qa_pipeline)
         performance["pt_accuracy"] = pt_performance["accuracy"]
@@ -64,4 +74,7 @@ def evaluate_on_dataset(dataset, qa_pipeline):
         total += 1
     print(f"The number of examples = {total}")
     print(f"The accuracy of exact matching = {100 * accuracy / total}")
-    return {"accuracy": np.round(100 * accuracy / total, 1), "no_of_examples": total}
+    return {
+        "accuracy": np.round(100 * accuracy / total, 1),
+        "no_of_examples": total,
+    }
