@@ -1,13 +1,13 @@
 from initialize import spacy_nlp
 import spacy
 
+from interfaces.SentenceOperation import SentenceOperation
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
 
 """
 Auxiliary Negation Removal.
     Remove auxiliary negations generating a sentence with oposite meaning.
-    Can be applyed to both sentences, the first, or the second in a set of paired sentences.
 """
 
 
@@ -25,9 +25,12 @@ def auxiliary_negation_removal(sentence, nlp):
     for token in doc:
         # Add Token to Output Sentence
         new_sentence.append(token)
-
+        
+        # Initialize Variables
+        token_lowercased_lemma = token.lemma_.lower()
+        
         # Process Negations
-        if  token.lemma_.lower() == 'not':
+        if  token_lowercased_lemma == 'not' or token_lowercased_lemma == "n't":
             # Get not position
             not_index = token.i
 
@@ -36,9 +39,10 @@ def auxiliary_negation_removal(sentence, nlp):
 
                 # Get Previous Token
                 previous_index = not_index - 1
-                previous_surface = doc[previous_index].text
+                previous_token = doc[previous_index]
+                previous_surface = previous_token.text
                 previous_lowercase_surface = previous_surface.lower()
-
+                
                 # Remove Negation
                 if previous_lowercase_surface in supported_auxiliaries:
                     new_sentence = new_sentence[:-1]
@@ -49,8 +53,8 @@ def auxiliary_negation_removal(sentence, nlp):
                     changed = True
 
                 # Handle Spacing
-                if token.text == "n't" and changed:
-                    new_sentence[-1] = nlp(previous_surface + ' ')[0]
+                if token_lowercased_lemma == "n't" and changed:
+                    new_sentence[-1] = nlp(new_sentence[-1].text + token.whitespace_)[0]
 
     # Rebuild Sentence
     new_sentence = [t.text + t.whitespace_ for t in new_sentence]
@@ -59,7 +63,29 @@ def auxiliary_negation_removal(sentence, nlp):
     return (new_sentence, changed)
 
 
-class AuxiliaryNegationRemoval(SentencePairOperation):
+class SentenceAuxiliaryNegationRemoval(SentenceOperation):
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    languages = ['en']
+
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load('en_core_web_sm')
+
+    def generate(self, sentence: str):
+
+        # Initialize Variables
+        output_sentence = sentence
+
+        #Process sentence
+        new_sentence, changed = auxiliary_negation_removal(sentence, self.nlp)
+
+        if changed:
+            output_sentence = new_sentence
+
+        return [output_sentence]
+
+
+class PairAuxiliaryNegationRemoval(SentencePairOperation):
     tasks = [TaskType.PARAPHRASE_DETECTION]
     languages = ['en']
 
@@ -104,7 +130,22 @@ class AuxiliaryNegationRemoval(SentencePairOperation):
 if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
-    tf = AuxiliaryNegationRemoval(max_outputs=3)
+    tf = SentenceAuxiliaryNegationRemoval(max_outputs=3)
+    test_cases = []
+    for sentence["Andrew has not returned the French book to the library.",
+                 "Sentences with gapping, such as Paul likes coffee and Mary tea, do not have an overt predicate.",
+                 "Alice in Wonderland isn't a 1997 American live-action/animated dark fantasy adventure film.",
+                 "Ujjal Dev Dosanjh was not the 1st Premier of British Columbia from 1871 to 1872.",
+                 "The fighters would not give up."]:
+        test_cases.append({
+            "class": tf.name(),
+            "inputs": {"sentence": sentence},
+            "outputs": [{"sentence": tf.generate(sentence1, sentence2, target)}]}
+        )
+    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
+    print(json.dumps(json_file))
+    
+    tf = PairAuxiliaryNegationRemoval(max_outputs=3)
     test_cases = []
     for sentence1, sentence2, target in zip(["Andrew has not returned the French book to the library.",
                                      "Sentences with gapping, such as Paul likes coffee and Mary tea, do not have an overt predicate.",
