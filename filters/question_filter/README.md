@@ -3,7 +3,7 @@
 ## What type of a filter is this?
 This filter helps identify the question category either based on question word or type of answer
 Authors: Tanay Dixit, Ananya B Sai
-Email: tanat.dixit@smail.iitm.ac.in , ananya.b.sai@gmail.com
+Email: tanay.dixit@smail.iitm.ac.in , ananya.b.sai@gmail.com
 
 ## Why is measuring performance on this split important?
 This filter provides a fine-grained analysis of question answering systems,helps to identify possible biases towards some categories of questions.
