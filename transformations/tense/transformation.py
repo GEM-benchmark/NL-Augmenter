@@ -5,6 +5,7 @@ from pattern.en import conjugate, PAST, PRESENT, SINGULAR, PLURAL
 import spacy
 from spacy.symbols import NOUN
 import random
+from initialize import spacy_nlp
 
 SUBJ_DEPS = {'agent', 'csubj', 'csubjpass', 'expl', 'nsubj', 'nsubjpass'}
 
@@ -67,8 +68,7 @@ change tense function borrowed from https://github.com/bendichter/tenseflow/blob
 class TenseTransformation(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
-        TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
+        TaskType.TEXT_TO_TEXT_GENERATION
     ]
     languages = ["en"]
 
@@ -76,7 +76,7 @@ class TenseTransformation(SentenceOperation):
         super().__init__()
         assert to_tense in ['past', 'present', 'future', 'random']
         self.to_tense = to_tense
-        self.nlp = spacy.load('en_core_web_sm')
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def change_tense(self, text, to_tense):
         """Change the tense of text.
@@ -91,7 +91,7 @@ class TenseTransformation(SentenceOperation):
         tense = tense_lookup[to_tense]
 
         doc = self.nlp(text)
-
+        print(doc[0], doc)
         out = list()
         out.append(doc[0].text)
         words = []
@@ -163,5 +163,8 @@ class TenseTransformation(SentenceOperation):
         return text_out
 
     def generate(self, sentence: str): 
+        """
+        takes in a input sentence and transforms it's tense to the target tense
+        """
         perturbed_texts = self.change_tense(sentence, to_tense = random.choice(['past', 'present', 'future']) if self.to_tense == 'random' else self.to_tense)
         return [perturbed_texts]

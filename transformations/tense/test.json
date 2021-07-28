@@ -21,6 +21,20 @@
             "to_tense": "past"
          },
          "inputs": {
+            "sentence": "It smells very delicious in the kitchen, what are you cooking?"
+         },
+         "outputs": [
+            {
+               "sentence": "It smelt very delicious in the kitchen, what were you cooking?"
+            }
+         ]
+      },
+      {
+         "class": "TenseTransformation",
+         "args": {
+            "to_tense": "past"
+         },
+         "inputs": {
             "sentence": "I can come to the party"
          },
          "outputs": [
@@ -68,6 +82,34 @@
          "outputs": [
             {
                "sentence": "I visited the hospital"
+            }
+         ]
+      },
+      {
+         "class": "TenseTransformation",
+         "args": {
+            "to_tense": "past"
+         },
+         "inputs": {
+            "sentence": "I will go for dinner after I am done playing tennis"
+         },
+         "outputs": [
+            {
+               "sentence": "I went for dinner after I was did playing tennis"
+            }
+         ]
+      },
+      {
+         "class": "TenseTransformation",
+         "args": {
+            "to_tense": "past"
+         },
+         "inputs": {
+            "sentence": "My father goes to gym every day"
+         },
+         "outputs": [
+            {
+               "sentence": "My father went to gym every day"
             }
          ]
       }
