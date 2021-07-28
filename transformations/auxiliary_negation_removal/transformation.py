@@ -11,6 +11,54 @@ Auxiliary Negation Removal.
 """
 
 
+def auxiliary_negation_removal(sentence, nlp):
+
+    # Tokenize Sentence
+    doc = nlp(sentence)
+
+    # Initialize Variables
+    changed = False
+    new_sentence = []
+    supported_auxiliaries = ['am', 'are', 'can', 'could', 'had', 'has', 'have', 'is', 'may', 'might', 'must', 'shall', 'should', 'was', 'were', 'will', 'would']
+
+    # Evaluate Tokens
+    for token in doc:
+        # Add Token to Output Sentence
+        new_sentence.append(token)
+
+        # Process Negations
+        if  token.lemma_.lower() == 'not':
+            # Get not position
+            not_index = token.i
+
+            # Process Auxiliaries
+            if not_index > 0:
+
+                # Get Previous Token
+                previous_index = not_index - 1
+                previous_surface = doc[previous_index].text
+                previous_lowercase_surface = previous_surface.lower()
+
+                # Remove Negation
+                if previous_lowercase_surface in supported_auxiliaries:
+                    new_sentence = new_sentence[:-1]
+                    changed = True
+
+                elif previous_lowercase_surface in ['do']:
+                    new_sentence = new_sentence[:-2]
+                    changed = True
+
+                # Handle Spacing
+                if token.text == "n't" and changed:
+                    new_sentence[-1] = nlp(previous_surface + ' ')[0]
+
+    # Rebuild Sentence
+    new_sentence = [t.text + t.whitespace_ for t in new_sentence]
+    new_sentence = ''.join(new_sentence)
+
+    return (new_sentence, changed)
+
+
 class AuxiliaryNegationRemoval(SentencePairOperation):
     tasks = [TaskType.PARAPHRASE_DETECTION]
     languages = ['en']
@@ -26,80 +74,25 @@ class AuxiliaryNegationRemoval(SentencePairOperation):
         # Initialize Variables
         output_sentences = []
         changed_sentences = {}
-        
+
         # Only process equivalent pairs
         if target == self.pos_label:
 
             for n, sentence in enumerate([sentence1, sentence2]):
-                # Tokenize Sentence
-                doc = self.nlp(sentence)
-
-                # Initialize Variables
-                new_sentence = []
-                changed = False
-
-                # Evaluate Tokens
-                for token in doc:
-                    # Add Token to Output Sentence
-                    new_sentence.append(token)
-
-                    # Process Negations
-                    if  token.lemma_.lower() == 'not':
-                        # Get not position
-                        not_index = token.i
-
-                        # Process Auxiliaries
-                        if not_index > 0:
-
-                            # Get Previous Token
-                            previous_index = not_index - 1
-                            previous_surface = doc[previous_index].text
-                            previous_lowercase_surface = previous_surface.lower()
-
-                            # Remove Negation
-                            if previous_lowercase_surface in ['am',
-                                                              'are',
-                                                              'can',
-                                                              'could',
-                                                              'had',
-                                                              'has',
-                                                              'have',
-                                                              'is',
-                                                              'may',
-                                                              'might',
-                                                              'must',
-                                                              'shall',
-                                                              'should',
-                                                              'was',
-                                                              'were',
-                                                              'will',
-                                                              'would']:
-                                new_sentence = new_sentence[:-1]
-                                changed = True
-                            
-                                # Handle Spacing
-                                if token.text == "n't":
-                                    new_sentence[-1] = self.nlp(previous_surface + ' ')[0]
-
-                            elif previous_lowercase_surface in ['do']:
-                                new_sentence = new_sentence[:-2]
-                                changed = True
-
+                #Process sentence
+                new_sentence, changed = auxiliary_negation_removal(sentence, self.nlp)
                 if changed:
-                    # Rebuild Sentence
-                    new_sentence = [t.text + t.whitespace_ for t in new_sentence]
-                    new_sentence = ''.join(new_sentence)
                     changed_sentences[n] = new_sentence
-        
+
         if 0 in changed_sentences.keys():
             output_sentences.append((changed_sentences[0], sentence2, self.neg_label))
-        
+
         if 1 in changed_sentences.keys():
             output_sentences.append((sentence1, changed_sentences[1], self.neg_label))
-        
+
         if 0 in changed_sentences.keys() and 1 in changed_sentences.keys():
             output_sentences.append((changed_sentences[0], changed_sentences[1], self.pos_label))
-        
+
         if not output_sentences:
             output_sentences = [(sentence1, sentence2, target)]
 
