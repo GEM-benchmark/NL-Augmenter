@@ -11,6 +11,7 @@ from interfaces.SentenceOperation import (
     SentenceAndTargetsOperation,
     SentenceOperation,
 )
+from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
 
 
@@ -126,7 +127,8 @@ class TextLineDataset(BaseDataset):
                 successful_num / total_num if total_num > 0 else 0,
             )
         )
-        if total_num == 0: return None
+        if total_num == 0:
+            return None
         return TextLineDataset(transformed_data, self.labels)
 
     def __iter__(self):
@@ -163,7 +165,7 @@ class KeyValueDataset(BaseDataset):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.QUESTION_ANSWERING,
         TaskType.QUESTION_GENERATION,
-        TaskType.TEXT_CLASSIFICATION, # for >1 field classification
+        TaskType.TEXT_CLASSIFICATION,  # for >1 field classification
     ]
 
     # data: input data samples read from jsonl file
@@ -232,6 +234,8 @@ class KeyValueDataset(BaseDataset):
                 self.operation_type = "question_answer"
         elif self.task_type in [TaskType.TEXT_CLASSIFICATION]:
             self.operation_type = "sentence"
+        elif self.task_type in [TaskType.PARAPHRASE_DETECTION]:
+            self.operation_type = "sentence1_sentence2_target"
 
         filter_func = self.__getattribute__(
             "_apply_" + self.operation_type + "_filter"
@@ -284,6 +288,14 @@ class KeyValueDataset(BaseDataset):
         answers = [datapoint[answer_key] for answer_key in self.fields[2:]]
         return filter.filter(context, question, answers)
 
+    def _apply_sentence1_sentence2_target_filter(
+        self, datapoint: dict, filter: SentencePairOperation
+    ):
+        sentence1 = datapoint[self.fields[0]]
+        sentence2 = datapoint[self.fields[1]]
+        target = datapoint[self.fields[2]]
+        return filter.filter(sentence1, sentence2, target)
+
     # this function is an adapter and will call the corresponding transform function for the task
     # subfields: the fields to apply transformation, it is a subset of self.fields
     def apply_transformation(
@@ -292,11 +304,11 @@ class KeyValueDataset(BaseDataset):
         _, transformation_func = self._analyze(subfields)
         transformed_data = []
         print("Applying transformation:")
-        
+
         # calculating ratio of transformed example to unchanged example
         successful_num = 0
         failed_num = 0
-        
+
         for datapoint in tqdm(self.data):
             pt_examples = transformation_func(datapoint.copy(), transformation)
             successful_pt, failed_pt = transformation.compare(
@@ -304,9 +316,11 @@ class KeyValueDataset(BaseDataset):
             )
             successful_num += successful_pt
             failed_num += failed_pt
-            
-            transformed_data.extend(pt_examples)  # don't want self.data to be changed
-        
+
+            transformed_data.extend(
+                pt_examples
+            )  # don't want self.data to be changed
+
         total_num = successful_num + failed_num
 
         print(
@@ -318,7 +332,8 @@ class KeyValueDataset(BaseDataset):
                 successful_num / total_num if total_num > 0 else 0,
             )
         )
-        if total_num == 0: return None
+        if total_num == 0:
+            return None
         return KeyValueDataset(transformed_data, self.task_type, self.fields)
 
     def _apply_sentence_transformation(
@@ -377,6 +392,26 @@ class KeyValueDataset(BaseDataset):
                 ]  # answers starting from pos 2
             datapoints.append(datapoint_n)
 
+        return datapoints
+
+    def _apply_sentence1_sentence2_target_transformation(
+        self, datapoint: dict, transformation: SentencePairOperation
+    ):
+        sentence1 = datapoint[self.fields[0]]
+        sentence2 = datapoint[self.fields[1]]
+        target = datapoint[self.fields[2]]
+        target_type = type(target)
+
+        transformed = transformation.generate(
+            sentence1, sentence2, str(target)
+        )
+        datapoints = []
+        for to in transformed:
+            datapoint_n = dict()
+            datapoint_n[self.fields[0]] = to[0]
+            datapoint_n[self.fields[1]] = to[1]
+            datapoint_n[self.fields[2]] = target_type(to[2])
+            datapoints.append(datapoint_n)
         return datapoints
 
     def __iter__(self):
