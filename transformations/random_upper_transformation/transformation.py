@@ -14,7 +14,7 @@ class RandomUpperPerturbation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
-    languages = ["af", "sq", "am", "eu", "be", "bn", "bs", "my", "ca", "ceb", "zh", "co", "hr", "nl", "cs", 'da', "eo",
+    languages = ["af", "sq", "am", "eu","en", "be", "bn", "bs", "my", "ca", "ceb", "zh", "co", "hr", "nl", "cs", 'da', "eo",
                  "et", "tl", "fi", "fr", "fy", "gl", "ka", "de", 'el', "gu", "ht", "ha", "haw", "iw", "hu", "is", "ig",
                  "ga", "it", "lb", "no", "pl", "pt", "ro", "gd", "sr", "es", "sv", "uk", "cu"]
 
