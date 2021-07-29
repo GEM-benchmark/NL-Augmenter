@@ -1,4 +1,5 @@
 import pytest
+from itertools import zip_longest
 
 from initialize import initialize_models
 from interfaces.SentencePairOperation import SentencePairOperation
@@ -24,7 +25,7 @@ def execute_sentence_operation_test_case(transformation, test):
     filter_args = test["inputs"]
     outputs = test["outputs"]
     perturbs = transformation.generate(**filter_args)
-    for pred_output, output in zip(perturbs, outputs):
+    for pred_output, output in zip_longest(perturbs, outputs):
         assert pred_output == output["sentence"], get_assert_message(
             transformation, output["sentence"], pred_output
         )
