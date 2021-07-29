@@ -1,6 +1,6 @@
-from initialize import spacy_nlp
 import spacy
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
@@ -19,18 +19,36 @@ def auxiliary_negation_removal(sentence, nlp):
     # Initialize Variables
     changed = False
     new_sentence = []
-    supported_auxiliaries = ['am', 'are', 'can', 'could', 'had', 'has', 'have', 'is', 'may', 'might', 'must', 'shall', 'should', 'was', 'were', 'will', 'would']
+    supported_auxiliaries = [
+        "am",
+        "are",
+        "can",
+        "could",
+        "had",
+        "has",
+        "have",
+        "is",
+        "may",
+        "might",
+        "must",
+        "shall",
+        "should",
+        "was",
+        "were",
+        "will",
+        "would",
+    ]
 
     # Evaluate Tokens
     for token in doc:
         # Add Token to Output Sentence
         new_sentence.append(token)
-        
+
         # Initialize Variables
         token_lowercased_lemma = token.lemma_.lower()
-        
+
         # Process Negations
-        if  token_lowercased_lemma == 'not' or token_lowercased_lemma == "n't":
+        if token_lowercased_lemma == "not" or token_lowercased_lemma == "n't":
             # Get not position
             not_index = token.i
 
@@ -42,41 +60,47 @@ def auxiliary_negation_removal(sentence, nlp):
                 previous_token = doc[previous_index]
                 previous_surface = previous_token.text
                 previous_lowercase_surface = previous_surface.lower()
-                
+
                 # Remove Negation
                 if previous_lowercase_surface in supported_auxiliaries:
                     new_sentence = new_sentence[:-1]
                     changed = True
 
-                elif previous_lowercase_surface in ['do']:
+                elif previous_lowercase_surface in ["do"]:
                     new_sentence = new_sentence[:-2]
                     changed = True
 
                 # Handle Spacing
-                if token_lowercased_lemma == "n't" and changed:
-                    new_sentence[-1] = nlp(new_sentence[-1].text + token.whitespace_)[0]
+                if (
+                    token_lowercased_lemma == "n't"
+                    and changed
+                    and new_sentence
+                ):
+                    new_sentence[-1] = nlp(
+                        new_sentence[-1].text + token.whitespace_
+                    )[0]
 
     # Rebuild Sentence
     new_sentence = [t.text + t.whitespace_ for t in new_sentence]
-    new_sentence = ''.join(new_sentence)
+    new_sentence = "".join(new_sentence)
 
     return (new_sentence, changed)
 
 
 class SentenceAuxiliaryNegationRemoval(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
-    languages = ['en']
+    languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load('en_core_web_sm')
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def generate(self, sentence: str):
 
         # Initialize Variables
         output_sentence = sentence
 
-        #Process sentence
+        # Process sentence
         new_sentence, changed = auxiliary_negation_removal(sentence, self.nlp)
 
         if changed:
@@ -87,11 +111,11 @@ class SentenceAuxiliaryNegationRemoval(SentenceOperation):
 
 class PairAuxiliaryNegationRemoval(SentencePairOperation):
     tasks = [TaskType.PARAPHRASE_DETECTION]
-    languages = ['en']
+    languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=3, pos_label="1", neg_label="0"):
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load('en_core_web_sm')
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.pos_label = pos_label
         self.neg_label = neg_label
 
@@ -105,24 +129,33 @@ class PairAuxiliaryNegationRemoval(SentencePairOperation):
         if target == self.pos_label:
 
             for n, sentence in enumerate([sentence1, sentence2]):
-                #Process sentence
-                new_sentence, changed = auxiliary_negation_removal(sentence, self.nlp)
+                # Process sentence
+                new_sentence, changed = auxiliary_negation_removal(
+                    sentence, self.nlp
+                )
                 if changed:
                     changed_sentences[n] = new_sentence
 
         if 0 in changed_sentences.keys():
-            output_sentences.append((changed_sentences[0], sentence2, self.neg_label))
+            output_sentences.append(
+                (changed_sentences[0], sentence2, self.neg_label)
+            )
 
         if 1 in changed_sentences.keys():
-            output_sentences.append((sentence1, changed_sentences[1], self.neg_label))
+            output_sentences.append(
+                (sentence1, changed_sentences[1], self.neg_label)
+            )
 
         if 0 in changed_sentences.keys() and 1 in changed_sentences.keys():
-            output_sentences.append((changed_sentences[0], changed_sentences[1], self.pos_label))
+            output_sentences.append(
+                (changed_sentences[0], changed_sentences[1], self.pos_label)
+            )
 
         if not output_sentences:
             output_sentences = [(sentence1, sentence2, target)]
 
         return output_sentences
+
 
 """
 # Sample code to demonstrate usage. Can also assist in adding test cases.
