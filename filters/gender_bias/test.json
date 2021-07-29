@@ -19,7 +19,7 @@
 				"language": "fr"
             },
             "inputs": {
-                "sentences": [ "Il va preparer un gateau",
+                "sentences": ["Il va preparer un gateau",
 							  "Elle va créer un logiciel",
 							  "Personne n'aime pas faire la vaiselle",
 							  "Maman va à la conférence" ]
@@ -29,24 +29,30 @@
 		{
             "class": "GenderBiasFilter",
             "args": {
-				"language": "en"
+				"language": "pl"
             },
             "inputs": {
-                "sentences": [ "He is going to make a cake.",
-							   "She is going to program",
-							   "Nobody likes washing dishes"]
+                "sentences": ["On zamierza upiec ciasto.",
+							  "Ona będzie programować",
+							  "Nikt nie lubi zmywać naczyń",
+							  "On zgodził się mu pomóc"]
             },
-            "outputs": false
+            "outputs": true
         },
 		{
             "class": "GenderBiasFilter",
             "args": {
 				"language": "en"
+				"feminine_input": ["wow"]
+				"masculine_input": ["yey"]
             },
             "inputs": {
                 "sentences": ["He is going to make a cake.",
 							  "She is going to program",
-							  "His coat is dry"]
+							  "Nobody likes washing dishes",
+							  "He agreed to help him",
+							  "Wow , it works!",
+							  "Yey !!!!"]
             },
             "outputs": true
         },

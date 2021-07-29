@@ -2,7 +2,7 @@
 
 ## What type of a filter is this?
 
-This is a bilingual filter (for English and French languages), which filters a text corpus to measure gender fairness in regards of a female gender representation.
+This is a trilingual filter (for English, French and Polish languages), which filters a text corpus to measure gender fairness in regards of a female gender representation.
 It is based on a pre-defined set words, such as personal pronouns, words defining the relation and titles, corresponding to the female and male genders accordingly.
 Two utility methods - flag_sentences(), count_genders() and sort_groups() give supplementary information to the boolean value returned by the main filter() method.
 
@@ -16,7 +16,7 @@ France
 
 ## Why is measuring performance on this split important?
 This filter can be used to define whether the female gender is sufficiently represented in a tested subset of sentences.
-Being currently implemented for English and French language, this filter is potentially language-agnostic, since does not rely on any external dependencies.
+Being currently implemented for English, French and Polish languages, this filter is potentially language-agnostic, since does not rely on any external dependencies.
 
 ## Related Work
 While the problematics of the gender fairness is an active domain of research in NLP, the current code represents an original implementation.
@@ -75,5 +75,53 @@ sentences = [ "Il va preparer un gateau",
 f = GenderBiasFilter("fr")
 f.filter(sentences)
 ```
+
+There is also a possibility to extend the vocabulary of the gender definition keywords. Let us see the example of it:
+```
+feminine_input = ["wow"]
+masculine_input = ["yey"]
+
+f = GenderBiasFilter("en", feminine_input, masculine_input)
+sentences = [ "He is going to make a cake.",
+              "She is going to program",
+              "Nobody likes washing dishes",
+              "He agreed to help him",
+              "Wow , it works!",
+              "Yey !!!!"]
+
+f.filter(sentences)
+```
+which outputs `True`!
+Now let's see the statistics and the sentences that sorted to each of the groups:
+
+```
+flagged_sentences = f.flag_sentences(sentences, "en", feminine_input, masculine_input)
+feminine, masculine, neutral = f.count_genders(flagged_sentences)
+print("Feminine flagged sentences:", feminine)
+print("Masculine flagged sentences:", masculine)
+print("Neutral flagged sentences:", neutral)
+```
+outputs:
+```
+Feminine flagged sentences: 2
+Masculine flagged sentences: 3
+Neutral flagged sentences: 1
+```
+
+and this piece of code gives us the exact sentences:
+```
+flagged_sentences = f.flag_sentences(sentences, "en", feminine_input, masculine_input)
+feminine_group, masculine_group, neutral_group = f.sort_groups(flagged_sentences)
+print("This is a feminine group:", feminine_group)
+print("This is a masculine group:", masculine_group)
+print("This is a neutral group:", neutral_group)
+```
+which outputs:
+```
+This is a feminine group: ['She is going to program', 'Wow , it works!']
+This is a masculine group: ['He is going to make a cake.', 'He agreed to help him', 'Yey !!!!']
+This is a neutral group: ['Nobody likes washing dishes']
+```
+
 ## What are the limitations of this filter?
 The filter result is based on n-gram intersection counting approach, which assumes that the word should have the exact form as the internally defined keywords.
