@@ -1,5 +1,4 @@
-import itertools
-import random
+import numpy as np
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
@@ -15,14 +14,13 @@ class RandomUpperPerturbation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
-    languages = ["en","af", "sq", "am", "eu", "be", "bn", "bs", "my", "ca", "ceb", "zh", "co", "hr", "nl", "cs", 'da', "eo",
+    languages = ["af", "sq", "am", "eu", "be", "bn", "bs", "my", "ca", "ceb", "zh", "co", "hr", "nl", "cs", 'da', "eo",
                  "et", "tl", "fi", "fr", "fy", "gl", "ka", "de", 'el', "gu", "ht", "ha", "haw", "iw", "hu", "is", "ig",
                  "ga", "it", "lb", "no", "pl", "pt", "ro", "gd", "sr", "es", "sv", "uk", "cu"]
 
-
     def __init__(self, seed=0, max_output=1, corrupt_proportion=0.1):
         super().__init__(seed)
-        random.seed(seed)
+        np.random.seed(seed)
         self.max_output = max_output
         self.corrupt_proportion = corrupt_proportion
 
@@ -31,9 +29,8 @@ class RandomUpperPerturbation(SentenceOperation):
         return perturbed_texts
 
     def random_upper(self, sentence: str):
-        positions = random.sample(
-            range(0, len(sentence)), int(len(sentence) * self.corrupt_proportion)
-        )
+        positions = np.random.choice(range(len(sentence)), int(len(sentence) * self.corrupt_proportion), False)
+
         new_sentence = [
             letter if index not in positions else letter.upper()
             for index, letter in enumerate(sentence)
