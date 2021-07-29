@@ -15,7 +15,10 @@ class RandomUpperPerturbation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
-    languages = ["en"]
+    languages = ["en","af", "sq", "am", "eu", "be", "bn", "bs", "my", "ca", "ceb", "zh", "co", "hr", "nl", "cs", 'da', "eo",
+                 "et", "tl", "fi", "fr", "fy", "gl", "ka", "de", 'el', "gu", "ht", "ha", "haw", "iw", "hu", "is", "ig",
+                 "ga", "it", "lb", "no", "pl", "pt", "ro", "gd", "sr", "es", "sv", "uk", "cu"]
+
 
     def __init__(self, seed=0, max_output=1, corrupt_proportion=0.1):
         super().__init__(seed)
@@ -36,36 +39,3 @@ class RandomUpperPerturbation(SentenceOperation):
             for index, letter in enumerate(sentence)
         ]
         return "".join(new_sentence)
-
-
-"""
-# Sample code to demonstrate usage. Can also assist in adding test cases.
-# You don't need to keep this code in your transformation.
-"""
-if __name__ == "__main__":
-    import json
-    from TestRunner import convert_to_snake_case
-
-    tf = RandomUpperPerturbation(max_output=1)
-    sentence = (
-        "Andrew finally returned the French book to Chris that I bought last week"
-    )
-    test_cases = []
-    for sentence in [
-        "Andrew finally returned the French book to Chris that I bought last week",
-        "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
-        "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
-        "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
-        "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
-    ]:
-        test_cases.append(
-            {
-                "class": tf.name(),
-                "inputs": {"sentence": sentence},
-                "outputs": [{"sentence": o} for o in tf.generate(sentence)],
-            }
-        )
-    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    print(json.dumps(json_file))
-    with open("test.json", "w") as f:
-        json.dump(json_file, f, indent=4)
