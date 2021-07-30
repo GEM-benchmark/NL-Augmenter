@@ -294,7 +294,7 @@ class KeyValueDataset(BaseDataset):
         sentence1 = datapoint[self.fields[0]]
         sentence2 = datapoint[self.fields[1]]
         target = datapoint[self.fields[2]]
-        return filter.filter(sentence1, sentence2, target)
+        return filter.filter(sentence1, sentence2, str(target))
 
     # this function is an adapter and will call the corresponding transform function for the task
     # subfields: the fields to apply transformation, it is a subset of self.fields
