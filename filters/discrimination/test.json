@@ -4,84 +4,84 @@
         {
             "class": "DiscriminationFilter",
             "args": {
-				"language": "en"
-				"minority_group": ["she", "her", "hers"]
-				"majority_group": ["he", "him", "his"]
-				"minority_factor": ["cake"]
+				"language": "en",
+				"minority_group": ["she", "her", "hers"],
+				"majority_group": ["he", "him", "his"],
+				"minority_factor": ["cake"],
 				"majority_factor": ["program"]
             },
             "inputs": {
                 "sentences": ["He is going to make a cake.",
-							  "She is going to make a cake.",              
-							  "She is going to make a computer program"]
+				"She is going to make a cake.",  
+				"She is going to make a computer program"]
             },
             "outputs": false
         },
         {
             "class": "DiscriminationFilter",
             "args": {
-				"language": "en"
-				"minority_group": ["she", "her", "hers"]
-				"majority_group": ["he", "him", "his"]
-				"minority_factor": ["cake"]
+				"language": "en",
+				"minority_group": ["she", "her", "hers"],
+				"majority_group": ["he", "him", "his"],
+				"minority_factor": ["cake"],
 				"majority_factor": ["program"]
             },
             "inputs": {
                 "sentences": ["He is going to make a cake.",
-							  "She is going to make a cake.",              
-							  "She is going to make a computer program",
-							  "He is going to make a computer program",
-							  "She makes good cakes"]
+				"She is going to make a cake.",              
+				"She is going to make a computer program",
+				"He is going to make a computer program",
+				"She makes good cakes"]
             },
             "outputs": true
         },
 		{
             "class": "DiscriminationFilter",
             "args": {
-				"language": "fr"
-				"minority_group": ["elle", "sienne"]
-				"majority_group": ["il", "sien"]
-				"minority_factor": ["gâteau"]
+				"language": "fr",
+				"minority_group": ["elle", "sienne"],
+				"majority_group": ["il", "sien"],
+				"minority_factor": ["gâteau"],
 				"majority_factor": ["logiciel"]
             },
             "inputs": {
                 "sentences": ["Il va faire un gâteau.",
-							  "Elle va faire un gâteau.",
-							  "Elle va faire un logiciel"]
+				"Elle va faire un gâteau.",
+				"Elle va faire un logiciel"]
             },
             "outputs": false
         },
 		{
             "class": "DiscriminationFilter",
             "args": {
-				"language": "fr"
-				"minority_group": ["elle", "sienne"]
-				"majority_group": ["il", "sien"]
-				"minority_factor": ["gâteau"]
+				"language": "fr",
+				"minority_group": ["elle", "sienne"],
+				"majority_group": ["il", "sien"],
+				"minority_factor": ["gâteau"],
 				"majority_factor": ["logiciel"]
             },
             "inputs": {
                 "sentences": ["Il va faire un gâteau.",
-							  "Elle va faire un gâteau.",
-							  "Elle va faire un logiciel",
-							  "Il va faire un logiciel",
-							  "Elle fait de bons gâteaux"]
+				"Elle va faire un gâteau.",
+				"Elle va faire un logiciel",
+				"Il va faire un logiciel",
+				"Elle fait de bons gâteaux"]
             },
             "outputs": true
         },
 		{
             "class": "DiscriminationFilter",
             "args": {
-				"language": "fr"
-				"minority_group": ["elle", "sienne"]
-				"majority_group": ["il", "sien"]
-				"minority_factor": ["gâteau"]
+				"language": "fr",
+				"minority_group": ["elle", "sienne"],
+				"majority_group": ["il", "sien"],
+				"minority_factor": ["gâteau"],
 				"majority_factor": ["logiciel"]
             },
             "inputs": {
                 "sentences": ["Il va faire un gâteau.",
-							  "Elle va faire un gâteau.",
-							  "Personne va faire un logiciel"]
+				"Elle va faire un gâteau.",
+				"Personne va faire un logiciel"]
             },
             "outputs": false
         }
