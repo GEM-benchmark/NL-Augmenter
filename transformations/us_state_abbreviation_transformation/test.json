@@ -1,0 +1,50 @@
+{
+  "type": "us_state_abbreviation",
+  "test_cases": [
+    {
+      "class": "USStateAbbreviation",
+      "inputs": {
+        "sentence": "Texas and Oklahoma are also seeing extreme and exceptional drought."
+      },
+      "outputs": [{
+        "sentence": "TX and OK are also seeing extreme and exceptional drought."
+      }]
+    },
+    {
+      "class": "USStateAbbreviation",
+      "inputs": {
+        "sentence": "So the next time you take a holiday in California, you'll find a few changes around here, thanks to the drought."
+      },
+      "outputs": [{
+        "sentence": "So the next time you take a holiday in CA, you'll find a few changes around here, thanks to the drought."
+      }]
+    },
+    {
+      "class": "USStateAbbreviation",
+      "inputs": {
+        "sentence": "One CDC Vessel Sanitation Program environmental health officer and one epidemiologist have boarded the ship in San Diego, CA on April 13, 2015 to conduct an environmental health assessment and evaluate the outbreak and response activities."
+      },
+      "outputs": [{
+        "sentence": "One CDC Vessel Sanitation Program environmental health officer and one epidemiologist have boarded the ship in San Diego, California on April 13, 2015 to conduct an environmental health assessment and evaluate the outbreak and response activities."
+      }]
+    },
+    {
+      "class": "USStateAbbreviation",
+      "inputs": {
+        "sentence": "A soldier and a poet: Asia Siddiqui (right), one of the two woman arrested in Queens, NY on Thursday for plotting a terrorist attack had previously published a poem in an Al Qaeda magazine, it was revealed."
+      },
+      "outputs": [{
+        "sentence": "A soldier and a poet: Asia Siddiqui (right), one of the two woman arrested in Queens, New York on Thursday for plotting a terrorist attack had previously published a poem in an Al Qaeda magazine, it was revealed."
+      }]
+    },
+    {
+      "class": "USStateAbbreviation",
+      "inputs": {
+        "sentence": "The hot spot, near the Four Corners intersection of Arizona, Colorado, New Mexico and Utah, covers only about 2,500 square miles (6,500 square kilometers), or half the size of Connecticut."
+      },
+      "outputs": [{
+        "sentence": "The hot spot, near the Four Corners intersection of AZ, CO, NM and UT, covers only about 2,500 square miles (6,500 square kilometers), or half the size of CT."
+      }]
+    }
+  ]
+}
