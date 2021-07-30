@@ -42,8 +42,8 @@
 		{
             "class": "GenderBiasFilter",
             "args": {
-				"language": "en"
-				"feminine_input": ["wow"]
+				"language": "en",
+				"feminine_input": ["wow"],
 				"masculine_input": ["yey"]
             },
             "inputs": {
