@@ -85,11 +85,13 @@ Default models and datasets:
 
 ### Paraphrase Detection
 
-| Transformation                   | paraphrase-xlm-r-multilingual-v1-PAWS |
-|:---------------------------------|:--------------------------------------|
-|                                  |                                       |
+| Transformation                   | paraphrase-xlm-r-multilingual-v1-MRPC | paraphrase-xlm-r-multilingual-v1-PAWS |
+|:---------------------------------|:--------------------------------------|:--------------------------------------|
+|                                  |                                       |                                       |
 
 Default models and datasets:
 
+
+- [MRPC](https://huggingface.co/datasets/glue): [paraphrase-xlm-r-multilingual-v1](https://huggingface.co/sentence-transformers/paraphrase-xlm-r-multilingual-v1)
 - [PAWS](https://huggingface.co/datasets/paws): [paraphrase-xlm-r-multilingual-v1](https://huggingface.co/sentence-transformers/paraphrase-xlm-r-multilingual-v1)
 

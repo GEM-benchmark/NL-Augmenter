@@ -37,11 +37,12 @@ def evaluate(
     print(
         f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model."
     )
-    hf_dataset = (
-        load_dataset(dataset_name, "labeled_final", split=split)
-        if dataset_name == "paws"
-        else load_dataset(dataset_name, split=split)
-    )
+    if dataset_name == "paws":
+        hf_dataset = load_dataset(dataset_name, "labeled_final", split=split)
+    elif dataset_name == "mrpc":
+        hf_dataset = load_dataset("glue", dataset_name, split=split)
+    else:
+        hf_dataset = load_dataset(dataset_name, split=split)
 
     dataset = KeyValueDataset.from_huggingface(
         hf_dataset,
