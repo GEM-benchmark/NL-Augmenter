@@ -15,7 +15,7 @@ As mentioned in the paper, we test this method on tasks including these multi-li
 Natural Language Inference, Sentiment Classification, Document Classification, Dialogue State Tracking (DST), Spoken Language Understanding
 We perform t-test for all experiments to measure whether the results from the proposed model are significantly better than the baselines(mBERT and XLM).
 
-## Details worth mentioned
+## What are the limitations of this transformation?
 It is worth noticing that words in the source language can have multiple translations in the target language. In this case, we randomly choose any of the multiple translations as the replacement target language word. Though we cannot guarantee that this is the correct word-to-word translation in the context, we can consider it as one of the data augmented strategy for our tasks. This is verified by our work (CoSDA-ML) [1].
 
 ## Previous Work
