@@ -1,0 +1,130 @@
+ACCT:Account
+AIDA:Attention, interest, desire, action
+AP:Accounts payable
+API:Application program interface
+AR:Accounts receivable
+A.S.A.P.:As soon as possible
+ASAP:As soon as possible
+B2B:Business to business
+B2C:Business to consumer
+BD:Business development
+BID:Break it down
+BR:Bounce rate
+BS:Balance sheet
+CAO:Chief analytics officer
+CDO:Chief data officer
+CEO:Chief executive officer
+CFO:Chief financial officer
+CFP:Certified financial planner
+CIO:Chief information officer
+CMO:Chief marketing officer
+CMS:Content management system
+COB:Close of business
+COO:Chief operating officer
+CPA:Certified public accountant
+CPC:Cost per click
+CPU:Central processing unit
+CPU:Cost per unit
+CR:Conversion rate
+CR:Credit
+CRM:Customer relationship management
+CSO:Chief security officer
+CSR:Corporate social responsibility
+CSS:Cascading style sheet
+CTA:Call to action
+CTO:Chief technology officer
+CTR:Click through rate
+D.I.Y.:do it yourself
+DIY:do it yourself
+DM:Direct message
+DM:Direct mail
+DOE:Depending on experience
+DR:Debit
+EOD:End of day
+EOM:End of message
+EOT:End of thread
+EOW:End of week
+EPS:Earnings per share
+ESP:Email service provider
+E.T.A.:estimated time of arrival
+ETA:estimated time of arrival
+ETA:Estimated time of arrival
+FIFO:First in, first out
+FTE:Full-time employee
+FTP:File transport protocol
+FWIW:For what it’s worth
+GA:Google Analytics
+GC:General counsel
+HR:Human resources
+HTML:HyperText markup language
+HTTP:HyperText transfer protocol
+HTTPS:HyperText transfer protocol secure
+IAM:In a meeting
+IM:Instant messaging
+IMO:In my opinion
+IP:Internet protocol
+IPO:Initial public offering
+ISP:Internet service provider
+KISS:Keep it simple stupid
+KPI:Key performance indicator
+LET:Leaving early today
+LIFO:Last in, first out
+LMK:Let me know
+LWOP:Leave without pay
+MoM:Month over month
+MTD:Month to date
+NAV:Net assets value
+NIM:No internal message
+NRN:No reply necessary
+NSFW:Not safe for work
+NWR:Not work related
+OOO:Out of office
+OS:Operating system
+OT:Off topic
+OTP:On the phone
+PA:Performance appraisal
+P-card:Purchase card
+P/E:Price to earnings
+P&L:Profit and loss
+POC:Point of contact
+PPC:Pay per click
+PR:Public relations
+PTE:Part-time employee
+PTO:Paid time off
+PV:Page view
+QA:Quality assurance
+RAM:Random-access memory
+R&D:Research and development
+Re:Referring to
+RFD:Request for discussion
+RFP:Request for proposal
+ROA:Return on assets
+ROE:Return on equity
+ROI:Return on investment
+ROR:Ruby on Rails
+ROS:Run of site
+RSS:Rich site summary
+RSS:Really simple syndication
+RT:Retweet
+SaaS:Software as a service
+SEO:Search engine optimization
+SMART:Specific, measurable, attainable, realistic, time-bound
+SMB:Small to medium business
+SME:Subject matter expert
+SM:Social media
+SWOT:Strengths, weaknesses, opportunities, threats
+TED:Tell me, explain to me, describe to me
+TL;DR:Too long, didn’t read
+TLTR:Too long to read
+TOS:Terms of service
+TYT:Take your time
+UI:User interface
+URL:Universal resource locator
+UV:Unique visitor
+UX:User experience
+VPN:Virtual private network
+WFH:Work from home
+WIIFM:What’s in it for me
+WOM:Word of mouth
+WYSIWYG:What you see is what you get
+YTD:Year to date
