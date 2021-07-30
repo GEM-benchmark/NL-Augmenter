@@ -36,7 +36,19 @@ We perform t-test for all experiments to measure whether the results from the pr
 
 ```
 
-2) MUSE bilingual dictionary:
+2) Code-Mixing on Sesame Street:
+
+```bibtex
+@article{tan2021code,
+  title={Code-Mixing on Sesame Street: Dawn of the Adversarial Polyglots},
+  author={Tan, Samson and Joty, Shafiq},
+  journal={arXiv preprint arXiv:2103.09593},
+  year={2021}
+}
+```
+
+
+3) MUSE bilingual dictionary:
 
 ```bibtex
 @article{conneau2017word,
@@ -46,7 +58,7 @@ We perform t-test for all experiments to measure whether the results from the pr
   year={2017}
 }
 ```
-3) The idea of learning a mapping function from a source contextualized subword embedding to its target counterpart by using word alignment information
+4) The idea of learning a mapping function from a source contextualized subword embedding to its target counterpart by using word alignment information
 
 ```bibtex
 @inproceedings{wang2019cross,
