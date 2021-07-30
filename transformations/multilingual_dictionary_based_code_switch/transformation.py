@@ -78,7 +78,7 @@ def code_switch(sentence, switch_dict, code_switch_rate, seed):
     return out.strip()
 
 
-class MultilingualCodeSwitch(SentenceOperation):
+class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
     tasks = [
         TaskType.TEXT_TAGGING,
         TaskType.TEXT_CLASSIFICATION,
@@ -99,7 +99,7 @@ class MultilingualCodeSwitch(SentenceOperation):
 
 if __name__ == "__main__":
     import json
-    sc = MultilingualCodeSwitch()
+    sc = MultilingualDictionaryBasedCodeSwitch()
     with open("test.json", "r") as f:
         data = json.load(f)
     new_data = []
