@@ -29,6 +29,7 @@ class RandomUpperPerturbation(SentenceOperation):
         return perturbed_texts
 
     def random_upper(self, sentence: str):
+        np.random.seed(self.seed)
         positions = np.random.choice(range(len(sentence)), int(len(sentence) * self.corrupt_proportion), False)
 
         new_sentence = [

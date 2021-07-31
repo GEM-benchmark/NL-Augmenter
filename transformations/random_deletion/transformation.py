@@ -1,4 +1,3 @@
-import itertools
 import numpy as np
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
