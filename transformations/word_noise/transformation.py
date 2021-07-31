@@ -3,6 +3,7 @@ from typing import Callable, List, Tuple
 
 import spacy
 
+from initialize import spacy_nlp
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
 
@@ -14,6 +15,7 @@ class WordNoise(QuestionAnswerOperation):
     CONCAT_POSITION_APPEND = "append"
     CONCAT_POSITION_PREPEND = "prepend"
     CONCAT_POSITION_ANY = "any"
+    CONCAT_POSITION_BOTH = "both"
 
     def __init__(
         self,
@@ -27,35 +29,55 @@ class WordNoise(QuestionAnswerOperation):
         self.n = num_words
         self.concat_pos = concat_position
         self.concat_function = self.get_concat_function()
-        self.spacy_model = spacy.load("en_core_web_sm")
+        self.spacy_model = (
+            spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        )
         self.remove_stop_words = remove_stop_words
         self.random = Random(seed)
 
     def get_concat_function(self) -> Callable:
         if self.concat_pos == WordNoise.CONCAT_POSITION_APPEND:
-            return WordNoise.append_noise
+            return self.append_noise
         elif self.concat_pos == WordNoise.CONCAT_POSITION_PREPEND:
-            return WordNoise.prepend_noise
+            return self.prepend_noise
         elif self.concat_pos == WordNoise.CONCAT_POSITION_ANY:
             return self.prepend_or_append_noise
+        elif self.concat_pos == WordNoise.CONCAT_POSITION_BOTH:
+            return self.prepend_and_append_noise
         else:
             raise ValueError(
                 f"Expected `concat_position` to be one of {WordNoise.CONCAT_POSITION_APPEND}, {WordNoise.CONCAT_POSITION_PREPEND} or {WordNoise.CONCAT_POSITION_ANY}. Got {self.concat_pos}"
             )
 
-    @staticmethod
-    def prepend_noise(context: str, noise: str) -> str:
+    def generate_noise(self, noise_words: List[str]) -> str:
+        sampled_words = self.random.choices(noise_words, k=self.n)
+        noise = " ".join(sampled_words)
+        return noise
+
+    def prepend_noise(self, context: str, noise_words: List[str]) -> str:
+        noise = self.generate_noise(noise_words)
         return noise + ". " + context
 
-    @staticmethod
-    def append_noise(context: str, noise: str) -> str:
+    def append_noise(self, context: str, noise_words: List[str]) -> str:
+        noise = self.generate_noise(noise_words)
         return context + " " + noise + "."
 
-    def prepend_or_append_noise(self, context: str, noise: str) -> str:
+    def prepend_or_append_noise(
+        self, context: str, noise_words: List[str]
+    ) -> str:
         if self.random.random() > 0.5:
-            return WordNoise.prepend_noise(context, noise)
+            return self.prepend_noise(context, noise_words)
         else:
-            return WordNoise.append_noise(context, noise)
+            return self.append_noise(context, noise_words)
+
+    def prepend_and_append_noise(
+        self, context: str, noise_words: List[str]
+    ) -> str:
+        noise_prepended_context = self.prepend_noise(context, noise_words)
+        noise_appended_context = self.append_noise(
+            noise_prepended_context, noise_words
+        )
+        return noise_appended_context
 
     def extract_words(self, text: str) -> List[str]:
         doc = self.spacy_model(text)
@@ -72,11 +94,8 @@ class WordNoise(QuestionAnswerOperation):
     ) -> List[Tuple[str, str, List[str]]]:
         context_words = self.extract_words(context)
         question_words = self.extract_words(question)
-        noise_words = self.random.choices(
-            context_words + question_words, k=self.n
-        )
-        noise = " ".join(noise_words)
+        noise_words = context_words + question_words
 
-        context = self.concat_function(context, noise)
+        new_context = self.concat_function(context, noise_words)
 
-        return [(context, question, answers)]
+        return [(new_context, question, answers)]
