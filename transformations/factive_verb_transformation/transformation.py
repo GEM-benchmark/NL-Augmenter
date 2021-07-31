@@ -3,7 +3,26 @@ from tasks.TaskTypes import TaskType
 import random
 from spacy import load
 from typing import List
-from names import extract_names_genders
+from gender_pairs import SINGULAR_GENDER_PAIRS
+
+
+def extract_names_and_titles():
+    """
+    Extract names, titles, profession and relation of males and females
+    """
+    male_name_file = open("./resources/gender.male.names", "r")
+    male_names  = []
+    for line in male_name_file:
+        male_names.append(line.strip())
+    female_name_file = open("./resources/gender.female.names", "r")
+    female_names = []
+    for line in female_name_file:
+        female_names.append(line.strip())
+
+    male_names.extend(SINGULAR_GENDER_PAIRS.keys()) # adding male title, profession and relation
+    female_names.extend(SINGULAR_GENDER_PAIRS.values()) # adding female title, profession and relation
+
+    return male_names, female_names
 
 
 def is_candidate_word(word):
@@ -86,7 +105,7 @@ class FactiveVerbTransformation(SentenceOperation):
         self.initial_verbs = ["", "have to", "has to", "need to"] # TODO: use this in next push after discussion
         #TODO: we can add third person variation like (after discussion)
         # "Peter published a research paper. => John revealed that, Peter published a research paper."
-        self.male_names, self.female_names = extract_names_genders()
+        self.male_names, self.female_names = extract_names_and_titles()
         self.factive_verbs = ["accept", "accepts", "accepted",
                               "establish", "establishes", "established",
                               "note", "notes", "noted",
@@ -132,31 +151,31 @@ class FactiveVerbTransformation(SentenceOperation):
         return transformed_sentences
 
 
-# if __name__ == "__main__":
-#     import json
-#     from TestRunner import convert_to_snake_case
-#
-#     tf = FactiveVerbTransformation()
-#     test_cases=[]
-#     input_sent = ["He killed a street dog yesterday.",
-#                   "An actress made her debut in hollywood.",
-#                   "John Watson was enjoying the summer in Baker street.",
-#                   "The lady doctor made a huge mistake during the operation.",
-#                   "Mr. Harry T. Potter won the Quidditch championship.",
-#                   "A small group of researchers found a new variant of Coivd-19."]
-#     for i, sentence in enumerate(input_sent):
-#         transformed_sentence = tf.generate(sentence)
-#         test_cases.append({
-#             "class": tf.name(),
-#             "inputs": {"sentence": sentence},
-#             "outputs": [],}
-#         )
-#         for trans_sentence in transformed_sentence:
-#             test_cases[i]["outputs"].append({"sentence":trans_sentence})
-#     json_file = {"type":convert_to_snake_case("factive_verb_transformation"),
-#                  "test_cases": test_cases}
-#     print(json.dumps(json_file))
-#     # for ip in input_sent:
-#     #     print(ip)
-#     #     trans_sent = tf.generate(ip)
-#     #     print(trans_sent)
+if __name__ == "__main__":
+    import json
+    from TestRunner import convert_to_snake_case
+
+    tf = FactiveVerbTransformation()
+    test_cases=[]
+    input_sent = ["He killed a street dog yesterday.",
+                  "An actress made her debut in hollywood.",
+                  "John Watson was enjoying the summer in Baker street.",
+                  "The lady doctor made a huge mistake during the operation.",
+                  "Mr. Harry T. Potter won the Quidditch championship.",
+                  "A small group of researchers found a new variant of Coivd-19."]
+    for i, sentence in enumerate(input_sent):
+        transformed_sentence = tf.generate(sentence)
+        test_cases.append({
+            "class": tf.name(),
+            "inputs": {"sentence": sentence},
+            "outputs": [],}
+        )
+        for trans_sentence in transformed_sentence:
+            test_cases[i]["outputs"].append({"sentence":trans_sentence})
+    json_file = {"type":convert_to_snake_case("factive_verb_transformation"),
+                 "test_cases": test_cases}
+    print(json.dumps(json_file))
+    # for ip in input_sent:
+    #     print(ip)
+    #     trans_sent = tf.generate(ip)
+    #     print(trans_sent)
