@@ -80,7 +80,6 @@ def code_switch(sentence, switch_dict, code_switch_rate, seed):
 
 class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
     tasks = [
-        TaskType.TEXT_TAGGING,
         TaskType.TEXT_CLASSIFICATION,
         TaskType.SENTIMENT_ANALYSIS,
     ]
