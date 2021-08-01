@@ -1,6 +1,6 @@
 # NL-Augmenter 🦎 → 🐍
 
-The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: introducing spelling errors, randomizing names and numbers, changing style, [paraphrasing](https://aclanthology.org/J13-3001.pdf), KB-based paraphrasing ... and whatever creative augmentation you contribute. We invite submissions of transformations to this framework by way of GitHub pull request, through July 25, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework.
+The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: randomizing names and numbers, changing style/syntax, [paraphrasing](https://aclanthology.org/J13-3001.pdf), KB-based paraphrasing ... and whatever creative augmentation you contribute. We invite submissions of transformations to this framework by way of GitHub pull request, through August 31, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework.
 
 The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
@@ -8,8 +8,6 @@ The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
 | Due date          | Description                                                                 |
 | ------------------ | -----------                                                                 |
-|  July 25, 2021   | Pull request must be opened to be invited as a reviewer and be included in the framework & associated paper |
-|  August 15, 2021   | Review process for pull request above must be complete to be invited as a reviewer and be included in the framework & associated paper |
 | August 31, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
 | September 22, 2021 | Review process for pull request above must be complete           |
 
