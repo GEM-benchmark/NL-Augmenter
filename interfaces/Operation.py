@@ -1,4 +1,5 @@
 from typing import Tuple, List
+from initialize import set_seed
 """Generic operation class. """
 
 
@@ -9,6 +10,7 @@ class Operation(object):
     max_outputs = 1
 
     def __init__(self, verbose=False, max_outputs=1):
+        set_seed()
         self.verbose = verbose
         self.max_outputs = max_outputs
         if self.verbose:
