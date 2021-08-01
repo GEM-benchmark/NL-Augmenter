@@ -1,3 +1,4 @@
+import re
 import spacy
 from g2pM import G2pM
 from interfaces.SentenceOperation import SentenceOperation
@@ -5,6 +6,7 @@ from tasks.TaskTypes import TaskType
 
 
 VOWELS = set('aeiou')
+CHINESE_CHAR = re.compile('[\u4e00-\u9fff]')
 
 
 class PinyinTranscription(SentenceOperation):
