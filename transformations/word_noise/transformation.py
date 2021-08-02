@@ -1,6 +1,5 @@
-from random import Random
 from typing import Callable, List, Tuple
-
+import numpy as np
 import spacy
 
 from initialize import spacy_nlp
@@ -33,7 +32,7 @@ class WordNoise(QuestionAnswerOperation):
             spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         )
         self.remove_stop_words = remove_stop_words
-        self.random = Random(seed)
+        self.seed = seed
 
     def get_concat_function(self) -> Callable:
         if self.concat_pos == WordNoise.CONCAT_POSITION_APPEND:
@@ -50,7 +49,8 @@ class WordNoise(QuestionAnswerOperation):
             )
 
     def generate_noise(self, noise_words: List[str]) -> str:
-        sampled_words = self.random.choices(noise_words, k=self.n)
+        np.random.seed(self.seed)
+        sampled_words = np.random.choice(noise_words, self.n)
         noise = " ".join(sampled_words)
         return noise
 
@@ -65,7 +65,7 @@ class WordNoise(QuestionAnswerOperation):
     def prepend_or_append_noise(
         self, context: str, noise_words: List[str]
     ) -> str:
-        if self.random.random() > 0.5:
+        if np.random.random() > 0.5:
             return self.prepend_noise(context, noise_words)
         else:
             return self.append_noise(context, noise_words)
@@ -92,6 +92,7 @@ class WordNoise(QuestionAnswerOperation):
     def generate(
         self, context: str, question: str, answers: [str]
     ) -> List[Tuple[str, str, List[str]]]:
+        np.random.seed(self.seed)
         context_words = self.extract_words(context)
         question_words = self.extract_words(question)
         noise_words = context_words + question_words
