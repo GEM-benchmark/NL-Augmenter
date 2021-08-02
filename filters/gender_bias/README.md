@@ -2,7 +2,7 @@
 
 ## What type of a filter is this?
 
-This is a trilingual filter (for English, French and Polish languages), which filters a text corpus to measure gender fairness in regards of a female gender representation.
+This is a quadrilingual filter (for English, French, Polish and Russian languages), which filters a text corpus to measure gender fairness in regards of a female gender representation.
 It is based on a pre-defined set words, such as personal pronouns, words defining the relation and titles, corresponding to the female and male genders accordingly.
 Two utility methods - flag_sentences(), count_genders() and sort_groups() give supplementary information to the boolean value returned by the main filter() method.
 
@@ -16,7 +16,7 @@ France
 
 ## Why is measuring performance on this split important?
 This filter can be used to define whether the female gender is sufficiently represented in a tested subset of sentences.
-Being currently implemented for English, French and Polish languages, this filter is potentially language-agnostic, since does not rely on any external dependencies.
+Being currently implemented for English, French, Polish and Russian languages, this filter is potentially language-agnostic, since does not rely on any external dependencies.
 
 ## Related Work
 While the problematics of the gender fairness is an active domain of research in NLP, the current code represents an original implementation.
@@ -33,7 +33,7 @@ sentences = [ "He is going to make a cake.",
 f.filter(sentences)
 ```
 
-The above statement returns True, as the number of sentences flagged as "masculine" is less than the number of sentences tagged as "feminine". 
+The above statement returns True, as the number of sentences flagged as "masculine" is less than the number of sentences tagged as "feminine".
 You can check the exact number by calling the `count_genders()` static method on the instance of the class and providing it with the extracted flags with the `flag_sentences()` static method:
 ```
 flagged_sentences = f.flag_sentences(sentences, "en")
@@ -125,3 +125,5 @@ This is a neutral group: ['Nobody likes washing dishes']
 
 ## What are the limitations of this filter?
 The filter result is based on n-gram intersection counting approach, which assumes that the word should have the exact form as the internally defined keywords.
+For the lexically rich languages, such as Polish and Russian, the nouns conjugation may overlap the infinitif of an opposite gender.
+For example, the word "nastolatek" is a teenage boy in infinitif, "nastolatka" - a teenage girl in infinitif, however, when answering the question "Whom are we missing?", the feminine form in plural ("nastolatki" in infinitif) will give the word "nastolatek", which overlaps with the masculin singular infinitif, designating a teenage boy.
