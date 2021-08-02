@@ -1,0 +1,145 @@
+{
+  "type": "word_noise",
+  "test_cases": [
+    {
+      "class": "WordNoise",
+      "args": {
+        "num_words": 10,
+        "concat_position": "prepend"
+      },
+      "inputs": {
+        "context": "Steam engines are external combustion engines, where the working fluid is separate from the combustion products. Non-combustion heat sources such as solar power, nuclear power or geothermal energy may be used.",
+        "question": "Along with geothermal and nuclear, what is a notable non-combustion heat source?",
+        "answers": [
+          "solar",
+          "solar power",
+          "solar power, nuclear power or geothermal energy"
+        ]
+      },
+      "outputs": [{
+        "context": "what geothermal heat separate power heat and the as or. Steam engines are external combustion engines, where the working fluid is separate from the combustion products. Non-combustion heat sources such as solar power, nuclear power or geothermal energy may be used.",
+        "question": "Along with geothermal and nuclear, what is a notable non-combustion heat source?",
+        "answers": [
+          "solar",
+          "solar power",
+          "solar power, nuclear power or geothermal energy"
+        ]
+      }]
+    },
+    {
+      "class": "WordNoise",
+      "args": {
+        "num_words": 8,
+        "concat_position": "append"
+      },
+      "inputs": {
+        "context": "From Italy, the disease spread northwest across Europe, striking France, Spain, Portugal and England by June 1348, then turned and spread east through Germany and Scandinavia from 1348 to 1350.",
+        "question": "Which direction did the disease first move in?",
+        "answers": [
+          "northwest across",
+          "Europe",
+          "northwest"
+        ]
+      },
+      "outputs": [{
+        "context": "From Italy, the disease spread northwest across Europe, striking France, Spain, Portugal and England by June 1348, then turned and spread east through Germany and Scandinavia from 1348 to 1350. did to June France and June 1350 Portugal.",
+        "question": "Which direction did the disease first move in?",
+        "answers": [
+          "northwest across",
+          "Europe",
+          "northwest"
+        ]
+      }]
+    },
+    {
+      "class": "WordNoise",
+      "args": {
+        "num_words": 8,
+        "concat_position": "append",
+        "seed": 42
+      },
+      "inputs": {
+        "context": "From Italy, the disease spread northwest across Europe, striking France, Spain, Portugal and England by June 1348, then turned and spread east through Germany and Scandinavia from 1348 to 1350.",
+        "question": "Which direction did the disease first move in?",
+        "answers": [
+          "northwest across",
+          "Europe",
+          "northwest"
+        ]
+      },
+      "outputs": [{
+        "context": "From Italy, the disease spread northwest across Europe, striking France, Spain, Portugal and England by June 1348, then turned and spread east through Germany and Scandinavia from 1348 to 1350. and From Spain striking 1348 Scandinavia the disease.",
+        "question": "Which direction did the disease first move in?",
+        "answers": [
+          "northwest across",
+          "Europe",
+          "northwest"
+        ]
+      }]
+    },
+    {
+      "class": "WordNoise",
+      "args": {
+        "num_words": 8,
+        "concat_position": "any"
+      },
+      "inputs": {
+        "context": "Since forces are perceived as pushes or pulls, this can provide an intuitive understanding for describing forces. As with other physical concepts (e.g. temperature), the intuitive understanding of forces is quantified using precise operational definitions that are consistent with direct observations and compared to a standard measurement scale. Through experimentation, it is determined that laboratory measurements of forces are fully consistent with the conceptual definition of force offered by Newtonian mechanics.",
+        "question": "What offers a conceptual definition of force?",
+        "answers": [
+          "Newtonian mechanics"
+        ]
+      },
+      "outputs": [{
+        "context": "fully precise physical direct using with temperature consistent. Since forces are perceived as pushes or pulls, this can provide an intuitive understanding for describing forces. As with other physical concepts (e.g. temperature), the intuitive understanding of forces is quantified using precise operational definitions that are consistent with direct observations and compared to a standard measurement scale. Through experimentation, it is determined that laboratory measurements of forces are fully consistent with the conceptual definition of force offered by Newtonian mechanics.",
+        "question": "What offers a conceptual definition of force?",
+        "answers": [
+          "Newtonian mechanics"
+        ]
+      }]
+    },
+    {
+      "class": "WordNoise",
+      "args": {
+        "num_words": 8,
+        "concat_position": "any",
+        "remove_stop_words": true
+      },
+      "inputs": {
+        "context": "Since forces are perceived as pushes or pulls, this can provide an intuitive understanding for describing forces. As with other physical concepts (e.g. temperature), the intuitive understanding of forces is quantified using precise operational definitions that are consistent with direct observations and compared to a standard measurement scale. Through experimentation, it is determined that laboratory measurements of forces are fully consistent with the conceptual definition of force offered by Newtonian mechanics.",
+        "question": "What offers a conceptual definition of force?",
+        "answers": [
+          "Newtonian mechanics"
+        ]
+      },
+      "outputs": [{
+        "context": "consistent operational e.g. observations precise conceptual intuitive consistent. Since forces are perceived as pushes or pulls, this can provide an intuitive understanding for describing forces. As with other physical concepts (e.g. temperature), the intuitive understanding of forces is quantified using precise operational definitions that are consistent with direct observations and compared to a standard measurement scale. Through experimentation, it is determined that laboratory measurements of forces are fully consistent with the conceptual definition of force offered by Newtonian mechanics.",
+        "question": "What offers a conceptual definition of force?",
+        "answers": [
+          "Newtonian mechanics"
+        ]
+      }]
+    },
+    {
+      "class": "WordNoise",
+      "args": {
+        "num_words": 8,
+        "concat_position": "both"
+      },
+      "inputs": {
+        "context": "Since forces are perceived as pushes or pulls, this can provide an intuitive understanding for describing forces. As with other physical concepts (e.g. temperature), the intuitive understanding of forces is quantified using precise operational definitions that are consistent with direct observations and compared to a standard measurement scale. Through experimentation, it is determined that laboratory measurements of forces are fully consistent with the conceptual definition of force offered by Newtonian mechanics.",
+        "question": "What offers a conceptual definition of force?",
+        "answers": [
+          "Newtonian mechanics"
+        ]
+      },
+      "outputs": [{
+        "context": "of fully precise physical direct using with temperature. Since forces are perceived as pushes or pulls, this can provide an intuitive understanding for describing forces. As with other physical concepts (e.g. temperature), the intuitive understanding of forces is quantified using precise operational definitions that are consistent with direct observations and compared to a standard measurement scale. Through experimentation, it is determined that laboratory measurements of forces are fully consistent with the conceptual definition of force offered by Newtonian mechanics. consistent standard mechanics direct concepts are Through other.",
+        "question": "What offers a conceptual definition of force?",
+        "answers": [
+          "Newtonian mechanics"
+        ]
+      }]
+    }
+  ]
+}
