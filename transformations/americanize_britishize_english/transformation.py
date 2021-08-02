@@ -29,7 +29,7 @@ def britishize_americanize(string, custom_vocab):
 
 
 class AmericanizeBritishizeEnglish(SentenceOperation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.SentimentAnalysis]
     languages = ["en"]
 
     def __init__(self, n=1, seed=0, max_outputs=1):
