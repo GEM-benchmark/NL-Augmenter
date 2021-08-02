@@ -113,6 +113,9 @@ Alternatively, you can do so from the GitHub website.
 
 We also accept pull-requests for creating [filters](filters) which identify interesting subpopulations of a dataset. The process to add a new filter is just the same as above. All filter implementations require implementing `.filter` instead of `.generate` and need to be placed in the [filters](filters) folder. So, just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters simply return True or False! For step-by-step instructions, follow [these](filters) steps.
 
+## BIG-Bench :chair:
+If you are interested in NL-Augmenter, you may also be interested in the [BIG-bench](https://github.com/google/BIG-bench/) large scale collaborative benchmark for language models.
+
 ### Most Creative Implementations 🏆
 
 After all pull-requests have been merged, 3 of the [most creative implementations](docs/doc.md#Three-most-creative-Implementations) would be selected and featured on this README page and on the NL-Augmenter [webpage](https://gem-benchmark.com/nl_augmenter).
