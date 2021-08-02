@@ -1,15 +1,20 @@
 import pytest
 from itertools import zip_longest
 
+
 from initialize import initialize_models
+
 from interfaces.SentencePairOperation import SentencePairOperation
+
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import (
     SentenceAndTargetOperation,
     SentenceOperation,
 )
 from interfaces.TaggingOperation import TaggingOperation
+
 from TestRunner import OperationRuns
+
 
 
 def get_assert_message(transformation, expected_output, predicted_output):

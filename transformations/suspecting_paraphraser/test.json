@@ -1,0 +1,80 @@
+{
+  "type": "suspecting_paraphraser",
+  "test_cases": [
+    {
+      "class": "SuspectingParaphraser",
+      "inputs": {
+        "context": "",
+        "question": "Did Sally finally return the french book to Chris?",
+        "answers": []
+      },
+      "outputs": [
+        {
+          "context": "",
+          "question": "Sally finally returned the french book to Chris, didn't she?",
+          "answers": []
+        }
+      ]
+    },
+    {
+      "class": "SuspectingParaphraser",
+      "inputs": {
+        "context": "",
+        "question": "Did the American National Shipment company really break its own fleet?",
+        "answers": []
+      },
+      "outputs": [
+        {
+          "context": "",
+          "question": "The American National Shipment company really broke its own fleet, didn't it?",
+          "answers": []
+        }
+      ]
+    },
+    {
+      "class": "SuspectingParaphraser",
+      "inputs": {
+        "context": "",
+        "question": "Would you be so kind to pass me the soup?",
+        "answers": []
+      },
+      "outputs": [
+        {
+          "context": "",
+          "question": "You would be so kind to pass me the soup, wouldn't you?",
+          "answers": []
+        }
+      ]
+    },
+    {
+      "class": "SuspectingParaphraser",
+      "inputs": {
+        "context": "",
+        "question": "Shall you begone, lad?",
+        "answers": []
+      },
+      "outputs": [
+        {
+          "context": "",
+          "question": "You shall begone, lad, shan't you?",
+          "answers": []
+        }
+      ]
+    },
+    {
+      "class": "SuspectingParaphraser",
+      "inputs": {
+        "context": "",
+        "question": "Has Buzz Aldrin, the first person who walked on the moon, brought back some aliens?",
+        "answers": []
+      },
+      "outputs": [
+        {
+          "context": "",
+          "question": "Buzz Aldrin, the first person who walked on the moon, has brought back some aliens, hasn't he?",
+          "answers": []
+        }
+      ]
+    }
+  ]
+}
