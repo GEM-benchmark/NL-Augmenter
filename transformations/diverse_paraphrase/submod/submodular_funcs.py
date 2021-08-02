@@ -27,7 +27,7 @@ def trigger_dips():
     global model
     def unk_init(x):
         return torch.randn_like(x)
-    model = GloVe('6B', unk_init=unk_init)
+    model = GloVe('6B', dim=50, unk_init=unk_init)
 
 
 cos_sim = lambda a, b: dot(a, b) / (norm(a) * norm(b))
