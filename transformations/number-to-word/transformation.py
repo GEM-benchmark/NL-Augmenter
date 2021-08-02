@@ -5,7 +5,7 @@ from tasks.TaskTypes import TaskType
 import inflect
 
 """
-Base Class for implementing the different input transformations a generation should be robust against.
+Verbalizing numbers of the text
 """
 
 
@@ -13,7 +13,7 @@ infEng = inflect.engine()
 
 
 def word_to_number(text):
-
+    results = []
     trans = []
     for token in text.split():
         if token.isdigit():
@@ -21,8 +21,8 @@ def word_to_number(text):
             trans.extend(words)
         else:
             trans.append(token)
-
-    return " ".join(trans)
+    results.append(" ".join(trans))
+    return results
 
 
 class NumberToWord(SentenceOperation):

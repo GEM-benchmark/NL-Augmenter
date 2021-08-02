@@ -11,30 +11,30 @@ and expects the answers still to be the same. Note that this perturbation might 
 
 class RedundantContextForQa(QuestionAnswerOperation):
     tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
-    locales = "All"
+    languages = ["en"]
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
 
     def generate(
-            self, context: str, question: str, answers: [str]
-    ) -> Tuple[str, str, List[str]]:
+        self, context: str, question: str, answers: [str]
+    ) -> List[Tuple[str, str, List[str]]]:
         context = context.rstrip() + " " + context.lstrip()
-        return context, question, answers
+        return [(context, question, answers)]
 
 
 class QuestionInCaps(QuestionAnswerOperation):
     tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
-    locales = "All"
+    languages = ["en"]
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
 
     def generate(
-            self, context: str, question: str, answers: [str]
-    ) -> Tuple[str, str, List[str]]:
+        self, context: str, question: str, answers: [str]
+    ) -> List[Tuple[str, str, List[str]]]:
         answers.extend([answer.upper() for answer in answers])
-        return context, question.upper(), answers
+        return [(context, question.upper(), answers)]
 
 
 """
@@ -43,8 +43,9 @@ class QuestionInCaps(QuestionAnswerOperation):
 if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
+
     tf = RedundantContextForQa()
-    test_cases=[]
+    test_cases = []
     context = "Steam engines are external combustion engines, where the working fluid is separate from the combustion products. " \
               "Non-combustion heat sources such as solar power, nuclear power or geothermal energy may be used."
     question = "Along with geothermal and nuclear, what is a notable non-combustion heat source?"
@@ -52,13 +53,15 @@ if __name__ == '__main__':
         "solar",
         "solar power",
         "solar power, nuclear power or geothermal energy"
-      ]
-    p_context, p_question, p_answers = tf.generate(context, question, answers)
+    ]
+    perturbs = tf.generate(context, question, answers)
     test_cases.append({
-            "class": tf.name(),
-            "inputs": {"context": context, "question": question, "answers":answers},
-            "outputs": {"context": p_context, "question": p_question, "answers":p_answers}}
-        )
+        "class": tf.name(),
+        "inputs": {"context": context, "question": question, "answers": answers},
+        "outputs": []}
+    )
+    for p_context, p_question, p_answers in perturbs:
+        test_cases[0]["outputs"].append({"context": p_context, "question": p_question, "answers": p_answers})
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
 """
