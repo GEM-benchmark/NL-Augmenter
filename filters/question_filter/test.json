@@ -1,5 +1,5 @@
 {
-    "type": "question_type_filter",
+    "type": "length",
     "test_cases": [
         {
            "class": "NumericQuestion",
@@ -28,7 +28,7 @@
               "question": "What is Sam's fathers name",
               "answers":["Robert"]
            },
-           "outputs": true
+           "outputs": false
         },
         {
            "class": "CommonNounPhraseQuestion",
@@ -46,7 +46,7 @@
                "question": "",
                "answers":["returned to Earth"]
             },
-            "outputs": true
+            "outputs": false
          },
          {
             "class": "AdjectivePhraseQuestion",
@@ -59,4 +59,3 @@
          }
      ]
   }
-  
