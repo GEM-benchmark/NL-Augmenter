@@ -1,22 +1,49 @@
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-
+import re
 
 class UniversalBiasFilter(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
 
-    def __init__(self, target=None, test=None):
+    def __init__(self, minority=None, majority=None):
         super().__init__()
-        self.target = target
-        self.test = test
+        self.minority = minority
+        self.majority = majority
+
+    def clean(sentence):
+        sentence = sentence.lower()
+        sentence = re.sub('^',' ', sentence)
+        sentence = re.sub('$',' ', sentence)
+
+        # Transform url and tag
+        words = []
+        for word in sentence.split():
+            i = word.find('http') 
+            if i >= 0:
+                word = word[:i] + ' ' + '__url__'
+            words.append(word.strip())
+        sentence = ' '.join(words)
+
+        # Remove markdown URL
+        sentence = re.sub(r'\[([^\]]*)\] \( *__url__ *\)', r'\1', sentence)
+
+        # Remove illegal chars and extra space
+        sentence = re.sub('__url__','URL',sentence)
+        sentence = re.sub(r"[^A-Za-z0-9():,.!?\"\']", " ", sentence)
+        sentence = re.sub('URL','__url__',sentence)	
+        sentence = re.sub(r'^\s+', '', sentence)
+        sentence = re.sub(r'\s+$', '', sentence)
+        sentence = re.sub(r'\s+', ' ', sentence)
+        
+        return sentence
 
     @staticmethod
-    def flag_sentences(sentences, target, test):
+    def flag_sentences(sentences, minority, majority):
         """
-        flag sentences as belonging to the target, test or neutral groups
+        flag sentences as belonging to the minority, majority or neutral groups
         :param sentences: sentences array
-        :param target: array of keywords, describing potentially underrepresented population group
-        :param test: array of keywords, describing dominating group 
+        :param minority: array of keywords, describing potentially underrepresented population group
+        :param majority: array of keywords, describing dominating group 
         :return: array of objects, each containing the analyzed sentence along with three flags
         """
         flagged_sentences = []
@@ -27,49 +54,71 @@ class UniversalBiasFilter(SentenceOperation):
         for sentence in sentences:
             
             # Initialize the variables
-            target_flag = False
-            test_flag = False
+            minority_flag = False
+            majority_flag = False
             union_flag = False
             neutral_flag = False
+            intersection_minority = set()
+            intersection_majority = set()
 
-            intersection_target = set()
-            intersection_test = set()
+            # Clean the sentence content using regex
+            sentence = sentence.lower()
+            sentence = re.sub('^',' ', sentence)
+            sentence = re.sub('$',' ', sentence)
 
-            # Lowercase and split the words in the sentence to find the intersection with the target array of keywords
-            intersection_target = set(sentence.lower().split()).intersection(
-                set(target)
+            # Take care of urls
+            words = []
+            for word in sentence.split():
+                i = word.find('http') 
+                if i >= 0:
+                    word = word[:i] + ' ' + '__url__'
+                words.append(word.strip())
+            sentence = ' '.join(words)
+            sentence = re.sub(r'\[([^\]]*)\] \( *__url__ *\)', r'\1', sentence)
+
+            # Remove illegal chars and extra space
+            sentence = re.sub('__url__','URL',sentence)
+            sentence = re.sub(r"[^A-Za-z0-9():,.!?\"\']", " ", sentence)
+            sentence = re.sub('URL','__url__',sentence)	
+            sentence = re.sub(r'^\s+', '', sentence)
+            sentence = re.sub(r'\s+$', '', sentence)
+            sentence = re.sub(r'\s+', ' ', sentence)
+
+            # Split the words in the sentence to find the intersection with the minority array of keywords
+            intersection_minority = set(sentence.split()).intersection(
+                set(minority)
             )
-            # Lowercase and split the words in the sentence to find the intersection with the test array of keywords
-            intersection_test = set(sentence.lower().split()).intersection(
-                set(test)
+            # Split the words in the sentence to find the intersection with the majority array of keywords
+            intersection_majority = set(sentence.split()).intersection(
+                set(majority)
             )
 
-            # If the intersection occured, the intersection_target and intersection_test will contain at least one common keyword
+            # If the intersection occured, the intersection_minority and intersection_majority will contain at least one common keyword
             # use this intersection information to get the value for the corresponding flags
-            target_flag = len(intersection_target) > 0
-            test_flag = len(intersection_test) > 0
+            minority_flag = len(intersection_minority) > 0
+            majority_flag = len(intersection_majority) > 0
 
-            # In case the sentence contains the keywords from target and test groups, set a union_flag value
+            # In case the sentence contains the keywords from minority and majority groups, set a union_flag value
             union_flag = (
-                len(intersection_target) > 0 and len(intersection_test) > 0
+                len(intersection_minority) > 0 and len(intersection_majority) > 0
             )
 
-            # If the sentence didn't contain the keywords neither from target, nor from test groups, set a neutral_flag value 
+            # If the sentence didn't contain the keywords neither from minority, nor from majority groups, set a neutral_flag value 
             neutral_flag = (
-                len(intersection_target) == 0 and len(intersection_test) == 0
+                len(intersection_minority) == 0 and len(intersection_majority) == 0
             )
 
-            # Use the union_flag value to set the neutral_flag value, setting to False the target and test flags
+            # Use the union_flag value to set the neutral_flag value, setting to False the minority and majority flags
             if union_flag is True:
-                target_flag = False
-                test_flag = False
+                minority_flag = False
+                majority_flag = False
                 neutral_flag = True
 
             # Create the sentence object with the retrieved flag values
             sentence_object = {
                 "sentence": sentence,
-                "target_flag": target_flag,
-                "test_flag": test_flag,
+                "minority_flag": minority_flag,
+                "majority_flag": majority_flag,
                 "neutral_flag": neutral_flag,
             }
 
@@ -83,17 +132,17 @@ class UniversalBiasFilter(SentenceOperation):
         """
         count the number of sentences in each of groups
         :param flagged_corpus: array of flagged sentences
-        :return: 3 integer values, representing target, test and neutral groups respectively
+        :return: 3 integer values, representing minority, majority and neutral groups respectively
         """
-        target_count = len(
+        minority_count = len(
             [
                 flag
                 for flag in flagged_corpus
-                if flag.get("target_flag") is True
+                if flag.get("minority_flag") is True
             ]
         )
-        test_count = len(
-            [flag for flag in flagged_corpus if flag.get("test_flag") is True]
+        majority_count = len(
+            [flag for flag in flagged_corpus if flag.get("majority_flag") is True]
         )
         neutral_count = len(
             [
@@ -103,24 +152,24 @@ class UniversalBiasFilter(SentenceOperation):
             ]
         )
 
-        return target_count, test_count, neutral_count
+        return minority_count, majority_count, neutral_count
 
     @staticmethod
     def sort_groups(flagged_corpus):
         """
         sort the sentences in each of 3 groups
         :param flagged_corpus: array of flagged sentences
-        :return: 3 arrays of strings, containing target, test and neutral groups respectively
+        :return: 3 arrays of strings, containing minority, majority and neutral groups respectively
         """
-        target_group = [
+        minority_group = [
                 flag.get("sentence")
                 for flag in flagged_corpus
-                if flag.get("target_flag") is True
+                if flag.get("minority_flag") is True
             ]
-        test_group = [
+        majority_group = [
                 flag.get("sentence")
                 for flag in flagged_corpus
-                if flag.get("test_flag") is True
+                if flag.get("majority_flag") is True
             ]
         neutral_group = [
                 flag.get("sentence")
@@ -128,28 +177,28 @@ class UniversalBiasFilter(SentenceOperation):
                 if flag.get("neutral_flag") is True
             ]
     
-        return target_group, test_group, neutral_group
+        return minority_group, majority_group, neutral_group
 
 
     def filter(self, sentences: []) -> bool:
         """
-        filter the sentences to define whether the target group is underepresented
+        filter the sentences to define whether the minority group is underepresented
         :param sentences: array of sentences
-        :return: boolean, which is set to True if the the target group is underepresented  
+        :return: boolean, which is set to True if the the minority group is underepresented  
         """
         biased = False
         
         # Retrieve the flags for each of the sentences
-        flagged_corpus = self.flag_sentences(sentences, self.target, self.test)
+        flagged_corpus = self.flag_sentences(sentences, self.minority, self.majority)
 
         # Use the retrieved flags to count the number of sentences in each group
-        target_count, test_count, neutral_count = self.count_groups(
+        minority_count, majority_count, neutral_count = self.count_groups(
             flagged_corpus
         )
 
-        # If the mumber of sentences in the target group is lower than in the test group, set bias to True
+        # If the mumber of sentences in the minority group is lower than in the majority group, set bias to True
         # Note, that the neutral group is not taken into account in this calculation
-        if target_count < test_count:
+        if minority_count < majority_count:
             biased = True
         else:
             biased = False

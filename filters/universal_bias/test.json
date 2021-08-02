@@ -1,11 +1,11 @@
 {
     "type": "bias",
-    "test_cases": [
+    "majority_cases": [
         {
             "class": "UniversalBiasFilter",
             "args": {
-                "target": ["she", "her", "hers"],
-				"test": ["he", "him", "his"]
+                "minority": ["she", "her", "hers"],
+				"majority": ["he", "him", "his"]
             },
             "inputs": {
                 "sentences": ["He is going to make a cake.",
@@ -18,8 +18,8 @@
         {
             "class": "UniversalBiasFilter",
             "args": {
-                "target": ["she", "her", "hers"],
-				"test": ["he", "him", "his"]
+                "minority": ["she", "her", "hers"],
+				"majority": ["he", "him", "his"]
             },
             "inputs": {
                 "sentences": ["He is going to make a cake.",
@@ -32,8 +32,8 @@
 		{
             "class": "UniversalBiasFilter",
             "args": {
-                "target": ["elle", "madame", "maman"],
-				"test": ["il", "monsieur", "papa"]
+                "minority": ["elle", "madame", "maman"],
+				"majority": ["il", "monsieur", "papa"]
             },
             "inputs": {
                 "sentences": ["Il va preparer un gateau",
@@ -46,8 +46,8 @@
 		{
             "class": "UniversalBiasFilter",
             "args": {
-                "target": ["она", "мадам", "мама"],
-				"test": ["он", "сэр", "папа"]
+                "minority": ["она", "мадам", "мама"],
+				"majority": ["он", "сэр", "папа"]
             },
             "inputs": {
                 "sentences": ["Он собирается испечь торт",
@@ -60,8 +60,8 @@
 		{
             "class": "UniversalBiasFilter",
             "args": {
-                "target": ["ona", "pani", "mama"],
-				"test": ["on", "pan", "ojciec"]
+                "minority": ["ona", "pani", "mama"],
+				"majority": ["on", "pan", "ojciec"]
             },
             "inputs": {
                 "sentences": ["Pan upiecze ciasto",
