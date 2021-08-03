@@ -16,7 +16,7 @@ Natural Language Inference, Sentiment Classification, Document Classification, D
 We perform t-test for all experiments to measure whether the results from the proposed model are significantly better than the baselines(mBERT and XLM).
 
 ## What are the limitations of this transformation?
-It is worth noticing that words in the source language can have multiple translations in the target language. In this case, we randomly choose any of the multiple translations as the replacement target language word. Though we cannot guarantee that this is the correct word-to-word translation in the context, we can consider it as one of the data augmented strategy for our tasks. This is verified by our work (CoSDA-ML) [1].
+It is worth noticing that words in the source language can have multiple translations in the target language. In this case, we randomly choose any of the multiple translations as the replacement target language word. Though we cannot guarantee that this is the correct word-to-word translation in the context, we can consider it as one of the data augmented strategy for our tasks. This is verified by our work (CoSDA-ML) [1] and Code-Mixing on Sesame Street [2].
 
 ## Previous Work
 1) CoSDA-ML: Multi-Lingual Code-Switching Data Augmentation  for Zero-Shot Cross-Lingual NLP

@@ -12,6 +12,7 @@ We utilize all language from this bilingual dictionary in default.
 link: https://arxiv.org/abs/1710.04087
 """
 
+
 def load_dict():
     dict_path = os.path.join(CURRENT_FILE_ROOT, "dict")
     languages = [
@@ -59,23 +60,18 @@ link: https://arxiv.org/abs/2006.06402
 """
 
 
-def code_switch(sentence, switch_dict, code_switch_rate, seed):
+def code_switch(word, switch_dict, code_switch_rate, seed):
     random.seed(seed)
-    words = sentence.split(" ")
-    out = ""
-    for word in words:
-        language = random.randint(0, len(switch_dict) - 1)
-        if (
-            word in switch_dict[language]
-            and code_switch_rate >= random.random()
-        ):
-            out += switch_dict[language][word][
+    language = random.randint(0, len(switch_dict) - 1)
+    if word in switch_dict[language] and code_switch_rate >= random.random():
+        return (
+            switch_dict[language][word][
                 random.randint(0, len(switch_dict[language][word]) - 1)
             ]
-            out += " "
-        else:
-            out += word + " "
-    return out.strip()
+            + " "
+        )
+    else:
+        return word + " "
 
 
 class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
@@ -92,20 +88,26 @@ class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
         self.switch_dict = load_dict()
 
     def generate(self, sentence: str):
-
-        return [code_switch(sentence, self.switch_dict, self.code_switch_rate, self.seed)]
+        words = sentence.split(" ")
+        out = ""
+        for word in words:
+            out += code_switch(word, self.switch_dict, self.code_switch_rate, self.seed)
+        return [out]
 
 
 if __name__ == "__main__":
     import json
+
     sc = MultilingualDictionaryBasedCodeSwitch()
     with open("test.json", "r") as f:
         data = json.load(f)
     new_data = []
-    for data_item in data['test_cases']:
-        data_item['outputs'][0]['sentence'] = sc.generate(data_item['inputs']['sentence'])[0]
+    for data_item in data["test_cases"]:
+        data_item["outputs"][0]["sentence"] = sc.generate(
+            data_item["inputs"]["sentence"]
+        )[0]
         new_data.append(data_item)
-    data['test_cases'] = new_data
+    data["test_cases"] = new_data
 
     with open("test.json", "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
