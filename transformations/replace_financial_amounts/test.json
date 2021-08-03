@@ -1,0 +1,50 @@
+{
+  "type": "replace_financial_amounts",
+  "test_cases": [
+    {
+      "class": "ReplaceFinancialAmount",
+      "inputs": {
+        "sentence": "Please, could you lend me € 20. I own Fred € 10 and I need € 10 for the bus?"
+      },
+      "outputs": [{
+        "sentence": "Please, could you lend me 2 949.13 Yen. I own Fred 1 474.57 Yen and I need 1 474.57 Yen for the bus?"
+      }]
+    },
+    {
+      "class": "ReplaceFinancialAmount",
+      "inputs": {
+        "sentence": "Paul likes coffee and Mary tea does not contain financial amounts to replace."
+      },
+      "outputs": [{
+        "sentence": "Paul likes coffee and Mary tea does not contain financial amounts to replace."
+      }]
+    },
+    {
+      "class": "ReplaceFinancialAmount",
+      "inputs": {
+        "sentence": "The email from the HR indicated that my salary will increase by a whole $13 000."
+      },
+      "outputs": [{
+        "sentence": "The email from the HR indicated that my salary will increase by a whole 1610869 Yen."
+      }]
+    },
+    {
+      "class": "ReplaceFinancialAmount",
+      "inputs": {
+        "sentence": "Hi Franck. It seems that the 50 giftcards at 10 USD each amounts to 200 USD on the bill when it should be 500 USD."
+      },
+      "outputs": [{
+        "sentence": "Hi Franck. It seems that the 50 giftcards at 1 239.13 Yen each amounts to 24 782.61 Yen on the bill when it should be 61,956 Yen."
+      }]
+    },
+    {
+      "class": "ReplaceFinancialAmount",
+      "inputs": {
+        "sentence": "You need to pay 0.01 bitcoin in order to get your file back before 2 days."
+      },
+      "outputs": [{
+        "sentence": "You need to pay 271.34 Pounds in order to get your file back before 2 days."
+      }]
+    }
+  ]
+}
