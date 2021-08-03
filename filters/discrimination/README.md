@@ -116,7 +116,7 @@ sentences = [ "He is going to make a cake.",
               "She is going to make a computer program",            
               "Nobody likes making cakes!"                          
               ]
-f = DiscriminationFilter(lanuage , minority_group, majority_group, minority_factor, majority_factor)
+f = DiscriminationFilter(language , minority_group, majority_group, minority_factor, majority_factor)
 
 # Retrieve the flags for each of the sentences
 flagged_corpus = f.flag_sentences(sentences, minority_group, majority_group)
