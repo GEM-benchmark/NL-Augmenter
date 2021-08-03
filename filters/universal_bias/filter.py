@@ -10,33 +10,6 @@ class UniversalBiasFilter(SentenceOperation):
         self.minority = minority
         self.majority = majority
 
-    def clean(sentence):
-        sentence = sentence.lower()
-        sentence = re.sub('^',' ', sentence)
-        sentence = re.sub('$',' ', sentence)
-
-        # Transform url and tag
-        words = []
-        for word in sentence.split():
-            i = word.find('http') 
-            if i >= 0:
-                word = word[:i] + ' ' + '__url__'
-            words.append(word.strip())
-        sentence = ' '.join(words)
-
-        # Remove markdown URL
-        sentence = re.sub(r'\[([^\]]*)\] \( *__url__ *\)', r'\1', sentence)
-
-        # Remove illegal chars and extra space
-        sentence = re.sub('__url__','URL',sentence)
-        sentence = re.sub(r"[^A-Za-z0-9():,.!?\"\']", " ", sentence)
-        sentence = re.sub('URL','__url__',sentence)	
-        sentence = re.sub(r'^\s+', '', sentence)
-        sentence = re.sub(r'\s+$', '', sentence)
-        sentence = re.sub(r'\s+', ' ', sentence)
-        
-        return sentence
-
     @staticmethod
     def flag_sentences(sentences, minority, majority):
         """
@@ -62,34 +35,34 @@ class UniversalBiasFilter(SentenceOperation):
             intersection_majority = set()
 
             # Clean the sentence content using regex
-            sentence = sentence.lower()
-            sentence = re.sub('^',' ', sentence)
-            sentence = re.sub('$',' ', sentence)
+            sentence_cleaned = sentence.lower()
+            sentence_cleaned = re.sub('^',' ', sentence_cleaned)
+            sentence_cleaned = re.sub('$',' ', sentence_cleaned)
 
             # Take care of urls
             words = []
-            for word in sentence.split():
+            for word in sentence_cleaned.split():
                 i = word.find('http') 
                 if i >= 0:
                     word = word[:i] + ' ' + '__url__'
                 words.append(word.strip())
-            sentence = ' '.join(words)
-            sentence = re.sub(r'\[([^\]]*)\] \( *__url__ *\)', r'\1', sentence)
+            sentence_cleaned = ' '.join(words)
+            sentence_cleaned = re.sub(r'\[([^\]]*)\] \( *__url__ *\)', r'\1', sentence_cleaned)
 
             # Remove illegal chars and extra space
-            sentence = re.sub('__url__','URL',sentence)
-            sentence = re.sub(r"[^A-Za-z0-9():,.!?\"\']", " ", sentence)
-            sentence = re.sub('URL','__url__',sentence)	
-            sentence = re.sub(r'^\s+', '', sentence)
-            sentence = re.sub(r'\s+$', '', sentence)
-            sentence = re.sub(r'\s+', ' ', sentence)
+            sentence_cleaned = re.sub('__url__','URL', sentence_cleaned)
+            sentence_cleaned = re.sub(r"[^A-Za-z0-9():,.!?\"\']", " ", sentence_cleaned)
+            sentence_cleaned = re.sub('URL','__url__', sentence_cleaned)	
+            sentence_cleaned = re.sub(r'^\s+', '', sentence_cleaned)
+            sentence_cleaned = re.sub(r'\s+$', '', sentence_cleaned)
+            sentence_cleaned = re.sub(r'\s+', ' ', sentence_cleaned)
 
             # Split the words in the sentence to find the intersection with the minority array of keywords
-            intersection_minority = set(sentence.split()).intersection(
+            intersection_minority = set(sentence_cleaned.split()).intersection(
                 set(minority)
             )
             # Split the words in the sentence to find the intersection with the majority array of keywords
-            intersection_majority = set(sentence.split()).intersection(
+            intersection_majority = set(sentence_cleaned.split()).intersection(
                 set(majority)
             )
 
