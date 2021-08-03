@@ -15,7 +15,7 @@ Additionally, to generate even more diverse paraphrases, we introduce generation
 - **Unigram**: a portion of the words in the input sentence are forbidden in the paraphrase. In the paper's experiments, we found the portion `p_mask=0.7` to be a good value. Again, this parameter can be changed if you want to increase or decrease the constraint
 - **Bigram**: all bi-grams in the input sentence are forbidden in the paraphrase. This means the paraphrase cannot contain any bi-gram that are in the input sentence. This constraint enforces the paraphrase generation model to change the sentence structure
 
-Those constraints are not performed at the same time. We did not yexperiment having both constraints at the same time yet.
+Those constraints are not performed at the same time. We did not experiment having both constraints at the same time yet.
 
 ## Reference
 
