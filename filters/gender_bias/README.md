@@ -19,7 +19,8 @@ This filter can be used to define whether the female gender is sufficiently repr
 Being currently implemented for English, French, Polish and Russian languages, this filter is potentially language-agnostic, since does not rely on any external dependencies.
 
 ## Related Work
-While the problematics of the gender fairness is an active domain of research in NLP, the current code represents an original implementation.
+The problematics of the gender fairness is an active domain of research in NLP, however the existing methods of the bias measurement, such as PCA (Bolukbasi et al., 2016) or WEAT (Caliskan et al., 2017), may suffer from unclearness in the lexical seeds selection, pointed in a recent ACL paper (https://www.aclanthology.org/2021.acl-long.148). On the other hand, the gender bias datasets (Winobias, Winogender, StereoSet, CrowS-Pairs) can present the unconsistencies, pointed by anothr ACL paper (https://aclanthology.org/2021.acl-long.81.pdf) and may not be the ideal tools for the bias measurement. 
+The beneficial impact of the current filter is its complete transparency and extensibility, wich offers the user a great amont of control of the bias measurement parameters.
 
 ## Examples of use
 
