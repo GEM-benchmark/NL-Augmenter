@@ -6,7 +6,8 @@ from tasks.TaskTypes import TaskType
 
 
 VOWELS = set('aeiou')
-CHINESE_CHAR = re.compile('[\u4e00-\u9fff]')
+CHINESE_CHAR = re.compile('[\u4e00-\u9fff]+')
+CHINESE_PUNC = re.compile('[\u3000-\u303f]+')
 
 
 class PinyinTranscription(SentenceOperation):
@@ -24,12 +25,15 @@ class PinyinTranscription(SentenceOperation):
 
     def word_to_pinyin(self, word: str) -> str:
         '''Ex.: "你好" -> "nihao"
+
+        `word` should be only in Chinese characters
         '''
+        if not re.match(CHINESE_CHAR, word):
+            raise ValueError("`word` should be comprised exclusively of "
+                             "Chinese characters")
         syllables = self.g2pm(word, tone=False)
         pinyin = ''
         for i in range(len(syllables)):
-            # FIXME: This will mess up inputs that contain these latin
-            #  characters
             syllable = syllables[i].replace('u:', 'v')
             # TODO: Check that this is correct in all cases
             if i > 0 and len(word) and word[0] in VOWELS:
