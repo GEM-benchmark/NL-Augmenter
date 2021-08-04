@@ -60,8 +60,7 @@ link: https://arxiv.org/abs/2006.06402
 """
 
 
-def code_switch(word, switch_dict, code_switch_rate, seed):
-    random.seed(seed)
+def code_switch(word, switch_dict, code_switch_rate):
     language = random.randint(0, len(switch_dict) - 1)
     if word in switch_dict[language] and code_switch_rate >= random.random():
         return (
@@ -88,10 +87,11 @@ class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
         self.switch_dict = load_dict()
 
     def generate(self, sentence: str):
+        random.seed(self.seed)
         words = sentence.split(" ")
         out = ""
         for word in words:
-            out += code_switch(word, self.switch_dict, self.code_switch_rate, self.seed)
+            out += code_switch(word, self.switch_dict, self.code_switch_rate)
         return [out]
 
 
