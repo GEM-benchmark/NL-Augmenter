@@ -1,0 +1,90 @@
+{
+  "type": "synonym_transformation",
+  "test_cases": [
+    {
+      "class": "SynonymTransformation",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [
+        {
+          "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+        },
+        {
+          "sentence": "d l v the F b to Chris that d b l w"
+        },
+        {
+          "sentence": "A f r the F b to Chris that i b l w"
+        }
+      ]
+    },
+    {
+      "class": "SynonymTransformation",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [
+        {
+          "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+        },
+        {
+          "sentence": "e with gapping, c y u l f and r tea, c e e e to n the k t t e m arguments."
+        },
+        {
+          "sentence": "e with gapping, s m P l c and M tea, l s o r to b the e b t O M arguments."
+        }
+      ]
+    },
+    {
+      "class": "SynonymTransformation",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [
+        {
+          "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+        },
+        {
+          "sentence": "Alice i e b a 2010 m live-action/animated n n e f"
+        },
+        {
+          "sentence": "Alice i o b n 2010 m live-action/animated a f d m"
+        }
+      ]
+    },
+    {
+      "class": "SynonymTransformation",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [
+        {
+          "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+        },
+        {
+          "sentence": "Ujjal Dev Dosanjh s y t r of i l from 2000 to 2001"
+        },
+        {
+          "sentence": "Ujjal Dev Dosanjh s m h r of B o from 2000 to 2001"
+        }
+      ]
+    },
+    {
+      "class": "SynonymTransformation",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [
+        {
+          "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+        },
+        {
+          "sentence": "Neuroplasticity b a i o a short-term, medium-term, and - m of the neuronosynaptic organization."
+        },
+        {
+          "sentence": "Neuroplasticity b n o p p short-term, medium-term, and o r of the neuronosynaptic organization."
+        }
+      ]
+    }
+  ]
+}
