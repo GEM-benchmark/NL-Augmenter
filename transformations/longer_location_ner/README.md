@@ -12,6 +12,4 @@ text generation, and most importantly a tagging task.
 This would help augment data for an NER task by keeping the labels still aligned.
 
 ## What are the limitations of this transformation?
-The transformation's outputs are too simple to be used for data augmentation and has been used for demonstration. 
-Unlike a paraphraser, it is not capable of 
-generating linguistically diverse text.
+The transformation might result in different entities altogether eg. Africa is commmonly used to refer to the continent while South Africa for the country.
