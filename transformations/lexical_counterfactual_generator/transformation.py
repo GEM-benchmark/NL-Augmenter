@@ -77,7 +77,7 @@ class LexicalCounterfactualGenerator(SentencePairOperation):
         return [(sentence1, sentence2, target)]
 
 
-"""
+'''
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 # You don't need to keep this code in your transformation.
 if __name__ == '__main__':
@@ -102,9 +102,10 @@ if __name__ == '__main__':
                                     ):
         test_cases.append({
             "class": tf.name(),
-            "inputs": {"sentence1": sentence1, "sentence2": sentence2, "label": "1"},
-            "outputs": [{"sentence1": o[0], "sentence2": o[1], "label": o[2]} for o in tf.generate(sentence1, sentence2, "1")]}
+            "inputs": {"sentence1": sentence1, "sentence2": sentence2, "target": "1"},
+            "outputs": [{"sentence1": o[0], "sentence2": o[1], "target": o[2]} for o in tf.generate(sentence1, sentence2, "1")]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file))
-"""
+
+'''
