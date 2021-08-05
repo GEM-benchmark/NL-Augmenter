@@ -1,4 +1,4 @@
-from typing import Tuple, List
+from typing import List, Tuple
 
 from interfaces.Operation import Operation
 
@@ -18,7 +18,7 @@ class SentenceOperation(Operation):
     "en_IN"
     """
 
-    def generate(self, sentence: str) -> str:
+    def generate(self, sentence: str) -> List[str]:
         raise NotImplementedError
 
     def filter(self, sentence: str) -> bool:
@@ -45,7 +45,7 @@ class SentenceAndTargetOperation(Operation):
     def domain(cls):
         return cls.tasks, cls.languages, cls.tgt_languages
 
-    def generate(self, sentence: str, target: str) -> Tuple[str, str]:
+    def generate(self, sentence: str, target: str) -> List[Tuple[str, str]]:
         raise NotImplementedError
 
     def filter(self, sentence: str, target: str) -> bool:
@@ -55,7 +55,7 @@ class SentenceAndTargetOperation(Operation):
 class SentenceAndTargetsOperation(Operation):
     """
     The base class for implementing sentence-pair-level perturbations and transformations. There can be
-    muliple targets eg. multiple references in machine translation.
+    multiple targets eg. multiple references in machine translation.
 
     "tasks" :: The tasks for which this perturbation is applicable. All the list of tasks are
     given in tasks.TaskType.
@@ -72,7 +72,9 @@ class SentenceAndTargetsOperation(Operation):
     def domain(cls):
         return cls.tasks, cls.languages, cls.tgt_languages
 
-    def generate(self, sentence: str, target: List[str]) -> Tuple[str, List[str]]:
+    def generate(
+        self, sentence: str, target: List[str]
+    ) -> List[Tuple[str, List[str]]]:
         raise NotImplementedError
 
     def filter(self, sentence: str, target: List[str]) -> bool:
