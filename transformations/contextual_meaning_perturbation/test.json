@@ -1,0 +1,52 @@
+{
+  "type": "contextual_meaning_perturbation",
+  "test_cases": [
+    {
+      "class": "ContextualMeaningPerturbation",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+         "sentence": "I finally returned the French book to Chris that I read last year"
+      }]
+    },
+    {
+      "class": "ContextualMeaningPerturbation",
+      "inputs": {
+        "sentence": "The motorized postal line to Hollfeld was abandoned again in the autumn of 1931 because the abutting communities of Zoggendorf and Stücht were not using the service enough for it to be justifiable."
+      },
+      "outputs": [{
+        "sentence": "The first postal line to Hollfeld was closed again in the summer of 1931 because the abutting communities of Zoggendorf and Stücht were not using the line enough for it to be available."
+      }]
+    },
+    {
+      "class": "ContextualMeaningPerturbation",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "Woman in Wonderland is a 2010 American live-action/animated western fantasy adventure series"
+      }]
+    },
+    {
+      "class": "ContextualMeaningPerturbation",
+      "inputs": {
+        "sentence": "Lord Bradley is also a Special Adviser to the President and Vice - Chancellor of the University of Manchester."
+      },
+      "outputs": [
+        {
+          "sentence": "Mr Bradley is also a Special Adviser to the President and Ex - Chancellor of the University of Cambridge."
+        }
+      ]
+    },
+    {
+      "class": "ContextualMeaningPerturbation",
+      "inputs": {
+        "sentence": "She is a strong critic of homeschooling."
+      },
+      "outputs": [{
+        "sentence": "She is a strong advocate of homeschooling."
+      }]
+    }
+  ]
+}
