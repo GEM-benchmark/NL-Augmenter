@@ -74,10 +74,11 @@ class TextLineDataset(BaseDataset):
         }
 
     @classmethod
-    def from_huggingface(cls, dataset, fields):
+    def from_huggingface(cls, dataset, task_type, fields, max_size=None):
         data = []
         labels = []
-        for example in dataset:
+        max_size = max_size or len(dataset)
+        for example in list(dataset)[:max_size]:
             data.append(example[fields[0]])
             labels.append(example[fields[1]])
         return cls(data, labels)
@@ -100,9 +101,32 @@ class TextLineDataset(BaseDataset):
     ) -> TextLineDataset:
         transformed_data = []
         print("Applying transformation:")
-        for line in tqdm(self.data):
-            transformed_data.extend(transformation.generate(line))
 
+        # calculating ratio of transformed example to unchanged example
+        successful_num = 0
+        failed_num = 0
+
+        for line in tqdm(self.data):
+            pt_examples = transformation.generate(line)
+            successful_pt, failed_pt = transformation.compare(
+                line, pt_examples
+            )
+            successful_num += successful_pt
+            failed_num += failed_pt
+
+            transformed_data.extend(pt_examples)
+
+        total_num = successful_num + failed_num
+        print(
+            "Finished transformation! {} examples generated from {} original examples, with {} successfully transformed and {} unchanged ({} perturb rate)".format(
+                total_num,
+                len(self.data),
+                successful_num,
+                failed_num,
+                successful_num / total_num if total_num > 0 else 0,
+            )
+        )
+        if total_num == 0: return None
         return TextLineDataset(transformed_data, self.labels)
 
     def __iter__(self):
@@ -139,6 +163,7 @@ class KeyValueDataset(BaseDataset):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.QUESTION_ANSWERING,
         TaskType.QUESTION_GENERATION,
+        TaskType.TEXT_CLASSIFICATION, # for >1 field classification
     ]
 
     # data: input data samples read from jsonl file
@@ -157,18 +182,19 @@ class KeyValueDataset(BaseDataset):
         self.operation_type = None
 
     @classmethod
-    def from_huggingface(cls, dataset, task_type, fields):
+    def from_huggingface(cls, dataset, task_type, fields, max_size=None):
         data = []
+        max_size = max_size or len(dataset)
         if task_type not in [
             TaskType.QUESTION_ANSWERING,
             TaskType.QUESTION_GENERATION,
         ]:
-            for example in dataset:
+            for example in list(dataset)[:max_size]:
                 data.append({key: example[key] for key in fields})
         else:
             # this is an ugly implementation, which hard-codes the squad data format
             # TODO might need a more elegant way to deal with the fields with hierachy, e.g. the answers field in squad data (exampl['answers']['text'])
-            for example in dataset:
+            for example in list(dataset)[:max_size]:
                 data.append(
                     {
                         fields[0]: example[fields[0]],
@@ -204,6 +230,8 @@ class KeyValueDataset(BaseDataset):
                 self.operation_type = "sentence_and_target"
             else:
                 self.operation_type = "question_answer"
+        elif self.task_type in [TaskType.TEXT_CLASSIFICATION]:
+            self.operation_type = "sentence"
 
         filter_func = self.__getattribute__(
             "_apply_" + self.operation_type + "_filter"
@@ -264,11 +292,33 @@ class KeyValueDataset(BaseDataset):
         _, transformation_func = self._analyze(subfields)
         transformed_data = []
         print("Applying transformation:")
+        
+        # calculating ratio of transformed example to unchanged example
+        successful_num = 0
+        failed_num = 0
+        
         for datapoint in tqdm(self.data):
-            transformed_data.extend(
-                transformation_func(datapoint.copy(), transformation)
-            )  # don't want self.data to be changed
+            pt_examples = transformation_func(datapoint.copy(), transformation)
+            successful_pt, failed_pt = transformation.compare(
+                datapoint, pt_examples
+            )
+            successful_num += successful_pt
+            failed_num += failed_pt
+            
+            transformed_data.extend(pt_examples)  # don't want self.data to be changed
+        
+        total_num = successful_num + failed_num
 
+        print(
+            "Finished transformation! {} examples generated from {} original examples, with {} successfully transformed and {} unchanged ({} perturb rate)".format(
+                total_num,
+                len(self.data),
+                successful_num,
+                failed_num,
+                successful_num / total_num if total_num > 0 else 0,
+            )
+        )
+        if total_num == 0: return None
         return KeyValueDataset(transformed_data, self.task_type, self.fields)
 
     def _apply_sentence_transformation(

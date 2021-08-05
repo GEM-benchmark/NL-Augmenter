@@ -10,6 +10,7 @@ The following is a list of currently supported interfaces along-with sample tran
 | `RDFOperation`                    | Expects an RDF triplet as input and returns a piece of RDF triplet as output.     | RDF-to-Text Generation              | -----|
 | [`QuestionAnswerOperation`](../interfaces/QuestionAnswerOperation.py)         | Expects a question answering example as input and returns its transformation.     | QA, QG                              | [`RedundantContextForQa`](../transformations/redundant_context_for_qa)| ("mrm8488/bert-tiny-5-finetuned-squadv2", "squad")
 | [`TaggingOperation`](../interfaces/TaggingOperation.py)         | Expects a list of tokena and a list of tags as input and returns its transformation.     | Tagging                              | [`LongerNamesNer`](../transformations/longer_names_ner)| ("dslim/bert-base-NER", "conll2003")
+| [`SentencePairOperation`](../interfaces/SentencePairOperation.py)         | Expects a text pair and label as input and returns its transformation.     | Paraphrase_Detection, Entailment                              | [`LexicalCounterfactualGenerator`](../transformations/lexical_counterfactual_generator)| -----|
 
 
 We also welcome pull-requests of newer interfaces. To add a new interface, follow the below steps:
