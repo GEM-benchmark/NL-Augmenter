@@ -1,48 +1,56 @@
 {
   "type": "longer_location_ner",
-  "test_cases": [
-    {
-      "class": "LongerLocationNer",
-      "inputs": {
-        "token_sequence": "I am travelling to London .",
-        "tag_sequence": "O O O O B-LOC O"
-      },
-      "outputs": [{
-        "token_sequence": "I am travelling to North London .",
-        "tag_sequence": "O O O O B-LOC I-LOC O"
-      }]
+  "test_cases": [{
+    "class": "LongerLocationNer",
+    "inputs": {
+      "token_sequence": "I am going to New Zealand via Costa Rica .",
+      "tag_sequence": "O O O O B-LOC I-LOC O B-LOC I-LOC O"
     },
-    {
-      "class": "LongerLocationNer",
-      "inputs": {
-        "token_sequence": "Edison was born in Ohio .",
-        "tag_sequence": "B-PER O O O B-LOC O"
-      },
-      "outputs": [{
-        "token_sequence": "Edison was born in North Ohio .",
-        "tag_sequence": "B-PER O O O B-LOC I-LOC O"}]
+    "outputs": [{
+      "token_sequence": "I am going to North East New Zealand via Costa Rica .",
+      "tag_sequence": "O O O O B-LOC I-LOC I-LOC I-LOC O B-LOC I-LOC O"
+    }]
+  }, {
+    "class": "LongerLocationNer",
+    "inputs": {
+      "token_sequence": "I am travelling to London .",
+      "tag_sequence": "O O O O B-LOC O"
     },
-    {
-      "class": "LongerLocationNer",
-      "inputs": {
-        "token_sequence": "Michael Jordan is a professor at Berkeley .",
-        "tag_sequence": "B-PER I-PER O O O O B-LOC O"
-      },
-      "outputs": [{
-        "token_sequence": "Michael Jordan is a professor at North Berkeley .",
-        "tag_sequence": "B-PER I-PER O O O O B-LOC I-LOC O"}]
+    "outputs": [{
+      "token_sequence": "I am travelling to North East London .",
+      "tag_sequence": "O O O O B-LOC I-LOC I-LOC O"
+    }]
+  }, {
+    "class": "LongerLocationNer",
+    "inputs": {
+      "token_sequence": "Edison was born in Ohio .",
+      "tag_sequence": "B-PER O O O B-LOC O"
     },
-    {
-      "class": "LongerLocationNer",
-      "inputs": {
-        "token_sequence": "Google head office is located in California .",
-        "tag_sequence": "B-ORG O O O O O B-LOC O"
-      },
-      "outputs": [{
-        "token_sequence": "Google head office is located in North California .",
-        "tag_sequence": "B-ORG O O O O O B-LOC I-LOC O"
-      }]
-    }
+    "outputs": [{
+      "token_sequence": "Edison was born in North East Ohio .",
+      "tag_sequence": "B-PER O O O B-LOC I-LOC I-LOC O"
+    }]
+  }, {
+    "class": "LongerLocationNer",
+    "inputs": {
+      "token_sequence": "Michael Jordan is a professor at Berkeley .",
+      "tag_sequence": "B-PER I-PER O O O O B-LOC O"
+    },
+    "outputs": [{
+      "token_sequence": "Michael Jordan is a professor at North East Berkeley .",
+      "tag_sequence": "B-PER I-PER O O O O B-LOC I-LOC I-LOC O"
+    }]
+  }, {
+    "class": "LongerLocationNer",
+    "inputs": {
+      "token_sequence": "Google head office is located in California .",
+      "tag_sequence": "B-ORG O O O O O B-LOC O"
+    },
+    "outputs": [{
+      "token_sequence": "Google head office is located in North East California .",
+      "tag_sequence": "B-ORG O O O O O B-LOC I-LOC I-LOC O"
+    }]
+  }
   ]
 }
 
