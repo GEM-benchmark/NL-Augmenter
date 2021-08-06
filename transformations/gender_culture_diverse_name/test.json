@@ -52,7 +52,9 @@
         "retain_gender": false,
         "retain_culture": false
       },
-      "outputs": []
+      "outputs": [{
+        "sentence": "Rihab Buffay is an eccentric masseuse and musician."
+      }]
     },
     {
       "class": "GenderCultureDiverseName",
@@ -61,7 +63,9 @@
         "retain_gender": false,
         "retain_culture": true
       },
-      "outputs": []
+      "outputs": [{
+        "sentence": "Severus Buffay is an eccentric masseuse and musician."
+      }]
     },
     {
       "class": "GenderCultureDiverseName",
@@ -70,7 +74,9 @@
         "retain_gender": true,
         "retain_culture": false
       },
-      "outputs": []
+      "outputs": [{
+        "sentence": "Lynda Buffay is an eccentric masseuse and musician."
+      }]
     },
     {
       "class": "GenderCultureDiverseName",
@@ -79,7 +85,9 @@
         "retain_gender": true,
         "retain_culture": true
       },
-      "outputs": []
+      "outputs": [{
+        "sentence": "Diana Buffay is an eccentric masseuse and musician."
+      }]
     },
     {
       "class": "GenderCultureDiverseName",
