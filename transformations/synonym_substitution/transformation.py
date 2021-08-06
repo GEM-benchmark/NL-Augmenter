@@ -1,10 +1,10 @@
-import random
 import re
 
 import nltk
 import spacy
 from initialize import spacy_nlp
 from nltk.corpus import wordnet
+import numpy as np
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
@@ -42,7 +42,7 @@ def untokenize(words):
 def synonym_substitution(
     text, spacy_pipeline, seed=42, prob=0.5, max_outputs=1
 ):
-    random.seed(seed)
+    np.random.seed(seed)
     upos_wn_dict = {
         "VERB": "v",
         "NOUN": "n",
@@ -63,8 +63,8 @@ def synonym_substitution(
                 syns = wordnet.synsets(word, pos=wn_pos)
                 syns = [syn.name().split(".")[0] for syn in syns]
                 syns = [syn for syn in syns if syn.lower() != word.lower()]
-                if len(syns) > 0 and random.random() < prob:
-                    result.append(random.choice(syns).replace("_", " "))
+                if len(syns) > 0 and np.random.random() < prob:
+                    result.append(np.random.choice(syns).replace("_", " "))
                 else:
                     result.append(word)
 

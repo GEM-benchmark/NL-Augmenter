@@ -1,15 +1,20 @@
 import pytest
 from itertools import zip_longest
 
+
 from initialize import initialize_models
+
 from interfaces.SentencePairOperation import SentencePairOperation
+
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import (
     SentenceAndTargetOperation,
     SentenceOperation,
 )
 from interfaces.TaggingOperation import TaggingOperation
+
 from TestRunner import OperationRuns
+
 
 
 def get_assert_message(transformation, expected_output, predicted_output):
@@ -99,6 +104,7 @@ def execute_test_case_for_transformation(transformation_name):
     print(f"Executing test cases for {transformation_name}")
     tx = OperationRuns(transformation_name)
     for transformation, test in zip(tx.operations, tx.operation_test_cases):
+        print(f"Executing {transformation.name()}")
         if isinstance(transformation, SentenceOperation):
             execute_sentence_operation_test_case(transformation, test)
         elif isinstance(transformation, SentencePairOperation):
@@ -121,7 +127,7 @@ def execute_test_case_for_filter(filter_name):
         output = filter.filter(**filter_args)
         assert (
                 output == test["outputs"]
-        ), f"The filter should return {test['outputs']}"
+        ), f"Executing {test['class']} The filter should return {test['outputs']} for the inputs {test['inputs']}"
 
 
 def test_operation(transformation_name, filter_name):
