@@ -36,6 +36,16 @@
       "outputs": [{
         "sentence": "youyu Albert Einstein shi youtaiyiren ， suoyi jinguan shenwei pulushi kexueyuan jiaoshou ， ta bingmeiyou fanhui deguo 。"
       }]
+    },
+    {
+      "class": "PinyinTranscription",
+      "inputs": {
+        "sentence": "由于Albert Einstein是犹太裔人，所以尽管身为普鲁士科学院教授，他并没有返回德国。",
+        "with_tones": true
+      },
+      "outputs": [{
+        "sentence": "you2yu2 Albert Einstein shi4 you2tai4yi4ren2 ， suo3yi3 jin3guan3 shen1wei2 pu3lu3shi4 ke1xue2yuan4 jiao4shou4 ， ta1 bing4mei2you3 fan3hui2 de2guo2 。"
+      }]
     }
   ]
 }

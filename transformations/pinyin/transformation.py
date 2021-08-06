@@ -23,7 +23,7 @@ class PinyinTranscription(SentenceOperation):
         self.nlp = spacy.load('zh_core_web_sm')
         self.g2pm = G2pM()
 
-    def word_to_pinyin(self, word: str) -> str:
+    def word_to_pinyin(self, word: str, with_tones: bool) -> str:
         '''Ex.: "你好" -> "nihao"
 
         `word` should be only in Chinese characters
@@ -31,7 +31,7 @@ class PinyinTranscription(SentenceOperation):
         if not re.match(CHINESE_CHAR, word):
             raise ValueError("`word` should be comprised exclusively of "
                              "Chinese characters")
-        syllables = self.g2pm(word, tone=False)
+        syllables = self.g2pm(word, tone=with_tones)
         pinyin = ''
         for i in range(len(syllables)):
             syllable = syllables[i].replace('u:', 'v')
@@ -42,7 +42,7 @@ class PinyinTranscription(SentenceOperation):
                 pinyin += syllable
         return pinyin
 
-    def generate(self, sentence: str):
+    def generate(self, sentence: str, with_tones: bool = False):
         '''Convert sentence to space-separated pinyinized words.
         Ex.: "你会讲中文吗？" -> "ni hui jiang zhongwen ma ？"
         '''
@@ -51,7 +51,7 @@ class PinyinTranscription(SentenceOperation):
         tokens = []
         for token in doc:
             if CHINESE_CHAR.match(token.text):
-                tokens.append(self.word_to_pinyin(token.text))
+                tokens.append(self.word_to_pinyin(token.text, with_tones))
             else:
                 tokens.append(token.text)
         pinyin = ' '.join(tokens)
