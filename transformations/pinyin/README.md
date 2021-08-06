@@ -49,8 +49,3 @@ Chinese word segmentation (CWS) is a difficult task. This transformation relies
 on Spacy's default segmentation, which is of unknown quality. Transcription to
 pinyin is also non-trivial, but the model used for that step is nearly 
 state-of-the-art, while remaining lightweight.
-
-Unfortunately, the character-to-Pinyin model
-([G2pM](https://github.com/kakaobrain/g2pM)) often does not play nicely 
-with non-Chinese characters in the input (see last example of
-[test.json](./test.json)).
