@@ -1,6 +1,6 @@
 {
     "type": "bias",
-    "majority_cases": [
+    "test_cases": [
         {
             "class": "UniversalBiasFilter",
             "args": {

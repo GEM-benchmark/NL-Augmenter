@@ -18,6 +18,11 @@ This filter can be used to measure the underrepresentation of a specific group r
 The filter aims to prevent the propagation of the historial biases usually present in large text datasets.
 Finally, it additionally allows to retrieve the groups in question, which might be useful for further manipulation of the dataset.
 
+## Related Work
+The problematics of the fairness present an active domain of research in NLP, however the existing methods of the bias measurement, such as PCA (Bolukbasi et al., 2016) or WEAT (Caliskan et al., 2017), may suffer from unclearness in the lexical seeds selection, pointed in a [recent ACL 2021 paper](https://www.aclanthology.org/2021.acl-long.148), the intrinsic measurements showed no correlation with extrinsic methods results, as showed a [recent research](https://www.aclanthology.org/2021.acl-long.150). On the other hand, the gender bias datasets (Winobias, Winogender, StereoSet, CrowS-Pairs) can present the unconsistencies, pointed by [another ACL paper](https://aclanthology.org/2021.acl-long.81.pdf) and might be far from  optimal in terms if bias measurement. 
+The beneficial impact of the current extrinsic filter is its complete transparency and extensibility, wich offers the user a great amont of control over the bias measurement parameters.
+
+
 ## Example of use
 ```
 minority = ["she", "her", "hers"]
