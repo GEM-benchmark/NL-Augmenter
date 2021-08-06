@@ -47,6 +47,12 @@ class PinyinTranscription(SentenceOperation):
         Ex.: "你会讲中文吗？" -> "ni hui jiang zhongwen ma ？"
         '''
         doc = self.nlp(sentence)
-        tokens = [t.text_with_ws for t in doc]
-        pinyin = ' '.join(self.word_to_pinyin(token) for token in tokens)
+
+        tokens = []
+        for token in doc:
+            if CHINESE_CHAR.match(token.text):
+                tokens.append(self.word_to_pinyin(token.text))
+            else:
+                tokens.append(token.text)
+        pinyin = ' '.join(tokens)
         return [pinyin]
