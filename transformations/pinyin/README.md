@@ -4,9 +4,9 @@ This transformation transcribes Chinese characters into their Mandarin
 pronunciation using the [Pinyin romanization
 scheme](https://en.wikipedia.org/wiki/Pinyin).
 
-Author name: Connor Boyle
-Author email: connor.bo@gmail.com
-Author Affiliation: University of Washington
+- Author name: Connor Boyle
+- Author email: connor.bo@gmail.com
+- Author Affiliation: University of Washington
 
 ## What type of a transformation is this?
 
