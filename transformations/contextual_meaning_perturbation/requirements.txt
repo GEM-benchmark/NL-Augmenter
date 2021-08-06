@@ -1,0 +1,4 @@
+transformers==4.8.2
+
+# for contextual_perturbation (DE) download DE SpaCy model:
+de-core-news-sm==2.2.5
