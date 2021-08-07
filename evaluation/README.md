@@ -87,7 +87,7 @@ Default models and datasets:
 
 | Transformation                   | paraphrase-xlm-r-multilingual-v1-MRPC | paraphrase-xlm-r-multilingual-v1-PAWS |
 |:---------------------------------|:--------------------------------------|:--------------------------------------|
-|                                  |                                       |                                       |
+| LexicalCounterfactualGenerator   | 69.0->50.0 (-19.0)                    | 44.0->23.0 (-21.0)                    |
 
 Default models and datasets:
 
