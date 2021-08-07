@@ -26,3 +26,6 @@ OOV words and inconsistent polarity scoring may occur.
 
 The current implementation works only for English but potentially this filter can be extended to other languages with libraries like
 [textblob-de](https://textblob-de.readthedocs.io/en/latest/), [textblob-fr](https://github.com/sloria/textblob-fr), etc.
+
+The current implementation contrasts only negative vs positive polarity and does not account for neutral.
+This behaviour also potentially could be changed if your particluar sentiment analysis solution detects three distinct polarities.
