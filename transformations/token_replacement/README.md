@@ -58,7 +58,7 @@ As a result of applying this transformation, the following preliminary results o
 }
 ```
 
-3) [typos.xz](./typos.xz) is a lookup table from the [moe - Misspelling Oblivious Word Embeddings](https://github.com/facebookresearch/moe) project released under the [Attribution-NonCommercial 4.0 International license](https://github.com/facebookresearch/moe/blob/master/LICENSE) ([CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)). Due to the large size of the original data, we performed deduplication and filtrated all non-English words using the [NLTK](https://www.nltk.org/)'s dictionary. Finally, the replacement candidates were subsampled by keeping up to 100 entries for each token.
+3) [typos.xz](./typos.xz) is a lookup table from the [moe - Misspelling Oblivious Word Embeddings](https://github.com/facebookresearch/moe) project released under the [Attribution-NonCommercial 4.0 International license](https://github.com/facebookresearch/moe/blob/master/LICENSE) ([CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)). Due to the large size of the original data, we performed deduplication and filtered all non-English words using the [NLTK](https://www.nltk.org/)'s dictionary. Finally, the replacement candidates were subsampled by keeping up to 100 entries for each token.
 
 ```bibtex
 @inproceedings{piktus-etal-2019-misspelling,
