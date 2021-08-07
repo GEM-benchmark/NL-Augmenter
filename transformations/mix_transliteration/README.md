@@ -1,6 +1,6 @@
 # Mix-Transliteration 🦎  + ⌨️ → 🐍
 
-This transformation converts randomly picks words in the text from their original script to their corresponding english transliteration.
+This transformation transliterates randomly picked words from the input sentence (of given source languae script) to a target language script. 
 It can be used to train/test multilingual models to improve/evaluate their ability to understand complete or partially transliterated text.
 
 Author name: Tanay Dixit, Mukund Varma T
@@ -8,20 +8,21 @@ Author email: tanay.dixit@smail.iitm.ac.in, mukundvarmat@gmail.com
 
 ## What type of a transformation is this?
 
-In this transformation we randomly pick words (at least one word in a foreign script) and transliterate it to the English script. 
+In this transformation we randomly pick words (at least one word in a foreign script) and transliterate it to a user defined target language script (default: english). 
 This ensures that the languages in the input sentence remains the same but is represented differently to expose the model to diverse samples.
-Given that Indian languages have diverse scripts (eg: Devanagari, Bengali, Gurmukhi, etc), we choose to transliterate between indic languages using [indic-trans](https://github.com/libindic/indic-trans).
+Given that difference languages have diverse scripts (eg: Afrikaans, Greek, Arabic, etc), we choose to transliterate between them using [3aransia](https://github.com/3aransia/3aransia).
 
 The following are some representative examples:
 
-    Input: कितने साल के हो
-    Transformed text: kitne saal ke ho
+    Input: كتب بلعربيا هنايا شحال ما بغيتي
+    Source language: ar (Arabic Alphabet)
+    Target language: en (English Alphabet)
+    Transformed text: ktb bl'rbya hnaya chhal ma bghyty
 
-    Input: உங்களைப் பார்த்து நிறைய நாட்கள் ஆகிவிட்டது
-    Transformed text: ungalai paarttu niraiya naatkal aaki vittathu
-
-    Input: My name is Tom और मैं लंदन में रहता हूँ
-    Transformed text: My name is Tom aur main landan mein rahata hoon
+    Input: δικαιώματα και όλες τις ελευθερίες που
+    Source language: ar (Greek Alphabet)
+    Target language: en (English Alphabet)
+    Transformed text: dikaiomata kai oles tis eleyteghies poy
 
 
 ## What tasks does it intend to benefit?

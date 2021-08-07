@@ -1,4 +1,8 @@
-six
-cython>=0.24.0a0
-numpy>=1.10.4
-scipy>=0.13.3
+aaransia
+numpy==1.18.1
+pandas==1.0.1
+python-dateutil==2.8.1
+pytz==2019.3
+six==1.14.0
+unicode==2.7
+Unidecode==1.1.1

@@ -1,73 +1,73 @@
 {
-   "type": "MixTransliteration",
+   "type": "mix_transliteration",
    "test_cases": [
       {
          "class": "MixTransliteration",
-         "args": {
-            "source_lang": "hin"
-         },
          "inputs": {
-            "sentence": "कितने साल के हो"
+            "sentence": "اینڈریو فنلے نے فرانسیسی کتاب کرس دی بوگن ویل کو پچھلے ہفتے واپس کیا۔"
+         },
+         "args" :{
+            "source_lang":"ur"
          },
          "outputs": [
             {
-               "sentence": "kitne saal ke ho"
+               "sentence": "aanڈrao fnlے nے fransasa ktab krs da bogn oal ko pچھlے ہftے oaps kaa۔"
             }
          ]
       },
       {
          "class": "MixTransliteration",
-         "args": {
-            "source_lang": "hin"
-         },
          "inputs": {
-            "sentence": "कांग्रेस पार्टी अध्यक्ष सोनिया गांधी, तमिलनाडु की मुख्यमंत्री"
+            "sentence": "آپ کیسے ہیں ؟"
+         },
+         "args" :{
+            "source_lang":"ur"
          },
          "outputs": [
             {
-               "sentence": "congress party adhyaksh sonia gandhi, tamilnadu kii mukhyamantri"
+               "sentence": "ap kasے ہaں ?"
             }
          ]
       },
       {
          "class": "MixTransliteration",
-         "args": {
-            "source_lang": "hin"
-         },
          "inputs": {
-            "sentence": "आपका हालचाल कैसे है ?"
+            "sentence": "سورج مشرق سے طلوع ہوتا ہے"
+         },
+         "args" :{
+            "source_lang":"ur"
          },
          "outputs": [
             {
-               "sentence": "aapkaa haalchaal kaise he ?"
+               "sentence": "sorj mchrq sے tlo' ہota ہے"
             }
          ]
       },
       {
          "class": "MixTransliteration",
-         "args": {
-            "source_lang": "hin"
-         },
          "inputs": {
-            "sentence": "My name is Tom और मैं लंदन में रहता हूँ"
+            "sentence": "سیم کے والد ایک ڈاکٹر ہیں۔"
+         },
+         "args" :{
+            "source_lang":"ur"
          },
          "outputs": [
             {
-               "sentence": "My name is Tom or main landan main rahata hoon"
+               "sentence": "sam kے oald aak ڈakٹr ہaں۔"
             }
          ]
       },
       {
          "class": "MixTransliteration",
-         "args": {
-            "source_lang": "hin"
-         },
          "inputs": {
-            "sentence": "परीक्षण मामलों को जोड़ने में भी सहायता कर सकता है"
+            "sentence": "اولمپکس بالآخر ختم!"
+         },
+         "args" :{
+            "source_lang":"ur"
          },
          "outputs": [
             {
-               "sentence": "pareekshan maamalon ko jodne main bhi sahaayta kar saktaa he"
+               "sentence": "aolmpks balakhr khtm!"
             }
          ]
       }
