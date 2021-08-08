@@ -6,7 +6,6 @@ import datetime
 import numpy as np
 import phonenumbers
 from num2words import num2words
-from unidecode import unidecode
 from phonenumbers import carrier, timezone, geocoder
 
 special_numbers = ['911']
@@ -26,7 +25,9 @@ def recognize_transform(word, prev_word, next_word):
     
     # transforming by looking at previous or next words
     if recognized_as_power_of_ten(word, prev_word):
-        words = 'ten power ' + num2words(unidecode(word[2:]))
+        remaining_word = word[2:]
+        remaining_word = '-' + remaining_word[1:] if remaining_word[0] == '−' else remaining_word
+        words = 'ten power ' + num2words(remaining_word)
 #         print('1', word, words)
         return words
     elif recognized_as_range_not_sticky(word, next_word):
@@ -150,7 +151,7 @@ def recognize_transform(word, prev_word, next_word):
 ### Recognizers
 
 def recognized_as_power_of_ten(word, prev_word):
-    return word[:2] == '10' and unidecode(prev_word) == 'x'
+    return word[:2] == '10' and (prev_word == 'x' or prev_word == '×')
 
 def recognized_as_range_not_sticky(word, next_word):
     stripe_index = word.find('-')

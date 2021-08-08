@@ -1,3 +1,2 @@
 phonenumbers==8.12.25
 docopt==0.6.2
-Unidecode==1.2.0
