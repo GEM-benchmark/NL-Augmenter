@@ -2,10 +2,12 @@
   "type": "gender_culture_diverse_name_two_way",
   "test_cases": [
     {
-      "class": "gender_culture_diverse_name_two_way",
+      "class": "GenderCultureDiverseNameTwoWay",
       "inputs": {
         "sentence": "Andrew finally returned the French book to Chris that I bought last week",
-        "target": "Andrew did not return the French book to Chris that was bought earlier"
+        "target": "Andrew did not return the French book to Chris that was bought earlier",
+        "retain_gender": false,
+        "retain_culture": false
       },
       "outputs": [{
           "sentence": "Essie finally returned the French book to Chris that I bought last week",
@@ -13,14 +15,94 @@
         }]
     },
     {
-      "class": "gender_culture_diverse_name_two_way",
+      "class": "GenderCultureDiverseNameTwoWay",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week",
+        "target": "Andrew did not return the French book to Chris that was bought earlier",
+        "retain_gender": false,
+        "retain_culture": true
+      },
+      "outputs": [{
+          "sentence": "Noelle finally returned the French book to Chris that I bought last week",
+          "target": "Noelle did not return the French book to Chris that was bought earlier"
+        }]
+    },
+    {
+      "class": "GenderCultureDiverseNameTwoWay",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week",
+        "target": "Andrew did not return the French book to Chris that was bought earlier",
+        "retain_gender": true,
+        "retain_culture": false
+      },
+      "outputs": [{
+          "sentence": "Andrew finally returned the French book to Thomas that I bought last week",
+          "target": "Andrew did not return the French book to Thomas that was bought earlier"
+        }]
+    },
+    {
+      "class": "GenderCultureDiverseNameTwoWay",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week",
+        "target": "Andrew did not return the French book to Chris that was bought earlier",
+        "retain_gender": true,
+        "retain_culture": true
+      },
+      "outputs": [{
+          "sentence": "Andrew finally returned the French book to Telesphore that I bought last week",
+          "target": "Andrew did not return the French book to Telesphore that was bought earlier"
+        }]
+    },
+    {
+      "class": "GenderCultureDiverseNameTwoWay",
       "inputs": {
         "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
-        "target": "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!"
+        "target": "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!",
+        "retain_gender": false,
+        "retain_culture": false
       },
       "outputs": [{
         "sentence": "Sentences with gapping, such as Paul likes coffee and Achilles tea, lack an overt predicate to indicate the relation between two or more arguments.",
         "target": "Gapped sentences such as Paul likes coffee and Achilles tea, lack an overt predicate!"
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseNameTwoWay",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
+        "target": "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!",
+        "retain_gender": false,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Norah tea, lack an overt predicate to indicate the relation between two or more arguments.",
+        "target": "Gapped sentences such as Paul likes coffee and Norah tea, lack an overt predicate!"
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseNameTwoWay",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
+        "target": "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!",
+        "retain_gender": true,
+        "retain_culture": false
+      },
+      "outputs": [{
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Muazzez tea, lack an overt predicate to indicate the relation between two or more arguments.",
+        "target": "Gapped sentences such as Paul likes coffee and Muazzez tea, lack an overt predicate!"
+      }]
+    },
+    {
+      "class": "GenderCultureDiverseNameTwoWay",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
+        "target": "Gapped sentences such as Paul likes coffee and Mary tea, lack an overt predicate!",
+        "retain_gender": true,
+        "retain_culture": true
+      },
+      "outputs": [{
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Willard tea, lack an overt predicate to indicate the relation between two or more arguments.",
+        "target": "Gapped sentences such as Paul likes coffee and Willard tea, lack an overt predicate!"
       }]
     }
   ]

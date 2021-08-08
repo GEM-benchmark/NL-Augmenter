@@ -1,0 +1,105 @@
+{
+  "type": "lexical_counterfactual_generator",
+  "test_cases": [
+    {
+      "class": "LexicalCounterfactualGenerator",
+      "inputs": {
+        "sentence1": "Andrew finally returned the French book to Chris",
+        "sentence2": "In the end returned the French book to Chris",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Andrew didn't give Chris the French book back",
+          "sentence2": "In the end returned the French book to Chris",
+          "target": "0"
+        },
+        {
+          "sentence1": "Andrew finally returned the French book to Chris",
+          "sentence2": "In the end, Chris did not return the French book",
+          "target": "0"
+        }
+      ]
+    },
+    {
+      "class": "LexicalCounterfactualGenerator",
+      "inputs": {
+        "sentence1": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate.",
+        "sentence2": "Gapping sentences, such as Paul likes coffee and Mary tea, do not have an overt predicate.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate.",
+          "sentence2": "Gapping sentences, such as Paul likes coffee and Mary tea, do not have an overt predicate.",
+          "target": "1"
+        }
+      ]
+    },
+    {
+      "class": "LexicalCounterfactualGenerator",
+      "inputs": {
+        "sentence1": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
+        "sentence2": "Alice in Wonderland is an American animated, dark fantasy adventure film from 2010",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Alice in Wonderland is an American fantasy adventure film from 2010 that is not live-action / animated.",
+          "sentence2": "Alice in Wonderland is an American animated, dark fantasy adventure film from 2010",
+          "target": "0"
+        }
+      ]
+    },
+    {
+      "class": "LexicalCounterfactualGenerator",
+      "inputs": {
+        "sentence1": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
+        "sentence2": "U.D. Dosanjh was the 33rd Premier of British Columbia for a year from 2000",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Ujjal Dev Dosanjh was not the 33rd Prime Minister of British Columbia from 2000 to 2001",
+          "sentence2": "U.D. Dosanjh was the 33rd Premier of British Columbia for a year from 2000",
+          "target": "0"
+        }
+      ]
+    },
+    {
+      "class": "LexicalCounterfactualGenerator",
+      "inputs": {
+        "sentence1": "The fighters would never give up.",
+        "sentence2": "The warriors wouldn't leave the battlefield.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "The fighters would never give up.",
+          "sentence2": "The warriors would not leave the battlefield.",
+          "target": "0"
+        }
+      ]
+    },
+    {
+      "class": "LexicalCounterfactualGenerator",
+      "inputs": {
+        "sentence1": "Neuroplasticity allows short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
+        "sentence2": "Neuroplasticity permits short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Neuroplasticity does not permit short-term, medium-term and long-term reorganization of neuronosynaptic organization.",
+          "sentence2": "Neuroplasticity permits short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Neuroplasticity allows short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
+          "sentence2": "Neuroplasticity does not permit short-term, medium-term and long-term reorganization of neuronosynaptic organization.",
+          "target": "0"
+        }
+      ]
+    }
+  ]
+}

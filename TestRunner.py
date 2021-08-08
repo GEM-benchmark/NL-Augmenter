@@ -173,3 +173,12 @@ if __name__ == "__main__":
         print(transformation.name())
         impl = transformation()
         print(impl.generate("context", "question", ["answer1", "answerN"]))
+    for transformation in OperationRuns.get_all_operations_for_task(
+        TaskType.TEXT_CLASSIFICATION
+    ):
+        print(transformation.name())
+        impl = transformation()
+        for sentence in ["Mahendra Dhoni finally travelled to Australia with 5 suitcases. "
+                         "He wanted to prepare for the biggest game of the season!!!"]:
+            for p in impl.generate(sentence):
+                print(p)
