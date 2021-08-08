@@ -13,8 +13,8 @@ class ShuffleWithinSegments(TaggingOperation):
     Shuffling tokens within segments.
 
     The token sequence is split into segments of the same label;
-    for each segment a decision is made randomly: to shuffle it or not.
-    In case of positive decision the tokens within each segment are shuffled.
+    for each segment, a decision is made randomly: to shuffle it or not.
+    In case of a positive decision, the tokens within each segment are shuffled.
 
     """
     tasks = [TaskType.TEXT_TAGGING]
