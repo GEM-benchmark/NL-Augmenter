@@ -1,4 +1,5 @@
-import itertools
+import json
+import os
 import random
 
 from interfaces.SentenceOperation import SentenceOperation
@@ -15,166 +16,18 @@ def convert(perturbed_text, dict1, dict2):
     return perturbed_text
 
 
-def emoji2icon(text, seed=42, max_outputs=1, emoji_to_icon=True):
+def emoji2icon(
+    text, text2emoji, text2icon, seed=42, max_outputs=1, emoji_to_icon=True
+):
     random.seed(seed)
 
-    icons = {
-        "smiley": [
-            ":‑)",
-            ":)",
-            ":-]",
-            ":]",
-            ":-3",
-            ":3",
-            ":->",
-            ":>",
-            "8-)",
-            "8)",
-            ":-}",
-            ":}",
-            ":o)",
-            ":c)",
-            ":^)",
-            "=]",
-            "=)",
-        ],
-        "laughing": [
-            ":‑D",
-            ":D",
-            "8‑D",
-            "8D",
-            "x‑D",
-            "xD",
-            "X‑D",
-            "XD",
-            "=D",
-            "=3",
-            "B^D",
-            "c:",
-            "C:",
-        ],
-        "sad": [
-            ":‑(",
-            ":(",
-            ":‑c",
-            ":c",
-            ":‑<",
-            ":<",
-            ":‑[",
-            ":[",
-            ":(",
-            ";(",
-        ],
-        "angry": [">:[", ":{", ":@"],
-        "crying": [":'‑(", ":'("],
-        "tears_of_happiness": [":'‑)", ":')"],
-        "disgust": ["D‑':", "D:<", "D:", "D8", "D;", "D=", "DX"],
-        "surprise": [":‑O", ":O", ":‑o", ":o", ":-0", "8‑0", ">:O"],
-        "kiss": [":-*", ":*", ":×"],
-        "wink": [
-            ";‑)",
-            ";)",
-            "*-)",
-            "*)",
-            ";‑]",
-            ";]",
-            ";^)",
-            ";>",
-            ":‑,",
-            ";D",
-        ],
-        "tongue": [
-            ":‑P",
-            ":P",
-            "X‑P",
-            "XP",
-            "x‑p",
-            "xp",
-            ":‑p",
-            ":p",
-            ":‑Þ",
-            ":Þ",
-            ":‑þ",
-            ":þ",
-            ":‑b",
-            ":b",
-            "d:",
-            "=p",
-            ">:P",
-        ],
-        "skeptical": [
-            ":-/",
-            ":/",
-            ":‑.",
-            ">:\\",
-            ">:/",
-            ":\\",
-            "=/",
-            "=\\",
-            ":L",
-            "=L",
-            ":S",
-        ],
-        "straight_face": [":‑|", ":|"],
-        "embarassed": [":$", "://)", "://3"],
-        "sealed_lips": [":‑X", ":X", ":‑#", ":#", ":‑&", ":&"],
-        "angel": ["O:‑)", "O:)", "0:‑3", "0:3", "0:‑)", "0:)", "0;^)"],
-        "evil": [
-            ">:‑)",
-            ":)",
-            "}:‑)",
-            "}:)",
-            "3:‑)",
-            "3:)",
-            ">;)",
-            ">:3",
-            ";3",
-        ],
-        "cool": ["|;‑)", "B-)"],
-        "bored": ["|‑O"],
-        "tongue_in_cheek": [":‑J"],
-        "confused": ["%‑)", "%)"],
-        "sick": [":‑###..", ":###.."],
-        "disbelief": ["',:-|", "',:-l"],
-        "awkward": [":E"],
-        "skull": ["8-X", "8=X", "x-3", "x=3"],
-    }
-
-    emojis = {
-        "smiley": ["☺️", "🙂", "😊", "😀", "😁"],
-        "laughing": ["😃", "😄", "😆", "😍"],
-        "sad": ["☹️", "🙁", "😞", "😟", "😣"],
-        "angry": ["😠", "😡", "😖"],
-        "crying": ["😢", "😭"],
-        "tears_of_happiness": ["🥲", "😂"],
-        "disgust": ["😨", "😧", "😦", "😱", "😫", "😩"],
-        "surprise": ["😮", "😯", "😲"],
-        "kiss": ["😗", "😙", "😚", "😘"],
-        "wink": ["😉", "😜"],
-        "tongue": ["😛", "😝", "😜", "🤑"],
-        "skeptical": ["🤔", "😕", "😟"],
-        "straight_face": ["😐", "😑"],
-        "embarassed": ["😳", "😞", "😖"],
-        "sealed_lips": ["🤐", "😶"],
-        "angel": ["😇", "👼"],
-        "evil": ["😈"],
-        "cool": ["😎"],
-        "bored": ["😪"],
-        "tongue_in_cheek": ["😏", "😒"],
-        "confused": ["😵", "😕", "🤕", "😵‍💫"],
-        "sick": ["🤒", "😷", "🤢"],
-        "disbelief": ["🤨"],
-        "awkward": ["😬"],
-        "skull": ["☠️", "💀", "🏴‍☠️"],
-    }
-
     perturbed_texts = []
-    for _ in itertools.repeat(None, max_outputs):
+    for _ in range(max_outputs):
         perturbed_text = text
         if emoji_to_icon:
-            perturbed_text = convert(perturbed_text, emojis, icons)
+            perturbed_text = convert(perturbed_text, text2emoji, text2icon)
         else:
-            perturbed_text = convert(perturbed_text, icons, emojis)
+            perturbed_text = convert(perturbed_text, text2icon, text2emoji)
         perturbed_texts.append(perturbed_text)
     return perturbed_texts
 
@@ -191,9 +44,22 @@ class EmojiToIcon(SentenceOperation):
         super().__init__(seed, max_outputs=max_outputs)
         self.emoji_to_icon = emoji_to_icon
 
+        text2emoji_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "text2emoji.json"
+        )
+
+        text2icon_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "text2icon.json"
+        )
+
+        self.text2emoji = json.load(open(text2emoji_path, "r"))
+        self.text2icon = json.load(open(text2icon_path, "r"))
+
     def generate(self, sentence: str):
         perturbed_texts = emoji2icon(
             text=sentence,
+            text2emoji=self.text2emoji,
+            text2icon=self.text2icon,
             seed=self.seed,
             max_outputs=self.max_outputs,
             emoji_to_icon=self.emoji_to_icon,
