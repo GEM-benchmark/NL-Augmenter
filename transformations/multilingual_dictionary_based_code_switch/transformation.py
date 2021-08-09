@@ -88,11 +88,14 @@ class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
 
     def generate(self, sentence: str):
         random.seed(self.seed)
-        words = sentence.split(" ")
-        out = ""
-        for word in words:
-            out += code_switch(word, self.switch_dict, self.code_switch_rate)
-        return [out]
+        ouputs = []
+        for i in range(self.max_outputs):
+            words = sentence.split(" ")
+            out = ""
+            for word in words:
+                out += code_switch(word, self.switch_dict, self.code_switch_rate)
+            ouputs.append(out)
+        return ouputs
 
 
 if __name__ == "__main__":
@@ -103,9 +106,15 @@ if __name__ == "__main__":
         data = json.load(f)
     new_data = []
     for data_item in data["test_cases"]:
-        data_item["outputs"][0]["sentence"] = sc.generate(
+        outputs_formatted = []
+        outputs = sc.generate(
             data_item["inputs"]["sentence"]
-        )[0]
+        )
+        for output in outputs:
+            output_item = dict()
+            output_item['sentence'] = output
+            outputs_formatted.append(output_item)
+        data_item["outputs"] = outputs_formatted
         new_data.append(data_item)
     data["test_cases"] = new_data
 
