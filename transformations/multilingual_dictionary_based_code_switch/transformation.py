@@ -63,14 +63,11 @@ link: https://arxiv.org/abs/2006.06402
 def code_switch(word, switch_dict, code_switch_rate):
     language = random.randint(0, len(switch_dict) - 1)
     if word in switch_dict[language] and code_switch_rate >= random.random():
-        return (
-            switch_dict[language][word][
-                random.randint(0, len(switch_dict[language][word]) - 1)
-            ]
-            + " "
-        )
+        return switch_dict[language][word][
+            random.randint(0, len(switch_dict[language][word]) - 1)
+        ]
     else:
-        return word + " "
+        return word
 
 
 class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
@@ -91,9 +88,12 @@ class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
         ouputs = []
         for i in range(self.max_outputs):
             words = sentence.split(" ")
-            out = ""
+            out = []
             for word in words:
-                out += code_switch(word, self.switch_dict, self.code_switch_rate)
+                out.append(
+                    code_switch(word, self.switch_dict, self.code_switch_rate)
+                )
+            out = " ".join(out)
             ouputs.append(out)
         return ouputs
 
@@ -107,12 +107,10 @@ if __name__ == "__main__":
     new_data = []
     for data_item in data["test_cases"]:
         outputs_formatted = []
-        outputs = sc.generate(
-            data_item["inputs"]["sentence"]
-        )
+        outputs = sc.generate(data_item["inputs"]["sentence"])
         for output in outputs:
             output_item = dict()
-            output_item['sentence'] = output
+            output_item["sentence"] = output
             outputs_formatted.append(output_item)
         data_item["outputs"] = outputs_formatted
         new_data.append(data_item)
