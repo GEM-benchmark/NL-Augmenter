@@ -55,6 +55,42 @@
                 "sentence2": "Hotel is ok"
             },
             "outputs": true
+        },
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed":  0.5,
+                "strict_polarity": true
+            },
+            "inputs": {
+                "sentence1": "Hotel is okayish",
+                "sentence2": "Hotel is not good"
+            },
+            "outputs": true
+        },
+                {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed":  0.5,
+                "strict_polarity": true
+            },
+            "inputs": {
+                "sentence1": "Hotel is awful",
+                "sentence2": "Hotel is bad"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed": 0.7,
+                "strict_polarity": true
+            },
+            "inputs": {
+                "sentence1": "Hotel is not good",
+                "sentence2": "Hotel is not bad"
+            },
+            "outputs": false
         }
     ]
 }

@@ -4,6 +4,16 @@
 
 This filter filters a transformed text if it does not retain the same polarity as an original text.
 
+The polarity filter has two settings:
+* filtering based on a polarity score sign
+    * if two polarity scores do not align, the filter returns false
+    (neutral score of 0 is acceptable by positive and negative polarities)
+    * enabled with `strict_polarity = True`
+* filtering based on some allowed difference in polarity scores
+    * polarity scores should not differ by some number from 0 to 1
+    * enabled with `strict_polarity = False`
+    * default value for the allowed difference in polarity scores is 0.5; to change it, set the `diff_allowed` argument
+
 Author: Maria Obedkova
 
 ## Why is measuring performance on this split important?
@@ -28,4 +38,4 @@ The current implementation works only for English but potentially this filter ca
 [textblob-de](https://textblob-de.readthedocs.io/en/latest/), [textblob-fr](https://github.com/sloria/textblob-fr), etc.
 
 The current implementation contrasts only negative vs positive polarity and does not account for neutral.
-This behaviour also potentially could be changed if your particluar sentiment analysis solution detects three distinct polarities.
+This behaviour is not that obvious when using `diff_allowed` argument.
