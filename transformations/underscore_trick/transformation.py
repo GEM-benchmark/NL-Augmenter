@@ -5,14 +5,16 @@ from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 
-def add_underscore(text, prob=0.05, seed=42, max_outputs=1):
+def add_underscore(text, new_symbol="_", prob=0.05, seed=42, max_outputs=1):
     random.seed(seed)
 
     perturbed_texts = []
     for _ in itertools.repeat(None, max_outputs):
         perturbed_text = "".join(
             [
-                letter if letter != " " or random.random() > prob else "_"
+                letter
+                if letter != " " or random.random() > prob
+                else new_symbol
                 for letter in text
             ]
         )
@@ -28,13 +30,15 @@ class UnderscoreTrick(SentenceOperation):
     ]
     languages = ["All"]
 
-    def __init__(self, seed=42, max_outputs=1, prob=0.05):
+    def __init__(self, seed=42, max_outputs=1, prob=0.05, new_symbol="_"):
         super().__init__(seed, max_outputs=max_outputs)
         self.prob = prob
+        self.new_symbol = new_symbol
 
     def generate(self, sentence: str):
         perturbed_texts = add_underscore(
             text=sentence,
+            new_symbol=self.new_symbol,
             prob=self.prob,
             seed=self.seed,
             max_outputs=self.max_outputs,

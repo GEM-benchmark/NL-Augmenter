@@ -7,7 +7,7 @@ Author Affiliation: Politecnico di Milano and University of Bologna
 
 ## What type of a transformation is this?
 This transformation acts like a perturbation to test robustness.
-It replaces some random spaces with underscores.
+It replaces some random spaces with underscores (or even other selected symbols).
 This transformation mimics particular behaviours:
 - names of folders, files, classes, functions (e.g., underscore_trick)
 - trick word counters when there is a limited maximum number of words to insert in an online questionary/quiz.
