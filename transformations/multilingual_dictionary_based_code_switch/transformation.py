@@ -39,7 +39,7 @@ def load_dict():
     for language in languages:
         switch_dict.append(dict())
         with open(
-            os.path.join(dict_path, language + ".txt"), "r", encoding="utf-8"
+                os.path.join(dict_path, language + ".txt"), "r", encoding="utf-8"
         ) as f:
             for pair in f.readlines():
                 pair = pair.strip()
@@ -79,14 +79,14 @@ class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1, code_switch_rate=0.9):
         super().__init__(seed, max_outputs=max_outputs)
-        self.seed = seed
+        random.seed(seed)
         self.code_switch_rate = code_switch_rate
         self.switch_dict = load_dict()
 
     def generate(self, sentence: str):
-        random.seed(self.seed)
-        ouputs = []
-        for i in range(self.max_outputs):
+        ouputs = set()
+        i = 0
+        while i < self.max_outputs:
             words = sentence.split(" ")
             out = []
             for word in words:
@@ -94,8 +94,10 @@ class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
                     code_switch(word, self.switch_dict, self.code_switch_rate)
                 )
             out = " ".join(out)
-            ouputs.append(out)
-        return ouputs
+            if out not in ouputs:
+                ouputs.add(out)
+                i += 1
+        return list(ouputs)
 
 
 if __name__ == "__main__":
