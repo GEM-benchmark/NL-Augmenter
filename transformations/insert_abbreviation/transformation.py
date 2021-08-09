@@ -23,24 +23,20 @@ Abbreviations
 """
 
 
-class AbbreviationInsertion(SentenceOperation):
+class AbbreviationInsertionEN(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
-    languages = ["en", "fr"]
+    languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=1):
         rulefile_en = "./transformations/insert_abbreviation/replacement_rules_en.txt"
-        rulefile_fr = "./transformations/insert_abbreviation/replacement_rules_fr.txt"
         super().__init__(seed, max_outputs=max_outputs)
         rules_en = load_rules(rulefile_en)
-        rules_fr = load_rules(rulefile_fr)
         # First we compile our rules...
         self.grammar_en = grammaire.compile(rules_en)
-        self.grammar_fr = grammaire.compile(rules_fr)
-
     def generate(self, sentence: str):
         results = grammaire.parse(sentence, self.grammar_en)
         # We now replace the strings with their label
@@ -55,6 +51,37 @@ class AbbreviationInsertion(SentenceOperation):
             to_token = v[1][1]
             perturbed_texts = perturbed_texts[:from_token] + v[0] + perturbed_texts[to_token:]
         return [perturbed_texts]
+
+class AbbreviationInsertionFR(SentenceOperation):
+    tasks = [
+        TaskType.TEXT_CLASSIFICATION,
+        TaskType.TEXT_TO_TEXT_GENERATION,
+        TaskType.TEXT_TAGGING,
+    ]
+    languages = ["fr"]
+
+    def __init__(self, seed=0, max_outputs=1):
+        rulefile_fr = "./transformations/insert_abbreviation/replacement_rules_fr.txt"
+        super().__init__(seed, max_outputs=max_outputs)
+        rules_fr = load_rules(rulefile_fr)
+        # First we compile our rules...
+        self.grammar_fr = grammaire.compile(rules_fr)
+
+    def generate(self, sentence: str):
+        results = grammaire.parse(sentence, self.grammar_fr)
+        # We now replace the strings with their label
+        perturbed_texts = sentence
+        # Each list in results is an element such as: [label, [left,right]]
+        # label pertains from rules
+        # left is the left offset of the isolated sequence of words
+        # right is the right offset of the isolated sequence of words
+        # elements are stored from last to first in the text along the offsets
+        for v in results:
+            from_token = v[1][0]
+            to_token = v[1][1]
+            perturbed_texts = perturbed_texts[:from_token] + v[0] + perturbed_texts[to_token:]
+        return [perturbed_texts]
+
 
 """
 # Sample code to demonstrate usage. Can also assist in adding test cases.

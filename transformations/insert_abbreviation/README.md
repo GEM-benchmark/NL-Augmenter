@@ -3,8 +3,8 @@ This replacement adds noise to all types of text sources (sentence, paragraph, e
 according to a rule system that encodes word sequences associated with their replacement label.
 As a first use case, we focus on abbreviations for both French and English.
 For example:
-EN : what do you think about that, it seems to be easy, no? ==> WDYT ABT that, it seems 2B EZ, no?
-FR : Pourquoi tu ne viens pas? ==> pkoi tu ne V1 pô?
+EN : what do you think about that, it seems to be easy, no? ==> Wdyt abt that, it seems 2b ez, no?
+FR : Pourquoi tu ne viens pas? ==> Pkoi tu ne V1 pô?
 
 Author name: Caroline Brun
 Author email: caroline.brun@naverlabs.com
@@ -18,18 +18,21 @@ Author Affiliation: Naver Labs Europe
 This transformation acts like a perturbation to test robustness.
 This perturbation replaces in texts some well known words or expressions with (one of) their abbreviations.
 Most of the abbreviations covered here are quite common on social medias platforms, even though some of them are quite generic.
-
+The transformations are applied wia two classes :  
+	- AbbreviationInsertionEN for English
+	- AbbreviationInsertionFR for French.
+ 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, machine translation etc.
 This work can be quite beneficial for projects dealing with social media texts.
 
-```python evaluate.py -t AbbreviationInsertion -task TEXT_CLASSIFICATION```
+```python evaluate.py -t AbbreviationInsertionEN -task TEXT_CLASSIFICATION```
 ```model_name = "aychang/roberta-base-imdb"```
 
 The accuracy of a RoBERTa model (fine-tuned on IMDB) (model: "aychang/roberta-base-imdb") 
-on a subset of IMDB sentiment dataset = 96
-The accuracy of the same model on the perturbed set = 92
+on a subset of IMDB sentiment dataset = 96.0
+The accuracy of the same model on the perturbed set = 91.0 (1.0 perturb rate)
 
 ## Previous Work
 
@@ -55,4 +58,14 @@ Ex:
    1. AUX = [is|was|be|have|has|had|would|will|ll]+
 
 ## What are the limitations of this transformation?
+
+1. The _source_ expression may have different abbreviations, but the system replace it with the first one found in the replacement rules.
+This can be improved in a future version by randomly choosing an abbreviation among the possible ones.
+ 
+2. This transformation may introduce ambiguity in the _target_ text, e.g. with replacements like:
+	"bring your own beer" => "byob"
+	"bring your own bottle" => "byob"
+	"build your own burger" => "byob"
+
+3. Rules for replacement are obviously non exhaustive, and may need to be enriched, for example for domain specific texts
 

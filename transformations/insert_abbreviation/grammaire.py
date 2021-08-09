@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Grammaire
+Copyright 2021-present NAVER Corp.
 Created on Wed Jul 21 10:40:14 2021
 
-@author: roux
+@author: claude.roux@naverlabs.com
+@author: caroline.brun@naverlabs.com
 """
 
 import re
@@ -15,7 +18,7 @@ import re
 # Compiling the rules
 # ------------------------------------------------------------------------------
 # The rules are transformed into an automaton, where each rule element
-# is associated with a Python function that will be executed on the current
+# is a ssociated with a Python function that will be executed on the current
 # token, according to the rule element definition (see evalRuleElement)
 # Each element is evaluated to detect, which function to call: functioncode.
 #
@@ -48,6 +51,9 @@ import re
 #   [rgx]+ : one or more regular expression         [tokenrgxplus]
 #   [!call]* : zero or more capsule application     [capsulestar]
 #   [!call]+ : one or more capsule application      [capsuleplus]
+#   <element> : mark an element for a variable in head %x
+#   <element>+ : mark an element for a variable in head %x
+#   <element>* : mark an element for a variable in head %x
 # ------------------------------------------------------------------------------
 # Capsule function:
 # A capsule function takes as arguments:
@@ -55,6 +61,13 @@ import re
 #  2) the position of the current token (pos)
 #  3) the next rule element (rnxt)
 # Example: def mycapsule(tokens, pos, rnxt): ...
+# ------------------------------------------------------------------------------
+# Variables
+# You can mark an element for a variable, which is used in the rule head
+# discover %1 = find <%\w+>+ out
+# I find his secret out ---> i discover his secret
+# <%\w+>+ is associated to %1
+# For each marked element, there should be a variable %n on the left side
 # ------------------------------------------------------------------------------
 # This the way you can raise exception in Python
 # ------------------------------------------------------------------------------
@@ -115,7 +128,7 @@ def assess_any(w, functions, sz):
         function = anyplus
     elif w[1] == '*':
         function = anystar
-    return [function, w]
+    return [function, w, True]
 
 
 def assess_quote(w, functions, sz):
@@ -135,7 +148,7 @@ def assess_quote(w, functions, sz):
             erreur(w, "Unknown quoted expression")
     if pipeInsideCharacter in w:
         w = w.replace(pipeInsideCharacter, "|")
-    return [function, w]
+    return [function, w, True]
 
 
 def assess_bracket(w, functions, sz):
@@ -154,6 +167,23 @@ def assess_bracket(w, functions, sz):
         else:
             erreur(w, "Unknown bracket expression")
 
+def assess_skip(w, functions, sz):
+    if sz < 3:
+        erreur(w, "Unknown skip expression")
+    if w[-1] == '>':
+        w = w[1:-1]
+        res = analyzeRuleElement(w, functions, 0)
+    if w[-2] == '>':
+        if w[-1] == '*':
+            w = w[1:-2]
+            res = analyzeRuleElement(w, functions, 1)
+        elif w[-1] == '+':
+            w = w[1:-2]
+            res = analyzeRuleElement(w, functions, 2)
+        else:
+            erreur(w, "Unknown skip expression")
+    res[-1] = False
+    return res
 
 def assess_rgx(w, functions, sz):
     if "|" in w:
@@ -162,7 +192,7 @@ def assess_rgx(w, functions, sz):
     if sz == 1:
         erreur(w, "Incomplete regular expression")
     w = re.compile(w[1:])
-    return [tokenrgx, w]
+    return [tokenrgx, w, True]
 
 
 def assess_capsule(w, functions, sz):
@@ -172,7 +202,7 @@ def assess_capsule(w, functions, sz):
     if sz == 1:
         erreur(w, "Incomplete function name")
     w = functions[w[1:]]
-    return [capsule, w]
+    return [capsule, w, True]
 
 
 def assess_pipe(w, functions, sz):
@@ -185,8 +215,8 @@ def assess_pipe(w, functions, sz):
             allregular = False
         w.append(res)
     if allregular:
-        return [regular, elements]
-    return [multiple, w]
+        return [regular, elements, True]
+    return [multiple, w, True]
 
 
 def assess_optional(w, functions, sz):
@@ -208,7 +238,7 @@ def assess_optional(w, functions, sz):
         end = w[pf + 1:]
         inter = w[po + 1:pf]
         w = [sub + end, sub + inter + end]
-    return [regular, w]
+    return [regular, w, True]
 
 
 def assess_all(w, functions, sz):
@@ -225,14 +255,12 @@ def assess_all(w, functions, sz):
         function = tokenstarone
     else:
         function = regularone
-    return [function, w]
+    return [function, w, True]
 
+def return_normal(function, w, skips):
+    return [function, w, skips]
 
-def return_normal(function, w):
-    return [function, w]
-
-
-def return_star(function, w):
+def return_star(function, w, skips):
     if function == multiple:
         function = multiplestar
     elif function == regularone:
@@ -243,10 +271,10 @@ def return_star(function, w):
         function = tokenrgxstar
     elif function == capsule:
         function = capsulestar
-    return [function, w]
+    return [function, w, skips]
 
 
-def return_plus(function, w):
+def return_plus(function, w, skips):
     if function == multiple:
         function = multipleplus
     elif function == regularone:
@@ -257,10 +285,10 @@ def return_plus(function, w):
         function = tokenrgxplus
     elif function == capsule:
         function = capsuleplus
-    return [function, w]
+    return [function, w, skips]
 
 
-def return_optional(function, w):
+def return_optional(function, w, skips):
     if function == multiple:
         function = optionalmultiple
     elif function == regularone:
@@ -272,12 +300,12 @@ def return_optional(function, w):
     elif function == capsule:
         function = optionalcapsule
 
-    return [function, w]
+    return [function, w, skips]
 
 
 
 # If the first character is a key in selections, we call the matching function
-assesses = {"?": assess_any, '"': assess_quote, '[': assess_bracket, "%": assess_rgx, "!": assess_capsule}
+assesses = {"?": assess_any, '"': assess_quote, '[': assess_bracket, '<': assess_skip, "%": assess_rgx, "!": assess_capsule}
 on_brackets = {0: return_normal, 1: return_star, 2: return_plus, 3: return_optional}
 
 
@@ -286,11 +314,11 @@ def analyzeRuleElement(w, functions, brackets):
     if "|" in w and '"' in w:
         w = checkpipe(w)
     try:
-        function, w = assesses[w[0]](w, functions, len(w))
+        function, w, skips = assesses[w[0]](w, functions, len(w))
     except KeyError:
-        function, w = assess_all(w, functions, len(w))
+        function, w, skips = assess_all(w, functions, len(w))
 
-    return on_brackets[brackets](function, w)
+    return on_brackets[brackets](function, w, skips)
 
 
 # ------------------------------------------------------------------------------
@@ -328,7 +356,7 @@ def indexonheadrgx(automate, w, head):
 # ------------------------------------------------------------------------------
 def compiling(v, functions):
     v = [s.replace("\t", " ") for s in v if len(s) != 0]
-    v = [s.split(' ') for s in v if len(s) != 0]
+    v = [s.strip().split(' ') for s in v if len(s) != 0]
     automate = {"_++_": {}}
     automate["_**_"] = {}
     for r in v:
@@ -338,11 +366,9 @@ def compiling(v, functions):
         foundequal = False
         initial = True
         rule = []
+        r = [s for s in r if len(s) != 0]
         nb = len(r)
         for w in r:
-            if w.strip() == "":
-                continue
-
             if not foundequal:
                 nb -= 1
                 if w == '=':
@@ -661,9 +687,10 @@ def checknext(s, i, sz):
     return (i < sz and ord(s[i]) not in punctuations and ord(s[i]) not in spaces)
 
 
-def tokenizing_sentence(s, lower=True, offset=True):
+def tokenizing_sentence(s, offset=True):
     begintoken = 0
     tokens = []
+    tokens_lower = []
     offsets = []
     atoken = False
     sz = len(s)
@@ -678,9 +705,9 @@ def tokenizing_sentence(s, lower=True, offset=True):
             # there was a token construction pending
             if atoken:
                 token = s[begintoken:i]
-                if lower:
-                    token = token.lower()
                 tokens.append(token)
+                token = token.lower()
+                tokens_lower.append(token)
                 offsets.append([begintoken, i])
                 atoken = False
         elif ord(c) in punctuations:
@@ -689,9 +716,9 @@ def tokenizing_sentence(s, lower=True, offset=True):
                 if c in {".", "-", "+"} and checknext(s, i + 1, sz):
                     continue
                 token = s[begintoken:i]
-                if lower:
-                    token = token.lower()
                 tokens.append(token)
+                token = token.lower()
+                tokens_lower.append(token)
                 offsets.append([begintoken, i])
                 atoken = False
             elif c in {"+", "-"} and checknext(s, i + 1, sz):
@@ -700,6 +727,7 @@ def tokenizing_sentence(s, lower=True, offset=True):
                 atoken = True
                 continue
             tokens.append(c)
+            tokens_lower.append(c)
             offsets.append([i, i + 1])
             continue
         elif not atoken:
@@ -707,7 +735,7 @@ def tokenizing_sentence(s, lower=True, offset=True):
             atoken = True
             begintoken = i
     if offset:
-        return [tokens, offsets]
+        return [tokens_lower, offsets, tokens]
     return tokens
 
 
@@ -740,6 +768,7 @@ def tokenizing_sentence(s, lower=True, offset=True):
 
 def checkrule(a, sz, ruleheads, tokens, i):
     for rhead in ruleheads:
+        keeps = []
         rule = a[rhead]
         pos = i + 1
         err = False
@@ -751,15 +780,25 @@ def checkrule(a, sz, ruleheads, tokens, i):
                 break
             code = rule[j][0]
             if j + 1 < len(rule):
-                pos = code(tokens, sz, rule[j], rule[j + 1], pos)
+                npos = code(tokens, sz, rule[j], rule[j + 1], pos)
             else:
-                pos = code(tokens, sz, rule[j], [never], pos)
-            if pos == -1:
+                npos = code(tokens, sz, rule[j], [never], pos)
+            if npos == -1:
                 err = True
                 break
+            if not rule[j][-1]:
+                # in this case, these elements
+                # will be kept in the final string
+                # We keep these positions to avoid removing
+                # them latter on
+                p = []
+                for n in range(pos, npos):
+                    p.append(n)
+                keeps.append(p)
             j += 1
+            pos = npos
         if not err:
-            return [rhead.replace("…∞", ""), pos]
+            return [rhead.replace("…∞", ""), pos, keeps]
     return False
 
 
@@ -769,7 +808,7 @@ def parse(txt, a):
     regs = a["_**_"]
     # We tokenizing our own in-house tokenizer version...
     # The other version considers the text to be some kind of Python code
-    tokens, offsets = tokenizing_sentence(txt)
+    tokens, offsets, rawtokens = tokenizing_sentence(txt)
     sz = len(tokens)
     results = []
     i = 0
@@ -779,7 +818,21 @@ def parse(txt, a):
             ruleheads = heads[token]
             ret = checkrule(a, sz, ruleheads, tokens, i)
             if ret:
-                results.append([ret[0], [offsets[i][0], offsets[ret[1] - 1][1]]])
+                p = [offsets[i][0], offsets[ret[1] - 1][1]]
+                thehead = ret[0]
+                keeps = ret[-1]
+                if len(keeps):
+                    # If we have some elements to keep
+                    # We build offsets that skip them
+                    nb = 1
+                    for s in keeps:
+                        beg = offsets[s[0]][0]
+                        end = offsets[s[-1]][1]
+                        thehead = thehead.replace("%"+str(nb), txt[beg:end])
+                        nb += 1
+                if rawtokens[i][0].isupper():
+                    thehead = thehead[0].upper() + thehead[1:]
+                results.append([thehead, p])
                 i = ret[1] - 1
         else:
             for reg in regs:
@@ -787,7 +840,21 @@ def parse(txt, a):
                     ruleheads = regs[reg]
                     ret = checkrule(a, sz, ruleheads, tokens, i)
                     if ret:
-                        results.append([ret[0], [offsets[i][0], offsets[ret[1] - 1][1]]])
+                        p = [offsets[i][0], offsets[ret[1] - 1][1]]
+                        thehead = ret[0]
+                        keeps = ret[-1]
+                        if len(keeps):
+                            # If we have some elements to keep
+                            # We build offsets that skip them
+                            nb = 1
+                            for s in keeps:
+                                beg = offsets[s[0]][0]
+                                end = offsets[s[-1]][1]
+                                thehead = thehead.replace("%" + str(nb), txt[beg:end])
+                                nb += 1
+                        if rawtokens[i][0].isupper():
+                            thehead = thehead[0].upper() + thehead[1:]
+                        results.append([thehead, p])
                         i = ret[1] - 1
                         break
         i += 1
