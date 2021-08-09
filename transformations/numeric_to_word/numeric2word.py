@@ -8,8 +8,8 @@ import phonenumbers
 from num2words import num2words
 from phonenumbers import carrier, timezone, geocoder
 
-from symbol_to_currency_name_dict import symbol_to_currency_name_dict
-from abbreviated_currency_symbols_to_currency_name_dict import abbreviated_currency_symbols_to_currency_name_dict
+from .symbol_to_currency_name_dict import symbol_to_currency_name_dict
+from .abbreviated_currency_symbols_to_currency_name_dict import abbreviated_currency_symbols_to_currency_name_dict
 
 special_numbers = ['911']
 
