@@ -27,7 +27,16 @@ class WhitespacePerturbation(SentenceOperation):
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
-    languages = ["en", "es", "de", "fr", "it"]
+    languages = [
+        "ar", "ca", "cs", "da", "de", 
+        "en", "eo", "es", "fi", "fr", 
+        "ga", "gl", "he", "hi", "id", 
+        "is", "it", "kn", "la", "lt", 
+        "mr", "ms", "no", "pa", "pl", 
+        "pt", "ro", "ru", "sd", "sk", 
+        "sl", "sv", "sw", "ta", "te", 
+        "uk", "ur", "vi" 
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
