@@ -280,9 +280,12 @@ class DiscriminationFilter(SentenceOperation):
 
         # Count the number of intersections with the minority and majority factors
         minority_group_intersection_count, majority_group_intersection_count = self.count_intersections(doubble_flagged_corpus)
+		
+		minority_group_intersection_percentage = 100 * float(minority_group_intersection_count)/float(len(sentences))
+        majority_group_intersection_percentage = 100 * float(majority_group_intersection_count)/float(len(sentences))
 
         # If the number of intersections with the minority factors preveils for the minority group, indicate potential discrimination  
-        if minority_group_intersection_count > majority_group_intersection_count:
+        if minority_group_intersection_percentage > majority_group_intersection_percentage:
             discrimination = True
         else:
             discrimination = False       
