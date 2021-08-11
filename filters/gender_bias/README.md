@@ -3,7 +3,7 @@
 ## What type of a filter is this?
 
 This is a quadrilingual filter (for English, French, Polish and Russian languages), which filters a text corpus to measure gender fairness in regards of a female gender representation.
-It is based on a pre-defined set words, such as personal pronouns, words defining the relation and titles, corresponding to the female and male genders accordingly.
+It is based on a pre-defined set words, such as personal pronouns, words defining the relation, titles and names, corresponding to the female and male genders accordingly.
 Two utility methods - flag_sentences(), count_genders() and sort_groups() give supplementary information to the boolean value returned by the main filter() method.
 
 Author: Anna Shvets
@@ -17,10 +17,12 @@ France
 ## Why is measuring performance on this split important?
 This filter can be used to define whether the female gender is sufficiently represented in a tested subset of sentences.
 Being currently implemented for English, French, Polish and Russian languages, this filter is potentially language-agnostic, since does not rely on any external dependencies.
+A list of lexicals used for the filter is available in `lexicals.json` file.
 
 ## Related Work
 The problematics of the gender fairness is an active domain of research in NLP, however the existing methods of the bias measurement, such as PCA (Bolukbasi et al., 2016) or WEAT (Caliskan et al., 2017), may suffer from unclearness in the lexical seeds selection, pointed in a [recent ACL 2021 paper](https://www.aclanthology.org/2021.acl-long.148), the intrinsic measurements shwed no correlation with extrinsic methods results, as showed a [recent research](https://www.aclanthology.org/2021.acl-long.150). On the other hand, the gender bias datasets (Winobias, Winogender, StereoSet, CrowS-Pairs) can present the unconsistencies, pointed by [another ACL paper](https://aclanthology.org/2021.acl-long.81.pdf) and might be far from  optimal in terms if bias measurement. 
 The beneficial impact of the current extrinsic filter is its complete transparency and extensibility, wich offers the user a great amont of control over the bias measurement parameters.
+The set of names for English was taken from https://www.verywellfamily.com/, for French - from https://www.journaldesfemmes.fr, for Polish - from https://www.edziecko.pl and https://www.klups.pl, and for Russian - from https://imenika.ru/.
 
 ## Examples of use
 
