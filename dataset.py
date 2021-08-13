@@ -1,9 +1,16 @@
 from __future__ import annotations
-from typing import Iterable
+
+from typing import Iterable, List
+
 from tqdm import tqdm
 
-from interfaces.SentenceOperation import *
+from interfaces import Operation
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
+from interfaces.SentenceOperation import (
+    SentenceAndTargetOperation,
+    SentenceAndTargetsOperation,
+    SentenceOperation,
+)
 from tasks.TaskTypes import TaskType
 
 
@@ -12,25 +19,39 @@ class BaseDataset(Iterable):
         self.data = data
 
     def apply_filter(self, condition: Operation):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def apply_transformation(self, transformation: Operation):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def __iter__(self):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def __len__(self):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def __or__(self, other):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def __and__(self, other):
-        raise NotImplementedError("BaseDataset does not implement this function.")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function."
+        )
 
     def __sub__(self, other):
-        raise NotImplementedError("BaseDataset does not implement this function")
+        raise NotImplementedError(
+            "BaseDataset does not implement this function"
+        )
 
 
 """
@@ -48,14 +69,16 @@ class TextLineDataset(BaseDataset):
         ), "The number of datapoint should be the same as the number of labels"
         self.labels = labels
         self.mapping = {
-            datapoint: label for datapoint, label in zip(self.data, self.labels)
+            datapoint: label
+            for datapoint, label in zip(self.data, self.labels)
         }
 
     @classmethod
-    def from_huggingface(cls, dataset, fields):
+    def from_huggingface(cls, dataset, task_type, fields, max_size=None):
         data = []
         labels = []
-        for example in dataset:
+        max_size = max_size or len(dataset)
+        for example in list(dataset)[:max_size]:
             data.append(example[fields[0]])
             labels.append(example[fields[1]])
         return cls(data, labels)
@@ -64,7 +87,9 @@ class TextLineDataset(BaseDataset):
         filtered_data = []
         filtered_labels = []
         print("Applying filtering:")
-        for datapoint, label in tqdm(zip(self.data, self.labels), total=len(self.data)):
+        for datapoint, label in tqdm(
+            zip(self.data, self.labels), total=len(self.data)
+        ):
             if filter.filter(datapoint):
                 filtered_data.append(datapoint)
                 filtered_labels.append(label)
@@ -76,9 +101,32 @@ class TextLineDataset(BaseDataset):
     ) -> TextLineDataset:
         transformed_data = []
         print("Applying transformation:")
-        for line in tqdm(self.data):
-            transformed_data.extend(transformation.generate(line))
 
+        # calculating ratio of transformed example to unchanged example
+        successful_num = 0
+        failed_num = 0
+
+        for line in tqdm(self.data):
+            pt_examples = transformation.generate(line)
+            successful_pt, failed_pt = transformation.compare(
+                line, pt_examples
+            )
+            successful_num += successful_pt
+            failed_num += failed_pt
+
+            transformed_data.extend(pt_examples)
+
+        total_num = successful_num + failed_num
+        print(
+            "Finished transformation! {} examples generated from {} original examples, with {} successfully transformed and {} unchanged ({} perturb rate)".format(
+                total_num,
+                len(self.data),
+                successful_num,
+                failed_num,
+                successful_num / total_num if total_num > 0 else 0,
+            )
+        )
+        if total_num == 0: return None
         return TextLineDataset(transformed_data, self.labels)
 
     def __iter__(self):
@@ -115,6 +163,7 @@ class KeyValueDataset(BaseDataset):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.QUESTION_ANSWERING,
         TaskType.QUESTION_GENERATION,
+        TaskType.TEXT_CLASSIFICATION, # for >1 field classification
     ]
 
     # data: input data samples read from jsonl file
@@ -133,15 +182,19 @@ class KeyValueDataset(BaseDataset):
         self.operation_type = None
 
     @classmethod
-    def from_huggingface(cls, dataset, task_type, fields):
+    def from_huggingface(cls, dataset, task_type, fields, max_size=None):
         data = []
-        if task_type not in [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]:
-            for example in dataset:
+        max_size = max_size or len(dataset)
+        if task_type not in [
+            TaskType.QUESTION_ANSWERING,
+            TaskType.QUESTION_GENERATION,
+        ]:
+            for example in list(dataset)[:max_size]:
                 data.append({key: example[key] for key in fields})
         else:
             # this is an ugly implementation, which hard-codes the squad data format
             # TODO might need a more elegant way to deal with the fields with hierachy, e.g. the answers field in squad data (exampl['answers']['text'])
-            for example in dataset:
+            for example in list(dataset)[:max_size]:
                 data.append(
                     {
                         fields[0]: example[fields[0]],
@@ -177,8 +230,12 @@ class KeyValueDataset(BaseDataset):
                 self.operation_type = "sentence_and_target"
             else:
                 self.operation_type = "question_answer"
+        elif self.task_type in [TaskType.TEXT_CLASSIFICATION]:
+            self.operation_type = "sentence"
 
-        filter_func = self.__getattribute__("_apply_" + self.operation_type + "_filter")
+        filter_func = self.__getattribute__(
+            "_apply_" + self.operation_type + "_filter"
+        )
         transformation_func = self.__getattribute__(
             "_apply_" + self.operation_type + "_transformation"
         )
@@ -199,7 +256,9 @@ class KeyValueDataset(BaseDataset):
 
         return KeyValueDataset(filtered_data, self.task_type, self.fields)
 
-    def _apply_sentence_filter(self, datapoint: dict, filter: SentenceOperation):
+    def _apply_sentence_filter(
+        self, datapoint: dict, filter: SentenceOperation
+    ):
         sentence = datapoint[self.fields[0]]
         return filter.filter(sentence)
 
@@ -233,11 +292,33 @@ class KeyValueDataset(BaseDataset):
         _, transformation_func = self._analyze(subfields)
         transformed_data = []
         print("Applying transformation:")
+        
+        # calculating ratio of transformed example to unchanged example
+        successful_num = 0
+        failed_num = 0
+        
         for datapoint in tqdm(self.data):
-            transformed_data.extend(
-                transformation_func(datapoint.copy(), transformation)
-            )  # don't want self.data to be changed
+            pt_examples = transformation_func(datapoint.copy(), transformation)
+            successful_pt, failed_pt = transformation.compare(
+                datapoint, pt_examples
+            )
+            successful_num += successful_pt
+            failed_num += failed_pt
+            
+            transformed_data.extend(pt_examples)  # don't want self.data to be changed
+        
+        total_num = successful_num + failed_num
 
+        print(
+            "Finished transformation! {} examples generated from {} original examples, with {} successfully transformed and {} unchanged ({} perturb rate)".format(
+                total_num,
+                len(self.data),
+                successful_num,
+                failed_num,
+                successful_num / total_num if total_num > 0 else 0,
+            )
+        )
+        if total_num == 0: return None
         return KeyValueDataset(transformed_data, self.task_type, self.fields)
 
     def _apply_sentence_transformation(
@@ -271,7 +352,9 @@ class KeyValueDataset(BaseDataset):
             datapoint_n = dict()
             datapoint_n[self.fields[0]] = to[0]
             for i, target_key in enumerate(self.fields[1:]):
-                datapoint[target_key] = to[1][1 + i]  # targets starting from pos 1
+                datapoint[target_key] = to[1][
+                    1 + i
+                ]  # targets starting from pos 1
             datapoints.append(datapoint_n)
         return datapoints
 
@@ -289,7 +372,9 @@ class KeyValueDataset(BaseDataset):
             datapoint_n[self.fields[0]] = to[0]
             datapoint_n[self.fields[1]] = to[1]
             for i, answers_key in enumerate(self.fields[2:]):
-                datapoint_n[answers_key] = to[2 + i]  # answers starting from pos 2
+                datapoint_n[answers_key] = to[
+                    2 + i
+                ]  # answers starting from pos 2
             datapoints.append(datapoint_n)
 
         return datapoints
@@ -319,7 +404,9 @@ class KeyValueDataset(BaseDataset):
         for idx, datapoint in enumerate(data):
             id2datapoint[idx] = datapoint
             # "|||" is a naive separator
-            identifier = "|||".join([datapoint[field] for field in self.fields])
+            identifier = "|||".join(
+                [datapoint[field] for field in self.fields]
+            )
             identifiers.append(identifier)
             identifier2id[identifier] = idx
         identifiers = set(identifiers)  # remove duplicates
@@ -341,7 +428,9 @@ class KeyValueDataset(BaseDataset):
 
     def __and__(self, other: KeyValueDataset) -> KeyValueDataset:
         self._sanity_check(other)
-        id2datapoint, identifier2id, identifiers = self._data2identifier(self.data)
+        id2datapoint, identifier2id, identifiers = self._data2identifier(
+            self.data
+        )
         _, _, identifiers2 = self._data2identifier(other.data)
 
         identifiers = identifiers.intersection(identifiers2)
@@ -350,7 +439,9 @@ class KeyValueDataset(BaseDataset):
 
     def __sub__(self, other: KeyValueDataset) -> KeyValueDataset:
         self._sanity_check(other)
-        id2datapoint, identifier2id, identifiers = self._data2identifier(self.data)
+        id2datapoint, identifier2id, identifiers = self._data2identifier(
+            self.data
+        )
         _, _, identifiers2 = self._data2identifier(other.data)
 
         identifiers = identifiers.difference(identifiers2)
