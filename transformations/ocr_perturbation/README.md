@@ -6,7 +6,7 @@ This transformation directly induces Optical Character Recognition (OCR) errors 
   <br>
     <font size="+3">&#8595;</font>
   <br>
-  <img src="example.png" style="zoom:120%;" />
+  <img src="example.png" style="zoom:200%;" />
   <br>
     <font size="+3">&#8595;</font>
   <br>
