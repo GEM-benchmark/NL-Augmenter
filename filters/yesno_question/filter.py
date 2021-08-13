@@ -4,6 +4,7 @@ from typing import Tuple, List
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
 from typing import List
+from initialize import spacy_nlp
 
 """
 A filter on text length (number of tokens).
@@ -21,7 +22,8 @@ class YesNoQuestionFilter(QuestionAnswerOperation):
 
     def __init__(self):
         super().__init__()
-        self.nlp = spacy.load("en_core_web_sm")
+        # self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def filter(
         self, context: str, question: str, answers: [str]
@@ -30,13 +32,21 @@ class YesNoQuestionFilter(QuestionAnswerOperation):
         if question.strip()[-1] != "?":
             return False
 
-        if " or " in question:
-            return False
+        # if " or " in question:
+        #     return False
 
         doc = self.nlp(question)
         token = doc[0]
         if token.pos_ != "AUX":
             return False
+
+        token = doc[0]
+
+        verb_position = [i for i in range(len(doc)) if str(doc[i]) == token.head.text][
+            0
+        ]
+        rest_of_sentence = [i for i in doc[verb_position:]]
+        print(rest_of_sentence)
 
         return True
 
@@ -55,6 +65,7 @@ if __name__ == "__main__":
             "Would you rather drink tea or a coffee?",
             "Would you like some soup?",
             "Should you need something, I will be in my room",
+            "Can Mark or John do the dishes?",
         ]
     ):
         res = tf.filter("", sentence, [])
