@@ -1,6 +1,7 @@
-## length filter
+## Yes/no question filter
 
 Author: Witold Wydmański
+Affiliation: Malopolska Centre of Biotechnology, Jagiellonian University
 
 ## What type of a filter is this?
 
