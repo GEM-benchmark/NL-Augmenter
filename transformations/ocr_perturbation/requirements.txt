@@ -1,0 +1,2 @@
+trdg>=1.7.0
+tesserocr>=2.5.2
