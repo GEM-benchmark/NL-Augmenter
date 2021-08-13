@@ -10,7 +10,7 @@ This transformation directly induces Optical Character Recognition (OCR) errors 
   <br>
     <font size="+3">&#8595;</font>
   <br>
-    <font size="+3">&#128441;&#128269;</font><font size="+2" color="blue">Tesseract 4 OCR</font>
+    <font size="+3">&#128441;&#128269;</font><font size="+4" color="blue">Tesseract 4 OCR</font>
   <br>
     <font size="+3">&#8595;</font>
   <br>
