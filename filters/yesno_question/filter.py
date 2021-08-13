@@ -24,7 +24,10 @@ class YesNoQuestionFilter(QuestionAnswerOperation):
         super().__init__()
         # self.nlp = spacy.load("en_core_web_sm")
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-        assert 'tagger' in self.nlp.pipe_names
+        try:
+            assert 'tagger' in self.nlp.pipe_names
+        except AssertionError:
+            self.nlp.add_pipe("tagger")
 
     def filter(
         self, context: str, question: str, answers: [str]
