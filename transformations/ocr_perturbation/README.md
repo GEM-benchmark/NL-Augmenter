@@ -14,14 +14,14 @@ This transformation directly induces Optical Character Recognition (OCR) errors 
   <br>
     <font size="+3">&#8595;</font>
   <br>
-    <b>Neil<font color="red">:</font> Alden Armstrong was an<b><font color="red">'</font>Ame<b><font color="red">t</font>ican astronaut<b><font color="red">:</font></b>
+    <b>Neil: Alden Armstrong was an 'Ametican astronaut:</b>
 </p>
 
 
 Author: [Marcin Namysl](https://github.com/mnamysl/)
 
 ## What type of transformation is this?
-This transformation acts like a sentence-level perturbation. Multiple variations can be created via changing parameters. Currently, various image rendering options can be specified.
+This transformation acts like a sentence-level perturbation. Multiple variations can be created via changing parameters, e.g., various image rendering options can be specified.
 
 This transformation employs the [trdg](https://pypi.org/project/trdg/) package for image rendering and the [tesserocr](https://pypi.org/project/tesserocr/) package for OCR. Currently, it can be applied to text in English, French, Spanish, or German.
 
@@ -38,12 +38,11 @@ python -m spacy download de_core_web_sm
 2. Install *libtesseract* and *libleptonica*. Please refer to the documentation of the [tesserocr](https://pypi.org/project/tesserocr/) package for more details.
 
 3. Download [Tesseract models](https://tesseract-ocr.github.io/tessdoc/Data-Files) and copy them to the *tessdata* path on your machine (see [documentation](https://tesseract-ocr.github.io/tessdoc/Data-Files)):
-
-    [Orientation and script detection](https://github.com/tesseract-ocr/tessdata/raw/3.04.00/osd.traineddata)
-    [English](https://github.com/tesseract-ocr/tessdata/raw/4.00/eng.traineddata)
-    [French](https://github.com/tesseract-ocr/tessdata/raw/4.00/fra.traineddata)
-    [Spanish](https://github.com/tesseract-ocr/tessdata/raw/4.00/spa.traineddata)
-    [German](https://github.com/tesseract-ocr/tessdata/raw/4.00/deu.traineddata)
+[Orientation and script detection](https://github.com/tesseract-ocr/tessdata/raw/3.04.00/osd.traineddata), 
+[English](https://github.com/tesseract-ocr/tessdata/raw/4.00/eng.traineddata), 
+[French](https://github.com/tesseract-ocr/tessdata/raw/4.00/fra.traineddata), 
+[Spanish](https://github.com/tesseract-ocr/tessdata/raw/4.00/spa.traineddata), 
+[German](https://github.com/tesseract-ocr/tessdata/raw/4.00/deu.traineddata).
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph as input like text classification, text generation, etc. It could be primarily used for robustness evaluation but could also be employed for data augmentation.
