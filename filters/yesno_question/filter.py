@@ -64,7 +64,6 @@ class YesNoQuestionFilter(QuestionAnswerOperation):
 #             "Wasn't she angry when you told her about the accident?",
 #             "Have you got an identity card?",
 #             "Would you rather drink tea or a coffee?",
-#             "Would you like some soup?",
 #             "Should you need something, I will be in my room",
 #             "Can Mark or John do the dishes?",
 #         ]

@@ -32,15 +32,6 @@
             "class": "YesNoQuestionFilter",
             "inputs": {
                 "context": "",
-                "question": "Would you like some soup?",
-                "answers": []
-            },
-            "outputs": true
-        },
-        {
-            "class": "YesNoQuestionFilter",
-            "inputs": {
-                "context": "",
                 "question": "Should you need something, I will be in my room",
                 "answers": []
             },
