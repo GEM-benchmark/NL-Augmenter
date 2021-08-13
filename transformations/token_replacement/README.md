@@ -1,7 +1,7 @@
 # Token Replacement Based on Lookup Tables 🦎+ ⌨️ → 🐍
 This transformation replaces input tokens with their perturbed versions sampled from a given lookup table of replacement candidates. Lookup tables containing OCR errors and misspellings from prior work are given as examples. Thus, by default, the transformation induces plausible OCR errors and human typos to the input sentence.
 
-Author: [Marcin Namysl](https://github.com/mnamysl/) (m.namysl@gmail.com)
+Author: [Marcin Namysl](https://github.com/mnamysl/)
 
 ## What type of transformation is this?
 This transformation acts like a token-level perturbation. Multiple variations can be easily created via changing parameters or using custom lookup tables. Moreover, multiple lookup tables can be merged together to increase the coverage of available perturbations and consequently the variance of the output.

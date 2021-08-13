@@ -70,11 +70,11 @@ class TokenReplacement(SentenceOperation):
                 perturbed_tokens.append(text)
             
             perturbed_sentences.append(''.join(token for token in perturbed_tokens))
-                    
+
         return perturbed_sentences
 
 
-
+"""
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 
 if __name__ == '__main__':
@@ -110,3 +110,4 @@ if __name__ == '__main__':
     with open(os.path.join(dir_path, "test.json"), "w") as f:
         json.dump(json_file, f, indent=2, ensure_ascii=False)
 
+"""
