@@ -45,6 +45,15 @@
                 "answers": []
             },
             "outputs": false
+        },
+        {
+            "class": "YesNoQuestionFilter",
+            "inputs": {
+                "context": "",
+                "question": "Can Mark or John do the dishes?",
+                "answers": []
+            },
+            "outputs": true
         }
     ]
 }
