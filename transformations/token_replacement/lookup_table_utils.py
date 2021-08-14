@@ -12,17 +12,14 @@ from typing import List, Union
 Lookup table handling utilities.
 """
 
-def get_token_replacement(input_token, lookup, min_length, max_dist):
+def get_token_replacement(input_token, lookup, max_dist):
     """
     Gets a replacement for an input token sampled from a given lookup table.
     Samples uniformly among all candidates available for an input token.
-    Accepts additional filtering criteria based on the minimum length and 
-        maximum edit distance between the original and the candidate token.
+    Accepts additional filtering criteria based on the maximum edit distance 
+    between the original and the candidate token.
     """
     candidates = lookup[input_token]
-
-    if min_length > 1:
-        candidates = [c for c in candidates if len(input_token) >= min_length]
 
     if max_dist >= 0:
         candidates = [c for c in candidates \

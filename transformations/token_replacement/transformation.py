@@ -25,7 +25,7 @@ class TokenReplacement(SentenceOperation):
     languages = ["en"]
 
     def __init__(
-        self, seed=0, max_outputs = 1, replacement_prob = 1.0, min_length = 3, 
+        self, seed=0, max_outputs = 1, replacement_prob = 0.2, min_length = 3, 
         max_dist = 1, lookup = ["typos.xz", "ocr.xz"]):
         """
         :param seed: random seed
@@ -48,6 +48,7 @@ class TokenReplacement(SentenceOperation):
         else:
             self.lookup = load_lookup(lookup)
 
+
     def generate(self, sentence: str) -> List[str]:
 
         random.seed(self.seed)        
@@ -57,12 +58,22 @@ class TokenReplacement(SentenceOperation):
         for _ in range(self.max_outputs):
             
             perturbed_tokens = []
-            for tok in self.nlp(sentence):
+            doc = self.nlp(sentence)
+
+            tok_status = [tok.text in self.lookup and len(tok.text) >= self.min_length for tok in doc]
+            cnt_with_repl = sum(tok_status)
+
+            # replacement probability weighted by the ratio of tokens that have
+            # at least one replacement candidate and min. required length
+            prob = self.replacement_prob * len(doc) / cnt_with_repl \
+                if cnt_with_repl > 0 else 0.0
+
+            for tok_idx, tok in enumerate(doc):
             
                 text = tok.text
-                if text in self.lookup and random.random() <= self.replacement_prob:
-                    text = get_token_replacement(text, self.lookup,
-                        self.min_length, self.max_dist)
+
+                if tok_status[tok_idx] and random.random() <= prob:
+                    text = get_token_replacement(text, self.lookup, self.max_dist)
        
                 if tok.whitespace_:
                     text += " "

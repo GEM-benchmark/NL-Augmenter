@@ -6,17 +6,17 @@ Author: [Marcin Namysl](https://github.com/mnamysl/)
 ## What type of transformation is this?
 This transformation acts like a token-level perturbation. Multiple variations can be easily created via changing parameters or using custom lookup tables. Moreover, multiple lookup tables can be merged together to increase the coverage of available perturbations and consequently the variance of the output.
 
-By default, only the replacement candidates that differ by one edit operation from the original token are taken into account, which already causes large drops in performance of the baseline models (cf. the results of the robustness evaluation in the next section). The replacement probability, the maximum edit distance to the original token, and the minimum length of the original token to be perturbed are the parameters that can be customized by the user.
+The replacement probability, the maximum edit distance to the original token, and the minimum length of the original token to be perturbed are the parameters that can be customized by the user. By default, only the replacement candidates that differ by one edit operation from the original token are taken into account, which already causes substantial drops in performance of the baseline models (cf. the results of the robustness evaluation in the next section).
 
-The default lookup tables already offer fairly large coverage (over 100,000 words). Alternative lookup tables that cover a larger number of words could be easily employed. Moreover, application for languages other than English or in a multi-lingual setting is straightforward. 
+The default lookup tables already offer fairly large coverage (almost 100,000 target words and over two million replacement candidates). Alternative lookup tables that cover a larger number of target words or replacement candidates could be easily employed. Moreover, application for languages other than English or in a multi-lingual setting is straightforward. 
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, text generation, etc. It could be used for robustness evaluation as well as for data augmentation.
 
 As a result of applying this transformation, the following preliminary results of the robustness evaluation were obtained:
 
-- The accuracy of the RoBERTa model ("*aychang/roberta-base-imdb*"), evaluated on a subset of 1000 examples from the IMDB sentiment dataset, dropped from 96.0 (original examples) to 55.0 (perturbed examples).
-- The average BLEU score of the DistilBART model ("*sshleifer/distilbart-xsum-12-6*"), evaluated on a subset (10%) of XSum dataset, dropped from 15.25 (original examples) to 7.08 (perturbed examples).
+- The accuracy of the RoBERTa model ("*aychang/roberta-base-imdb*"), evaluated on a subset of 1000 examples from the IMDB sentiment dataset, dropped from 96.0 (original examples) to 91.0 (perturbed examples).
+- The average BLEU score of the DistilBART model ("*sshleifer/distilbart-xsum-12-6*"), evaluated on a subset (10%) of XSum dataset, dropped from 15.25 (original examples) to 13.38 (perturbed examples).
 
 ## Previous Work
 
