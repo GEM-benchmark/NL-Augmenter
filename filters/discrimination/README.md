@@ -9,11 +9,10 @@ The filter first flags the sentences to be inherent to minor and major groups, w
 then, the the sentences from each of the groups are passed through the `find_intersection()` method to define the intersection with both factors.
 The final boolean value is calculated in regards of the values retrived from `count_itersections()` method.
 
-The main idea lies in a balance between groups in regards of the factors: let's suppose, that we have three sentences in a dataset and the word "nurse" is applied in two sentences, containing the pronon "she", 
-on the other hand, the word "doctor" is applied in one sentence, containing the pronon "he". We may suggest that the gender discrimination in regards of the profession stereotypes takes place. 
+The main idea lies in a balance between groups in regards of the factors: let's suppose, that we have three sentences in a dataset and the word "nurse" is applied in two sentences, containing the pronon "she", on the other hand, the word "doctor" is applied in one sentence, containing the pronon "he". We may suggest that the gender discrimination in regards of the profession stereotypes takes place. 
 The minority group array, therefore, will contain the word "she" and the minority factor array will contain the word "nurse", while the majority group array will contain "he" and the major factor array - "doctor".
-In a described situation, the filter will return True, which means, that the minority group is indeed potentially discriminated.
-However, if in one of the sentences containing the word "nurse", the pronoun will be replaced by "he" - the filter will return false, as both genders represent the profession "nurse", therefore there is no discrimination in this regard.
+In a described situation, the filter will return `True`, which means, that the minority group is indeed potentially discriminated.
+However, if in one of the sentences containing the word "nurse", the pronoun will be replaced by "he" - the filter will return `False`, as both genders represent the profession "nurse", therefore there is no discrimination in this regard.
 
 
 Author: Anna Shvets
@@ -162,5 +161,5 @@ python -m spacy download fr_core_news_sm
 
 
 ## What are the limitations of this filter?
-The filter does not take intocalculation condition the the sentences from the `union_group`, which where flagged as inherent to both - minor and major groups at the same time. 
+The filter does not take into calculation condition the the sentences from the `union_group`, which where flagged as inherent to both - minor and major groups at the same time. 
 You might want to expract the content of this group using "sort_groups()" method ad check it manually or using other methods. 
