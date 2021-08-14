@@ -4,7 +4,7 @@ import pandas as pd
 
 from evaluation.evaluation_engine import execute_model
 from tasks.TaskTypes import TaskType
-from TestRunner import OperationRuns
+from TestRunner import OperationRuns, get_implementation
 
 sys.path.append("..")
 sys.path.append("../..")
@@ -21,6 +21,9 @@ DEFAULT_LEADERBOARD_MODELS = {
     ],
     "TEXT_CLASSIFICATION": [
         # sentiment analysis
+        ("textattack/roberta-base-SST-2", "sst2"),
+        ("textattack/bert-base-uncased-QQP", "qqp"),
+        ("roberta-large-mnli", "multi_nli"),
         ("textattack/roberta-base-imdb", "imdb"),
     ],
     "TEXT_TAGGING": [],
@@ -86,9 +89,9 @@ def create_leaderboard_for_task(
         print(f"---- Evaluating {model_name} on {dataset_name} -----")
         for trans in transformations:
             print(f"| Transformation: {trans.name()}")
-            if True:
+            try:
                 result = execute_model(
-                    implementation=trans.__class__,
+                    implementation=get_implementation(trans.__name__),
                     task_type=task_name,
                     model_name=model_name,
                     dataset=dataset_name,
@@ -98,9 +101,9 @@ def create_leaderboard_for_task(
                     key, pt_key = "accuracy", "pt_accuracy"
                 if "bleu" in result:
                     key, pt_key = "bleu", "pt_bleu"
-                result_dict[trans.name()][
-                    f"{model_name}\n({dataset_name})"
-                ] = (result[key] - result[pt_key])
+                result_dict[trans.name()][f"{model_name.split('/')[-1]}"] = f"{result[key]}->{result[pt_key]} ({result[pt_key]-result[key]})"
+            except Exception as e:
+                print(f"\t Error on {trans.name()}: {e}")
     df_result = pd.DataFrame(list(result_dict.values()))
     print("Finished! The leaderboard:")
     print(df_result.to_markdown(index=False))
