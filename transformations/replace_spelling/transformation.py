@@ -45,7 +45,7 @@ class SpellingTransformation(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1):
+    def __init__(self, seed=0, max_outputs=3):
         super().__init__(seed, max_outputs=max_outputs)
 
     def generate(self, sentence: str):
