@@ -1,1 +1,2 @@
 g2pM==0.1.2.5
+https://github.com/explosion/spacy-models/releases/download/zh_core_web_sm-3.0.0/zh_core_web_sm-3.0.0.tar.gz#egg=zh_core_web_sm
