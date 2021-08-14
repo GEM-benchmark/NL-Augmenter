@@ -27,7 +27,7 @@ class GenderBiasFilter(SentenceOperation):
         flagged_sentences = []
 
         # Read names
-        f = open('lexicals.json')
+        f = open('filters/gender_bias/lexicals.json')
         data = json.load(f) 
         
         # Define the words, that represent feminine and masculine groups in both languages
