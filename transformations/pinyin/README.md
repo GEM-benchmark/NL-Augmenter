@@ -29,8 +29,8 @@ model described in this paper:
 @article{DBLP:journals/corr/abs-2004-03136,
   author    = {Kyubyong Park and
                Seanie Lee},
-  title     = {g2pM: {A} Neural Grapheme-to-Phoneme Conversion Package for MandarinChinese
-               Based on a New Open Benchmark Dataset},
+  title     = {g2pM: {A} Neural Grapheme-to-Phoneme Conversion Package for 
+               Mandarin Chinese Based on a New Open Benchmark Dataset},
   journal   = {CoRR},
   volume    = {abs/2004.03136},
   year      = {2020},
