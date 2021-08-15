@@ -1,5 +1,5 @@
 import spacy
-from typing import Union
+from typing import Union, List
 from initialize import spacy_nlp
 import pyinflect
 from nltk.tokenize.treebank import TreebankWordDetokenizer
@@ -174,10 +174,10 @@ class YesNoQuestionPerturbation(SentenceOperation):
 
         return question
 
-    def generate(self, sentence: str) -> list[str]:
+    def generate(self, sentence: str) -> List[str]:
         doc: Doc = self.nlp(sentence)
 
-        questions: list[str] = []
+        questions: List[str] = []
         for sentence in doc.sents:
             # TODO: Test if sentence is statement or question
             question = self.statement_to_question(sentence)
