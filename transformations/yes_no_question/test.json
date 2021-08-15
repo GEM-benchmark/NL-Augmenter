@@ -13,15 +13,6 @@
     {
       "class": "YesNoQuestionPerturbation",
       "inputs": {
-        "sentence": "Sentences with gapping, such as \"Paul likes coffee and Mary tea\", lack an overt predicate to indicate the relation between two or more arguments."
-      },
-      "outputs": [{
-        "sentence": "Do sentences with gapping, such as \"Paul likes coffee and Mary tea\", lack an overt predicate to indicate the relation between two or more arguments?"
-      }]
-    },
-    {
-      "class": "YesNoQuestionPerturbation",
-      "inputs": {
         "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
       },
       "outputs": [{
@@ -71,15 +62,6 @@
       },
       "outputs": [{
         "sentence": "Is Dave not going to Seattle?"
-      }]
-    },
-    {
-      "class": "YesNoQuestionPerturbation",
-      "inputs": {
-        "sentence": "Faria decides to share with Dantès all of his knowledge and experience, as well as the countless treasures that are hidden on the island of Monte Cristo."
-      },
-      "outputs": [{
-        "sentence": "Does Faria decide to share with Dantès all of his knowledge and experience, as well as the countless treasures that are hidden on the island of Monte Cristo?"
       }]
     },
     {
