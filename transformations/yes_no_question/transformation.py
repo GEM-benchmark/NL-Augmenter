@@ -173,8 +173,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
                              head_right]))
 
         if sentence.text == "He'd gone to the store with Michael two days earlier.":
-            raise Exception([(token.text_with_ws, token.dep, token.morph) for
-                             token in sentence])
+            raise Exception([(token.text_with_ws, token.dep_, token.pos_,
+                              token.morph) for token in sentence])
 
         return question
 
