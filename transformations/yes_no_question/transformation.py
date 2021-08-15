@@ -133,7 +133,7 @@ class YesNoQuestionPerturbation(SentenceOperation):
         head_right = ''.join('not ' if token.text == "n't" and token.head in
                                        (verb_head,
                                         auxiliary) else token.text_with_ws
-                             for token in sentence[verb_head.i + 1:])
+                             for token in sentence[verb_head.i + 1:]).strip()
         # Change last token to "?"
         if len(head_right) and head_right[-1] in {'.', '!'}:
             head_right = head_right[:-1]
