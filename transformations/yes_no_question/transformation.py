@@ -4,7 +4,7 @@ from initialize import spacy_nlp
 import pyinflect
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 from spacy.symbols import nsubj, aux, PROPN, cc
-from spacy.tokens import Token
+from spacy.tokens import Token, Span
 from spacy.tokens.doc import Doc
 
 from interfaces.SentenceOperation import SentenceOperation
@@ -85,18 +85,19 @@ class YesNoQuestionPerturbation(SentenceOperation):
         self.detokenizer = TreebankWordDetokenizer()
         self.nlp = spacy_nlp if spacy_nlp else spacy.load('en_core_web_sm')
 
-    def generate(self, sentence: str):
-        doc: Doc = self.nlp(sentence)
-
+    def statement_to_question(self, sentence: Span) -> Union[str, None]:
+        """Given a statement (type: spacy Span), convert to corresponding
+        yes-or-no question.
+        """
         # Look for sentence verb head, starting with first token
-        verb_head: Token = doc[0]
+        verb_head: Token = sentence[0]
         while verb_head != verb_head.head:
             verb_head = verb_head.head
 
         # If there's a coordinating conjunction, give up
         for child in verb_head.children:
             if child.dep == cc:
-                return []
+                return None
 
         # Look for auxiliary verb
         auxiliary: Union[Token, str, None] = None
@@ -111,27 +112,28 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 break
         # If there's no root subject, just give up
         else:
-            return []
+            return None
         subject_phrase_tokens = [t.text_with_ws if t.pos == PROPN
                                  else uncapitalize(t.text_with_ws)
                                  for t in subject_head.subtree]
         subject_phrase = ''.join(subject_phrase_tokens).strip()
 
         # Get pre-verb adverbs, etc. (expand "n't" to "not"):
-        all_left_tokens = doc[:verb_head.i]
+        all_left_tokens = sentence[:verb_head.i]
         head_left_tokens = [token for token in all_left_tokens if
                             token != subject_head and subject_head not in
                             token.ancestors and token != auxiliary and
                             auxiliary not in token.ancestors]
         head_left = ''.join('not ' if token.text == "n't" and token.head in
-                            (verb_head, auxiliary) else
+                                      (verb_head, auxiliary) else
                             uncapitalize(token.text_with_ws) for token in
                             head_left_tokens).strip()
 
         # Get object, adverbs, prep. phrases, etc. (expand "n't" to "not"):
         head_right = ''.join('not ' if token.text == "n't" and token.head in
-                             (verb_head, auxiliary) else token.text_with_ws
-                             for token in doc[verb_head.i + 1:])
+                                       (verb_head,
+                                        auxiliary) else token.text_with_ws
+                             for token in sentence[verb_head.i + 1:])
         # Change last token to "?"
         if len(head_right) and head_right[-1] in {'.', '!'}:
             head_right = head_right[:-1]
@@ -141,18 +143,16 @@ class YesNoQuestionPerturbation(SentenceOperation):
         # If there is an auxiliary, make q: [AUX] [SUBJ] [LEFT] [VERB] [RIGHT]
         if auxiliary is not None:
             new_auxiliary = front_auxiliary(auxiliary)
-            questions = [
-                self.detokenizer.detokenize(
-                    filter(len, [new_auxiliary, subject_phrase, head_left,
-                                 verb_head.text, head_right]))]
+            question = self.detokenizer.detokenize(
+                filter(len, [new_auxiliary, subject_phrase, head_left,
+                             verb_head.text, head_right]))
 
         # If it's a be verb, make q: [BE] [SUBJ] [LEFT] [RIGHT]
         elif verb_head.lemma == self.nlp.vocab.strings['be']:
             new_be_verb = front_be_verb(verb_head)
-            questions = [
-                self.detokenizer.detokenize(
-                    filter(len, [new_be_verb, subject_phrase, head_left,
-                                 head_right]))]
+            question = self.detokenizer.detokenize(
+                filter(len, [new_be_verb, subject_phrase, head_left,
+                             head_right]))
 
         # All other verbs, make q: [DO] [SUBJ] [LEFT] [VERB] [RIGHT]
         else:
@@ -166,8 +166,20 @@ class YesNoQuestionPerturbation(SentenceOperation):
             else:
                 auxiliary = 'Do'
             infinitive = verb_head._.inflect('VB')
-            questions = [self.detokenizer.detokenize(
+            question = self.detokenizer.detokenize(
                 filter(len, [auxiliary, subject_phrase, head_left, infinitive,
-                             head_right]))]
+                             head_right]))
+
+        return question
+
+    def generate(self, sentence: str) -> list[str]:
+        doc: Doc = self.nlp(sentence)
+
+        questions: list[str] = []
+        for sentence in doc.sents:
+            # TODO: Test if sentence is statement or question
+            question = self.statement_to_question(sentence)
+            if question is not None:
+                questions.append(question)
 
         return questions
