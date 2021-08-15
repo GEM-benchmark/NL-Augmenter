@@ -16,12 +16,25 @@ Base Class for implementing the different input transformations a generation sho
 
 
 def uncapitalize(string: str):
+    """De-capitalize first character of string
+
+    E.g. 'How is Michael doing?' -> 'how is Michael doing?'
+    """
     if len(string):
         return string[0].lower() + string[1:]
     return ''
 
 
 def front_auxiliary(auxiliary: Token) -> str:
+    """Take auxiliary (type: spacy Token) and return capitalized, expanded
+    (i.e. un-contracted) auxiliary (type: str). Differentiates certain English
+    identical English contractions (e.g. "'d", "'s") using morphology data
+    stored in auxiliary `Token` object.
+
+    E.g.:
+    - <Token 'has'> -> 'Has'
+    - <Token "'ve"> -> 'Have'
+    """
     if auxiliary.text == "'d":
         if 'Part' in auxiliary.head.morph.get('VerbForm'):
             return 'Had'
@@ -41,6 +54,14 @@ def front_auxiliary(auxiliary: Token) -> str:
 
 
 def front_be_verb(be_verb: Token) -> str:
+    """Take be verb (type: spacy Token), return capitalized, expanded (i.e.
+    un-contracted) form.
+
+    E.g.:
+    - <Token 'is'> -> 'Is'
+    - <Token "'re"> -> 'Are'
+
+    """
     if be_verb.text == "'s":
         return 'Is'
     elif be_verb.text == "'re":
