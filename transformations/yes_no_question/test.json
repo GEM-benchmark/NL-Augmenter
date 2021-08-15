@@ -31,15 +31,6 @@
     {
       "class": "YesNoQuestionPerturbation",
       "inputs": {
-        "sentence": "She didn't see me."
-      },
-      "outputs": [{
-        "sentence": "Did she not see me?"
-      }]
-    },
-    {
-      "class": "YesNoQuestionPerturbation",
-      "inputs": {
         "sentence": "Vikram isn't from Canada."
       },
       "outputs": [{
