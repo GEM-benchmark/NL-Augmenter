@@ -3,7 +3,7 @@ from typing import Union, List
 from initialize import spacy_nlp
 import pyinflect
 from nltk.tokenize.treebank import TreebankWordDetokenizer
-from spacy.symbols import nsubj, aux, PROPN, cc
+from spacy.symbols import aux, cc, nsubj, AUX, NOUN, PRON, PROPN, VERB
 from spacy.tokens import Token, Span
 from spacy.tokens.doc import Doc
 
@@ -93,6 +93,9 @@ class YesNoQuestionPerturbation(SentenceOperation):
         verb_head: Token = sentence[0]
         while verb_head != verb_head.head:
             verb_head = verb_head.head
+        # Give up on sentence if POS tag doesn't match dependency tag
+        if verb_head.pos not in {AUX, VERB}:
+            return None
 
         # If there's a coordinating conjunction, give up
         for child in verb_head.children:
@@ -104,6 +107,9 @@ class YesNoQuestionPerturbation(SentenceOperation):
         for child in verb_head.children:
             if child.dep == aux:
                 auxiliary = child
+        # Give up on sentence if POS tag doesn't match dependency tag
+        if auxiliary is not None and auxiliary.pos != AUX:
+            return None
 
         # Look for root token of subject
         for child in verb_head.children:
@@ -112,6 +118,9 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 break
         # If there's no root subject, just give up
         else:
+            return None
+        # Give up on sentence if POS tag doesn't match dependency tag
+        if subject_head.pos not in {NOUN, PROPN, PRON}:
             return None
         subject_phrase_tokens = [t.text_with_ws if t.pos == PROPN
                                  else uncapitalize(t.text_with_ws)
@@ -172,9 +181,11 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 filter(len, [auxiliary, subject_phrase, head_left, infinitive,
                              head_right]))
 
+        """
         if sentence.text == "He'd gone to the store with Michael two days earlier.":
             raise Exception([(token.text_with_ws, token.dep_, token.pos_,
                               token.morph) for token in sentence])
+        """
 
         return question
 
