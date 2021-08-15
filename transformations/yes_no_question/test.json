@@ -88,6 +88,20 @@
         "sentence": "He likes to walk and she likes to run."
       },
       "outputs": []
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "Vikram was here yesterday. He didn't want to eat any cake."
+      },
+      "outputs": [
+        {
+          "sentence": "Was Vikram here yesterday?"
+        },
+        {
+          "sentence": "Did he not want to eat any cake?"
+        }
+      ]
     }
   ]
 }
