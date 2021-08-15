@@ -11,7 +11,7 @@ from interfaces.SentenceOperation import (
 from tasks.TaskTypes import TaskType
 
 """
-A filter on text length (number of tokens).
+A filter on the count of named entities in a sentence.
 """
 
 
@@ -43,7 +43,7 @@ class NamedEntityCountFilter(SentenceOperation):
 
 
 """
-An Example filter for SentenceAndTargetOperation interface.
+An Example filter for SentenceAndTargetNamedEntityCountFilter interface.
 """
 
 
