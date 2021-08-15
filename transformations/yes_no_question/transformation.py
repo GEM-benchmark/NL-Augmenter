@@ -119,7 +119,7 @@ class YesNoQuestionPerturbation(SentenceOperation):
         subject_phrase = ''.join(subject_phrase_tokens).strip()
 
         # Get pre-verb adverbs, etc. (expand "n't" to "not"):
-        all_left_tokens = sentence[:verb_head.i]
+        all_left_tokens = sentence[:verb_head.i - sentence.start]
         head_left_tokens = [token for token in all_left_tokens if
                             token != subject_head and subject_head not in
                             token.ancestors and token != auxiliary and
@@ -133,7 +133,9 @@ class YesNoQuestionPerturbation(SentenceOperation):
         head_right = ''.join('not ' if token.text == "n't" and token.head in
                                        (verb_head,
                                         auxiliary) else token.text_with_ws
-                             for token in sentence[verb_head.i + 1:]).strip()
+                             for token in sentence[verb_head.i + 1 -
+                                                   sentence.start:]).strip()
+
         # Change last token to "?"
         if len(head_right) and head_right[-1] in {'.', '!'}:
             head_right = head_right[:-1]
