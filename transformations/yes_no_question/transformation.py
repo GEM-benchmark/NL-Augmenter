@@ -171,6 +171,14 @@ class YesNoQuestionPerturbation(SentenceOperation):
             question = self.detokenizer.detokenize(
                 filter(len, [auxiliary, subject_phrase, head_left, infinitive,
                              head_right]))
+        
+        if str(sentence) == "Had he gone to the store with Michael two days " \
+                            "earlier?":
+            print(subject_phrase)
+            print(auxiliary)
+            print(head_left)
+            print(verb_head)
+            print(head_right)
 
         return question
 
