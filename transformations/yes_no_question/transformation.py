@@ -60,7 +60,6 @@ def front_be_verb(be_verb: Token) -> str:
     E.g.:
     - <Token 'is'> -> 'Is'
     - <Token "'re"> -> 'Are'
-
     """
     if be_verb.text == "'s":
         return 'Is'
