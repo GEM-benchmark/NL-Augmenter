@@ -31,15 +31,6 @@
     {
       "class": "YesNoQuestionPerturbation",
       "inputs": {
-        "sentence": "He'd gone to the store with Michael two days earlier."
-      },
-      "outputs": [{
-        "sentence": "Had he gone to the store with Michael two days earlier?"
-      }]
-    },
-    {
-      "class": "YesNoQuestionPerturbation",
-      "inputs": {
         "sentence": "She didn't see me."
       },
       "outputs": [{
