@@ -89,6 +89,12 @@ class YesNoQuestionPerturbation(SentenceOperation):
         """Given a statement (type: spacy Span), convert to corresponding
         yes-or-no question.
         """
+
+        # FIXME: This is a debugging breadcrumb
+        if sentence.text == "Vikram isn't from Canada.":
+            raise Exception([(token.text_with_ws, token.dep_, token.pos_,
+                              token.morph) for token in sentence])
+
         # Look for sentence verb head, starting with first token
         verb_head: Token = sentence[0]
         while verb_head != verb_head.head:
@@ -181,9 +187,6 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 filter(len, [auxiliary, subject_phrase, head_left, infinitive,
                              head_right]))
 
-        if sentence.text == "Vikram isn't from Canada.":
-            raise Exception([(token.text_with_ws, token.dep_, token.pos_,
-                              token.morph) for token in sentence])
 
         return question
 
