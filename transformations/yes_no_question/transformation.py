@@ -181,11 +181,9 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 filter(len, [auxiliary, subject_phrase, head_left, infinitive,
                              head_right]))
 
-        """
-        if sentence.text == "He'd gone to the store with Michael two days earlier.":
+        if sentence.text == "Vikram isn't from Canada.":
             raise Exception([(token.text_with_ws, token.dep_, token.pos_,
                               token.morph) for token in sentence])
-        """
 
         return question
 
