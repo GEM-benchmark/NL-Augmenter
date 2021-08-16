@@ -37,8 +37,8 @@ class TokenReplacement(SentenceOperation):
         :param lookup: dictionary or a list of files with lookup tables
         """
         super().__init__(seed, max_outputs=max_outputs)
-        
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        #self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = spacy.load("en_core_web_sm")
         self.replacement_prob = replacement_prob
         self.max_dist = max_dist
         self.min_length = min_length
@@ -65,15 +65,20 @@ class TokenReplacement(SentenceOperation):
 
             # replacement probability weighted by the ratio of tokens that have
             # at least one replacement candidate and min. required length
-            prob = self.replacement_prob * len(doc) / cnt_with_repl \
+            prob_weighted = min(1.0, self.replacement_prob * len(doc) / cnt_with_repl) \
                 if cnt_with_repl > 0 else 0.0
+
+            #print(f"prob_weighted = {prob_weighted:.2f} (all={len(doc)} cnt_with_repl={cnt_with_repl})")
 
             for tok_idx, tok in enumerate(doc):
             
                 text = tok.text
 
-                if tok_status[tok_idx] and random.random() <= prob:
+                p = random.random()
+                if tok_status[tok_idx] and p <= prob_weighted:
                     text = get_token_replacement(text, self.lookup, self.max_dist)
+
+                #print(f"'{tok.text}' -> '{text}' diff={tok.text != text} [status={tok_status[tok_idx]}] (p={p:.2f})")
        
                 if tok.whitespace_:
                     text += " "
