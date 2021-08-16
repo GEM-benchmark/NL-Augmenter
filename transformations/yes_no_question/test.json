@@ -31,15 +31,6 @@
     {
       "class": "YesNoQuestionPerturbation",
       "inputs": {
-        "sentence": "Vikram isn't from Canada."
-      },
-      "outputs": [{
-        "sentence": "Is Vikram not from Canada?"
-      }]
-    },
-    {
-      "class": "YesNoQuestionPerturbation",
-      "inputs": {
         "sentence": "Dave isn't going to Seattle."
       },
       "outputs": [{
