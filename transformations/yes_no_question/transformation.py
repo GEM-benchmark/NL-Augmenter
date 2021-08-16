@@ -85,7 +85,7 @@ class YesNoQuestionPerturbation(SentenceOperation):
         self.detokenizer = TreebankWordDetokenizer()
         self.nlp = spacy_nlp if spacy_nlp else spacy.load('en_core_web_sm')
 
-    def statement_to_question(self, sentence: Span) -> Union[str, None]:
+    def statement_to_question(self, sentence: Doc) -> Union[str, None]:
         """Given a statement (type: spacy Span), convert to corresponding
         yes-or-no question.
         """
@@ -134,7 +134,7 @@ class YesNoQuestionPerturbation(SentenceOperation):
         subject_phrase = ''.join(subject_phrase_tokens).strip()
 
         # Get pre-verb adverbs, etc. (expand "n't" to "not"):
-        all_left_tokens = sentence[:verb_head.i - sentence.start]
+        all_left_tokens = sentence[:verb_head.i - sentence]
         head_left_tokens = [token for token in all_left_tokens if
                             token != subject_head and subject_head not in
                             token.ancestors and token != auxiliary and
@@ -149,7 +149,7 @@ class YesNoQuestionPerturbation(SentenceOperation):
                                        (verb_head,
                                         auxiliary) else token.text_with_ws
                              for token in sentence[verb_head.i + 1 -
-                                                   sentence.start:]).strip()
+                                                   sentence:]).strip()
 
         # Change last token to "?"
         if len(head_right) and head_right[-1] in {'.', '!'}:
@@ -193,11 +193,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
     def generate(self, sentence: str) -> List[str]:
         doc: Doc = self.nlp(sentence)
 
-        questions: List[str] = []
-        for sentence in doc.sents:
-            # TODO: Test if sentence is statement or question
-            question = self.statement_to_question(sentence)
-            if question is not None:
-                questions.append(question)
+        # FIXME: Switch back to multi-sentence version
+        question = self.statement_to_question(doc)
+        questions = [question] if question is not None else []
 
         return questions
