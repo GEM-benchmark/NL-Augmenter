@@ -51,6 +51,17 @@
                 "sentence": "Det er fullt av ål i luftputebåten min"
             },
             "outputs": false
+        },
+        {
+            "class": "LanguageFilter",
+            "args": {
+                "lang": ["en", "de", "fr", "no"],
+                "min_prob": 0.5
+            },
+            "inputs": {
+                "sentence": "Det er fullt av ål i luftputebåten min"
+            },
+            "outputs": true
         }
     ]
 }
