@@ -1,3 +1,5 @@
+import json
+import os
 import re
 from typing import List
 
@@ -5,55 +7,12 @@ from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 
-def weekday_month_abbreviate(text, max_outputs=1):
-    abbdreviations = {
-        "Monday": "Mon.",
-        "Tuesday": "Tue.",
-        "Wednesday": "Wed.",
-        "Thursday": "Thu.",
-        "Friday": "Fri.",
-        "Saturday": "Sat.",
-        "Sunday": "Sun.",
-        "January": "Jan.",
-        "February": "Feb.",
-        "March": "Mar.",
-        "April": "Apr.",
-        "May": "May",
-        "June": "Jun.",
-        "July": "Jul.",
-        "August": "Aug.",
-        "September": "Sep.",
-        "October": "Oct.",
-        "November": "Nov.",
-        "December": "Dec.",
-    }
-
-    expansions = {
-        "Mon.": "Monday",
-        "Tue.": "Tuesday",
-        "Wed.": "Wednesday",
-        "Thu.": "Thursday",
-        "Fri.": "Friday",
-        "Sat.": "Saturday",
-        "Sun.": "Sunday",
-        "Jan.": "January",
-        "Feb.": "February",
-        "Mar.": "March",
-        "Apr.": "April",
-        "May": "May",
-        "Jun.": "June",
-        "Jul.": "July",
-        "Aug.": "August",
-        "Sep.": "September",
-        "Oct.": "October",
-        "Nov.": "November",
-        "Dec.": "December",
-    }
+def weekday_month_abbreviate(text, abbreviations, expansions, max_outputs=1):
 
     regex = re.compile(
         "(%s)"
         % (
-            "|".join([x + "(?!s)" for x in abbdreviations.keys()])
+            "|".join([x + "(?!s)" for x in abbreviations.keys()])
             + "|"
             + "|".join([x.replace(".", "\\.") for x in expansions.keys()])
         )
@@ -61,7 +20,7 @@ def weekday_month_abbreviate(text, max_outputs=1):
 
     return [
         regex.sub(
-            lambda y: {**abbdreviations, **expansions}[
+            lambda y: {**abbreviations, **expansions}[
                 y.string[y.start() : y.end()]
             ],
             text,
@@ -80,6 +39,22 @@ class WeekdayMonthAbbreviation(SentenceOperation):
     def __init__(self):
         super().__init__()
 
+        abbreviations_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "weekday_month_abb_en.json",
+        )
+        expansions_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "weekday_month_exp_en.json",
+        )
+
+        self.abbreviations = json.load(open(abbreviations_path, "r"))
+        self.expansions = json.load(open(expansions_path, "r"))
+
     def generate(self, sentence: str) -> List[str]:
-        perturbed_texts = weekday_month_abbreviate(text=sentence)
+        perturbed_texts = weekday_month_abbreviate(
+            text=sentence,
+            abbreviations=self.abbreviations,
+            expansions=self.expansions,
+        )
         return perturbed_texts
