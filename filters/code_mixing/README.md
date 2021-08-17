@@ -2,7 +2,7 @@
 
 ## What type of a filter is this?
 
-This filter selects for code-mixed texts (i.e. texts using the multiple 
+This filter selects for code-mixed texts (i.e. texts using multiple 
 languages in the same sentence).
 
 ### Evaluation Results
