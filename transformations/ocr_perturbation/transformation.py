@@ -140,7 +140,7 @@ class OcrPerturbation(SentenceOperation):
         else:
             return None
 
-
+"""
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 
 if __name__ == '__main__':
@@ -151,4 +151,4 @@ if __name__ == '__main__':
 
     # generate 'test.json'
     #generate_test_cases(tf, output_filename="test.json")
-
+"""
