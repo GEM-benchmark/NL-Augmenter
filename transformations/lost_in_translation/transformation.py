@@ -18,6 +18,8 @@ class LostInTranslation(SentenceOperation):
                max_length=600,
                max_outputs=1,
                device=-1,
+               scorer='rougeL',
+               min_score=-1,
                ):
     '''
     seed: set to None to disable
@@ -30,6 +32,8 @@ class LostInTranslation(SentenceOperation):
     layers: number of encode/decode operations to perform
     max_length: this is passed to pipeline
     max_outputs: this is passed to super
+    scorer: of rouge1, rouge2, etc.
+    min_score: terminate and return if score drops below this threshold
     '''
     super().__init__(seed,max_outputs)
     self.langs = langs
@@ -37,6 +41,8 @@ class LostInTranslation(SentenceOperation):
     self.device = device
     self.layers = layers
     self.max_length = max_length
+    self.scorer = scorer
+    self.min_score = min_score
 
   def encode_decode(self, text, lang, max_length=600, device=-1):
     # translate and un-translate
@@ -56,7 +62,8 @@ class LostInTranslation(SentenceOperation):
         encode(text,max_length=max_length)[0]['translation_text'],
         max_length=max_length)[0]['translation_text']
 
-  def shell(self, text, langs, how, layers, max_length, device):
+  def shell(self, text, langs, how, layers, max_length, device,
+          scorer, min_score):
     # repeated encode_decode cycles
     # according to self.how
     if how == 'random':
@@ -65,6 +72,9 @@ class LostInTranslation(SentenceOperation):
         target = random.choice(langs)
         text = self.encode_decode(text,
             target, max_length, device)
+        if min_score > 0:
+          if self.similarity(orig,text,scorer) < min_score:
+            break
     else:
       if how == 'shuffle':
         # shuffle the input list
@@ -75,14 +85,24 @@ class LostInTranslation(SentenceOperation):
         target = langs[i % len(langs)]
         text = self.encode_decode(text,
           target, max_length, device)
+        if min_score > 0:
+          if self.similarity(orig,text,scorer) < min_score:
+            break
     return text
+
+  def similarity(self,ref,pred,scorer):
+    metric = load_metric('rouge')
+    metric.add(reference=ref,prediction=pred)
+    score = metric.compute()
+    return score[scorer][0].fmeasure
 
   def generate(self, sentence:str):
     # call shell, which applies the layers
     return [
             self.shell(sentence,
                        self.langs, self.how, self.layers,
-                       self.max_length, self.device
+                       self.max_length, self.device,
+                       self.scorer, self.min_score
                       )
             ]
 
