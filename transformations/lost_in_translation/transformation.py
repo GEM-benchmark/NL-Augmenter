@@ -2,6 +2,7 @@ from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 import random
 from transformers import pipeline
+from datasets import load_metric
 
 class LostInTranslation(SentenceOperation):
   '''
