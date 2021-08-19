@@ -1,0 +1,50 @@
+{
+  "type": "french_conjugation_transformation",
+  "test_cases": [
+    {
+      "class": "Conjugation_transformation",
+      "inputs": {
+        "sentence": "Nous chantons des comptines et ils s'endorment"
+      },
+      "outputs": [{
+        "sentence": "Nous chanterons des comptines et ils s'endormiront"
+      }]
+    },
+    {
+      "class": "Conjugation_transformation",
+      "inputs": {
+        "sentence": "je dois passer chez le coiffeur, je veux faire une couleur"
+      },
+      "outputs": [{
+        "sentence": "je devrai passer chez le coiffeur, je voudrai faire une couleur"
+      }]
+    },
+    {
+      "class": "Conjugation_transformation",
+      "inputs": {
+        "sentence": "Elle mange une glace"
+      },
+      "outputs": [{
+        "sentence": "Elle mangera une glace"
+      }]
+    },
+    {
+      "class": "Conjugation_transformation",
+      "inputs": {
+        "sentence": "je peux obtenir un passeport lorsqu'on remplit toutes les conditions"
+      },
+      "outputs": [{
+        "sentence": "je pourrai obtenir un passeport lorsqu'on remplira toutes les conditions"
+      }]
+    },
+    {
+      "class": "Conjugation_transformation",
+      "inputs": {
+        "sentence": "J'apprends une nouvelle langue"
+      },
+      "outputs": [{
+        "sentence": "J'apprendrai une nouvelle langue"
+      }]
+    }
+  ]
+}
