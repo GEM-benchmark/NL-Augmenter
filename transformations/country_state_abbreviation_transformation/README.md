@@ -33,4 +33,4 @@ The Countries States Cities Database is licensed under the Open Database License
 ## What are the limitations of this transformation?
 The transformation's outputs are simple to be used for data augmentation. Unlike a paraphraser, it is not capable of generating linguistically diverse text.
 
-If both country and state transformation enable, country abbreviation/full name transformation will be applied before state transformation.
+When full name/abbreviation transformations are enabled to both country and state, the former suppresses the latter if a text belongs to both a country and a state name. For example, ‘Mexico’ will be treated as a country (with abbreviation as ‘MEX’), resulting in the transformation of ‘New Mexico’ to ‘New MEX’ instead of ‘NM’.
