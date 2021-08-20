@@ -5,6 +5,8 @@ This perturbation replaces words based on recommendations from a Huggingface tra
 We can use a pre-trained transformer model to replace certain words and use the context of the sentence to guide the replacement. We allow users to pass in a set of POS tags (all enabled by default) by which to select replacement words. The transformer model can also be primed using the `context_text` parameter.
 
 Author name: Gautier Dagan
+Author email: gautier.dagan@gmail.com
+Author Affiliation: Universty of Edinburgh
 
 ## What type of a transformation is this?
 
