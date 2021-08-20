@@ -7,9 +7,9 @@
         "sentence": "Andrew finally returned the French book to Chris that I bought last week"
       },
       "outputs": [{
-        "sentence": "Finally Andrew  returned the French book to Chris that I bought last week"},
+        "sentence": "Finally Andrew returned the French book to Chris that I bought last week"},
         {"sentence": "Andrew finally returned the French book to Chris that last week I bought"},
-        {"sentence": "Andrew finally returned last week the French book to Chris that  I bought"}
+        {"sentence": "Andrew finally returned last week the French book to Chris that I bought"}
       ]
     },
     {
@@ -36,8 +36,8 @@
         "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
       },
       "outputs": [{
-        "sentence": "From 2000 to 2001 ujjal dev dosanjh served as 33rd premier of british columbia"},
-        {"sentence": "Ujjal dev dosanjh served from 2000 to 2001 as 33rd premier of british columbia"
+        "sentence": "From 2000 to 2001 Ujjal Dev Dosanjh served as 33rd Premier of British Columbia"},
+        {"sentence": "Ujjal Dev Dosanjh served from 2000 to 2001 as 33rd Premier of British Columbia"
       }]
     },
     {

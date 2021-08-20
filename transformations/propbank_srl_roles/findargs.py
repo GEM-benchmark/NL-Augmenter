@@ -87,7 +87,7 @@ def exchange_args(s, desc, arg1, arg2):
     u = t.replace(s1, s2)
     s = u.replace("xxxx", s1)
 
-    s = s.capitalize()
+    s = s[0].upper() + s[1:]
 
     return s
 
@@ -110,6 +110,6 @@ def agr2_before_arg1(s, desc, arg1, arg2):
     newtext = [x for x in wordlist if x not in ["xxxx", "xxxx.", "xxxx,"]]
     s = " ".join(newtext)
 
-    s = s.capitalize()
+    s = s[0].upper() + s[1:]
 
     return s
