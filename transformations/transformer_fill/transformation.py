@@ -154,4 +154,4 @@ class TransformerFill(SentenceOperation):
             )
             return [new_sentence]
         else:
-            return [sentence]
+            return []
