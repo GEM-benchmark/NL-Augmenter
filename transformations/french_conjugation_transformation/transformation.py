@@ -2,16 +2,15 @@ import re
 
 import mlconjug
 import nltk
-import spacy
 from spacy.language import Language
 from spacy_lefff import LefffLemmatizer, POSTagger
 
+from initialize import nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 default_conjugator = mlconjug.Conjugator(language="fr")
 
-nlp = spacy.load("fr_core_news_lg")
 nltk.download("wordnet")
 nltk.download("punkt")
 
