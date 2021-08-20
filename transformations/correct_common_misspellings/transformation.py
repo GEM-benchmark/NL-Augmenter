@@ -19,13 +19,17 @@ class CorrectCommonMisspellings(SentenceOperation):
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def generate(self, sentence: str):
-        print('input', sentence)
+        # print('input:', sentence)
         doc = self.nlp(sentence)
         spaces = [True if tok.whitespace_ else False for tok in doc]
 
+        # replace misspelled words
         perturbed_text = []
         for index, token in enumerate(doc):
-            perturbed_text.append(token.text)
+            s = token.text
+            if s in self.COMMON_MISSPELLINGS_DICT:
+                s = self.COMMON_MISSPELLINGS_DICT[s]
+            perturbed_text.append(s)
 
         # add back spaces
         textbf = []
@@ -34,8 +38,8 @@ class CorrectCommonMisspellings(SentenceOperation):
             if spaces[index]:
                 textbf.append(" ")
         output = "".join(textbf)
-        print('output', output)
-        return output
+        # print('output:', output)
+        return [output]
 
 
 def get_common_misspellings_dict():
@@ -4096,7 +4100,7 @@ def get_common_misspellings_dict():
     }
 
 
-'''
+"""
 # code to process machine-readable text into this list (first save from wikipedia into dict.txt)
 import numpy as np
 
@@ -4110,4 +4114,4 @@ d = d[unique_idxs]
 # print as dict
 d = {d[i, 0]: d[i, 1] for i in range(d.shape[0])}
 print(d)
-'''
+"""

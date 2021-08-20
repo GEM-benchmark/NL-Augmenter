@@ -3,19 +3,19 @@
   "test_cases": [{
       "class": "CorrectCommonMisspellings",
       "inputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+        "sentence": "Andrew andd Alice finally returnd the French book that I bought lastr week"
       },
       "outputs": [{
-        "sentence": "Andrew finally returned the French book to Chris that I Bot Lass week"
+        "sentence": "Andrew and Alice finally returned the French book that I bought last week"
       }]
     },
     {
       "class": "CorrectCommonMisspellings",
       "inputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+        "sentence": "It took Paul four yeras before he addopted his cat."
       },
       "outputs": [{
-        "sentence": "Sentences with gapping, Sutch as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+        "sentence": "It took Paul four years before he adopted his cat."
       }]
     }, {
       "class": "CorrectCommonMisspellings",
@@ -28,15 +28,15 @@
     }, {
       "class": "CorrectCommonMisspellings",
       "inputs": {
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+        "sentence": "The chracter in the novel did not know the correct ammount of fuel to put into his vehicule."
       },
       "outputs": [{
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+        "sentence": "The character in the novel did not know the correct amount of fuel to put into his vehicle."
       }]
     }, {
       "class": "CorrectCommonMisspellings",
       "inputs": {
-        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+        "sentence": "Neuroplasticity is a continous processing alowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organiztion."
       },
       "outputs": [{
         "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
