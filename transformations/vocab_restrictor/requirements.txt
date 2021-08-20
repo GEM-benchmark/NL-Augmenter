@@ -1,0 +1,10 @@
+tensorflow==2.5.0
+tensorflow_hub==0.12.0
+tensorflow_text==2.5.0
+scipy==1.7.1
+pattern3
+lemminflect==0.2.2
+nltk==3.2.5
+pandas==1.1.5
+spacy==3.0.0
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz
