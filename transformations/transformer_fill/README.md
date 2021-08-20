@@ -23,7 +23,7 @@ This augmentation would benefit tasks in low-data settings and can help generali
 
 1. While this code/implementation was written from scratch, I later found that it has some overlap with a previous blog post: https://www.depends-on-the-definition.com/data-augmentation-with-transformers/
 
-2. Augmenting NLP data using Bert's Masked Language capabalities is not new. Multiple works have suggested doing so and showed that it can be used to augment low-resource settings (Wu et. al., 2018; Kumar et. al., 2020) and even create adversarial examples (Garg and Ramakrishnan, 2020).
+2. Augmenting NLP data using Bert's Masked Language capabalities is not new. Multiple works have suggested doing so and showed that it can be used to augment low-resource settings (Wu et. al., 2018; Kumar et. al., 2020), assist in task evaluation (Ribeiro et. al., 2020), and even create adversarial examples (Garg and Ramakrishnan, 2020) or attacks (Li et. al., 2020).
 
 ```bibtex
 @inproceedings{wu2019conditional,
@@ -52,6 +52,46 @@ This augmentation would benefit tasks in low-data settings and can help generali
   year={2020}
 }
 ````
+
+```bibtex
+@article{DBLP:journals/corr/abs-2009-07502,
+  author    = {Dianqi Li and
+               Yizhe Zhang and
+               Hao Peng and
+               Liqun Chen and
+               Chris Brockett and
+               Ming{-}Ting Sun and
+               Bill Dolan},
+  title     = {Contextualized Perturbation for Textual Adversarial Attack},
+  journal   = {CoRR},
+  volume    = {abs/2009.07502},
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2009.07502},
+  archivePrefix = {arXiv},
+  eprint    = {2009.07502},
+  timestamp = {Wed, 23 Sep 2020 15:51:46 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2009-07502.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+```
+
+```bibtex
+@inproceedings{ribeiro-etal-2020-beyond,
+    title = "Beyond Accuracy: Behavioral Testing of {NLP} Models with {C}heck{L}ist",
+    author = "Ribeiro, Marco Tulio  and
+      Wu, Tongshuang  and
+      Guestrin, Carlos  and
+      Singh, Sameer",
+    booktitle = "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics",
+    month = jul,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2020.acl-main.442",
+    doi = "10.18653/v1/2020.acl-main.442",
+    pages = "4902--4912",
+}
+```
 
 ## What are the limitations of this transformation?
 
