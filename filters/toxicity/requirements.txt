@@ -1,0 +1,2 @@
+# for toxicity detection
+detoxify==0.2.2
