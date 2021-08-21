@@ -28,7 +28,7 @@
     }, {
       "class": "CorrectCommonMisspellings",
       "inputs": {
-        "sentence": "The chracter in the novel did not know the correct ammount of fuel to put into his vehicule."
+        "sentence": "The chracter in the novel did not know the correct ammount of fuel to put into his vehicle."
       },
       "outputs": [{
         "sentence": "The character in the novel did not know the correct amount of fuel to put into his vehicle."
