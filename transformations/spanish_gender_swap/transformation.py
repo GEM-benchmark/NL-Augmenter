@@ -19,6 +19,8 @@ from .gender_agreement import (
 
 def spanish_gender_swap(text, swap_names, seed=0, nlp=None):
     """Swap the gender of all gender-bearing nouns to female."""
+    if swap_names:
+        raise NotImplementedError("Will implemented here shortly.")
     random.seed(seed)
     doc = nlp(text)
     r = get_replacements(doc, m2f_nouns)
