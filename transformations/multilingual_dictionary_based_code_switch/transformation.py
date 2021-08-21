@@ -98,7 +98,7 @@ class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
                 ouputs.append(out)
         return ouputs
 
-
+'''
 if __name__ == "__main__":
     import json
 
@@ -119,3 +119,4 @@ if __name__ == "__main__":
 
     with open("test.json", "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+'''
