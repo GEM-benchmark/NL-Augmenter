@@ -16,16 +16,16 @@
         "sentence": "The motorized postal line to Hollfeld was abandoned again in the autumn of 1931 because the abutting communities of Zoggendorf and Stücht were not using the service enough for it to be justifiable."
       },
       "outputs": [{
-        "sentence": "The first postal line to Hollfeld was closed again in the summer of 1931 because the abutting communities of Zoggendorf and Stücht were not using the line enough for it to be available."
+        "sentence": "The motorized postal line to Hollfeld was closed again in the summer of 1931 because the surrounding authorities of Zoggendorf and Stücht were not using the service enough for it to be available."
       }]
     },
     {
       "class": "ContextualMeaningPerturbation",
       "inputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+        "sentence": "Alice in Wonderland is a 2010 American animated dark fantasy adventure film"
       },
       "outputs": [{
-        "sentence": "Woman in Wonderland is a 2010 American live-action/animated western fantasy adventure series"
+        "sentence": "Alice in Wonderland is a 2010 short animated dark fantasy adventure series"
       }]
     },
     {
@@ -35,7 +35,7 @@
       },
       "outputs": [
         {
-          "sentence": "Mr Bradley is also a Special Adviser to the President and Ex - Chancellor of the University of Cambridge."
+          "sentence": "Lord Bradley is currently a Senior Adviser to the President and Vice - Chancellor of the University of Cambridge."
         }
       ]
     },

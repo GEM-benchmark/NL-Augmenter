@@ -1,4 +1,6 @@
+import itertools
 import random
+from collections import defaultdict
 
 import spacy
 from transformers import pipeline
@@ -25,6 +27,8 @@ class ContextualMeaningPerturbation(SentenceOperation):
         super().__init__(seed, max_outputs=max_outputs)
         self.verbose = verbose
         self.seed = seed
+        self.max_outputs = max_outputs
+        random.seed(self.seed)
         if self.verbose:
             print("Starting to load the cross-lingual XLM-R (base) model.\n")
         self.unmasker = pipeline(
@@ -106,7 +110,6 @@ class ContextualMeaningPerturbation(SentenceOperation):
             )
         if self.verbose:
             print(num_word_swaps, " tokens will be masked.\n")
-        random.seed(self.seed)
         tokens_to_mask = random.sample(
             [
                 token
@@ -131,11 +134,11 @@ class ContextualMeaningPerturbation(SentenceOperation):
         perturbation_dict = self.get_perturbation_candidates(input)
         tokens, pos_tags, lemmas = self.get_linguistic_features(input)
 
-        replacement_dict = {}
+        replacement_dict = defaultdict(list)
         for original_token in perturbation_dict:
-            replacement_dict[original_token] = perturbation_dict[
-                original_token
-            ][0]["token_str"]
+            #    replacement_dict[original_token] = perturbation_dict[
+            #        original_token
+            #    ][0]["token_str"]
 
             # Replace with the first best choice in case no better candidate is found
             for replacement_candidate in perturbation_dict[original_token]:
@@ -145,28 +148,45 @@ class ContextualMeaningPerturbation(SentenceOperation):
 
                 # The selected word should have the same POS tag but originate from a different word family
                 if p_lemmas != lemmas and p_pos_tags == pos_tags:
-                    replacement_dict[original_token] = replacement_candidate[
-                        "token_str"
-                    ]
-                    break
+                    replacement_dict[original_token].append(
+                        replacement_candidate["token_str"]
+                    )
+                    # break
+            if original_token not in replacement_dict.keys():
+                replacement_dict[original_token].append(
+                    perturbation_dict[original_token][0]["token_str"]
+                )
 
         if self.verbose:
             print("The following words will be replaced:\n")
             for key in replacement_dict:
-                print(key, "is replaced with", replacement_dict[key])
+                print(
+                    "Replacement candidates for",
+                    key,
+                    "include",
+                    replacement_dict[key],
+                )
 
-        perturbed_sentence = input
-        for original_token in replacement_dict:
-            perturbed_sentence = perturbed_sentence.replace(
-                original_token, replacement_dict[original_token], 1
-            )
+        # Calculate how many perturbations will be returned
 
-        return perturbed_sentence
+        keys, values = zip(*replacement_dict.items())
+        permutations = list(itertools.product(*values))
+        num_perturbations = min(self.max_outputs, len(permutations))
+        perturbed_sentences = []
+
+        for i in range(num_perturbations):
+            perturbed_sentence = input
+            for j in range(len(keys)):
+                perturbed_sentence = perturbed_sentence.replace(
+                    keys[j], permutations[i][j], 1
+                )
+            perturbed_sentences.append(perturbed_sentence)
+        return perturbed_sentences
 
     def generate(self, sentence: str):
-        perturbation = self.select_and_apply_perturbations(sentence)
+        perturbation_sentences = self.select_and_apply_perturbations(sentence)
 
         if self.verbose:
             print("Original:/t", sentence)
-            print("Perturbation:/t", perturbation)
-        return [perturbation]
+            print("Perturbation:/t", perturbation_sentences)
+        return perturbation_sentences
