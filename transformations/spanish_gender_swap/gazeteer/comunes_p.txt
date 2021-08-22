@@ -1773,4 +1773,9 @@ leguiístas	leguiístas
 elohístas	elohístas
 librancistas	librancistas
 sablistas	sablistas
+amazonenses	amazonenses
+sanmartinenses	sanmartinenses
+pascuenses	pascuenses
+chimboracenses	chimboracenses
+cursis	cursis
 vocabulistas	vocabulistas

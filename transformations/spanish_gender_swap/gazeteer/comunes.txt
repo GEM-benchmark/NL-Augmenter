@@ -1781,4 +1781,9 @@ leguiísta	leguiísta
 elohísta	elohísta
 librancista	librancista
 sablista	sablista
+amazonense	amazonense
+sanmartinense	sanmartinense
+pascuense	pascuense
+chimboracense	chimboracense
+cursi	cursi
 vocabulista	vocabulista

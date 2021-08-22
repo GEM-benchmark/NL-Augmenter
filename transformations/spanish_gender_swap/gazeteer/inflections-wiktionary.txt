@@ -32,7 +32,7 @@ paparazzi	paparazzi
 ejecutivo	ejecutiva
 negociante	negocianta
 hijo	hija
-hijto	hijita
+hijito	hijita
 mijo	mija
 mijito	mijita
 intendente	intendenta
