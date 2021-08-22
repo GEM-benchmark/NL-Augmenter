@@ -3,6 +3,8 @@ This transformation changes the gender of all animate entities (mostly referring
 
 Author: Juan Diego Rodriguez (juand-r@utexas.edu) <br>  Affiliation: UT Austin
 
+**NOTE:** This requires the Spanish spacy model `es_core_news_lg` (version 3.0.0), available at https://github.com/explosion/spacy-models/releases/download/es_core_news_lg-3.0.0/es_core_news_lg-3.0.0.tar.gz The smaller Spanish spacy models led to grammatical agreement errors due to more frequent POS and dependency errors.
+
 **NOTE: given names swapping is not implemented yet, but will be there soon.**
 
 ## What does this transformation do?
