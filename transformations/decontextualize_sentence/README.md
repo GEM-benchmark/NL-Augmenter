@@ -15,7 +15,18 @@ Used to generate adversarial examples for a text classification task. To underst
 Similarly, This technique generates certain examples by removing these entities from a sentence, and one can expect to observe the same label for the sentence. 
 
 ## What tasks does it intend to benefit?
-This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
+This perturbation would largely benefit textual entailment task where given a sentence pair:
+- S1:`Two women are wandering along the shore drinking iced tea.`
+- S2:`Two women are sitting on a blanket near some rocks talking about politics.`
+- label: `Contradiction`
+
+This transformation is applied to hypothesis and removes all the contextual information. That is the transformed sentence 
+won't be a paraphrase instead implied. Transformation leads to:
+- S1:`Two women are wandering along the shore drinking iced tea.`
+- S2:`Two women are sitting on a blanket near some rocks talking about politics.`
+- label: `Contradiction`
+
+Further, this perturbation can benefit other tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, etc. 
 This perturbation keeps the sentence structure intact and conveys the general meaning of the sentence. 
 

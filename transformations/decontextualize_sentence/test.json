@@ -4,41 +4,66 @@
     {
       "class": "Decontextualize",
       "inputs": {
-        "sentence": "More than a few CEOs say the red-carpet treatment tempts them to return to a heartland city for future meetings."
+        "sentence1": "Two women are wandering along the shore drinking iced tea.",
+        "sentence2": "Two women are sitting on a blanket near some rocks talking about politics.",
+        "target": "Contradiction"
       },
       "outputs": [{
-        "sentence": "More than a few CEOs say the red - carpet treatment tempts them to return to a heartland city ."}
+        "sentence1": "Two women are wandering along the shore drinking iced tea.",
+        "sentence2": "Two women are sitting on a blanket .",
+        "target": "Contradiction"}
       ]
     },
     {
       "class": "Decontextualize",
       "inputs": {
-        "sentence": "If you liked the music we were playing last night, you will absolutely love what we're playing tomorrow!"
+        "sentence1": "John drove the car to reach the hospital.",
+        "sentence2": "John drove the car to reach the hospital.",
+        "target": "Entailment"
       },
       "outputs": [{
-        "sentence": "If you liked the music we were playing , you will absolutely love what we 're playing tomorrow !"},
-        {"sentence": "you will love what we 're playing tomorrow !"},
-        {"sentence": "If you liked the music we were playing last night , you will absolutely love what we 're playing !" }
+        "sentence1": "John drove the car to reach the hospital.",
+        "sentence2": "John drove the car .",
+        "target": "Entailment"}
       ]
     },
     {
       "class": "Decontextualize",
       "inputs": {
-        "sentence": "The keys, which were needed to access the building, were locked in the car."
+        "sentence1": "A Filipino hostage in Iraq was released.",
+        "sentence2": "A Filipino hostage was freed in Iraq.",
+        "target": "Entailment"
       },
       "outputs": [{
-        "sentence": "The keys , which were needed , were locked in the car ."},
-        {"sentence": "The keys , which were needed to access the building , were locked ."}
+        "sentence1": "A Filipino hostage in Iraq was released.",
+        "sentence2": "A Filipino hostage was freed .",
+        "target": "Entailment"}
       ]
     },
     {
       "class": "Decontextualize",
       "inputs": {
-        "sentence": "Did Uriah honestly think he could beat the game in under three hours?"
+        "sentence1": "Two dogs are running through a field.",
+        "sentence2": "The pets are sitting on a couch in a grass field.",
+        "target": "Contradiction"
       },
       "outputs": [{
-        "sentence": "Did Uriah think he could beat the game in under three hours ?"},
-        {"sentence": "Did Uriah honestly think he could beat the game ?"}
+        "sentence1": "Two dogs are running through a field.",
+        "sentence2": "The pets are sitting on a couch .",
+        "target": "Contradiction"}
+      ]
+    },
+    {
+      "class": "Decontextualize",
+      "inputs": {
+        "sentence1": "American Airlines began laying off hundreds of flight attendants on Tuesday, after a federal judge turned aside a union’s bid to block the job losses",
+        "sentence2": "American Airlines will recall hundreds of flight attendants as it steps up the number of flights it operates",
+        "target": "Contradiction"
+      },
+      "outputs": [{
+        "sentence1": "American Airlines began laying off hundreds of flight attendants on Tuesday, after a federal judge turned aside a union’s bid to block the job losses",
+        "sentence2": "American Airlines will recall hundreds of flight attendants",
+        "target": "Contradiction"}
       ]
     }
 
