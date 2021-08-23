@@ -103,30 +103,30 @@ class HashtagGeneration(SentenceOperation):
         return transformed_sentences
 
 
-if __name__ == "__main__":
-    import json
-    from TestRunner import convert_to_snake_case
-
-    tf = HashtagGeneration()
-    test_cases = []
-    input_sent = ["I love domino's pizza .",
-                  "Virat Kohli made a big hundred against Australian team .",
-                  "Many people like T20 cricket these days .",
-                  "Attention is all you need .",
-                  "Natural Language Processing research is awesome ."
-                ]
-
-    for i,sentence in enumerate(input_sent):
-        transformed_sentence = tf.generate(sentence)
-        test_cases.append({
-                    "class": tf.name(),
-                    "inputs": {"sentence": sentence},
-                    "outputs": [],}
-            )
-        for trans_sentence in transformed_sentence:
-            test_cases[i]["outputs"].append({"sentence":trans_sentence})
-    json_file = {"type": convert_to_snake_case("add_hashtags"), "test_cases": test_cases}
-    print(json.dumps(json_file))
+# if __name__ == "__main__":
+#     import json
+#     from TestRunner import convert_to_snake_case
+#
+#     tf = HashtagGeneration()
+#     test_cases = []
+#     input_sent = ["I love domino's pizza .",
+#                   "Virat Kohli made a big hundred against Australian team .",
+#                   "Many people like T20 cricket these days .",
+#                   "Attention is all you need .",
+#                   "Natural Language Processing research is awesome ."
+#                 ]
+#
+#     for i,sentence in enumerate(input_sent):
+#         transformed_sentence = tf.generate(sentence)
+#         test_cases.append({
+#                     "class": tf.name(),
+#                     "inputs": {"sentence": sentence},
+#                     "outputs": [],}
+#             )
+#         for trans_sentence in transformed_sentence:
+#             test_cases[i]["outputs"].append({"sentence":trans_sentence})
+#     json_file = {"type": convert_to_snake_case("add_hashtags"), "test_cases": test_cases}
+#     print(json.dumps(json_file))
     # for ip in input_sent:
     #     #random.seed(0)
     #     print(ip)

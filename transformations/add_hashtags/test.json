@@ -19,14 +19,6 @@
   }, {
     "class": "HashtagGeneration",
     "inputs": {
-      "sentence": "Many people like T20 cricket these days ."
-    },
-    "outputs": [{
-      "sentence": "Many people like T20 cricket these days .#T20 #Cricket #PeopleT20 #ManyPeople"
-    }]
-  }, {
-    "class": "HashtagGeneration",
-    "inputs": {
       "sentence": "Attention is all you need ."
     },
     "outputs": [{
