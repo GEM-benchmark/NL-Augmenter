@@ -3,6 +3,7 @@ spacy-lefff==0.4.0
 textblob_fr==0.2.0
 #link to install
 #https://github.com/explosion/spacy-models/releases/download/fr_core_news_lg-3.0.0/fr_core_news_lg-3.0.0-py3-none-any.whl
+fr_core_news_lg @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_lg-3.0.0/fr_core_news_lg-3.0.0-py3-none-any.whl
 mlconjug==3.4.0
 nltk
 scikit-learn==0.21.3
