@@ -1,0 +1,50 @@
+{
+    "type": "simple_word_stemmer",
+    "test_cases": [
+      {
+        "class": "SimpleWordStemmer",
+        "inputs": {
+          "sentence": "Where did he learn to dance like that?"
+        },
+        "outputs": [{
+           "sentence": "where did he learn to danc like that?"
+        }]
+      },
+      {
+        "class": "SimpleWordStemmer",
+        "inputs": {
+          "sentence": "His eyes were dancing with humor."
+        },
+        "outputs": [{
+          "sentence": "hi eye were danc with humor."
+        }]
+      },
+      {
+        "class": "SimpleWordStemmer",
+        "inputs": {
+          "sentence": "She shook her head and danced away"
+        },
+        "outputs": [{
+          "sentence": "she shook her head and danc away"
+        }]
+      },
+      {
+        "class": "SimpleWordStemmer",
+        "inputs": {
+          "sentence": "Alex was an excellent dancer."
+        },
+        "outputs": [{
+          "sentence": "alex wa an excel dancer."
+        }]
+      },
+      {
+        "class": "SimpleWordStemmer",
+        "inputs": {
+          "sentence": "Provision Maximum multiply owed caring on go gone going was this"
+        },
+        "outputs": [{
+          "sentence": "provis maxiumum multipli owe care on go gone go was this"
+        }]
+      }
+    ]
+  }
