@@ -182,7 +182,7 @@ class SpanishGenderSwap(SentenceOperation):
     def __init__(self, swap_names=False, seed=0):
         super().__init__(seed)
         self.swap_names = swap_names
-        self.nlp = spacy.load("es_core_news_lg")
+        self.nlp = spacy.load("es_core_news_sm")
 
     def generate(self, sentence: str):
         perturbed_texts = spanish_gender_swap(

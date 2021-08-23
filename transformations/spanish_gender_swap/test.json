@@ -70,17 +70,6 @@
     {
       "class": "SpanishGenderSwap",
       "inputs": {
-        "sentence": "\u00bfCu\u00e1ntos hermanos tienes?"
-      },
-      "outputs": [
-        {
-          "sentence": "\u00bfCu\u00e1ntas hermanas tienes?"
-        }
-      ]
-    },
-    {
-      "class": "SpanishGenderSwap",
-      "inputs": {
         "sentence": "Doctor Ruiz es italiano, neur\u00f3tico, habla alem\u00e1n, y le gustan las abejas."
       },
       "outputs": [
@@ -152,17 +141,6 @@
       "outputs": [
         {
           "sentence": "Esta es una lista de todos los pa\u00edses del mundo."
-        }
-      ]
-    },
-    {
-      "class": "SpanishGenderSwap",
-      "inputs": {
-        "sentence": "Manuel, tu esposo, me dijo que vuestro hijo estaba hospitalizado."
-      },
-      "outputs": [
-        {
-          "sentence": "Manuel, tu esposa, me dijo que vuestra hija estaba hospitalizada."
         }
       ]
     },
@@ -411,17 +389,6 @@
     {
       "class": "SpanishGenderSwap",
       "inputs": {
-        "sentence": "Mis hermanos estan dormidos."
-      },
-      "outputs": [
-        {
-          "sentence": "Mis hermanas estan dormidas."
-        }
-      ]
-    },
-    {
-      "class": "SpanishGenderSwap",
-      "inputs": {
         "sentence": "Nosotros est\u00e1bamos dormidos."
       },
       "outputs": [
@@ -587,17 +554,6 @@
     {
       "class": "SpanishGenderSwap",
       "inputs": {
-        "sentence": "Van a juzgar al presunto sicario."
-      },
-      "outputs": [
-        {
-          "sentence": "Van a juzgar a la presunta sicaria."
-        }
-      ]
-    },
-    {
-      "class": "SpanishGenderSwap",
-      "inputs": {
         "sentence": "Los ex\u00e1menes tienen que ser corregidos."
       },
       "outputs": [
@@ -708,17 +664,6 @@
     {
       "class": "SpanishGenderSwap",
       "inputs": {
-        "sentence": "He sido esclavo de mis pasiones."
-      },
-      "outputs": [
-        {
-          "sentence": "He sido esclava de mis pasiones."
-        }
-      ]
-    },
-    {
-      "class": "SpanishGenderSwap",
-      "inputs": {
         "sentence": "He sido un tonto."
       },
       "outputs": [
@@ -818,44 +763,11 @@
     {
       "class": "SpanishGenderSwap",
       "inputs": {
-        "sentence": "\u00a1Qu\u00e9 delgado est\u00e1 ese perro en la calle!"
-      },
-      "outputs": [
-        {
-          "sentence": "\u00a1Qu\u00e9 delgada est\u00e1 esa perra en la calle!"
-        }
-      ]
-    },
-    {
-      "class": "SpanishGenderSwap",
-      "inputs": {
-        "sentence": "Van a juzgar al presunto asesino."
-      },
-      "outputs": [
-        {
-          "sentence": "Van a juzgar a la presunta asesina."
-        }
-      ]
-    },
-    {
-      "class": "SpanishGenderSwap",
-      "inputs": {
         "sentence": "Cuidado con los viejos astronautas australianos."
       },
       "outputs": [
         {
           "sentence": "Cuidado con las viejas astronautas australianas."
-        }
-      ]
-    },
-    {
-      "class": "SpanishGenderSwap",
-      "inputs": {
-        "sentence": "Algunos de esos alpinistas rusos no hablan italiano."
-      },
-      "outputs": [
-        {
-          "sentence": "Algunas de esas alpinistas rusas no hablan italiano."
         }
       ]
     },
