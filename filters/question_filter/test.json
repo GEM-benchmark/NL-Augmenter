@@ -1,0 +1,61 @@
+{
+    "type": "length",
+    "test_cases": [
+        {
+           "class": "NumericQuestion",
+           "inputs": {
+              "context":"The journey from Delhi to New York takes 14 hours",
+              "question": "How long does the journey take?",
+              "answers":["14",
+                         "14 hours"]
+           },
+           "outputs": true
+        },
+        {
+           "class": "WhereQuestion",
+           "inputs": {
+              "context":"The journey from Delhi to New York takes 14 hours",
+              "question": "Where is Delhi located ?",
+              "answers":["in India",
+                         "India"]
+           },
+           "outputs": true
+        },
+        {
+           "class": "PersonQuestion",
+           "inputs": {
+              "context":"Sams' father is 60 years old, his name is Robert",
+              "question": "What is Sam's fathers name",
+              "answers":["Robert"]
+           },
+           "outputs": false
+        },
+        {
+           "class": "CommonNounPhraseQuestion",
+           "inputs": {
+              "context":"",
+              "question": "",
+              "answers":["property damage"]
+           },
+           "outputs": true
+        },
+        {
+            "class": "VerbPhraseQuestion",
+            "inputs": {
+               "context":"",
+               "question": "",
+               "answers":["returned to Earth"]
+            },
+            "outputs": false
+         },
+         {
+            "class": "AdjectivePhraseQuestion",
+            "inputs": {
+               "context":"",
+               "question": "",
+               "answers":["third largest"]
+            },
+            "outputs": true
+         }
+     ]
+  }
