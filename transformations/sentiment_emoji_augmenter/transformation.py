@@ -2,6 +2,7 @@ import random
 
 from interfaces.SentenceOperation import SentenceAndTargetOperation
 import spacy
+from initialize import spacy_nlp
 from tasks.TaskTypes import TaskType
 
 """
@@ -50,7 +51,7 @@ class SentimentEmojiAugmenter(SentenceAndTargetOperation):
 
     def __init__(self, seed=0):
         super().__init__(seed)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.seed = seed
         random.seed(self.seed)
 
@@ -70,7 +71,10 @@ class SentimentEmojiAugmenter(SentenceAndTargetOperation):
             print(
                 f"Perturbed Input from {self.name()} : \nSource: {perturbed_sentences}\nLabel: {perturbed_target}"
             )
-        return perturbed_sentences[0], perturbed_target
+        perturbations = []
+        for p in perturbed_sentences:
+            perturbations.append((p, perturbed_target))
+        return perturbations
 
     def get_emotions(self, sentiment="pos", k1=2):
         additions = []
