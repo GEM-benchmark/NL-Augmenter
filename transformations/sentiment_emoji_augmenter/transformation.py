@@ -42,6 +42,8 @@ negative_emojis = [k for k in emoji.keys() if k[1] < -0.2]
 
 
 class SentimentEmojiAugmenter(SentenceAndTargetOperation):
+    """Adds a positive labelled emoji as well as a positive emoteicon for positive sentences and vice versa.
+    And neutral smiley for unlabelled and neutral sentences."""
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.SENTIMENT_ANALYSIS]
     languages = "All"
     tgt_languages = "All"
@@ -85,7 +87,6 @@ class SentimentEmojiAugmenter(SentenceAndTargetOperation):
             random.seed(self.seed)
             additions.extend(random.sample(emoticons.get(key), 1))
         return additions
-
 
 
 """
