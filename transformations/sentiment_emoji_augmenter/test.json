@@ -1,82 +1,71 @@
 {
-  "type": "SentimentEmojiAugmenter",
+  "type": "sentiment_emoji_augmenter",
   "test_cases": [
     {
       "class": "SentimentEmojiAugmenter",
       "inputs": {
-        "sentence": "The dog was happily wagging its tail.",
-        "target": "pos"
+        "sentence": "Andrew is a happy guy!",
+        "target": "1"
       },
-      "outputs": {
-        "sentence": "The dog was happily wagging its tail. 😎",
-        "target": "pos"
-      }
+      "outputs": [
+        {
+          "sentence": "Andrew is a happy guy! \u2764",
+          "target": "1"
+        },
+        {
+          "sentence": "Andrew is a happy guy! \ufe0f",
+          "target": "1"
+        },
+        {
+          "sentence": "Andrew is a happy guy! \u2665",
+          "target": "1"
+        },
+        {
+          "sentence": "Andrew is a happy guy! \ud83d\ude0a",
+          "target": "1"
+        },
+        {
+          "sentence": "Andrew is a happy guy! =",
+          "target": "1"
+        },
+        {
+          "sentence": "Andrew is a happy guy! )",
+          "target": "1"
+        }
+      ]
     },
     {
       "class": "SentimentEmojiAugmenter",
       "inputs": {
-        "sentence": "Ram und Sita waren glücklich verheiratet.",
-        "target": "pos"
+        "sentence": "Alex is unhappy because he keeps cribbing about his work.",
+        "target": "-1"
       },
-      "outputs": {
-        "sentence": "Ram und Sita waren glücklich verheiratet. 😎",
-        "target": "pos"
-      }
-    },
-    {
-      "class": "SentimentEmojiAugmenter",
-      "inputs": {
-        "sentence": "Le film était bien meilleur que les 100 derniers que j'ai regardés !",
-        "target": "pos"
-      },
-      "outputs": {
-        "sentence": "Le film était bien meilleur que les 100 derniers que j'ai regardés ! 😎",
-        "target": "pos"
-      }
-    },
-    {
-      "class": "SentimentEmojiAugmenter",
-      "inputs": {
-        "sentence": "這部電影比我最近看的 100 部要好得多！",
-        "target": "pos"
-      },
-      "outputs": {
-        "sentence": "這部電影比我最近看的 100 部要好得多！ 😎",
-        "target": "pos"
-      }
-    },
-    {
-      "class": "SentimentEmojiAugmenter",
-      "inputs": {
-        "sentence": "भारत आणि कॅनडा चांगले मित्र आहेत.",
-        "target": "pos"
-      },
-      "outputs": {
-        "sentence": "भारत आणि कॅनडा चांगले मित्र आहेत. 😎",
-        "target": "pos"
-      }
-    },
-    {
-      "class": "SentimentEmojiAugmenter",
-      "inputs": {
-        "sentence": "Tujuh orang terluka!",
-        "target": "neg"
-      },
-      "outputs": {
-        "sentence": "Tujuh orang terluka! 😫",
-        "target": "neg"
-      }
-    },
-    {
-      "class": "SentimentEmojiAugmenter",
-      "inputs": {
-        "sentence": "அது மிக மோசமான படம், அதற்கு நான் மீண்டும் பணம் கொடுக்கவில்லை.",
-        "target": "neg"
-      },
-      "outputs": {
-        "sentence": "அது மிக மோசமான படம், அதற்கு நான் மீண்டும் பணம் கொடுக்கவில்லை. 😫",
-        "target": "neg"
-      }
+      "outputs": [
+        {
+          "sentence": "Alex is unhappy because he keeps cribbing about his work. \u2764",
+          "target": "-1"
+        },
+        {
+          "sentence": "Alex is unhappy because he keeps cribbing about his work. \ufe0f",
+          "target": "-1"
+        },
+        {
+          "sentence": "Alex is unhappy because he keeps cribbing about his work. \u2665",
+          "target": "-1"
+        },
+        {
+          "sentence": "Alex is unhappy because he keeps cribbing about his work. \u2764",
+          "target": "-1"
+        },
+        {
+          "sentence": "Alex is unhappy because he keeps cribbing about his work. \ufe0f",
+          "target": "-1"
+        },
+        {
+          "sentence": "Alex is unhappy because he keeps cribbing about his work. \u2665",
+          "target": "-1"
+        }
+      ]
     }
   ]
 }
