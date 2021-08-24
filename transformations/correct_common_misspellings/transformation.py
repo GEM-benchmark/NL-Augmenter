@@ -19,27 +19,14 @@ class CorrectCommonMisspellings(SentenceOperation):
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def generate(self, sentence: str):
-        # print('input:', sentence)
         doc = self.nlp(sentence)
-        spaces = [True if tok.whitespace_ else False for tok in doc]
-
-        # replace misspelled words
-        perturbed_text = []
-        for index, token in enumerate(doc):
-            s = token.text
-            if s in self.COMMON_MISSPELLINGS_DICT:
-                s = self.COMMON_MISSPELLINGS_DICT[s]
-            perturbed_text.append(s)
-
-        # add back spaces
-        textbf = []
-        for index, token in enumerate(perturbed_text):
-            textbf.append(token)
-            if spaces[index]:
-                textbf.append(" ")
-        output = "".join(textbf)
-        # print('output:', output)
-        return [output]
+        perturbed_text = [
+            self.COMMON_MISSPELLINGS_DICT.get(token.text, token.text) + " "
+            if token.whitespace_
+            else self.COMMON_MISSPELLINGS_DICT.get(token.text, token.text)
+            for token in doc
+        ]
+        return ["".join(perturbed_text)]
 
 
 def get_common_misspellings_dict():
