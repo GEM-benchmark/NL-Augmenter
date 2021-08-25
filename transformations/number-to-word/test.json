@@ -1,60 +1,7 @@
 {
   "type": "number-to-word",
   "test_cases": [
-    {
-      "class": "NumberToWord",
-      "inputs": {
-        "sentence": "Andrew finally returned 5634 French books to Chris that I bought 3 weeks before"
-      },
-      "outputs": [
-        {
-        "sentence": "Andrew finally returned five thousand six hundred and thirty-four French books to Chris that I bought three weeks before"
-        }
-      ]
-    },
-    {
-      "class": "NumberToWord",
-      "inputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between 2 or more arguments."
-      },
-      "outputs": [
-        {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
-        }
-      ]
-    },
-    {
-      "class": "NumberToWord",
-      "inputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
-      },
-      "outputs": [
-        {
-        "sentence": "Alice in Wonderland is a two thousand and ten American live-action/animated dark fantasy adventure film"
-        }
-      ]
-    },
-    {
-      "class": "NumberToWord",
-      "inputs": {
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia"
-      },
-      "outputs": [
-        {
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia"
-        }
-      ] 
-    },
-    {
-      "class": "NumberToWord",
-      "inputs": {
-        "sentence": "She has bought 345 books from our local book store to support them."
-      },
-      "outputs": [
-        {
-        "sentence": "She has bought three hundred and forty-five books from our local book store to support them."
-        }
-      ] 
+   ] 
     } 
   ]
 }
