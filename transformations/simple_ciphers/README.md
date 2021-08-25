@@ -5,8 +5,8 @@ This transformation modifies the input text in ways that a human could rapidly (
   input sequences almost completely unlike typical input sequences which are used
   during language model training.
 
-Author name: Jascha Sohl-Dickstein
-Author email: jaschasd@google.com
+Author name: Jascha Sohl-Dickstein\
+Author email: jaschasd@google.com\
 Author Affiliation: Google Brain
 
 ## What type of a transformation is this?
@@ -45,7 +45,7 @@ T𝗵𝙴 ꮢ𝑬𝙳 ẝ𝘖𝛸 𝗷𖽂𐌑𝚙Ꭼ𝚍 ੦Ｖ𝖤𝙧 𑢼ℋ
 Gur erq sbk whzcrq bire gur ynml qbt.
 ```
 
-These transformations all change the input in ways that should be fairly easy for humans to decipher, but which will make the task far more difficult for existing language models.
+These transformations all change the input in ways that should be fairly easy for humans to decipher, but which will make interpreting the text far more difficult for existing language models.
 
 ## What tasks does it intend to benefit?
 
