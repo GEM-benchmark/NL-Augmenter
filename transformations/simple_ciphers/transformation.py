@@ -78,8 +78,9 @@ homoglyphs = {
 def substitute_homoglyphs(sentence):
   newSentence = ""
   for character in sentence:
-    if character in homoglyphs:
-      newSentence += random.choice(homoglyphs[character])
+    lc = character.lower()
+    if lc in homoglyphs:
+      newSentence += random.choice(homoglyphs[lc])
     else:
       newSentence += character
   return newSentence
@@ -93,6 +94,7 @@ class SimpleCiphers(SentenceOperation):
   """
 
   def __init__(self, seed=0, max_outputs=8):
+    random.seed(seed)
     super().__init__(seed, max_outputs=max_outputs)
 
   
@@ -119,13 +121,8 @@ if __name__ == '__main__':
     from TestRunner import convert_to_snake_case
 
     tf = SimpleCiphers(max_outputs=20)
-    sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
-    for sentence in ["Andrew finally returned the French book to Chris that I bought last week",
-                     "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
-                     "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
-                     "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
-                     "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."]:
+    for sentence in ["The red fox jumped over the lazy dog."]:
         test_cases.append({
             "class": tf.name(),
             "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
