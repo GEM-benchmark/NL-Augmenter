@@ -29,6 +29,8 @@ def double_characters(sentence):
 def space_characters(sentence):
   return " ".join([character for character in sentence])
 
+# Homoglyph list taken from https://github.com/codebox/homoglyph/
+# released under an MIT License https://github.com/codebox/homoglyph/blob/master/LICENSE
 homoglyphs = {
     "a":"AΑАᎪᗅᴀꓮꭺＡ𐊠𖽀𝐀𝐴𝑨𝒜𝓐𝔄𝔸𝕬𝖠𝗔𝘈𝘼𝙰𝚨𝛢𝜜𝝖𝞐aɑαа⍺ａ𝐚𝑎𝒂𝒶𝓪𝔞𝕒𝖆𝖺𝗮𝘢𝙖𝚊𝛂𝛼𝜶𝝰𝞪",
     "b":"BʙΒВвᏴᏼᗷᛒℬꓐꞴＢ𐊂𐊡𐌁𝐁𝐵𝑩𝓑𝔅𝔹𝕭𝖡𝗕𝘉𝘽𝙱𝚩𝛣𝜝𝝗𝞑bƄЬᏏᑲᖯｂ𝐛𝑏𝒃𝒷𝓫𝔟𝕓𝖇𝖻𝗯𝘣𝙗𝚋",
@@ -105,13 +107,14 @@ class SimpleCiphers(SentenceOperation):
             rot13(sentence)]
 
 
+"""
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 # You don't need to keep this code in your transformation.
 if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
 
-    tf = ButterFingersPerturbation(max_outputs=3)
+    tf = SimpleCiphers(max_outputs=20)
     sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
     for sentence in ["Andrew finally returned the French book to Chris that I bought last week",
@@ -124,4 +127,5 @@ if __name__ == '__main__':
             "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    print(json.dumps(json_file))
+    print(json.dumps(json_file, indent=2))
+"""
