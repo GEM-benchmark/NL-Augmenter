@@ -2,8 +2,8 @@
 
 This transformation modifies the input text in ways that a human could rapidly (or with
   a few minutes of work in the case of rot13) decipher, but which make the
-  input sequences almost completely unlike most of the data a language model is
-  likely trained on.
+  input sequences almost completely unlike typical input sequences which are used
+  during language model training.
 
 Author name: Jascha Sohl-Dickstein
 Author email: jaschasd@google.com
@@ -11,7 +11,7 @@ Author Affiliation: Google Brain
 
 ## What type of a transformation is this?
 
-This transformation modifies text using a variety of very simple "ciphers", that make the input sequence very dissimilar from typical input sequences, without losing any information in the input sequence:
+This transformation modifies text using a variety of very simple "ciphers", that make the input sequence very dissimilar at the token level from its original form, but without losing any information in the input sequence:
 1. Repeat every character twice
 ```
 TThhee  rreedd  ffooxx  jjuummppeedd  oovveerr  tthhee  llaazzyy  ddoogg..
