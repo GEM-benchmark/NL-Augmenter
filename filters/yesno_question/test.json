@@ -1,50 +1,5 @@
 {
     "type": "yes_no_question_filter",
     "test_cases": [
-        {
-            "class": "YesNoQuestionFilter",
-            "inputs": {
-                "context": "",
-                "question": "Wasn't she angry when you told her about the accident?",
-                "answers": []
-            },
-            "outputs": true
-        },
-        {
-            "class": "YesNoQuestionFilter",
-            "inputs": {
-                "context": "",
-                "question": "Have you got an identity card?",
-                "answers": []
-            },
-            "outputs": true
-        },
-        {
-            "class": "YesNoQuestionFilter",
-            "inputs": {
-                "context": "",
-                "question": "Would you rather drink tea or a coffee?",
-                "answers": []
-            },
-            "outputs": false
-        },
-        {
-            "class": "YesNoQuestionFilter",
-            "inputs": {
-                "context": "",
-                "question": "Should you need something, I will be in my room",
-                "answers": []
-            },
-            "outputs": false
-        },
-        {
-            "class": "YesNoQuestionFilter",
-            "inputs": {
-                "context": "",
-                "question": "Can Mark or John do the dishes?",
-                "answers": []
-            },
-            "outputs": true
-        }
     ]
 }
