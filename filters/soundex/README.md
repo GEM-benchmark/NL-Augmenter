@@ -13,6 +13,9 @@ incorrect spellings. It can also help to include more texts that include related
 
 ```
 python evaluate.py -f PhoneticMatchFilter
+```
+
+```
 Undefined task type, switching to default task %s TEXT_CLASSIFICATION
 Loading <imdb> dataset to evaluate <aychang/roberta-base-imdb> model.
 Here is the performance of the model aychang/roberta-base-imdb on the test[:20%] split of the imdb dataset

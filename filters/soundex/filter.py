@@ -6,12 +6,12 @@ import jellyfish
 
 
 class PhoneticMatchFilter(SentenceOperation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    tasks = [e for e in TaskType]
     languages = ["en"]
 
-    def __init__(self, keywords=None, algorithm: str = 'soundex'):
+    def __init__(self, keywords, algorithm: str = 'soundex'):
         super().__init__()
-        self.keywords = keywords if keywords else ["hatstand", "jacket", "umbrella", "pineapple"]
+        self.keywords = keywords
         try:
             self.algo = getattr(jellyfish, algorithm)
         except AttributeError:
