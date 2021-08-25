@@ -7,7 +7,7 @@ from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
 
 """
-A filter on text length (number of tokens).
+This filter allows to select questions that can be correctly answered with either 'yes' or 'no'.
 """
 
 
@@ -55,31 +55,3 @@ class YesNoQuestionFilter(QuestionAnswerOperation):
 
         return True
 
-
-# if __name__ == "__main__":
-#     import json
-#     from TestRunner import convert_to_snake_case
-
-#     tf = YesNoQuestionFilter()
-
-#     test_cases = []
-#     for i, sentence in enumerate(
-#         [
-#             "Wasn't she angry when you told her about the accident?",
-#             "Have you got an identity card?",
-#             "Would you rather drink tea or a coffee?",
-#             "Should you need something, I will be in my room",
-#             "Can Mark or John do the dishes?",
-#         ]
-#     ):
-#         res = tf.filter("", sentence, [])
-#         test_cases.append(
-#             {
-#                 "class": tf.name(),
-#                 "inputs": {"context": "", "question": sentence, "answers": []},
-#                 "outputs": res,
-#             }
-#         )
-
-#     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-#     print(json.dumps(json_file))
