@@ -12,7 +12,10 @@ Author Affiliation: Columbia University
 1. get word2vec working - done
 2. figure out SVO break down of sentences - close 
 3. potentially - figure out gender of the SVO (using french dictionary)
-4. mash it into the transformation 
+4. mash it into the transformation in the expected format 
+
+1. set up test.json
+2. write the readme properly
 
 ## What type of a transformation is this?
 
@@ -35,6 +38,10 @@ A json file named spell_errors.json has been created by merging words from below
 
 ## What are the limitations of this transformation?
 - The transformation applies Word2Vec, but does not check whether the 
+
+
+- Sometimes Word2Vec addition of "male" does not make sense, for example, here "company" -> "woman" 	
+  When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the woman took him seriously.
 
 
 ## References (bibtex)
