@@ -1,50 +1,5 @@
 {
   "type": "swap_character_perturbation",
   "test_cases": [
-    {
-      "class": "SwapCharactersPerturbation",
-      "inputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
-      },
-      "outputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought lats week"
-      }
-    },
-    {
-      "class": "SwapCharactersPerturbation",
-      "inputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
-      },
-      "outputs": {
-        "sentence": "Sentences iwth gapping, such as Paul lkies ocffee and Mary eta, lack an overt predicate to inidcate the relation between twoo r more arguments."
-      }
-    },
-    {
-      "class": "SwapCharactersPerturbation",
-      "inputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
-      },
-      "outputs": {
-        "sentence": "lAic ein Wonderland is a2 010 Americanl vie-action/animated dark fantasy adventure film"
-      }
-    },
-    {
-      "class": "SwapCharactersPerturbation",
-      "inputs": {
-        "sentence": "T"
-      },
-      "outputs": {
-        "sentence": "T"
-      }
-    },
-    {
-      "class": "SwapCharactersPerturbation",
-      "inputs": {
-        "sentence": "Neuroplasticity isa  cotnniuous processing allowin gshort-term, medim-uterm ,nad long-term remodeling oft he neuronosynaptic orgnaization."
-      },
-      "outputs": {
-        "sentence": "Neuroplasctiity ias  cotnniuous processign allowin gshort-term, mdeim-uterm ,nad long-termr emodeling oft h eneuronsoynaptic orgnaization."
-      }
-    }
   ]
 }
