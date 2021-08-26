@@ -1,13 +1,12 @@
-import numpy
 import pytest
 import random
+
+import numpy as np
+
 from itertools import zip_longest
 
-
 from initialize import initialize_models
-
 from interfaces.SentencePairOperation import SentencePairOperation
-
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import (
     SentenceAndTargetOperation,
