@@ -1,0 +1,96 @@
+{
+  "type": "spelling_mis_correction",
+  "test_cases": [
+    {
+      "class": "SpellingMisCorrection",
+      "inputs": {
+        "sentence": "Vinay got a cool whiteboard from the old office"
+      },
+      "outputs": [{
+        "sentence": "Vinay may a could dashboard from the old office"
+      }]
+    },
+    {
+      "class": "SpellingMisCorrection",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "Andrew formally regained the French going to Chris that I caught pass week"
+      }]
+    },
+    {
+      "class": "SpellingMisCorrection",
+      "inputs": {
+        "sentence": "I am way too excited about the fact that I now have a bunch of plants in my room"
+      },
+      "outputs": [{
+        "sentence": "I can few too excited about the fact that I now have a bunch of plants in my room"
+      }]
+    },
+    {
+      "class": "SpellingMisCorrection",
+      "inputs": {
+        "sentence": "I just got a call from a wrong number from Fresno"
+      },
+      "outputs": [{
+        "sentence": "I just got a cool for a wrong imbued duck Fresno"
+      }]
+    },
+    {
+      "class": "SpellingMisCorrection",
+      "inputs": {
+        "sentence": "I heard about those very exclusive illegal cheese clubs in town and I came here to say that I want in on this"
+      },
+      "outputs": [{
+        "sentence": "I heard about those very exclusive illegal selfish colour me to have I back here to weigh down I quit in on this"
+      }]
+    },
+    {
+      "class": "SpellingMisCorrection",
+      "inputs": {
+        "sentence": "What do you mean, I don't have any more cloud credits"
+      },
+      "outputs": [{
+        "sentence": "What do you next I you t have any more cloud credits"
+      }]
+    },
+    {
+      "class": "SpellingMisCorrection",
+      "inputs": {
+        "sentence": "The cat is ALWAYS watching- ALWAYS"
+      },
+      "outputs": [{
+        "sentence": "The had me ALWAYS backing ALWAYS"
+      }]
+    },
+    {
+      "class": "SpellingMisCorrection",
+      "inputs": {
+        "sentence": "I wanted to go to Target to get a picture frame for my Jackson Pollock print, but my roommate asked to park behind me earlier and I'm too shy to ask him to move his car, so I guess I'll wait a few days"
+      },
+      "outputs": [{
+        "sentence": "I wanted to go to Target to get a picture stamp for my Jackson Pollock print but my roommate asked to park behind me earlier and I do too shy to ask him to move his car so I guess I ll wait a few days"
+      }]
+    },
+    {
+      "class": "SpellingMisCorrection",
+      "inputs": {
+        "sentence": "Yeah man, it really tied the room together"
+
+      },
+      "outputs": [{
+        "sentence": "Yeah made not really then the room together"
+      }]
+    },
+    {
+      "class": "SpellingMisCorrection",
+      "inputs": {
+        "sentence": "I make big lebowski references and collect plants in lieu of a personality"
+      },
+      "outputs": [{
+        "sentence": "I make bat lebowski references and complete plants is also of a personality"
+      }]
+    }
+  ]
+}
