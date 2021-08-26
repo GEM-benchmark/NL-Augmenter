@@ -1,4 +1,6 @@
+import numpy
 import pytest
+import random
 from itertools import zip_longest
 
 
@@ -15,8 +17,16 @@ from interfaces.TaggingOperation import TaggingOperation
 
 from TestRunner import OperationRuns
 
+RANDOM_SEED = 0
+def reset_random_seed():
+    """
+    reset random seeds before tests to make them more deterministic
+    """
+    random.seed(RANDOM_SEED)
+    np.random.seed(RANDOM_SEED)
+    # TODO -- are there any other random seeds that should be reset here?
 
-
+    
 def get_assert_message(transformation, expected_output, predicted_output):
     transformation_name = transformation.__class__.__name__
     return (
@@ -27,6 +37,7 @@ def get_assert_message(transformation, expected_output, predicted_output):
 
 
 def execute_sentence_operation_test_case(transformation, test):
+    reset_random_seed()
     filter_args = test["inputs"]
     outputs = test["outputs"]
     perturbs = transformation.generate(**filter_args)
@@ -37,6 +48,7 @@ def execute_sentence_operation_test_case(transformation, test):
 
 
 def execute_sentence_pair_operation_test_case(transformation, test):
+    reset_random_seed()
     filter_args = test["inputs"]
     outputs = test["outputs"]
     perturbs = transformation.generate(**filter_args)
@@ -53,6 +65,7 @@ def execute_sentence_pair_operation_test_case(transformation, test):
 
 
 def execute_sentence_target_operation_test_case(transformation, test):
+    reset_random_seed()
     filter_args = test["inputs"]
     outputs = test["outputs"]
     perturbs = transformation.generate(**filter_args)
@@ -66,6 +79,7 @@ def execute_sentence_target_operation_test_case(transformation, test):
 
 
 def execute_ques_ans_test_case(transformation, test):
+    reset_random_seed()
     filter_args = test["inputs"]
     outputs = test["outputs"]
     perturbs = transformation.generate(**filter_args)
@@ -82,6 +96,7 @@ def execute_ques_ans_test_case(transformation, test):
 
 
 def execute_tagging_test_case(transformation, test):
+    reset_random_seed()
     filter_args = test["inputs"]
     token_sequence = filter_args["token_sequence"]
     tag_sequence = filter_args["tag_sequence"]
@@ -101,6 +116,7 @@ def execute_tagging_test_case(transformation, test):
 
 
 def execute_test_case_for_transformation(transformation_name):
+    reset_random_seed()
     print(f"Executing test cases for {transformation_name}")
     tx = OperationRuns(transformation_name)
     for transformation, test in zip(tx.operations, tx.operation_test_cases):
@@ -120,6 +136,7 @@ def execute_test_case_for_transformation(transformation_name):
 
 
 def execute_test_case_for_filter(filter_name):
+    reset_random_seed()
     print(f"Executing test cases for {filter_name}")
     tx = OperationRuns(filter_name, "filters")
     for filter, test in zip(tx.operations, tx.operation_test_cases):
@@ -131,6 +148,7 @@ def execute_test_case_for_filter(filter_name):
 
 
 def test_operation(transformation_name, filter_name):
+    reset_random_seed()
     initialize_models()
     execute_test_case_for_transformation(transformation_name)
     execute_test_case_for_filter(filter_name)
