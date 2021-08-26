@@ -75,12 +75,12 @@ homoglyphs = {
     "8":"8Ȣȣ৪੪ଃ８𐌚𝟖𝟠𝟪𝟴𝟾𞣋",
     "9":"9৭੧୨൭ⳊꝮ９𑢬𑣌𑣖𝟗𝟡𝟫𝟵𝟿",
 }
-def substitute_homoglyphs(sentence):
+def substitute_homoglyphs(sentence, rng):
   newSentence = ""
   for character in sentence:
     lc = character.lower()
     if lc in homoglyphs:
-      newSentence += random.choice(homoglyphs[lc])
+      newSentence += rng.choice(homoglyphs[lc])
     else:
       newSentence += character
   return newSentence
@@ -94,7 +94,7 @@ class SimpleCiphers(SentenceOperation):
   """
 
   def __init__(self, seed=0, max_outputs=8):
-    random.seed(seed)
+    self.rng = random.Random(seed)
     super().__init__(seed, max_outputs=max_outputs)
 
   
@@ -109,7 +109,7 @@ class SimpleCiphers(SentenceOperation):
             reverse_characters(sentence),
             reverse_each_word(sentence),
             reverse_words(sentence),
-            substitute_homoglyphs(sentence),
+            substitute_homoglyphs(sentence, self.rng),
             rot13(sentence)]
 
 
