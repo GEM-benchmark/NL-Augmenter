@@ -2,6 +2,7 @@ import numpy as np
 
 from interfaces.SentenceOperation import SentenceAndTargetOperation
 from tasks.TaskTypes import TaskType
+from nltk import tokenize
 
 """
 Adds a positive labelled emoji as well as a positive emoteicon for positive sentences and vice versa. 
@@ -40,6 +41,12 @@ neutral_emojis = lambda threshold: [k for k in emoji.keys() if 0.2 > k[1] > -thr
 negative_emojis = lambda threshold: [k for k in emoji.keys() if k[1] < - threshold]
 
 
+def find_all_char_positions(text, c):
+    idx = text.find(c)
+    while idx != -1:
+        yield idx
+        idx = text.find(c, idx + 1)
+
 class SentimentEmojiAugmenter(SentenceAndTargetOperation):
     """Adds a positive labelled emoji as well as a positive emoteicon for positive sentences and vice versa.
     And neutral smiley for unlabelled and neutral sentences.
@@ -49,11 +56,13 @@ class SentimentEmojiAugmenter(SentenceAndTargetOperation):
     languages = "All"
     tgt_languages = "All"
 
-    def __init__(self, seed=0, threshold=0.2):
+    def __init__(self, seed=0, threshold=0.2, exaggeration=2, k=2):
         super().__init__(seed)
         self.seed = seed
         np.random.seed(self.seed)
         self.threshold = threshold
+        self.exaggeration = exaggeration
+        self.k = k
 
     def generate(self, sentence: str, target: str):
         if target is None:
@@ -64,7 +73,19 @@ class SentimentEmojiAugmenter(SentenceAndTargetOperation):
             emotions = self.get_emotions("neg", self.threshold)
         else:
             emotions = self.get_emotions("neutral", self.threshold)
-        perturbed_sentences = [sentence + " " + emotion for emotion in emotions if emotion.strip()]
+
+        spaces = find_all_char_positions(sentence, " ")
+        a = [s for s in spaces]
+        perturbed_sentences = []
+        if len(a) > self.k > 0:
+            i_s = np.random.choice(a, self.k)
+            for i in i_s:
+                perturbed_sentences.append([sentence[:i] + (emotion * self.exaggeration) + sentence[i:] for emotion in
+                                   emotions if emotion.strip()])
+
+        perturbed_sentences.extend([sentence + " " + (emotion * self.exaggeration) for emotion in emotions if emotion.strip()])
+        perturbed_sentences.extend([(emotion * self.exaggeration) + " " + sentence for emotion in emotions if emotion.strip()])
+
         perturbed_target = target
 
         if self.verbose:
@@ -95,34 +116,3 @@ class SentimentEmojiAugmenter(SentenceAndTargetOperation):
             key = list(emoticons)[index]
             additions.extend(np.random.choice(emoticons.get(key)))
         return additions
-
-
-
-# Sample code to demonstrate adding test cases.
-
-
-# Sample code to demonstrate adding test cases.
-'''
-if __name__ == '__main__':
-    import json
-    from TestRunner import convert_to_snake_case
-
-    tf = SentimentEmojiAugmenter()
-    test_cases = []
-    src = ["Andrew is a happy guy!",
-           "Alex is unhappy"
-           " because he keeps cribbing about his work."]
-    tgt = ["1",
-           "-1", ]
-    for idx, (sentence, target) in enumerate(zip(src, tgt)):
-        perturbeds = tf.generate(sentence, target)
-        test_cases.append({
-            "class": tf.name(),
-            "inputs": {"sentence": sentence, "target": target},
-            "outputs": []}
-        )
-        for sentence, target in perturbeds:
-            test_cases[idx]["outputs"].append({"sentence": sentence, "target": target})
-    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    print(json.dumps(json_file))
-'''
