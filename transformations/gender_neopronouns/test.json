@@ -22,7 +22,7 @@
           "sentence": "I met them today."
         },
         "outputs": [{
-          "sentence": "I met xem today."
+          "sentence": "Xe met xem today."
         }]
       },
       {
@@ -34,19 +34,7 @@
           "sentence": "If I need a phone my friend will let me borrow theirs."
         },
         "outputs": [{
-          "sentence": "If I need a phone my friend will let me borrow eirs."
-        }]
-      },
-      {
-        "class": "GenderNeoPronouns",
-        "args" :{
-          "swap_neopronoun": "Ze"
-       },
-        "inputs": {
-          "sentence": "I have to drive myself to school."
-        },
-        "outputs": [{
-          "sentence": "Ze has to drive zirself to school."
+          "sentence": "If Ey need a phone eirs friend will let em borrow eirs."
         }]
       }
     ]

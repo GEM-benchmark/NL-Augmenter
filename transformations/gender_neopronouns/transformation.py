@@ -9,6 +9,13 @@ from .constants import TAGS
 
 
 class GenderNeoPronouns(SentenceOperation):
+    """[summary]
+
+    Args:
+        SentenceOperation ([type]): [description]
+
+    """
+
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
