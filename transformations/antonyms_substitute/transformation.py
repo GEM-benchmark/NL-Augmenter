@@ -11,7 +11,7 @@ from tasks.TaskTypes import TaskType
 
 
 """
-The code is adapted from @zijwang https://github.com/GEM-benchmark/NL-Augmenter/tree/main/transformations/antonyms_substitute
+The code is adapted from @zijwang https://github.com/GEM-benchmark/NL-Augmenter/tree/main/transformations/synonym_substitution
 """
 
 
