@@ -7,7 +7,7 @@ import os
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-def chinese_butter_finger(text, chinese_character_database, prob=0.2, keyboard="pinyin", seed=0, max_outputs=1):
+def chinese_butter_finger(text, chinese_character_database, prob=0.3, keyboard="pinyin", seed=0, max_outputs=1):
     random.seed(seed)
 
     perturbed_texts = []
