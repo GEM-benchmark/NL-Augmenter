@@ -7,6 +7,8 @@ Author name: Roy Rinberg
 Author email: royrinberg@gmail.com
 Author Affiliation: Columbia University
 
+# Extra:
+need to run `python -m spacy download en_core_web_sm` before running.
 
 ## Roy work to do :
 1. get word2vec working - done
@@ -43,6 +45,7 @@ A json file named spell_errors.json has been created by merging words from below
 - Sometimes Word2Vec addition of "male" does not make sense, for example, here "company" -> "woman" 	
   When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the woman took him seriously.
 
+- A foreign name like "Dev" which is someone's name, may be interpretted as a developer, and changed like a noun.
 
 ## References (bibtex)
 
