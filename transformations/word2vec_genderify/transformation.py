@@ -33,6 +33,7 @@ def replace_word_in_sentence(sentence, word_to_replace, replacement):
     """
     return re.sub(word_to_replace, replacement, sentence)
 
+
 def get_nouns(sentence: str, nlp) -> List:
     """ given a sentence, return all the singular/plural nouns in 2 lists
 
@@ -117,14 +118,14 @@ def swap_out_words(sentence: str, noun: str, x_ify_function: Callable[[str],
 
     # find the replacement word for the noun
     replacement = x_ify_function(singularized_noun)
-    
+
     # some words from w2v come out with _, ie. "brain_plasticity", split them apart
     split_words = replacement.split("_")
     print(f"replacement is {replacement} nd split words are {split_words}")
     # if the noun is a plural one, convert the words to the plural form
     if not is_singular_noun:
         # in english typically only the last word in a compound noun is pluralized
-        split_words[-1] = inflect_engine.plural(split_words[-1]) 
+        split_words[-1] = inflect_engine.plural(split_words[-1])
     replacement = " ".join(split_words)
     logging.debug(f"we are replacing {noun} with {replacement}")
     return replace_word_in_sentence(sentence, noun, replacement)

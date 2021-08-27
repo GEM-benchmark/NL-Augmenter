@@ -1,49 +1,49 @@
 {
-  "type": "gender_ify",
-  "test_cases": [
-    {
-      "class": "GenderifyOperation",
-      "inputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
-      },
-      "outputs": [
+    "type": "gender_ify",
+    "test_cases": [
         {
-          "sentence": "andrew finally returned the french memoir to chris that i bought last week"
-        }
-      ]
-    },
-    {
-      "class": "GenderifyOperation",
-      "inputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
-      },
-      "outputs": [
+            "class": "GenderifyOperation",
+            "inputs": {
+                "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+            },
+            "outputs": [
+                {
+                    "sentence": "andrew finally returned the french memoir to chris that i bought last week"
+                }
+            ]
+        },
         {
-          "sentence": "maximum sentences with gapping, such as paul likes coffee and mary tea, lack an overt predicate to indicate the relation between two or more arguments."
-        }
-      ]
-    },
-    {
-      "class": "GenderifyOperation",
-      "inputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
-      },
-      "outputs": [
+            "class": "GenderifyOperation",
+            "inputs": {
+                "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+            },
+            "outputs": [
+                {
+                    "sentence": "maximum sentences with gapping, such as paul likes coffee and mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+                }
+            ]
+        },
         {
-          "sentence": "alice in winter wonderland is a 2010 american live-action/animated dark fantasy adventure film"
-        }
-      ]
-    },
-    {
-      "class": "GenderifyOperation",
-      "inputs": {
-        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
-      },
-      "outputs": [
+            "class": "GenderifyOperation",
+            "inputs": {
+                "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+            },
+            "outputs": [
+                {
+                    "sentence": "alice in winter wonderland is a 2010 american live-action/animated dark fantasy adventure film"
+                }
+            ]
+        },
         {
-          "sentence": "brain plasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+            "class": "GenderifyOperation",
+            "inputs": {
+                "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+            },
+            "outputs": [
+                {
+                    "sentence": "brain plasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
