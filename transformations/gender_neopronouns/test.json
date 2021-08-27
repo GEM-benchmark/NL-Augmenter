@@ -1,0 +1,53 @@
+{
+    "type": "gender_neopronouns",
+    "test_cases": [
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "He went to the mall."
+        },
+        "outputs": [{
+          "sentence": "They went to the mall."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "Xe"
+       },
+        "inputs": {
+          "sentence": "I met them today."
+        },
+        "outputs": [{
+          "sentence": "I met xem today."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "Ey"
+       },
+        "inputs": {
+          "sentence": "If I need a phone my friend will let me borrow theirs."
+        },
+        "outputs": [{
+          "sentence": "If I need a phone my friend will let me borrow eirs."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "Ze"
+       },
+        "inputs": {
+          "sentence": "I have to drive myself to school."
+        },
+        "outputs": [{
+          "sentence": "Ze has to drive zirself to school."
+        }]
+      }
+    ]
+  }
