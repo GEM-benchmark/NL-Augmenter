@@ -1,0 +1,38 @@
+{
+  "type": "antonyms_substitute",
+  "test_cases": [
+    {
+      "class": "AntonymsSubstitute",
+      "inputs": {
+        "sentence": "Jack and Ketty buy an apple in the market together."
+      },
+      "outputs": [
+        {
+          "sentence": "Jack and Ketty sell an apple in the market together."
+        }
+      ]
+    },
+    {
+      "class": "AntonymsSubstitute",
+      "inputs": {
+        "sentence": "I wonder the reason why you want to laugh in this extraordinary situation?"
+      },
+      "outputs": [
+        {
+          "sentence": "I wonder the reason why you want to cry in this ordinary situation?"
+        }
+      ]
+    },
+    {
+      "class": "AntonymsSubstitute",
+      "inputs": {
+        "sentence": "Steve is able to recommend movies that depicts the lives of beautiful minds."
+      },
+      "outputs": [
+        {
+          "sentence": "Steve is unable to recommend movies that depicts the lives of ugly minds."
+        }
+      ]
+    }
+  ]
+}
