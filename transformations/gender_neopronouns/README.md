@@ -10,7 +10,7 @@ referring to a person. Some examples include: xe/xem/xyr, ze/hir/hirs, and ey/em
 anyone, though most often they are used by transgender, non-binary, and/or gender nonconforming people._
 Source: https://intercultural.uncg.edu/wp-content/uploads/Neopronouns-Explained-UNCG-Intercultural-Engagement.pdf
 
-In the image below, we can find the temporal variations in neopronoun usage over the past few years from  the **_Gender Census 2021: Worldwide Report_**. 
+In the image below, we can find the temporal variations in neopronoun usage over the past few years from  the **_Gender Census 2021: Worldwide Report_**.
 
 <img title=" The neopronoun preferences over times" src="https://gendercensus.files.wordpress.com/2021/03/gc2021-pronouns-over-time-minus-he-she-they.png" width="600" height="354" />
 
@@ -23,6 +23,7 @@ Example:
 He like himself. ↔️ Ey likes emself **OR** Ze likes zirself etc.
 ```
 The neopronoun list is sourced from [Neopronouns-Explained resource](https://intercultural.uncg.edu/wp-content/uploads/Neopronouns-Explained-UNCG-Intercultural-Engagement.pdf) curated by UNC Greensboro and [LGBTA WIKI](https://lgbta.wikia.org/wiki/Neopronouns).
+Refer to [this](https://github.com/vinayprabhu/neo_pronouns_gen) Github repo for the [dataset construction details](https://github.com/vinayprabhu/neo_pronouns_gen/blob/main/dataset_generate_neopronouns.ipynb), [examples](https://github.com/vinayprabhu/neo_pronouns_gen/blob/main/data/df_examples_neo.csv) and [pronounciation key](https://github.com/vinayprabhu/neo_pronouns_gen/blob/main/data/df_pronounce_neo.csv).
 
 ## What tasks does it intend to benefit?
 As things stand, NLP models such as those deployed for neural translation fail to recognize the neopronouns and often treats them as proper nouns. For example, Google translate translates the sentence _Ve likes verself_ to ವೀ ತನ್ನನ್ನು ತಾನೇ ಇಷ್ಟಪಡುತ್ತಾನೆ into Kannada which reads _(Someone named) Vee likes himself_! Also, as revealed in this survey titled [Toward Gender-Inclusive Coreference Resolution](https://arxiv.org/pdf/1910.13913.pdf), _"Only 7.1% (one paper!) considers neopronouns and/or specific singular THEY."_
@@ -31,7 +32,7 @@ This transformation seeks to render the training data used in NLP pipelines more
 
 ## Previous Work
 
-_[1]_ 
+_[1]_
 ```bibtex
 @article{bertulfobeyond,
   title={Beyond He and She: A Study on the Non-Binary and Gender Neutral English Neopronouns},
@@ -63,16 +64,13 @@ _[3]_
 
 ```
 
-## What are the limitations of this 
+## What are the limitations of this
 
-The [LGBTA WIKI](https://lgbta.wikia.org/wiki/Neopronouns) also includes 3 __Regional Nominative Pronouns__
-( A , Ou and Yo) 6 options in the __Other__ category:
-
+This specific pull request does not cover the  3 __Regional Nominative Pronouns__
+( A , Ou and Yo) and the following  6 options in the __Other__ category of the [LGBTA WIKI](https://lgbta.wikia.org/wiki/Neopronouns)
 1. It
 2. One
 3. Alternating Pronouns
 4. No Pronouns/Pronoun Dropping
 5. Nounself Pronouns
 6. Emojiself Pronouns
-
-This specific pull request does not cover these :(
