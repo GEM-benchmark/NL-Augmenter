@@ -19,7 +19,7 @@
       },
       "outputs": [
         {
-          "sentence": "maximum_sentence with gapping, such as paul likes coffee and mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+          "sentence": "maximum sentences with gapping, such as paul likes coffee and mary tea, lack an overt predicate to indicate the relation between two or more arguments."
         }
       ]
     },
@@ -30,7 +30,7 @@
       },
       "outputs": [
         {
-          "sentence": "alice in winter_wonderland is a 2010 american live-action/animated dark fantasy adventure film"
+          "sentence": "alice in winter wonderland is a 2010 american live-action/animated dark fantasy adventure film"
         }
       ]
     },
@@ -41,7 +41,7 @@
       },
       "outputs": [
         {
-          "sentence": "brain_plasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+          "sentence": "brain plasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
         }
       ]
     }

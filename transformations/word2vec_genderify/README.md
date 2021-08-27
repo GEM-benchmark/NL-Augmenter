@@ -1,55 +1,45 @@
-# Man-ify (and Woman-ify) 
+# Gender-ify nouns 
 
+This perturbation takes nouns finds their word2vec representation, and then adds the man-vector, and the woman-vector and finds the closest word to the (<noun> + <man/woman>)-vector.
 
-> This perturbation takes objects + subjects within a sentence, finds their word2vec representation, and then applies adds the man-vector, and the woman-vector.
+Author names:
+- Chandan Singh (chandan_singh@berkeley.edu, UC Berkeley)
+- Jamie Simon (james.simon@berkeley.edu, UC Berkeley)
+- Sajant Anand (sajant@berkeley.edu, UC Berkeley)
+- Roy Rinberg (royrinberg@gmail.com, Columbia University)  
 
-Author name: Roy Rinberg
-Author email: royrinberg@gmail.com
-Author Affiliation: Columbia University
-
-# Extra:
-need to run `python -m spacy download en_core_web_sm` before running.
-
-## Roy work to do :
-1. get word2vec working - done
-2. figure out SVO break down of sentences - close 
-3. potentially - figure out gender of the SVO (using french dictionary)
-4. mash it into the transformation in the expected format 
-
-1. set up test.json
-2. write the readme properly
+## Extra:
+You need to run `python -m spacy download en_core_web_sm` before running.
 
 ## What type of a transformation is this?
 
-This transformation acts like a perturbation to test robustness. Few words picked at random are replaced with their common spelling errors if these words are in the [corpus of mis-spell words](https://www.dcs.bbk.ac.uk/~ROGER/corpora.html). Generated transformations display high similarity to the source sentences i.e. the code outputs highly precise generations.
-
-
-
-## Data Curation
-
-Dataset Source: [https://www.dcs.bbk.ac.uk/~ROGER/corpora.html](https://www.dcs.bbk.ac.uk/~ROGER/corpora.html)
-
-A json file named spell_errors.json has been created by merging words from below files. Json file has actual word in lowercase as key and list of mis-spelt words of the key as value. The list of mis-spelt words has been created from all the files by taking union of words from below files when key word appears in multiple files. 
-
+This transformation acts like a perturbation to test robustness. It will transform 1 sentence into a similar sentence that makes grammatical sense, and likely makes good logical sense too. The transformations display relatively high similarity to the source sentences. 
 
 ## How it works:
-1. https://github.com/RaRe-Technologies/gensim 
+1. Find all the nouns in a sentence. 
+2. For each noun, find the word2vec vector for that noun, and add `man`-vector and add `woman` vector. Replace the noun with the closest word to the new (word + man)-vector.
+
+Caveats:
+1. Make sure that singular nouns remain singular, and plural nouns remain plural.
+2. Often the closest word-vector to (<woman> + <word>) is <woman>. So, some words (like woman or man) are explicitly ignored.
+
+## What tasks does it intend to benefit? 
 
 
+This transformation could be used to improve datasets for models that seek to improve their implicit bias (i.e. if the dataset comes from a source that always uses the masculine or the feminine version of nouns). 
 
-
+Further, this same model can be used to add other kinds of words (beyond "man" and "woman") to each of the nouns. Which may allow for a more balanced dataset with regards to equitable vocab expression - i.e. add "young" and "old" vectors to all nouns or "fast" and "slow".
 ## What are the limitations of this transformation?
-- The transformation applies Word2Vec, but does not check whether the 
 
+The transformation relies on the accuracy of word2vec, and that word2vec vector addition preserves analogy well. This process is hard to predict and edge-cases are difficult to account for with hard-and-fast rules. This transformation does not check whether the transformed sentence makes logical sense; while most cases it works, it's difficult to ensure.
 
-- Sometimes Word2Vec addition of "male" does not make sense, for example, here "company" -> "woman" 	
-  When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the woman took him seriously.
+A foreign name like "Dev" which is someone's name, may be interpreted as a developer, and changed like a noun.
 
-- A foreign name like "Dev" which is someone's name, may be interpretted as a developer, and changed like a noun.
+## References
 
-## References (bibtex)
+* Radim Rehurek , Gensim, Topic Modelling for Humans, [https://radimrehurek.com/gensim/index.html](https://radimrehurek.com/gensim/index.html)
 
-
+```
 @inproceedings{rehurek_lrec,
       title = {{Software Framework for Topic Modelling with Large Corpora}},
       author = {Radim {\v R}eh{\r u}{\v r}ek and Petr Sojka},
@@ -64,26 +54,9 @@ A json file named spell_errors.json has been created by merging words from below
       note={\url{http://is.muni.cz/publication/884893/en}},
       language={English}
 }
-
-
-
-
-
-
-
-######################### Ignore after this:
-* Roger Mitton, A Corpus of Spelling Errors, [https://www.dcs.bbk.ac.uk/~ROGER/corpora.html](https://www.dcs.bbk.ac.uk/~ROGER/corpora.html)
-
-```latex
-@article{deorowicz2005correcting,
-  title={Correcting spelling errors by modelling their causes},
-  author={Deorowicz, Sebastian and Ciura, Marcin G},
-  journal={International journal of applied mathematics and computer science},
-  volume={15},
-  pages={275--285},
-  year={2005}
-}
 ```
+
+
 
 
 
