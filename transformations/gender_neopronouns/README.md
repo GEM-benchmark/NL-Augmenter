@@ -1,7 +1,10 @@
 # Neopronoun substitution 🏳️‍⚧️
+
 Authors:
-- Vinay Prabhu: vinay@unify.id
--
+- Vinay Prabhu \<vinay@unify.id\>
+- Sang Han \<sanghan@protonmail.com\>
+- Ryan Teehan \<rsteehan@gmail.com\>
+- Nicolas Roberts \<nick.roberts.127.0.0.1@gmail.com\>
 
 <img alt=" The neopronoun flag from the LGBTA Wiki page" title="Neopronouns Flag by Geekycorn on DeviantArt." src="https://static.wikia.nocookie.net/lgbta/images/4/47/Neopronoun_Flag.png/revision/latest/scale-to-width-down/220?cb=20200425234516" width="200" height="200" />
 
