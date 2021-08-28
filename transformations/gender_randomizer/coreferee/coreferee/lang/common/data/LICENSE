@@ -1,0 +1,7 @@
+The files *names.dat in this directory contain personal names derived from the following sources:
+
+1) U.S. Social Security Administration (https://www.ssa.gov/oact/babynames/background.html) curated under https://github.com/aruljohn/popular-baby-names
+
+2) Offene Daten Köln (https://offenedaten-koeln.de/dataset/vornamen) released under the CC BY 3.0 DE 'Namensnennung 3.0 Deutschland' license (https://creativecommons.org/licenses/by/3.0/de/legalcode)
+
+3) Polish government data 'Lista imion występujących w rejestrze PESEL z uwzględnieniem imion osób zmarłych' (https://dane.gov.pl/en/dataset/1501,lista-imion-wystepujacych-w-rejestrze-pesel) published with no restrictions on reuse

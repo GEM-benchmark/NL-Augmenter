@@ -1,0 +1,50 @@
+{
+  "type": "GenderRandomizer",
+  "test_cases": [
+    {
+      "class": "GenderRandomizer",
+      "inputs": {
+        "sentence": ""
+      },
+      "outputs": [{
+        "sentence": ""
+      }]
+    },
+    {
+      "class": "GenderRandomizer",
+      "inputs": {
+        "sentence": ""
+      },
+      "outputs": [{
+        "sentence": ""
+      }]
+    },
+    {
+      "class": "GenderRandomizer",
+      "inputs": {
+        "sentence": ""
+      },
+      "outputs": [{
+        "sentence": ""
+      }]
+    },
+    {
+      "class": "GenderRandomizer",
+      "inputs": {
+        "sentence": ""
+      },
+      "outputs": [{
+        "sentence": ""
+      }]
+    },
+    {
+      "class": "GenderRandomizer",
+      "inputs": {
+        "sentence": ""
+      },
+      "outputs": [{
+        "sentence": ""
+      }]
+    }
+  ]
+}
