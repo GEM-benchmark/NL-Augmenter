@@ -60,8 +60,8 @@ class TextContainsNumberFilter(SentenceOperation):
 #         output = ft.filter(sentence)
 #         test_cases.append({
 #             "class": ft.name(),
-#             "input": {"sentence": sentence},
-#             "output": output,
+#             "inputs": {"sentence": sentence},
+#             "outputs": output,
 #         })
 #     json_file = {"type": convert_to_snake_case("numeric"), "test_cases": test_cases}
 #     print(json.dumps(json_file))
