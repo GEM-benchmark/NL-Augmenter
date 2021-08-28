@@ -34,6 +34,8 @@ Refer to [this](https://github.com/vinayprabhu/neo_pronouns_gen) Github repo for
 As things stand, NLP models such as those deployed for neural translation fail to recognize the neopronouns and often treats them as proper nouns. For example, Google translate translates the sentence _Ve likes verself_ to ವೀ ತನ್ನನ್ನು ತಾನೇ ಇಷ್ಟಪಡುತ್ತಾನೆ into Kannada which reads _(Someone named) Vee likes himself_! Also, as revealed in this survey titled [Toward Gender-Inclusive Coreference Resolution](https://arxiv.org/pdf/1910.13913.pdf), _"Only 7.1% (one paper!) considers neopronouns and/or specific singular THEY."_
 This transformation seeks to render the training data used in NLP pipelines more neopronoun aware so as to help tackle the downstream risks of [trans erasure](https://allthingslinguistic.com/post/118373603278/i-am-at-the-end-of-my-first-semester-of).
 
+Benchmark Results:
+* Seq2Seq Generation task ran on IMDB dataset/Roberta model with a 1% sample size. The original accuracy was 96% and the perterbed accuracy was 95%
 
 ## Previous Work
 
