@@ -31,10 +31,10 @@
           "swap_neopronoun": "Ey"
        },
         "inputs": {
-          "sentence": "If I need a phone my friend will let me borrow theirs."
+          "sentence": "I have to drive myself to school."
         },
         "outputs": [{
-          "sentence": "If Ey need a phone eirs friend will let em borrow eirs."
+          "sentence": "Ey have to drive emself to school."
         }]
       }
     ]

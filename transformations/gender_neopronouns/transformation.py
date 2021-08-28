@@ -36,7 +36,7 @@ class GenderNeoPronouns(SentenceOperation):
                 ]
             seed:
                 Random seed. Defaults to 0.
-            verbose (bool, optional):
+            verbose:
                 verbosity level. Defaults to False.
             max_outputs:
                 NotImplemented always generate 1 output
@@ -56,7 +56,9 @@ class GenderNeoPronouns(SentenceOperation):
         for token in doc:
             morph = token.morph.to_dict()
             if token.pos_ == "PRON":
-                if "Case" in morph:
+                if "Case" in morph and "Reflex" in morph:
+                    pron_type = "REF"
+                elif "Case" in morph:
                     pron_type = morph["Case"].upper()
                 elif "Poss" in morph:
                     pron_type = morph["PronType"].upper()
