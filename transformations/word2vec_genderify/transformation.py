@@ -1,3 +1,4 @@
+
 """
 Base Class for implementing the different input transformations 
 a generation should be robust against.
@@ -12,7 +13,10 @@ import inflect
 import numpy as np
 import spacy
 import toolz
+from interfaces.SentenceOperation import SentenceOperation
+from tasks.TaskTypes import TaskType
 
+# TODO : make sure that Andrew -> Andrew, not andrew
 
 def _load() -> Tuple:
     """helper function which loads spacy and gensim models
@@ -179,10 +183,6 @@ def generate_sentences(sentence: str, max_outputs: int, wv, nlp,
     return swapped_sentences[:max_outputs]
 
 
-'''
-from interfaces.SentenceOperation import SentenceOperation
-from tasks.TaskTypes import TaskType
-
 class GenderifyOperation(SentenceOperation):
     """ Apply man-vector + woman-vector to each of the nouns in the sentence"""
     tasks = [
@@ -203,6 +203,7 @@ class GenderifyOperation(SentenceOperation):
                                   nlp=self.nlp,
                                   max_outputs=self.max_outputs,
                                   inflect_engine=self.inflect_engine)
+
 
 '''
 
@@ -237,3 +238,4 @@ if __name__ == "__main__":
 
         print(json.dumps(d))
         print(",")
+'''
