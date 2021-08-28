@@ -1,0 +1,38 @@
+{
+  "type": "add_hashtags",
+  "test_cases": [{
+    "class": "HashtagGeneration",
+    "inputs": {
+      "sentence": "I love domino's pizza ."
+    },
+    "outputs": [{
+      "sentence": "I love domino's pizza .#LovePizza #Love #I #Pizza"
+    }]
+  }, {
+    "class": "HashtagGeneration",
+    "inputs": {
+      "sentence": "Virat Kohli made a big hundred against Australian team ."
+    },
+    "outputs": [{
+      "sentence": "Virat Kohli made a big hundred against Australian team .#MadeHundred #Made #Hundred #AustralianTeam"
+    }]
+  }, {
+    "class": "HashtagGeneration",
+    "inputs": {
+      "sentence": "Attention is all you need ."
+    },
+    "outputs": [{
+      "sentence": "Attention is all you need .#Attention #AttentionYou"
+    }]
+  }, {
+    "class": "HashtagGeneration",
+    "inputs": {
+      "sentence": "Natural Language Processing research is awesome ."
+    },
+    "outputs": [{
+      "sentence": "Natural Language Processing research is awesome .#NaturalLanguageProcessingResearch #LanguageResearch"
+    }]
+  }
+  ]
+}
+
