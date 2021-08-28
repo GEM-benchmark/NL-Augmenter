@@ -12,8 +12,10 @@ This filter can be used to create splits. Filtering out and testing on examples
 contain numeric values can provide feedback for improving training data 
 accordingly.
 
-python evaluate.py -f TextContainsNumericFilter -p=1
-
+### Evaluation Results
+model: <br>
+split: <br>
+dataset: 
 ## Related Work
 
 ## What are the limitations of this filter?
