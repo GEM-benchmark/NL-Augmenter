@@ -9,11 +9,9 @@ from .constants import TAGS
 
 
 class GenderNeoPronouns(SentenceOperation):
-    """[summary]
-
-    Args:
-        SentenceOperation ([type]): [description]
-
+    """This transformation performs **_grammatically correct substitution_**
+    of the gendered pronouns he/she in a given sentence with their
+    neopronoun counterparts.
     """
 
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
@@ -21,16 +19,35 @@ class GenderNeoPronouns(SentenceOperation):
 
     def __init__(
         self,
-        swap_neopronoun: str = "they",
+        swap_neopronoun: str = "They",
         seed: int = 0,
         verbose: bool = False,
         max_outputs: int = 1,
     ) -> None:
-        assert (
-            swap_neopronoun.capitalize() in TAGS
-        ), f"swap_neopronoun can only have value of {TAGS.keys()}"
+        """
+        Args:
+            swap_neopronoun:
+                The neopronoun to swap: Defaults to "They".
+                Must be one of
+                [
+                    'Ae', 'Co', 'E', 'Ey', 'Fae', 'He', 'Hu', 'Ne',
+                    'Per', 'Person', 'She', 'They', 'Thon',
+                    'Ve', 'Vi', 'Xe', 'Ze'
+                ]
+            seed:
+                Random seed. Defaults to 0.
+            verbose (bool, optional):
+                verbosity level. Defaults to False.
+            max_outputs:
+                NotImplemented always generate 1 output
+        """
         self.nlp = spacy.load("en_core_web_sm")
-        self.swap_neopronoun = swap_neopronoun
+        self.swap_neopronoun = swap_neopronoun.capitalize()
+        # ensure swap_neopronoun exists in TAGS
+        assert (
+            self.swap_neopronoun in TAGS
+        ), f"swap_neopronoun can only have value of {TAGS.keys()}"
+
         super().__init__(seed=seed, verbose=verbose, max_outputs=max_outputs)
 
     def generate(self, sentence: str) -> List[str]:
@@ -58,7 +75,7 @@ class GenderNeoPronouns(SentenceOperation):
                     pieces.append(token.text)
             else:
                 # NOTE: find a more elegant solution to tokenizing punctuations.
-                if token.is_punct:
+                if token.is_punct and len(pieces) != 0:
                     pieces[-1] += token.text
                 else:
                     pieces.append(token.text)
