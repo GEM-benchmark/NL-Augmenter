@@ -15,11 +15,11 @@
     {
       "class": "SentenceAdjectivesAntonymsSwitch",
       "inputs": {
-        "sentence": "Amanda's mother was very beautiful."
+        "sentence": "Amanda's mother was very beautiful ."
       },
       "outputs": [
         {
-          "sentence": "Amanda's mother was very ugly."
+          "sentence": "Amanda's mother was very ugly ."
         }
       ]
     },
@@ -84,24 +84,24 @@
     {
       "class": "PairAdjectivesAntonymsSwitch",
       "inputs": {
-        "sentence1": "Amanda's mother was very beautiful.",
-        "sentence2": "Her mother was a good looking woman.",
+        "sentence1": "Amanda's mother was very beautiful .",
+        "sentence2": "Her mother was a good looking woman .",
         "target": "1"
       },
       "outputs": [
         {
-          "sentence1": "Amanda's mother was very ugly.",
-          "sentence2": "Her mother was a good looking woman.",
+          "sentence1": "Amanda's mother was very ugly .",
+          "sentence2": "Her mother was a good looking woman .",
           "target": "0"
         },
         {
-          "sentence1": "Amanda's mother was very beautiful.",
-          "sentence2": "Her mother was a bad looking woman.",
+          "sentence1": "Amanda's mother was very beautiful .",
+          "sentence2": "Her mother was a bad looking woman .",
           "target": "0"
         },
         {
-          "sentence1": "Amanda's mother was very ugly.",
-          "sentence2": "Her mother was a bad looking woman.",
+          "sentence1": "Amanda's mother was very ugly .",
+          "sentence2": "Her mother was a bad looking woman .",
           "target": "1"
         }
       ]
