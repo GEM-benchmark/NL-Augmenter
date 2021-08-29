@@ -1,41 +1,38 @@
 {
-  "type": "random_homophonic_replacement",
-  "test_cases": [
-    {"class": "RandomHomophonicReplacement",
-      "input": {
-        "sentence": "The world is a beautiful place ."
-      },
-      "output": {
-        "sentence": "The whirled is a beautiful plaice ."
-      }
+  "type": "homophonic_transformation",
+  "test_cases": [{
+    "class": "HomophonicReplacement",
+    "inputs": {
+      "sentence": "Virat Kohli made a big hundred against Australia ."
     },
-    {
-      "class": "RandomHomophonicReplacement",
-      "input": {
-        "sentence": "Some children are buying stationary ."
-      },
-      "output": {
-        "sentence": "Some children r buying stationery ."
-      }
+    "outputs": [{
+      "sentence": "Voyrat Kuwlyy meyd ey big hundr'd 'geynst 'Streyly' ."
+    }]
+  }, {
+    "class": "HomophonicReplacement",
+    "inputs": {
+      "sentence": "The queen Elizabeth II was walking with her cousin ."
     },
-    {
-      "class": "RandomHomophonicReplacement",
-      "input": {
-        "sentence": "The queen was walking with her cousin ."
-      },
-      "output": {
-        "sentence": "The quean was walking with her cozen ."
-      }
+    "outputs": [{
+      "sentence": "Du kwYyn 'Liz'B'T OyI woz wok'N wiT hRr kuz'n ."
+    }]
+  }, {
+    "class": "HomophonicReplacement",
+    "inputs": {
+      "sentence": "Quidditch is a sport of two teams of seven players each mounted on a broomstick, played on a hockey rink-sized pitch ."
     },
-    {
-      "class": "RandomHomophonicReplacement",
-      "input": {
-        "sentence": "The prophesy about census was right ."
-      },
-      "output": {
-        "sentence": "The prophecy about sense was rate ."
-      }
-    }
+    "outputs": [{
+      "sentence": "KwidditS iz ey spcrt uv tWw tYymz uv sev'n pley'rz YytS mawnt'd on ey brWwmstick, pleyd on ey hokYy rink-sized pitS ."
+    }]
+  }, {
+    "class": "HomophonicReplacement",
+    "inputs": {
+      "sentence": "The world is a beautiful place ."
+    },
+    "outputs": [{
+      "sentence": "Du wRrld iz ey byWwt'f'l pleys ."
+    }]
+  }
   ]
 }
 

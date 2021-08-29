@@ -1,65 +1,108 @@
-from random import choice, sample
 
 from tasks.TaskTypes import TaskType
 from interfaces.SentenceOperation import SentenceOperation
 
-
-def getHomophoneDict():
-    homophones = {}
-    myfile = open("../homophonic_transformation/homophone_dict.txt", "r")
-    for line in myfile:
-        word, hmpns = line.strip().split("\t")
-        homophones[word] = hmpns.split(" ")
-    return homophones
+from typing import List
+from string import punctuation
 
 
-def getRandomHomophonesText(sentence):
-    words = sentence.split(" ")
-    rand_words = sample(words, min(len(words), 5))
-    homophonic_translation = []
-    homophone_dict = getHomophoneDict()
-    for word in words:
-        if word in rand_words:
-            homophone = choice(homophone_dict[word]) if word in homophone_dict else word
-            homophonic_translation.append(homophone)
+def generate_subword_and_homophones(word, homophones):
+    """ method for creating sub-words and their homophones of a given word if its homophones not present
+    in homophones dictionary. Useful in case of (proper nouns, NERs, rare words Ex: Virat, Quidditch)"""
+    index = len(word)//2
+    for i in range(index, len(word)):
+        f_word=word[:index]
+        if f_word.lower() in homophones:
+            trans_f_word = homophones[f_word.lower()].title() if f_word.istitle() else homophones[f_word.lower()]
+            l_word = word[index:]
+            trans_l_word = homophones[l_word] if l_word in homophones else l_word
+            return trans_f_word+trans_l_word # returning sub-words homophones
+    return word # if no replacement found return input word
+
+
+def getHomophonicText(sentence, homophones):
+    """
+    Method for generating transformed sentence with homophone words.
+    """
+    word_list = sentence.split()
+    transformed_word_list = []
+    for word in word_list:
+        if word in punctuation:
+            transformed_word_list.append(word)
+        elif word.strip().lower() in homophones:
+            # complete word replacement
+            trans_word = homophones[word.strip().lower()].title() if word.istitle() \
+                else homophones[word.strip().lower()]
+            transformed_word_list.append(trans_word)
         else:
-            homophonic_translation.append(word)
-    return " ".join(homophonic_translation)
+            # sub-words replacement
+            trans_sub_word = generate_subword_and_homophones(word, homophones)
+            transformed_word_list.append(trans_sub_word)
+    return " ".join(transformed_word_list)
 
 
-class RandomHomophonicReplacement(SentenceOperation):
+class HomophonicReplacement(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING
     ]
     languages = ["en"]
+    heavy = False
 
-    def __init__(self):
-        super().__init__()
+    def __init__(
+            self,
+            seed=0,
+            max_outputs=1,
+            homophones_file="transformations/homophonic_transformation/homophones.tsv",
+            sep="\t",
+            encoding="utf-8"
+        ):
+        super().__init__(seed, max_outputs=max_outputs)
+        homophones = {}
+        with open(homophones_file, "r", encoding=encoding) as file:
+            for line in file:
+                key,value = line.strip().split(sep)
+                if len(value.split(" ")) >=2:
+                    temp = value.split(" ")
+                    value = temp[-1].strip()
+                homophones[key.strip()] = value.strip()
+        self.homophones = homophones
 
-    def generate(self, sentence: str):
-        perturbed_sentence = getRandomHomophonesText(sentence)
-        return perturbed_sentence
+    def generate(self, sentence: str) -> List[str]:
+        transformed_sentences = []
+        for _ in range(self.max_outputs):
+            trans_sent = getHomophonicText(sentence, self.homophones)
+            transformed_sentences.append(trans_sent)
+        return transformed_sentences
 
 
 # if __name__ == "__main__":
 #     import json
 #     from TestRunner import convert_to_snake_case
 #
-#     tf = RandomHomophonicReplacement()
+#     tf = HomophonicReplacement()
 #     test_cases = []
-#     sentence_list = ["The world is a beautiful place .",
-#                      "Some children are buying stationary .",
-#                      "The queen was walking with her cousin .",
-#                      "The prophesy about census was right ."]
+#     sentence_list = ["Virat Kohli made a big hundred against Australia .",
+#                      "The queen Elizabeth II was walking with her cousin .",
+#                      "Quidditch is a sport of two teams of seven players each mounted on a broomstick,
+#                      played on a hockey rink-sized pitch .",
+#                      "The world is a beautiful place .",
+#                     ]
 #
-#     for sentence in sentence_list:
+#     for i, sentence in enumerate(sentence_list):
 #         transformed_sentence = tf.generate(sentence)
 #         test_cases.append({
 #             "class": tf.name(),
-#             "input": {"sentence": sentence},
-#             "output": {"sentence": transformed_sentence}
+#             "inputs": {"sentence": sentence},
+#             "outputs": [],
 #         })
-#     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
+#         for trans_sentence in transformed_sentence:
+#             test_cases[i]["outputs"].append({"sentence":trans_sentence})
+#     json_file = {"type": convert_to_snake_case("homophonic_transformation"), "test_cases": test_cases}
 #     print(json.dumps(json_file))
+
+    # for sent in sentence_list:
+    #     res = tf.generate(sent)
+    #     print(sent)
+    #     print(res)
+    #     print("----")
