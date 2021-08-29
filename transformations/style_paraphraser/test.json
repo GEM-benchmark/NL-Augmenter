@@ -9,7 +9,7 @@
         "outputs": [{
            "sentence": "This carrion looks most wondrous."
         }]
-      }, 
+      },
       {
         "class": "StyleTransferParaphraser",
         "inputs": {
@@ -18,7 +18,7 @@
         "outputs": [{
            "sentence": "Hail to you!"
         }]
-      }, 
+      },
       {
         "class": "StyleTransferParaphraser",
         "inputs": {
@@ -27,7 +27,7 @@
         "outputs": [{
            "sentence": "How dost thou today?"
         }]
-      }, 
+      },
       {
         "class": "StyleTransferParaphraser",
         "inputs": {
@@ -36,7 +36,7 @@
         "outputs": [{
            "sentence": "What is this?"
         }]
-      }, 
+      },
       {
         "class": "StyleTransferParaphraser",
         "inputs": {
@@ -57,4 +57,3 @@
       }
     ]
   }
-  
