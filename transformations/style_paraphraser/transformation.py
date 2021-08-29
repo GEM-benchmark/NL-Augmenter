@@ -1,16 +1,18 @@
 import random
 from functools import partial
+
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 """
-    Note: This codebase is based upon and adapted from code 
-    from this repository: 
+    Note: This codebase is based upon and adapted from code
+    from this repository:
     https://github.com/martiansideofthemoon/style-transfer-paraphrase
 
 """
@@ -21,8 +23,8 @@ MODELS_SUPPORTED = {
     "Basic": "filco306/gpt2-base-style-paraphraser",
     "Shakespeare": "filco306/gpt2-shakespeare-paraphraser",
     "Tweets": "filco306/gpt2-tweet-paraphraser",
-    "Switchboard" : "filco306/gpt2-switchboard-paraphraser",
-    "Romantic poetry" : "filco306/gpt2-romantic-poetry-paraphraser"
+    "Switchboard": "filco306/gpt2-switchboard-paraphraser",
+    "Romantic poetry": "filco306/gpt2-romantic-poetry-paraphraser",
 }
 
 MAX_PARAPHRASE_LENGTH = 100
@@ -98,9 +100,10 @@ TRAIN_ARGS = {
 
 class GPT2ParentModule(nn.Module):
     """
-        Parent module for the GPT2 model. 
+    Parent module for the GPT2 model.
 
     """
+
     def __init__(self, args, gpt2):
         super(GPT2ParentModule, self).__init__()
         self.args = args
@@ -116,7 +119,6 @@ class GPT2ParentModule(nn.Module):
 
         # if args["global_dense_feature_list"] == "none":
         prefix_input_vectors = None
-        
 
         gpt2.train()
         if prefix_input_vectors is None:
@@ -142,9 +144,7 @@ class GPT2ParentModule(nn.Module):
         labels = batch["label"].to(args["device"])
         segments = batch["segment"].to(args["device"])
 
-        
         prefix_input_vectors = None
-        
 
         with torch.no_grad():
             if prefix_input_vectors is None:
@@ -162,27 +162,29 @@ class GPT2ParentModule(nn.Module):
 
         return lm_loss.mean().item()
 
+
 def _beam_search(
     model,
     length,
     context,
     segments,
     eos_token_id,
-    beam_size : int=1,
+    beam_size: int = 1,
     beam_search_scoring="normalize",
 ):
     """
-        Performs a beam search. 
+    Performs a beam search.
 
-        Args: 
-            model: The GPT2-model loaded and used. 
-            length: The length of the desired output.
-            context: The sentence encoded, for which we generate output. 
-            segments: The segments of the context.
-            eos_token_id: The id of the end of sentence token.
-            beam_size: The size of the beam.
-            beam_search_scoring: The scoring function to use. If set to "normalize" (which is default), the score is normalized.
+    Args:
+        model: The GPT2-model loaded and used.
+        length: The length of the desired output.
+        context: The sentence encoded, for which we generate output.
+        segments: The segments of the context.
+        eos_token_id: The id of the end of sentence token.
+        beam_size: The size of the beam.
+        beam_search_scoring: The scoring function to use. If set to "normalize" (which is default), the score is normalized.
     """
+
     def merge_pasts(all_beams, prev_past):
         past_indices = [
             beam["past"] for element in all_beams for beam in element
@@ -191,9 +193,7 @@ def _beam_search(
 
     def merge_input_ids(all_beams):
         input_ids = [
-            beam["sequence"][-1]
-            for element in all_beams
-            for beam in element
+            beam["sequence"][-1] for element in all_beams for beam in element
         ]
         return torch.cat(input_ids, dim=0)
 
@@ -208,11 +208,9 @@ def _beam_search(
         new_length = length
 
     with torch.no_grad():
-        
-        logits, past = model(
-            input_ids=context, token_type_ids=segments
-        )
-        
+
+        logits, past = model(input_ids=context, token_type_ids=segments)
+
         log_probs = F.log_softmax(logits[:, -1, :], dim=-1)
         top_scores, top_indices = torch.topk(
             input=log_probs, k=beam_size, dim=-1
@@ -268,14 +266,10 @@ def _beam_search(
 
             new_beams = []
             curr_element = []
-            for mb_num, (ts, ti) in enumerate(
-                zip(top_scores, top_indices)
-            ):
+            for mb_num, (ts, ti) in enumerate(zip(top_scores, top_indices)):
                 current_elem_num = mb_num // beam_size
                 current_elem_beam_num = mb_num % beam_size
-                old_beam = all_beams[current_elem_num][
-                    current_elem_beam_num
-                ]
+                old_beam = all_beams[current_elem_num][current_elem_beam_num]
 
                 if old_beam["eos_emitted"]:
                     curr_element.append(old_beam)
@@ -287,8 +281,7 @@ def _beam_search(
                                 "score": old_beam["score"] + ts[bs],
                                 "past": mb_num,
                                 "sequence": old_beam["sequence"] + [token],
-                                "eos_emitted": token.item()
-                                == eos_token_id,
+                                "eos_emitted": token.item() == eos_token_id,
                             }
                         )
                 if current_elem_beam_num == beam_size - 1:
@@ -314,6 +307,7 @@ def _beam_search(
 
         return final_input_ids, [__score_fn(fb[0]) for fb in final_beams]
 
+
 def _generate(
     gpt2_sentences,
     model,
@@ -321,15 +315,15 @@ def _generate(
     segments,
     init_context_size=1,
     eos_token_id=None,
-    top_p=None
+    top_p=None,
 ):
     """
-        Generate a paraphrased sentence. 
+    Generate a paraphrased sentence.
 
-        Args:
-            gpt2_sentences: The sentences to generate paraphrases for.
-            model: The model to use.
-            args: The default configuration arguments.            
+    Args:
+        gpt2_sentences: The sentences to generate paraphrases for.
+        model: The model to use.
+        args: The default configuration arguments.
     """
     gpt2 = model
 
@@ -339,7 +333,6 @@ def _generate(
         else len(gpt2_sentences[0]) - init_context_size
     )
     dense_length = 0
-        
 
     if args["beam_size"] > 1:
         out, scores = _beam_search(
@@ -407,15 +400,13 @@ def _top_k_top_p_filtering(
     return logits
 
 
-def _get_logits(
-    model, iteration, generated, segments, past
-):
+def _get_logits(model, iteration, generated, segments, past):
     """
-        Compute logits.
+    Compute logits.
 
-        Args:
-            model: GPT2 model
-            iteration: current iteration
+    Args:
+        model: GPT2 model
+        iteration: current iteration
     """
     if iteration == 0:
         pred = model(
@@ -436,25 +427,25 @@ def _get_logits(
 
 def _sample_sequence(
     model,
-    length : int,
-    context : torch.Tensor,
+    length: int,
+    context: torch.Tensor,
     segments,
     eos_token_id,
-    temperature : float=1.0,
-    top_k : int=0,
-    top_p : int=0.0,
-    get_scores : bool=False,
+    temperature: float = 1.0,
+    top_k: int = 0,
+    top_p: int = 0.0,
+    get_scores: bool = False,
 ):
     """
-        Samples a sequence of a given length from a given context.
+    Samples a sequence of a given length from a given context.
 
-        Args:
-            model: model to use to sample (the GPT2 model)
-            length: length of the sequence to sample
+    Args:
+        model: model to use to sample (the GPT2 model)
+        length: length of the sequence to sample
 
 
     """
-    
+
     if length is None:
         new_length = 1024 - context.shape[1]
     else:
@@ -470,10 +461,8 @@ def _sample_sequence(
     with torch.no_grad():
         past = None
         for i in range(new_length):
-            logits, past = _get_logits(
-                model, i, generated, segments, past
-            )
-            
+            logits, past = _get_logits(model, i, generated, segments, past)
+
             next_token_logits = logits[:, -1, :] / (
                 temperature if temperature > 0 else 1.0
             )
@@ -526,12 +515,12 @@ def _score_fn(x, length_normalize):
 
 class Instance(object):
     """
-        Instance of a sentence to generate a paraphrase for. 
+    Instance of a sentence to generate a paraphrase for.
 
-        Args:
-            args: Standard, default arguments to use. 
-            config : configurations specified. 
-            instance_dict : dictionary containing the sentence to paraphrase. 
+    Args:
+        args: Standard, default arguments to use.
+        config : configurations specified.
+        instance_dict : dictionary containing the sentence to paraphrase.
 
     """
 
@@ -606,11 +595,9 @@ class Instance(object):
             [self.sent_prefix, [tokenizer.bos_token_id], self.sent_suffix]
         )
 
-
     def left_padding(self, data, pad_token, total_length):
         tokens_to_pad = total_length - len(data)
         return np.pad(data, (tokens_to_pad, 0), constant_values=pad_token)
-
 
     def right_padding(self, data, pad_token, total_length):
         tokens_to_pad = total_length - len(data)
@@ -658,22 +645,20 @@ class Instance(object):
         assert len(self.sentence) == len(self.segment) - dense_length
 
 
-
-
 class StyleTransferParaphraser(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
     heavy = True
 
     """
-        Style transfer paraphraser, using a GPT2-model of choice. 
+        Style transfer paraphraser, using a GPT2-model of choice.
 
         Args:
             style : str
                 The style to use. Options include Bible, Shakespeare, Basic, Romantic Poetry and Tweets.
-            device : device to use for computations. 
+            device : device to use for computations.
                 Default: None, and it will then resort to CUDA if available, else CPU.
-            upper_length : 
+            upper_length :
                 The maximum length.
                 Options: "eos" or "same_5"
             beam_size : size of the beam during beam search (if top_p == 0.0)
@@ -685,23 +670,24 @@ class StyleTransferParaphraser(SentenceOperation):
                 Sampling temperate
                 Default: 0.0
     """
+
     def __init__(
         self,
-        style : str = "Shakespeare",
+        style: str = "Shakespeare",
         device=None,
         upper_length="eos",
-        beam_size : int=1,
-        top_p : int=0.0,
-        temperature : float=0.0,
+        beam_size: int = 1,
+        top_p: int = 0.0,
+        temperature: float = 0.0,
     ):
 
         self.style = style
-        
-        assert style in MODELS_SUPPORTED.keys(), f"Style not supported. The following styles are supported: {', '.join(list(MODELS_SUPPORTED.keys()))}"
+
+        assert (
+            style in MODELS_SUPPORTED.keys()
+        ), f"Style not supported. The following styles are supported: {', '.join(list(MODELS_SUPPORTED.keys()))}"
         model_path = MODELS_SUPPORTED[style]
-        self.args = TRAIN_ARGS[
-            model_path
-        ] 
+        self.args = TRAIN_ARGS[model_path]
         self.device = device
         if self.device is None:
             self.device = torch.device(
@@ -725,7 +711,6 @@ class StyleTransferParaphraser(SentenceOperation):
             model_class=GPT2LMHeadModel,
             tokenizer_class=GPT2Tokenizer,
         )
-        
 
     def init_gpt2_model(
         self,
@@ -748,7 +733,7 @@ class StyleTransferParaphraser(SentenceOperation):
             tokenizer = None
 
         return GPT2ParentModule(args=self.args, gpt2=model), tokenizer
-    
+
     def modify_p(self, top_p):
         self.args["top_p"] = top_p
 
@@ -786,7 +771,7 @@ class StyleTransferParaphraser(SentenceOperation):
             ),
             init_context_size=instances[0].init_context_size,
             eos_token_id=tokenizer.eos_token_id,
-            top_p=top_p
+            top_p=top_p,
         )
 
         all_output = []
@@ -816,11 +801,11 @@ class StyleTransferParaphraser(SentenceOperation):
         sentence,
         top_p=None,
     ):
-        out = self.generate_batch(
-            [sentence],
-            top_p=top_p,
-        )[0][0]
+        out = self.generate_batch([sentence], top_p=top_p,)[
+            0
+        ][0]
         return [out]
+
 
 """
 # Sample code to demonstrate usage of the this perturbation module.
