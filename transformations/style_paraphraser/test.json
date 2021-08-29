@@ -1,0 +1,60 @@
+{
+    "type": "style_paraphraser",
+    "test_cases": [
+      {
+        "class": "StyleTransferParaphraser",
+        "inputs": {
+          "sentence": "This car looks fascinating"
+        },
+        "outputs": [{
+           "sentence": "This carrion looks most wondrous."
+        }]
+      }, 
+      {
+        "class": "StyleTransferParaphraser",
+        "inputs": {
+          "sentence": "Hi there! How are you doing today? "
+        },
+        "outputs": [{
+           "sentence": "Hail to you!"
+        }]
+      }, 
+      {
+        "class": "StyleTransferParaphraser",
+        "inputs": {
+          "sentence": "Hi there, how are you doing today? "
+        },
+        "outputs": [{
+           "sentence": "How dost thou today?"
+        }]
+      }, 
+      {
+        "class": "StyleTransferParaphraser",
+        "inputs": {
+          "sentence": "What is going on here?"
+        },
+        "outputs": [{
+           "sentence": "What is this?"
+        }]
+      }, 
+      {
+        "class": "StyleTransferParaphraser",
+        "inputs": {
+          "sentence": "The third person who walks into the room will be the hero."
+        },
+        "outputs": [{
+           "sentence": "The third that walks into the chamber shall be the Hero."
+        }]
+      },
+      {
+        "class": "StyleTransferParaphraser",
+        "inputs": {
+          "sentence": "NL-Augmenter is a very nice repository. "
+        },
+        "outputs": [{
+           "sentence": "NL-Augmenter is a very good repository. "
+        }]
+      }
+    ]
+  }
+  
