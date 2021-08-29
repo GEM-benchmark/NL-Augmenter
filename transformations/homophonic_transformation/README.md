@@ -5,6 +5,11 @@ Ex: "Virat" => "Vi" + "rat" => "Voy" + "rat" => "Voyrat".
 + Author email: suchitra27288@gmail.com
 + Author affiliation: Acko
 
+## How to use this transformation?
+This transformation is created for text classification and text to text generation task. you can use it in following ways: <br>
+```python evaluate.py -t homophonic_transformation -task TEXT_CLASSIFICATION``` <br>
+OR <br>
+```python evaluate.py -t homophonic_transformation -task TEXT_TO_TEXT_GENERATION```
 ## What type of transformation is this?
 This transformation acts like a perturbation to test robustness. <br>
 Ex: "Virat Kohli made a big hundred against Australia ." --> "Voyrat kuwlYy meyd ey big hundr'd 'geynst 'streyly' ." 
