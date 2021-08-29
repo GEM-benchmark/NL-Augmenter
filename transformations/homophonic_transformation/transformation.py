@@ -8,7 +8,7 @@ from string import punctuation
 
 def generate_subword_and_homophones(word, homophones):
     """ method for generating sub-words of a word if its homophone is not present. This method
-    first generate sub-words and that match with their homophones.
+    first generate sub-words and then match them with their homophones.
     Useful in case of (proper nouns, NERs, rare words Ex: Virat, Quidditch)"""
     index = len(word)//2
     for i in range(index, len(word)):
