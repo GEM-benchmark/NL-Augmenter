@@ -1,4 +1,3 @@
-
 """
 Base Class for implementing the different input transformations 
 a generation should be robust against.
@@ -16,7 +15,6 @@ import toolz
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-# TODO : make sure that Andrew -> Andrew, not andrew
 
 def _load() -> Tuple:
     """helper function which loads spacy and gensim models
@@ -85,12 +83,21 @@ def x_ify(word: str,
     banned_words = banned_words + [
         inflect_engine.plural(word) for word in banned_words
     ]
+    banned_words = [word.lower() for word in banned_words]
 
     similar_words = [
         word_tup[0] for word_tup in similar_words
-        if word_tup[0] not in banned_words
+        if word_tup[0].lower() not in banned_words
     ]
     return similar_words[:1][0]  # take only the top word
+
+
+def _is_capitalized(word: str) -> bool:
+    return word[0].isupper()
+
+
+def _capitalize(word):
+    return word[0].upper() + word[1:]
 
 
 def swap_out_words(sentence: str, noun: str, x_ify_function: Callable[[str],
@@ -115,23 +122,27 @@ def swap_out_words(sentence: str, noun: str, x_ify_function: Callable[[str],
     """
     # use the singular form of the noun
     # inflect has a strange interface - if word is singular,returns False, if plural, returns singular-noun (str)
-
     is_singular_noun = not bool(inflect_engine.singular_noun(noun))
     singularized_noun = inflect_engine.singular_noun(
         noun) if not is_singular_noun else noun
 
     # find the replacement word for the noun
-    replacement = x_ify_function(singularized_noun)
-
+    replacement = x_ify_function(singularized_noun.lower())
+    # copy the same capitalization as the original noun
+    replacement = _capitalize(replacement) if _is_capitalized(
+        noun) else replacement
     # some words from w2v come out with _, ie. "brain_plasticity", split them apart
     split_words = replacement.split("_")
-    print(f"replacement is {replacement} nd split words are {split_words}")
+    print(
+        f"replacing {noun} with {replacement}. and split words are {split_words}"
+    )
     # if the noun is a plural one, convert the words to the plural form
     if not is_singular_noun:
         # in english typically only the last word in a compound noun is pluralized
         split_words[-1] = inflect_engine.plural(split_words[-1])
     replacement = " ".join(split_words)
     logging.debug(f"we are replacing {noun} with {replacement}")
+
     return replace_word_in_sentence(sentence, noun, replacement)
 
 
@@ -149,9 +160,8 @@ def generate_sentences(sentence: str, max_outputs: int, wv, nlp,
     Returns:
         [list]: list of sentences with each noun replaced with a male-ify + a woman-ified version
     """
-    sentence = sentence.lower()
     nouns = get_nouns(sentence, nlp)
-    banned_words = ["man", "woman"]
+    banned_words = ["man", "woman", "men", "women", "boy", "girl"]
     manify_function = lambda word: x_ify(word=word,
                                          wv=wv,
                                          x=('man', wv['man']),
@@ -165,8 +175,8 @@ def generate_sentences(sentence: str, max_outputs: int, wv, nlp,
     swapped_sentences = []
     count = 0
     for noun in nouns:
-        if noun in ("man", "men", "woman",
-                    "women"):  # ignore replacing man/woman with itself
+        if noun.lower(
+        ) in banned_words:  # ignore replacing man/woman with itself
             continue
         swapped_sentences.append(
             swap_out_words(sentence, str(noun), manify_function,
@@ -203,7 +213,6 @@ class GenderifyOperation(SentenceOperation):
                                   nlp=self.nlp,
                                   max_outputs=self.max_outputs,
                                   inflect_engine=self.inflect_engine)
-
 
 '''
 
