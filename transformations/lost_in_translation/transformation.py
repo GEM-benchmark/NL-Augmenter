@@ -8,9 +8,9 @@ class LostInTranslation(SentenceOperation):
   '''
   Repeated translation of input text
   '''
-  #tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+  tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
   #languages = ["en"]
-  #heavy = True
+  heavy = True
 
   def __init__(self, seed=0,
                langs=['es', 'de', 'zh', 'fr', 'ru'],
