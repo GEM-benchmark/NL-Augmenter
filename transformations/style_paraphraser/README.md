@@ -30,6 +30,19 @@ This transformation makes use of code and pre-trained models from: https://githu
 
 The license of the original code is included in the folder, and is an MIT License. Note that the author of this perturbation is not the author of the original code and paper, but has been in direct contact with the main author of the original paper.
 
+## Reference to the original work
+
+The bibtex-reference to the original work is:
+
+```
+@inproceedings{style20,
+author={Kalpesh Krishna and John Wieting and Mohit Iyyer},
+Booktitle = {Empirical Methods in Natural Language Processing},
+Year = "2020",
+Title={Reformulating Unsupervised Style Transfer as Paraphrase Generation},
+}
+```
+
 ## What are the limitations of this transformation?
 
 This transformation is limited to different styles of writing in English. No other languages are supported.
