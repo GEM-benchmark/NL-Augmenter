@@ -1,6 +1,6 @@
 # Paraphrasing through the use of style transfer
 
-This perturbation provides a range of possible styles of writing, enabling an easy use of style transfer paraphrase models originally introduced in the paper [Reformulating Unsupervised Style Transfer as Paraphrase Generation (2020)](https://arxiv.org/abs/2010.05700).
+This perturbation provides a range of possible styles of writing, enabling an easy use of style transfer paraphrase models originally introduced in the paper [Reformulating Unsupervised Style Transfer as Paraphrase Generation (2020)](https://arxiv.org/abs/2010.05700) (K. Krishna et al.), published at EMNLP 2020.
 
 Author name: Filip Cornell
 Author email: c.filip.cornell@gmail.com
