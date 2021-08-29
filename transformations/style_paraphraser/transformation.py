@@ -622,6 +622,7 @@ class StyleTransferParaphraser(SentenceOperation):
 
     def generate(self, sentence, top_p=None, n_samples: int = 1):
         """
+        Generate paraphrases for a batch of outputs - or for the same but with a top_p != 0.0
         sentence : str
             Sentence to paraphrase.
         top_p : float
@@ -630,7 +631,86 @@ class StyleTransferParaphraser(SentenceOperation):
         n_samples : int
             Number of samples to generate.
         """
-        return self.generate_batch([sentence] * n_samples, top_p=top_p,)[:n_samples]
+        # return self.generate_batch([sentence] * n_samples, top_p=top_p,)[:n_samples]
+        contexts = [sentence] * n_samples
+        
+        instances = []
+
+        for context in contexts:
+            context_ids = self.tokenizer.convert_tokens_to_ids(
+                self.tokenizer.tokenize(context)
+            )
+
+            instance = Instance(
+                self.args,
+                self.config,
+                {"sent1_tokens": context_ids, "sent2_tokens": context_ids},
+            )
+            instance.preprocess(self.tokenizer)
+            global_dense_vectors = np.zeros((1, 768), dtype=np.float32)
+            instance.gdv = global_dense_vectors
+            instances.append(instance)
+
+        gpt2_sentences = torch.tensor(
+            [inst.sentence for inst in instances]
+        ).to(self.device)
+        segments = torch.tensor([inst.segment for inst in instances]).to(
+            self.device
+        )
+        init_context_size = instances[0].init_context_size
+        eos_token_id = self.tokenizer.eos_token_id
+
+        generation_length = (
+            None
+            if self.args["stop_token"] == "eos"
+            else len(gpt2_sentences[0]) - init_context_size
+        )
+
+        if self.args["beam_size"] > 1:
+            output = _beam_search(
+                model=self.gpt2_model.gpt2,
+                length=generation_length,
+                context=gpt2_sentences[:, 0:init_context_size],
+                segments=segments[:, 0:init_context_size],
+                eos_token_id=eos_token_id,
+                beam_size=self.args["beam_size"],
+                beam_search_scoring=self.args["beam_search_scoring"],
+            )
+        else:
+            output = _sample_sequence(
+                model=self.gpt2_model.gpt2,
+                context=gpt2_sentences[:, 0:init_context_size],
+                segments=segments[:, 0:init_context_size],
+                eos_token_id=eos_token_id,
+                length=generation_length,
+                temperature=self.args["temperature"],
+                top_k=self.args["top_k"],
+                top_p=top_p or self.args["top_p"]
+            )
+
+        all_output = []
+        for out_num in range(len(output)):
+            instance = instances[out_num]
+            curr_out = output[out_num, instance.init_context_size :].tolist()
+
+            if self.tokenizer.eos_token_id in curr_out:
+                curr_out = curr_out[
+                    : curr_out.index(self.tokenizer.eos_token_id)
+                ]
+
+            if self.args["upper_length"].startswith("same"):
+                extra = int(self.args["upper_length"].split("_")[-1])
+                curr_out = curr_out[: len(instance.sent1_tokens) + extra]
+
+            all_output.append(
+                self.tokenizer.decode(
+                    curr_out,
+                    clean_up_tokenization_spaces=True,
+                    skip_special_tokens=True,
+                )
+            )
+
+        return all_output[:n_samples]
 
 
 """
