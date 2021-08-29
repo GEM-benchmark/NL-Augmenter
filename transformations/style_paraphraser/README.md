@@ -22,7 +22,7 @@ The current styles of writing supporting are:
 I will most likely add more pre-trained models as possibilities to use as I add more of the pre-trained models to Huggingface. For more information on these styles, please see the original paper: https://arxiv.org/abs/2010.05700.
 
 ## What tasks does it intend to benefit?
-Given the multiple different models enabled to be used easily through this interface (Basic, Bible, Shakespeare, Tweets, Switchboard and Romantic poetry), this can be used in a variety of cases. However, this can mainly work as an augmentation for improving sentence classification, perhaps from different domains.
+Given the multiple different models enabled to be used easily through this interface (Basic, Bible, Shakespeare, Tweets, Switchboard and Romantic poetry), this can be used in a variety of cases. However, this can mainly work as an augmentation for improving sentence classification, perhaps from different domains. As shown by the Krishna K. et al. in their original paper, a diverse paraphrasing has the ability to normalize sentence by removing stylistic identifiers (see Figure 2 in the original paper: https://arxiv.org/abs/2010.05700).
 
 ## Data and Code Provenance
 This transformation makes use of code and pre-trained models from: https://github.com/martiansideofthemoon/style-transfer-paraphrase. This is therefore entirely based on the paper [Reformulating Unsupervised Style Transfer as Paraphrase Generation
