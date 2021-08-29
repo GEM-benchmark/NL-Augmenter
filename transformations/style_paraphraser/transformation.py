@@ -29,43 +29,9 @@ MODELS_SUPPORTED = {
 MAX_PARAPHRASE_LENGTH = 100
 
 BASE_CONFIG = {
-    "keys": [
-        {
-            "key": "sent1_tokens",
-            "position": 3,
-            "tokenize": True,
-            "metadata": False,
-        },
-        {
-            "key": "sent2_tokens",
-            "position": 4,
-            "tokenize": True,
-            "metadata": False,
-        },
-        {
-            "key": "f1_score",
-            "position": 5,
-            "tokenize": False,
-            "metadata": True,
-        },
-        {
-            "key": "kt_score",
-            "position": 6,
-            "tokenize": False,
-            "metadata": True,
-        },
-        {
-            "key": "ed_score",
-            "position": 7,
-            "tokenize": False,
-            "metadata": True,
-        },
-        {"key": "langid", "position": 8, "tokenize": False, "metadata": True},
-    ],
     "max_total_length": MAX_PARAPHRASE_LENGTH,
     "max_prefix_length": int(MAX_PARAPHRASE_LENGTH / 2),
     "max_suffix_length": int(MAX_PARAPHRASE_LENGTH / 2),
-    "max_dense_length": 2,
 }
 
 
@@ -81,7 +47,6 @@ class GPT2ParentModule(nn.Module):
         self.device = device
 
     def forward(self, batch):
-
         sentences = batch["sentence"].to(self.device)
         labels = batch["label"].to(self.device)
         segments = batch["segment"].to(self.device)
@@ -233,7 +198,7 @@ def _beam_search(
             for elem in final_beams
         ]
 
-        return final_input_ids# , [__score_fn(fb[0]) for fb in final_beams]
+        return final_input_ids
 
 
 def _top_k_top_p_filtering(
@@ -296,7 +261,6 @@ def _sample_sequence(
 
 
     """
-
     if length is None:
         new_length = 1024 - context.shape[1]
     else:
@@ -356,9 +320,6 @@ def _sample_sequence(
 
             if length is None and all(eos_emitted):
                 break
-
-    
-
     return generated
 
 
@@ -536,90 +497,6 @@ class StyleTransferParaphraser(SentenceOperation):
         """Set top_p to another value"""
         self.args["top_p"] = top_p
 
-    def generate_batch(
-        self,
-        contexts,
-        top_p=None,
-    ):
-        """Generate paraphrases for a batch of outputs - or for the same but with a top_p != 0.0"""
-        instances = []
-
-        for context in contexts:
-            context_ids = self.tokenizer.convert_tokens_to_ids(
-                self.tokenizer.tokenize(context)
-            )
-
-            instance = Instance(
-                self.args,
-                self.config,
-                {"sent1_tokens": context_ids, "sent2_tokens": context_ids},
-            )
-            instance.preprocess(self.tokenizer)
-            global_dense_vectors = np.zeros((1, 768), dtype=np.float32)
-            instance.gdv = global_dense_vectors
-            instances.append(instance)
-
-        gpt2_sentences = torch.tensor(
-            [inst.sentence for inst in instances]
-        ).to(self.device)
-        segments = torch.tensor([inst.segment for inst in instances]).to(
-            self.device
-        )
-        init_context_size = instances[0].init_context_size
-        eos_token_id = self.tokenizer.eos_token_id
-
-        generation_length = (
-            None
-            if self.args["stop_token"] == "eos"
-            else len(gpt2_sentences[0]) - init_context_size
-        )
-
-        if self.args["beam_size"] > 1:
-            output = _beam_search(
-                model=self.gpt2_model.gpt2,
-                length=generation_length,
-                context=gpt2_sentences[:, 0:init_context_size],
-                segments=segments[:, 0:init_context_size],
-                eos_token_id=eos_token_id,
-                beam_size=self.args["beam_size"],
-                beam_search_scoring=self.args["beam_search_scoring"],
-            )
-        else:
-            output = _sample_sequence(
-                model=self.gpt2_model.gpt2,
-                context=gpt2_sentences[:, 0:init_context_size],
-                segments=segments[:, 0:init_context_size],
-                eos_token_id=eos_token_id,
-                length=generation_length,
-                temperature=self.args["temperature"],
-                top_k=self.args["top_k"],
-                top_p=top_p or self.args["top_p"]
-            )
-
-        all_output = []
-        for out_num in range(len(output)):
-            instance = instances[out_num]
-            curr_out = output[out_num, instance.init_context_size :].tolist()
-
-            if self.tokenizer.eos_token_id in curr_out:
-                curr_out = curr_out[
-                    : curr_out.index(self.tokenizer.eos_token_id)
-                ]
-
-            if self.args["upper_length"].startswith("same"):
-                extra = int(self.args["upper_length"].split("_")[-1])
-                curr_out = curr_out[: len(instance.sent1_tokens) + extra]
-
-            all_output.append(
-                self.tokenizer.decode(
-                    curr_out,
-                    clean_up_tokenization_spaces=True,
-                    skip_special_tokens=True,
-                )
-            )
-
-        return all_output
-
     def generate(self, sentence, top_p=None, n_samples: int = 1):
         """
         Generate paraphrases for a batch of outputs - or for the same but with a top_p != 0.0
@@ -629,9 +506,9 @@ class StyleTransferParaphraser(SentenceOperation):
             top_p sampling, between 0.0 and 1.0
             Default None, resorting to the model's top_p value
         n_samples : int
-            Number of samples to generate.
+            Number of samples to generate for a sentence. 
+            Note: These will be the exact same if you use a greedy sampling (top_p=0.0), so if n_samples > 2, makes sure top_p != 0.0. 
         """
-        # return self.generate_batch([sentence] * n_samples, top_p=top_p,)[:n_samples]
         contexts = [sentence] * n_samples
         
         instances = []
@@ -740,23 +617,8 @@ if __name__ == "__main__":
     print("Loading paraphraser...")
     paraphraser = StyleTransferParaphraser(args.style, upper_length="same_5")
 
-    print(
-        "\n\nNOTE: Ignore the weight mismatch error, this is due to different huggingface/transformer versions + minor modifications I did myself, shouldn't affect the paraphrases.\n\n"
-    )
-
     input_sentence = args.input_sentence
     paraphraser.modify_p(top_p=0.0)
     greedy_decoding = paraphraser.generate(input_sentence)
     print("\ngreedy sample:\n{}\n".format(greedy_decoding))
-
-    top_p_60_samples, _ = paraphraser.generate_batch(
-        [input_sentence, input_sentence, input_sentence],
-        top_p=args.top_p_value,
-    )
-    top_p_60_samples = "\n".join(top_p_60_samples)
-    print(
-        "top_p = {:.2f} samples:\n{}\n".format(
-            args.top_p_value, top_p_60_samples
-        )
-    )
 """
