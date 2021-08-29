@@ -16,7 +16,6 @@ from tasks.TaskTypes import TaskType
 
 """
 
-
 MODELS_SUPPORTED = {
     "Bible": "filco306/gpt2-bible-paraphraser",
     "Basic": "filco306/gpt2-base-style-paraphraser",
@@ -271,7 +270,6 @@ def _sample_sequence(
     eos_emitted = [False for _ in range(batch_size)]
 
     generated = context
-    scores = [{"score": 0, "sequence": []} for _ in range(batch_size)]
 
     with torch.no_grad():
         past = None
@@ -506,11 +504,11 @@ class StyleTransferParaphraser(SentenceOperation):
             top_p sampling, between 0.0 and 1.0
             Default None, resorting to the model's top_p value
         n_samples : int
-            Number of samples to generate for a sentence. 
-            Note: These will be the exact same if you use a greedy sampling (top_p=0.0), so if n_samples > 2, makes sure top_p != 0.0. 
+            Number of samples to generate for a sentence.
+            Note: These will be the exact same if you use a greedy sampling (top_p=0.0), so if n_samples > 2, makes sure top_p != 0.0.
         """
         contexts = [sentence] * n_samples
-        
+
         instances = []
 
         for context in contexts:
@@ -562,7 +560,7 @@ class StyleTransferParaphraser(SentenceOperation):
                 length=generation_length,
                 temperature=self.args["temperature"],
                 top_k=self.args["top_k"],
-                top_p=top_p or self.args["top_p"]
+                top_p=top_p or self.args["top_p"],
             )
 
         all_output = []
