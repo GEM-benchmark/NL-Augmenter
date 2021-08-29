@@ -1,4 +1,3 @@
-import random
 from functools import partial
 
 import numpy as np
@@ -70,97 +69,27 @@ BASE_CONFIG = {
 }
 
 
-TRAIN_ARGS = {
-    "filco306/gpt2-base-style-paraphraser": {
-        "do_lower_case": False,
-        "global_dense_feature_list": "none",
-    },
-    "filco306/gpt2-shakespeare-paraphraser": {
-        "do_lower_case": False,
-        "global_dense_feature_list": "none",
-    },
-    "filco306/gpt2-bible-paraphraser": {
-        "do_lower_case": False,
-        "global_dense_feature_list": "none",
-    },
-    "filco306/gpt2-tweet-paraphraser": {
-        "do_lower_case": False,
-        "global_dense_feature_list": "none",
-    },
-    "filco306/gpt2-switchboard-paraphraser": {
-        "do_lower_case": False,
-        "global_dense_feature_list": "none",
-    },
-    "filco306/gpt2-romantic-poetry-paraphraser": {
-        "do_lower_case": False,
-        "global_dense_feature_list": "none",
-    },
-}
-
-
 class GPT2ParentModule(nn.Module):
     """
     Parent module for the GPT2 model.
 
     """
 
-    def __init__(self, args, gpt2):
+    def __init__(self, gpt2, device):
         super(GPT2ParentModule, self).__init__()
-        self.args = args
         self.gpt2 = gpt2
+        self.device = device
 
     def forward(self, batch):
-        args = self.args
-        gpt2 = self.gpt2
 
-        sentences = batch["sentence"].to(args["device"])
-        labels = batch["label"].to(args["device"])
-        segments = batch["segment"].to(args["device"])
-
-        # if args["global_dense_feature_list"] == "none":
-        prefix_input_vectors = None
-
-        gpt2.train()
-        if prefix_input_vectors is None:
-            outputs = gpt2(
-                input_ids=sentences, token_type_ids=segments, labels=labels
-            )
-        else:
-            outputs = gpt2(
-                input_ids=sentences,
-                token_type_ids=segments,
-                labels=labels,
-                prefix_input_vectors=prefix_input_vectors,
-            )
-
+        sentences = batch["sentence"].to(self.device)
+        labels = batch["label"].to(self.device)
+        segments = batch["segment"].to(self.device)
+        outputs = self.gpt2(
+            input_ids=sentences, token_type_ids=segments, labels=labels
+        )
         loss = {"lm": outputs[0]}
-
         return loss
-
-    def evaluate(self, batch):
-        args = self.args
-
-        sentences = batch["sentence"].to(args["device"])
-        labels = batch["label"].to(args["device"])
-        segments = batch["segment"].to(args["device"])
-
-        prefix_input_vectors = None
-
-        with torch.no_grad():
-            if prefix_input_vectors is None:
-                outputs = self.gpt2(
-                    input_ids=sentences, token_type_ids=segments, labels=labels
-                )
-            else:
-                outputs = self.gpt2(
-                    input_ids=sentences,
-                    token_type_ids=segments,
-                    labels=labels,
-                    prefix_input_vectors=prefix_input_vectors,
-                )
-            lm_loss = outputs[0]
-
-        return lm_loss.mean().item()
 
 
 def _beam_search(
@@ -304,7 +233,7 @@ def _beam_search(
             for elem in final_beams
         ]
 
-        return final_input_ids, [__score_fn(fb[0]) for fb in final_beams]
+        return final_input_ids# , [__score_fn(fb[0]) for fb in final_beams]
 
 
 def _top_k_top_p_filtering(
@@ -348,31 +277,6 @@ def _top_k_top_p_filtering(
     return logits
 
 
-def _get_logits(model, iteration, generated, segments, past):
-    """
-    Compute logits.
-
-    Args:
-        model: GPT2 model
-        iteration: current iteration
-    """
-    if iteration == 0:
-        pred = model(
-            input_ids=generated, token_type_ids=segments, return_dict=True
-        )
-    else:
-        # used the cached representations to speed up decoding
-        pred = model(
-            input_ids=generated[:, -1:],
-            token_type_ids=segments[:, -1:],
-            past_key_values=past,
-            return_dict=True,
-        )
-    logits = pred["logits"]
-    past = pred["past_key_values"]
-    return logits, past
-
-
 def _sample_sequence(
     model,
     length: int,
@@ -382,7 +286,6 @@ def _sample_sequence(
     temperature: float = 1.0,
     top_k: int = 0,
     top_p: int = 0.0,
-    get_scores: bool = False,
 ):
     """
     Samples a sequence of a given length from a given context.
@@ -409,34 +312,40 @@ def _sample_sequence(
     with torch.no_grad():
         past = None
         for i in range(new_length):
-            logits, past = _get_logits(model, i, generated, segments, past)
+            pred__ = (
+                model(
+                    input_ids=generated,
+                    token_type_ids=segments,
+                    return_dict=True,
+                )
+                if i == 0
+                else model(
+                    input_ids=generated[:, -1:],
+                    token_type_ids=segments[:, -1:],
+                    past_key_values=past,
+                    return_dict=True,
+                )
+            )
 
+            logits = pred__["logits"]
+            past = pred__["past_key_values"]
             next_token_logits = logits[:, -1, :] / (
                 temperature if temperature > 0 else 1.0
             )
-            original_scores = F.log_softmax(next_token_logits, dim=-1)
 
             filtered_logits = _top_k_top_p_filtering(
                 next_token_logits, top_k=top_k, top_p=top_p
             )
-            if temperature == 0 and top_k in [0, 1] and top_p == 0.0:
-                # greedy sampling
-                next_token = torch.argmax(filtered_logits, dim=-1).unsqueeze(
-                    -1
-                )
-            else:
-                next_token = torch.multinomial(
+
+            # greedy sampling
+            do_greedy = temperature == 0 and top_k in [0, 1] and top_p == 0.0
+            next_token = (
+                torch.argmax(filtered_logits, dim=-1).unsqueeze(-1)
+                if do_greedy
+                else torch.multinomial(
                     F.softmax(filtered_logits, dim=-1), num_samples=1
                 )
-
-            if get_scores:
-                for batch_elem in range(batch_size):
-                    if eos_emitted[batch_elem]:
-                        continue
-                    scores[batch_elem]["score"] += original_scores[
-                        batch_elem, next_token[batch_elem].item()
-                    ].item()
-                    scores[batch_elem]["sequence"].append("token")
+            )
 
             generated = torch.cat((generated, next_token), dim=1)
             segments = torch.cat((segments, segments[:, -1:]), dim=1)
@@ -448,10 +357,9 @@ def _sample_sequence(
             if length is None and all(eos_emitted):
                 break
 
-    if get_scores:
-        scores = [_score_fn(x, True) for x in scores]
+    
 
-    return generated, scores
+    return generated
 
 
 def _score_fn(x, length_normalize):
@@ -489,15 +397,10 @@ class Instance(object):
         """Preprocess pipeline of the instance."""
         # shorten the very long sequences in the instance based on DATASET_CONFIG
         self.truncate()
-        # whenever args.prefix_input_type has "original_shuffle" or "original_reverse"
-        # exchange prefix/suffix with 50% probability or 100% probability
-        self.shuffle_prefix_suffix()
         # Finally, perform prefix and suffix padding to build the sentence, label and segments
         self.build_sentence(tokenizer)
         self.build_label(tokenizer)
         self.build_segment(tokenizer)
-        # check if the padding worked out correctly and all the lengths are aligned
-        self.check_constraints()
 
     def truncate(self):
         config = self.config
@@ -509,24 +412,6 @@ class Instance(object):
         if len(self.sent2_tokens) > max_suffix_length:
             self.truncated = True
             self.sent2_tokens = self.sent2_tokens[:max_suffix_length]
-
-    def shuffle_prefix_suffix(self):
-        if not hasattr(self.args, "prefix_input_type"):
-            # Keeping this check for backward compatibility with previous models
-            return
-        if self.args["prefix_input_type"] == "original_shuffle":
-            # shuffle with 50% probability
-            if random.random() <= 0.5:
-                self.sent1_tokens, self.sent2_tokens = (
-                    self.sent2_tokens,
-                    self.sent1_tokens,
-                )
-
-        elif self.args["prefix_input_type"] == "original_reverse":
-            self.sent1_tokens, self.sent2_tokens = (
-                self.sent2_tokens,
-                self.sent1_tokens,
-            )
 
     def build_sentence(self, tokenizer):
         self.sent_prefix = self.left_padding(
@@ -553,7 +438,6 @@ class Instance(object):
         return np.pad(data, (0, tokens_to_pad), constant_values=pad_token)
 
     def build_label(self, tokenizer):
-        dense_length = self.config["global_dense_length"]
         self.label_suffix = self.right_padding(
             np.append(self.sent2_tokens, tokenizer.eos_token_id),
             -100,
@@ -561,7 +445,7 @@ class Instance(object):
         )
         self.label = np.concatenate(
             [
-                [-100 for _ in range(dense_length)],
+                [],
                 [-100 for _ in self.sent_prefix],
                 [-100],
                 self.label_suffix,
@@ -569,7 +453,6 @@ class Instance(object):
         ).astype(np.int64)
 
     def build_segment(self, tokenizer):
-        dense_length = self.config["global_dense_length"]
         prefix_segment = [
             tokenizer.additional_special_tokens_ids[1]
             for _ in self.sent_prefix
@@ -578,20 +461,12 @@ class Instance(object):
 
         self.segment = np.concatenate(
             [
-                [
-                    tokenizer.additional_special_tokens_ids[0]
-                    for _ in range(dense_length)
-                ],
+                [],
                 prefix_segment,
                 [suffix_segment_tag],
                 [suffix_segment_tag for _ in self.sent_suffix],
             ]
         ).astype(np.int64)
-
-    def check_constraints(self):
-        dense_length = self.config["global_dense_length"]
-        assert len(self.sentence) == len(self.label) - dense_length
-        assert len(self.sentence) == len(self.segment) - dense_length
 
 
 class StyleTransferParaphraser(SentenceOperation):
@@ -609,7 +484,7 @@ class StyleTransferParaphraser(SentenceOperation):
                 Default: None, and it will then resort to CUDA if available, else CPU.
             upper_length :
                 The maximum length.
-                Options: "eos" or "same_5"
+                Options: "eos" or "same_N" (e.g., "same_5"), where N will be the max_length.
             beam_size : size of the beam during beam search (if top_p == 0.0)
                 Default: 1
             top_p : float
@@ -636,7 +511,7 @@ class StyleTransferParaphraser(SentenceOperation):
             style in MODELS_SUPPORTED.keys()
         ), f"Style not supported. The following styles are supported: {', '.join(list(MODELS_SUPPORTED.keys()))}"
         model_path = MODELS_SUPPORTED[style]
-        self.args = TRAIN_ARGS[model_path]
+        self.args = {}
         self.device = device
         if self.device is None:
             self.device = torch.device(
@@ -652,36 +527,10 @@ class StyleTransferParaphraser(SentenceOperation):
         self.config = BASE_CONFIG
 
         self.config["global_dense_length"] = 0
-
-        self.gpt2_model, self.tokenizer = self.init_gpt2_model(
-            checkpoint_dir=model_path,
-            do_lower_case=self.args["do_lower_case"],
-            device=self.device,
-            model_class=GPT2LMHeadModel,
-            tokenizer_class=GPT2Tokenizer,
-        )
-
-    def init_gpt2_model(
-        self,
-        checkpoint_dir,
-        do_lower_case,
-        device,
-        model_class,
-        tokenizer_class=None,
-    ):
-        """Load a trained model and vocabulary that you have fine-tuned."""
-
-        model = model_class.from_pretrained(checkpoint_dir)
-        model.to(device)
-
-        if tokenizer_class:
-            tokenizer = tokenizer_class.from_pretrained(
-                checkpoint_dir, do_lower_case=do_lower_case
-            )
-        else:
-            tokenizer = None
-
-        return GPT2ParentModule(args=self.args, gpt2=model), tokenizer
+        model = GPT2LMHeadModel.from_pretrained(model_path)
+        model.to(self.device)
+        self.gpt2_model = GPT2ParentModule(gpt2=model, device=device)
+        self.tokenizer = GPT2Tokenizer.from_pretrained(model_path)
 
     def modify_p(self, top_p):
         """Set top_p to another value"""
@@ -692,7 +541,7 @@ class StyleTransferParaphraser(SentenceOperation):
         contexts,
         top_p=None,
     ):
-        """Generate for a batch of outputs - or for the same but with a top_p != 0.0"""
+        """Generate paraphrases for a batch of outputs - or for the same but with a top_p != 0.0"""
         instances = []
 
         for context in contexts:
@@ -726,7 +575,7 @@ class StyleTransferParaphraser(SentenceOperation):
         )
 
         if self.args["beam_size"] > 1:
-            output, scores = _beam_search(
+            output = _beam_search(
                 model=self.gpt2_model.gpt2,
                 length=generation_length,
                 context=gpt2_sentences[:, 0:init_context_size],
@@ -736,7 +585,7 @@ class StyleTransferParaphraser(SentenceOperation):
                 beam_search_scoring=self.args["beam_search_scoring"],
             )
         else:
-            output, scores = _sample_sequence(
+            output = _sample_sequence(
                 model=self.gpt2_model.gpt2,
                 context=gpt2_sentences[:, 0:init_context_size],
                 segments=segments[:, 0:init_context_size],
@@ -744,8 +593,7 @@ class StyleTransferParaphraser(SentenceOperation):
                 length=generation_length,
                 temperature=self.args["temperature"],
                 top_k=self.args["top_k"],
-                top_p=top_p or self.args["top_p"],
-                get_scores=True,
+                top_p=top_p or self.args["top_p"]
             )
 
         all_output = []
@@ -770,7 +618,7 @@ class StyleTransferParaphraser(SentenceOperation):
                 )
             )
 
-        return all_output, scores
+        return all_output
 
     def generate(self, sentence, top_p=None, n_samples: int = 1):
         """
@@ -782,14 +630,12 @@ class StyleTransferParaphraser(SentenceOperation):
         n_samples : int
             Number of samples to generate.
         """
-        out = self.generate_batch([sentence] * n_samples, top_p=top_p,)[
-            0
-        ][0]
-        return [out]
+        return self.generate_batch([sentence] * n_samples, top_p=top_p,)[:n_samples]
 
 
 """
 # Sample code to demonstrate usage of the this perturbation module.
+# This can be uncommented to be used to test the module.
 
 if __name__ == "__main__":
     import argparse
