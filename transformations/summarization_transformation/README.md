@@ -2,6 +2,7 @@
 This perturbation extracts all types of text sources (sentence, paragraph, etc.) for the summarization of the sentence without changing meanings.
 
 Author name: Jing Zhang (jing.zhang2@emory.edu, Emory University)
+
 Author name: Zhexiong Liu (zhexiong@cs.pitt.edu, University of Pittsburgh)
 
 ## What type of a transformation is this?
