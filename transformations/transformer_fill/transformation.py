@@ -7,7 +7,7 @@ import spacy
 import torch
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer
 
 POS_TYPES = Literal[
     "ADJ",
@@ -74,6 +74,26 @@ class TransformerFill(SentenceOperation):
         # context text get's prepended to sentence - can be used to prime transformer predictions
         self.context_text = context_text
 
+        self.tokenizer = AutoTokenizer.from_pretrained(transformer_model)
+        self.context_length = len(
+            self.tokenizer.encode(
+                context_text, truncation=True, add_special_tokens=False
+            )
+        )
+
+    def truncate(self, text: str) -> str:
+        """
+        Truncates the passed text or sentence according to the max model length, context length and start/end token
+        """
+        return self.tokenizer.decode(
+            self.tokenizer.encode(
+                text,
+                truncation=True,
+                add_special_tokens=False,
+                max_length=self.tokenizer.model_max_length - self.context_length - 4,
+            )
+        )
+
     def get_masked_sentences_from_sentence(
         self, doc: spacy.tokens.Doc
     ) -> Tuple[List[str], List[OriginalWord]]:
@@ -94,11 +114,12 @@ class TransformerFill(SentenceOperation):
                 )
                 original_words.append(OriginalWord(token.i, token.text))
 
-        # select n words to replace
-        selection = random.sample(list(zip(masked_texts, original_words)), self.n)
-        masked_texts, original_words = zip(*selection)
-
-        return (list(masked_texts), list(original_words))
+        if len(masked_texts) >= self.n:
+            # select n words to replace
+            selection = random.sample(list(zip(masked_texts, original_words)), self.n)
+            masked_texts, original_words = zip(*selection)
+            return (list(masked_texts), list(original_words))
+        return masked_texts, original_words
 
     def generate_from_predictions(
         self,
@@ -145,7 +166,8 @@ class TransformerFill(SentenceOperation):
         return new_text.strip()
 
     def generate(self, sentence: str) -> List[str]:
-        doc = self.nlp(sentence, disable=["ner", "lemmatizer"])
+        truncated_sentence = self.truncate(sentence)
+        doc = self.nlp(truncated_sentence, disable=["ner", "lemmatizer"])
         masked_texts, original_words = self.get_masked_sentences_from_sentence(doc)
         if len(masked_texts) > 0:
             predictions = self.fill_pipeline(masked_texts)
@@ -153,5 +175,4 @@ class TransformerFill(SentenceOperation):
                 doc, predictions, original_words
             )
             return [new_sentence]
-        else:
-            return []
+        return []
