@@ -27,6 +27,7 @@ text generation, etc.
 ```
 
 2) NeuSpell is a neural spelling correction toolkit, which is used in this implementation: 
+
 ```bibtex
 @inproceedings{jayanthi-etal-2020-neuspell,
     title = "{N}eu{S}pell: A Neural Spelling Correction Toolkit",
