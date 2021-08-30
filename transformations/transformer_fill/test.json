@@ -41,6 +41,43 @@
       "outputs": [{
         "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-duration , and long-term remodeling of the neuronosynaptic organization."
       }]
+    },
+    {
+      "class": "TransformerFill",
+      "args": {
+        "context_text": "POSITIVE REVIEW: "
+      },
+      "inputs": {
+        "sentence": "This movie was great and I really enjoyed it."
+      },
+      "outputs": [{
+        "sentence": "This movie was great and I really liked it."
+      }]
+    },
+    {
+      "class": "TransformerFill",
+      "args": {
+        "context_text": "POSITIVE REVIEW: "
+      },
+      "inputs": {
+        "sentence": "This movie was terrible, I will never watch it again."
+      },
+      "outputs": [{
+        "sentence": "This movie was terrible, I'll never watch it again."
+      }]
+    },
+    {
+      "class": "TransformerFill",
+      "args": {
+        "context_text": "POSITIVE REVIEW: ",
+        "pos_tokens": ["ADJ"]
+      },
+      "inputs": {
+        "sentence": "This movie was terrible, I will never watch it again."
+      },
+      "outputs": [{
+        "sentence": "This movie was awesome , I will never watch it again."
+      }]
     }
   ]
 }
