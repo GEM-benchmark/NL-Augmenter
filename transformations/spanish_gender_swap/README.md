@@ -3,12 +3,10 @@ This transformation changes the gender of all animate entities (mostly referring
 
 Author: Juan Diego Rodriguez (juand-r@utexas.edu) <br>  Affiliation: UT Austin
 
-**NOTE:** This requires the Spanish spacy model `es_core_news_lg` (version 3.0.0), available at https://github.com/explosion/spacy-models/releases/download/es_core_news_lg-3.0.0/es_core_news_lg-3.0.0.tar.gz The smaller Spanish spacy models led to grammatical agreement errors due to more frequent POS and dependency errors.
-
-**NOTE: given names swapping is not implemented yet, but will be there soon.**
+**NOTE:** This is currently using the small Spanish spacy model `es_core_news_sm`  (version 3.0.0). However, the smaller Spanish spacy models led to more grammatical agreement errors due to more frequent POS and dependency errors; the large model (`es_core_news_lg`) produces less errors.
 
 ## What does this transformation do?
-All masculine nouns, pronouns and (optionally) given names are swapped from masculine to feminine. Then the gender of any adjectives, determiners, pronouns and participles associated with the gender-swapped nouns are changed as well. This was done using a gazeteer, a list of adjective modification rules, and *spacy*'s dependency parser and POS tagger.
+All masculine nouns, pronouns and (optionally) given names are swapped from masculine to feminine. Then the gender of any adjectives, determiners, pronouns and participles associated with the gender-swapped nouns are changed as well. This was done using a gazeteer, a list of adjective modification rules, and *spacy*'s dependency parser and POS tagger.  If `swap_names` is set to True, then given names will also be swapped from male to female, in the same manner and using the same data as the `gender_culture_diverse_name` (except that names with ambigious genders and names consisting of fewer than three characters were removed). 
 
 ## Why is this transformation important?
 Gender stereotypes in natural language can be replicated or amplified by NLP systems. Much work so far has focused on mitigating this problem for English, but gender stereotypes are present in other langauges such as Spanish. For example, *engineer* is more likely to be translated as *ingeniero*, and *nurse* is more likely to be translated as *enfermera* (Stanovsky et al., 2019; Zhou et al., 2019; Zmigrod et al., 2019). In addition to being widely spoken, Spanish is also interesting because all Spanish nouns -- and many words associated with them -- have grammatical gender. There is an existing "Gender swap" transformation, but it only targets English.
@@ -24,7 +22,7 @@ One advantage of changing every animate entity from masculine to feminine (rathe
 We wrote the code for this transformation. The list of nouns to be changed was obtained from the following sources:
 - a couple hundred masculine/feminine word pairs from (Zmigrod et al., 2019), available at https://github.com/rycolab/biasCDA/blob/master/animacy/spanish.tsv, with a few small corrections
 - a list of demonym pairs from https://www.rae.es/dpd/ayuda/paises-y-capitales-con-sus-gentilicios (*Diccionario panhispánico de dudas*)
-- an extensive list of Spanish nouns with feminine equivalents from Wiktionary (https://en.wiktionary.org/)
+- a few thousand Spanish nouns with feminine equivalents from Wiktionary (https://en.wiktionary.org/)
 - a selection of anglicisms (e.g., *teen*, *ranger*, *troleador*) from (Moreno-Fernández, F. 2018a), available at https://cervantesobservatorio.fas.harvard.edu/sites/default/files/diccionario_anglicismos.pdf
 - a list of nouns with a common gender ("sustantivos comunes en cuanto al género") from the following sources:
   - https://www.rae.es/dpd/g%C3%A9nero (*Diccionario panhispánico de dudas*)
@@ -44,7 +42,7 @@ This transformation currently has a few limitations:
 We also limited the gender swaps to be from masculine to femenine:
 
 - Various non-binary pronouns have been proposed (e.g., elle, ell@). Our transformation only swaps from masculine to feminine, since these are the grammatical gender categories for Spanish.
-- Feminine to masculine gender swapping is not considered. A number of complications would arise if swapping from feminine to masculine: (1) there would be a greater amount of polysemy (e.g., swapping the gender of words such as *física*, *música*, *curiosa*, *pata*, or *bosnia* would lead to mistakes in many contexts), (2) the rules for swapping the gender of adjectives would not be straightforward for adjectives which already end in *a* for the masculine form (e.g., *agrícola*, *belga*), and (3) great care would need to be taken for words such as *ninguna* and *alguna*, which have two masculine equivalents which are used in different contexts (*ninguno*/*ningún*, and *alguno*/*algún*, respectively).
+- Feminine to masculine gender swapping is not considered. A number of complications would arise if swapping from feminine to masculine: (1) there would be a greater amount of polysemy (e.g., swapping the gender of words such as *física*, *música*, *curiosa*, *pata*, or *bosnia* would lead to mistakes in many contexts), (2) the rules for swapping the gender of adjectives would not be straightforward for adjectives which already end in *a* for the masculine form (e.g., *agrícola*, *belga*), and (3) great care would need to be taken for words such as *ninguna* and *alguna*, which have two masculine equivalents which are used in different contexts (*ninguno*/*ningún*, and *alguno*/*algún*, respectively), and words such as *mujer* (whose masculine equivalent could be *hombre*, *marido* or *varón*, depending on the context).
 - In addition, we don't selectively swap only certain nouns and not others -- doing so would likely introduce more grammatical agreement errors, and one advantage of swapping all gender-bearing nouns is that less mistakes are likely to be made when applying the transformation for text-to-text tasks. Future work could consider extending this transformation in these ways.
 
 ## Previous Work
