@@ -1,0 +1,27 @@
+{
+  "type": "concat",
+  "test_cases": [
+   {
+     "class": "Concat".
+     "inputs": {
+       "sentence": "",
+       "target": ""
+     },
+      "outputs": [{
+        "sentence": "He finally returned the French book to Austin that I bought last week",
+        "target": "He did not return the French book to Austin that was bought earlier"
+      }]
+    },
+   {
+     "class": "Concat".
+     "inputs": {
+       "sentence": "",
+       "target": ""
+     },
+      "outputs": [{
+        "sentence": "He finally returned the French book to Austin that I bought last week",
+        "target": "He did not return the French book to Austin that was bought earlier"
+      }]
+    }
+  ]
+}
