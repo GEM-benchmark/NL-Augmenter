@@ -1,4 +1,6 @@
 import logging
+from abc import ABC
+
 import random
 from typing import Callable, Dict, List, Union
 
@@ -23,9 +25,8 @@ Protaugment's diverse paraphrase generation, from https://github.com/tdopierre/P
 
 def set_seeds(seed: int) -> None:
     """
-    set random seeds
-    :param seed: int
-    :return: None
+    Args:
+        seed: random seed to set
     """
     random.seed(seed)
     np.random.seed(seed)
@@ -33,7 +34,16 @@ def set_seeds(seed: int) -> None:
     torch.cuda.manual_seed_all(seed)
 
 
-def bleu_score(src: str, dst: str):
+def bleu_score(src: str, dst: str) -> float:
+    """
+
+    Args:
+        src: source sentence (reference)
+        dst: target sentence (hypothesis)
+
+    Returns: BLEU score
+
+    """
     return sentence_bleu(dst, [src]).score
 
 
@@ -42,16 +52,16 @@ def filter_generated_texts_with_distance_metric(
     texts: List[List[str]],
     distance_metric_fn: Callable[[str, str], float],
     lower_is_better: bool = True,
-):
+) -> List[str]:
     """
-    This function aims at selecting one representative in each group of texts (`texts`). Such texts are compared to a source sentence (
+    This function aims at selecting one representative in each group of texts (`texts`). Such texts are compared to a source sentence (src)
     Args:
         src: an original piece of text
         texts: a list of lists of texts
         distance_metric_fn: function to use to compare two texts
         lower_is_better: boolean indicating if a lower value of `distance_metric_fn` is better
 
-    Returns:
+    Returns: a list of sentences, one per group. If the shape of `texts` was (M, N), this function would return a list of M sentences.
 
     """
     scores = [
@@ -74,12 +84,26 @@ class ForbidStrategy:
 
 class UnigramForbidStrategy(ForbidStrategy):
     def __init__(self, drop_chance: float = 0.7):
+        """
+        Forbidding strategy which randomly forbids tokens based on a fixed probability.
+        Args:
+            drop_chance: probability of dropping tokens (float between 0 and 1)
+        """
         super().__init__()
         self.drop_chance = drop_chance
 
     def bad_words_ids(
-        self, input_ids: torch.Tensor, special_ids: List[str] = None
-    ) -> List[List[str]]:
+        self, input_ids: torch.Tensor, special_ids: List[int] = None
+    ) -> List[List[int]]:
+        """
+        Args:
+            input_ids: Tensor of shape (num_sentences, sentence_length), containing token ids (int).
+            special_ids: List[int] containing special ids which will not be forbidden.
+
+        Returns: List[List[int]]
+            Returns a list of list of integers, corresponding to sequences of ids.
+
+        """
         bad_words_ids = list()
         for row in input_ids.tolist():
             if special_ids:
@@ -96,11 +120,23 @@ class UnigramForbidStrategy(ForbidStrategy):
 
 class BigramForbidStrategy(ForbidStrategy):
     def __init__(self):
+        """
+        Bi-gram forbidding strategy. All bi-grams will be forbidden.
+        """
         super().__init__()
 
     def bad_words_ids(
-        self, input_ids: torch.Tensor, special_ids: List[str] = None
-    ) -> List[List[str]]:
+        self, input_ids: torch.Tensor, special_ids: List[int] = None
+    ) -> List[List[int]]:
+        """
+        Args:
+            input_ids: Tensor of shape (num_sentences, sentence_length), containing token ids (int).
+            special_ids: List[int] containing special ids which will not be forbidden.
+
+        Returns: List[List[int]]
+            Returns a list of list of integers, corresponding to sequences of ids.:
+
+        """
         bad_words_ids = list()
         for row in input_ids.tolist():
             if special_ids:
@@ -123,6 +159,15 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
         device: Union[torch.device, str] = "auto",
         forbid_strategy: Union[ForbidStrategy, str, None] = None,
     ):
+        """
+        Args:
+            seed: Random seed
+            num_beams: Number of total beams
+            beam_group_size: Size of group beams. must be a divisor or `num_beams`
+            diversity_penalty: Penalty to apply to enforce more diversity. See https://arxiv.org/abs/1610.02424
+            device: Device to use
+            forbid_strategy: Strategy to use to forbid tokens in the generation step.
+        """
         # Random seed
         self.seed = seed
         set_seeds(self.seed)
@@ -171,6 +216,14 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
     def prepare_batch(
         self, sentence: str
     ) -> Dict[str, Union[torch.Tensor, List[List[str]]]]:
+        """
+
+        Args:
+            sentence: Sentence to paraphrase.
+
+        Returns: Batch interpretable by the paraphrase generation model
+
+        """
         batch = self.tokenizer.batch_encode_plus(
             batch_text_or_text_pairs=[sentence],
             return_tensors="pt",
@@ -198,6 +251,14 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
         return batch
 
     def generate(self, sentence: str):
+        """
+        Generates paraphrases for a given sentence
+        Args:
+            sentence: Sentence to paraphrase
+
+        Returns: A list of paraphrases for the given sentence
+
+        """
         set_seeds(self.seed)
         batch = self.prepare_batch(sentence=sentence)
         with torch.no_grad():
@@ -229,46 +290,45 @@ class ProtaugmentDiverseParaphrase(SentenceOperation):
         return filtered
 
 
-# Sample code to demonstrate usage. Can also assist in adding test cases.
-# You don't need to keep this code in your transformation.
-if __name__ == "__main__":
-    import json
-
-    from TestRunner import convert_to_snake_case
-
-    test_cases = []
-
-    for arg_dict in (
-        {"forbid_strategy": "bigram"},
-        {"forbid_strategy": "unigram"},
-    ):
-        tf = ProtaugmentDiverseParaphrase(**arg_dict)
-
-        for sentence in [
-            'What should I do if the ATM "stole" my card?',
-            "Please explain your exchange rate policy.",
-            "change my house lights colour to blue",
-            'Add "bohemian rapshody" to my rock playlist',
-            "Which soft drink does Madonna advertise for ?",
-        ]:
-            test_cases.append(
-                {
-                    "class": tf.name(),
-                    "args": arg_dict,
-                    "inputs": {"sentence": sentence},
-                    "outputs": [
-                        {"sentence": o} for o in tf.generate(sentence)
-                    ],
-                }
-            )
-    json_file = {
-        "type": convert_to_snake_case(tf.name()),
-        "test_cases": test_cases,
-    }
-    with open(
-        "transformations/protaugment_diverse_paraphrase/test.json",
-        "w",
-        encoding="utf-8",
-    ) as file:
-        json.dump(json_file, file, indent=2, ensure_ascii=False)
-    print(json.dumps(json_file, indent=2, ensure_ascii=False))
+# Sample code to create test cases.
+# if __name__ == "__main__":
+#     import json
+#
+#     from TestRunner import convert_to_snake_case
+#
+#     test_cases = []
+#
+#     for arg_dict in (
+#             {"forbid_strategy": "bigram"},
+#             {"forbid_strategy": "unigram"},
+#     ):
+#         tf = ProtaugmentDiverseParaphrase(**arg_dict)
+#
+#         for sentence in [
+#             'What should I do if the ATM "stole" my card?',
+#             "Please explain your exchange rate policy.",
+#             "change my house lights colour to blue",
+#             'Add "bohemian rapshody" to my rock playlist',
+#             "Which soft drink does Madonna advertise for ?",
+#         ]:
+#             test_cases.append(
+#                 {
+#                     "class": tf.name(),
+#                     "args": arg_dict,
+#                     "inputs": {"sentence": sentence},
+#                     "outputs": [
+#                         {"sentence": o} for o in tf.generate(sentence)
+#                     ],
+#                 }
+#             )
+#     json_file = {
+#         "type": convert_to_snake_case(tf.name()),
+#         "test_cases": test_cases,
+#     }
+#     with open(
+#             "transformations/protaugment_diverse_paraphrase/test.json",
+#             "w",
+#             encoding="utf-8",
+#     ) as file:
+#         json.dump(json_file, file, indent=2, ensure_ascii=False)
+#     print(json.dumps(json_file, indent=2, ensure_ascii=False))
