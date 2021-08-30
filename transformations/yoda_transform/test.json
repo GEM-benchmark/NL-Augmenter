@@ -4,19 +4,19 @@
     {
       "class": "YodaPerturbation",
       "inputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+        "sentence": "Andrew returned my book"
       },
       "outputs": [{
-        "sentence": "Andgew finally returned the French book to Chrus thav I bought last week"
+        "sentence": "My book, Andrew returned"
       }]
     },
     {
       "class": "YodaPerturbation",
       "inputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+        "sentence": "You must find the treasure"
       },
       "outputs": [{
-        "sentence": "Senhences with gapping, such as Paul likes coffwe and Mary tea, lack an overt predicate to indicatx the relauion between two or more argumentd."
+        "sentence": "Find the treasure, you must"
       }]
     },
     {
@@ -25,25 +25,25 @@
         "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
       },
       "outputs": [{
-        "sentence": "Alife in Wonderland is a 2010 American live-action/abimatev dark fantasy adventure film"
+        "sentence": "A 2010 american live- action/ animated dark fantasy adventure film, alice in Wonderland is"
       }]
     },
     {
       "class": "YodaPerturbation",
       "inputs": {
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+        "sentence": "The brain is one of the most complex organs in the body"
       },
       "outputs": [{
-        "sentence": "Ujjwl Dev Dosanjh served as 33rd Premier of Britush Conumbia from 2000 to 2001"
+        "sentence": "One of the most complex organs in the body, the brain is"
       }]
     },
     {
       "class": "YodaPerturbation",
       "inputs": {
-        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+        "sentence": "We are unwrapping our Christmas presents"
       },
       "outputs": [{
-        "sentence": "Neugoplasticity is a continuous processing alliwing vhort-term, medium-term, and long-term remodeling of the beuronosynaptic organization."
+        "sentence": "Unwrapping our Christmas presents, we are"
       }]
     }
   ]

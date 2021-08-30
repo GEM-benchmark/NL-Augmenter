@@ -7,8 +7,8 @@ from tasks.TaskTypes import TaskType
 Base Class for implementing the different input transformations a generation should be robust against.
 """
 """
-My implementation uses the implementation found here: https://github.com/yevbar/Yoda-Script, which currently
-does not work but with minor modifications works.
+Yoda Speak implementation borrowed from here: https://github.com/yevbar/Yoda-Script, with minor mofifications to fix
+deprecation and to change some stylistic features
 """
 
 punctuation = [",", ".", ";", "?", "!"]
@@ -78,9 +78,12 @@ def yoda(s):
                 elif token.dep_ == "punct":
                     sent = sent[: len(sent) - 1] + token.text + " "
                 else:
-                    sent += token.text.lower() + " "
+                    if token.pos_ == "PROPN":
+                        sent += token.text + " "
+                    else:
+                        sent += token.text.lower() + " "
         string.append(sent + " ")
-    return "".join(string)
+    return "".join(string).rstrip(" ")
 
 
 class YodaPerturbation(SentenceOperation):
