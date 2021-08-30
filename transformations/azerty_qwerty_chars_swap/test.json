@@ -1,0 +1,27 @@
+{
+  "type": "AzertyQwertyCharsSwap",
+  "test_cases": [
+    {
+      "class": "AzertyQwertyCharsSwap",
+      "inputs": {
+        "sentence": "The US carried out a defensive airstrike in Kabul, targeting a suspected ISIS-K suicide bomber who posed an 'imminent' threat to the airport, US Central Command said Sunday."
+      },
+      "outputs": [
+        {
+          "sentence": "The US carried out a defensive airstrike in Kabul, targeting a suspected ISIS-K suicide bomber who posed an 'imminent' threat to the airport, US Central Command said Sunday."
+        }
+      ]
+    },
+    {
+      "class": "AzertyQwertyCharsSwap",
+      "inputs": {
+        "sentence": "The stage and its single RL10 engine provide the in-space propulsion needed to send NASA’s Orion spacecraft and its crew on a precise trajectory to the Moon for Artemis II, the first crewed mission of NASA’s Artemis lunar missions."
+      },
+      "outputs": [
+        {
+          "sentence": "The stage and its single RL10 engine provide the in-space propulsion needed to send NASA’s Orion spacecraft and its crew on a precise trajectory to the Moon for Artemis II, the first crewed mission of NASQ’s Qrtemis lunqr missions."
+        }
+      ]
+    }
+  ]
+}
