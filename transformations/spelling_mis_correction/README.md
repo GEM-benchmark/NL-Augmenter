@@ -1,4 +1,4 @@
-# Spelling Mis-correction 🦎  + ⌨️ → 🐍
+# Spelling Mis-correction 🦎  + ⌨️ → 🐍 → 🦖 🦕 🌠 🌋 💀
 Authors:
 
 Nicholas Roberts <nick11roberts@cs.wisc.edu>
@@ -7,62 +7,42 @@ Sang Han <sanghan@protonmail.com>
 Ryan Teehan <rsteehan@gmail.com>
 
 ## What type of a transformation is this?
-This transformation is a mechanism for data augmentation. 
+This transformation is a mechanism for data augmentation which applies (neural) spelling correction to sentences whose words have been so heavily misspelled that spelling correction fails to recover the original word. This is inspired by text messages I often receive from certain anonymous sources. 
+
+The transformation first applies a variant of the butter fingers perturbation with a high perturbation rate, and then applies [NeuSpell](https://aclanthology.org/2020.emnlp-demos.21/) to the resulting sentence. Words which have been corrected from the perturbed sentence are retained and inserted back into the original sentence. 
+
+Examples include:
+- Vinay got a cool whiteboard from the old office → Vinay may a could dashboard from the old office
+- Andrew finally returned the French book to Chris that I bought last week → Andrew formally regained the French going to Chris that I caught pass week
+- I make big lebowski references and collect plants in lieu of a personality → I make bat lebowski references and complete plants is also of a personality
+
+This transformation is realistic and reprentative of spelling mis-corrected text that I have observed in personal correspondence, often due to pressing the wrong neighboring keys on a smartphone keyboard, or by mistakes made while using a keyboard with swipe-based input. One interpretation of this transformation is as a nondeterministic cipher of the input text which can be deciphered by a human annotator with some effort. 
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, etc. 
 
-```python evaluate.py -t ButterFingersPerturbation -task TEXT_CLASSIFICATION```
-```model_name = "aychang/roberta-base-imdb"```
-The accuracy of a RoBERTa model (fine-tuned on IMDB) (model: "aychang/roberta-base-imdb") 
-on a subset of IMDB sentiment dataset = 95.74
-The accuracy of the same model on the perturbed set = 88.26
-
-The average bleu score of a distillbert model (fine-tuned on xsum) (model: "sshleifer/distilbart-xsum-12-6") 
-on a subset (10%) of xsum test dataset = 14.9104
-The average bleu score of same model on the pertubed set = 11.9221
-
 ## Previous Work
-1) Butter Finger implementation borrowed from this code https://github.com/alexyorke/butter-fingers
-
-2) There has also been some recent work in the contrast sets of the GEM Benchmark (ACL 2021):
-```bibtex
-@article{DBLP:journals/corr/abs-2102-01672,
-  title     = {The {GEM} Benchmark: Natural Language Generation, its Evaluation and
-               Metrics},
-  journal   = {CoRR},
-  volume    = {abs/2102.01672},
-  year      = {2021},
-  url       = {https://arxiv.org/abs/2102.01672},
-  archivePrefix = {arXiv},
-  eprint    = {2102.01672},
-  timestamp = {Tue, 16 Feb 2021 16:58:52 +0100},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2102-01672.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
-}
+1) Butter Finger implementation borrowed from this code: https://github.com/GEM-benchmark/NL-Augmenter/tree/main/transformations/butter_fingers_perturbation, which in turn was borrowed from this code: https://github.com/alexyorke/butter-fingers
 ```
 
-3) There has been some recent work in NoiseQA too:
+2) NeuSpell is a neural spelling correction toolkit, which is used in this implementation: 
 ```bibtex
-@inproceedings{ravichander-etal-2021-noiseqa,
-    title = "{N}oise{QA}: Challenge Set Evaluation for User-Centric Question Answering",
-    author = "Ravichander, Abhilasha  and
-      Dalmia, Siddharth  and
-      Ryskina, Maria  and
-      Metze, Florian  and
-      Hovy, Eduard  and
-      Black, Alan W",
-    booktitle = "Proceedings of the 16th Conference of the European Chapter of the Association for Computational Linguistics: Main Volume",
-    month = apr,
-    year = "2021",
+@inproceedings{jayanthi-etal-2020-neuspell,
+    title = "{N}eu{S}pell: A Neural Spelling Correction Toolkit",
+    author = "Jayanthi, Sai Muralidhar  and
+      Pruthi, Danish  and
+      Neubig, Graham",
+    booktitle = "Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: System Demonstrations",
+    month = oct,
+    year = "2020",
     address = "Online",
     publisher = "Association for Computational Linguistics",
-    url = "https://www.aclweb.org/anthology/2021.eacl-main.259",
-    pages = "2976--2992",
-    abstract = "When Question-Answering (QA) systems are deployed in the real world, users query them through a variety of interfaces, such as speaking to voice assistants, typing questions into a search engine, or even translating questions to languages supported by the QA system. While there has been significant community attention devoted to identifying correct answers in passages assuming a perfectly formed question, we show that components in the pipeline that precede an answering engine can introduce varied and considerable sources of error, and performance can degrade substantially based on these upstream noise sources even for powerful pre-trained QA models. We conclude that there is substantial room for progress before QA systems can be effectively deployed, highlight the need for QA evaluation to expand to consider real-world use, and hope that our findings will spur greater community interest in the issues that arise when our systems actually need to be of utility to humans.",
+    url = "https://aclanthology.org/2020.emnlp-demos.21",
+    doi = "10.18653/v1/2020.emnlp-demos.21",
+    pages = "158--164",
+    abstract = "We introduce NeuSpell, an open-source toolkit for spelling correction in English. Our toolkit comprises ten different models, and benchmarks them on naturally occurring misspellings from multiple sources. We find that many systems do not adequately leverage the context around the misspelt token. To remedy this, (i) we train neural models using spelling errors in context, synthetically constructed by reverse engineering isolated misspellings; and (ii) use richer representations of the context. By training on our synthetic examples, correction rates improve by 9{\%} (absolute) compared to the case when models are trained on randomly sampled character perturbations. Using richer contextual representations boosts the correction rate by another 3{\%}. Our toolkit enables practitioners to use our proposed and existing spelling correction systems, both via a simple unified command line, as well as a web interface. Among many potential applications, we demonstrate the utility of our spell-checkers in combating adversarial misspellings. The toolkit can be accessed at neuspell.github.io.",
 }
 ```
 ## What are the limitations of this transformation?
-The transformation's outputs are too simple to be used for data augmentation. Unlike a paraphraser, it is not capable of
- generating linguistically diverse text.
+The transformation's outputs are sometimes indecipherable (by me, at least), but this is something which can be tuned - to some degree - by varying the perturbation rate of the initial butter fingers perturbation. If the perturbation rate is too low, however, the transformed sentences might be largely similar to the original sentence. On the other hand, if the perturbation rate is too high, the sentence might not be linguistically plausible (however this is, to some degree, the desired effect). 
