@@ -10,12 +10,10 @@ from interfaces.SentenceOperation import (
 )
 from tasks.TaskTypes import TaskType
 
-"""
-A filter on the count of named entities in a sentence.
-"""
-
-
 class NamedEntityCountFilter(SentenceOperation):
+    """
+    A filter on the count of named entities in a sentence.
+    """
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
@@ -42,12 +40,10 @@ class NamedEntityCountFilter(SentenceOperation):
         return self.operator(len(named_entities), self.threshold)
 
 
-"""
-An Example filter for SentenceAndTargetNamedEntityCountFilter interface.
-"""
-
-
 class SentenceAndTargetNamedEntityCountFilter(SentenceAndTargetOperation):
+    """
+    An Example filter for SentenceAndTargetNamedEntityCountFilter interface.
+    """
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     src_locales = ["en"]
     tgt_languages = ["en"]
