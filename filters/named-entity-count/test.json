@@ -8,7 +8,7 @@
                 "threshold": 2
             },
             "inputs": {
-                "sentence": "Andrew played cricket in India with Michael and Jackson."
+                "sentence": "Gilbert played cricket in India with Michael and Jackson."
             },
             "outputs": true
         },
