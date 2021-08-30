@@ -113,5 +113,5 @@ if __name__ == '__main__':
             "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
         )
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    print(json.dumps(json_file))
+    print(json.dumps(json_file, indent=2))
 """
