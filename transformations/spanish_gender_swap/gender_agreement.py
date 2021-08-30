@@ -12,6 +12,17 @@ auxiliary_subject_agreement = (
     auxiliary["ser"] + auxiliary["estar"] + auxiliary["seguir"]
 )
 
+with open(
+    os.path.join(gazeteer_dir, "gender_country", "male2country.json"), "r"
+) as fd:
+    male2country = json.load(fd)
+
+with open(
+    os.path.join(gazeteer_dir, "gender_country", "country_gender_names.json"),
+    "r",
+) as fd:
+    country_gender_names = json.load(fd)
+
 noun_files = [
     "inflections-fixed.txt",
     "inflections-wiktionary.txt",

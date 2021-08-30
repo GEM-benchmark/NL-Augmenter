@@ -9,9 +9,11 @@ from .gender_agreement import (
     adjective_male_to_female,
     change_participle,
     check_change_verb,
+    country_gender_names,
     function_m2f,
     m2f_adjectives_animate_only,
     m2f_nouns,
+    male2country,
     path_to_word_exists,
     unambiguous_pronouns,
 )
@@ -19,11 +21,10 @@ from .gender_agreement import (
 
 def spanish_gender_swap(text, swap_names, seed=0, nlp=None):
     """Swap the gender of all gender-bearing nouns to female."""
-    if swap_names:
-        raise NotImplementedError("Will implemented here shortly.")
+
     random.seed(seed)
     doc = nlp(text)
-    r = get_replacements(doc, m2f_nouns)
+    r = get_replacements(doc, m2f_nouns, swap_names)
     new_toks = [
         r[ii] + tok.whitespace_ if ii in r else tok.text + tok.whitespace_
         for ii, tok in enumerate(doc)
@@ -36,16 +37,24 @@ def modifiable_non_noun(token):
     return token.pos_ not in ["NOUN", "PROPN"] or word in unambiguous_pronouns
 
 
-def get_replacements(doc, m2f_nouns, debug=False):
+def get_replacements(doc, m2f_nouns, swap_names, debug=False):
     """Replace all nouns and pronouns whose gender can be swapped, and then
     swap all other words (adjectives, determiners, prepositions, participles)
     associated with them.
+
+    If swap_names is True, also swap given names with names of another gender.
     """
 
     replacements = {}
 
-    # See if we can swap the gender of nouns and pronouns.
     for token in doc:
+        # If swap_names is True, see if we can swap names.
+        if swap_names and token.pos_ == "PROPN" and token.text in male2country:
+            country = random.choice(male2country[token.text])
+            new_name = random.choice(country_gender_names[country]["F"])
+            replacements[token.i] = new_name
+
+        # See if we can swap the gender of nouns and pronouns.
         if (
             token.pos_ in ["NOUN", "PROPN", "PRON"]
             and token.text.lower() in m2f_nouns
