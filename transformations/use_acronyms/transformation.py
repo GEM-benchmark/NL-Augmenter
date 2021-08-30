@@ -8,11 +8,22 @@ Use Acronyms.
 """
 
 
-def transformation(sentence, acronyms):
+def transformation(sentence, lowercase, acronyms):
     new_sentence = sentence
+    lower_sentece = sentence.lower()
     for key in acronyms.keys():
+        lower_key = key.lower()
         if key in new_sentence:
             new_sentence = new_sentence.replace(key, acronyms[key])
+        elif lowercase and (lower_key in lower_sentece):
+            key_index = lower_sentece.index(lower_key)
+            key_end = key_index + len(key)
+            new_sentence = (
+                new_sentence[:key_index]
+                + acronyms[key]
+                + new_sentence[key_end:]
+            )
+
     return new_sentence
 
 
@@ -24,6 +35,7 @@ class UseAcronyms(SentenceOperation):
         self,
         seed=0,
         max_outputs=1,
+        lowercase=False,
         acronyms_file="transformations/use_acronyms/acronyms.tsv",
         sep="\t",
         encoding="utf-8",
@@ -37,7 +49,7 @@ class UseAcronyms(SentenceOperation):
         self.acronyms = acronyms
 
     def generate(self, sentence: str):
-        return [transformation(sentence, self.acronyms)]
+        return [transformation(sentence, self.lowercase, self.acronyms)]
 
 
 # """
