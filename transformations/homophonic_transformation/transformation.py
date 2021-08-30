@@ -1,3 +1,4 @@
+import random
 
 from tasks.TaskTypes import TaskType
 from interfaces.SentenceOperation import SentenceOperation
@@ -21,24 +22,29 @@ def generate_subword_and_homophones(word, homophones):
     return word # if no replacement found return input word
 
 
-def getHomophonicText(sentence, homophones):
+def getHomophonicText(sentence, homophones, seed):
     """
     Method for generating transformed sentence with homophone words.
     """
     word_list = sentence.split()
+    random.seed(seed)
+    selected_words = random.sample(word_list, len(word_list)//3) # randomly picking 30% words
     transformed_word_list = []
     for word in word_list:
-        if word in punctuation:
-            transformed_word_list.append(word)
-        elif word.strip().lower() in homophones:
-            # complete word replacement
-            trans_word = homophones[word.strip().lower()].title() if word.istitle() \
-                else homophones[word.strip().lower()]
-            transformed_word_list.append(trans_word)
+        if word in selected_words:
+            if word in punctuation:
+                transformed_word_list.append(word)
+            elif word.strip().lower() in homophones:
+                # complete word replacement
+                trans_word = homophones[word.strip().lower()].title() if word.istitle() \
+                    else homophones[word.strip().lower()]
+                transformed_word_list.append(trans_word)
+            else:
+                # sub-words replacement
+                trans_sub_word = generate_subword_and_homophones(word, homophones)
+                transformed_word_list.append(trans_sub_word)
         else:
-            # sub-words replacement
-            trans_sub_word = generate_subword_and_homophones(word, homophones)
-            transformed_word_list.append(trans_sub_word)
+            transformed_word_list.append(word)
     return " ".join(transformed_word_list)
 
 
@@ -71,7 +77,7 @@ class HomophonicReplacement(SentenceOperation):
     def generate(self, sentence: str) -> List[str]:
         transformed_sentences = []
         for _ in range(self.max_outputs):
-            trans_sent = getHomophonicText(sentence, self.homophones)
+            trans_sent = getHomophonicText(sentence, self.homophones, self.seed)
             transformed_sentences.append(trans_sent)
         return transformed_sentences
 
@@ -84,8 +90,8 @@ class HomophonicReplacement(SentenceOperation):
 #     test_cases = []
 #     sentence_list = ["Virat Kohli made a big hundred against Australia .",
 #                      "The queen Elizabeth II was walking with her cousin .",
-#                      "Quidditch is a sport of two teams of seven players each mounted on a broomstick,
-#                      played on a hockey rink-sized pitch .",
+#                      "Quidditch is a sport of two teams of seven players each mounted on a broomstick"
+#                      " played on a hockey rink-sized pitch .",
 #                      "The world is a beautiful place .",
 #                     ]
 #
@@ -100,9 +106,9 @@ class HomophonicReplacement(SentenceOperation):
 #             test_cases[i]["outputs"].append({"sentence":trans_sentence})
 #     json_file = {"type": convert_to_snake_case("homophonic_transformation"), "test_cases": test_cases}
 #     print(json.dumps(json_file))
-
-    # for sent in sentence_list:
-    #     res = tf.generate(sent)
-    #     print(sent)
-    #     print(res)
-    #     print("----")
+#
+#     # for sent in sentence_list:
+#     #     res = tf.generate(sent)
+#     #     print(sent)
+#     #     print(res)
+#     #     print("----")

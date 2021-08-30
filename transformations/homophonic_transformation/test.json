@@ -6,7 +6,7 @@
       "sentence": "Virat Kohli made a big hundred against Australia ."
     },
     "outputs": [{
-      "sentence": "Voyrat Kuwlyy meyd ey big hundr'd 'geynst 'Streyly' ."
+      "sentence": "Voyrat Kohli made a big hundred 'geynst Australia ."
     }]
   }, {
     "class": "HomophonicReplacement",
@@ -14,15 +14,15 @@
       "sentence": "The queen Elizabeth II was walking with her cousin ."
     },
     "outputs": [{
-      "sentence": "Du kwYyn 'Liz'B'T OyI woz wok'N wiT hRr kuz'n ."
+      "sentence": "Du queen Elizabeth II was walking wiT her cousin ."
     }]
   }, {
     "class": "HomophonicReplacement",
     "inputs": {
-      "sentence": "Quidditch is a sport of two teams of seven players each mounted on a broomstick, played on a hockey rink-sized pitch ."
+      "sentence": "Quidditch is a sport of two teams of seven players each mounted on a broomstick played on a hockey rink-sized pitch ."
     },
     "outputs": [{
-      "sentence": "KwidditS iz ey spcrt uv tWw tYymz uv sev'n pley'rz YytS mawnt'd on ey brWwmstick, pleyd on ey hokYy rink-sized pitS ."
+      "sentence": "Quidditch iz ey sport of two teams of sev'n players each mounted on ey broomstick pleyd on ey hockey rink-sized pitch ."
     }]
   }, {
     "class": "HomophonicReplacement",
@@ -30,9 +30,8 @@
       "sentence": "The world is a beautiful place ."
     },
     "outputs": [{
-      "sentence": "Du wRrld iz ey byWwt'f'l pleys ."
+      "sentence": "The world is ey beautiful place ."
     }]
   }
   ]
 }
-
