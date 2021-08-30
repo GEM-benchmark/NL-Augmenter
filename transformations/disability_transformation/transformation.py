@@ -18,7 +18,7 @@ def different_ability(input, disability_names):
 
 
 """
-Butter Finger implementation borrowed from https://github.com/alexyorke/butter-fingers.
+List of diabilities and their respectful alternatives is taken from: https://www.aucd.org/docs/add/sa_summits/Language%20Doc.pdf
 """
 disability_names= {"blind": "visually impaired",
                            "deformed": "person with physical disability",
