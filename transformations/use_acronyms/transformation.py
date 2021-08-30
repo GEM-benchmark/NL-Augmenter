@@ -41,6 +41,7 @@ class UseAcronyms(SentenceOperation):
         encoding="utf-8",
     ):
         super().__init__(seed, max_outputs=max_outputs)
+        self.lowercase = lowercase
         acronyms = {}
         with open(acronyms_file, "r", encoding=encoding) as file:
             for line in file:
