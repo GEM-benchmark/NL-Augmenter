@@ -25,7 +25,7 @@ text generation, etc.
 ## Previous Work
 1) Butter Finger implementation borrowed from this code: https://github.com/GEM-benchmark/NL-Augmenter/tree/main/transformations/butter_fingers_perturbation, which in turn was borrowed from this code: https://github.com/alexyorke/butter-fingers
 
-2) NeuSpell is a neural spelling correction toolkit, which is used in this implementation: 
+2) We use NeuSpell, which is a neural spelling correction toolkit: 
 
 ```bibtex
 @inproceedings{jayanthi-etal-2020-neuspell,
