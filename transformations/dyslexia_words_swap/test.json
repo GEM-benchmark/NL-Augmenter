@@ -1,0 +1,16 @@
+{
+  "type": "DyslexiaWordsSwap",
+  "test_cases": [
+    {
+      "class": "DyslexiaWordsSwap",
+      "inputs": {
+        "sentence": "The Interim Cryogenic Propulsion Stage for the second flight of NASA’s Space Launch System (SLS) rocket arrived in Florida on July 28 for the final phase of production."
+      },
+      "outputs": [
+        {
+          "sentence": "The Interim Cryogenic Propulsion Stage four the second flight off NASA’s Space Launch System (SLS) rocket arrived in Florida on July 28 four the final phase off production."
+        }
+      ]
+    }
+  ]
+}
