@@ -1,4 +1,4 @@
-# Pig Latin cipher :nose:  + ⌨️ → :pig_nose:
+# Pig Latin cipher :nose: → :pig_nose:
 This transformation translates the original text into pig latin. 
 Pig Latin is a well-known deterministic transformation of English words, and can be viewed as a cipher which can be deciphered by a human with relative ease. The resulting sentences are completely unlike examples typically used in language model training. As such, and in a similar fashion to the Simple Ciphers augmentation, this augmentation change the input into inputs which are difficult for a language model to interpret, while being relatively easy for a human to interpret. 
 
