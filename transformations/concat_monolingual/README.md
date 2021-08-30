@@ -1,5 +1,5 @@
 # Concatenate Two Random Sentences
-This transformation concats two random sentences as explained in [Nguyen et al., 2021](https://arxiv.org/abs/2105.01691). This is the bilingual version. A monolingual version is available under concat monlingual.
+This transformation concats two random sentences as explained in [Nguyen et al., 2021](https://arxiv.org/abs/2105.01691). This is the monolingual version. Another transformation, concat, is the bilingual version.
 
 ## What type of a transformation is this?
 This transformation creates longer data sequences.

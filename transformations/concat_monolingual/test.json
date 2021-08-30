@@ -1,0 +1,80 @@
+{
+  "type": "concatmonolingual",
+  "test_cases": [
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "Initial, no concat",
+     },
+      "outputs": [{
+        "sentence": "Initial, no concat ",
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "a b",
+       "target": "a b"
+     },
+      "outputs": [{
+        "sentence": "a b Initial, no concat",
+        "target": "a b Primero, no concat"
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "a b",
+       "target": "a"
+     },
+      "outputs": [{
+        "sentence": "a b a b",
+        "target": "a a b"
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "",
+       "target": ""
+     },
+      "outputs": [{
+        "sentence": " a b",
+        "target": " a"
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "",
+       "target": ""
+     },
+      "outputs": [{
+        "sentence": " ",
+        "target": " "
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "long sentence",
+       "target": "long sentence"
+     },
+      "outputs": [{
+        "sentence": "long sentence ",
+        "target": "long sentence "
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "I am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation...",
+       "target": "I am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation..."
+     },
+      "outputs": [{
+        "sentence": "I am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation... long sentence",
+        "target": "I am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation... long sentence"
+      }]
+    }
+  ]
+}
