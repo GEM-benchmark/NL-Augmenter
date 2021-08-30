@@ -2,7 +2,6 @@ import re
 
 from checklist.perturb import Perturb
 
-from interfaces.SentenceOperation import SentenceAndTargetOperation
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -39,7 +38,7 @@ class ConcatMonolingual(SentenceOperation):
         super().__init__(seed, max_outputs=max_outputs)
         self.last_source=last_source
 
-    def generate(self, sentence: str, target: str):
+    def generate(self, sentence: str):
         perturbed_source = sentence + " " + self.last_source
         self.last_source = sentence
 
@@ -48,4 +47,4 @@ class ConcatMonolingual(SentenceOperation):
             print(
                 f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}"
             )
-        return perturbed_source
+        return [perturbed_source]

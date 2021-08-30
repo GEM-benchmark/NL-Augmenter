@@ -4,76 +4,64 @@
     {
      "class": "ConcatMonolingual",
      "inputs": {
-       "sentence": "Initial, no concat",
+       "sentence": "Initial, no concat"
      },
       "outputs": [{
-        "sentence": "Initial, no concat ",
+        "sentence": "Initial, no concat "
       }]
     },
     {
      "class": "ConcatMonolingual",
      "inputs": {
-       "sentence": "a b",
-       "target": "a b"
+       "sentence": "a b"
      },
       "outputs": [{
-        "sentence": "a b Initial, no concat",
-        "target": "a b Primero, no concat"
+        "sentence": "a b Initial, no concat"
       }]
     },
     {
      "class": "ConcatMonolingual",
      "inputs": {
-       "sentence": "a b",
-       "target": "a"
+       "sentence": "a b"
      },
       "outputs": [{
-        "sentence": "a b a b",
-        "target": "a a b"
+        "sentence": "a b a b"
       }]
     },
     {
      "class": "ConcatMonolingual",
      "inputs": {
-       "sentence": "",
-       "target": ""
+       "sentence": ""
      },
       "outputs": [{
-        "sentence": " a b",
-        "target": " a"
+        "sentence": " a b"
       }]
     },
     {
      "class": "ConcatMonolingual",
      "inputs": {
-       "sentence": "",
-       "target": ""
+       "sentence": ""
      },
       "outputs": [{
-        "sentence": " ",
-        "target": " "
+        "sentence": " "
       }]
     },
     {
      "class": "ConcatMonolingual",
      "inputs": {
-       "sentence": "long sentence",
-       "target": "long sentence"
+       "sentence": "long sentence"
      },
       "outputs": [{
-        "sentence": "long sentence ",
-        "target": "long sentence "
+        "sentence": "long sentence "
       }]
     },
     {
      "class": "ConcatMonolingual",
      "inputs": {
-       "sentence": "I am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation...",
-       "target": "I am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation..."
+       "sentence": "Yo am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation..."
      },
       "outputs": [{
-        "sentence": "I am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation... long sentence",
-        "target": "I am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation... long sentence"
+        "sentence": "Yo am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation... long sentence"
       }]
     }
   ]
