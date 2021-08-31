@@ -1,0 +1,68 @@
+{
+  "type": "negated_antonym_transformation",
+  "test_cases": [
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "I think you are successful."
+      },
+      "outputs": [{
+        "sentence": "I think you are not unsuccessful."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "I think you are prepared for the test."
+      },
+      "outputs": [{
+        "sentence": "I think you are not unprepared for the test."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "He ran quickly."
+      },
+      "outputs": [{
+        "sentence": "He ran not slowly."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "He plays the flute beautifully."
+      },
+      "outputs": [{
+        "sentence": "He plays the flute not unattractively."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "I think you are joyful."
+      },
+      "outputs": [{
+        "sentence": "I think you are not sorrowful."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "I think you are smarter than me."
+      },
+      "outputs": [{
+        "sentence": "I think you are not stupid than me."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "The movie was bad."
+      },
+      "outputs": [{
+        "sentence": "The movie was not good."
+      }]
+    }
+  ]
+}
