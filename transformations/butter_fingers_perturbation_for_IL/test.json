@@ -4,7 +4,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "hi"
+        "language": "hi",
         "sentence": "आप से मिलकर ख़ुशी हुई"
       },
       "outputs": [{
@@ -14,7 +14,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "hi"
+        "language": "hi",
         "sentence": "क्या आप हिन्दी बोलते हैं?"
       },
       "outputs": [{
@@ -24,7 +24,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "ta"
+        "language": "ta",
         "sentence": "உங்களை பார்த்தது மிகவும் சந்தோஷம்"
       },
       "outputs": [{
@@ -34,7 +34,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "ta"
+        "language": "ta",
         "sentence": "நீங்கள் தமிழ் பேசுவீர்களா?"
       },
       "outputs": [{
@@ -44,7 +44,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "pa"
+        "language": "pa",
         "sentence": "ਤੁਹਾਨੂੰ ਮਿਲ ਕੇ ਬਹੁਤ ਖੁਸ਼ੀ ਹੋਈ"
       },
       "outputs": [{
@@ -54,7 +54,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "pa"
+        "language": "pa",
         "sentence": "ਤੁਹਾਨੂੰ ਪੰਜਾਬੀ ਆਉਂਦੀ ਹੈ?"
       },
       "outputs": [{
@@ -64,7 +64,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "or"
+        "language": "or",
         "sentence": "ଆପଣଙ୍କୁ ଭେଟି ଭଲ ଲାଗିଲା"
       },
       "outputs": [{
@@ -74,7 +74,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "or"
+        "language": "or",
         "sentence": "ଆପଣ ଓଡ଼ିଆ କୁହନ୍ତି କି?"
       },
       "outputs": [{
@@ -84,7 +84,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "te"
+        "language": "te",
         "sentence": "మిమ్మల్ని కలవడం చాలా సంతోషంగా ఉంది"
       },
       "outputs": [{
@@ -94,7 +94,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "te"
+        "language": "te",
         "sentence": "మీరు తెలుగు మాట్లాడతారా ?"
       },
       "outputs": [{
@@ -104,7 +104,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "ml"
+        "language": "ml",
         "sentence": "കണ്ടതില്‍ സന്തോഷം"
       },
       "outputs": [{
@@ -114,7 +114,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "ml"
+        "language": "ml",
         "sentence": "നിങ്ങള്‍ മലയാളം സംസാരിക്കുമോ?"
       },
       "outputs": [{
@@ -124,7 +124,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "kn"
+        "language": "kn",
         "sentence": "ನಿಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಿದ್ದಕ್ಕೆ ಸಂತೋಷ"
       },
       "outputs": [{
@@ -134,7 +134,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "kn"
+        "language": "kn",
         "sentence": "ನೀವು ಕನ್ನಡ ಮಾತಾಡ್ತೀರಾ?"
       },
       "outputs": [{
@@ -144,7 +144,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "gu"
+        "language": "gu",
         "sentence": "તમને મળીને આનંદ થયો"
       },
       "outputs": [{
@@ -154,7 +154,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "gu"
+        "language": "gu",
         "sentence": "શું તમે ગુજરાતી બોલી શકો છો"
       },
       "outputs": [{
@@ -164,7 +164,7 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "bn"
+        "language": "bn",
         "sentence": "তোর সাথে দেখা হয়ে ভালো লাগলো।"
       },
       "outputs": [{
@@ -174,12 +174,12 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "bn"
+        "language": "bn",
         "sentence": "আপনি কি বাংলা বলতে পারেন?"
       },
       "outputs": [{
         "sentence": "আপনি কি ূাংলা বলতে পারেন?"
       }]
-    },
+    }
   ]
 }
