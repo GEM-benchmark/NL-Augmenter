@@ -168,21 +168,21 @@ class Summarization(SentenceOperation):
         return v, objs
 
 
-# Sample code to demonstrate usage. Can also assist in adding test cases.
-# You don't need to keep this code in your transformation.
-if __name__ == '__main__':
-    import json
-    from TestRunner import convert_to_snake_case
-    tf = Summarization()
-    test_cases = []
-    for sentence in ["Apple is looking at buying U.K. startup which costs me for $132 billion.",
-                     "Parsley Energy to acquire Jagged Peak Energy Company in an all-stock deal.",
-                     "Stillwater is not a 2010 American live-action/animated dark fantasy adventure film",
-                     "Andrew finally returned the French book to Chris that I bought last week",
-                     "Jack was the leader of the team, but Harry is better than him."]:
-        test_cases.append({
-            "class": tf.name(),
-            "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
-        )
-    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    print(json.dumps(json_file, indent=2))
+# # Sample code to demonstrate usage. Can also assist in adding test cases.
+# # You don't need to keep this code in your transformation.
+# if __name__ == '__main__':
+#     import json
+#     from TestRunner import convert_to_snake_case
+#     tf = Summarization()
+#     test_cases = []
+#     for sentence in ["Apple is looking at buying U.K. startup which costs me for $132 billion.",
+#                      "Parsley Energy to acquire Jagged Peak Energy Company in an all-stock deal.",
+#                      "Stillwater is not a 2010 American live-action/animated dark fantasy adventure film",
+#                      "Andrew finally returned the French book to Chris that I bought last week",
+#                      "Jack was the leader of the team, but Harry is better than him."]:
+#         test_cases.append({
+#             "class": tf.name(),
+#             "inputs": {"sentence": sentence}, "outputs": [{"sentence": o} for o in tf.generate(sentence)]}
+#         )
+#     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
+#     print(json.dumps(json_file, indent=2))

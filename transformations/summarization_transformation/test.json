@@ -31,15 +31,6 @@
     {
       "class": "Summarization",
       "inputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
-      },
-      "outputs": [{
-        "sentence": "Andrew returned book"
-      }]
-    },
-    {
-      "class": "Summarization",
-      "inputs": {
         "sentence": "Jack was the leader of the team, but Harry is better than him."
       },
       "outputs": [{
