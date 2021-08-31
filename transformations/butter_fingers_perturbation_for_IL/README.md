@@ -1,5 +1,5 @@
 # Butter Fingers Perturbation For Indian Languages 🦎 + ⌨️ → 🦚
-This perturbation adds noise to all types of text sources (sentence, paragraph, etc.), which is proportional to noise erupting from keyboard typos resulting in common spelling errors. We have expanded the existing implementation for English () to a few Indian Languages: Bangla, Gujarati, Hindi, Kannada, Malayalam, Marathi, Oriya, Punjabi, Tamil, and Telugu.
+This perturbation adds noise to all types of text sources (sentence, paragraph, etc.), which is proportional to noise erupting from keyboard typos resulting in common spelling errors. We have expanded the existing implementation for English () to a few Indian Languages: Bangla, Gujarati, Hindi, Kannada, Malayalam, Oriya, Punjabi, Tamil, and Telugu.
 
 #### Author (1)
 - Name: KV Aditya Srivatsa
