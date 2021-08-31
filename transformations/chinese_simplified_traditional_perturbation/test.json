@@ -1,45 +1,49 @@
 {
-  "type": "close_homophones_swap",
-  "test_cases": [{
-      "class": "CloseHomophonesSwap",
+  "type": "chinese_simplified_traditional_perturbation",
+  "test_cases": [
+    {
+      "class": "ChineseSimplifiedTraditionalPerturbation",
       "inputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+        "sentence": "谢尔曼将访问中国天津，中国外交部主管中美关系的副部长谢峰将和她会谈."
       },
       "outputs": [{
-        "sentence": "Andrew finally returned the French book to Chris that I Bot Lass week"
+        "sentence": "謝爾曼將訪問中國天津，中國外交部主管中美關系的副部長謝峯將和她會談."
       }]
     },
     {
-      "class": "CloseHomophonesSwap",
+      "class": "ChineseSimplifiedTraditionalPerturbation",
       "inputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+        "sentence": "本意是指词的起源义，即词的最初意义。引申义是由词的本意引申出来的并经过推演发展而产生的意义"
       },
       "outputs": [{
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary Tee, lack an overt predicate to indicate Thee relation between two or Morr arguments."
+        "sentence": "本意是指詞的起源義，即詞的最初意義。引申義是由詞的本意引申出來的並經過推演發展而產生的意義"
       }]
-    }, {
-      "class": "CloseHomophonesSwap",
+    },
+    {
+      "class": "ChineseSimplifiedTraditionalPerturbation",
       "inputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+        "sentence": "汉字是语素文字，总数非常庞大。汉字总共有多少字？到目前为止，恐怕没人能够答得上来精确的数字。"
       },
       "outputs": [{
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+        "sentence": "漢字是語素文字，總數非常龐大。漢字總共有多少字？到目前爲止，恐怕沒人能夠答得上來精確的數字。"
       }]
-    }, {
-      "class": "CloseHomophonesSwap",
+    },
+    {
+      "class": "ChineseSimplifiedTraditionalPerturbation",
       "inputs": {
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+        "sentence": "恰当的运用反义词，可以形成鲜明的对比，把事物的特点表达得更充分，给人留下深刻难忘的印象。"
       },
       "outputs": [{
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+        "sentence": "恰當的運用反義詞，可以形成鮮明的對比，把事物的特點表達得更充分，給人留下深刻難忘的印象。"
       }]
-    }, {
-      "class": "CloseHomophonesSwap",
+    },
+    {
+      "class": "ChineseSimplifiedTraditionalPerturbation",
       "inputs": {
-        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+        "sentence": "随着两个遗迹文明的发展，他们终于开始了争斗。遗迹之间的能量冲突是战争的导火索，因为一方出现，另一方的遗迹能量就会相应的颓落。"
       },
       "outputs": [{
-        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+        "sentence": "隨着兩個遺跡文明的發展，他們終於開始了爭鬥。遺跡之間的能量衝突是戰爭的導火索，因爲一方出現，另一方的遺跡能量就會相應的頹落。"
       }]
     }
   ]

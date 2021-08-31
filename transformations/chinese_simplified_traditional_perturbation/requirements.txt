@@ -1,2 +1,2 @@
 # for CloseHomophonesSwap
-SoundsLike==0.0.11
+OpenCC==1.1.2
