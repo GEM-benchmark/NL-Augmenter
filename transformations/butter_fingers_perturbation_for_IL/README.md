@@ -15,7 +15,7 @@ This perturbation adds noise to all types of text sources (sentence, paragraph, 
 This transformation acts like a perturbation to test robustness of text-based models. In this, a few letters are picked at random and are replaced with letters which are at keyboard positions near the source letter (refer to subsection below for more details). Generated transformations display high similarity to the source sentences but with the addition of controlled noise i.e. the code generates highly precise transformations.
 
 ### Keyboard choice & Future Work
-Currently our implementation considers the InScript keyboard () which is decreed as a standard for Indian Languages. The mapping for letters "near" another is concluded from the same layout as well. We intend to exapnd this support to Gboard (mobile devices), other non QWERTY format keyboards, or other Indian Language input layouts.
+Currently our implementation considers the InScript keyboard ([source](https://en.wikipedia.org/wiki/InScript_keyboard)) which is decreed as a standard for Indian Languages. The mapping for letters "near" another is concluded from the same layout as well. We intend to exapnd this support to Gboard (mobile devices), other non QWERTY format keyboards, or other Indian Language input layouts.
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have text (a sentence/paragraph/document) as input like text classification, text generation, etc. 
