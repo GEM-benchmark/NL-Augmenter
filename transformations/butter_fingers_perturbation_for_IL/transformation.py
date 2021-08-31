@@ -55,14 +55,14 @@ class ButterFingersPerturbation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
-    languages = ["hi","te","ta"]
+    languages = ["bn","gu","hi","kn","ml","or","pa","ta","te"]
 
-    def __init__(self, language:str, keyboard:str, seed=0, max_outputs=1):
+    def __init__(self, language:str, keyboard="inscript", seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
         self.language = language
         self.keyboard = keyboard
 
-    def generate(self, sentence: str, language: str):
+    def generate(self, sentence: str,):
         perturbed_texts = butter_finger(
             text=sentence,
             language=self.language,
