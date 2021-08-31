@@ -1,0 +1,50 @@
+{
+  "type": "GermanGenderSwap",
+  "test_cases": [
+    {
+      "class": "GermanGenderSwap",
+      "inputs": {
+        "sentence": "der Arzt arbeitet."
+      },
+      "outputs": [{
+        "sentence": "die Ärztin arbeitet"
+      }]
+    },
+    {
+      "class": "GermanGenderSwap",
+      "inputs": {
+        "sentence": "der Ingenieur geht."
+      },
+      "outputs": [{
+        "sentence": "die Ingenieurin geht."
+      }]
+    },
+    {
+      "class": "GermanGenderSwap",
+      "inputs": {
+        "sentence": "der Vater hat dich gesegnet"
+      },
+      "outputs": [{
+        "sentence": "die Mutter hat dich gesegnet"
+      }]
+    },
+    {
+      "class": "GermanGenderSwap",
+      "inputs": {
+        "sentence": "der Mann ist weg"
+      },
+      "outputs": [{
+        "sentence": "die Frau ist weg"
+      }]
+    },
+    {
+      "class": "GermanGenderSwap",
+      "inputs": {
+        "sentence": "der Fahrer fährt."
+      },
+      "outputs": [{
+        "sentence": "die Fahrerin fährt"
+      }]
+    }
+  ]
+}
