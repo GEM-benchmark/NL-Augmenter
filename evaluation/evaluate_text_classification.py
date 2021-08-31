@@ -154,7 +154,6 @@ def evaluate(
 
 def _get_model_pred(model, examples, batch_size):
     all_preds = []
-    # print(model)
     with torch.no_grad():
         for e in (range(0, len(examples), batch_size)):
             print(examples[e:e+batch_size])
@@ -166,7 +165,6 @@ def evaluate_dataset(
     accuracy = 0
     total = 0
     examples = [_get_instance_by_keys(list(raw_text)[:-1]) for raw_text in dataset]
-    # print(examples)
     labels = [label_func(list(raw_text)[-1]) for raw_text in dataset]
     raw_preds = _get_model_pred(text_classification_pipeline, examples, batch_size=batch_size)
     preds = [_process_model_pred(model_name, raw_pred) for raw_pred in raw_preds]
