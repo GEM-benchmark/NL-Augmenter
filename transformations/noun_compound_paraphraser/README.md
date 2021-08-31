@@ -17,7 +17,7 @@ are:
 'After the ride on a bike, John stopped by the house for club activities.']
 ```
 
-The number of paraphrases to be replaced is specified by the `max_paraphrases`
+The number of paraphrases to be returned for each noun compound is specified by the `max_paraphrases`
 parameter (set to 1 by default). For example, the paraphrases of "club house"
 include "house for club activities", "house for club members", "house in which a club meets", etc.
 
