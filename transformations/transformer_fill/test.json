@@ -78,6 +78,19 @@
       "outputs": [{
         "sentence": "This movie was awesome , I will never watch it again."
       }]
+    },
+    {
+      "class": "TransformerFill",
+      "args": {
+        "context_text": "POSITIVE REVIEW: ",
+        "n": 5
+      },
+      "inputs": {
+        "sentence": "This movie was terrible, aweful, and depressing, I will never watch it again."
+      },
+      "outputs": [{
+        "sentence": "ㅋㅋ movie was terrible and aweful — and depressing, I will never see it again!"
+      }]
     }
   ]
 }

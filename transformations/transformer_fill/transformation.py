@@ -117,7 +117,9 @@ class TransformerFill(SentenceOperation):
         if len(masked_texts) >= self.n:
             # select n words to replace
             selection = random.sample(list(zip(masked_texts, original_words)), self.n)
-            masked_texts, original_words = zip(*selection)
+            masked_texts, original_words = zip(
+                *sorted(selection, key=lambda x: x[1].index)
+            )
             return (list(masked_texts), list(original_words))
         return masked_texts, original_words
 
