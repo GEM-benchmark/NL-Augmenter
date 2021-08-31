@@ -5,10 +5,10 @@
     {
       "class": "FrenchAdjectivesSynonymTransformation",
       "inputs": {
-        "sentence": "Le féroce sanglier a des défenses pointues et un pelage sombre"
+        "sentence": "Le  sanglier a des défenses pointues et un pelage sombre"
       },
       "outputs": [{
-        "sentence": "Le féroce sanglier a des défenses pointues et un pelage noir"
+        "sentence": "Le  sanglier a des défenses pointues et un pelage noir"
       }]
     
     },
@@ -16,10 +16,10 @@
     {
       "class": "FrenchAdjectivesSynonymTransformation",
       "inputs": {
-        "sentence": "L'examen était très difficile"
+        "sentence": "L'examen est difficile"
       },
       "outputs": [{
-        "sentence": "L'examen était très ardu"
+        "sentence": "L'examen est ardu"
       }]
     
     },
@@ -38,10 +38,10 @@
     {
       "class": "FrenchAdjectivesSynonymTransformation",
       "inputs": {
-        "sentence": "C'était un impressionnant défilé de mode, les mannequins étaient tous très élégants."
+        "sentence": "C'était un impressionnant festival de mode, les mannequins sont tous jolis."
       },
       "outputs": [{
-        "sentence": "C'était un imposant défilé de mode, les mannequins étaient tous très élégants."
+        "sentence": "C'était un imposant festival de mode, les mannequins sont tous jolis."
       }]
     
     },
@@ -49,10 +49,10 @@
     {
       "class": "FrenchAdjectivesSynonymTransformation",
       "inputs": {
-        "sentence": "Nous étions invité en petit comité."
+        "sentence": "Nous sommes venu en grand nombre."
       },
       "outputs": [{
-        "sentence": "Nous étions invité en léger comité."
+        "sentence": "Nous sommes venu en important nombre."
       }]
     
     }
