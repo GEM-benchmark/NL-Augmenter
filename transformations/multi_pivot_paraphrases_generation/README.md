@@ -1,4 +1,4 @@
-# From one English Snetnece to a list of paraphrases 🦎  + ⌨️ → 🐍
+# From one English Sentence to a list of paraphrases 🦎  + ⌨️ → 🐍
 This transformation generates a list of paraphrases for an English sentence by leveraging Pivot-Transaltion approach.
 Pivot-Transaltion is an approach where a sentence in a source language is translated to a foreign language called the pivot language then translated back to the source language to get a paraprhase candidate, e.g. translate an English sentence to French, then translate back to English.
 
