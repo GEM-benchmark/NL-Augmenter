@@ -1,12 +1,10 @@
-
-# Butter Fingers Perturbation For Indian Languages 🦎  + ⌨️ → 🦚
-This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise erupting 
-from keyboard typos making common spelling errors. The existing implementation for english () has been expanded to Bangla, Gujarati, Hindi, Kannada, Malayalam, Marathi, Oriya, Punjabi, Tamil, and Telugu.
+# Butter Fingers Perturbation For Indian Languages 🦎 + ⌨️ → 🦚
+This perturbation adds noise to all types of text sources (sentence, paragraph, etc.), which is proportional to noise erupting from keyboard typos resulting in common spelling errors. We have expanded the existing implementation for English () to a few Indian Languages: Bangla, Gujarati, Hindi, Kannada, Malayalam, Marathi, Oriya, Punjabi, Tamil, and Telugu.
 
 #### Author (1)
 - Name: KV Aditya Srivatsa
 - Email: k.v.aditya@research.iiit.ac.in
-- Affiliation: Language Technologies Research Center, Kohli Center on Intelligent Systems, International Institute of Information Technology, Hyderabad
+- Affiliation: Language Technologies Research Center, Kohli Center on Intelligent Systems,International Institute of Information Technology, Hyderabad
 
 #### Author (2)
 - Name: Mukund Choudhary
@@ -14,17 +12,16 @@ from keyboard typos making common spelling errors. The existing implementation f
 - Affiliation: Brain, Cognition, and Computation Lab, International Institute of Information Technology, Hyderabad
 
 ## What type of a transformation is this?
-This transformation acts like a perturbation to test robustness. Few letters picked at random are replaced with letters 
-which are at keyboard positions near the source letter. Generated transformations display high similarity to the 
-source sentences i.e. the code outputs highly precise generations. 
+This transformation acts like a perturbation to test robustness of text-based models. In this, a few letters are picked at random and are replaced with letters which are at keyboard positions near the source letter (refer to subsection below for more details). Generated transformations display high similarity to the source sentences but with the addition of controlled noise i.e. the code generates highly precise transformations.
+
+### Keyboard choice & Future Work
+Currently our implementation considers the InScript keyboard () which is decreed as a standard for Indian Languages. The mapping for letters "near" another is concluded from the same layout as well. We intend to exapnd this support to Gboard (mobile devices), other non QWERTY format keyboards, or other Indian Language input layouts.
 
 ## What tasks does it intend to benefit?
-This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
-text generation, etc. 
+This perturbation would benefit all tasks which have text (a sentence/paragraph/document) as input like text classification, text generation, etc. 
 
 ## What are the limitations of this transformation?
-The transformation's outputs are too simple to be used for data augmentation. Unlike a paraphraser, it is not capable of
- generating linguistically diverse text.
+The transformation's outputs are too simplistic to be used for data augmentation. Unlike a paraphraser, it is not capable of generating linguistically diverse text. It is not modifying a (linguistic) feature of the input (text), rather just creating some noise that is supposed to mirror typos in a naturalistic setting.
 
 ## Previous Work
 1) Butter Finger implementation borrowed from this code https://github.com/alexyorke/butter-fingers
