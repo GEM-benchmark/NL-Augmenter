@@ -5,10 +5,10 @@
     {
       "class": "FrenchNounSynonymTransformation",
       "inputs": {
-        "sentence": "Il a vécu par la force et par la force il nous a quittés. Je n'ai pas été surpris de la cohérence avec laquelle il a conclu son existence."
+        "sentence": "Il vit par la force et par la force il est parti."
       },
       "outputs": [{
-        "sentence": "Il a vécu par la violence et par la violence il nous a quittés. Je n'ai pas été surpris de la cohérence avec laquelle il a conclu son existence."
+        "sentence": "Il vit par la violence et par la violence il est parti."
       }]
     
     },
@@ -16,25 +16,14 @@
     {
       "class": "FrenchNounSynonymTransformation",
       "inputs": {
-        "sentence": "Dans cette vie, vous devez planter un arbre, écrire un livre et avoir un enfant."
+        "sentence": "Dans cette vie, vous devez planter un arbre, lire un livre et avoir un enfant."
       },
       "outputs": [{
-        "sentence": "Dans cette vie, vous devez planter un arbre, écrire un ouvrage et avoir un enfant."
+        "sentence": "Dans cette vie, vous devez planter un arbre, lire un ouvrage et avoir un enfant."
       }]
     
     },
-    
-    {
-      "class": "FrenchNounSynonymTransformation",
-      "inputs": {
-        "sentence": "Vous ne pouvez pas voter pour cet homme, avec tout ce qu’il a fait!"
-      },
-      "outputs": [{
-        "sentence": "Vous ne pouvez pas voter pour cet individu, avec tout ce qu’il a fait!"
-      }]
-    
-    },
-    
+       
     {
       "class": "FrenchNounSynonymTransformation",
       "inputs": {
@@ -49,10 +38,10 @@
     {
       "class": "FrenchNounSynonymTransformation",
       "inputs": {
-        "sentence": "Il mène son projet rapidement et avec rigueur."
+        "sentence": "Il entreprend son projet rapidement et avec enthousiasme."
       },
       "outputs": [{
-        "sentence": "Il mène son projet rapidement et avec sévérité."
+        "sentence": "Il entreprend son projet rapidement et avec passion."
       }]
     
     }
