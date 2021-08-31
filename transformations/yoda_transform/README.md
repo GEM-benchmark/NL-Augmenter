@@ -11,7 +11,7 @@ Author names: Ryan Teehan, Vinay Prabhu, Nick Roberts, Sang Han
 
 Author emails: rsteehan@gmail.com, vinay@unify.id, nick11roberts@cs.wisc.edu, sanghan@protonmail.com
 
-Author Affiliations: Charles River Analytics, UnifyID, UW Madison
+Author Affiliations: Charles River Analytics, UnifyID, UW Madison, Independent Researcher
 
 ## What type of a transformation is this?
 This transformation acts like a perturbation to test robustness. Sentences with clauses transformed in this way are
