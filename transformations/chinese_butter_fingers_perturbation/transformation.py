@@ -34,7 +34,6 @@ def chinese_butter_finger(text,
                                                                             common_chinese_character_database,
                                                                             chinese_words_database,
                                                                             consider_tone)
-            print(words_and_similar_word_dict_list)
             for dict in words_and_similar_word_dict_list:
                 perturb_word = dict['perturb_word']
                 similar_pinyins_words = dict['similar_pinyin_words']
@@ -188,7 +187,7 @@ def load_chinese_words_data():
 
 
 """
-Chinese Characters Butter Fingers Perturbation
+Chinese Words and Characters Butter Fingers Perturbation
 """
 
 class ChineseButterFingersPerturbation(SentenceOperation):
@@ -198,7 +197,7 @@ class ChineseButterFingersPerturbation(SentenceOperation):
     ]
     languages = ["zh"]
 
-    def __init__(self, seed=0, max_outputs=1, prob=1, rare_word_prob = 0.1, consider_tone = False, word_level_perturb = True):
+    def __init__(self, seed=0, max_outputs=1, prob=0.3, rare_word_prob = 0.1, consider_tone = False, word_level_perturb = True):
         super().__init__(seed, max_outputs=max_outputs)
         self.prob = prob
         self.rare_word_prob = rare_word_prob
@@ -225,22 +224,4 @@ class ChineseButterFingersPerturbation(SentenceOperation):
         )
         return perturbed_texts
 
-
-
-
-
-if __name__ == "__main__":
-
-    # text = "恰当的运用反义词，可以形成鲜明的对比，把事物的特点表达得更充分，给人留下深刻难忘的印象"
-    # text = "恰当的运用反义词"
-    text = "阿鼻,对比的"
-
-    perturb = ChineseButterFingersPerturbation(word_level_perturb=False)
-    newtext = perturb.generate(text)
-    print(newtext)
-    # chinese_words = perturb.chinese_words_database
-    # output = jieba.lcut(text)
-    # # print(output)
-    # words_and_similar_word_dict_list = get_words_with_similar_pinyin(output)
-    # print(words_and_similar_word_dict_list)
 
