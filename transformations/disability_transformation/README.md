@@ -1,4 +1,4 @@
-# Disability/Differently Abled Transformation 🦎  + 🦎 → 🐍
+# Disability/Differently Abled Transformation ♿
 This transformation changes outdated names of disabilities with more appropriate ones which are now used.
 
 ## What type of a transformation is this?
