@@ -4,47 +4,182 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+        "language": "hi"
+        "sentence": "आप से मिलकर ख़ुशी हुई"
       },
       "outputs": [{
-        "sentence": "Andgew finally returned the French book to Chrus thav I bought last week"
+        "sentence": "ऊप से मिलकर ख़ुशी हुई"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+        "language": "hi"
+        "sentence": "क्या आप हिन्दी बोलते हैं?"
       },
       "outputs": [{
-        "sentence": "Senhences with gapping, such as Paul likes coffwe and Mary tea, lack an overt predicate to indicatx the relauion between two or more argumentd."
+        "sentence": "ल्या आप बिन्दी बोलते हैं?"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+        "language": "ta"
+        "sentence": "உங்களை பார்த்தது மிகவும் சந்தோஷம்"
       },
       "outputs": [{
-        "sentence": "Alife in Wonderland is a 2010 American live-action/abimatev dark fantasy adventure film"
+        "sentence": "உங்லளை பார்த்தது மிகவும் சந்தோஷம்"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+        "language": "ta"
+        "sentence": "நீங்கள் தமிழ் பேசுவீர்களா?"
       },
       "outputs": [{
-        "sentence": "Ujjwl Dev Dosanjh served as 33rd Premier of Britush Conumbia from 2000 to 2001"
+        "sentence": "நீங்கள் தமிழி பேசுவீர்களா?"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+        "language": "pa"
+        "sentence": "ਤੁਹਾਨੂੰ ਮਿਲ ਕੇ ਬਹੁਤ ਖੁਸ਼ੀ ਹੋਈ"
       },
       "outputs": [{
-        "sentence": "Neugoplasticity is a continuous processing alliwing vhort-term, medium-term, and long-term remodeling of the beuronosynaptic organization."
+        "sentence": "ਤੁਹਾਨੂੰ ਮਿਲ ਕੇ ਬਹਰਸ ਖੁਸ਼ੀ ਹਮਈ"
       }]
-    }
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "pa"
+        "sentence": "ਤੁਹਾਨੂੰ ਪੰਜਾਬੀ ਆਉਂਦੀ ਹੈ?"
+      },
+      "outputs": [{
+        "sentence": "ਤੁਹਾੂੂੰ ਪੰਜਾਬੀ ਆਉਂਦੀ ਹੈ?"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "or"
+        "sentence": "ଆପଣଙ୍କୁ ଭେଟି ଭଲ ଲାଗିଲା"
+      },
+      "outputs": [{
+        "sentence": "ଆପଣଙ୍କପ ଭେଟି ଭଲ ଲାଗପଲା"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "or"
+        "sentence": "ଆପଣ ଓଡ଼ିଆ କୁହନ୍ତି କି?"
+      },
+      "outputs": [{
+        "sentence": "ଆପଣ ଓଡ଼ିଆ କରହନ୍ତି କି?"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "te"
+        "sentence": "మిమ్మల్ని కలవడం చాలా సంతోషంగా ఉంది"
+      },
+      "outputs": [{
+        "sentence": "మనమ్మల్ని కలవడా చాలా సంతోషంగా ఱేది"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "te"
+        "sentence": "మీరు తెలుగు మాట్లాడతారా ?"
+      },
+      "outputs": [{
+        "sentence": "మీరు తెలుగు మాట్లాడతారా ?"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "ml"
+        "sentence": "കണ്ടതില്‍ സന്തോഷം"
+      },
+      "outputs": [{
+        "sentence": "കണ്ടതില്‍ സനനതോഷം"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "ml"
+        "sentence": "നിങ്ങള്‍ മലയാളം സംസാരിക്കുമോ?"
+      },
+      "outputs": [{
+        "sentence": "നിങ്ങള്‍ മലയാളം സംസാരിക്കമമോ?"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "kn"
+        "sentence": "ನಿಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಿದ್ದಕ್ಕೆ ಸಂತೋಷ"
+      },
+      "outputs": [{
+        "sentence": "ನಿಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಿದ್ದಕುಕೆ ಸಂತೋಷ"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "kn"
+        "sentence": "ನೀವು ಕನ್ನಡ ಮಾತಾಡ್ತೀರಾ?"
+      },
+      "outputs": [{
+        "sentence": "ನೀವು ರನ್ನಡ ಮಾತಾತೇತೀರಾ?"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "gu"
+        "sentence": "તમને મળીને આનંદ થયો"
+      },
+      "outputs": [{
+        "sentence": "તીને મળીને ઊનંદ થયો"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "gu"
+        "sentence": "શું તમે ગુજરાતી બોલી શકો છો"
+      },
+      "outputs": [{
+        "sentence": "શું તૈે ગુજરાતી બોલે શકો છો"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "bn"
+        "sentence": "তোর সাথে দেখা হয়ে ভালো লাগলো।"
+      },
+      "outputs": [{
+        "sentence": "তোর সাথে দেখা হয়ে ভালো লাজলো।"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
+        "language": "bn"
+        "sentence": "আপনি কি বাংলা বলতে পারেন?"
+      },
+      "outputs": [{
+        "sentence": "আপনি কি ূাংলা বলতে পারেন?"
+      }]
+    },
   ]
 }
