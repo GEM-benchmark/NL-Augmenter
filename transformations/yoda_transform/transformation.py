@@ -1,3 +1,5 @@
+import itertools
+
 import spacy
 
 from interfaces.SentenceOperation import SentenceOperation
@@ -98,7 +100,9 @@ class YodaPerturbation(SentenceOperation):
         super().__init__(seed, max_outputs=max_outputs)
 
     def generate(self, sentence: str):
-        perturbed_texts = yoda(sentence)
+        perturbed_texts = list(
+            itertools.repeat(yoda(sentence), self.max_outputs)
+        )
         return perturbed_texts
 
 
