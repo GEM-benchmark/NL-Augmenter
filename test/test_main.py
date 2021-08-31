@@ -1,7 +1,6 @@
 import pytest
 from itertools import zip_longest
 
-
 from initialize import initialize_models
 
 from interfaces.SentencePairOperation import SentencePairOperation
