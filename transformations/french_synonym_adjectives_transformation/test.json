@@ -5,10 +5,10 @@
     {
       "class": "FrenchAdjectivesSynonymTransformation",
       "inputs": {
-        "sentence": "Le  sanglier a des défenses pointues et un pelage sombre"
+        "sentence": "Le sanglier a des défenses pointues et un pelage sombre"
       },
       "outputs": [{
-        "sentence": "Le  sanglier a des défenses pointues et un pelage noir"
+        "sentence": "Le sanglier a des défenses pointues et un pelage noir"
       }]
     
     },
@@ -23,25 +23,14 @@
       }]
     
     },
-    
+       
     {
       "class": "FrenchAdjectivesSynonymTransformation",
       "inputs": {
-        "sentence": "La peinture contemporaine est incompréhensible."
+        "sentence": "Ce fut un impressionnant festival de mode, les mannequins sont tous jolis."
       },
       "outputs": [{
-        "sentence": "La peinture contemporaine est inexplicable."
-      }]
-    
-    },
-    
-    {
-      "class": "FrenchAdjectivesSynonymTransformation",
-      "inputs": {
-        "sentence": "C'était un impressionnant festival de mode, les mannequins sont tous jolis."
-      },
-      "outputs": [{
-        "sentence": "C'était un imposant festival de mode, les mannequins sont tous jolis."
+        "sentence": "Ce fut un imposant festival de mode, les mannequins sont tous jolis."
       }]
     
     },
