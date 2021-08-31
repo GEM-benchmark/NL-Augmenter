@@ -2,7 +2,7 @@
 
 This transformation adapts an input sentence by identifying named entities and other common words and turning them into hashtags, as often used in social media.
 
-Authors: [Shahab Raji](mailto:shahab.raji@rutgers.edu) (Rutgers University) and [Gerard de Melo](mailto:gdm@demelo.org) (Hasso Plattner Institute / University of Potsdam)
+Authors: [Shahab Raji](mailto:shahab.raji@rutgers.edu) (Rutgers University) and [Gerard de Melo](http://gerard.demelo.org/) (Hasso Plattner Institute / University of Potsdam)
 
 
 ## How does the transformation work?
