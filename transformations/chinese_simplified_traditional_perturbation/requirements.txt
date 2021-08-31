@@ -1,2 +1,1 @@
-# for CloseHomophonesSwap
 OpenCC==1.1.2

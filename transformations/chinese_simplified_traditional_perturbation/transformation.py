@@ -1,17 +1,12 @@
 import itertools
 import random
 import opencc
-import json
-import os
-
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-import shutil
-import jieba
-import pypinyin
 
 
-def chinese_butter_finger(text,
+
+def chinese_simplified_traditional_perturbation(text,
                           prob,
                           seed,
                           max_outputs,
@@ -62,7 +57,7 @@ class ChineseSimplifiedTraditionalPerturbation(SentenceOperation):
         self.config = config
 
     def generate(self, sentence: str):
-        perturbed_texts = chinese_butter_finger(
+        perturbed_texts = chinese_simplified_traditional_perturbation(
             text=sentence,
             prob=self.prob,
             seed=self.seed,
