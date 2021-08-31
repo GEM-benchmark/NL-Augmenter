@@ -51,7 +51,6 @@ def synonym_transformation(text):
 	for l in valid_verb_list:
 		text_verb_generated.append(text.replace(l['verb'], l['syn']))
 	text_verb_generated.sort(reverse=True)
-	print("text",text_verb_generated)
 	for sent in text_verb_generated:
 		if nlp(text).similarity(nlp(i)) > .10 and not nlp(text).similarity(nlp(i)) >= .999:
 			pertu.append(sent)
