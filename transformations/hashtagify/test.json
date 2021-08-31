@@ -8,9 +8,7 @@
       },
       "outputs": [
         {
-          "sentence": [
-            "#Apple is looking at #buying U.K. startup for $132 billion."
-          ]
+          "sentence": "#Apple is looking at #buying U.K. startup for $132 billion."
         }
       ]
     },
@@ -21,9 +19,7 @@
       },
       "outputs": [
         {
-          "sentence": [
-            "We had to #box part of the #pizza to take it home and we were out the door by 6:42."
-          ]
+          "sentence": "We had to #box part of the #pizza to take it home and we were out the door by 6:42."
         }
       ]
     },
@@ -34,9 +30,7 @@
       },
       "outputs": [
         {
-          "sentence": [
-            "The quick #brown fox #jumps over the lazy dog."
-          ]
+          "sentence": "The quick #brown fox #jumps over the lazy dog."
         }
       ]
     },
@@ -47,9 +41,7 @@
       },
       "outputs": [
         {
-          "sentence": [
-            "#Mumbai, Bengaluru, #NewDelhi are among the many famous places in India."
-          ]
+          "sentence": "#Mumbai, Bengaluru, #NewDelhi are among the many famous places in India."
         }
       ]
     },
@@ -60,9 +52,7 @@
       },
       "outputs": [
         {
-          "sentence": [
-            "#NewDelhi is among the many famous places in India."
-          ]
+          "sentence": "#NewDelhi is among the many famous places in India."
         }
       ]
     },
@@ -73,9 +63,7 @@
       },
       "outputs": [
         {
-          "sentence": [
-            "Oh, and their #spring rolls and the accompanying peanuts and hot sauces were also delicious."
-          ]
+          "sentence": "Oh, and their #spring rolls and the accompanying peanuts and hot sauces were also delicious."
         }
       ]
     }
