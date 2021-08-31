@@ -1,10 +1,17 @@
-# Butter Fingers Perturbation 🦎  + ⌨️ → 🐍
-This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise erupting 
-from keyboard typos making common spelling errors.
 
-Author name: Kaustubh Dhole
-Author email: __
-Author Affiliation: __
+# Butter Fingers Perturbation For Indian Languages 🦎  + ⌨️ → 🦚
+This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise erupting 
+from keyboard typos making common spelling errors. The existing implementation for english () has been expanded to Bangla, Gujarati, Hindi, Kannada, Malayalam, Marathi, Oriya, Punjabi, Tamil, and Telugu.
+
+#### Author (1)
+- Name: KV Aditya Srivatsa
+- Email: k.v.aditya@research.iiit.ac.in
+- Affiliation: Language Technologies Research Center, Kohli Center on Intelligent Systems, International Institute of Information Technology, Hyderabad
+
+#### Author (2)
+- Name: Mukund Choudhary
+- Email: mukund.choudhary@research.iiit.ac.in
+- Affiliation: Brain, Cognition, and Computation Lab, International Institute of Information Technology, Hyderabad
 
 ## What type of a transformation is this?
 This transformation acts like a perturbation to test robustness. Few letters picked at random are replaced with letters 
@@ -15,15 +22,9 @@ source sentences i.e. the code outputs highly precise generations.
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, etc. 
 
-```python evaluate.py -t ButterFingersPerturbation -task TEXT_CLASSIFICATION```
-```model_name = "aychang/roberta-base-imdb"```
-The accuracy of a RoBERTa model (fine-tuned on IMDB) (model: "aychang/roberta-base-imdb") 
-on a subset of IMDB sentiment dataset = 95.74
-The accuracy of the same model on the perturbed set = 88.26
-
-The average bleu score of a distillbert model (fine-tuned on xsum) (model: "sshleifer/distilbart-xsum-12-6") 
-on a subset (10%) of xsum test dataset = 14.9104
-The average bleu score of same model on the pertubed set = 11.9221
+## What are the limitations of this transformation?
+The transformation's outputs are too simple to be used for data augmentation. Unlike a paraphraser, it is not capable of
+ generating linguistically diverse text.
 
 ## Previous Work
 1) Butter Finger implementation borrowed from this code https://github.com/alexyorke/butter-fingers
@@ -65,6 +66,3 @@ The average bleu score of same model on the pertubed set = 11.9221
     abstract = "When Question-Answering (QA) systems are deployed in the real world, users query them through a variety of interfaces, such as speaking to voice assistants, typing questions into a search engine, or even translating questions to languages supported by the QA system. While there has been significant community attention devoted to identifying correct answers in passages assuming a perfectly formed question, we show that components in the pipeline that precede an answering engine can introduce varied and considerable sources of error, and performance can degrade substantially based on these upstream noise sources even for powerful pre-trained QA models. We conclude that there is substantial room for progress before QA systems can be effectively deployed, highlight the need for QA evaluation to expand to consider real-world use, and hope that our findings will spur greater community interest in the issues that arise when our systems actually need to be of utility to humans.",
 }
 ```
-## What are the limitations of this transformation?
-The transformation's outputs are too simple to be used for data augmentation. Unlike a paraphraser, it is not capable of
- generating linguistically diverse text.
