@@ -27,7 +27,7 @@ class TextContainsNumberFilter(SentenceOperation):
         self.nlp = load("en_core_web_sm")
         self.has_digit = has_digit
         self.has_word = has_word
-        self.numbers_in_words = ["one", "two", "three", "four", "five", "six", "seven", "eight",
+        self.numbers_in_words = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
                                  "nine", "ten","eleven", "twelve", "thirteen", "fourteen",
                                  "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
                                  "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty",
