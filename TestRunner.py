@@ -18,7 +18,7 @@ def load(module, cls):
 
 def load_test_cases(test_json):
     try:
-        with open(test_json) as f:
+        with open(test_json, encoding="utf-8") as f:
             d = json.load(f)
             examples = d["test_cases"]
         return examples

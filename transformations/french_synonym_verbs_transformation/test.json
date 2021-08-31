@@ -1,0 +1,62 @@
+{
+  "type": "french_verbs_transformation",
+  "test_cases": [
+    
+    {
+      "class": "FrenchVerbsSynonymTransformation",
+      "inputs": {
+        "sentence": "je dois apprendre ma leçon avant demain, je vais finir par y arriver"
+      },
+      "outputs": [{
+        "sentence": "je dois étudier ma leçon avant demain, je vais finir par y arriver"
+      }]
+    
+    },
+    
+    {
+      "class": "FrenchVerbsSynonymTransformation",
+      "inputs": {
+        "sentence": "Puis-je entrer à la cuisine"
+      },
+      "outputs": [{
+        "sentence": "Puis-je venir à la cuisine"
+      }]
+    
+    },
+    
+    {
+      "class": "FrenchVerbsSynonymTransformation",
+      "inputs": {
+        "sentence": "j'imagine qu'il ne faut pas donner trop de stress aux enfants pour la rentrée scolaire"
+      },
+      "outputs": [{
+        "sentence": "j'imagine qu'il ne faut pas véhiculer trop de stress aux enfants pour la rentrée scolaire"
+      }]
+    
+    },
+    
+    {
+      "class": "FrenchVerbsSynonymTransformation",
+      "inputs": {
+        "sentence": "Le jeu consiste en une série de paris sur la valeur des cartes, il faut spéculer sur la somme des valeurs pour espérer gagner"
+      },
+      "outputs": [{
+        "sentence": "Le jeu consiste en une série de paris sur la valeur des cartes, il faut spéculer sur la somme des valeurs pour espérer réussir"
+      }]
+    
+    },
+    
+    {
+      "class": "FrenchVerbsSynonymTransformation",
+      "inputs": {
+        "sentence": "J'ai enfin pu racheter la voiture de mes rêves"
+      },
+      "outputs": [{
+        "sentence": "J'ai enfin pu acquérir la voiture de mes rêves"
+      }]
+    
+    }
+
+
+  ]
+}
