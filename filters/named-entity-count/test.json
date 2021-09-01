@@ -46,6 +46,18 @@
                 "target": "Michael talked to Jackson about the importance of crickets in nature."
             },
             "outputs": false
+        },
+        {
+            "class": "SentenceAndTargetNamedEntityCountFilter",
+            "args": {
+                "ops": [">", "<"],
+                "thresholds": [2, 3]
+            },
+            "inputs": {
+                "sentence": "Tom and Harry met Ram and Shyam in a war.",
+                "target": "Jim and Pam met Angela and Dwight in an office."
+            },
+            "outputs": true
         }
 
     ]
