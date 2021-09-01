@@ -38,18 +38,6 @@
         {
             "class": "SentenceAndTargetNamedEntityCountFilter",
             "args": {
-                "ops": [">", "<"],
-                "thresholds": [1, 4]
-            },
-            "inputs": {
-                "sentence": "Jose Mourinho coaches the soccer club Roma.",
-                "target": "Jose Mourinho has coached the soccer clubs Real Madrid and Juventus."
-            },
-            "outputs": true
-        },
-        {
-            "class": "SentenceAndTargetNamedEntityCountFilter",
-            "args": {
                 "ops": ["<=", ">="],
                 "thresholds": [2, 3]
             },
