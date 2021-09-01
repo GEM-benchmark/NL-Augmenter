@@ -50,12 +50,12 @@
         {
             "class": "SentenceAndTargetNamedEntityCountFilter",
             "args": {
-                "ops": [">", "<"],
-                "thresholds": [2, 3]
+                "ops": ["==", "<="],
+                "thresholds": [1, 2]
             },
             "inputs": {
-                "sentence": "Tom and Harry met Ram and Shyam in a war.",
-                "target": "Jim and Pam met Angela and Dwight in an office."
+                "sentence": "Coca-Cola is a multi-national company.",
+                "target": "Pepsi is a competitor of Coca-Cola."
             },
             "outputs": true
         }
