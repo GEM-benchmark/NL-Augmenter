@@ -10,10 +10,12 @@ from interfaces.SentenceOperation import (
 )
 from tasks.TaskTypes import TaskType
 
+
 class NamedEntityCountFilter(SentenceOperation):
     """
-    A filter on the count of named entities in a sentence.
+    A filter on the count of named entities in a sentence, with different arithmetic operators.
     """
+
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
@@ -44,13 +46,16 @@ class SentenceAndTargetNamedEntityCountFilter(SentenceAndTargetOperation):
     """
     An Example filter for SentenceAndTargetNamedEntityCountFilter interface.
     """
+
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     src_locales = ["en"]
     tgt_languages = ["en"]
 
     def __init__(self, ops: List[str] = None, thresholds: List[int] = None):
         super().__init__()
-        self.operators = [NamedEntityCountFilter.parse_operator(op) for op in ops]
+        self.operators = [
+            NamedEntityCountFilter.parse_operator(op) for op in ops
+        ]
         self.thresholds = thresholds
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
@@ -65,12 +70,8 @@ class SentenceAndTargetNamedEntityCountFilter(SentenceAndTargetOperation):
         ), "SentenceAndTargetOperation only support two inputs."
 
     def filter(self, sentence: str = None, target: str = None) -> bool:
-        tokenized_sentence = self.nlp(
-            sentence, disable=["parser", "tagger"]
-        )
-        tokenized_target = self.nlp(
-            target, disable=["parser", "tagger"]
-        )
+        tokenized_sentence = self.nlp(sentence, disable=["parser", "tagger"])
+        tokenized_target = self.nlp(target, disable=["parser", "tagger"])
 
         named_entities_sentence = tokenized_sentence.ents
         named_entities_target = tokenized_target.ents
