@@ -1,7 +1,7 @@
 ## Oscillatory Hallucinations Filter
 
 ## What type of a filter is this?
-This filter is designed to operate in text generation systems' outputs, with the purpose of extracting oscillatory hallucinations. Oscillatory hallucinations are one class of hallucinations characterized by repeating bigram structure in the output [1]. Thypically, these behaviors are observed in models trained on noisy corpora.
+This filter is designed to operate in text generation systems' outputs, with the purpose of extracting oscillatory hallucinations. Oscillatory hallucinations are one class of hallucinations characterized by repeating bigram structure in the output [1]. Typically, these behaviors are observed in models trained on noisy corpora.
 
 
 ## Why is measuring performance on this split important?
