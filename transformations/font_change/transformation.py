@@ -15,59 +15,12 @@ nltkdl("stopwords")
 nltkdl("punkt")
 
 
-# import spacy
-
-# from nltk import ne_chunk
-# from nltk.tag import pos_tag
-# from nltk.tree import Tree
-
-# nltkdl("words")
-# nltkdl("maxent_ne_chunker")
-
-# nltkdl("averaged_perceptron_tagger")
-
-
-# def find_candidates(doc):
-#     chunked = ne_chunk(pos_tag(word_tokenize(doc.text)))
-#     candidates = []
-#     current_chunk = []
-#     for i in chunked:
-#         if type(i) == tuple:
-#             if i[1] in [
-#                 "NN",
-#                 "NNP",
-#                 "NNPS",
-#                 "VB",
-#                 "VBD",
-#                 "VBG",
-#                 "VBN",
-#                 "VBP",
-#                 "VBZ",
-#             ]:
-#                 if i[0] not in stopwords.words("english"):
-#                     candidates.append(i[0])
-#
-#         if type(i) == Tree:
-#             current_chunk.append(
-#                 " ".join([token for token, pos in i.leaves()])
-#             )
-#
-#         if current_chunk:
-#             named_entity = " ".join(current_chunk)
-#             if named_entity not in candidates:
-#                 candidates.append(named_entity)
-#                 current_chunk = []
-#         else:
-#             continue
-#     return candidates
-
-
 def font_change(sentence, fonts, seed=666, max_outputs=1):
     random.seed(seed)
     perturbed_texts = []
 
     for _ in itertools.repeat(None, max_outputs):
-        # Generate the sentence with randomly distributed fonts
+        # Generate the sentence with random fonts
         tokens_escaped_list = []
         for token in word_tokenize(sentence):
             if token not in stopwords.words("english"):
@@ -100,12 +53,16 @@ def font_change(sentence, fonts, seed=666, max_outputs=1):
     return perturbed_texts
 
 
-class Font_Change(SentenceOperation):
+class FontChange(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION]
     languages = ["en"]
 
     def __init__(self, seed=664, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
+
+        # mapping tables based on unicode-formatter (MIT license)
+        # https://github.com/DenverCoder1/unicode-formatter
+
         dict_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)), "fonts.json"
         )

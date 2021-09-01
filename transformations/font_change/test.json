@@ -2,7 +2,7 @@
   "type": "font_change",
   "test_cases": [
     {
-      "class": "Font_Change",
+      "class": "FontChange",
       "inputs": {
         "sentence": "Apple is looking at buying U.K. startup for $132 billion."
       },
@@ -13,7 +13,7 @@
       ]
     },
     {
-      "class": "Font_Change",
+      "class": "FontChange",
       "inputs": {
         "sentence": "We had to box part of the pizza to take it home and we were out the door by 6:42."
       },
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "class": "Font_Change",
+      "class": "FontChange",
       "inputs": {
         "sentence": "The quick brown fox jumps over the lazy dog."
       },
@@ -35,7 +35,7 @@
       ]
     },
     {
-      "class": "Font_Change",
+      "class": "FontChange",
       "inputs": {
         "sentence": "Mumbai, Bengaluru, New Delhi are among the many famous places in India."
       },
@@ -46,7 +46,7 @@
       ]
     },
     {
-      "class": "Font_Change",
+      "class": "FontChange",
       "inputs": {
         "sentence": "New Delhi is among the many famous places in India."
       },
@@ -57,7 +57,7 @@
       ]
     },
     {
-      "class": "Font_Change",
+      "class": "FontChange",
       "inputs": {
         "sentence": "Oh, and their spring rolls and the accompanying peanuts and hot sauces were also delicious."
       },
