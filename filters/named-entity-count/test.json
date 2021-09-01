@@ -1,17 +1,7 @@
 {
     "type": "named-entity-count",
     "test_cases": [
-        {
-            "class": "NamedEntityCountFilter",
-            "args": {
-                "op": ">",
-                "threshold": 1
-            },
-            "inputs": {
-                "sentence": "Gilbert played cricket in India with Michael and Jackson."
-            },
-            "outputs": true
-        },
+
         {
             "class": "NamedEntityCountFilter",
             "args": {
@@ -42,30 +32,6 @@
             },
             "inputs": {
                 "sentence": "La Flamenco is a dance performed in Spain in the region of Barcelona."
-            },
-            "outputs": true
-        },
-        {
-            "class": "SentenceAndTargetNamedEntityCountFilter",
-            "args": {
-                "ops": ["<=", ">="],
-                "thresholds": [2, 3]
-            },
-            "inputs": {
-                "sentence": "Ronaldo played cricket in India with Michael and Jackson.",
-                "target": "Michael talked to Jackson about the importance of crickets in nature."
-            },
-            "outputs": false
-        },
-        {
-            "class": "SentenceAndTargetNamedEntityCountFilter",
-            "args": {
-                "ops": [">", "<"],
-                "thresholds": [1, 4]
-            },
-            "inputs": {
-                "sentence": "Jose Mourinho coaches the soccer club Roma.",
-                "target": "Jose Mourinho has coached the soccer clubs Real Madrid and Juventus."
             },
             "outputs": true
         }
