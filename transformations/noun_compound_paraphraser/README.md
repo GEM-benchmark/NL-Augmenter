@@ -1,6 +1,7 @@
-# Noun Compound Paraphraser [N+N]→ 🐍
+# English Noun Compound Paraphraser [N+N]→ 🐍
 This transformation replaces two-word noun compounds with a paraphrase, based
 on the compound paraphrase dataset from SemEval 2013 Task 4 (Hendrickx et al., 2013).
+This currently only works for English.
 
 Author: Juan Diego Rodriguez (juand-r@utexas.edu) <br>  Affiliation: UT Austin
 
@@ -63,6 +64,8 @@ Other oddities include:
 "Social workers face a mammoth task." -> "Social workers face a task which is performed by mammoth."
 - unusual wording of extremely common compounds such as "stock market" -> "market for stock".
 - too many prepositions resulting in confusing text, such as: "Yesterday's army coup by the opposition leader of the liberation struggle" -> "Yesterday's coup involving the army by the leader of the opposition of the struggle for liberation"
+
+Also, future versions could include languages other than English.
 
 **TODO:**
 
