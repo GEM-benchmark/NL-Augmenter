@@ -5,6 +5,7 @@ from itertools import zip_longest
 from initialize import initialize_models
 
 from interfaces.SentencePairOperation import SentencePairOperation
+from interfaces.KeyValuePairsOperation import KeyValuePairsOperation
 
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import (
@@ -107,8 +108,7 @@ def execute_key_value_pair_test_case(transformation, test):
     perturbs = transformation.generate(
         mr, reference
     )
-    for idx, (p_mr, p_ref) in enumerate(perturbs):
-        print(p_mr)      
+    for idx, (p_mr, p_ref) in enumerate(perturbs): 
         expected_mr = outputs[idx]["meaning_representation"]
         expected_ref = outputs[idx]["reference"]
         assert p_mr == expected_mr, get_assert_message(
