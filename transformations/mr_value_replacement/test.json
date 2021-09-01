@@ -13,7 +13,7 @@
       },
       "outputs": [{
         "meaning_representation": { "name": "Loch Fyne", 
-                                    "eatType": "shop",
+                                    "eatType": "bakery",
                                     "food": "French",
                                     "priceRange": "less than £20",
                                     "familyFriendly": "yes"},
