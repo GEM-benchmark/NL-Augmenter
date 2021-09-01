@@ -19,6 +19,4 @@ class DiacriticRemoval(SentenceOperation):
 
     def generate(self, sentence: str):
 
-        print(self.strip_accents(sentence))
-
         return [self.strip_accents(sentence)]
