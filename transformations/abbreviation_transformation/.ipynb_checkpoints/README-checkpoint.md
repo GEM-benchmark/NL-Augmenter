@@ -1,5 +1,5 @@
 ## Abbreviation Transformation
-This transformation replaces a word or phrase with its abbreviated counterpart.
+This transformation replaces a word or phrase with its abbreviated counterpart using a web-scraped slang dictionary.
 
 Author Name: Gloria Wang (gwang1@imsa.edu)
 
