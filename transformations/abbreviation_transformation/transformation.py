@@ -19,8 +19,7 @@ def abbreviate(text, nlp, prob = 0.5, seed = 0, max_outputs = 1):
     for _ in range(max_outputs):
         trans_text = text
         for phrase in phrase_abbrev_dict:
-            if phrase in trans_text:
-                trans_text.replace(phrase, phrase_abbrev_dict[phrase])
+            trans_text = trans_text.replace(phrase, phrase_abbrev_dict[phrase])
         doc = nlp(trans_text).doc
         trans = []
         for token in doc:
