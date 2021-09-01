@@ -37,6 +37,8 @@ class MRValueReplacement(KeyValuePairsOperation):
 
             if closest is not None:
                 closest_set.append(closest)
+            else:
+                closest_set.append([meaning_representation[candidate[0]]])          
 
         if len(closest_set) == 0:
             return outputs
@@ -47,10 +49,10 @@ class MRValueReplacement(KeyValuePairsOperation):
         for output_instance in sample_output:   
             mr = meaning_representation.copy()
             ref = reference
-            for candidate, replacement in zip(candidate_alignments, output_instance):        
+            for candidate, replacement in zip(candidate_alignments, output_instance):       
                 mr[candidate[0]] = replacement
                 ref = ref.replace(candidate[1].text, replacement) 
-                outputs.append((mr, ref))
+            outputs.append((mr, ref))
 
         return outputs
     
@@ -82,4 +84,5 @@ class MRValueReplacement(KeyValuePairsOperation):
                     for w in self.glove.itos]
 
         return [w for w, v in sorted(distances, key = lambda w: w[1])[:n]]
+
 
