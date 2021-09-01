@@ -114,7 +114,7 @@ def execute_key_value_pair_test_case(transformation, test):
         assert p_mr == expected_mr, get_assert_message(
             transformation, expected_mr, p_mr
         )
-        assert p_ref == expected_tags, get_assert_message(
+        assert p_ref == expected_ref, get_assert_message(
             transformation, expected_ref, p_ref
         )
 
