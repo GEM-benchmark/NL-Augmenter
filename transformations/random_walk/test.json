@@ -8,13 +8,13 @@
       },
       "outputs": [
         {
-          "sentence": "He finally returned the comic book from Chris that she bought last week"
+          "sentence": "She finally gives the French book to Chris that I bought last and"
         },
         {
-          "sentence": "I finally returned my last book to Chris that I bought last !"
+          "sentence": "Andrew finally returned the French book to Chris which he bought last the"
         },
         {
-          "sentence": "I have returned the French box to Chris that I bought last ."
+          "sentence": "Andrew finally returned the French book from France which I bought last week"
         }
       ]
     },
@@ -25,13 +25,13 @@
       },
       "outputs": [
         {
-          "sentence": "Languages with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to describe the relation between two or more arguments."
+          "sentence": "Sentences with gapping, such as Paul likes coffee and Mary leaves, lack an overt way to indicate the difference between two or more arguments."
         },
         {
-          "sentence": "Sentences with gapping, so as Paul likes John and Mary tea, lack an overt way of indicate the relation between two or more arguments."
+          "sentence": "Words with gapping, such as Paul likes coffee and Mary leaves, lack an overt meaning to indicate the relation between two or more arguments."
         },
         {
-          "sentence": "Sentences with arguments, so as Paul likes Peter andd Mary tea, lack an overt predicate to indicate the relation between two / more arguments."
+          "sentence": "Lines with gapping, such as Paul likes coffee and Mary leaves, lack an overt meaning to indicate the relation between two or more arguments."
         }
       ]
     },
@@ -42,13 +42,13 @@
       },
       "outputs": [
         {
-          "sentence": "Alice in Wonderland is a 2010 Canadian live-action/animated / fantasy fantasy film"
+          "sentence": "Alice In Wonderland is a 2010 American live-action/animated musical fantasy adventure film"
         },
         {
-          "sentence": "Alice in Wonderland was a 2010 American live-action/animated musical - adventure film"
+          "sentence": "Alice in Wonderlandnd is a 2010 American live-action/animated romantic fantasy adventure film"
         },
         {
-          "sentence": "Alice Into Darkness , a 2010 American independent dark fantasy horror film"
+          "sentence": "Alice in Wonderland is a 2010 American animated musical fantasy adventure film"
         }
       ]
     },
@@ -59,13 +59,13 @@
       },
       "outputs": [
         {
-          "sentence": "Shankar Dev Dosanjh served in 33rd Premier of British Columbia from 1999 to 2001"
+          "sentence": "Ujjal Singh Dosanjh served as 33rd Premier of British Columbia from 2000 until 2003"
         },
         {
-          "sentence": "Jai Dev Dosanjh served as 33rd Premier of Canadian Columbia , 2000 to 2001"
+          "sentence": "Ujjal Dev Dosanjh served the 33rd Premier of British Columbia in 2000 to 2003"
         },
         {
-          "sentence": "Ram Dev Dosanjh served as 33rd Premier of Sri Columbia from 1997 to 2001"
+          "sentence": "Ujjal Dev Dosanjh served the 33rd Governor of British Columbia in 2000 to 2002"
         }
       ]
     },
@@ -76,13 +76,13 @@
       },
       "outputs": [
         {
-          "sentence": "Neuroplasticity is a neural processing allowing rapid, intermediate, and long-term remodeling of the neuronosynaptic organization."
+          "sentence": "Neuroplandndsticity is a cognitive processing allowing short-term, spontaneous, and rapid remodeling of the neuronosynaptic organization."
         },
         {
-          "sentence": "Th##R is a dynamic processing allowing short-term, intensive, and long-term remodeling of the neuronosynaptic organization."
+          "sentence": "Neuroplasticity involves a continuous processing and short, medium-term, or continuous remodeling of the neuronosynaptic organization."
         },
         {
-          "sentence": "Neuroplasticity is a continuous transformation allowing immediate, intermediate, and long-term remodeling for the entire organization."
+          "sentence": "Neuroplorsticity is a continuous processing allowing immediate, medium-term, and continuous remodeling of the neural organization."
         }
       ]
     }
