@@ -1,8 +1,8 @@
 {
-  "type": "mr_value_replacement",
+  "type": "mr_paraphrase",
   "test_cases": [
     {
-      "class": "MRValueReplacement",
+      "class": "MRParaphrase",
       "inputs": {
         "meaning_representation": { "name": "Loch Fyne", 
                                     "eatType": "restaurant",
@@ -21,7 +21,7 @@
       }]
     },
     {
-      "class": "MRValueReplacement",
+      "class": "MRParaphrase",
       "inputs": {
         "meaning_representation": { "name": "Loch Fyne", 
                                     "eatType": "restaurant",
@@ -40,7 +40,7 @@
       }]
     },
     {
-      "class": "MRValueReplacement",
+      "class": "MRParaphrase",
       "inputs": {
         "meaning_representation": { "name": "The Rice Boat", 
                                     "customer rating": "average",
@@ -59,7 +59,7 @@
       }]
     },
     {
-      "class": "MRValueReplacement",
+      "class": "MRParaphrase",
       "inputs": {
         "meaning_representation": { "name": "Aromi", 
                                     "eatType": "coffee shop",
@@ -80,7 +80,7 @@
       }]
     },
     {
-      "class": "MRValueReplacement",
+      "class": "MRParaphrase",
       "inputs": {
         "meaning_representation": { "name": "The Golden Curry", 
                                     "food": "Indian",
