@@ -1,7 +1,7 @@
-import spacy
-
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
+from initialize import spacy_nlp
+import spacy
 
 
 class TextContainsKeywordsFilter(SentenceOperation):
@@ -13,7 +13,7 @@ class TextContainsKeywordsFilter(SentenceOperation):
         if keywords is None:
             keywords = ["these", "keywords", "are", "only", "for", "demo"]
         self.keywords = keywords
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def filter(self, sentence: str = None) -> bool:
         tokenized = self.nlp(sentence, disable=["parser", "tagger", "ner"])

@@ -10,6 +10,7 @@ from typing import Iterable
 from interfaces.Operation import Operation
 from tasks.TaskTypes import TaskType
 
+disable_tests_for = ["greetings_and_farewells"]
 
 def load(module, cls):
     my_class = getattr(module, cls.__name__)
@@ -40,10 +41,12 @@ class OperationRuns(object):
         elif transformation_name == "all":
             self._load_all_transformation_test_case(heavy=True, search=search)
         else:
-            self._load_single_transformation_test_case(transformation_name, search)
+            self._load_single_transformation_test_case(
+                transformation_name, search
+            )
 
     def _load_single_transformation_test_case(
-            self, transformation_name, search="transformations"
+        self, transformation_name, search="transformations"
     ):
         filters = []
         filter_test_cases = []
@@ -59,9 +62,11 @@ class OperationRuns(object):
             class_args = test_case["args"] if "args" in test_case else {}
             # construct filter class with input args
             cls = getattr(t_py, class_name)
-            if (filter_instance is None
-                    or filter_instance.name() != class_name
-                    or prev_class_args != class_args):
+            if (
+                filter_instance is None
+                or filter_instance.name() != class_name
+                or prev_class_args != class_args
+            ):
                 filter_instance = cls(**class_args)
                 prev_class_args = class_args
 
@@ -71,12 +76,17 @@ class OperationRuns(object):
         self.operations = filters
         self.operation_test_cases = filter_test_cases
 
-    def _load_all_transformation_test_case(self, heavy=False, search="transformations"):
+    def _load_all_transformation_test_case(
+        self, heavy=False, search="transformations"
+    ):
         filters = []
         filter_test_cases = []
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         filters_dir = package_dir.parent.joinpath(search)
         for (_, m, _) in iter_modules([filters_dir]):
+            if m in disable_tests_for:
+                continue
+            print(f"Directory = {m}")
             t_py = import_module(f"{search}.{m}")
             t_js = os.path.join(filters_dir, m, "test.json")
             filter_instance = None
@@ -91,9 +101,11 @@ class OperationRuns(object):
                     continue
                 else:
                     # Check if the same instance (i.e. with the same args is already loaded)
-                    if (filter_instance is None
-                            or filter_instance.name() != class_name
-                            or prev_class_args != class_args):
+                    if (
+                        filter_instance is None
+                        or filter_instance.name() != class_name
+                        or prev_class_args != class_args
+                    ):
                         filter_instance = cls(**class_args)
                         prev_class_args = class_args
 
@@ -109,7 +121,7 @@ class OperationRuns(object):
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
         for (_, folder, _) in iter_modules(
-                [transformations_dir]
+            [transformations_dir]
         ):  # ---> ["back_translation", ...]
             yield folder
 
@@ -119,20 +131,20 @@ class OperationRuns(object):
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
         for (_, folder, _) in iter_modules(
-                [transformations_dir]
+            [transformations_dir]
         ):  # ---> ["back_translation", ...]
             t_py = import_module(f"{search}.{folder}")
             for name, obj in inspect.getmembers(t_py):
                 if (
-                        inspect.isclass(obj)
-                        and issubclass(obj, Operation)
-                        and not obj.__module__.startswith("interfaces")
+                    inspect.isclass(obj)
+                    and issubclass(obj, Operation)
+                    and not obj.__module__.startswith("interfaces")
                 ):
                     yield obj
 
     @staticmethod
     def get_all_operations_for_task(
-            query_task_type: TaskType, search="transformations"
+        query_task_type: TaskType, search="transformations"
     ) -> Iterable:
         # iterate through the modules in the current package
         for operation in OperationRuns.get_all_operations(search):
@@ -160,8 +172,17 @@ if __name__ == "__main__":
         print(x)
     print()
     for transformation in OperationRuns.get_all_operations_for_task(
-            TaskType.QUESTION_ANSWERING
+        TaskType.QUESTION_ANSWERING
     ):
         print(transformation.name())
         impl = transformation()
         print(impl.generate("context", "question", ["answer1", "answerN"]))
+    for transformation in OperationRuns.get_all_operations_for_task(
+        TaskType.TEXT_CLASSIFICATION
+    ):
+        print(transformation.name())
+        impl = transformation()
+        for sentence in ["Mahendra Dhoni finally travelled to Australia with 5 suitcases. "
+                         "He wanted to prepare for the biggest game of the season!!!"]:
+            for p in impl.generate(sentence):
+                print(p)

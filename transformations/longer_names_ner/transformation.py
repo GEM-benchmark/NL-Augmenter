@@ -16,10 +16,9 @@ class LongerNamesNer(TaggingOperation):
     languages = "All"
     no_of_repeats = 2  # values should not be larger than 3-4
 
-    def __init__(self, no_of_repeats=2, max_output=1):
-        super().__init__()
+    def __init__(self, seed=0, no_of_repeats=2, max_outputs=1):
+        super().__init__(seed, max_outputs=max_outputs)
         self.no_of_repeats = no_of_repeats
-        self.max_output = max_output
 
     def generate(
         self, token_sequence: List[str], tag_sequence: List[str]
@@ -38,10 +37,12 @@ class LongerNamesNer(TaggingOperation):
         if b_tag in tag_seq:
             begin = tag_seq.index(b_tag)
             next = begin + 1
-            for _ in itertools.repeat(None, self.max_output):
+            for _ in itertools.repeat(None, self.max_outputs):
                 if next < len(tag_seq) and i_tag == tag_seq[next]:
                     for _ in range(self.no_of_repeats):
-                        random_upper_letter = chr(random.randint(ord("A"), ord("Z")))
+                        random_upper_letter = chr(
+                            random.randint(ord("A"), ord("Z"))
+                        )
                         token_seq.insert(next, random_upper_letter)
                         tag_seq.insert(next, i_tag)
                     perturbed_sentences.append((token_seq, tag_seq))
@@ -57,7 +58,7 @@ if __name__ == '__main__':
     import json
     from TestRunner import convert_to_snake_case
 
-    tf = LongerNamesNer(max_output=3)
+    tf = LongerNamesNer(max_outputs=3)
     test_cases = []
     src = ["Manmohan Singh served as the PM of India .",
            "Neil Alden Armstrong was an American astronaut",

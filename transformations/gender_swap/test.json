@@ -1,0 +1,50 @@
+{
+  "type": "gender_swap",
+  "test_cases": [
+    {
+      "class": "GenderSwap",
+      "inputs": {
+        "sentence": "he, she, man?"
+      },
+      "outputs": [{
+        "sentence": "she, he, woman?"
+      }]
+    },
+    {
+      "class": "GenderSwap",
+      "inputs": {
+        "sentence": "hehe he!"
+      },
+      "outputs": [{
+        "sentence": "hehe she!"
+      }]
+    },
+    {
+      "class": "GenderSwap",
+      "inputs": {
+        "sentence": "Son-in-law, is it yours? No, it's step-father's..."
+      },
+      "outputs": [{
+        "sentence": "Daughter-in-law, is it yours? No, it's step-mother's..."
+      }]
+    },
+    {
+      "class": "GenderSwap",
+      "inputs": {
+        "sentence": "This sentence contains no gendered keywords and will remain unchannged."
+      },
+      "outputs": [{
+        "sentence": "This sentence contains no gendered keywords and will remain unchannged."
+      }]
+    },
+    {
+      "class": "GenderSwap",
+      "inputs": {
+        "sentence": "{name} wants to be a programmer, as his father."
+      },
+      "outputs": [{
+        "sentence": "{name} wants to be a programmer, as her mother."
+      }]
+    }
+  ]
+}
