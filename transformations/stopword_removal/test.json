@@ -1,0 +1,50 @@
+{
+    "type": "stopword_removal",
+    "test_cases": [
+      {
+        "class": "StopwordRemoval",
+        "inputs": {
+          "sentence": "This is a test."
+        },
+        "outputs": [{
+           "sentence": "test."
+        }]
+      },
+      {
+        "class": "StopwordRemoval",
+        "inputs": {
+          "sentence": "To be or not to be, that is the question?"
+        },
+        "outputs": [{
+          "sentence": ", question?"
+        }]
+      },
+      {
+        "class": "StopwordRemoval",
+        "inputs": {
+          "sentence": "OMG!!! jUSTin is AmAZEballs!!!"
+        },
+        "outputs": [{
+          "sentence": "OMG!!! jUSTin is AmAZEballs!!!"
+        }]
+      },
+      {
+        "class": "StopwordRemoval",
+        "inputs": {
+          "sentence": "To to to to"
+        },
+        "outputs": [{
+          "sentence": ""
+        }]
+      },
+      {
+        "class": "StopwordRemoval",
+        "inputs": {
+          "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+        },
+        "outputs": [{
+          "sentence": "Neuroplasticity continuous processing allowing short-term, medium-term, long-term remodeling neuronosynaptic organization."
+        }]
+      }
+    ]
+  }
