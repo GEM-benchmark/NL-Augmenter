@@ -3,7 +3,7 @@ import json
 import spacy
 import os.path
 
-from interfaces.SentenceOperation import SentenceAndTargetOperation
+from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 scriptpath = os.path.dirname(__file__)
@@ -21,11 +21,9 @@ def abbreviate(text, nlp, prob = 0.5, seed = 0, max_outputs = 1):
         for phrase in phrase_abbrev_dict:
             if phrase in trans_text:
                 trans_text.replace(phrase, phrase_abbrev_dict[phrase])
-        print(trans_text)
         doc = nlp(trans_text).doc
         trans = []
         for token in doc:
-            print(token.text)
             random_num = random.random()
             word = token.text
             if word in word_abbrev_dict and random_num < prob:
@@ -38,7 +36,7 @@ def abbreviate(text, nlp, prob = 0.5, seed = 0, max_outputs = 1):
     return res
 
 
-class Abbreviate(SentenceAndTargetOperation):
+class Abbreviate(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
     tgt_languages = ["en"]
