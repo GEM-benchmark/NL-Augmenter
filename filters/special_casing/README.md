@@ -15,6 +15,7 @@ This filter can be used to create splits of specially cased sentences of 3 types
 The proposed filter is quite simple. Related work in handling cases explicitly in neural models includes the work on factored segmenter [1] and Truecasing [2].
 
 [1] https://github.com/microsoft/factored-segmenter
+
 [2] https://arxiv.org/abs/2108.11943v1
 
 ## What are the limitations of this filter?
