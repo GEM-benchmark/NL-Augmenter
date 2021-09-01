@@ -50,8 +50,8 @@
         {
             "class": "SentenceAndTargetNamedEntityCountFilter",
             "args": {
-                "ops": [">0", "<=2"],
-                "thresholds": [1, 2]
+                "ops": [">", "<=2"],
+                "thresholds": [0, 2]
             },
             "inputs": {
                 "sentence": "Coca-Cola is a multi-national company.",
