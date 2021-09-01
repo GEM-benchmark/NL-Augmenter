@@ -62,7 +62,7 @@ class TransformerTextGeneration(SentenceOperation):
         self.text_generator = pipeline(
             "text-generation",
             model=model,
-            tokenizer=(model_text_generation, {"model_max_length": 512}),
+            tokenizer=model_text_generation,
             device=device,
         )
         if model_sentiment_classification is not None:
@@ -75,10 +75,7 @@ class TransformerTextGeneration(SentenceOperation):
             self.text_classifier = pipeline(
                 "sentiment-analysis",
                 model=model_sentiment_classification,
-                tokenizer=(
-                    model_sentiment_classification,
-                    {"model_max_length": 512},
-                ),
+                tokenizer=model_sentiment_classification,
                 device=device,
             )
         else:
@@ -88,21 +85,22 @@ class TransformerTextGeneration(SentenceOperation):
         self,
         sentence: str,
         num_return_sequences: int = 1,
-        prefix_len: float = 0.5,
+        prefix_ratio: float = 0.5,
         max_length_factor=3,
-        max_prefix_len=100,
+        max_prefix_length=400,
+        model_max_length=512,
         temperature: float = 1.0,
         repetition_penalty: float = 1.2,
         k: int = 0,
         p: float = 0.9,
     ):
 
-        logger.info("original text:" + sentence)
+        logger.info("original text: " + sentence)
         augmented_texts = []
         sentence_arr = sentence.split()
 
         truncated_len = min(
-            max_prefix_len, math.ceil(len(sentence_arr) * prefix_len)
+            max_prefix_length, math.ceil(len(sentence_arr) * prefix_ratio)
         )
         if self.text_classifier is None:
             text_inputs = " ".join(sentence_arr[0:truncated_len])
@@ -115,7 +113,9 @@ class TransformerTextGeneration(SentenceOperation):
                 label + "\t" + " ".join(sentence_arr[0:truncated_len])
             )
 
-        max_length = len(sentence_arr) * max_length_factor
+        max_length = min(
+            model_max_length, len(sentence_arr) * max_length_factor
+        )
         output_sequences = self.text_generator(
             text_inputs=text_inputs,
             temperature=temperature,
