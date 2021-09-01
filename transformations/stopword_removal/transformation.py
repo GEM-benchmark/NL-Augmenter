@@ -14,7 +14,7 @@ def stopword_remove(text, max_outputs=1):
     """
     stop_words = set(stopwords.words('english'))
     text_tokenized = ToktokTokenizer().tokenize(text)
-    return TreebankWordDetokenizer().detokenize([word for word in text_tokenized if word.lower() not in stop_words])
+    return [TreebankWordDetokenizer().detokenize([word for word in text_tokenized if word.lower() not in stop_words])]
 
 class StopwordRemoval(SentenceOperation):
     """
