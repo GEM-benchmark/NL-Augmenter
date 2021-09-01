@@ -6,6 +6,7 @@ import spacy
 from itertools import product
 import random
 from random import sample
+from tasks.TaskTypes import TaskType
 
 class MRValueReplacement(KeyValuePairsOperation):
     tasks = [TaskType.E2E_TASK]
