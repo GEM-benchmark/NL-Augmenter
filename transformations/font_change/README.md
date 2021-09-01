@@ -1,7 +1,6 @@
-# Hashtagify
+# Font Change
 
-Inspired by social media posts, this transformation add noise to an input sentence by randomly changing the font of words
-in a sentence.
+The Font Change transformation modifies words in the input to have a stylized appearance using suitable Unicode characters, as often in encountered in social media posts.
 
 Authors: [Shahab Raji](mailto:shahab.raji@rutgers.edu) (Rutgers University) and [Gerard de Melo](http://gerard.demelo.org/)
 (Hasso Plattner Institute / University of Potsdam)
@@ -9,8 +8,7 @@ Authors: [Shahab Raji](mailto:shahab.raji@rutgers.edu) (Rutgers University) and 
 
 ## How does the transformation work?
 
-Font Change uses the mapping from [𝓾𝓷𝓲𝓬𝓸𝓭𝓮 𝙛𝙤𝙧𝙢𝙖𝙩𝙩𝙚𝙧](https://github.com/DenverCoder1/unicode-formatter) (MIT license)
-to change the font of random words in the input sentence.
+Font Change adapts the appearance of randomly selected words in the input sentence. For each selected word, one of several possible appearance changes is chosen randomly. Such changes are achieved using Unicode characters based on mapping tables from the [𝓾𝓷𝓲𝓬𝓸𝓭𝓮 𝙛𝙤𝙧𝙢𝙖𝙩𝙩𝙚𝙧](https://github.com/DenverCoder1/unicode-formatter) (MIT license) tool.
 
 Examples:
 
@@ -22,5 +20,5 @@ to
 
 ## Target Tasks
 
-This transformation can be used for augmenting the text in classification task.
+This transformation can be used for data augmentation in text classification tasks.
 

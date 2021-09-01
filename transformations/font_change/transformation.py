@@ -60,7 +60,7 @@ class FontChange(SentenceOperation):
     def __init__(self, seed=664, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
 
-        # mapping tables based on unicode-formatter (MIT license)
+        # Mapping tables based on unicode-formatter (MIT license)
         # https://github.com/DenverCoder1/unicode-formatter
 
         dict_path = os.path.join(
