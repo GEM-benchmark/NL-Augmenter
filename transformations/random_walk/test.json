@@ -1,50 +1,90 @@
 {
-  "type": "butter_fingers_perturbation",
+  "type": "random_walk",
   "test_cases": [
     {
-      "class": "ButterFingersPerturbation",
+      "class": "RandomWalk",
       "inputs": {
         "sentence": "Andrew finally returned the French book to Chris that I bought last week"
       },
-      "outputs": [{
-        "sentence": "Andgew finally returned the French book to Chrus thav I bought last week"
-      }]
+      "outputs": [
+        {
+          "sentence": "He finally returned the comic book from Chris that she bought last week"
+        },
+        {
+          "sentence": "I finally returned my last book to Chris that I bought last !"
+        },
+        {
+          "sentence": "I have returned the French box to Chris that I bought last ."
+        }
+      ]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "RandomWalk",
       "inputs": {
         "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
       },
-      "outputs": [{
-        "sentence": "Senhences with gapping, such as Paul likes coffwe and Mary tea, lack an overt predicate to indicatx the relauion between two or more argumentd."
-      }]
+      "outputs": [
+        {
+          "sentence": "Languages with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to describe the relation between two or more arguments."
+        },
+        {
+          "sentence": "Sentences with gapping, so as Paul likes John and Mary tea, lack an overt way of indicate the relation between two or more arguments."
+        },
+        {
+          "sentence": "Sentences with arguments, so as Paul likes Peter andd Mary tea, lack an overt predicate to indicate the relation between two / more arguments."
+        }
+      ]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "RandomWalk",
       "inputs": {
         "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
       },
-      "outputs": [{
-        "sentence": "Alife in Wonderland is a 2010 American live-action/abimatev dark fantasy adventure film"
-      }]
+      "outputs": [
+        {
+          "sentence": "Alice in Wonderland is a 2010 Canadian live-action/animated / fantasy fantasy film"
+        },
+        {
+          "sentence": "Alice in Wonderland was a 2010 American live-action/animated musical - adventure film"
+        },
+        {
+          "sentence": "Alice Into Darkness , a 2010 American independent dark fantasy horror film"
+        }
+      ]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "RandomWalk",
       "inputs": {
         "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
       },
-      "outputs": [{
-        "sentence": "Ujjwl Dev Dosanjh served as 33rd Premier of Britush Conumbia from 2000 to 2001"
-      }]
+      "outputs": [
+        {
+          "sentence": "Shankar Dev Dosanjh served in 33rd Premier of British Columbia from 1999 to 2001"
+        },
+        {
+          "sentence": "Jai Dev Dosanjh served as 33rd Premier of Canadian Columbia , 2000 to 2001"
+        },
+        {
+          "sentence": "Ram Dev Dosanjh served as 33rd Premier of Sri Columbia from 1997 to 2001"
+        }
+      ]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "RandomWalk",
       "inputs": {
         "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
       },
-      "outputs": [{
-        "sentence": "Neugoplasticity is a continuous processing alliwing vhort-term, medium-term, and long-term remodeling of the beuronosynaptic organization."
-      }]
+      "outputs": [
+        {
+          "sentence": "Neuroplasticity is a neural processing allowing rapid, intermediate, and long-term remodeling of the neuronosynaptic organization."
+        },
+        {
+          "sentence": "Th##R is a dynamic processing allowing short-term, intensive, and long-term remodeling of the neuronosynaptic organization."
+        },
+        {
+          "sentence": "Neuroplasticity is a continuous transformation allowing immediate, intermediate, and long-term remodeling for the entire organization."
+        }
+      ]
     }
   ]
 }
