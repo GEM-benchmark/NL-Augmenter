@@ -2,10 +2,10 @@
 We use generative pretrained language model (e.g., GPT-2) to generate next word(s) in a sequence based on preceding word(s).
 
 ## What type of a transformation is this?
-Given a generative pretrained language model, we generate next word(s) in a sequence based on the prefix of the original text. For SST-2 and IMDB datasets, the code points to fine-tuned models, respectively, ```jmamou/gpt2-medium-IMDB``` and ```jmamou/gpt2-medium-SST-2```.
+Given a generative pretrained language model, we generate next word(s) in a sequence based on the prefix of the original text. For SST-2 and IMDB datasets, the code points to fine-tuned models, respectively, ```jmamou/gpt2-medium-IMDB``` and ```jmamou/gpt2-medium-SST-2``` (available at HugginFace Model Hub).
 In order to generate a sample preserving the label of the original sample, we fine-tuned ```gpt2-medium``` for labeled text generation tasks. If the sentiment label of the orignial text is not provided, we first run sentiment classification to get a pseudo-label using respectively, ```textattack/roberta-base-imdb``` and ```textattack/roberta-base-SST-2```.
 
-In addition, we support general purpose text generation using ```gpt2-medium``` pretrained model.
+In addition, we support general purpose unlabeled text generation using ```gpt2-xl``` pretrained model.
 
 
 ## What tasks does it intend to benefit?

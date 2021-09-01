@@ -42,15 +42,18 @@ class TransformerTextGeneration(SentenceOperation):
 
         set_seed(seed, no_cuda)
 
-        if dataset == "imdb" and labeled:
-            model_text_generation: str = "jmamou/gpt2-medium-IMDB"
-            # model_sentiment_classification = 'aychang/roberta-base-imdb'
-            model_sentiment_classification = "textattack/roberta-base-imdb"
-        elif dataset == "sst2" and labeled:
-            model_text_generation: str = "jmamou/gpt2-medium-SST-2"
-            model_sentiment_classification = "textattack/roberta-base-SST-2"
+        if labeled:
+            if dataset == "imdb":
+                model_text_generation: str = "jmamou/gpt2-medium-IMDB"
+                # model_sentiment_classification = 'aychang/roberta-base-imdb'
+                model_sentiment_classification = "textattack/roberta-base-imdb"
+            elif dataset == "sst2":
+                model_text_generation: str = "jmamou/gpt2-medium-SST-2"
+                model_sentiment_classification = (
+                    "textattack/roberta-base-SST-2"
+                )
         else:
-            model_text_generation: str = "gpt2-medium"
+            model_text_generation: str = "gpt2-xl"
             model_sentiment_classification = None
 
         self.eos = eos
