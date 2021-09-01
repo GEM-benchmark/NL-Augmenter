@@ -6,7 +6,7 @@ numpy
 torch
 
 # for MRValueReplacement
-torchtext==0.10.0
+torchtext==0.9.1
 
 # for ReplaceNumericalValues
 num2words==0.5.10
