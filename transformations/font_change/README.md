@@ -24,6 +24,3 @@ to
 
 This transformation can be used for augmenting the text in classification task.
 
-
-## Limitations
-
