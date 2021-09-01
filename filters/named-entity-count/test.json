@@ -50,7 +50,7 @@
         {
             "class": "SentenceAndTargetNamedEntityCountFilter",
             "args": {
-                "ops": ["==", "<="],
+                "ops": [">0", "<=2"],
                 "thresholds": [1, 2]
             },
             "inputs": {
