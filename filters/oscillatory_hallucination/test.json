@@ -1,0 +1,53 @@
+{
+    "type": "length",
+    "test_cases": [
+        {
+           "class": "OscillatoryHallucinationFilter",
+           "inputs": {
+              "source":"Community, European Parliament common regional policy, Mediterranean region",
+              "output": "Arbeitsbedingungen, berufliche Bildung, berufliche Bildung, berufliche Bildung, berufliche Bildung, berufliche Bildung, berufliche Bildung, berufliche Bildung, berufliche Bildung, berufliche Bildung, berufliche Bildung,"
+           },
+           "outputs": true
+        },
+        {
+           "class": "OscillatoryHallucinationFilter",
+           "inputs": {
+              "source":"China, trade relations foreign policy, Hong Kong, trade relations Japan, trade relations economic cooperation Community relations, institutional cooperation, OECD cooperation agreement, trading, Yugoslavia",
+              "output": "Angleichung der Rechtsvorschriften, Angleichung der Rechtsvorschriften, Angleichung der Rechtsvorschriften, Angleichung der Rechtsvorschriften, Angleichung der Rechtsvorschriften, Angleichung der Rechtsvorschriften, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG, Richtlinie EG,"
+           },
+           "outputs": true
+        },
+        {
+           "class": "OscillatoryHallucinationFilter",
+           "inputs": {
+              "source":"Kenya, UN Conference married person, professional motherhood, women's rights winding-up of a company approximation oflaws, bankruptcy, credit institution cessation of trading, insurance company",
+              "output": "Angleichung der Rechtsvorschriften, Bankrott, Bankrott, Kreditinstitut Einstellung des Handels, Versicherungsgesellschaft, Verheiratete Person, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von Mann und Frau, Gleichbehandlung von"
+           },
+           "outputs": true
+        },
+        {
+           "class": "OscillatoryHallucinationFilter",
+           "inputs": {
+              "source":"Life in the Bahamas is good for a lot of people.",
+              "output": "Das Leben auf den Bahamas ist für viele Menschen gut."
+           },
+           "outputs": false
+        },
+        {
+            "class": "OscillatoryHallucinationFilter",
+            "inputs": {
+               "source":"Christiano Ronaldo played for Machester United as a striker.",
+               "output": "Christiano Ronaldo spielte als Stürmer für Machester United."
+            },
+            "outputs": false
+         },
+         {
+            "class": "OscillatoryHallucinationFilter",
+            "inputs": {
+               "source":"Hello, Hello, Hello, Hello, Hello, hello, Hello, Hello, Hello, hello, Hello, hello, Hello, Hello, Hello, Hello, Hello, Hello, Hello",
+               "output": "Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo, Hallo"
+            },
+            "outputs": false
+         }
+     ]
+  }
