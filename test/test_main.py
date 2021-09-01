@@ -109,6 +109,7 @@ def execute_key_value_pair_test_case(transformation, test):
         mr, reference
     )
     for idx, (p_mr, p_ref) in enumerate(perturbs):
+        print(p_mr)      
         expected_mr = outputs[idx]["meaning_representation"]
         expected_ref = outputs[idx]["reference"]
         assert p_mr == expected_mr, get_assert_message(

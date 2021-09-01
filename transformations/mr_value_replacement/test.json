@@ -25,7 +25,7 @@
       "inputs": {
         "meaning_representation": { "name": "Loch Fyne", 
                                     "eatType": "restaurant",
-                                    "food": "French",
+                                    "food": "British",
                                     "priceRange": "less than £20",
                                     "familyFriendly": "yes"},
         "reference": "Loch Fyne is a family-friendly restaurant providing wine and cheese at a low cost."
@@ -33,7 +33,7 @@
       "outputs": [{
         "meaning_representation": { "name": "Loch Fyne", 
                                     "eatType": "shop",
-                                    "food": "French",
+                                    "food": "British",
                                     "priceRange": "less than £20",
                                     "familyFriendly": "yes"},
         "reference": "Loch Fyne is a family-friendly shop providing wine and cheese at a low cost."
@@ -42,58 +42,58 @@
     {
       "class": "MRValueReplacement",
       "inputs": {
-        "meaning_representation": { "name": "Loch Fyne", 
-                                    "eatType": "restaurant",
+        "meaning_representation": { "name": "The Rice Boat", 
+                                    "customer rating": "average",
                                     "food": "French",
-                                    "priceRange": "less than £20",
-                                    "familyFriendly": "yes"},
-        "reference": "Loch Fyne is a family-friendly restaurant providing wine and cheese at a low cost."
+                                    "area": "riverside",
+                                    "familyFriendly": "no"},
+        "reference": "The Rice Boat is an adult French restaurant with high customer rating located in the riverside area."
       },
       "outputs": [{
-        "meaning_representation": { "name": "Loch Fyne", 
-                                    "eatType": "shop",
-                                    "food": "French",
-                                    "priceRange": "less than £20",
-                                    "familyFriendly": "yes"},
-        "reference": "Loch Fyne is a family-friendly shop providing wine and cheese at a low cost."
+        "meaning_representation": { "name": "The Rice Boat", 
+                                    "customer rating": "average",
+                                    "food": "french",
+                                    "area": "pasadena",
+                                    "familyFriendly": "no"},
+        "reference": "The Rice Boat is an adult french restaurant with high customer rating located in the pasadena area."
       }]
     },
     {
       "class": "MRValueReplacement",
       "inputs": {
-        "meaning_representation": { "name": "Loch Fyne", 
-                                    "eatType": "restaurant",
-                                    "food": "French",
-                                    "priceRange": "less than £20",
-                                    "familyFriendly": "yes"},
-        "reference": "Loch Fyne is a family-friendly restaurant providing wine and cheese at a low cost."
+        "meaning_representation": { "name": "Aromi", 
+                                    "eatType": "coffee shop",
+                                    "food": "Italian",
+                                    "customer rating": "5 out of 5",
+                                    "area": "riverside",
+                                    "familyFriendly": "no"},
+        "reference": "5 star establishment, Aromi is a riverside coffee shop that serves Italian food"
       },
       "outputs": [{
-        "meaning_representation": { "name": "Loch Fyne", 
-                                    "eatType": "shop",
-                                    "food": "French",
-                                    "priceRange": "less than £20",
-                                    "familyFriendly": "yes"},
-        "reference": "Loch Fyne is a family-friendly shop providing wine and cheese at a low cost."
+        "meaning_representation": { "name": "Aromi", 
+                                    "eatType": "coffee shop",
+                                    "food": "french",
+                                    "customer rating": "5 out of 5",
+                                    "area": "grove",
+                                    "familyFriendly": "no"},
+        "reference": "5 star establishment, Aromi is a grove coffee shop that serves french food"
       }]
     },
     {
       "class": "MRValueReplacement",
       "inputs": {
-        "meaning_representation": { "name": "Loch Fyne", 
-                                    "eatType": "restaurant",
-                                    "food": "French",
-                                    "priceRange": "less than £20",
+        "meaning_representation": { "name": "The Golden Curry", 
+                                    "food": "Indian",
+                                    "customer rating": "high",
                                     "familyFriendly": "yes"},
-        "reference": "Loch Fyne is a family-friendly restaurant providing wine and cheese at a low cost."
+        "reference": "The Golden Curry highly recommended by its customers serves Indian food and children are permitted."
       },
       "outputs": [{
-        "meaning_representation": { "name": "Loch Fyne", 
-                                    "eatType": "shop",
-                                    "food": "French",
-                                    "priceRange": "less than £20",
+        "meaning_representation": { "name": "The Golden Curry", 
+                                    "food": "frontier",
+                                    "customer rating": "high",
                                     "familyFriendly": "yes"},
-        "reference": "Loch Fyne is a family-friendly shop providing wine and cheese at a low cost."
+        "reference": "The Golden Curry highly recommended by its customers serves frontier food and children are permitted."
       }]
     }      
   ]
