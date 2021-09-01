@@ -50,14 +50,14 @@
         {
             "class": "SentenceAndTargetNamedEntityCountFilter",
             "args": {
-                "ops": [">", "<"],
-                "thresholds": [0, 3]
+                "ops": ["==", "=="],
+                "thresholds": [2, 1]
             },
             "inputs": {
-                "sentence": "Coca-Cola is a multi-national company.",
-                "target": "Pepsi is a competitor of Coca-Cola."
+                "sentence": "France is a country in Europe.",
+                "target": "The capital of France is Paris."
             },
-            "outputs": true
+            "outputs": false
         }
 
     ]
