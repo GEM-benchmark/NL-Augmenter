@@ -5,7 +5,6 @@ import numpy as np
 import torch
 from transformers import GPT2LMHeadModel, pipeline
 
-from evaluation.evaluate_text_classification import SENTIMENT_LABELS
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -36,17 +35,18 @@ class TransformerTextGeneration(SentenceOperation):
         self,
         eos: str = "</s>",
         no_cuda: bool = False,
-        dataset_name="sst2",
+        dataset="sst2",
+        labeled=True,
         seed=42,
     ):
 
         set_seed(seed, no_cuda)
 
-        if dataset_name == "imdb":
+        if dataset == "imdb" and labeled:
             model_text_generation: str = "jmamou/gpt2-medium-IMDB"
             # model_sentiment_classification = 'aychang/roberta-base-imdb'
             model_sentiment_classification = "textattack/roberta-base-imdb"
-        elif dataset_name == "sst2":
+        elif dataset == "sst2" and labeled:
             model_text_generation: str = "jmamou/gpt2-medium-SST-2"
             model_sentiment_classification = "textattack/roberta-base-SST-2"
         else:
@@ -56,22 +56,18 @@ class TransformerTextGeneration(SentenceOperation):
         self.eos = eos
         device = -1 if no_cuda else 0
 
-        model = GPT2LMHeadModel.from_pretrained(model_text_generation)
-
         # initialize text generation pipeline
+        model = GPT2LMHeadModel.from_pretrained(model_text_generation)
         self.text_generator = pipeline(
             "text-generation",
             model=model,
             tokenizer=model_text_generation,
             device=device,
         )
+
+        # if relevant, initialize the sentiment classification pipeline
         if model_sentiment_classification is not None:
             self.label_name = "label"
-            self.label_func = (
-                lambda x: SENTIMENT_LABELS.POSITIVE
-                if x == 1
-                else SENTIMENT_LABELS.NEGATIVE
-            )
             self.text_classifier = pipeline(
                 "sentiment-analysis",
                 model=model_sentiment_classification,
@@ -83,7 +79,7 @@ class TransformerTextGeneration(SentenceOperation):
 
     def generate(
         self,
-        sentence: str,
+        sequence: str,
         num_return_sequences: int = 1,
         prefix_ratio: float = 0.5,
         max_length_factor=3,
@@ -95,27 +91,23 @@ class TransformerTextGeneration(SentenceOperation):
         p: float = 0.9,
     ):
 
-        logger.info("original text: " + sentence)
+        logger.info("original text: " + sequence)
         augmented_texts = []
-        sentence_arr = sentence.split()
+        sequence = sequence.split()
 
-        truncated_len = min(
-            max_prefix_length, math.ceil(len(sentence_arr) * prefix_ratio)
+        prefix_length = min(
+            max_prefix_length, math.ceil(len(sequence) * prefix_ratio)
         )
         if self.text_classifier is None:
-            text_inputs = " ".join(sentence_arr[0:truncated_len])
+            text_inputs = " ".join(sequence[0:prefix_length])
         else:
-            label = self.text_classifier(sentence, truncation=True)[0][
+            label = self.text_classifier(sequence, truncation=True)[0][
                 self.label_name
             ]
             label = label.split("_")[1]
-            text_inputs = (
-                label + "\t" + " ".join(sentence_arr[0:truncated_len])
-            )
+            text_inputs = label + "\t" + " ".join(sequence[0:prefix_length])
 
-        max_length = min(
-            model_max_length, len(sentence_arr) * max_length_factor
-        )
+        max_length = min(model_max_length, len(sequence) * max_length_factor)
         output_sequences = self.text_generator(
             text_inputs=text_inputs,
             temperature=temperature,
@@ -142,8 +134,6 @@ class TransformerTextGeneration(SentenceOperation):
         return augmented_texts
 
 
-# Sample code to demonstrate usage. Can also assist in adding test cases.
-# You don't need to keep this code in your transformation.
 if __name__ == "__main__":
     import json
 

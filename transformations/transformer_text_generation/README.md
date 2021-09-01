@@ -2,20 +2,21 @@
 We use generative pretrained language model (e.g., GPT-2) to generate next word(s) in a sequence based on preceding word(s).
 
 ## What type of a transformation is this?
-Given a generative pretrained language model, we generate next word(s) in a sequence based on preceding word(s). These preceding words are  that are extracted from the prefix of the original text. For SST-2 and IMDB datasets, the code points to fine-tuned models, respectively, ```jmamou/gpt2-medium-IMDB``` and ```jmamou/gpt2-medium-SST-2```.
-Models are fine-tuned for labeled text generation tasks.
+Given a generative pretrained language model, we generate next word(s) in a sequence based on the prefix of the original text. For SST-2 and IMDB datasets, the code points to fine-tuned models, respectively, ```jmamou/gpt2-medium-IMDB``` and ```jmamou/gpt2-medium-SST-2```.
+In order to generate a sample preserving the label of the original sample, we fine-tuned ```gpt2-medium``` for labeled text generation tasks. If the sentiment label of the orignial text is not provided, we first run sentiment classification to get a pseudo-label using respectively, ```textattack/roberta-base-imdb``` and ```textattack/roberta-base-SST-2```.
+
+In addition, we support general purpose text generation using ```gpt2-medium``` pretrained model.
 
 
 ## What tasks does it intend to benefit?
-This transformation would benefit all tasks which have a sentence/paragraph/document as input like text classification, text generation and text tagging. This approach has been successfully used to augment data for distillation.
+This transformation would benefit all tasks which have a sentence/paragraph/document as input like text classification, text generation and text tagging. In addition, this approach has been successfully used to augment data for distillation.
 
 ```python evaluate.py -t TransformerTextGeneration -task TEXT_CLASSIFICATION```
 ```model_name = "textattack/roberta-base-SST-2" -d sst2```
-The accuracy of a RoBERTa model (textattack/roberta-base-SST-2) (model: "aychang/roberta-base-imdb") on a subset of SST-2 sentiment dataset = 90.
-The accuracy of the same model on the augmented set = 85.
+
 
 ## Previous Work
-Our approach follows previous work
+Our approach follows previous work on data augmentation for distillation
 ```bibtex
 @inproceedings{tang-etal-2019-natural,
     title = "Natural Language Generation for Effective Knowledge Distillation",
