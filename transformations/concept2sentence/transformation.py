@@ -66,5 +66,5 @@ class C2S(SentenceAndTargetOperation):
 #             "inputs": {"sentence": sentence, "target": target}, 
 #             "outputs": {"new_sentence": new_sentence, "new_target": new_target}
 #         })
-#     json_file = {"type": tf.name(), "results": results}
+#     json_file = {"type": tf.name(), "test_cases": results}
 #     print(json.dumps(json_file, indent=2))

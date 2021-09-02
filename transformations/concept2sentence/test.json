@@ -1,6 +1,6 @@
 {
   "type": "C2S",
-  "results": [
+  "test_cases": [
     {
       "class": "C2S",
       "inputs": {
