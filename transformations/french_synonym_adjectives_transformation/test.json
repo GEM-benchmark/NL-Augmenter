@@ -2,6 +2,7 @@
   "type": "french_synonym_adjectives_transformation",
   "test_cases": [
 
+
     {
       "class": "FrenchAdjectivesSynonymTransformation",
       "inputs": {
@@ -9,21 +10,9 @@
       },
       "outputs": [{
         "sentence": "Le sanglier a des dents pointues et un pelage noir"
-      }]
 
-    },
-
-    {
-      "class": "FrenchAdjectivesSynonymTransformation",
-      "inputs": {
-        "sentence": "L'examen est difficile"
+        }]
       },
-      "outputs": [{
-        "sentence": "L'examen est ardu"
-      }]
-
-    },
-
     {
       "class": "FrenchAdjectivesSynonymTransformation",
       "inputs": {
