@@ -1,5 +1,5 @@
 # Subsequence substitution for sequence tagging augmentation 🦎  + 🦎 → 🐍
-
+Contributor: Haoyue "Freda" Shi ([freda@ttic.edu](mailto:freda@ttic.edu)), Toyota Technological Institute at Chicago
 
 ## What type of a transformation is this?
 This transformation performs same-label subsequence substitution for the task of sequence tagging, which replaces a subsequence of the input tokens with another one that has the same sequence of tags.
