@@ -19,7 +19,7 @@ class NamedEntityCountFilter(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
-    def __init__(self, op: str = ">", threshold: int = 10):
+    def __init__(self, op: str = ">=", threshold: int = 1):
         super().__init__()
         self.operator = self.parse_operator(op)
         self.threshold = threshold
