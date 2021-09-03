@@ -1,8 +1,8 @@
 # Gender Randomizer 🦎  + ⌨️ → 🐍
 
 Author name: Tabitha Sugumar
-Author email: __
-Author Affiliation: __
+Author email: t.sugumar@elsevier.com
+Author Affiliation: Elsevier
 
 ## What type of a transformation is this?
 This transformation changes names in English texts, randomizing selection so there's an even chance of male and female names. It modifies pronouns to match the selected name.
