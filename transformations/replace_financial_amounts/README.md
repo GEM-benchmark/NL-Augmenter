@@ -7,6 +7,11 @@ The change is consistent in regard to:
 - the modifier used to change the amounts so that new amounts are relatively close to the original amount.
 - the rate used for a change of currency, reflecting the actual bank rate.
 
+Author names:
+- Maxime Meyer (maxime.meyer@vadesecure.com, Vade)
+- Tatiana Ekeinhor (tatiana.ekeinhor@vadesecure.com, Vade)
+- Antoine Honoré (antoine.honore@vadesecure.com, Vade)
+
 ## What type of a transformation is this?
 This transformation acts like a perturbation to test robustness. Generated transformations display high similarity to the 
 source sentences i.e. the code outputs highly precise generations. It is a substitution of a financial amount to another financial amount. 
