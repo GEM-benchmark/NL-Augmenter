@@ -2,11 +2,9 @@
 
 ## What type of a filter is this?
 
-This is a quadrilingual filter (for English, French, Polish and Russian languages), which filters a text corpus to measure gender fairness in regards of a female gender representation.
-It is based on a pre-defined set words, such as personal pronouns, words defining the relation, titles and names, corresponding to the female and male genders accordingly.
-Two utility methods - flag_sentences(), count_genders() and sort_groups() give supplementary information to the boolean value returned by the main filter() method.
+This is a quadrilingual filter (for English, French, Polish and Russian languages), which filters a text corpus to measure gender fairness with respect to a female gender representation.
 
-Author: Anna Shvets
+Author: Anna Shvets<br/>
 Company:
 Fablab by Inetum in Paris
 157 Boulevard MacDonald
@@ -17,12 +15,12 @@ France
 ## Why is measuring performance on this split important?
 This filter can be used to define whether the female gender is sufficiently represented in a tested subset of sentences.
 Being currently implemented for English, French, Polish and Russian languages, this filter is potentially language-agnostic, since does not rely on any external dependencies.
-A list of lexicals used for the filter is available in `lexicals.json` file.
+A list of lexicals used for the filter is available in `lexicals.json` file and includes such filter categories as personal pronouns, words defining the relation, titles and names, corresponding to the female and male genders accordingly.
 
 ## Related Work
-The problematics of the gender fairness is an active domain of research in NLP, however the existing methods of the bias measurement, such as PCA (Bolukbasi et al., 2016) or WEAT (Caliskan et al., 2017), may suffer from unclearness in the lexical seeds selection, pointed in a [recent ACL 2021 paper](https://www.aclanthology.org/2021.acl-long.148), the intrinsic measurements showed no correlation with extrinsic methods results, as showed a [recent research](https://www.aclanthology.org/2021.acl-long.150). On the other hand, the gender bias datasets (Winobias, Winogender, StereoSet, CrowS-Pairs) can present the unconsistencies, pointed by [another ACL paper](https://aclanthology.org/2021.acl-long.81.pdf) and might be far from  optimal in terms if bias measurement. 
+The problematics of the gender fairness is an active domain of research in NLP, however the existing methods of the bias measurement, such as PCA (Bolukbasi et al., 2016) or WEAT (Caliskan et al., 2017), may suffer from unclearness in the lexical seeds selection, pointed in a recent ACL 2021 paper [1](https://www.aclanthology.org/2021.acl-long.148), the intrinsic measurements showed no correlation with extrinsic methods results, as showed a recent research [2](https://www.aclanthology.org/2021.acl-long.150). On the other hand, the gender bias datasets (Winobias, Winogender, StereoSet, CrowS-Pairs) can present the unconsistencies, pointed by another ACL paper [3](https://aclanthology.org/2021.acl-long.81.pdf) and might be far from  optimal in terms if bias measurement. 
 The beneficial impact of the current extrinsic filter is its complete transparency and extensibility, which offers the user a great amont of control over the bias measurement parameters.
-The set of names for English was taken from https://www.verywellfamily.com/, for French - from https://www.journaldesfemmes.fr, for Polish - from https://www.edziecko.pl and https://www.klups.pl, and for Russian - from https://imenika.ru/.
+The set of names for English was taken from [4](https://www.verywellfamily.com/), for French - from [5](https://www.journaldesfemmes.fr), for Polish - from [6](https://www.edziecko.pl) and [7](https://www.klups.pl), and for Russian - from [8](https://imenika.ru/).
 
 ## Examples of use
 
@@ -46,7 +44,7 @@ print("Masculine flagged sentences:", masculine)
 print("Neutral flagged sentences:", neutral)
 ```
 
-which outputs:
+Output:
 ```
 Feminine tagged sentences: 1
 Masculine tagged sentences: 2
@@ -62,7 +60,7 @@ print("This is a masculine group:", masculine_group)
 print("This is a neutral group:", neutral_group)
 ```
 
-which outputs:
+Output:
 ```
 This is a feminine group: ['She is going to program']
 This is a masculine group: ['He is going to make a cake.', 'He agreed to help him']
@@ -104,14 +102,14 @@ print("Feminine flagged sentences:", feminine)
 print("Masculine flagged sentences:", masculine)
 print("Neutral flagged sentences:", neutral)
 ```
-outputs:
+Output:
 ```
 Feminine flagged sentences: 2
 Masculine flagged sentences: 3
 Neutral flagged sentences: 1
 ```
 
-and this piece of code gives us the exact sentences:
+and this piece of code gives us the exact sentences in each of these groups:
 ```
 flagged_sentences = f.flag_sentences(sentences, "en", feminine_input, masculine_input)
 feminine_group, masculine_group, neutral_group = f.sort_groups(flagged_sentences)
@@ -119,7 +117,7 @@ print("This is a feminine group:", feminine_group)
 print("This is a masculine group:", masculine_group)
 print("This is a neutral group:", neutral_group)
 ```
-which outputs:
+Output:
 ```
 This is a feminine group: ['She is going to program', 'Wow , it works!']
 This is a masculine group: ['He is going to make a cake.', 'He agreed to help him', 'Yey !!!!']
@@ -128,5 +126,5 @@ This is a neutral group: ['Nobody likes washing dishes']
 
 ## What are the limitations of this filter?
 The filter result is based on n-gram intersection counting approach, which assumes that the word should have the exact form as the internally defined keywords.
-For the lexically rich languages, such as Polish and Russian, the nouns conjugation may overlap the infinitif of an opposite gender.
+For the lexically rich languages, such as Polish and Russian, the noun conjugation may overlap with the infinitif of an opposite gender.
 For example, the word "nastolatek" is a teenage boy in infinitif, "nastolatka" - a teenage girl in infinitif, however, when answering the question "Whom are we missing?", the feminine form in plural ("nastolatki" in infinitif) will give the word "nastolatek", which overlaps with the masculin singular infinitif, designating a teenage boy.
