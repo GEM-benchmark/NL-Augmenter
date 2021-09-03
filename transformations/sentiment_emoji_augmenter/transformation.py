@@ -51,6 +51,7 @@ class SentimentEmojiAugmenter(SentenceAndTargetOperation):
     """Adds a positive labelled emoji as well as a positive emoteicon for positive sentences and vice versa.
     And neutral smiley for unlabelled and neutral sentences.
     Check line number 12 and 25 to decide a good threshold.
+    Link to code: This split comes from the library https://github.com/clips/pattern which was used as a source for these. And I think theoretically emojis are images while emoticons are keyboard characters.
     """
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.SENTIMENT_ANALYSIS]
     languages = "All"
