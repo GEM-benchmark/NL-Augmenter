@@ -1,5 +1,5 @@
-# Chinese Person Named Entities （名字） and Gender （性别） Perturbation  🦎  + ⌨️ → 🐍
-This perturbation adds noise to all types of text sources containing Chinese names (sentence, paragraph, etc.) by changing a Chinese name with another Chinese whilst also performing gender swap if the user choose to do so.
+# Chinese Person Named Entities（名字) and Gender （性别） Perturbation  🦎  + ⌨️ → 🐍
+This perturbation adds noise to all types of text sources containing Chinese names (sentence, paragraph, etc.) by changing a Chinese name with another Chinese name whilst also performing gender swap if the user choose to do so.
 
 Author name: Timothy Sum Hon Mun
 Author email: timothy22000@gmail.com
