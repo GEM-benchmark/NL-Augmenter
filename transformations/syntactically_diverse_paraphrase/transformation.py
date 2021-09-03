@@ -1,6 +1,6 @@
 import benepar
 import spacy
-
+import nltk
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from transformations.syntactically_diverse_paraphrase.sowreap.parse_utils import (
@@ -23,6 +23,11 @@ class ParaphraseSowReap(SentenceOperation):
         self.sow = sowModel("tanyagoyal/paraphrase-sow", max_outputs)
         self.reap = reapModel("tanyagoyal/paraphrase-reap", max_outputs)
         self.nlp = spacy.load("en_core_web_sm")
+        try:
+            nltk.data.find(f"models/benepar_en3")
+        except LookupError:
+            benepar.download('benepar_en3')
+
         if spacy.__version__.startswith("2"):
             self.nlp.add_pipe(benepar.BeneparComponent("benepar_en3"))
         else:

@@ -7,7 +7,7 @@ class reapModel(object):
         self.tokenizer = BartTokenizer.from_pretrained("facebook/bart-large")
         self.max_outputs = max_outputs
 
-        self.reap.to("cuda")
+        self.reap
 
     def generate(self, inputs):
         encoding = self.tokenizer.batch_encode_plus(
@@ -19,8 +19,8 @@ class reapModel(object):
         )
 
         input_args = {
-            "input_ids": input_ids.to("cuda"),
-            "attention_mask": attention_masks.to("cuda"),
+            "input_ids": input_ids,
+            "attention_mask": attention_masks,
             "num_beams": 6,
             "length_penalty": 2,
             "no_repeat_ngram_size": 3,

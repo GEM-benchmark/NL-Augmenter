@@ -133,7 +133,7 @@ class sowModel(object):
     def __init__(self, model_path, max_outputs):
         self.sow = BartForConditionalGeneration.from_pretrained(model_path)
         self.tokenizer = BartTokenizer.from_pretrained("facebook/bart-large")
-        self.sow.to("cuda")
+        self.sow
         self.glove = GloVe(name="6B", dim=50)
         self.max_outputs = max_outputs
 
@@ -192,8 +192,8 @@ class sowModel(object):
         )
 
         input_args = {
-            "input_ids": input_ids.to("cuda"),
-            "attention_mask": attention_masks.to("cuda"),
+            "input_ids": input_ids,
+            "attention_mask": attention_masks,
             "num_beams": 1,
             "length_penalty": 1,
             "no_repeat_ngram_size": 1,
