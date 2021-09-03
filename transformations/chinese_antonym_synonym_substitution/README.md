@@ -1,5 +1,5 @@
 # Chinese Antonym (反义词) and Synonym (同义词) Substitution 🦎  + ⌨️ → 🐍
-This perturbation adds noise to all types of text sources containing Chinese characters (sentence, paragraph, etc.) by changing characters with its synonyms（同义词）or antonyms（反义词）from a database of synonyms and antonyms.
+This perturbation adds noise to all types of text sources containing Chinese words and characters (sentence, paragraph, etc.) by changing words and characters with its synonyms（同义词）or antonyms（反义词）from a database of synonyms and antonyms.
 
 Author name: Timothy Sum Hon Mun
 Author email: timothy22000@gmail.com
