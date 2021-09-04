@@ -4,26 +4,14 @@ from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 
-def britishize_americanize(string, custom_vocab):
+def britishize_americanize(string, final_dict):
     """
-    Gets the british to american english dictionary
-    Gets the american to British english dictionary
-    Merges both these dictionaries with the custom vocab dictionary.
     Parameters:
         string(str): original string
-        custom_vocab(dict): custom vocab dictionary containing words that are not present in the imported dictionaries
+        final_dict(dict): dictionary with all the different possible words in american and british english
     Returns:
         str: String after replacing the words
     """
-
-    url = "https://raw.githubusercontent.com/hyperreality/American-British-English-Translator/master/data/american_spellings.json"
-    american_british_dict = requests.get(url).json()
-
-    url = "https://raw.githubusercontent.com/hyperreality/American-British-English-Translator/master/data/british_spellings.json"
-    british_american_dict = requests.get(url).json()
-
-    final_dict = {**american_british_dict, **british_american_dict, **custom_vocab}
-
     string = " ".join([final_dict.get(word, word) for word in string.split()])
     return string
 
@@ -36,7 +24,7 @@ class AmericanizeBritishizeEnglish(SentenceOperation):
         super().__init__(seed, max_outputs=max_outputs)
 
         # Creating a custom vocab dictionary consisting of totally different words for same context
-        self.difference_british_to_american = {
+        difference_british_to_american = {
             "trousers": "pants",
             "flat": "apartment",
             "bonnet": "hood",
@@ -93,17 +81,28 @@ class AmericanizeBritishizeEnglish(SentenceOperation):
             "queue": "line",
             "rubbish": "trash",
         }
-
-    def generate(self, sentence: str):
-
         # Replacing the keys with values and vice versa for the custom vocab dictionary
         # And merging both of them
         vocab_diff = dict(
-            (v, k) for k, v in self.difference_british_to_american.items()
+            (v, k) for k, v in difference_british_to_american.items()
         )
-        vocab_diff.update(self.difference_british_to_american)
+        vocab_diff.update(difference_british_to_american)
 
-        translated = britishize_americanize(sentence, vocab_diff)
+        """
+         Gets the british to american english dictionary
+         Gets the american to British english dictionary
+         Merges both these dictionaries with the custom vocab dictionary.
+        """
+        url = "https://raw.githubusercontent.com/hyperreality/American-British-English-Translator/master/data/american_spellings.json"
+        american_british_dict = requests.get(url).json()
+
+        url = "https://raw.githubusercontent.com/hyperreality/American-British-English-Translator/master/data/british_spellings.json"
+        british_american_dict = requests.get(url).json()
+
+        self.final_dict = {**american_british_dict, **british_american_dict, **vocab_diff}
+
+    def generate(self, sentence: str):
+        translated = britishize_americanize(sentence,  self.final_dict)
         return ["".join(translated)]
 
 
