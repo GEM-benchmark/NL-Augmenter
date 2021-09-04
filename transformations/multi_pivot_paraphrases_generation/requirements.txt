@@ -1,5 +1,6 @@
 EasyNMT
 numpy
 scikit-learn
+tensorflow
 tensorflow-hub
 transformers
