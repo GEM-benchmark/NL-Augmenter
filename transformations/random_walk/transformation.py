@@ -129,6 +129,7 @@ def sentence_similarity_metric(similarity_model, sen_A, sen_B):
 class RandomWalk(SentenceOperation):
     tasks = [
         TaskType.TEXT_TO_TEXT_GENERATION,
+        TaskType.TEXT_CLASSIFICATION
     ]
     languages = ["en"]
 
