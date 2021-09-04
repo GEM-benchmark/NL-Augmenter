@@ -9,8 +9,7 @@ Every transformation should have keywords that identify the type of transformati
 - the skills required to differentiate between the input and the output of the transformation (if applicable) eg. causal-reasoning, visual-reasoning, social-reasoning, humor, figurative-language, grammar, world-knowledge, etc. 
 - other transformation specific keywords
 
-Some of the categories can be subjective and they are meant to be used as best estimated. It is okay to include multiple of each type. Example, many transformer based generators might fit into most of the linguistic categories.
-
+Some of the categories can be subjective and they are meant to be used as best estimated. It is okay to include multiple of each type. Example, many transformer based generators might fit into most of the linguistic categories.  If your transformation is best described by keywords not yet included in the list below, please add the additional keywords to this file as part of your pull request.
 
 Keyword | Description
 ------- | -----------
@@ -49,3 +48,4 @@ Keyword | Description
   `social-reasoning` | ability to understand and reason about human social interactions
   `figurative-language` | ability to understand figures of speech
   `world-knowledge` | ability to understand world knowledge
+  
