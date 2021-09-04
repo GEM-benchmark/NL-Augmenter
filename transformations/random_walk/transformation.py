@@ -38,11 +38,11 @@ def get_k_replacement_words(tokenized_text, tokenizer, model, k):
     """
     inputs = tokenizer.encode_plus(tokenized_text, return_tensors='pt', truncation=True, max_length = 512)
     index_to_mask = torch.where(inputs.input_ids[0] == tokenizer.mask_token_id)
+    if index_to_mask[0].numel() == 0: # Since we are truncating the input to be 512 tokens (BERT's max), we need to make sure the mask is in these first 512.
+        return None, False
     outputs = model(**inputs)
     softmax = F.softmax(outputs.logits, dim=-1)
     mask_word = softmax[0, index_to_mask, :]
-
-    #return torch.topk(mask_word, k)[1][0]
 
     sorted_tokens = torch.argsort(mask_word[0], descending=True)
     i = 0
@@ -70,18 +70,16 @@ def single_sentence_random_step(sentence, tokenizer, model, k):
     """
     text_split = re.split('[ ?.,!;"]', sentence)
     included_mask = False
-    while not included_mask:
+    while not included_mask: # Loop until the masked word is one of the first 512 tokens of input, since all else are discarded.
       # pick a random word to mask
       word_to_mask = random.choice(text_split)
-      start_index = 0
-      while len(word_to_mask) == 0 and not word_to_mask.isalnum() and start_index < 512: # Avoid empty strings in split text
+      while len(word_to_mask) == 0 and not word_to_mask.isalnum(): # Avoid empty strings in split text
           word_to_mask = random.choice(text_split)
-          #start_index = sentence.find(word_to_mask)
       # mask word
       new_text = _mask_word(sentence, word_to_mask, tokenizer)
 
       # get k replacement words
-      top_k, inluded_mask = get_k_replacement_words(new_text, tokenizer, model, k=k)
+      top_k, included_mask = get_k_replacement_words(new_text, tokenizer, model, k=k)
 
     # replace mask-token with the word from the top-k replacements
     return [
