@@ -10,6 +10,7 @@ from typing import Iterable
 from interfaces.Operation import Operation
 from tasks.TaskTypes import TaskType
 
+disable_tests_for = ["greetings_and_farewells"]
 
 def load(module, cls):
     my_class = getattr(module, cls.__name__)
@@ -83,6 +84,9 @@ class OperationRuns(object):
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         filters_dir = package_dir.parent.joinpath(search)
         for (_, m, _) in iter_modules([filters_dir]):
+            if m in disable_tests_for:
+                continue
+            print(f"Directory = {m}")
             t_py = import_module(f"{search}.{m}")
             t_js = os.path.join(filters_dir, m, "test.json")
             filter_instance = None
