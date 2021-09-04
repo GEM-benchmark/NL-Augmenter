@@ -6,6 +6,35 @@ Contributor: Usama Yaseen, Siemens AG (usama.yaseen@siemens.com)
 ## What type of a transformation is this?
 This transformation randomly swaps an entity mention with another entity mention of the same entity type.
 
+### Example
+
+This transformation expects the reference corpus (list of all token sequences and tag sequences) in the constructor to create a mapping of entity type to entity mentions.
+
+**Corpus**
+
+`"token_sequences": [["Judea", "Pearl", "was", "born", "in", "Tel", "Aviv", "."], ["Demis", "Hassabis", "is", "the", "chief", "executive", "officer", "of", "DeepMind", "."], ["BMW", "is", "headquartered", "in", "Munich", "."]]`
+
+`"tag_sequences": [["B-PER", "I-PER", "O", "O", "O", "B-LOC", "I-LOC", "O"], ["B-PER", "I-PER", "O", "O", "O", "O", "O", "O", "B-ORG", "O"], ["B-ORG", "O", "O", "O", "B-LOC", "O"]]`
+
+**Inputs**
+
+tokens: `["Elon", "Musk", "lives", "in", "San", "Francisco", "."]`
+
+tags: `["B-PER", "I-PER", "O", "O", "B-LOC", "I-LOC", "O"]`
+
+**Outputs**
+
+tokens: `["Judea", "Pearl", "lives", "in", "Tel", "Aviv", "."]`
+
+tags: `["B-PER", "I-PER", "O", "O", "B-LOC", "I-LOC", "O"]`
+
+
+Note that the entity types in the inputs need to align with the entity types of the corpus, e.g. the following `tokens` and `tags` will result in an error for the above-defined corpus as the entity mention (`headache`) of type `problem` does not align with the corpus (the corpus defined above only recognizes `PER`, `LOC` and `ORG`):
+
+tokens:  `["She", "did", "not", "complain", "of", "headache", "."]`
+
+tags: `["O", "O", "O", "O", "O", "B-problem", "O"]`
+
 ## What tasks does it intend to benefit?
 This transformation would benefit sequence labelling tasks such as named entity recognition.
 
