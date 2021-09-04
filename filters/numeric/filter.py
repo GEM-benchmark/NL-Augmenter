@@ -1,7 +1,8 @@
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from spacy import load
-
+from initialize import spacy_nlp
+import spacy
 
 def has_number_in_digit(sentence):
     return any(char.isdigit() for char in sentence)
@@ -24,7 +25,7 @@ class TextContainsNumberFilter(SentenceOperation):
 
     def __init__(self, has_digit=True, has_word=True):
         super().__init__()
-        self.nlp = load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.has_digit = has_digit
         self.has_word = has_word
         self.numbers_in_words = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
