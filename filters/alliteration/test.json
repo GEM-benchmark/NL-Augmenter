@@ -1,0 +1,85 @@
+{
+    "type": "alliteration",
+    "test_cases": [
+        {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": true
+            },
+            "inputs": {
+                "sentence": "Andrew always asks Anne about anchovies."
+            },
+            "outputs": true
+        },
+          {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": true
+            },
+            "inputs": {
+                "sentence": "She showed Shawn shady shandy."
+            },
+            "outputs": true
+        },
+                {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": true
+            },
+            "inputs": {
+                "sentence": "She showed Shawn some shady shandy."
+            },
+            "outputs": true
+        },
+                {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": true
+            },
+            "inputs": {
+                "sentence": "Peter Piper picked a peck of pickled peppers."
+            },
+            "outputs": true
+        },
+                    {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": false
+            },
+            "inputs": {
+                "sentence": "Andrew always asks Anne about anchovies."
+            },
+            "outputs": true
+        },
+          {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": false
+            },
+            "inputs": {
+                "sentence": "She showed Shawn shady shandy."
+            },
+            "outputs": true
+        },
+                {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": false
+            },
+            "inputs": {
+                "sentence": "She showed Shawn some shady shandy."
+            },
+            "outputs": false
+        },
+                {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": false
+            },
+            "inputs": {
+                "sentence": "Peter Piper picked a peck of pickled peppers."
+            },
+            "outputs": false
+        }
+    ]
+}
