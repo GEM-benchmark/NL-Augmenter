@@ -36,7 +36,7 @@ def get_k_replacement_words(tokenized_text, tokenizer, model, k):
     Returns:
         [list]: list of top k words
     """
-    inputs = tokenizer.encode_plus(tokenized_text, return_tensors='pt')
+    inputs = tokenizer.encode_plus(tokenized_text, return_tensors='pt', truncation=True, max_length = 512)
     index_to_mask = torch.where(inputs.input_ids[0] == tokenizer.mask_token_id)
     outputs = model(**inputs)
     softmax = F.softmax(outputs.logits, dim=-1)
@@ -52,7 +52,7 @@ def get_k_replacement_words(tokenized_text, tokenizer, model, k):
             valid_tokens.append(sorted_tokens[i])
         i += 1
     assert len(valid_tokens) == k or i == len(sorted_tokens)    # We either have found k valid (non punctuation) tokens or we have looked through all the tokens.
-    return valid_tokens
+    return valid_tokens, True
 
 def single_sentence_random_step(sentence, tokenizer, model, k):
     """For a given sentence, choose a random word to mask, and
@@ -69,16 +69,19 @@ def single_sentence_random_step(sentence, tokenizer, model, k):
         [list]: k-sentences with masked word replaced with top-k most similar words
     """
     text_split = re.split('[ ?.,!;"]', sentence)
+    included_mask = False
+    while not included_mask:
+      # pick a random word to mask
+      word_to_mask = random.choice(text_split)
+      start_index = 0
+      while len(word_to_mask) == 0 and not word_to_mask.isalnum() and start_index < 512: # Avoid empty strings in split text
+          word_to_mask = random.choice(text_split)
+          #start_index = sentence.find(word_to_mask)
+      # mask word
+      new_text = _mask_word(sentence, word_to_mask, tokenizer)
 
-    # pick a random word to mask
-    word_to_mask = random.choice(text_split)
-    while len(word_to_mask) == 0 and not word_to_mask.isalnum(): # Avoid empty strings in split text
-        word_to_mask = random.choice(text_split)
-    # mask word
-    new_text = _mask_word(sentence, word_to_mask, tokenizer)
-
-    # get k replacement words
-    top_k = get_k_replacement_words(new_text, tokenizer, model, k=k)
+      # get k replacement words
+      top_k, inluded_mask = get_k_replacement_words(new_text, tokenizer, model, k=k)
 
     # replace mask-token with the word from the top-k replacements
     return [
@@ -129,6 +132,7 @@ def sentence_similarity_metric(similarity_model, sen_A, sen_B):
 class RandomWalk(SentenceOperation):
     tasks = [
         TaskType.TEXT_TO_TEXT_GENERATION,
+        TaskType.TEXT_CLASSIFICATION
     ]
     languages = ["en"]
 
