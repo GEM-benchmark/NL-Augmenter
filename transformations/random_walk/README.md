@@ -2,10 +2,11 @@
 This transformation performs a random walk on the original sentence by randomly masking a word and replacing it with a suggestion by the BERT languange model.
 
 Author names:
- - Chandan Singh (chandan_singh@berkeley.edu, UC Berkeley)
- - Jamie Simon (james.simon@berkeley.edu, UC Berkeley)
+        
  - Sajant Anand (sajant@berkeley.edu, UC Berkeley)
  - Roy Rinberg (royrinberg@gmail.com, Columbia University)
+ - Jamie Simon (james.simon@berkeley.edu, UC Berkeley)
+ - Chandan Singh (chandan_singh@berkeley.edu, UC Berkeley)
 
 ## Extras
 
