@@ -132,7 +132,8 @@ class RandomWalk(SentenceOperation):
     ]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1, steps=5, k=2, sim_req=0.75):
+    # Default parameters match those of the 'test.json' below.
+    def __init__(self, seed=0, max_outputs=3, steps=5, k=2, sim_req=0.25):
         random.seed(seed)
         np.random.seed(seed)
         super().__init__(seed, max_outputs=max_outputs)
@@ -157,17 +158,16 @@ class RandomWalk(SentenceOperation):
         scores = []
         for o in perturbed_texts:
             scores.append(sentence_similarity_metric(self.sim_model, sentence, o))
-            # print(o, scores[-1])
         valid_sentences = np.array(scores) > self.sim_req
         perturbed_texts = [o for o,s in zip(perturbed_texts, valid_sentences) if s]
         assert np.sum(valid_sentences) == len(perturbed_texts)
-        #print('Number of valid sentences:', len(perturbed_texts))   # Could return 0 sentences if none are high enough in quality.
 
         if len(perturbed_texts) > self.max_outputs:
             perturbed_texts = random.sample(perturbed_texts, self.max_outputs)
         return perturbed_texts
 
-
+"""
+# The code to produce 'test.json' must be commented out so that pytest succeeds.
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 # You don't need to keep this code in your transformation.
 if __name__ == '__main__':
@@ -191,3 +191,4 @@ if __name__ == '__main__':
 
     with open('test.json', 'w') as f:
         json.dump(json_file, f, indent=2)
+"""
