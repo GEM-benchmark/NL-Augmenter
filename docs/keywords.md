@@ -38,6 +38,8 @@ Keyword | Description
    `low-precision` | The generations are not very precise
    `low-coverage` | The transformation might not return an output for all types of inputs but only a handful of inputs
    `high-coverage` | The transformation can return an output for almost all types of inputs
+   `high-generations` | The transformation generates a lot of (possibly diverse) outputs for a single input (eg beam search or substitutions with large number of alternate choices)
+   `low-generations` | The transformation generates few outputs for a single input (substitution with lesser number of alternate choices)
 **The text-specific modality being addressed (if applicable)** |
    `visual` | The outputs are visually similar to the inputs (eg. Leet letters)
    `aural` | The outputs sound similar to the inputs (eg. homophones)
