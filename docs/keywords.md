@@ -14,7 +14,7 @@ Some of the categories can be subjective and they are meant to be used as best e
 Keyword | Description
 ------- | -----------
 **Type of Linguistic Change** |
-  `morphological` | character level or inflectional/morphological changes
+  `morphological` | character level or inflectional/morphological changes
   `lexical` | the transformation substitutes different words or phrases
   `syntactic` | the transformation changes the syntax of the input (eg. active to passive)
   `word-order` | if the order of the words or phrases is changed (eg. topicalisation, changing the order of semantic roles)
