@@ -35,10 +35,8 @@ Keyword | Description
   `natural-looking` | if the generations might look natural.
   `unnatural` | if the generations might be valid pieces of text but not necessarily natural sounding
 **The potential accuracy & precision of the generation** | 
-   `accurate` | The output of the transformation generates highly accurate sentences
-   `near-accurate` | The generation would be mostly accurate
-   `high-precision` | The generations are highly precise
-   `low-precision` | The generations are not very precise
+   `high-precision` | The generations are highly precise/accurate
+   `low-precision` | The generations are not very precise/accurate
    `low-coverage` | The transformation might not return an output for all types of inputs but only a handful of inputs
    `high-coverage` | The transformation can return an output for almost all types of inputs
    `high-generations` | The transformation generates a lot of (possibly diverse) outputs for a single input (eg beam search or substitutions with large number of alternate choices)
