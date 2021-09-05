@@ -52,7 +52,7 @@ class Abbreviate(SentenceOperation):
         )
         return perturbed
     
-if __name__ == '__main__':
+"""if __name__ == '__main__':
     import json
     
     tf = Abbreviate()
@@ -73,4 +73,4 @@ if __name__ == '__main__':
        
     with open('test.json', 'w') as f:
         content = {"type": "abbreviate", "test_cases": test_cases}
-        json.dump(content, f)
+        json.dump(content, f)"""
