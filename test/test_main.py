@@ -14,8 +14,9 @@ from interfaces.SentenceOperation import (
 from interfaces.TaggingOperation import TaggingOperation
 
 from TestRunner import OperationRuns
+from test.keywords import keywords_in_file
 
-
+keywords_in_file = keywords_in_file()
 
 def get_assert_message(transformation, expected_output, predicted_output):
     transformation_name = transformation.__class__.__name__
@@ -100,10 +101,20 @@ def execute_tagging_test_case(transformation, test):
         )
 
 
+def assert_keywords(transformation):
+    print("Checking for keywords")
+    keywords = transformation.keywords
+    assert keywords is not None and len(keywords) > 0, f"Keywords of {transformation.name()} should not be empty"
+    print(transformation.keywords)
+    assert set(transformation.keywords) < set(keywords_in_file), f"Keywords in {transformation.name()} " \
+                                                        f"not present in docs/keywords.md file"
+
+
 def execute_test_case_for_transformation(transformation_name):
     print(f"Executing test cases for {transformation_name}")
     tx = OperationRuns(transformation_name)
     for transformation, test in zip(tx.operations, tx.operation_test_cases):
+        assert_keywords(transformation)
         print(f"Executing {transformation.name()}")
         if isinstance(transformation, SentenceOperation):
             execute_sentence_operation_test_case(transformation, test)
