@@ -89,7 +89,7 @@ class HashtagGeneration(SentenceOperation):
     ]
     languages = ["en"]
     heavy = False
-    keywords = ["noise", "rule-based", "highly-accurate"]
+    keywords = ["noise", "rule-based", "high-precision"]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed)
