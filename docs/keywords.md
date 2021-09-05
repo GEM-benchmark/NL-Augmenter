@@ -27,9 +27,9 @@ Keyword | Description
   `external-knowledge-based` | if the implementation uses a corpora, a separate knowledge base, etc.
   `transformer-based` | if the implementation uses a transformer based model (eg. BERT, T5)
   `parser-based` | if the implementation uses any syntactic (dependency, constituency, etc) or shallow semantic parser or other semantic parsers (eg. semantic role labelling)
-  `tokenizer` | if the implementation uses a tokenizer
-  `chunker` | if the implementation uses a chunker
-  `discourse-segmenter` | if the implementation uses a discourse segmenter
+  `tokenizer-required` | if the implementation uses a tokenizer
+  `chunker-required` | if the implementation uses a chunker
+  `discourse-segmenter-required` | if the implementation uses a discourse segmenter
 **The naturalness of the generation** |
   `unnatural-sounding` | if the generations might not sound natural eg. if synthesized to speech, would they not sound natural as their source sentences. Eg, adding noun definitions might make the sentence factually correct but people might not use the same language while speaking.  
   `unnaturally-written` | generations in written format which might not look natural to a reader. homophonic translations, filler words
