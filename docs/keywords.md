@@ -9,7 +9,7 @@ Every transformation should have keywords that identify the type of transformati
 - the skills required to differentiate between the input and the output of the transformation (if applicable) eg. causal-reasoning, visual-reasoning, social-reasoning, humor, figurative-language, grammar, world-knowledge, etc. 
 - other transformation specific keywords
 
-Some of the categories can be subjective and they are meant to be used as best estimated. It is okay to include multiple of each type. Example, many transformer based generators might fit into most of the linguistic categories.  If your transformation is best described by keywords not yet included in the list below, please add the additional keywords to this file as part of your pull request.
+Some of the categories can be subjective and they are meant to be used as best estimated. It is okay to include multiple of each type so feel free to pick all that applies. Example, many transformer based generators might fit into most of the linguistic categories.  If your transformation is best described by keywords not yet included in the list below, please add the additional keywords to this file as part of your pull request.
 
 Keyword | Description
 ------- | -----------
@@ -34,10 +34,13 @@ Keyword | Description
   `unnatural-sounding` | if the generations might not sound natural eg. if synthesized to speech, would they not sound natural as their source sentences. Eg, adding noun definitions might make the sentence factually correct but people might not use the same language while speaking.  
   `unnaturally-written` | generations in written format which might not look natural to a reader. homophonic translations, filler words
 **The potential accuracy & precision of the generation** | 
+  `highly-meaning-preserving` | The output preserves the meaning of the source text
+  `possible-meaning-alteration` | The output might change the meaning of the source text
+  `meaning-alteration` | When the meaning is completely altered (eg supervised tasks other than sentence operation which change the label)
   `high-precision` | The transformation generates what it intends to generate
   `low-precision` | The transformation sometimes does not generate what it intends to generate (eg. often changes meaning)
-  `low-coverage` | The transformation might not return an output for all types of inputs but only a handful of inputs
   `high-coverage` | The transformation can return an output for almost all types of inputs
+  `low-coverage` | The transformation might not return an output for all types of inputs but only a handful of inputs
   `high-generations` | The transformation generates a lot of (possibly diverse) outputs for a single input (eg beam search or substitutions with large number of alternate choices)
   `low-generations` | The transformation generates few outputs for a single input (substitution with lesser number of alternate choices)
 **The text-specific modality being addressed (if applicable)** |
