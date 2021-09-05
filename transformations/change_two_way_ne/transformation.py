@@ -19,7 +19,7 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
     tgt_languages = ["en"]
-    keywords = ["lexical", "rule-based", "high-coverage", "high-precision", "natural-looking", "natural-sounding"]
+    keywords = ["lexical", "rule-based", "high-coverage", "high-precision"]
 
     def __init__(
         self, first_only=False, last_only=False, n=1, seed=0, max_outputs=1

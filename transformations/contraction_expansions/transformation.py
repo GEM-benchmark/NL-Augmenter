@@ -10,7 +10,7 @@ Contractions and Expansions List(s) borrowed from https://github.com/marcotcr/ch
 class ContractionExpansions(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
-    keywords = ["lexical", "rule-based", "high-coverage", "high-precision", "natural-looking", "natural-sounding"]
+    keywords = ["lexical", "rule-based", "high-coverage", "high-precision"]
 
     def __init__(self):
         super().__init__()

@@ -33,7 +33,7 @@ class ChangeCharCase(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
-    keywords = ["morphological", "noise", "rule-based", "high-coverage", "natural-looking"]
+    keywords = ["morphological", "noise", "rule-based", "high-coverage"]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)

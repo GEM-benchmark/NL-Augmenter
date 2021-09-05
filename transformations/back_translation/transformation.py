@@ -8,7 +8,7 @@ class BackTranslation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
     heavy = True
-    keywords = ["lexical", "model-based", "syntactic", "high-coverage", "natural-sounding", "natural-looking"]
+    keywords = ["lexical", "model-based", "syntactic", "high-coverage"]
 
     def __init__(self, seed=0, max_outputs=1, num_beams=2):
         super().__init__(seed, max_outputs=max_outputs)

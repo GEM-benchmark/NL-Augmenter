@@ -136,6 +136,7 @@ def execute_test_case_for_filter(filter_name):
     print(f"Executing test cases for {filter_name}")
     tx = OperationRuns(filter_name, "filters")
     for filter, test in zip(tx.operations, tx.operation_test_cases):
+        assert_keywords(filter)
         filter_args = test["inputs"]
         output = filter.filter(**filter_args)
         assert (

@@ -39,7 +39,7 @@ Each transformation will receive two reviews and the transformation may be edite
 class ButterFingersPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     languages = ["en"]
-    keywords = ["morphological", "noise", "rule-based", "high-coverage", "high-precision", "natural-looking"]
+    keywords = ["morphological", "noise", "rule-based", "high-coverage", "high-precision"]
 ```
 
 **Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific transformation. E.g., a perturbation which changes gendered pronouns could give insights about gender bias in models.

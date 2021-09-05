@@ -139,7 +139,7 @@ class GenderCultureDiverseName(SentenceOperation):
         ]
     # language code following ISO 639-1 standard
     keywords = ["lexical", "noise", "rule-based", "external-knowledge-based", "high-coverage", "high-precision",
-                "natural-looking", "natural-sounding", "social-reasoning", "world-knowledge"]
+             "social-reasoning", "world-knowledge"]
 
     def __init__(self, n=1, seed=0, max_output=1, retain_gender=False, retain_culture=False, data_path=None):
         super().__init__(seed)
