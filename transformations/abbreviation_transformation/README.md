@@ -1,5 +1,5 @@
 ## Abbreviation Transformation
-This transformation replaces a word or phrase with its abbreviated counterpart.
+This transformation replaces a word or phrase with its abbreviated counterpart using a web-scraped slang dictionary.
 
 Author Name: Gloria Wang (gwang1@imsa.edu)
 
@@ -14,4 +14,4 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 The abbreviation dictionary was scraped from https://www.noslang.com/dictionary.
 
 ## What are the limitations of this transformation?
-The transformation may not be applicable in a formal context. This transformation will also be challenging for language models due to the variety of abbreviations used.
+The transformation may not be applicable in a formal context. This transformation will also be challenging for language models due to the variety of abbreviations used. Some abbreviations may also not be commonly seen as the slang dictionary has a wide variety of words and their abbreviated counterparts.
