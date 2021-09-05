@@ -125,7 +125,9 @@ class TransformerTextGeneration(SentenceOperation):
             truncation=True,
         )
         for seq in output_sequences:
-            text = seq["generated_text"].split("\t")[1]
+            text = seq["generated_text"]
+            if self.text_classifier is not None:
+                text = text.split("\t")[1]
             text = text[
                 : text.find(self.eos)
                 if self.eos and text.find(self.eos) > -1

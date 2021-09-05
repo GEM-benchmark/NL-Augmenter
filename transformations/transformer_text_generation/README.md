@@ -1,6 +1,12 @@
 # Transformer-based Text Generation
 We use generative pretrained language model (e.g., GPT-2) to generate next word(s) in a sequence based on preceding word(s).
 
+Author Name: Jonathan Mamou
+
+Email: jonathan.mamou@intel.com
+
+Affiliation: Intel Labs
+
 ## What type of a transformation is this?
 Given a generative pretrained language model, we generate next word(s) in a sequence based on the prefix of the original text. For SST-2 and IMDB datasets, the code points to fine-tuned models, respectively, ```jmamou/gpt2-medium-IMDB``` and ```jmamou/gpt2-medium-SST-2``` (available at HugginFace Model Hub).
 In order to generate a sample preserving the label of the original sample, we fine-tuned ```gpt2-medium``` for labeled text generation tasks. If the sentiment label of the orignial text is not provided, we first run sentiment classification to get a pseudo-label using respectively, ```textattack/roberta-base-imdb``` and ```textattack/roberta-base-SST-2```.
