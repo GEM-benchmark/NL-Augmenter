@@ -47,6 +47,7 @@ class CloseHomophonesSwap(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = ["lexical", "rule-based", "high-coverage", "high-precision", "natural-sounding"]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed)
