@@ -32,7 +32,7 @@ Keyword | Description
   `discourse-segmenter` | if the implementation uses a discourse segmenter
 **The naturalness of the generation** |
   `unnatural-sounding` | if the generations might not sound natural eg. if synthesized to speech, would they not sound natural as their source sentences. Eg, adding noun definitions might make the sentence factually correct but people might not use the same language while speaking.  
-  `unnatural-looking` | generations in written format which might not look natural to a reader. homophonic translations, filler words
+  `unnaturally-written` | generations in written format which might not look natural to a reader. homophonic translations, filler words
 **The potential accuracy & precision of the generation** | 
   `high-precision` | The transformation generates what it intends to generate
   `low-precision` | The transformation sometimes does not generate what it intends to generate (eg. often changes meaning)
