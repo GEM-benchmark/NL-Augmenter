@@ -62,6 +62,7 @@ def adjectives_antonyms_switch(sentence, nlp):
 class SentenceAdjectivesAntonymsSwitch(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = ["lexical", "rule-based", "external-knowledge-based"]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
@@ -89,6 +90,7 @@ class SentenceAdjectivesAntonymsSwitch(SentenceOperation):
 class PairAdjectivesAntonymsSwitch(SentencePairOperation):
     tasks = [TaskType.PARAPHRASE_DETECTION]
     languages = ["en"]
+    keywords = ["lexical", "rule-based", "external-knowledge-based"]
 
     def __init__(self, seed=0, max_outputs=3, pos_label="1", neg_label="0"):
         super().__init__(seed, max_outputs=max_outputs)
