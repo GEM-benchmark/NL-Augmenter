@@ -1,0 +1,50 @@
+{
+  "type": "sentence_to_gapped_transformation",
+  "test_cases": [
+    {
+      "class": "SentenceToGapped",
+      "inputs": {
+        "sentence": "Paul likes coffee and Mary likes tea."
+      },
+      "outputs": [{
+        "sentence": "Paul likes coffee and Mary tea."
+      }]
+    },
+    {
+      "class": "SentenceToGapped",
+      "inputs": {
+        "sentence": "John bought books and Mary bought flowers."
+      },
+      "outputs": [{
+        "sentence": "John bought books and Mary flowers."
+      }]
+    },
+    {
+      "class": "SentenceToGapped",
+      "inputs": {
+        "sentence": "Eve gave flowers to Al and Sue gave flowers to Paul."
+      },
+      "outputs": [{
+        "sentence": "Eve gave flowers to Al and Sue to Paul."
+      }]
+    },
+    {
+      "class": "SentenceToGapped",
+      "inputs": {
+        "sentence": "Arizona elected Goldwater Senator, and Pensylvania elected Schwelker Senator."
+      },
+      "outputs": [{
+        "sentence": "Arizona elected Goldwater Senator, and Pensylvania Schwelker"
+      }]
+    },
+    {
+      "class": "SentenceToGapped",
+      "inputs": {
+        "sentence": "I want to try to begin to write a novel and Mary wants to try to begin to write a play."
+      },
+      "outputs": [{
+        "sentence": "I want to try to begin to write a novel and Mary a play."
+      }]
+    },
+  ]
+}
