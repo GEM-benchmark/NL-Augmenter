@@ -33,6 +33,9 @@ Keyword | Description
 **The naturalness of the generation** |
   `unnatural-sounding` | if the generations might not sound natural eg. if synthesized to speech, would they not sound natural as their source sentences. Eg, adding noun definitions might make the sentence factually correct but people might not use the same language while speaking.  
   `unnaturally-written` | generations in written format which might not look natural to a reader. homophonic translations, filler words
+  `visual` | The outputs are visually similar to the inputs (eg. Leet letters)
+  `aural` | The outputs sound similar to the inputs (eg. homophones)
+  `written` | The transformation makes font changes, or changes which would look different in different written formats
 **The potential accuracy & precision of the generation** | 
   `highly-meaning-preserving` | The output preserves the meaning of the source text
   `possible-meaning-alteration` | The output might change the meaning of the source text
@@ -43,13 +46,8 @@ Keyword | Description
   `low-coverage` | The transformation might not return an output for all types of inputs but only a handful of inputs
   `high-generations` | The transformation generates a lot of (possibly diverse) outputs for a single input (eg beam search or substitutions with large number of alternate choices)
   `low-generations` | The transformation generates few outputs for a single input (substitution with lesser number of alternate choices)
-**The text-specific modality being addressed (if applicable)** |
-  `visual` | The outputs are visually similar to the inputs (eg. Leet letters)
-  `aural` | The outputs sound similar to the inputs (eg. homophones)
-  `written` | The transformation makes font changes, or changes which would look different in different written formats
 **The skills required to differentiate between the input and the output of the transformation (if applicable)** |
   `causal-reasoning` | ability to reason about cause and effect
-  `visual-reasoning` | ability to reason by the appearance of the text
   `social-reasoning` | ability to understand and reason about human social interactions
   `figurative-language` | ability to understand figures of speech
   `world-knowledge` | ability to understand world knowledge
