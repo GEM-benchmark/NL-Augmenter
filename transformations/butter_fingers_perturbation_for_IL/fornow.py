@@ -3,8 +3,8 @@ import itertools
 import random
 import json
 
-from interfaces.SentenceOperation import SentenceOperation
-from tasks.TaskTypes import TaskType
+# from interfaces.SentenceOperation import SentenceOperation
+# from tasks.TaskTypes import TaskType
 
 '''
     This transformation adds noise to all types of text sources (sentence, paragraph, etc.), which is proportional to noise erupting from keyboard typos resulting in common spelling errors. 
@@ -67,12 +67,13 @@ Butter Finger implementation borrowed and edited from https://github.com/alexyor
 """
 
 
-class ButterFingersPerturbation(SentenceOperation):
-    tasks = [
-        TaskType.TEXT_CLASSIFICATION,
-        TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
-    ]
+# class ButterFingersPerturbation(SentenceOperation):
+class ButterFingersPerturbation():
+    # tasks = [
+    #     TaskType.TEXT_CLASSIFICATION,
+    #     TaskType.TEXT_TO_TEXT_GENERATION,
+    #     TaskType.TEXT_TAGGING,
+    # ]
 
     language_mapping = {"bengali":'bn',
                         "gujarati":'gu',

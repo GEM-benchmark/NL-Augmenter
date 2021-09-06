@@ -4,28 +4,37 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "hi",
         "sentence": "आप से मिलकर ख़ुशी हुई"
       },
+      "args":{
+        "language": "hi",
+        "keyboard": "inscript"
+      }, 
       "outputs": [{
-        "sentence": "ऊप से मिलकर ख़ुशी हुई"
+        "sentence": "आप ते मिलकर ख़ुशी हुई"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "hi",
         "sentence": "क्या आप हिन्दी बोलते हैं?"
       },
+      "args":{
+        "language": "hi",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "ल्या आप बिन्दी बोलते हैं?"
+        "sentence": "क्यि आप हिन्दी बोलते हैं?"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "ta",
         "sentence": "உங்களை பார்த்தது மிகவும் சந்தோஷம்"
+      },
+      "args":{
+        "language": "ta",
+        "keyboard": "inscript"
       },
       "outputs": [{
         "sentence": "உங்லளை பார்த்தது மிகவும் சந்தோஷம்"
@@ -34,151 +43,196 @@
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "ta",
         "sentence": "நீங்கள் தமிழ் பேசுவீர்களா?"
       },
+      "args":{
+        "language": "ta",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "நீங்கள் தமிழி பேசுவீர்களா?"
+        "sentence": "நீஙிகள் தமிழ் பேசுவீர்களா?"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "pa",
         "sentence": "ਤੁਹਾਨੂੰ ਮਿਲ ਕੇ ਬਹੁਤ ਖੁਸ਼ੀ ਹੋਈ"
       },
+      "args":{
+        "language": "pa",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "ਤੁਹਾਨੂੰ ਮਿਲ ਕੇ ਬਹਰਸ ਖੁਸ਼ੀ ਹਮਈ"
+        "sentence": "ਤੁਹਿਨੂੰ ਮਿਲ ਕੇ ਬਹੁਤ ਖੁਸ਼ੀ ਹੋਈ"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "pa",
         "sentence": "ਤੁਹਾਨੂੰ ਪੰਜਾਬੀ ਆਉਂਦੀ ਹੈ?"
       },
+      "args":{
+        "language": "pa",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "ਤੁਹਾੂੂੰ ਪੰਜਾਬੀ ਆਉਂਦੀ ਹੈ?"
+        "sentence": "ਤੁਹਿਨੂੰ ਪੰਜਾਬੀ ਆਉਂਦੀ ਹੈ?"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "or",
         "sentence": "ଆପଣଙ୍କୁ ଭେଟି ଭଲ ଲାଗିଲା"
       },
+      "args":{
+        "language": "or",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "ଆପଣଙ୍କପ ଭେଟି ଭଲ ଲାଗପଲା"
+        "sentence": "ଆପଣଖ୍କୁ ଭେଟି ଭଲ ଲାଗିଲା"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "or",
         "sentence": "ଆପଣ ଓଡ଼ିଆ କୁହନ୍ତି କି?"
       },
+      "args":{
+        "language": "or",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "ଆପଣ ଓଡ଼ିଆ କରହନ୍ତି କି?"
+        "sentence": "ଆପଣ ଓଡ଼ିଆ କୁହନ୍ତି କି?"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "te",
         "sentence": "మిమ్మల్ని కలవడం చాలా సంతోషంగా ఉంది"
       },
-      "outputs": [{
-        "sentence": "మనమ్మల్ని కలవడా చాలా సంతోషంగా ఱేది"
-      }]
-    },
-    {
-      "class": "ButterFingersPerturbation",
-      "inputs": {
+      "args":{
         "language": "te",
-        "sentence": "మీరు తెలుగు మాట్లాడతారా ?"
+        "keyboard": "inscript"
       },
       "outputs": [{
-        "sentence": "మీరు తెలుగు మాట్లాడతారా ?"
+        "sentence": "మిమిమల్ని కలవడం చాలా సంతోషంగా ఉంది"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "ml",
+        "sentence": "మీరు తెలుగు మాట్లాడతారా ?"
+      },
+      "args":{
+        "language": "te",
+        "keyboard": "inscript"
+      },
+      "outputs": [{
+        "sentence": "మీరప తెలుగు మాట్లాడతారా ?"
+      }]
+    },
+    {
+      "class": "ButterFingersPerturbation",
+      "inputs": {
         "sentence": "കണ്ടതില്‍ സന്തോഷം"
       },
+      "args":{
+        "language": "ml",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "കണ്ടതില്‍ സനനതോഷം"
+        "sentence": "കണ്ചതില്‍ സന്തോഷം"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "ml",
         "sentence": "നിങ്ങള്‍ മലയാളം സംസാരിക്കുമോ?"
       },
+      "args":{
+        "language": "ml",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "നിങ്ങള്‍ മലയാളം സംസാരിക്കമമോ?"
+        "sentence": "നിങിങള്‍ മലയാളം സംസാരിക്കുമോ?"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "kn",
         "sentence": "ನಿಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಿದ್ದಕ್ಕೆ ಸಂತೋಷ"
       },
+      "args":{
+        "language": "kn",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "ನಿಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಿದ್ದಕುಕೆ ಸಂತೋಷ"
+        "sentence": "ನಿಮಿಮನ್ನು ಭೇಟಿ ಮಾಡಿದ್ದಕ್ಕೆ ಸಂತೋಷ"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "kn",
         "sentence": "ನೀವು ಕನ್ನಡ ಮಾತಾಡ್ತೀರಾ?"
       },
+      "args":{
+        "language": "kn",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "ನೀವು ರನ್ನಡ ಮಾತಾತೇತೀರಾ?"
+        "sentence": "ನೀವಪ ಕನ್ನಡ ಮಾತಾಡ್ತೀರಾ?"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "gu",
         "sentence": "તમને મળીને આનંદ થયો"
       },
+      "args":{
+        "language": "gu",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "તીને મળીને ઊનંદ થયો"
+        "sentence": "તમન્ મળીને આનંદ થયો"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "gu",
         "sentence": "શું તમે ગુજરાતી બોલી શકો છો"
       },
+      "args":{
+        "language": "gu",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "શું તૈે ગુજરાતી બોલે શકો છો"
+        "sentence": "શું તમે ગુજરાતી બોલી શકો છો"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "bn",
         "sentence": "তোর সাথে দেখা হয়ে ভালো লাগলো।"
       },
+      "args":{
+        "language": "bn",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "তোর সাথে দেখা হয়ে ভালো লাজলো।"
+        "sentence": "তোর সাথে দেখা হয়ে ভালো লাগলো।"
       }]
     },
     {
       "class": "ButterFingersPerturbation",
       "inputs": {
-        "language": "bn",
         "sentence": "আপনি কি বাংলা বলতে পারেন?"
       },
+      "args":{
+        "language": "bn",
+        "keyboard": "inscript"
+      },
       "outputs": [{
-        "sentence": "আপনি কি ূাংলা বলতে পারেন?"
+        "sentence": "আপনন কি বাংলা বলতে পারেন?"
       }]
     }
   ]
