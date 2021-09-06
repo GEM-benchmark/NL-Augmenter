@@ -214,6 +214,7 @@ class GenderifyOperation(SentenceOperation):
                                   max_outputs=self.max_outputs,
                                   inflect_engine=self.inflect_engine)
 
+
 '''
 
 # Used for compiling test.json
