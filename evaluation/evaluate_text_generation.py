@@ -4,20 +4,38 @@ from transformers import pipeline
 from rouge_score import rouge_scorer
 from dataset import KeyValueDataset
 from tasks.TaskTypes import TaskType
+from typing import List, Dict
 
-scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'])
+
+# def rouge_score_1(hypotheses, references):
+#     rouge_types = ["rouge1", "rouge2", "rougeL"]
+#     scorer = rouge_scorer.RougeScorer(rouge_types)
+#     one_gram_scores = 0.0
+#     two_gram_scores = 0.0
+#     rouge_L_scores = 0.0
+#     for ref, hyp in zip(references, hypotheses):
+#         scores=scorer.score(ref, hyp[0])
+#         one_gram_scores+=scores['rouge1'][2] # [2] for f1 score
+#         two_gram_scores+=scores['rouge2'][2]
+#         rouge_L_scores+=scores['rougeL'][2]
+#     return one_gram_scores/len(hypotheses), two_gram_scores/len(hypotheses), rouge_L_scores/len(hypotheses)
 
 
-def rogue_score(hypotheses, references):
-    one_gram_scores = 0.0
-    two_gram_scores = 0.0
-    rouge_L_scores = 0.0
-    for ref, hyp in zip(references, hypotheses):
-        scores=scorer.score(ref, hyp)
-        one_gram_scores+=scores['rouge1'][2] # [2] for f1 score
-        two_gram_scores+=scores['rouge2'][2]
-        rouge_L_scores+=scores['rougeL'][2]
-    return one_gram_scores/len(hypotheses), two_gram_scores/len(hypotheses), rouge_L_scores/len(hypotheses)
+def rouge_score(hypotheses: List[List[str]], references: List[str]) -> Dict[str, float]:
+    '''Compute Rouge score between list of references and list of list of hypothesis.'''
+    rouge_types = ["rouge1", "rouge2", "rougeL"]
+    scorer = rouge_scorer.RougeScorer(rouge_types)
+    rouge_scores = [0.0]*len(rouge_types) # list contains rouge1, rouge2, rougeL scores
+    for hypothesis, reference in zip(hypotheses, references):
+        all_hyp_scores = [scorer.score(reference, hyp) for hyp in hypothesis]
+        for rouge_type in rouge_types:
+            best_hyp_score_index = max(
+                     range(len(all_hyp_scores)), key=lambda x:all_hyp_scores[x][rouge_type]
+                 )
+            best_hyp = all_hyp_scores[best_hyp_score_index]
+            for i in range(len(rouge_scores)):
+                rouge_scores[i] += best_hyp[rouge_types[i]][2]#[2] for f1 score
+    return np.array(rouge_scores)/len(references)
 
 
 def evaluate(
@@ -108,8 +126,8 @@ def performance_on_dataset(dataset, summarization_pipeline):
         )[0]["summary_text"]
 
         references.append(gold_summary)
-        raw_hypotheses.append(predicted_summary)
-    predicted_summary_scores = rogue_score(raw_hypotheses, references)
+        raw_hypotheses.append([predicted_summary])
+    predicted_summary_scores = rouge_score(raw_hypotheses, references)
 
     print(f"Predicted ROUGE-1 score = {predicted_summary_scores[0]},\n"
           f"Predicted ROUGE-2 score = {predicted_summary_scores[1]},\n"
@@ -119,3 +137,21 @@ def performance_on_dataset(dataset, summarization_pipeline):
         "rouge2": np.round(predicted_summary_scores[1], 3),
         "rougeL": np.round(predicted_summary_scores[2], 3)
     }
+
+
+def rouge_test_case():
+    """Test cases for single and multi-reference of rouge_score function."""
+    reference = "I want to cancel the policy ."
+    hypothesis_1 = "I need to discontinue my policy ."
+    hypothesis_2 = "We canceled our policy ."
+
+    res_1 = rouge_score([[hypothesis_1]], [reference])
+    print(res_1)
+
+    res_2 = rouge_score([[hypothesis_1], [hypothesis_2]], [reference])
+    print(res_2)
+
+
+if __name__ == "__main__":
+    rouge_test_case()
+    print(rouge_score.__doc__)
