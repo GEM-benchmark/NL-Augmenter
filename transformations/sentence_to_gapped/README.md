@@ -1,6 +1,6 @@
 # Sentence To Gapped Representation Transformation
 This transformation is a sentence operation that converts sentences to their gapped forms, e.g.
-"Paul likes coffee and Mary likes tea" -> "Paul likes coffee and Mary tea"
+"Paul likes coffee and Mary likes tea" -> "Paul likes coffee and Mary tea", specifically for single-predicate gaps.
 
 Author name: Mo Tiwari
 Author email: motiwari@stanford.edu
@@ -28,5 +28,6 @@ text generation, sentiment analysis, etc.
 The Hague, pages 249–259.
 
 ## What are the limitations of this transformation?
+- Currently, this transformation only produces single-predicate gaps; however, if a method is widely accepted for more complicated gapping, it is easy to extend this task
 - It is difficult in complex sentences to perfectly transform sentences to their "maximally gapped" forms; this is an active area of research (see Previous Work section)
 - The reverse direction is also valuable and is submitted in another transformation

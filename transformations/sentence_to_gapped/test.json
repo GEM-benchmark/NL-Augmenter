@@ -22,29 +22,29 @@
     {
       "class": "SentenceToGapped",
       "inputs": {
-        "sentence": "Eve gave flowers to Al and Sue gave flowers to Paul."
+        "sentence": "Eve spoke to Al and Sue spoke to Paul."
       },
       "outputs": [{
-        "sentence": "Eve gave flowers to Al and Sue to Paul."
+        "sentence": "Eve spoke to Al and Sue to Paul."
       }]
     },
     {
       "class": "SentenceToGapped",
       "inputs": {
-        "sentence": "Arizona elected Goldwater Senator, and Pensylvania elected Schwelker Senator."
+        "sentence": "He ate apples and she ate pears."
       },
       "outputs": [{
-        "sentence": "Arizona elected Goldwater Senator, and Pensylvania Schwelker"
+        "sentence": "He ate apples and she pears."
       }]
     },
     {
       "class": "SentenceToGapped",
       "inputs": {
-        "sentence": "I want to try to begin to write a novel and Mary wants to try to begin to write a play."
+        "sentence": "Arizona elected Goldwater, Pennsylvania elected Schwelker, and New York elected Schumer."
       },
       "outputs": [{
-        "sentence": "I want to try to begin to write a novel and Mary a play."
+        "sentence": "Arizona elected Goldwater, Pennsylvania Schwelker, and New York Schumer."
       }]
-    },
+    }
   ]
 }
