@@ -8,6 +8,13 @@ from tasks.TaskTypes import TaskType
 
 class EntityMentionReplacementNER(TaggingOperation):
     tasks = [TaskType.TEXT_TAGGING]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "high-precision",
+        "low-generations",
+        "world-knowledge",
+    ]
 
     def __init__(
         self, token_sequences, tag_sequences, p=0.7, seed=0, max_outputs=1
