@@ -20,7 +20,7 @@ def all_folders():
 
 
 def read(fname):
-    with open(os.path.join(os.path.dirname(__file__), fname)) as f:
+    with open(os.path.join(os.path.dirname(__file__), fname),encoding='utf-8') as f:
         data = f.read()
     return data
 
@@ -34,7 +34,7 @@ def recursive_requirements():
             os.path.dirname(__file__), folder + "/requirements.txt"
         )
         if os.path.isfile(r_file):
-            with open(r_file,encoding='utf-16') as f:
+            with open(r_file) as f:
                 requirements += f.read() + "\n"
     return requirements
 
