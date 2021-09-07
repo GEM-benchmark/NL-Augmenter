@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Base Class for implementing the different input transformations 
 a generation should be robust against.
@@ -12,9 +13,16 @@ import inflect
 import numpy as np
 import spacy
 import toolz
+
+import os
+import sys 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+sys.path.append(os.path.normpath(os.path.join(dir_path, "..", "..")))
+
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-
+os.environ['PYTHONHASHSEED'] = "1"
 
 def _load() -> Tuple:
     """helper function which loads spacy and gensim models
@@ -72,7 +80,7 @@ def x_ify(word: str,
     try:
         word_vec = wv[word]
     except KeyError as e:
-        print(f"exception {e}, with word {word}")
+        print(f"exception: {e}. for word {word}")
         return word
 
     similar_words = wv.most_similar(positive=[word_vec + x_wv], topn=10)
@@ -133,7 +141,7 @@ def swap_out_words(sentence: str, noun: str, x_ify_function: Callable[[str],
         noun) else replacement
     # some words from w2v come out with _, ie. "brain_plasticity", split them apart
     split_words = replacement.split("_")
-    print(
+    logging.debug(
         f"replacing {noun} with {replacement}. and split words are {split_words}"
     )
     # if the noun is a plural one, convert the words to the plural form
@@ -141,8 +149,6 @@ def swap_out_words(sentence: str, noun: str, x_ify_function: Callable[[str],
         # in english typically only the last word in a compound noun is pluralized
         split_words[-1] = inflect_engine.plural(split_words[-1])
     replacement = " ".join(split_words)
-    logging.debug(f"we are replacing {noun} with {replacement}")
-
     return replace_word_in_sentence(sentence, noun, replacement)
 
 
@@ -161,6 +167,7 @@ def generate_sentences(sentence: str, max_outputs: int, wv, nlp,
         [list]: list of sentences with each noun replaced with a male-ify + a woman-ified version
     """
     nouns = get_nouns(sentence, nlp)
+
     banned_words = ["man", "woman", "men", "women", "boy", "girl"]
     manify_function = lambda word: x_ify(word=word,
                                          wv=wv,
@@ -178,14 +185,14 @@ def generate_sentences(sentence: str, max_outputs: int, wv, nlp,
         if noun.lower(
         ) in banned_words:  # ignore replacing man/woman with itself
             continue
-        swapped_sentences.append(
-            swap_out_words(sentence, str(noun), manify_function,
-                           inflect_engine))
-        count += 1
-        swapped_sentences.append(
-            swap_out_words(sentence, str(noun), womanify_function,
-                           inflect_engine))
-        count += 1
+        swapped_sentence = swap_out_words(sentence, str(noun), manify_function, inflect_engine)
+        if sentence != swapped_sentence: # only add sentence if its a new sentence
+            swapped_sentences.append(swapped_sentence)
+            count += 1
+        swapped_sentence = swap_out_words(sentence, str(noun), womanify_function, inflect_engine)
+        if sentence != swapped_sentence: # only add if there are any changes
+            swapped_sentences.append(swapped_sentence)
+            count += 1
         if count > max_outputs:
             break
     if count == 0:
@@ -216,7 +223,6 @@ class GenderifyOperation(SentenceOperation):
 
 
 '''
-
 # Used for compiling test.json
 if __name__ == "__main__":
     wv, nlp = _load()
@@ -227,9 +233,9 @@ if __name__ == "__main__":
         "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
     ]
     inflect_engine = inflect.engine()
-
     import json
     for sentence in sentences:
+
         d = {
             "class":
             "GenderifyOperation",
