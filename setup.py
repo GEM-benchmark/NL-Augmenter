@@ -34,7 +34,7 @@ def recursive_requirements():
             os.path.dirname(__file__), folder + "/requirements.txt"
         )
         if os.path.isfile(r_file):
-            with open(r_file) as f:
+            with open(r_file,encoding='utf-16') as f:
                 requirements += f.read() + "\n"
     return requirements
 
