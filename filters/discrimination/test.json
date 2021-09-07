@@ -1,8 +1,8 @@
 {
-    "type": "discrimination",
+    "type": "groupinequity",
     "test_cases": [
         {
-            "class": "DiscriminationFilter",
+            "class": "GroupInequityFilter",
             "args": {
 				"language": "en",
 				"minority_group": ["she", "her", "hers"],
@@ -18,7 +18,7 @@
             "outputs": false
         },
         {
-            "class": "DiscriminationFilter",
+            "class": "GroupInequityFilter",
             "args": {
 				"language": "en",
 				"minority_group": ["she", "her", "hers"],
@@ -36,7 +36,7 @@
             "outputs": true
         },
 		{
-            "class": "DiscriminationFilter",
+            "class": "GroupInequityFilter",
             "args": {
 				"language": "en",
 				"minority_group": ["she", "her", "hers"],
@@ -52,7 +52,7 @@
             "outputs": false
         },
 		{
-            "class": "DiscriminationFilter",
+            "class": "GroupInequityFilter",
             "args": {
 				"language": "en",
 				"minority_group": ["she", "her", "hers"],
@@ -67,7 +67,7 @@
             "outputs": false
         },
 		{
-            "class": "DiscriminationFilter",
+            "class": "GroupInequityFilter",
             "args": {
 				"language": "en",
 				"minority_group": ["she", "her", "hers"],

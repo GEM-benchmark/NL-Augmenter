@@ -4,7 +4,7 @@ from initialize import spacy_nlp
 import spacy
 
 
-class DiscriminationFilter(SentenceOperation):
+class GroupInequityFilter(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en", "fr"]
 
@@ -267,7 +267,7 @@ class DiscriminationFilter(SentenceOperation):
         :param sentences: array of sentences
         :return: boolean, which is set to True if the the minority_group group is underepresented  
         """
-        discrimination = False
+        group_inequity = False
         
         # Retrieve the flags for each of the sentences
         flagged_corpus = self.flag_sentences(sentences, self.minority_group, self.majority_group)
@@ -283,10 +283,10 @@ class DiscriminationFilter(SentenceOperation):
         minority_group_intersection_percentage = 100 * float(minority_group_intersection_count) / float(len(sentences))
         majority_group_intersection_percentage = 100 * float(majority_group_intersection_count) / float(len(sentences))
 
-        # If the number of intersections with the minority factors preveils for the minority group, indicate potential discrimination  
+        # If the number of intersections with the minority factors preveils for the minority group, indicate potential group inequity issue 
         if minority_group_intersection_percentage > majority_group_intersection_percentage:
-            discrimination = True
+            group_inequity = True
         else:
-            discrimination = False       
+            group_inequity = False       
 
-        return discrimination
+        return group_inequity
