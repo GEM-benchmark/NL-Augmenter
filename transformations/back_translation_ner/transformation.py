@@ -10,6 +10,14 @@ from tasks.TaskTypes import TaskType
 
 class BackTranslationNER(TaggingOperation):
     tasks = [TaskType.TEXT_TAGGING]
+    keywords = [
+        "lexical",
+        "model-based",
+        "transformer-based",
+        "possible-meaning-alteration",
+        "high-generations",
+        "world-knowledge",
+    ]
 
     def __init__(self, segment_length=3, p=1.0, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
