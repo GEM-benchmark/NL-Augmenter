@@ -1,8 +1,8 @@
-## discrimination filter
+## group inequity filter
 
 ## What type of a filter is this?
 
-This is a bilingual filter (for English and French languages), which filters helps to discover potential discrimination issues in the text corpus.
+This is a bilingual filter (for English and French languages), which filters helps to discover potential group inequity issues in the text corpus.
 This is a topic agnostic filter which accepts user-defined parameters, consisting of keywords inherent to minor group (which potentially might suffer from the discrimination), 
 major group, minor factor and major factor.
 The filter first flags the sentences to be inherent to minor and major groups, with `flag_sentences()` and `sort_groups()` methods, 
@@ -12,7 +12,7 @@ The final boolean value is calculated in regards of the values retrived from `co
 The main idea lies in a balance between groups in regards of the factors: let's suppose, that we have three sentences in a dataset and the word "nurse" is applied in two sentences, containing the pronon "she", on the other hand, the word "doctor" is applied in one sentence, containing the pronon "he". We may suggest that the gender discrimination in regards of the profession stereotypes takes place. 
 The minority group array, therefore, will contain the word "she" and the minority factor array will contain the word "nurse", while the majority group array will contain "he" and the major factor array - "doctor".
 In a described situation, the filter will return `True`, which means, that the minority group is indeed potentially discriminated.
-However, if in one of the sentences containing the word "nurse", the pronoun will be replaced by "he" - the filter will return `False`, as both genders represent the profession "nurse", therefore there is no discrimination in this regard.
+However, if in one of the sentences containing the word "nurse", the pronoun will be replaced by "he" - the filter will return `False`, as both genders represent the profession "nurse", therefore there is no group inequity in this regard.
 
 
 Author: Anna Shvets
@@ -24,8 +24,8 @@ France
 
 
 ## Why is measuring performance on this split important?
-This filter aims to help with discovering potential discrimination issues in regards of on group, compared to another. 
-This might help fighting historical gender/racial/regilious prejudices in existing and newly created NLP datasets.
+This filter aims to help with discovering potential inequity issues in regards of on group, compared to another. 
+This might help fighting historical gender/ethnic/regilious prejudices in existing and newly created NLP datasets.
 
 
 ## Examples of use
@@ -47,7 +47,7 @@ f.filter(sentences)
 ```
 
 The above statement returns False, as the intersection of the minority group with the minority factor is the same as with the majority factor.
-However, in the following example, the filter indicates a potential discrimination towards minority group, since the number of intersections with the minority factor is bigger, than with the majority factor:
+However, in the following example, the filter indicates a potential inequity issue towards minority group, since the number of intersections with the minority factor is bigger, than with the majority factor:
 ```
 minority_group = ["she", "her", "hers"]
 majority_group = ["he", "him", "his"]
