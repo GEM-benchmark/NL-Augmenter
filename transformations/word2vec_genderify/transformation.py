@@ -15,14 +15,17 @@ import spacy
 import toolz
 
 import os
-import sys 
+import sys
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 sys.path.append(os.path.normpath(os.path.join(dir_path, "..", "..")))
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
+
 os.environ['PYTHONHASHSEED'] = "1"
+
 
 def _load() -> Tuple:
     """helper function which loads spacy and gensim models
@@ -185,12 +188,14 @@ def generate_sentences(sentence: str, max_outputs: int, wv, nlp,
         if noun.lower(
         ) in banned_words:  # ignore replacing man/woman with itself
             continue
-        swapped_sentence = swap_out_words(sentence, str(noun), manify_function, inflect_engine)
-        if sentence != swapped_sentence: # only add sentence if its a new sentence
+        swapped_sentence = swap_out_words(sentence, str(noun), manify_function,
+                                          inflect_engine)
+        if sentence != swapped_sentence:  # only add sentence if its a new sentence
             swapped_sentences.append(swapped_sentence)
             count += 1
-        swapped_sentence = swap_out_words(sentence, str(noun), womanify_function, inflect_engine)
-        if sentence != swapped_sentence: # only add if there are any changes
+        swapped_sentence = swap_out_words(sentence, str(noun),
+                                          womanify_function, inflect_engine)
+        if sentence != swapped_sentence:  # only add if there are any changes
             swapped_sentences.append(swapped_sentence)
             count += 1
         if count > max_outputs:
