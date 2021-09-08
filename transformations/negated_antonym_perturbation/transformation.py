@@ -12,11 +12,11 @@ class NegatedAntonym(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
-    def __init__(self, seed=0, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, seed=0):
+        super().__init__(seed)
 
-    def generate(self, sen):
-        return [self.Neg_Antonym(sen)]
+    def generate(self, sentence):
+        return [self.Neg_Antonym(sentence)]
 
     def Neg_Antonym(self, sentence):
 
