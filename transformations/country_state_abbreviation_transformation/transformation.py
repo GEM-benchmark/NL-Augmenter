@@ -2,6 +2,7 @@ import json
 import os
 import random
 import re
+from collections import defaultdict
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
@@ -45,21 +46,12 @@ class CountryStateAbbreviation(SentenceOperation):
                     state_abbr[state['name']] = state['abbr']
                     state_exp[state['abbr']] = state['name']
         else:
+            state_exp = defaultdict(list)
+            state_abbr = defaultdict(list)
             for country in abbr_json:
-                states = country['states']
-                for state in states:
-                    if state['abbr'] in state_exp:
-                        if type(state_exp[state['abbr']]) is not list:
-                            state_exp[state['abbr']] = [state_exp[state['abbr']]]
-                        state_exp[state['abbr']].append(state['name'])
-                    else:
-                        state_exp[state['abbr']] = state['name']
-                    if state['name'] in state_abbr:
-                        if type(state_abbr[state['name']]) is not list:
-                            state_abbr[state['name']] = [state_abbr[state['name']]]
-                        state_abbr[state['name']].append(state['abbr'])
-                    else:
-                        state_abbr[state['name']] = state['abbr']
+                for state in country['states']:
+                    state_exp[state['abbr']].append(state['name'])
+                    state_abbr[state['name']].append(state['abbr'])
 
         country_mapping = {}
         state_mapping = {}
