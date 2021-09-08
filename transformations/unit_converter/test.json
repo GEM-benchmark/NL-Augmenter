@@ -4,10 +4,10 @@
     {
       "class": "UnitConverter",
       "inputs": {
-        "sentence": "I weigth 100 pounds."
+        "sentence": "I weight 100 pounds."
       },
       "outputs": [{
-        "sentence": "I weigth 1600.002 ounces."
+        "sentence": "I weight 1600.002 ounces."
       }]
     },
     {

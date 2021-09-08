@@ -1,7 +1,7 @@
 # Unit converter
 This perturbation adds noise to all types of text sources (sentence, paragraph, etc.).
 
-uthor name: Marco Di Giovanni
+Author name: Marco Di Giovanni
 Author email: marco.digiovanni@polimi.it
 Author Affiliation: Politecnico di Milano and University of Bologna
 
