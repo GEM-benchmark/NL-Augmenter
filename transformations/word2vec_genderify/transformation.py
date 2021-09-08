@@ -211,6 +211,10 @@ class GenderifyOperation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["en"]
+    keywords = [
+        "model-based", "lexical", "possible-meaning-alteration",
+        "high-coverage", "high-generations"
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
