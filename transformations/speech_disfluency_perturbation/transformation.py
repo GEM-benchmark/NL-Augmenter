@@ -11,6 +11,17 @@ class SpeechDisfluencyPerturbation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages: List[str] = ["en"]
+    keywords = [
+        "lexical",
+        "noise",
+        "rule-based",
+        "highly-meaning-preserving",
+        "high-precision",
+        "high-coverage",
+        "high-generations",
+        "social-reasoning",
+    ]
+
     filler_words: List[str] = ["um", "uh", "erm", "ah", "er"]
     insert_prob: float
 
