@@ -13,6 +13,7 @@ class CountryStateAbbreviation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["en"]
+    keywords = ["lexical", "rule-based", "high-coverage", "high-precision"]
 
     def __init__(self, seed=0, country=True, state=True, country_filter='USA', abbr=True, exp=True):
         super().__init__(seed)

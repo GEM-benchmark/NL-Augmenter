@@ -25,6 +25,21 @@ This transformation provides flexible options for Country/State abbreviation and
 | abbr  |  Boolean | Enable/disable full name -> abbreviation  |  True  | 
 | exp  | Boolean  | Enable/disable abbreviation -> full name | True  |  
 
+Benchmark results:
+
+- Sentiment analysis: 
+```
+python evaluate.py -t CountryStateAbbreviation -task TEXT_CLASSIFICATION
+```
+The original accuracy is 96.0 and the perturbed accuracy is 96.0.
+
+- Text summarization: 
+```
+python evaluate.py -t CountryStateAbbreviation -task TEXT_TO_TEXT_GENERATION
+```
+The original bleu is 14.88 and the perturbed bleu is 14.61.
+
+
 ## Data provenance
 This transformation uses country/state name and abbreviation as a lite version of Countries States Cities Database (https://github.com/dr5hn/countries-states-cities-database). We use iso3 country as the abbreviation and state_code of states as the abbreviation.
 
