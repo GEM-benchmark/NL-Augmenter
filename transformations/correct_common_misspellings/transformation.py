@@ -12,6 +12,14 @@ class CorrectCommonMisspellings(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "external-knowledge-based",
+        "tokenizer-required",
+        "highly-meaning-preserving",
+        "high-coverage",
+        "low-generations",
+    ]
 
     def __init__(self):
         super().__init__()
