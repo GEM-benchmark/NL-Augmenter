@@ -1,4 +1,6 @@
 import itertools
+import json
+import os
 import random
 
 import spacy
@@ -97,36 +99,18 @@ class UnitConverter(SentenceOperation):
         super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
-        self.converter_lengths = {
-            "miles": 0.00062137121,
-            "kilometers": 0.001,
-            "centimeters": 100,
-            "feet": 3.28084,
-            "inches": 39.370079999999866516,
-            "yards": 1.0936133333333297735,
-            "meters": 1,
-        }
-        self.converter_weights = {
-            "pounds": 2.20462262185,
-            "kilograms": 1,
-            "ounces": 35.274,
-            "grams": 1000,
-        }
-        self.plurals_lengths = {
-            "mile": "miles",
-            "meter": "meters",
-            "centimeter": "centimeters",
-            "kilometer": "kilometers",
-            "foot": "feet",
-            "inch": "inches",
-            "yard": "yards",
-        }
-        self.plurals_weights = {
-            "pound": "pounds",
-            "gram": "grams",
-            "ounce": "ounces",
-            "kilogram": "kilograms",
-        }
+        converter_plurals_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "converter_plurals.json",
+        )
+
+        d = json.load(open(converter_plurals_path, "r"))
+
+        self.converter_lengths = d["converter_lengths"]
+        self.converter_weights = d["converter_weights"]
+        self.plurals_lengths = d["plurals_lengths"]
+        self.plurals_weights = d["plurals_weights"]
+
         self.units_lengths = list(self.plurals_lengths.keys()) + list(
             self.plurals_lengths.values()
         )
