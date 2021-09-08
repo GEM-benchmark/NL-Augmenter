@@ -33,13 +33,10 @@ class CountryStateAbbreviation(SentenceOperation):
             "country_state_abbreviation.json",
         )
         abbr_json = json.load(open(abbr_file_path, "r"))
-        country_abbr = {}
-        country_exp = {}
+        country_abbr = {country['name']: country['abbr'] for country in abbr_json}
+        country_exp = {country['abbr']: country['name'] for country in abbr_json}
         state_abbr = {}
         state_exp = {}
-        for country in abbr_json:
-            country_abbr[country['name']] = country['abbr']
-            country_exp[country['abbr']] = country['name']
 
         if self.country_filter:
             country = next((x for x in abbr_json if x['abbr'] == self.country_filter), None)
@@ -52,17 +49,15 @@ class CountryStateAbbreviation(SentenceOperation):
                 states = country['states']
                 for state in states:
                     if state['abbr'] in state_exp:
-                        if type(state_exp[state['abbr']]) is list:
-                            state_exp[state['abbr']].append(state['name'])
-                        else:
+                        if type(state_exp[state['abbr']]) is not list:
                             state_exp[state['abbr']] = [state_exp[state['abbr']]]
+                        state_exp[state['abbr']].append(state['name'])
                     else:
                         state_exp[state['abbr']] = state['name']
                     if state['name'] in state_abbr:
-                        if type(state_abbr[state['name']]) is list:
-                            state_abbr[state['name']].append(state['abbr'])
-                        else:
+                        if type(state_abbr[state['name']]) is not list:
                             state_abbr[state['name']] = [state_abbr[state['name']]]
+                        state_abbr[state['name']].append(state['abbr'])
                     else:
                         state_abbr[state['name']] = state['abbr']
 
