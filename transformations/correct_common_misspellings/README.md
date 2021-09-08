@@ -21,3 +21,12 @@ There is an [existing package](https://github.com/lyda/misspell-check) which sim
 ## What are the limitations of this transformation?
 This transformation is not a full-fledged spell-checker and should not be used as such; rather, it is a lightweight spell-checker which corrects only very commonly misspelled words.
 It works only for English and operates only at the word-level (i.e. it does not incorporate context around individual words to gauge their spelling).
+
+## Robustness Evaluation
+
+Here is the performance of the model aychang/roberta-base-imdb on the test[:20%] split of the imdb dataset.
+The accuracy on this subset which has 1000 examples = 96.0
+
+1000 examples generated from 1000 original examples, with 35 successfully transformed and 965 unchanged (0.035 perturb rate).
+Here is the performance of the model on the transformed set:
+The accuracy on this subset which has 1000 examples = 96.0
