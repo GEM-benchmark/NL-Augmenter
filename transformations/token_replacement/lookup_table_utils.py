@@ -12,7 +12,7 @@ from typing import List, Union
 Lookup table handling utilities.
 """
 
-def get_token_replacement(input_token, lookup, max_dist):
+def get_token_replacement(input_token, lookup, max_dist) -> str:
     """
     Gets a replacement for an input token sampled from a given lookup table.
     Samples uniformly among all candidates available for an input token.
@@ -20,9 +20,9 @@ def get_token_replacement(input_token, lookup, max_dist):
     between the original and the candidate token.
 
     :param input_token: a token for which a replacement needs to be obtained
+    :param lookup: a dictionary (lookup table) of replacement candidates
     :param max_dist: max. Levenshtein distance between the original and the
                      perturbed token
-    :param lookup: a dictionary (lookup table) of replacement candidates
     :returns: a replacement for an input token
     :rtype: str
     """
@@ -41,12 +41,14 @@ def get_token_replacement(input_token, lookup, max_dist):
     return replacement_token
 
 
-def load_lookup(files: Union[str, List[str]]) -> bool:
+def load_lookup(files: Union[str, List[str]]) -> dict:
     """
     Loads a lookup table with replacement candidates from a file
         (or every file in a list of files).
 
     :param lookup: a file or a list of files with lookup tables in JSON format
+    :returns: a dictionary (lookup table) of replacement candidates
+    :rtype: dict
     """
     if isinstance(files, str):
         lut = _load_lookup_from_file(files)
@@ -70,12 +72,14 @@ def load_lookup(files: Union[str, List[str]]) -> bool:
         return {}
 
     
-def _load_lookup_from_file(file_name: str):
+def _load_lookup_from_file(file_name: str) -> dict:
     """
     Loads a lookup table with replacement candidates from a given file.
 
     :param file_name: a JSON file (raw or compressed using lzma or gzip
                       algorithm)
+    :returns: a dictionary (lookup table) of replacement candidates
+    :rtype: dict
     """
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
