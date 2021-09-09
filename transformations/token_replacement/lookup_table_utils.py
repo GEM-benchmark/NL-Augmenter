@@ -18,6 +18,13 @@ def get_token_replacement(input_token, lookup, max_dist):
     Samples uniformly among all candidates available for an input token.
     Accepts additional filtering criteria based on the maximum edit distance 
     between the original and the candidate token.
+
+    :param input_token: a token for which a replacement needs to be obtained
+    :param max_dist: max. Levenshtein distance between the original and the
+                     perturbed token
+    :param lookup: a dictionary (lookup table) of replacement candidates
+    :returns: a replacement for an input token
+    :rtype: str
     """
     candidates = lookup[input_token]
 
@@ -36,8 +43,10 @@ def get_token_replacement(input_token, lookup, max_dist):
 
 def load_lookup(files: Union[str, List[str]]) -> bool:
     """
-    Loads a lookup table with replacement candidates from a file 
-        (or every file in a list of files).        
+    Loads a lookup table with replacement candidates from a file
+        (or every file in a list of files).
+
+    :param lookup: a file or a list of files with lookup tables in JSON format
     """
     if isinstance(files, str):
         lut = _load_lookup_from_file(files)
@@ -64,6 +73,9 @@ def load_lookup(files: Union[str, List[str]]) -> bool:
 def _load_lookup_from_file(file_name: str):
     """
     Loads a lookup table with replacement candidates from a given file.
+
+    :param file_name: a JSON file (raw or compressed using lzma or gzip
+                      algorithm)
     """
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
