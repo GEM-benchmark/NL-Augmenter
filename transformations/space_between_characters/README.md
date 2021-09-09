@@ -20,4 +20,4 @@ It could also benefit tasks involving data from OCR systems.
 ## What are the limitations of this transformation?
 - The transformation's outputs are very simple.
 - It is not capable of generating linguistically diverse text.
-- This transformation will mainly affect the perfornamce of token/word-level models, while character-level models should be much robust.
+- This transformation will mainly affect the perfornamce of token/word-level models, while character-level models should be much more robust.
