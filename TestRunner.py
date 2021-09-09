@@ -12,6 +12,7 @@ from tasks.TaskTypes import TaskType
 
 disable_tests_for = ["greetings_and_farewells"]
 
+
 def load(module, cls):
     my_class = getattr(module, cls.__name__)
     return my_class()
@@ -116,14 +117,41 @@ class OperationRuns(object):
         self.operation_test_cases = filter_test_cases
 
     @staticmethod
-    def get_all_folder_names(search="transformations") -> Iterable:
+    def get_all_folder_names(
+        search="transformations", transformation_name="all"
+    ) -> Iterable:
+        """Get all the folder names.
+
+        Parameters:
+        ----------
+        search: str, default "transformations"
+            value can be either transformations or filters.
+        transformation_name: str, default "all"
+            value can be either all (both light and heavy transformations) or light.
+
+        Returns:
+        -------
+        list of folder names.
+        """
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
         for (_, folder, _) in iter_modules(
             [transformations_dir]
         ):  # ---> ["back_translation", ...]
-            yield folder
+            if transformation_name == "light":
+                t_py = import_module(f"{search}.{folder}")
+                for name, obj in inspect.getmembers(t_py):
+                    if (
+                        inspect.isclass(obj)
+                        and issubclass(obj, Operation)
+                        and not obj.__module__.startswith("interfaces")
+                        and obj.heavy
+                        is False  # if the transformation is light
+                    ):
+                        yield folder  # only light transformations folder name
+            else:  # all folder names
+                yield folder
 
     @staticmethod
     def get_all_operations(search="transformations") -> Iterable:
@@ -162,8 +190,12 @@ def get_implementation(clazz: str, search="transformations"):
 
 
 if __name__ == "__main__":
-    for x in OperationRuns.get_all_folder_names():
+    for x in OperationRuns.get_all_folder_names("transformations", "light"):
         print(x)
+    print("========")
+    for x in OperationRuns.get_all_folder_names("transformations"):
+        print(x)
+    print("=======")
     for x in OperationRuns.get_all_folder_names("filters"):
         print(x)
     for x in OperationRuns.get_all_operations():
@@ -182,7 +214,9 @@ if __name__ == "__main__":
     ):
         print(transformation.name())
         impl = transformation()
-        for sentence in ["Mahendra Dhoni finally travelled to Australia with 5 suitcases. "
-                         "He wanted to prepare for the biggest game of the season!!!"]:
+        for sentence in [
+            "Mahendra Dhoni finally travelled to Australia with 5 suitcases. "
+            "He wanted to prepare for the biggest game of the season!!!"
+        ]:
             for p in impl.generate(sentence):
                 print(p)

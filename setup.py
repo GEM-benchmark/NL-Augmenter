@@ -8,8 +8,10 @@ from TestRunner import OperationRuns
 def all_folders():
     folder_names = [
         "transformations/" + f
-        for f in list(OperationRuns.get_all_folder_names())
-    ]
+        for f in list(
+            OperationRuns.get_all_folder_names("transformations", "light")
+        )
+    ]  # list of light transformation folders
     folder_names.extend(
         [
             "filters/" + f
@@ -44,7 +46,7 @@ setup(
     version="0.0.1",
     description="The official repository of transformations.",
     long_description=read("README.md"),
-    install_requires=recursive_requirements(),  # read("requirements.txt"),
+    install_requires=recursive_requirements(),  # read("requirements.txt") for light transformations and all filters
     package_data={
         "": ["*.json", "*.txt", "*.tsv", "*.csv", "*.npz", "*.ckpt"]
     },
