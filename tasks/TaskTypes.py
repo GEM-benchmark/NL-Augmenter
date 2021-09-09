@@ -23,4 +23,3 @@ class TaskType(enum.Enum):
     PARAPHRASE_DETECTION = (13,)
     TEXTUAL_ENTAILMENT = (14,)
     QUALITY_ESTIMATION = (15,)
-
