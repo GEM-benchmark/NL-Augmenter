@@ -32,3 +32,8 @@ This transformations works to increase the data for any task that has input text
 
 ## What are the limitations of this transformation?
 The transformation depends on the accuracy of the translation model being used for the given pair of languages.
+
+## Robustness Evaluation
+| Transformation                   | roberta-base-SST-2   | bert-base-uncased-QQP   | roberta-large-mnli   | roberta-base-imdb   |
+|:---------------------------------|:---------------------|:------------------------|:---------------------|:--------------------|
+| MultilingualBackTranslation      | 94.0->86.0 ( -8.0)   | 92.0->84.0 ( -8.0)      | 91.0->80.0 (-11.0)   | |

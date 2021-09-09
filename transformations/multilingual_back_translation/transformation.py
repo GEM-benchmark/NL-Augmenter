@@ -21,6 +21,18 @@ class MultilingualBackTranslation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ['af' ,'am' ,'ar' ,'ast' ,'az' ,'ba' ,'be' ,'bg' ,'bn' ,'br' ,'bs' ,'ca' ,'ceb' ,'cs' ,'cy' ,'da' ,'de' ,'el' ,'en' ,'es' ,'et' ,'fa' ,'ff' ,'fi' ,'fr' ,'fy' ,'ga' ,'gd', 'gl' ,'gu' ,'ha' ,'he' ,'hi' ,'hr' ,'ht' ,'hu' ,'hy' ,'id' ,'ig' ,'ilo' ,'is' ,'it' ,'ja' ,'jv' ,'ka' ,'kk' ,'km' ,'kn' ,'ko' ,'lb' ,'lg' ,'ln' ,'lo' ,'lt' ,'lv' ,'mg' ,'mk' ,'ml' ,'mn' ,'mr' ,'ms' ,'my' ,'ne' ,'nl' ,'no' ,'ns' ,'oc' ,'or' ,'pa' ,'pl' ,'ps' ,'pt' ,'ro' ,'ru' ,'sd' ,'si' ,'sk' ,'sl' ,'so' ,'sq' ,'sr' ,'ss' ,'su' ,'sv' ,'sw' ,'ta' ,'th' ,'tl' ,'tn' ,'tr' ,'uk' ,'ur' ,'uz' ,'vi' ,'wo' ,'xh' ,'yi' ,'yo' ,'zh' ,'zu']
     heavy = True
+    keywords = [
+        "morphological",
+        "lexical",
+        "syntactic",
+        "word-order",
+        "model-based",
+        "transformer-based",
+        "highly-meaning-preserving",
+        "high-precision",
+        "high-coverage",
+        "low-generations",
+    ]
 
     def __init__(self, seed=0, max_outputs=1, src_lang:str='en', pivot_lang:str='zh'):
         super().__init__(seed, max_outputs=max_outputs)
