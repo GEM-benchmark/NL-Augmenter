@@ -29,6 +29,15 @@ class CharacterDuplication(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["All"]
+    keywords = [
+        "morphological",
+        "noise",
+        "rule-based",
+        "highly-meaning-preserving",
+        "high-precision",
+        "high-coverage",
+        "high-generations",
+    ]
 
     def __init__(self, seed=42, max_outputs=1, prob=0.1):
         super().__init__(seed, max_outputs=max_outputs)
