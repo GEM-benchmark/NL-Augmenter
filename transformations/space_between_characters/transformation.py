@@ -5,7 +5,7 @@ from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 
-def add_spaces(text, prob=0.1, seed=0, max_outputs=1):
+def add_spaces(text, prob_token=0.1, prob_char=1.0, seed=0, max_outputs=1):
     random.seed(seed)
 
     words = text.split(" ")
@@ -13,8 +13,16 @@ def add_spaces(text, prob=0.1, seed=0, max_outputs=1):
     for _ in range(max_outputs):
         perturbed_text = []
         for word in words:
-            if random.random() <= prob:
-                new_word = " ".join(word)
+            if random.random() <= prob_token:
+                if prob_char == 1:
+                    new_word = " ".join(word)
+                else:
+                    new_word = [word[0]]
+                    for letter in word[1:]:
+                        if random.random() <= prob_char:
+                            new_word.append(" ")
+                        new_word.append(letter)
+                new_word = "".join(new_word)
             else:
                 new_word = word
             perturbed_text.append(new_word)
@@ -28,16 +36,18 @@ class SpaceBetweenCharacters(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
-    languages = ["en"]
+    languages = ["all"]
 
-    def __init__(self, seed=42, max_outputs=1, prob=0.1):
+    def __init__(self, seed=42, max_outputs=1, prob_token=0.1, prob_char=1.0):
         super().__init__(seed, max_outputs=max_outputs)
-        self.prob = prob
+        self.prob_token = prob_token
+        self.prob_char = prob_char
 
     def generate(self, sentence: str) -> List[str]:
         perturbed_texts = add_spaces(
             text=sentence,
-            prob=self.prob,
+            prob_token=self.prob_token,
+            prob_char=self.prob_char,
             seed=self.seed,
             max_outputs=self.max_outputs,
         )
