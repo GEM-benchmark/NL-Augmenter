@@ -13,10 +13,10 @@ Author: Vikas Raunak (viraunak@microsoft.com)
 This transformation removes the accented characters or diacritics on characters, and replaces them with their non-accented versions.
 
 ## What tasks does it intend to benefit?
-This can simplify the dataset to be used for any task, especially which rely on constructing the embeddings from scratch, since often these rare characters with diacritics lead to poorly formed embeddings. 
+This can simplify the dataset to be used for any task, especially tasks which rely on constructing the embeddings from scratch, since often these rare characters (or subwords) with diacritics lead to poorly formed embeddings. 
 
 ## Previous Work
-No specific research question is entailed here, except that accented characters might be among the rarest of characters, so it would be inetersting to see how much performance gain one can get by replacing them.
+No specific research question is entailed here, except that accented characters might be among the rarest of characters, so it would be interesting to see how much performance gain one can get by replacing them.
 
 ## What are the limitations of this transformation?
-The transformation is very simple, it just replaces the accented characters. Howver, one has to be careful to not apply it on chemical formulas or phycial units, since those cases diacritics are super important.
+The transformation is very simple, it just removes the diacritic marks, in effect replacing the accented characters with their non-accented versions. However, one has to be careful to not apply it on chemical formulas or physical units, since in those cases diacritics are super important to meaning itself (not just pronunciation/stress).
