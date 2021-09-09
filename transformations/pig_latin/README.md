@@ -20,3 +20,20 @@ text generation, etc.
 
 ## What are the limitations of this transformation?
 Pig Latin is a relatively simple transformation, but deciphering the resulting sentences requires knowledge of its rules as well as of consonants and vowels. Large enough datasets may contain examples of Pig Latin. 
+
+## Evaluation
+
+Using the same evaluation procedure as shown in [the leaderboard](https://github.com/GEM-benchmark/NL-Augmenter/tree/main/evaluation), text classification models are substantially less robust to the PigLatin transform than all of the leading transformations for evaluating robustness. 
+
+| Transformation              | roberta-base-SST-2   | bert-base-uncased-QQP   | roberta-large-mnli   | roberta-base-imdb   |
+|:----------------------------|:---------------------|:------------------------|:---------------------|:--------------------|
+| **PigLatin**       | **94.0->60.0 (-34)**   | **92.0->68.0 (-24)**      | **91.0->50.0 (-41)**   | **95.0->32.0 (-63)**  |
+| BackTranslation             | 94.0->91.0 (-3.0)    | 92.0->90.0 (-2.0)       | 91.0->87.0 (-4.0)    | 95.0->92.0 (-3.0)   |
+| ButterFingersPerturbation   | 94.0->89.0 (-5.0)    | 92.0->89.0 (-3.0)       | 91.0->88.0 (-3.0)    | 95.0->93.0 (-2.0)   |
+| ChangePersonNamedEntities   | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->89.0 (-2.0)    | 95.0->95.0 (0.0)    |
+| CloseHomophonesSwap         | 94.0->91.0 (-3.0)    | 92.0->88.0 (-4.0)       | 91.0->89.0 (-2.0)    | 95.0->96.0 (1.0)    |
+| DiscourseMarkerSubstitution | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->91.0 (0.0)     | 95.0->95.0 (0.0)    |
+| MixedLanguagePerturbation   | 94.0->90.0 (-4.0)    | 92.0->86.0 (-6.0)       | 91.0->86.0 (-5.0)    | 95.0->91.0 (-4.0)   |
+| PunctuationWithRules        | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->91.0 (0.0)     | 95.0->90.0 (-5.0)   |
+| ReplaceNumericalValues      | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->90.0 (-1.0)    | 95.0->95.0 (0.0)    |
+| SentenceReordering          | 94.0->95.0 (1.0)     | 92.0->93.0 (1.0)        | nan                  | 95.0->94.0 (-1.0)   |
