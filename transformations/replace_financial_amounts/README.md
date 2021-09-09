@@ -20,6 +20,20 @@ source sentences i.e. the code outputs highly precise generations. It is a subst
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, etc. 
 
+## Robustness Evaluation
+```bash
+$ python evaluate.py -t ReplaceFinancialAmount
+Undefined task type, switching to default task %s TEXT_CLASSIFICATION
+Loading <imdb> dataset to evaluate <aychang/roberta-base-imdb> model.
+Here is the performance of the model aychang/roberta-base-imdb on the test[:20%] split of the imdb dataset
+The accuracy on this subset which has 1000 examples = 96.0
+Applying transformation:
+100%|███████████████████████████████████████████████████████████████████████████████| 1000/1000 [06:21<00:00,  2.62it/s]
+Finished transformation! 1000 examples generated from 1000 original examples, with 35 successfully transformed and 965 unchanged (0.035 perturb rate)
+Here is the performance of the model on the transformed set
+The accuracy on this subset which has 1000 examples = 96.0
+```
+
 ## Previous Work
 1) This perturbation was as part of an augmentation library described by Regina and al. in (Arxiv 2020):
 ```bibtex
