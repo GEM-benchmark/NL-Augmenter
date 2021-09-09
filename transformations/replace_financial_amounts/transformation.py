@@ -323,9 +323,16 @@ class ReplaceFinancialAmount(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "external-knowledge-based",
+        "possible-meaning-alteration",
+        "high-precision",
+        "high-coverage",
+    ]
 
     def __init__(self, seed: int = 0, max_outputs: int = 1) -> None:
         super().__init__(seed=seed, max_outputs=max_outputs)
