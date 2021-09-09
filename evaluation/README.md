@@ -32,7 +32,7 @@ Depending on the interface of the transformation, `evaluate.py` would transform 
 The [task](../tasks/TaskTypes.py) (`-t`), [dataset](https://huggingface.co/datasets) (`-d`) and [model](https://huggingface.co/models) (`-m`) can be overridden in the following way.
 
 ```bash
-python evaluate.py -t ButterFingersPerturbation -task "TEXT_CLASSIFICATION" -m "aychang/roberta-base-imdb" -d "imdb"
+python evaluate.py -t ButterFingersPerturbation -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-imdb" -d "imdb" -p 20
 ```  
 
 Note that it's highly possible that some of the evaluate_* functionality won't work owing to the variety of dataset and model formats. We've tried to mitigate this by using models and datasets of HuggingFace. If you wish to evaluate on models and datasets apart from those mentioned [here](evaluation_engine.py), you are welcome to do so. Do mention in your README how they turned out!
@@ -42,7 +42,7 @@ Note that it's highly possible that some of the evaluate_* functionality won't w
 
 ## Leaderboard
 
-Here, we provide a leaderboards for each default task, by executing transformations on typical models in each task. If you would like to join the leaderboard party encourage you to submit pull requests!
+Here, we provide a leaderboards for each default task, by executing transformations on typical models in each task (p=20). If you would like to join the leaderboard party encourage you to submit pull requests! 
 
 ### Text Classification
 

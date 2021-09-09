@@ -1,0 +1,75 @@
+{
+   "type": "mix_transliteration",
+   "test_cases": [
+      {
+         "class": "MixTransliteration",
+         "inputs": {
+            "sentence": "اینڈریو فنلے نے فرانسیسی کتاب کرس دی بوگن ویل کو پچھلے ہفتے واپس کیا۔"
+         },
+         "args" :{
+            "source_lang":"ur"
+         },
+         "outputs": [
+            {
+               "sentence": "aanڈrao fnlے nے fransasa ktab krs da bogn oal ko pچھlے ہftے oaps kaa۔"
+            }
+         ]
+      },
+      {
+         "class": "MixTransliteration",
+         "inputs": {
+            "sentence": "آپ کیسے ہیں ؟"
+         },
+         "args" :{
+            "source_lang":"ur"
+         },
+         "outputs": [
+            {
+               "sentence": "ap kasے ہaں ?"
+            }
+         ]
+      },
+      {
+         "class": "MixTransliteration",
+         "inputs": {
+            "sentence": "سورج مشرق سے طلوع ہوتا ہے"
+         },
+         "args" :{
+            "source_lang":"ur"
+         },
+         "outputs": [
+            {
+               "sentence": "sorj mchrq sے tlo' ہota ہے"
+            }
+         ]
+      },
+      {
+         "class": "MixTransliteration",
+         "inputs": {
+            "sentence": "سیم کے والد ایک ڈاکٹر ہیں۔"
+         },
+         "args" :{
+            "source_lang":"ur"
+         },
+         "outputs": [
+            {
+               "sentence": "sam kے oald aak ڈakٹr ہaں۔"
+            }
+         ]
+      },
+      {
+         "class": "MixTransliteration",
+         "inputs": {
+            "sentence": "اولمپکس بالآخر ختم!"
+         },
+         "args" :{
+            "source_lang":"ur"
+         },
+         "outputs": [
+            {
+               "sentence": "aolmpks balakhr khtm!"
+            }
+         ]
+      }
+   ]
+}
