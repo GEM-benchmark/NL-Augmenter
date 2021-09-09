@@ -18,4 +18,4 @@ Generated transformations display high similarity to the source sentences.
 
 ## What are the limitations of this transformation?
 - This transformation is not capable of generating linguistically diverse text.
-- This transformation will mainly affect the perfornamce of token/word-level models, while character-level models should be much robust.
+- This transformation will mainly affect the performance of token/word-level models, while character-level models should be much robust.
