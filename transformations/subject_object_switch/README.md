@@ -13,3 +13,15 @@ This transformation can be used for tasks like Paraphrase Detection, Paraphrase 
 
 ## What are the limitations of this transformation?
 The transformation is very simple and can only be applied on a limited set of sentences (namely, those with subject and object and a positive target).
+
+## Robustness Evaluation
+
+### Sentence Operation
+| Transformation                   | roberta-base-SST-2   | bert-base-uncased-QQP   | roberta-large-mnli   | roberta-base-imdb   |
+|:---------------------------------|:---------------------|:------------------------|:---------------------|:--------------------|
+| SentenceSubjectObjectSwitch      | 94.0->93.0 ( -1.0)   | 92.0->88.0 ( -4.0)      | 91.0->88.0 ( -3.0)   | 95.0->95.0 (  0.0)  |
+
+### Sentence Pair Operation
+| Transformation                   | paraphrase-xlm-r-multilingual-v1-MSRP | paraphrase-xlm-r-multilingual-v1-PAWS |
+|:---------------------------------|:--------------------------------------|:--------------------------------------|
+| PairSubjectObjectSwitch          | 69.0->30.0 (-39.0)                    | 44.0->24.0 (-20.0)                    |
