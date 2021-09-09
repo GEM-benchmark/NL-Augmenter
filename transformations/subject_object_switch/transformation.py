@@ -91,6 +91,18 @@ def subject_object_switch(sentence, nlp):
 class SentenceSubjectObjectSwitch(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "syntactic",
+        "word-order",
+        "rule-based",
+        "tokenizer-required",
+        "chunker-required",
+        "meaning-alteration",
+        "high-precision",
+        "low-coverage",
+        "low-generations",
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
@@ -112,6 +124,18 @@ class SentenceSubjectObjectSwitch(SentenceOperation):
 class PairSubjectObjectSwitch(SentencePairOperation):
     tasks = [TaskType.PARAPHRASE_DETECTION]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "syntactic",
+        "word-order",
+        "rule-based",
+        "tokenizer-required",
+        "chunker-required",
+        "meaning-alteration",
+        "high-precision",
+        "low-coverage",
+        "low-generations",
+    ]
 
     def __init__(self, seed=0, max_outputs=3, pos_label="1", neg_label="0"):
         super().__init__(seed, max_outputs=max_outputs)
