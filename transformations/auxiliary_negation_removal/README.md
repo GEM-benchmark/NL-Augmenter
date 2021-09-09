@@ -13,3 +13,16 @@ This transformation can be used for tasks like Paraphrase Detection, Paraphrase 
 
 ## What are the limitations of this transformation?
 The transformation is very simple and can only be applied on a limited set of sentences (namely, those with negated auxiliaries).
+
+## Robustness Evaluation
+
+### Sentence Operation
+
+| Transformation                   | roberta-base-SST-2   | bert-base-uncased-QQP   | roberta-large-mnli   | roberta-base-imdb   |
+|:---------------------------------|:---------------------|:------------------------|:---------------------|:--------------------|
+| SentenceAuxiliaryNegationRemoval | 94.0->94.0 (  0.0)   | 92.0->92.0 (  0.0)      | 91.0->87.0 ( -4.0)   | 95.0->95.0 (  0.0)  |
+
+### Sentence Pair Operation
+| Transformation                   | paraphrase-xlm-r-multilingual-v1-MSRP | paraphrase-xlm-r-multilingual-v1-PAWS |
+|:---------------------------------|:--------------------------------------|:--------------------------------------|
+| PairAuxiliaryNegationRemoval     | 69.0->65.0 ( -4.0)                    | 44.0->44.0 (  0.0)                    |

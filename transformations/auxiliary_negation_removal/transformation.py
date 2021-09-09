@@ -88,8 +88,23 @@ def auxiliary_negation_removal(sentence, nlp):
 
 
 class SentenceAuxiliaryNegationRemoval(SentenceOperation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    tasks = [
+        TaskType.TEXT_CLASSIFICATION,
+        TaskType.TEXT_TO_TEXT_GENERATION,
+        TaskType.QUALITY_ESTIMATION,
+    ]
     languages = ["en"]
+    keywords = [
+        "morphological",
+        "lexical",
+        "rule-based",
+        "tokenizer-required",
+        "meaning-alteration",
+        "high-precision",
+        "low-coverage",
+        "low-generations",
+        "causal-reasoning",
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
@@ -112,6 +127,17 @@ class SentenceAuxiliaryNegationRemoval(SentenceOperation):
 class PairAuxiliaryNegationRemoval(SentencePairOperation):
     tasks = [TaskType.PARAPHRASE_DETECTION]
     languages = ["en"]
+    keywords = [
+        "morphological",
+        "lexical",
+        "rule-based",
+        "tokenizer-required",
+        "meaning-alteration",
+        "high-precision",
+        "low-coverage",
+        "low-generations",
+        "causal-reasoning",
+    ]
 
     def __init__(self, seed=0, max_outputs=3, pos_label="1", neg_label="0"):
         super().__init__(seed, max_outputs=max_outputs)
