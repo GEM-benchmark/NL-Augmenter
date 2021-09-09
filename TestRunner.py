@@ -192,10 +192,8 @@ def get_implementation(clazz: str, search="transformations"):
 if __name__ == "__main__":
     for x in OperationRuns.get_all_folder_names("transformations", "light"):
         print(x)
-    print("========")
     for x in OperationRuns.get_all_folder_names("transformations"):
         print(x)
-    print("=======")
     for x in OperationRuns.get_all_folder_names("filters"):
         print(x)
     for x in OperationRuns.get_all_operations():
