@@ -30,6 +30,15 @@ def transformation(sentence, lowercase, acronyms):
 class UseAcronyms(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "external-knowledge-based",
+        "tokenizer-required",
+        "high-precision",
+        "low-coverage",
+        "low-generations",
+    ]
 
     def __init__(
         self,

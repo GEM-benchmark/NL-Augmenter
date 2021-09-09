@@ -13,3 +13,8 @@ This transformations works to increase the data for any task that has input text
 
 ## What are the limitations of this transformation?
 The quality of the transformation depends on the list of acronyms. As of no, this list was scraped from wikipedia's List of Acronyms and naively filtered, which leaves space for imporvement.
+
+## Robustness Evaluation
+| Transformation                   | roberta-base-SST-2   | bert-base-uncased-QQP   | roberta-large-mnli   | roberta-base-imdb   |
+|:---------------------------------|:---------------------|:------------------------|:---------------------|:--------------------|
+| UseAcronyms                      | 94.0->94.0 (  0.0)   | 92.0->91.0 ( -1.0)      | 91.0->91.0 (  0.0)   | 95.0->95.0 (  0.0)  |
