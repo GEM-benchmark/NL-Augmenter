@@ -45,7 +45,7 @@ This transformation would benefit sequence labelling tasks such as named entity 
 @inproceedings{dai-adel-2020-analysis,
     title = "An Analysis of Simple Data Augmentation for Named Entity Recognition",
     author = "Dai, Xiang  and
-      Adel, Heike",
+              Adel, Heike",
     booktitle = "Proceedings of the 28th International Conference on Computational Linguistics",
     month = dec,
     year = "2020",
