@@ -17,6 +17,12 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 
 
 ## What are the limitations of this transformation?
-- This trasformation could generate not fluent sentences when converting numbers with many decimal digits to words (we limit it to three decimal digits).
+- This transformation could generate not fluent sentences when converting numbers with many decimal digits to words (we limit it to three decimal digits).
 - It could be expanded to other quantities (such as time, e.g., converting seconds to minutes).
 - It relies to spacy NER to detect QUANTITY.
+
+## Data and code provenance
+
+The code is fully implemented by me.
+
+The table of conversion factors is derived from [Wikipedia](https://en.wikipedia.org/wiki/Conversion_of_units).
