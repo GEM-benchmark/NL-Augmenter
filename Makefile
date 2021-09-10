@@ -15,4 +15,5 @@ clean: style
 
 # Test
 .PHONY: test
-
+# test:
+# 	pytest -v --cov-config=pyproject.toml
