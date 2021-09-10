@@ -36,7 +36,15 @@ class SpaceBetweenCharacters(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
-    languages = ["all"]
+    languages = ["All"]
+    keywords = [
+        "morphological",
+        "noise",
+        "rule-based",
+        "highly-meaning-preserving",
+        "high-precision",
+        "high-coverage",
+    ]
 
     def __init__(self, seed=42, max_outputs=1, prob_token=0.1, prob_char=1.0):
         super().__init__(seed, max_outputs=max_outputs)
