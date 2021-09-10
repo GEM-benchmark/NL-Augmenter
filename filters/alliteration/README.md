@@ -43,7 +43,11 @@ Here is the performance of the model on the filtered set:
     `python evaluate.py -f Alliteration -task "TEXT_CLASSIFICATION" -m "roberta-large-mnli" -d "multi_nli" -p 20`\
   The accuracy on this subset which has 22 examples = 91.0
 
-## Related Work
+
+## Data and code source
+Data was fully created by the author.
+Only the test case involving "Peter and his famous pickled peppers" first appeared in print in 1813 in John Harris's Peter Piper's Practical Principles of Plain and Perfect Pronunciation.
+
 
 ## What are the limitations of this filter?
 There may be phonetic alliterations that are not captured by a graphematic approach. For example, `Phonetic` and `Fine` are phonetic alliterations but not graphematic ones.
