@@ -37,8 +37,6 @@ python evaluate.py -t TokenReplacement -task "TEXT_CLASSIFICATION" -m "textattac
 python evaluate.py -t TokenReplacement -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-SST-2" -d "sst2" -p 20
 ```
 
-- The average BLEU score of the DistilBART model ("*sshleifer/distilbart-xsum-12-6*"), evaluated on a subset (10%) of XSum dataset, dropped from 15.25 (original examples) to 13.38 (perturbed examples).
-
 ## Previous Work
 
 1) The transformation is an adapted and improved version of the lookup table-based noise induction method from the [Noise-Aware Training (NAT) project](https://github.com/mnamysl/nat-acl2020). 
