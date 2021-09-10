@@ -4,7 +4,6 @@ import spacy
 import os
 
 
-
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -13,149 +12,189 @@ Base Class for implementing the different input transformations a generation sho
 """
 
 
-def slangify(self, text, probReplaceNoun=0.5, probReplaceAdjective=0.5, probReplaceAdverb=0.5, seed=0, max_outputs=1):
+def slangify(
+    self,
+    text,
+    probReplaceNoun=0.5,
+    probReplaceAdjective=0.5,
+    probReplaceAdverb=0.5,
+    seed=0,
+    max_outputs=1,
+):
     random.seed(seed)
 
-    #probReplaceNoun=0.5 # Probability to replace noun, which is in the dictionary
-    #probReplaceAdjective=0.5 # Probability to replace noun, which is in the dictionary
-    #probReplaceAdverb=0.5 # Probability to replace noun, which is in the dictionary
-    
-    nlp = spacy.load("en_core_web_sm") # get an instnace of the tikenizer
-    perturbed_texts = [] # output for all perturbed texts
-    
+    nlp = spacy.load("en_core_web_sm")  # get an instnace of the tikenizer
+    perturbed_texts = []  # output for all perturbed texts
+
     # Load dictionaries
-    Slang_Nouns =self.Slang_Nouns
+    Slang_Nouns = self.Slang_Nouns
     Slang_Nouns = list(map(list, zip(*Slang_Nouns)))
-    Slang_Adverbs =self.Slang_Adverbs
+    Slang_Adverbs = self.Slang_Adverbs
     Slang_Adverbs = list(map(list, zip(*Slang_Adverbs)))
-    Slang_Adjectives =self.Slang_Adjectives
-    Slang_Adjectives = list(map(list, zip(*Slang_Adjectives)))    
-    
+    Slang_Adjectives = self.Slang_Adjectives
+    Slang_Adjectives = list(map(list, zip(*Slang_Adjectives)))
+
     # Tags for nouns
-    noun_tag=['NN', 'NNS', 'NNPS', 'NNP']
-    
+    noun_tag = ["NN", "NNS", "NNPS", "NNP"]
 
-    
-    #Tokenize text
-    doc = nlp(text)    
+    # Tokenize text
+    doc = nlp(text)
 
-
-    
     for _ in itertools.repeat(None, max_outputs):
-        
 
-        ReplPot=0 # counts potential replcacements, which could have been made if the probability of replcement would be set to one for all PoS
-        ReplMade=0 # counts actual replcacements
-        
-        modified_toks=[] # modified tokens
-        for token in doc: 
-            isCap=token.text[0].isupper() # check if token begins with the capital letter
-            
-            #Nouns
+        ReplPot = 0  # counts potential replcacements, which could have been made if the probability of replacement would be set to one for all PoS
+        ReplMade = 0  # counts actual replcacements
+
+        modified_toks = []  # modified tokens
+        for token in doc:
+            isCap = token.text[
+                0
+            ].isupper()  # check if token begins with the capital letter
+
+            # Nouns
             if token.tag_ in noun_tag:
-                #Check if word is in the corresponding dictionary
-                if token.lemma_ in Slang_Nouns[0]:   
-                    ReplPot+=1 # increment potential replacements
-                    
-                    repDecision=random.uniform(0, 1)<=probReplaceNoun # Randomly decide whether to replace or not
-                    if repDecision: #if replcement is made
-                        ReplMade+=1 
-                        
-                        #Choose a new word for replacement
-                        #ind=Slang_Nouns[0].index(token.lemma_)   
-                        indAll = [i for i, x in enumerate(Slang_Nouns[0]) if x == token.lemma_] # all possible replacements 
-                        ind_r=random.randint(0, len(indAll)-1) # choose one of the replacements
-                        ind=indAll[ind_r] # index of that replacement
-                        
-                        #Take plural or signular form
-                        if token.tag_== 'NN' or token.tag_== 'NNP':
-                            temp=Slang_Nouns[1][ind] # pick the word chosen for replcacement
-                            if isCap: # Make the fist letter capital if necessary
-                                temp=temp[0].upper() + temp[1:]  
-                                
+                # Check if word is in the corresponding dictionary
+                if token.lemma_ in Slang_Nouns[0]:
+                    ReplPot += 1  # increment potential replacements
+
+                    repDecision = (
+                        random.uniform(0, 1) <= probReplaceNoun
+                    )  # Randomly decide whether to replace or not
+                    if repDecision:  # if replacement is made
+                        ReplMade += 1
+
+                        # Choose a new word for replacement
+                        # ind=Slang_Nouns[0].index(token.lemma_)
+                        indAllPosRepl = [
+                            i
+                            for i, x in enumerate(Slang_Nouns[0])
+                            if x == token.lemma_
+                        ]  # all possible replacements
+                        indChosenRepl = random.randint(
+                            0, len(indAllPosRepl) - 1
+                        )  # choose one of the replacements
+                        indChosenRepl = indAllPosRepl[
+                            indChosenRepl
+                        ]  # index of that replacement
+
+                        # Take plural or signular form
+                        if token.tag_ == "NN" or token.tag_ == "NNP":
+                            temp = Slang_Nouns[1][
+                                indChosenRepl
+                            ]  # pick the word chosen for replcacement
+                            if (
+                                isCap
+                            ):  # Make the fist letter capital if necessary
+                                temp = temp[0].upper() + temp[1:]
+
                             modified_toks.append(temp + token.whitespace_)
                         else:
-                            temp=Slang_Nouns[2][ind] # pick the word chosen for replcacement
-                            if isCap: # Make the fist letter capital if necessary
-                                temp=temp[0].upper() + temp[1:]  
-                                
-                            modified_toks.append(temp + token.whitespace_)
-                    
-                    else: #if no replcement is made
-                          modified_toks.append(token.text + token.whitespace_)
-                        
-                else: # if not in the dictionary
-                    modified_toks.append(token.text + token.whitespace_)
-            
-            #Adeverbs
-            elif token.tag_ == 'RB':
-                #Check if word is in the corresponding dictionary
-                if token.lemma_ in Slang_Adverbs[0]: 
-                    ReplPot+=1 # increment potential replacements
-        
-                    repDecision=random.uniform(0, 1)<=probReplaceAdverb # Randomly decide whether to replace or not
-                        
-                    if repDecision: #if replcement is made
-                        ReplMade+=1 
-        
-                        #Choose a new word for replacement                
-                        #ind=Slang_Adverbs[0].index(token.lemma_)
-                        indAll = [i for i, x in enumerate(Slang_Adverbs[0]) if x == token.lemma_] # all possible replacements 
-                        ind_r=random.randint(0, len(indAll)-1) # choose one of the replacements
-                        ind=indAll[ind_r] # index of that replacement                
-                        
-                        
-                        temp=Slang_Adverbs[1][ind] # pick the word chosen for replcacement
-                        if isCap: # Make the fist letter capital if necessary
-                            temp=temp[0].upper() + temp[1:] 
-                        modified_toks.append(temp + token.whitespace_)    
-                    
-                    else: #if no replcement is made
-                          modified_toks.append(token.text + token.whitespace_)            
-                    
-                else: # if not in the dictionary
-                    modified_toks.append(token.text + token.whitespace_)
-                    
-            #Adjectives
-            elif token.tag_ == 'JJ':
-                #Check if word is in the corresponding dictionary
-                if token.lemma_ in Slang_Adjectives[0]:      
-                    ReplPot+=1 # increment potential replacements
-        
-                    repDecision=random.uniform(0, 1)<=probReplaceAdjective # Randomly decide whether to replace or not
-                        
-                    if repDecision: #if replcement is made
-                        ReplMade+=1 
-        
-                        #Choose a new word for replacement                
-                        #ind=Slang_Adjectives[0].index(token.lemma_)
-                        indAll = [i for i, x in enumerate(Slang_Adjectives[0]) if x == token.lemma_] # all possible replacements 
-                        ind_r=random.randint(0, len(indAll)-1) # choose one of the replacements
-                        ind=indAll[ind_r] # index of that replacement                 
-                        
-                        temp=Slang_Adjectives[1][ind] # pick the word chosen for replcacement
-                        if isCap: # Make the fist letter capital if necessary
-                            temp=temp[0].upper() + temp[1:] 
-                        modified_toks.append(temp + token.whitespace_)   
-        
-                    else: #if no replcement is made
-                          modified_toks.append(token.text + token.whitespace_)              
-                        
-                else: # if not in the dictionary
-                    modified_toks.append(token.text + token.whitespace_)
-                   
-            else: # if not part of speech which might be replaced then just keep them   
-                modified_toks.append(token.text + token.whitespace_)
-                
-        modified_toks = ''.join(modified_toks)#Reconstruct the transformed text
+                            temp = Slang_Nouns[2][
+                                indChosenRepl
+                            ]  # pick the word chosen for replcacement
+                            if (
+                                isCap
+                            ):  # Make the fist letter capital if necessary
+                                temp = temp[0].upper() + temp[1:]
 
+                            modified_toks.append(temp + token.whitespace_)
+
+                    else:  # if no replacement is made
+                        modified_toks.append(token.text + token.whitespace_)
+
+                else:  # if not in the dictionary
+                    modified_toks.append(token.text + token.whitespace_)
+
+            # Adverbs
+            elif token.tag_ == "RB":
+                # Check if word is in the corresponding dictionary
+                if token.lemma_ in Slang_Adverbs[0]:
+                    ReplPot += 1  # increment potential replacements
+
+                    repDecision = (
+                        random.uniform(0, 1) <= probReplaceAdverb
+                    )  # Randomly decide whether to replace or not
+
+                    if repDecision:  # if replacement is made
+                        ReplMade += 1
+
+                        # Choose a new word for replacement
+                        # ind=Slang_Adverbs[0].index(token.lemma_)
+                        indAllPosRepl = [
+                            i
+                            for i, x in enumerate(Slang_Adverbs[0])
+                            if x == token.lemma_
+                        ]  # all possible replacements
+                        indChosenRepl = random.randint(
+                            0, len(indAllPosRepl) - 1
+                        )  # choose one of the replacements
+                        indChosenRepl = indAllPosRepl[
+                            indChosenRepl
+                        ]  # index of that replacement
+
+                        temp = Slang_Adverbs[1][
+                            indChosenRepl
+                        ]  # pick the word chosen for replcacement
+                        if isCap:  # Make the fist letter capital if necessary
+                            temp = temp[0].upper() + temp[1:]
+                        modified_toks.append(temp + token.whitespace_)
+
+                    else:  # if no replacement is made
+                        modified_toks.append(token.text + token.whitespace_)
+
+                else:  # if not in the dictionary
+                    modified_toks.append(token.text + token.whitespace_)
+
+            # Adjectives
+            elif token.tag_ == "JJ":
+                # Check if word is in the corresponding dictionary
+                if token.lemma_ in Slang_Adjectives[0]:
+                    ReplPot += 1  # increment potential replacements
+
+                    repDecision = (
+                        random.uniform(0, 1) <= probReplaceAdjective
+                    )  # Randomly decide whether to replace or not
+
+                    if repDecision:  # if replacement is made
+                        ReplMade += 1
+
+                        # Choose a new word for replacement
+                        # ind=Slang_Adjectives[0].index(token.lemma_)
+                        indAllPosRepl = [
+                            i
+                            for i, x in enumerate(Slang_Adjectives[0])
+                            if x == token.lemma_
+                        ]  # all possible replacements
+                        indChosenRepl = random.randint(
+                            0, len(indAllPosRepl) - 1
+                        )  # choose one of the replacements
+                        indChosenRepl = indAllPosRepl[
+                            indChosenRepl
+                        ]  # index of that replacement
+
+                        temp = Slang_Adjectives[1][
+                            indChosenRepl
+                        ]  # pick the word chosen for replcacement
+                        if isCap:  # Make the fist letter capital if necessary
+                            temp = temp[0].upper() + temp[1:]
+                        modified_toks.append(temp + token.whitespace_)
+
+                    else:  # if no replacement is made
+                        modified_toks.append(token.text + token.whitespace_)
+
+                else:  # if not in the dictionary
+                    modified_toks.append(token.text + token.whitespace_)
+
+            else:  # if there is no part of speech which might be replaced then just keep the original one
+                modified_toks.append(token.text + token.whitespace_)
+
+        modified_toks = "".join(
+            modified_toks
+        )  # Reconstruct the transformed text
 
         perturbed_texts.append(modified_toks)
-        
+
     return perturbed_texts
-
-
-
 
 
 class Slangificator(SentenceOperation):
@@ -165,22 +204,37 @@ class Slangificator(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "external-knowledge-based",
+        "tokenizer-required",
+        "possible-meaning-alteration",
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        
-        pathDic=os.path.dirname(os.path.abspath(__file__))
-        
-        # Load dictionaries
-        self.Slang_Nouns = [line.strip('\n\r').split(',') for line in open(os.path.join(pathDic, 'Slang_Nouns.txt'), "r")]
-        self.Slang_Adverbs= [line.strip('\n\r').split(',') for line in open(os.path.join(pathDic, 'Slang_Adverbs.txt'), "r")]
-        self.Slang_Adjectives= [line.strip('\n\r').split(',') for line in open(os.path.join(pathDic, 'Slang_Adjectives.txt'), "r")]
 
+        pathDic = os.path.dirname(os.path.abspath(__file__))
+
+        # Load dictionaries
+        self.Slang_Nouns = [
+            line.strip("\n\r").split(",")
+            for line in open(os.path.join(pathDic, "Slang_Nouns.txt"), "r")
+        ]
+        self.Slang_Adverbs = [
+            line.strip("\n\r").split(",")
+            for line in open(os.path.join(pathDic, "Slang_Adverbs.txt"), "r")
+        ]
+        self.Slang_Adjectives = [
+            line.strip("\n\r").split(",")
+            for line in open(
+                os.path.join(pathDic, "Slang_Adjectives.txt"), "r"
+            )
+        ]
 
     def generate(self, sentence: str):
-        
-        
-        
+
         perturbed_texts = slangify(
             self,
             text=sentence,

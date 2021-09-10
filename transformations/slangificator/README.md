@@ -12,6 +12,13 @@ This transformation is intended to model slang by taking the original text and r
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 
 text generation, etc. 
 
+## Robustness Evaluation
+The outcome of running 'python evaluate.py -t Slangificator' was as follows:
+The accuracy on this subset which has 1000 examples = 96.0
+Finished transformation! 1000 examples generated from 1000 original examples, with 999 successfully transformed and 1 unchanged (0.999 perturb rate)
+Here is the performance of the model on the transformed set
+The accuracy on this subset which has 1000 examples = 93.0
+
 ## Previous Work
 The author is not aware of the previous research work is this direction. 
 The dictionaries for the parts of speech used in this transformation have been hand-crafted by the author using the "Dictionary of English Slang & Colloquialisms" (http://www.peevish.co.uk/slang/index.htm) as the only source of slang words.
