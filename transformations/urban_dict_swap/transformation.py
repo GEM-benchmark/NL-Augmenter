@@ -21,11 +21,13 @@ class UrbanThesaurusSwap(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = ["lexical", "api-based", "unnaturally-written", "possible-meaning-alteration", "high-precision",
+                "high-coverage", "figurative-language"]
 
     retry_strategy = Retry(
         total=3,
         status_forcelist=[429, 500, 502, 503, 504],
-        allowed_methods=["HEAD", "GET", "OPTIONS"],
+        method_whitelist=["HEAD", "GET", "OPTIONS"],
     )
     adapter = HTTPAdapter(max_retries=retry_strategy)
     http = requests.Session()
@@ -59,8 +61,10 @@ class UrbanThesaurusSwap(SentenceOperation):
                         doc = r.json()
                         new_items = []
                         for item in doc:
-                            if item["score"] > self.min_score:
-                                new_items.append(item)
+                            if isinstance(item, dict):
+                                if "score" in item.keys():
+                                    if float(item["score"]) > self.min_score:
+                                        new_items.append(item)
                         if len(new_items) > 0:
                             new_text.append(random.choice(new_items)["word"])
                         else:

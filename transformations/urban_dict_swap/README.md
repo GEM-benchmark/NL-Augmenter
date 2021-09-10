@@ -17,10 +17,21 @@ related terms to swap in.
 This perturbation is intended to benefit tasks with a sentence/document input for which the researcher desires an
 expanded test set to evaluate robustness.
 
+## Robustness Evaluation
+
+Automatic evaluation was carried out using the 
+[`evaluate.py`](https://github.com/GEM-benchmark/NL-Augmenter/blob/main/evaluate.py) script with the following models. 
+All evaluations carried out for the Text Classification task type. 
+
+For more evaluation details, please see [here](https://github.com/GEM-benchmark/NL-Augmenter/tree/main/evaluation).
+
+| Transformation              | roberta-base-SST-2   | bert-base-uncased-QQP   | roberta-large-mnli   | roberta-base-imdb   |
+|:----------------------------|:---------------------|:------------------------|:---------------------|:--------------------|
+| UrbanThesaurusSwap          | 94.0->92.0 (-2.0)    | 92.0->90.0 (-2.0)       | 91.0->90.0 (-1.0)    | 95.0->94.0 (-1.0)   |
 
 ## Previous Work
 
-This transformation relies on the [Urban Thesaurus](https://urbanthesaurus.org/) resource.
+This transformation relies on the [Urban Thesaurus](https://urbanthesaurus.org/) website.
 
 Prior research leveraging Urban Dictionary:
 
