@@ -15,6 +15,9 @@ This perturbation would benefit text/token classification, text-to-text generati
 ## Why is this transformation important?
 This transformation is important for testing whether model performance on tasks that should be invariant to changes in locations listed in text are actually invariant. For example, preliminary experimentation has shown that several popular models for automatically recognizing locations via named entity recognition are not invariant to changes in location. In particular, less populous cities are more likely to be missed by named entity recognition than more populous cities even if the surrounding context is identical. This transformation was therefore created to determine whether models for other tasks exhibit similar bias.
 
+## Robustness Evaluation
+This transformation was tested on text classification using the roberta-large-mnli model using the MNLI dataset, and accuracy decreased from 87.0 to 86.0 after the transformation. (The transformation is more effective in Named Entity Recognition tests, but it is not in the correct format for text tagging).
+
 ## Installations
 In order to use this transformation for Spanish, you must have the Spanish SpaCy model installed. This can be done through this [link](https://github.com/explosion/spacy-models/releases/tag/es_core_news_sm-3.1.0), or through this command:
 ``` sh
