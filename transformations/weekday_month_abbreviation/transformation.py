@@ -35,6 +35,14 @@ class WeekdayMonthAbbreviation(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "highly-meaning-preserving",
+        "high-precision",
+        "low-coverage",
+        "low-generations",
+    ]
 
     def __init__(self):
         super().__init__()
