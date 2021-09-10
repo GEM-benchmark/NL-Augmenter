@@ -4,19 +4,19 @@
     {
       "class": "UnitConverter",
       "inputs": {
-        "sentence": "I weight 100 pounds."
+        "sentence": "I weigh 100 pounds."
       },
       "outputs": [{
-        "sentence": "I weight 1600.002 ounces."
+        "sentence": "I weigh 1600.002 ounces."
       }]
     },
     {
       "class": "UnitConverter",
       "inputs": {
-        "sentence": "I weight one-hundred pounds."
+        "sentence": "I weigh one-hundred pounds."
       },
       "outputs": [{
-        "sentence": "I weight one thousand, six hundred point zero zero two ounces."
+        "sentence": "I weigh one thousand, six hundred point zero zero two ounces."
       }]
     },
     {
@@ -31,10 +31,10 @@
     {
       "class": "UnitConverter",
       "inputs": {
-        "sentence": "The phone is five centimeters wide and it weights 170 grams."
+        "sentence": "The phone is five centimeters wide and it weighs 170 grams."
       },
       "outputs": [{
-        "sentence": "The phone is zero point zero five five yards wide and it weights 5.997 ounces."
+        "sentence": "The phone is zero point zero five five yards wide and it weighs 5.997 ounces."
       }]
     },
     {
