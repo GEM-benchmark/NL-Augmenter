@@ -94,6 +94,13 @@ class UnitConverter(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "unnaturally-written",
+        "highly-meaning-preserving",
+        "low-coverage",
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
