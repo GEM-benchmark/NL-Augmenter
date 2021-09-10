@@ -39,6 +39,7 @@ class EmojiToIcon(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["All"]
+    keywords = ["rule-based", "visual", "high-precision", "low-coverage"]
 
     def __init__(self, seed=42, max_outputs=1, emoji_to_icon=False):
         super().__init__(seed, max_outputs=max_outputs)
