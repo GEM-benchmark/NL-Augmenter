@@ -33,7 +33,7 @@ The [task](../tasks/TaskTypes.py) (`-t`), [dataset](https://huggingface.co/datas
 
 ```bash
 python evaluate.py -t ButterFingersPerturbation -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-imdb" -d "imdb" -p 20
-```  
+```
 
 Note that it's highly possible that some of the evaluate_* functionality won't work owing to the variety of dataset and model formats. We've tried to mitigate this by using models and datasets of HuggingFace. If you wish to evaluate on models and datasets apart from those mentioned [here](evaluation_engine.py), you are welcome to do so. Do mention in your README how they turned out!
 
@@ -58,6 +58,7 @@ Here, we provide a leaderboards for each default task, by executing transformati
 | PunctuationWithRules        | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->91.0 (0.0)     | 95.0->90.0 (-5.0)   |
 | ReplaceNumericalValues      | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->90.0 (-1.0)    | 95.0->95.0 (0.0)    |
 | SentenceReordering          | 94.0->95.0 (1.0)     | 92.0->93.0 (1.0)        | nan                  | 95.0->94.0 (-1.0)   |
+| TokenReplacement            | 94.0->89.0 (-5.0)    | 92.0->84.0 (-8.0)       | 91.0->89.0 (-2.0)    | 95.0->92.0 (-3.0)   |
 
 
 Default models and datasets:

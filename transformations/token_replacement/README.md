@@ -13,9 +13,30 @@ The default lookup tables already offer fairly large coverage (almost 100,000 ta
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, text generation, etc. It could be used for robustness evaluation as well as for data augmentation.
 
-As a result of applying this transformation, the following preliminary results of the robustness evaluation were obtained:
+As a result of applying this transformation, the following results of the robustness evaluation were obtained:
 
-- The accuracy of the RoBERTa model ("*aychang/roberta-base-imdb*"), evaluated on a subset of 1000 examples from the IMDB sentiment dataset, dropped from 96.0 (original examples) to 91.0 (perturbed examples).
+* The accuracy of the *textattack/roberta-base-imdb* model, evaluated on a subset of 1000 examples from the IMDB test set, dropped from 95.0 (original examples) to 92.0 (perturbed examples).
+
+```bash
+python evaluate.py -t TokenReplacement -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-imdb" -d "imdb" -p 20
+```
+
+* The accuracy of the *roberta-large-mnli* model, evaluated on a subset of 1000 examples from the MNLI validation set, dropped from 91.0 (original examples) to 89.0 (perturbed examples).
+
+```bash
+python evaluate.py -t TokenReplacement -task "TEXT_CLASSIFICATION" -m "roberta-large-mnli" -d "mnli" -p 20
+```
+* The accuracy of the *textattack/bert-base-uncased-QQP* model, evaluated on a subset of 1000 examples from the QQP validation set, dropped from 92.0 (original examples) to 84.0 (perturbed examples).
+
+```bash
+python evaluate.py -t TokenReplacement -task "TEXT_CLASSIFICATION" -m "textattack/bert-base-uncased-QQP" -d "qqp" -p 20
+```
+* The accuracy of the *textattack/roberta-base-SST-2* model, evaluated on a subset of 174 examples from the SST-2 validation set, dropped from 94.0 (original examples) to 89.0 (perturbed examples).
+
+```bash
+python evaluate.py -t TokenReplacement -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-SST-2" -d "sst2" -p 20
+```
+
 - The average BLEU score of the DistilBART model ("*sshleifer/distilbart-xsum-12-6*"), evaluated on a subset (10%) of XSum dataset, dropped from 15.25 (original examples) to 13.38 (perturbed examples).
 
 ## Previous Work
