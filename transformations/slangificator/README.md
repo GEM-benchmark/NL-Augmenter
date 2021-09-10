@@ -14,9 +14,13 @@ text generation, etc.
 
 ## Robustness Evaluation
 The outcome of running 'python evaluate.py -t Slangificator' was as follows:
+
 The accuracy on this subset which has 1000 examples = 96.0
+
 Finished transformation! 1000 examples generated from 1000 original examples, with 999 successfully transformed and 1 unchanged (0.999 perturb rate)
+
 Here is the performance of the model on the transformed set
+
 The accuracy on this subset which has 1000 examples = 93.0
 
 ## Previous Work
