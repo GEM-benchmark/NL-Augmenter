@@ -4,7 +4,7 @@ The following is a list of currently supported interfaces along-with sample tran
 
 | Interface                             | Description                                                                       | Tasks                               | Example Transformation | Default Evaluation Models & Datasets
 | ----------                            | -----------                                                                       | -----                               | -----   | -----
-| [`SentenceOperation`](../interfaces/SentenceOperation.py)              | Expects a text as input and return of a transformed piece of text.                | Text Classification, T2T Generation | [`BackTranslation`](../transformations/back_translation)| ("aychang/roberta-base-imdb", "imdb")
+| [`SentenceOperation`](../interfaces/SentenceOperation.py)              | Expects a text as input and return of a transformed piece of text.                | Text Classification, T2T Generation | [`BackTranslation`](../transformations/back_translation)| ("textattack/roberta-base-imdb", "imdb")
 | [`SentenceAndTargetOperation`](../interfaces/SentenceOperation.py)      | Expects a source and a target text as inputs and return of their transformations. | Text Classification, T2T Generation             | [`ChangeTwoWayNamedEntities`](../transformations/change_two_way_ne) | ("sshleifer/distilbart-xsum-12-6", "xsum")     
 | `KeyValuePairsOperation`          | Expects key-value pairs as input and returns a piece of text as output.           | AMR-to-Text, E2E Task               | -----|
 | `RDFOperation`                    | Expects an RDF triplet as input and returns a piece of RDF triplet as output.     | RDF-to-Text Generation              | -----|
