@@ -43,3 +43,7 @@ is about 5% for English and about 10% for German data for sentences of average l
 Lowering the perturbation rate increases the risk of paraphrasing the sentences without changing their meaning.
 
 Since this transformation requires the use of a pre-trained language model (via HuggingFace), it is comparatively heavy-weighted.
+
+Author:
+Hanna Behnke, Imperial College London
+(hanna.behnke20@imperial.ac.uk)

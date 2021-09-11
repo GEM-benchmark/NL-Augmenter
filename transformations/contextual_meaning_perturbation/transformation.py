@@ -10,7 +10,11 @@ from tasks.TaskTypes import TaskType
 
 
 class ContextualMeaningPerturbation(SentenceOperation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    tasks = [
+        TaskType.TEXT_CLASSIFICATION,
+        TaskType.TEXT_TO_TEXT_GENERATION,
+        TaskType.QUALITY_ESTIMATION,
+    ]
     languages = ["en", "de"]
     heavy = True
 
@@ -136,9 +140,6 @@ class ContextualMeaningPerturbation(SentenceOperation):
 
         replacement_dict = defaultdict(list)
         for original_token in perturbation_dict:
-            #    replacement_dict[original_token] = perturbation_dict[
-            #        original_token
-            #    ][0]["token_str"]
 
             # Replace with the first best choice in case no better candidate is found
             for replacement_candidate in perturbation_dict[original_token]:
