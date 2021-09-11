@@ -10,6 +10,8 @@ More model details can be [found here](https://github.com/saffsd/langid.py).
 
 Author: [Richard Plant](https://orcid.org/0000-0002-0239-2090)
 
+Based on prior work by [Marco Lui](https://github.com/saffsd)
+
 ## Why is measuring performance on this split important?
 
 This filter can help remove texts in languages other than the desired set, promoting more rapid and efficient training. 
