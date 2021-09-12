@@ -187,7 +187,7 @@ class RandomWalk(SentenceOperation):
             perturbed_texts = random.sample(perturbed_texts, self.max_outputs)
         return perturbed_texts
 
-
+"""
 # The code to produce 'test.json' must be commented out so that pytest succeeds.
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 # You don't need to keep this code in your transformation.
@@ -210,6 +210,6 @@ if __name__ == '__main__':
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file, indent=2))
 
-    #with open('test.json', 'w') as f:
-    #    json.dump(json_file, f, indent=2)
-
+    with open('test.json', 'w') as f:
+        json.dump(json_file, f, indent=2)
+"""
