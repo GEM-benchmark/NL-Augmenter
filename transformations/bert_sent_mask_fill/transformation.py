@@ -52,7 +52,7 @@ class BertSentenceMaskFilling(SentenceOperation):
             print("Loading SpaCy Model..\n")
 
         self.nlp = spacy.load(spacy_model_name)
-        torch.manual_seed(seed)
+        set_seed(seed)
 
         if self.verbose:
             print("Completed loading BERT Mask Fill and SpaCy Models..\n")
