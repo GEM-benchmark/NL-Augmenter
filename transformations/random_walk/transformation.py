@@ -15,13 +15,20 @@ import torch
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-
+'''
 def _mask_word(sentence, word_to_mask, tokenizer):
     """ helper function,
     replace word in a sentence with mask-token, as prep for BERT tokenizer"""
     start_index = sentence.find(word_to_mask)
     return sentence[0:start_index] + tokenizer.mask_token + sentence[
         start_index + len(word_to_mask):]
+'''
+
+def _mask_word(sentence, split_indices, mask):
+    """ helper function,
+    replace word in a sentence with mask-token, as prep for BERT tokenizer"""
+    return sentence[0:split_indices[0]] + mask + sentence[
+        split_indices[1]:]
 
 
 def get_k_replacement_words(tokenized_text, tokenizer, model, k):
@@ -68,23 +75,35 @@ def single_sentence_random_step(sentence, tokenizer, model, k):
     Returns:
         [list]: k-sentences with masked word replaced with top-k most similar words
     """
-    text_split = re.split('[ ?.,!;"]', sentence)
+    #text_split = re.split('[ ?.,!;"]', sentence)
+    split_iter = re.finditer(r"[\w']+|[.,!?;]", sentence)
+    text_split = []
+    split_indices = []
+    for m in split_iter:
+      text_split.append(m.group(0))
+      split_indices.append((m.start(), m.end()))
+
     included_mask = False
     while not included_mask: # Loop until the masked word is one of the first 512 tokens of input, since all else are discarded.
       # pick a random word to mask
-      word_to_mask = random.choice(text_split)
+      
+      rand_int = np.random.randint(len(text_split))
+      word_to_mask = text_split[rand_int]
       while len(word_to_mask) == 0 and not word_to_mask.isalnum(): # Avoid empty strings in split text
-          word_to_mask = random.choice(text_split)
+          rand_int = np.random.randint(len(text_split))
+          word_to_mask = text_split[rand_int]
+      
       # mask word
-      new_text = _mask_word(sentence, word_to_mask, tokenizer)
+      new_text = _mask_word(sentence, split_indices[rand_int], tokenizer.mask_token)
 
       # get k replacement words
       top_k, included_mask = get_k_replacement_words(new_text, tokenizer, model, k=k)
+    replacement_words = [tokenizer.decode([token]) for token in top_k]
 
     # replace mask-token with the word from the top-k replacements
     return [
-        new_text.replace(tokenizer.mask_token, tokenizer.decode([token]))
-        for token in top_k if tokenizer.decode([token]).isalnum()
+        new_text.replace(tokenizer.mask_token, word)
+        for word in replacement_words
     ]
 
 
@@ -168,7 +187,7 @@ class RandomWalk(SentenceOperation):
             perturbed_texts = random.sample(perturbed_texts, self.max_outputs)
         return perturbed_texts
 
-"""
+
 # The code to produce 'test.json' must be commented out so that pytest succeeds.
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 # You don't need to keep this code in your transformation.
@@ -177,9 +196,9 @@ if __name__ == '__main__':
     from TestRunner import convert_to_snake_case
 
     tf = RandomWalk(max_outputs=3, k=2, steps=5, sim_req=0.25)
-    sentence = "Andrew finally returned the French book to Chris that I bought last week"
+    #sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
-    for sentence in ["Andrew finally returned the French book to Chris that I bought last week",
+    for sentence in ["Andrew finally returned the French book to Chris that I bought last week.",
                      "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments.",
                      "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
                      "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
@@ -191,6 +210,6 @@ if __name__ == '__main__':
     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     print(json.dumps(json_file, indent=2))
 
-    with open('test.json', 'w') as f:
-        json.dump(json_file, f, indent=2)
-"""
+    #with open('test.json', 'w') as f:
+    #    json.dump(json_file, f, indent=2)
+
