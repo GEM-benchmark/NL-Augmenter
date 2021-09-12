@@ -56,6 +56,8 @@ def male_to_female(pronoun):
             return "hers"
         else:
             return "her"
+    if pronoun_text == 'himself':
+        return 'herself'
     return None
 
 
@@ -74,7 +76,10 @@ def female_to_male(pronoun):
             return "him"
     if pronoun_text == "hers":
         return "his"
-
+    
+    if pronoun_text == 'herself':
+        return 'himself'
+    
     return None
 
 
@@ -82,8 +87,7 @@ class GenderRandomizer(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
-    def __init__(self):
-
+    def __init__(self, seed=23):
         # These lists are from https://www.kaggle.com/nltkdata/names
         with open(
             "transformations/gender_randomizer/names/female.txt"
@@ -94,6 +98,7 @@ class GenderRandomizer(SentenceOperation):
         with open("transformations/gender_randomizer/names/male.txt") as male:
             self.male_names = [name.strip("\n") for name in male.readlines()]
 
+        self.seed = self.seed
         self.text = None  # holds sentence
         self.parsed = None  # holds result of spacy nlp pipeline
         self.name_map = {}  # map of names to selected names
@@ -119,7 +124,7 @@ class GenderRandomizer(SentenceOperation):
         """
         Fixes pronouns to match new names
         """
-        pronouns = ["she", "her", "hers", "he", "his", "him"]
+        pronouns = ["she", "her", "hers", "he", "his", "him", "himself", "herself"]
         pronoun_dicts = {"male": female_to_male, "female": male_to_female}
 
         new_text = ""
@@ -129,7 +134,7 @@ class GenderRandomizer(SentenceOperation):
 
             if tok.text.lower() in pronouns:
                 ref = self.parsed._.coref_chains.resolve(tok)
-
+                print(tok, ref, tok.tag_, tok.pos_)
                 if ref is None or len(ref) > 1:
                     continue
 
@@ -166,4 +171,5 @@ class GenderRandomizer(SentenceOperation):
         Returns altered text, and saves it in self.text attribute
         sentence: text to modify
         """
+#         random.seed(self.seed)
         return self.run_swap(sentence)

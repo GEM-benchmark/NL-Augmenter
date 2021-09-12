@@ -5,7 +5,7 @@ Author email: __
 Author Affiliation: __
 
 ## What type of a transformation is this?
-This transformation changes names in English texts, randomizing selection so there's an even chance of male and female names. It modifies pronouns to match the selected name.
+This transformation changes names in English texts, randomizing selection so that there's an even chance of male and female names. Acknowledging that names are not deterministic identifiers of someone's gender/pronouns, here pronouns are modified to she/her/herself if the selected name is in names/female.txt and to he/his/him/himself if the selected name is in names/male.txt. These files can be modified or replaced as desired.
 
 ## What tasks does it intend to benefit?
 This is intended to avoid gender bias in natural language processing models. Run this transformation on text data prior to using it to train a model.
@@ -26,9 +26,9 @@ Because this is a randomized transformation, in both the selection of gender and
 
    Possible Output: '“Edward turned to Tandie. “It’s like this, you see. As Elvira grew older, she got more and more suspicious. She didn’t trust anybody.” “Very wise of her,” said Tandie. “The depravity of human nature is unbelievable.” '
 
-2) Input: 'Alex told me the hat was his.'
+2) Input: 'I think George never tells himself the truth.'
 
-   Possible Output: 'Emeline told me the hat was hers.'
+   Possible Output: 'I think Monique never tells herself the truth.'
 
 3) Input: 'Angela wanted to study abroad that summer but she decided to travel with her friends instead.'
 

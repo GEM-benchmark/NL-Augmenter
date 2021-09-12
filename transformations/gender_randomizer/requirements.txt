@@ -7,4 +7,4 @@ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0
 tensorflow==2.6.0
 tensorflow-gpu==2.6.0
 transformations/gender_randomizer/coreferee
-https://github.com/msg-systems/coreferee/raw/master/models/coreferee_model_en.zip
+transformations/gender_randomizer/coreferee/models/coreferee_model_en.zip
