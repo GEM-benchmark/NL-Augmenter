@@ -1,8 +1,8 @@
 # Gender Randomizer 🦎  + ⌨️ → 🐍
 
 Author name: Tabitha Sugumar
-Author email: __
-Author Affiliation: __
+Author email: t.sugumar@elsevier.com
+Author Affiliation: Elsevier
 
 ## What type of a transformation is this?
 This transformation changes names in English texts, randomizing selection so that there's an even chance of male and female names. Acknowledging that names are not deterministic identifiers of someone's gender/pronouns, here pronouns are modified to she/her/herself if the selected name is in names/female.txt and to he/his/him/himself if the selected name is in names/male.txt. These files can be modified or replaced as desired.
