@@ -47,10 +47,70 @@ and the quality of identification of low-resource languages in particular.
 As a useful side effect, it could help to decipher the [Voynich manuscript](https://en.wikipedia.org/wiki/Voynich_manuscript),
 the [Phaistos Disc](https://en.wikipedia.org/wiki/Phaistos_Disc), and other undeciphered artifacts.
 
+## Robustness Evaluation
+
+We've evaluated this transformation by running the build-in evaluate.py script as follows:
+`python3 evaluate.py -t WritingSystemReplacement`
+
+Note: it seems that there is a bug in 
+[this line](https://github.com/GEM-benchmark/NL-Augmenter/blob/f0111c1587cfa36cd4bd2c9739744e59c2796c26/TestRunner.py#L132)
+in TestRunner.py, making the script crash during any test, 
+which we temporally fixed by replacing the line's right side with `str(package_dir.parent.joinpath(search))`
+
+To speed up the test, we also removed all other transformations from the local NL-Augmenter/transformations dir.
+
+The results of the single run are as follows:
+
+```
+Here is the performance of the model aychang/roberta-base-imdb on the test[:20%] split of the imdb dataset
+The accuracy on this subset which has 1000 examples = 96.0
+Applying transformation:
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [00:19<00:00, 51.83it/s]
+Finished transformation! 1000 examples generated from 1000 original examples, with 1000 successfully transformed and 0 unchanged (1.0 perturb rate)
+Here is the performance of the model on the transformed set
+The accuracy on this subset which has 1000 examples = 100.0
+
+```
+
+The performance is surprisingly good, considering the dramatic changes made by our transformation.
+We are not sure if the results make sense. Could they be explained by an abnormal behavior of the testing pipeline?
+
 ## What are the limitations of this transformation?
 
 If the input text is too short, the transformed text will not contain enough information 
 to identify the language of the original text. 
-For example, there is not enough information to decipher '驿掩㑇㕶誨', 
-where each word of the original English input was replaced with a random CJK ideograph.
-Thus, for language identification purposes, we would suggest inputs of 1000 characters or more. 
+For example, if the input is `I love love love`, the output could look like this `人乇乇乇`. 
+In this example, each unique word was replaced with a randomly selected CJK ideograph.
+But no AI could reliably predict the original language from `人乇乇乇`, as almost no linguistic data are preserved
+in such a short text. 
+
+Thus, for language identification purposes, we would suggest inputs of at least 1k characters. 
+
+If the text is long enough, even the meaning could be recovered from the transformed / encrypted text,
+e.g. by using standard cryptographic methods. 
+For example, imagine that the input `I love potatoes... [many more chars after that]`
+was transformed into another alphabet like this: `了 乚凸丫丯 尸凸亍人亍凸丯乙...`. 
+While analyzing the output, one may notice that the character `凸` is very frequent, 
+and thus might be a common letter (in this case, `o`), making the rest of the decryption process much easier.
+We speculate that if a trained cryptographer can extract the meaning from such a ciphertext, 
+then a language model could do it too.  
+
+For the meaning to be reliably recoverable, we would suggest inputs of at least 10k characters.
+
+As @tia-e pointed out, the transformation doesn't fully preserve the syntax of the input. 
+For example, our transformation sometimes generates writing systems that don't have separators between words
+(similarly to Classical Greek, Thai, etc.). 
+Depending on the generated writing system, a single character could be replaced with several new characters,
+and the other way around. 
+This could make it significantly harder to extract the meaning from the transformed text.
+
+## Future work
+
+It would be interesting to add other types of writing systems, including logosyllabaries, alphasyllabaries, and
+the writing systems for sign languages.
+Some conlangs (especially, [Ithkuil](https://en.wikipedia.org/wiki/Ithkuil)) 
+could be a great inspiration for further additions. 
+
+As suggested by @tia-e, we would like to provide a way to support transformation in the both directions,
+with the ability to define the source and the target writing system 
+(currently, the target system is selected at random, regardless of the source system). 

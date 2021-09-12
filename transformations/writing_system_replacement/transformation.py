@@ -11,14 +11,23 @@ from tasks.TaskTypes import TaskType
 """
 """
 
-replace_white_spaces7 = False # if True, spaces will be considered as regular characters
-deletion_tag = "<del>" # how removed characters are marked in replacement reports
+# if True, spaces will be considered as regular characters
+replace_white_spaces = False
+# how removed characters are marked in replacement reports
+deletion_tag = "<del>"
 
 
-def build_chinese_chars():
-    """Returns a string containing many thousands of Chinese characters.
+def build_chinese_chars(use_all_codes=False):
+    """Returns a string containing many thousands of Chinese, Japanese, Korean (CJK) characters.
 
     We use the characters to generate novel alphabets and other writing systems.
+
+    If you want to greatly increase the number of available characters, set
+    use_all_codes to True.
+    But many systems can't render the additional CJK characters correctly yet (as of 24 jul 2021).
+    Thus, please enable them only if you're sure that characters are supported
+    on your system.
+    See also: https://en.wikipedia.org/wiki/List_of_CJK_Unified_Ideographs,_part_1_of_4
 
     >>> res0 = build_chinese_chars()
     >>> len(res0)
@@ -28,25 +37,23 @@ def build_chinese_chars():
     >>> res0[-60:]
     '䵹䵺䵻䵼䵽䵾䵿䶀䶁䶂䶃䶄䶅䶆䶇䶈䶉䶊䶋䶌䶍䶎䶏䶐䶑䶒䶓䶔䶕䶖䶗䶘䶙䶚䶛䶜䶝䶞䶟䶠䶡䶢䶣䶤䶥䶦䶧䶨䶩䶪䶫䶬䶭䶮䶯䶰䶱䶲䶳䶴'
     """
-    cjk_codes = """
-    4E00–9FDF
-    3400–4DB5
-    """
-    """You use the ranges below too, to greatly increase the 
-    number of available characters.
-    But many systems can't render them correctly yet (as of 24 jul 2021).
-    Thus, enable them only if you're sure that characters are supported
-    on your system. 
-    See also: https://en.wikipedia.org/wiki/List_of_CJK_Unified_Ideographs,_part_1_of_4
-    
-    3000–303F
-    20000–2A6DF
-    2A700–2B73F
-    2B740–2B81F
-    2B820–2CEAF
-    2CEB0–2EBEF
-    30000–3134F
-    """
+    if use_all_codes:
+        cjk_codes = """
+        4E00–9FDF
+        3400–4DB5
+        3000–303F
+        20000–2A6DF
+        2A700–2B73F
+        2B740–2B81F
+        2B820–2CEAF
+        2CEB0–2EBEF
+        30000–3134F
+        """
+    else:
+        cjk_codes = """
+        4E00–9FDF
+        3400–4DB5
+        """
 
     code_ranges = []
     for line in cjk_codes.split():
@@ -143,7 +150,7 @@ def replace_chars(
         if old_char in mapping:
             pass  # already mapped
         else:
-            if old_char == " " and not replace_white_spaces7:
+            if old_char == " " and not replace_white_spaces:
                 mapping[old_char] = " "
                 claimed_chars.add(" ")
             elif rnd_generator.random() < deletion_probability:
@@ -476,7 +483,17 @@ class WritingSystemReplacement(SentenceOperation):
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
-    languages = ["all"]
+    languages = "All"
+    keywords = [
+        "noise",
+        "morphological",
+        "lexical",
+        "syntactic",
+        "rule-based",
+        "unnaturally-written",
+        "possible-meaning-alteration",
+        "high-coverage",
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
