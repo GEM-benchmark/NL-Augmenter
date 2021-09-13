@@ -25,25 +25,10 @@ from tasks.TaskTypes import TaskType
         seed (int, default = 0): seed for reproducibility 
 '''
 
-def butter_finger(text, language:str, keyboard:str, prob=0.1,  seed=0, max_outputs=1):
-
-    mapping_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'key_mapping.json')
-
-    with open(mapping_path,'r') as f:
-        key_mapping = json.load(f)
-
-    languages = list(key_mapping.keys())
-
-    if language not in key_mapping:
-        raise Exception(f"Language not supported. Available languages: {languages}.")
-
-    keyboards = list(key_mapping[language].keys())
-    if keyboard not in key_mapping[language]:
-        raise Exception(f"Keyboard not supported. Available keyboards for '{language}': {keyboards}.")
+def butter_finger(text, key_approx, prob=0.1,  seed=0, max_outputs=1):
 
     random.seed(seed)
-    key_approx = key_mapping[language][keyboard]
-
+    
     prob_of_typo = int(prob * 100)
     perturbed_texts = []
     for _ in itertools.repeat(None, max_outputs):
@@ -89,6 +74,22 @@ class ButterFingersPerturbation(SentenceOperation):
         self.language = language
         self.keyboard = keyboard
 
+        mapping_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'key_mapping.json')
+
+        with open(mapping_path,'r') as f:
+            self.key_mapping = json.load(f)
+
+        languages = list(self.key_mapping.keys())
+
+        if language not in self.key_mapping:
+            raise Exception(f"Language not supported. Available languages: {languages}.")
+
+        keyboards = list(self.key_mapping[language].keys())
+        if keyboard not in self.key_mapping[language]:
+            raise Exception(f"Keyboard not supported. Available keyboards for '{language}': {keyboards}.")
+
+        self.key_approx = key_mapping[language][keyboard]
+
     @staticmethod
     def get_language_mapping(self):
         return self.language_mapping
@@ -96,8 +97,7 @@ class ButterFingersPerturbation(SentenceOperation):
     def generate(self, sentence:str):
         perturbed_texts = butter_finger(
             text=sentence,
-            language=self.language,
-            keyboard=self.keyboard,
+            key_approx = self.key_approx,
             prob=0.05,
             seed=self.seed,
             max_outputs=self.max_outputs,
