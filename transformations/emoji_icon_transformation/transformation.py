@@ -1,13 +1,15 @@
 import json
 import os
 import random
+from typing import List
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 
-def convert(perturbed_text, dict1, dict2):
-    for k in dict1:
+# Check if any emoji(icon) from dict1 in text and substitute them with a random corresponding icon(emoji) from dict2
+def convert(perturbed_text: str, dict1: dict, dict2: dict) -> str:
+    for k in dict1:  # k is the emoji/icon type (e.g., ":)" is of type smiley
         for s in dict1[k]:
             if s in perturbed_text:
                 perturbed_text = perturbed_text.replace(
@@ -16,9 +18,15 @@ def convert(perturbed_text, dict1, dict2):
     return perturbed_text
 
 
+# generate max_outputs different perturbed texts for each text, selecting if translating emoji to icon or icon to emoji with emoji_to_icon variable
 def emoji2icon(
-    text, text2emoji, text2icon, seed=42, max_outputs=1, emoji_to_icon=True
-):
+    text: str,
+    text2emoji: dict,
+    text2icon: dict,
+    seed: int = 42,
+    max_outputs: int = 1,
+    emoji_to_icon: bool = True,
+) -> List[str]:
     random.seed(seed)
 
     perturbed_texts = []
@@ -41,7 +49,9 @@ class EmojiToIcon(SentenceOperation):
     languages = ["All"]
     keywords = ["rule-based", "visual", "high-precision", "low-coverage"]
 
-    def __init__(self, seed=42, max_outputs=1, emoji_to_icon=False):
+    def __init__(
+        self, seed: int = 42, max_outputs: int = 1, emoji_to_icon: bool = False
+    ):
         super().__init__(seed, max_outputs=max_outputs)
         self.emoji_to_icon = emoji_to_icon
 
@@ -56,7 +66,7 @@ class EmojiToIcon(SentenceOperation):
         self.text2emoji = json.load(open(text2emoji_path, "r"))
         self.text2icon = json.load(open(text2icon_path, "r"))
 
-    def generate(self, sentence: str):
+    def generate(self, sentence: str) -> List[str]:
         perturbed_texts = emoji2icon(
             text=sentence,
             text2emoji=self.text2emoji,
