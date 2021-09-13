@@ -14,7 +14,7 @@ default_conjugator = mlconjug.Conjugator(language="fr")
 nlp = spacy.load("fr_core_news_lg")
 nltk.download("wordnet")
 nltk.download("punkt")
-
+nlp = spacy.load("fr_core_news_md")
 # definition of spacy pipeline
 
 
@@ -368,13 +368,13 @@ class Conjugation_transformation(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
     ]
-    # languages = ["en"]
+    languages = ["fr"]
 
     # The transormation tense is specified here
-    def __init__(self, seed=0, max_outputs=1, tense="Futur"):
-        super().__init__(seed, max_outputs=max_outputs)
+    def __init__(self, tense):
+        super().__init__()
+        assert tense in ["Futur", "Imparfait"]
         self.tense = tense
 
     def generate(self, sentence: str):
