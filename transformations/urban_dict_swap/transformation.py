@@ -13,6 +13,22 @@ from tasks.TaskTypes import TaskType
 class UrbanThesaurusSwap(SentenceOperation):
     """
     Randomly swap nouns from the input text for related terms from the Urban Dictionary.
+
+    Attributes
+    ----------
+    seed : int
+        Seed to initialize random generation.
+    prob : float
+        Probability of transforming each noun.
+    min_score: float
+        Minimum relevancy score returned from API to consider as related term.
+    max_outputs: int
+        Maximum number of output sequences to return.
+
+    Methods
+    -------
+    generate(sentence):
+        Generates transformed output sequences for input sentence.
     """
 
     tasks = [
@@ -46,10 +62,20 @@ class UrbanThesaurusSwap(SentenceOperation):
         pass
 
     def generate(self, sentence: str):
-        perturbed_texts = self.get_swap(text=sentence)
+        """
+        Return transformed input sequence.
+        @param sentence: Original input sequence
+        @return: List of transformed output sequences
+        """
+        perturbed_texts = self.__get_swap(text=sentence)
         return perturbed_texts
 
-    def get_swap(self, text: str):
+    def __get_swap(self, text: str):
+        """
+        Iterate through input sequence, obtain related terms for nouns from API
+        @param text: Input sequence
+        @return: List of transformed output sequences
+        """
         random.seed(self.seed)
         results = []
         for _ in range(self.max_outputs):
