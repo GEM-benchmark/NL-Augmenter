@@ -153,11 +153,15 @@ class ProtaugmentDiverseParaphrase(SentenceOperation, ABC):
         # Linguistic change
         "lexical",
         # Type of algorithm
-        "model-based", "transformer-based", "tokenizer-required",
+        "model-based",
+        "transformer-based",
+        "tokenizer-required",
         # Naturalness of the generation
-        "unnatural-sounding", "unnaturally-written",
+        "unnatural-sounding",
+        "unnaturally-written",
         # Potential accuracy & precision of the generation
-        "possible-meaning-alteration", "high-coverage"
+        "possible-meaning-alteration",
+        "high-coverage",
     ]
 
     def __init__(
