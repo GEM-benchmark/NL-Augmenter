@@ -1,6 +1,6 @@
 # Paraphrasing through the use of style transfer
 
-This perturbation provides a range of possible styles of writing, enabling an easy use of style transfer paraphrase models originally introduced in the paper [Reformulating Unsupervised Style Transfer as Paraphrase Generation (2020)](https://arxiv.org/abs/2010.05700) (K. Krishna et al.), published at EMNLP 2020.
+This perturbation provides a range of possible styles of writing, enabling an easy use of style transfer paraphrase models originally introduced in the paper [Reformulating Unsupervised Style Transfer as Paraphrase Generation (2020)](https://aclanthology.org/2020.emnlp-main.55/) (K. Krishna et al.), published at EMNLP 2020.
 
 Author name: Filip Cornell
 Author email: c.filip.cornell@gmail.com
@@ -12,21 +12,21 @@ This is a paraphraser that transfers between different styles. Several models ar
 
 The current styles of writing supporting are:
 
-- Shakespeare
-- Switchboard
-- Tweets
-- Bible
-- Romantic poetry
-- Basic
+- Shakespeare - A Style transfer paraphraser paraphrasing as if Shakespeare would have written the sentence.
+- Switchboard - A paraphraser trained on a collection of conversational speech transcripts.
+- Tweets - A paraphraser trained on 5.2M English tweets.
+- Bible - A paraphraser trained on texts from the Bible.
+- Romantic poetry - A paraphraser trained on romantic poetry.
+- Basic - A light, basic paraphraser with no specific style.
 
-I will most likely add more pre-trained models as possibilities to use as I add more of the pre-trained models to Huggingface. For more information on these styles, please see the original paper: https://arxiv.org/abs/2010.05700.
+I will most likely add more pre-trained models as possibilities to use as I add more of the pre-trained models to Huggingface. For more information on these styles, please see the original paper: https://aclanthology.org/2020.emnlp-main.55/.
 
 ## What tasks does it intend to benefit?
-Given the multiple different models enabled to be used easily through this interface (Basic, Bible, Shakespeare, Tweets, Switchboard and Romantic poetry), this can be used in a variety of cases. However, this can mainly work as an augmentation for improving sentence classification, perhaps from different domains. As shown by the Krishna K. et al. in their original paper, a diverse paraphrasing has the ability to normalize sentence by removing stylistic identifiers (see Figure 2 in the original paper: https://arxiv.org/abs/2010.05700).
+Given the multiple different models enabled to be used easily through this interface (Basic, Bible, Shakespeare, Tweets, Switchboard and Romantic poetry), this can be used in a variety of cases. However, this can mainly work as an augmentation for improving sentence classification, perhaps from different domains. As shown by the Krishna K. et al. in their original paper, a diverse paraphrasing has the ability to normalize sentence by removing stylistic identifiers (see Figure 2 in the original paper: https://aclanthology.org/2020.emnlp-main.55/).
 
 ## Data and Code Provenance
 This transformation makes use of code and pre-trained models from: https://github.com/martiansideofthemoon/style-transfer-paraphrase. This is therefore entirely based on the paper [Reformulating Unsupervised Style Transfer as Paraphrase Generation
-](https://arxiv.org/abs/2010.05700).
+](https://aclanthology.org/2020.emnlp-main.55/).
 
 The license of the original code is included in the folder, and is an MIT License. Note that the author of this perturbation is not the author of the original code and paper, but has been in direct contact with the main author of the original paper.
 
