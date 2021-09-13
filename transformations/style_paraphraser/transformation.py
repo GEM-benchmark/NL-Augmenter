@@ -43,7 +43,15 @@ class StyleTransferParaphraser(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
     heavy = True
-
+    keywords = [
+        "model-based",
+        "transformer-based",
+        "tokenizer-required",
+        "unnatural-sounding",
+        "unnaturally-written",
+        "possible-meaning-alteration",
+        "high-coverage",
+    ]
     """
         Style transfer paraphraser, using a GPT2-model of choice.
 
