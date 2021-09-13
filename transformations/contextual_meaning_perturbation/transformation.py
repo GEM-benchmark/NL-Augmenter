@@ -1,4 +1,5 @@
 import itertools
+import logging
 import random
 from collections import defaultdict
 
@@ -26,27 +27,25 @@ class ContextualMeaningPerturbation(SentenceOperation):
         language="en",
         pos_to_change=["ADV", "ADJ", "VERB", "NOUN", "PROPN"],
         perturbation_rate=0.3,
-        verbose=False,
     ):
         super().__init__(seed, max_outputs=max_outputs)
-        self.verbose = verbose
         self.seed = seed
         self.max_outputs = max_outputs
         random.seed(self.seed)
-        if self.verbose:
-            print("Starting to load the cross-lingual XLM-R (base) model.\n")
+        logging.info(
+            "Starting to load the cross-lingual XLM-R (base) model.\n"
+        )
         self.unmasker = pipeline(
             "fill-mask", model="xlm-roberta-base", top_k=top_k
         )
-        if self.verbose:
-            print("Completed loading the cross-lingual XLM-R (base) model.\n")
-
-        if self.verbose:
-            print(
-                "Starting to load Spacy model ("
-                + language
-                + ") for retrieving linguistic features.\n"
-            )
+        logging.info(
+            "Completed loading the cross-lingual XLM-R (base) model.\n"
+        )
+        logging.info(
+            "Starting to load Spacy model ("
+            + language
+            + ") for retrieving linguistic features.\n"
+        )
         if language == "en":
             self.linguistic_pipeline = spacy.load("en_core_web_sm")
         elif language == "de":
@@ -61,8 +60,7 @@ class ContextualMeaningPerturbation(SentenceOperation):
             raise NotImplementedError(
                 "As of now, only English and German are supported."
             )
-        if self.verbose:
-            print("Completed loading Spacy model.\n")
+        logging.info("Completed loading Spacy model.\n")
 
         self.pos_to_change = pos_to_change
         assert perturbation_rate <= 1 and perturbation_rate >= 0
@@ -100,11 +98,10 @@ class ContextualMeaningPerturbation(SentenceOperation):
         perturbation_dict = {}
         tokens, pos_tags, lemmas = self.get_linguistic_features(input)
         if self.count_eligible_tokens(pos_tags) == 0:
-            print(
-                "Warning: The sequence' ",
-                input,
-                " 'will remain unchanged as it didn't include the following POS tags:",
-                self.pos_to_change,
+            logging.warning(
+                "Warning: Sequence remained unchanged as it didn't include the following POS tags: {} \nAffected sequence: {}".format(
+                    self.pos_to_change, input
+                )
             )
             num_word_swaps = 0
         else:
@@ -112,8 +109,8 @@ class ContextualMeaningPerturbation(SentenceOperation):
                 1,
                 round(self.percentage * self.count_eligible_tokens(pos_tags)),
             )
-        if self.verbose:
-            print(num_word_swaps, " tokens will be masked.\n")
+
+        logging.info(num_word_swaps, " tokens will be masked.\n")
         tokens_to_mask = random.sample(
             [
                 token
@@ -158,15 +155,14 @@ class ContextualMeaningPerturbation(SentenceOperation):
                     perturbation_dict[original_token][0]["token_str"]
                 )
 
-        if self.verbose:
-            print("The following words will be replaced:\n")
-            for key in replacement_dict:
-                print(
-                    "Replacement candidates for",
-                    key,
-                    "include",
-                    replacement_dict[key],
-                )
+        logging.info("The following words will be replaced:\n")
+        for key in replacement_dict:
+            logging.info(
+                "Replacement candidates for",
+                key,
+                "include",
+                replacement_dict[key],
+            )
 
         # Calculate how many perturbations will be returned
 
@@ -186,8 +182,6 @@ class ContextualMeaningPerturbation(SentenceOperation):
 
     def generate(self, sentence: str):
         perturbation_sentences = self.select_and_apply_perturbations(sentence)
-
-        if self.verbose:
-            print("Original:/t", sentence)
-            print("Perturbation:/t", perturbation_sentences)
+        logging.info("Original:/t", sentence)
+        logging.info("Perturbation:/t", perturbation_sentences)
         return perturbation_sentences
