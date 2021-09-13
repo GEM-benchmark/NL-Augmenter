@@ -23,6 +23,9 @@ This perturbation would benefit all tasks which have text (a sentence/paragraph/
 ## What are the limitations of this transformation?
 The transformation's outputs are too simplistic to be used for data augmentation. Unlike a paraphraser, it is not capable of generating linguistically diverse text. It is not modifying a (linguistic) feature of the input (text), rather just creating some noise that is supposed to mirror typos in a naturalistic setting.
 
+## Robustness Evaluation
+The current proposed evaluation, however, does not have the provision to evaluate languages other than English. Therefore Indian Languages are not covered by the present robustness evaluation method. 
+
 ## Previous Work
 1) Butter Finger implementation borrowed from this code https://github.com/alexyorke/butter-fingers
 
