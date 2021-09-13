@@ -14,8 +14,9 @@ from interfaces.SentenceOperation import (
 from interfaces.TaggingOperation import TaggingOperation
 
 from TestRunner import OperationRuns
+from test.keywords import keywords_in_file
 
-
+expected_keywords = keywords_in_file()
 
 def get_assert_message(transformation, expected_output, predicted_output):
     transformation_name = transformation.__class__.__name__
@@ -100,10 +101,22 @@ def execute_tagging_test_case(transformation, test):
         )
 
 
+def assert_keywords(transformation):
+    print("Checking for keywords")
+    keywords_t = transformation.keywords
+    if keywords_t is not None: #TODO: later remove this as soon as all transformations have keywords
+        assert keywords_t is not None and len(keywords_t) > 0, f"Keywords of {transformation.name()} " \
+                                                               f"should not be empty"
+        assert set(keywords_t) < set(expected_keywords), f"Some Keywords in {transformation.name()} " \
+                                                        f"not present in docs/keywords.md file " \
+                                                         f": {set(keywords_t) - set(expected_keywords)} "
+
+
 def execute_test_case_for_transformation(transformation_name):
     print(f"Executing test cases for {transformation_name}")
     tx = OperationRuns(transformation_name)
     for transformation, test in zip(tx.operations, tx.operation_test_cases):
+        assert_keywords(transformation)
         print(f"Executing {transformation.name()}")
         if isinstance(transformation, SentenceOperation):
             execute_sentence_operation_test_case(transformation, test)
@@ -123,6 +136,7 @@ def execute_test_case_for_filter(filter_name):
     print(f"Executing test cases for {filter_name}")
     tx = OperationRuns(filter_name, "filters")
     for filter, test in zip(tx.operations, tx.operation_test_cases):
+        assert_keywords(filter)
         filter_args = test["inputs"]
         output = filter.filter(**filter_args)
         assert (
