@@ -1,0 +1,36 @@
+{
+  "type": "numeric",
+  "test_cases": [
+    {
+      "class": "TextContainsNumberFilter",
+      "inputs": {
+        "sentence": "I bought 5 mangoes from the market ."
+      },
+      "outputs": true
+    }, {
+      "class": "TextContainsNumberFilter",
+      "inputs": {
+        "sentence": "Where can I find some good online marketing courses ."
+      },
+      "outputs": false
+    }, {
+      "class": "TextContainsNumberFilter",
+      "inputs": {
+        "sentence": "John bought a car worth dollar twenty five thousand ."
+      },
+      "outputs": true
+    }, {
+      "class": "TextContainsNumberFilter",
+      "inputs": {
+        "sentence": "Khilji attacked India in eleventh century ."
+      },
+      "outputs": true
+    }, {
+      "class": "TextContainsNumberFilter",
+      "inputs": {
+        "sentence": "Taj mahal is the 7th wonder of the world ."
+      },
+      "outputs": true
+    }
+  ]
+}
