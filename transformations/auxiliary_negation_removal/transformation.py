@@ -1,10 +1,12 @@
 import spacy
+from spacy.tokenizer import Tokenizer
+from spacy.util import (
+    compile_infix_regex,
+    compile_prefix_regex,
+    compile_suffix_regex,
+)
 
 from initialize import spacy_nlp
-
-from spacy.util import compile_prefix_regex, compile_suffix_regex, compile_infix_regex
-from spacy.tokenizer import Tokenizer
-
 from interfaces.SentenceOperation import SentenceOperation
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
@@ -13,6 +15,24 @@ from tasks.TaskTypes import TaskType
 Auxiliary Negation Removal.
     Remove auxiliary negations generating a sentence with oposite meaning.
 """
+
+
+def reinitialize_spacy():
+    nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+    rules = nlp.Defaults.tokenizer_exceptions
+    infix_re = compile_infix_regex(nlp.Defaults.infixes)
+    prefix_re = compile_prefix_regex(nlp.Defaults.prefixes)
+    suffix_re = compile_suffix_regex(nlp.Defaults.suffixes)
+
+    nlp.tokenizer = Tokenizer(
+        nlp.vocab,
+        rules=rules,
+        prefix_search=prefix_re.search,
+        suffix_search=suffix_re.search,
+        infix_finditer=infix_re.finditer,
+    )
+
+    return nlp
 
 
 def auxiliary_negation_removal(sentence, nlp):
@@ -112,22 +132,7 @@ class SentenceAuxiliaryNegationRemoval(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        
-        nlp = spacy_nlp if spacy_nlp else spacy.load('en_core_web_sm')
-        rules = nlp.Defaults.tokenizer_exceptions
-        infix_re = compile_infix_regex(nlp.Defaults.infixes)
-        prefix_re = compile_prefix_regex(nlp.Defaults.prefixes)
-        suffix_re = compile_suffix_regex(nlp.Defaults.suffixes)
-
-        nlp.tokenizer = Tokenizer(
-            nlp.vocab,
-            rules = rules,
-            prefix_search=prefix_re.search,
-            suffix_search=suffix_re.search,
-            infix_finditer=infix_re.finditer,
-        )
-        
-        self.nlp = nlp
+        self.nlp = reinitialize_spacy()
 
     def generate(self, sentence: str):
 
@@ -160,7 +165,7 @@ class PairAuxiliaryNegationRemoval(SentencePairOperation):
 
     def __init__(self, seed=0, max_outputs=3, pos_label="1", neg_label="0"):
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = reinitialize_spacy()
         self.pos_label = pos_label
         self.neg_label = neg_label
 
