@@ -1,0 +1,75 @@
+{
+    "type": "keywords",
+    "test_cases": [
+        {
+            "class": "BritishnessFilter",
+            "args": {
+                "britwords_required": 2
+            },
+            "inputs": {
+                "sentence": "It is my honour to introduce Jerry Caughlin, the winner of the 2021 Optician Games."
+            },
+            "outputs": true
+        },
+        {
+            "class": "BritishnessFilter",
+            "args": {
+                "britwords_required": 1
+            },
+            "inputs": {
+                "sentence": "I put on my stars-n-stripes cowboy hat and drove my pickup truck to the rodeo at 90 mph."
+            },
+            "outputs": false
+        },
+        {
+            "class": "BritishnessFilter",
+            "args": {
+                "britwords_required": 1
+            },
+            "inputs": {
+                "sentence": "Colour is an attribute of light that is perceived by the human eye."
+            },
+            "outputs": true
+        },
+        {
+            "class": "BritishnessFilter",
+            "args": {
+                "britwords_required": 10
+            },
+            "inputs": {
+                "sentence": "Most words ending in an unstressed -our in British English (e.g., colour, flavour, behaviour, harbour, honour, humour, labour, neighbour, rumour, splendour) end in -or in American English."
+            },
+            "outputs": true
+        },
+        {
+            "class": "BritishnessFilter",
+            "args": {
+                "britwords_required": 1
+            },
+            "inputs": {
+                "sentence": "I'm right knackered!"
+            },
+            "outputs": true
+        },
+        {
+            "class": "BritishnessFilter",
+            "args": {
+                "britwords_required": 1
+            },
+            "inputs": {
+                "sentence": "I live in London. My body is 70% water and 30% fish and chips."
+            },
+            "outputs": false
+        },
+        {
+            "class": "BritishnessFilter",
+            "args": {
+                "britwords_required": 5
+            },
+            "inputs": {
+                "sentence": "My telly was wonky, so I gave some techy toff a tenner and now it's right jammy."
+            },
+            "outputs": true
+        }
+    ]
+}
