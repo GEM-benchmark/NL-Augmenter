@@ -1,6 +1,10 @@
 import spacy
 
 from initialize import spacy_nlp
+
+from spacy.util import compile_prefix_regex, compile_suffix_regex, compile_infix_regex
+from spacy.tokenizer import Tokenizer
+
 from interfaces.SentenceOperation import SentenceOperation
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
@@ -108,7 +112,22 @@ class SentenceAuxiliaryNegationRemoval(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        
+        nlp = spacy_nlp if spacy_nlp else spacy.load('en_core_web_sm')
+        rules = nlp.Defaults.tokenizer_exceptions
+        infix_re = compile_infix_regex(nlp.Defaults.infixes)
+        prefix_re = compile_prefix_regex(nlp.Defaults.prefixes)
+        suffix_re = compile_suffix_regex(nlp.Defaults.suffixes)
+
+        nlp.tokenizer = Tokenizer(
+            nlp.vocab,
+            rules = rules,
+            prefix_search=prefix_re.search,
+            suffix_search=suffix_re.search,
+            infix_finditer=infix_re.finditer,
+        )
+        
+        self.nlp = nlp
 
     def generate(self, sentence: str):
 
