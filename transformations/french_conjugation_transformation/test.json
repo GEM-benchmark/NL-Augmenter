@@ -3,15 +3,19 @@
   "test_cases": [
     {
       "class": "Conjugation_transformation",
+      "args": {
+        "tense": "Futur"},
       "inputs": {
-        "sentence": "Nous chantons des comptines et ils s'endorment"
+        "sentence": "Vous chantiez des comptines et ils s'endormaient"
       },
       "outputs": [{
-        "sentence": "Nous chanterons des comptines et ils s'endormiront"
+        "sentence": "Vous chanterez des comptines et ils s'endormiront"
       }]
     },
     {
       "class": "Conjugation_transformation",
+      "args": {
+        "tense": "Futur"},
       "inputs": {
         "sentence": "je dois passer chez le coiffeur, je veux faire une couleur"
       },
@@ -21,29 +25,36 @@
     },
     {
       "class": "Conjugation_transformation",
+      "args": {
+        "tense": "Imparfait"},
       "inputs": {
         "sentence": "Elle mange une glace"
       },
       "outputs": [{
-        "sentence": "Elle mangera une glace"
+        "sentence": "Elle mangeait une glace"
       }]
     },
     {
       "class": "Conjugation_transformation",
+      "args": {
+        "tense": "Futur"},
       "inputs": {
-        "sentence": "je peux obtenir un passeport lorsqu'on remplit toutes les conditions"
+        "sentence": "je pouvais obtenir un passeport lorsqu'on remplissait toutes les conditions"
       },
       "outputs": [{
         "sentence": "je pourrai obtenir un passeport lorsqu'on remplira toutes les conditions"
       }]
     },
+
     {
       "class": "Conjugation_transformation",
+      "args": {
+        "tense": "Imparfait"},
       "inputs": {
-        "sentence": "J'apprends une nouvelle langue"
+        "sentence": "J'apprendrai une nouvelle langue"
       },
       "outputs": [{
-        "sentence": "J'apprendrai une nouvelle langue"
+        "sentence": "J'apprenais une nouvelle langue"
       }]
     }
   ]
