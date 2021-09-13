@@ -146,9 +146,19 @@ class BigramForbidStrategy(ForbidStrategy):
         return bad_words_ids
 
 
-class ProtaugmentDiverseParaphrase(SentenceOperation):
+class ProtaugmentDiverseParaphrase(SentenceOperation, ABC):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.SENTIMENT_ANALYSIS]
     languages = ["en"]
+    keywords = [
+        # Linguistic change
+        "lexical",
+        # Type of algorithm
+        "model-based", "transformer-based", "tokenizer-required",
+        # Naturalness of the generation
+        "unnatural-sounding", "unnaturally-written",
+        # Potential accuracy & precision of the generation
+        "possible-meaning-alteration", "high-coverage"
+    ]
 
     def __init__(
         self,
