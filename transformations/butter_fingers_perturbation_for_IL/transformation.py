@@ -59,13 +59,18 @@ class ButterFingersPerturbation(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
 
+    keywords = ["morphological", "noise", "rule-based", "high-coverage", "high-precision",
+                "unnatural-sounding", "unnaturally-written", "high-generations"]
+
+    languages = ['bn','gu','hi','kn','ml','or','pa','ta','te']
+
     language_mapping = {"bengali":'bn',
                         "gujarati":'gu',
                         "hindi":'hi',
                         "kannada":'kn',
                         "malayalam":'ml',
                         "oriya":'or',
-                        "punjabi":'pu',
+                        "punjabi":'pa',
                         "tamil":'ta',
                         "telugu":'te',}
 
@@ -88,7 +93,7 @@ class ButterFingersPerturbation(SentenceOperation):
         if keyboard not in self.key_mapping[language]:
             raise Exception(f"Keyboard not supported. Available keyboards for '{language}': {keyboards}.")
 
-        self.key_approx = key_mapping[language][keyboard]
+        self.key_approx = self.key_mapping[language][keyboard]
 
     @staticmethod
     def get_language_mapping(self):
