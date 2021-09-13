@@ -52,7 +52,7 @@ Butter Finger implementation borrowed and edited from https://github.com/alexyor
 """
 
 
-class ButterFingersPerturbation(SentenceOperation):
+class ButterFingersPerturbationForIL(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,

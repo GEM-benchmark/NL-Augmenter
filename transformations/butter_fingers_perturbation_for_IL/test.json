@@ -2,7 +2,7 @@
   "type": "butter_fingers_perturbation",
   "test_cases": [
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "आप से मिलकर ख़ुशी हुई"
       },
@@ -15,7 +15,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "क्या आप हिन्दी बोलते हैं?"
       },
@@ -28,7 +28,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "உங்களை பார்த்தது மிகவும் சந்தோஷம்"
       },
@@ -41,7 +41,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "நீங்கள் தமிழ் பேசுவீர்களா?"
       },
@@ -54,7 +54,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "ਤੁਹਾਨੂੰ ਮਿਲ ਕੇ ਬਹੁਤ ਖੁਸ਼ੀ ਹੋਈ"
       },
@@ -67,7 +67,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "ਤੁਹਾਨੂੰ ਪੰਜਾਬੀ ਆਉਂਦੀ ਹੈ?"
       },
@@ -80,7 +80,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "ଆପଣଙ୍କୁ ଭେଟି ଭଲ ଲାଗିଲା"
       },
@@ -93,7 +93,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "ଆପଣ ଓଡ଼ିଆ କୁହନ୍ତି କି?"
       },
@@ -106,7 +106,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "మిమ్మల్ని కలవడం చాలా సంతోషంగా ఉంది"
       },
@@ -119,7 +119,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "మీరు తెలుగు మాట్లాడతారా ?"
       },
@@ -132,7 +132,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "കണ്ടതില്‍ സന്തോഷം"
       },
@@ -145,7 +145,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "നിങ്ങള്‍ മലയാളം സംസാരിക്കുമോ?"
       },
@@ -158,7 +158,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "ನಿಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಿದ್ದಕ್ಕೆ ಸಂತೋಷ"
       },
@@ -171,7 +171,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "ನೀವು ಕನ್ನಡ ಮಾತಾಡ್ತೀರಾ?"
       },
@@ -184,7 +184,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "તમને મળીને આનંદ થયો"
       },
@@ -197,7 +197,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "શું તમે ગુજરાતી બોલી શકો છો"
       },
@@ -210,7 +210,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "তোর সাথে দেখা হয়ে ভালো লাগলো।"
       },
@@ -223,7 +223,7 @@
       }]
     },
     {
-      "class": "ButterFingersPerturbation",
+      "class": "ButterFingersPerturbationForIL",
       "inputs": {
         "sentence": "আপনি কি বাংলা বলতে পারেন?"
       },
