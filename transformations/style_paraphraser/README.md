@@ -49,3 +49,23 @@ This transformation is limited to different styles of writing in English. No oth
 
 Also note, that if long sentences are sent in, or two sentences in one, there is a risk sometimes that only a part will be paraphrased (see the example `"Hi there, how are you doing today? "` in the tests).
 
+## Robustness evaluation
+
+Running the evaluator yields:
+
+```python3
+python3 evaluate.py --transformation=StyleTransferParaphraser
+Undefined task type, switching to default task %s TEXT_CLASSIFICATION
+Some weights of the model checkpoint at filco306/gpt2-base-style-paraphraser were not used when initializing GPT2LMHeadModel: ['transformer.extra_embedding_project.bias', 'transformer.extra_embedding_project.weight']
+- This IS expected if you are initializing GPT2LMHeadModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing GPT2LMHeadModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Loading <imdb> dataset to evaluate <aychang/roberta-base-imdb> model.
+Reusing dataset imdb
+Here is the performance of the model aychang/roberta-base-imdb on the test[:20%] split of the imdb dataset
+The accuracy on this subset which has 1000 examples = 96.0
+Applying transformation:
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [23:42<00:00,  1.42s/it]
+Finished transformation! 1000 examples generated from 1000 original examples, with 1000 successfully transformed and 0 unchanged (1.0 perturb rate)
+Here is the performance of the model on the transformed set
+The accuracy on this subset which has 1000 examples = 96.0
+```
