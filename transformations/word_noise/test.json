@@ -1,0 +1,30 @@
+{
+  "type": "word_noise",
+  "test_cases": [
+    {
+      "class": "WordNoise",
+      "args": {
+        "num_words": 10,
+        "concat_position": "prepend"
+      },
+      "inputs": {
+        "context": "Steam engines are external combustion engines, where the working fluid is separate from the combustion products. Non-combustion heat sources such as solar power, nuclear power or geothermal energy may be used.",
+        "question": "Along with geothermal and nuclear, what is a notable non-combustion heat source?",
+        "answers": [
+          "solar",
+          "solar power",
+          "solar power, nuclear power or geothermal energy"
+        ]
+      },
+      "outputs": [{
+        "context": "Steam external external notable fluid such solar what nuclear where. Steam engines are external combustion engines, where the working fluid is separate from the combustion products. Non-combustion heat sources such as solar power, nuclear power or geothermal energy may be used.",
+        "question": "Along with geothermal and nuclear, what is a notable non-combustion heat source?",
+        "answers": [
+          "solar",
+          "solar power",
+          "solar power, nuclear power or geothermal energy"
+        ]
+      }]
+    }
+  ]
+}

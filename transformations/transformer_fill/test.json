@@ -1,0 +1,96 @@
+{
+  "type": "transformer_fill",
+  "test_cases": [{
+      "class": "TransformerFill",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "Andrew finally returned the French book from Chris that I bought last week"
+      }]
+    },
+    {
+      "class": "TransformerFill",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [{
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, require an overt predicate to indicate the relation between two or more arguments."
+      }]
+    }, {
+      "class": "TransformerFill",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated animated fantasy adventure film"
+      }]
+    }, {
+      "class": "TransformerFill",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [{
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2004"
+      }]
+    }, {
+      "class": "TransformerFill",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term , and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [{
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-duration , and long-term remodeling of the neuronosynaptic organization."
+      }]
+    },
+    {
+      "class": "TransformerFill",
+      "args": {
+        "context_text": "POSITIVE REVIEW: "
+      },
+      "inputs": {
+        "sentence": "This movie was great and I really enjoyed it."
+      },
+      "outputs": [{
+        "sentence": "This movie was great and I really liked it."
+      }]
+    },
+    {
+      "class": "TransformerFill",
+      "args": {
+        "context_text": "POSITIVE REVIEW: "
+      },
+      "inputs": {
+        "sentence": "This movie was terrible, I will never watch it again."
+      },
+      "outputs": [{
+        "sentence": "This movie was terrible, I'll never watch it again."
+      }]
+    },
+    {
+      "class": "TransformerFill",
+      "args": {
+        "context_text": "POSITIVE REVIEW: ",
+        "pos_tokens": ["ADJ"]
+      },
+      "inputs": {
+        "sentence": "This movie was terrible, I will never watch it again."
+      },
+      "outputs": [{
+        "sentence": "This movie was awesome , I will never watch it again."
+      }]
+    },
+    {
+      "class": "TransformerFill",
+      "args": {
+        "context_text": "POSITIVE REVIEW: ",
+        "n": 5
+      },
+      "inputs": {
+        "sentence": "This movie was terrible, aweful, and depressing, I will never watch it again."
+      },
+      "outputs": [{
+        "sentence": "ㅋㅋ movie was terrible and aweful — and depressing, I will never see it again!"
+      }]
+    }
+  ]
+}
