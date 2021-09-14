@@ -10,7 +10,7 @@ import json
 import random
 import hashlib
 from checklist.perturb import process_ret
-
+from initialize import spacy_nlp
 
 def hash(input:str):
     t_value = input.encode('utf8')
@@ -164,7 +164,7 @@ class GenderCultureDiverseNameTwoWay(SentenceAndTargetOperation):
 
     def __init__(self, n=1, seed=0, max_output=1, data_path=None):
         super().__init__(seed)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.n = n
         self.max_output = max_output
 

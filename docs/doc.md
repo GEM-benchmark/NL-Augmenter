@@ -34,11 +34,12 @@ Each transformation will receive two reviews and the transformation may be edite
 
 **Interface:** Participants should ensure that they use the correct interface. The complete list is mentioned [here.](../interfaces) E.g., for tasks like machine translation, a transformation which changes the value of a named entity (Andrew->Jason) might need parallel changes in the output too. And hence, it might be more appropriate to use `SentenceAndTargetOperation` or `SentenceAndTargetsOperation` rather than `SentenceOperation`. Similarly, if a transformation changes the label of a sentence, the interface's generate method should take as input the label too - eg. if your transformation reverses the sentiment, `SentenceAndTargetOperation` would be more appropriate then `SentenceOperation`. If you wish to add transformations for input formats other than those specified, you should add an interface [here.](../interfaces)  
 
-**Applicable Tasks:** We understand that transformations can vary across tasks as well as a single transformation can work for multiple tasks. Hence all the tasks where the transformation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](../tasks/TaskTypes.py).
+**Applicable Tasks & Keywords:** We understand that transformations can vary across tasks as well as a single transformation can work for multiple tasks. Hence all the tasks where the transformation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](../tasks/TaskTypes.py). The relevant keywords for the [transformation](../docs/keywords.md) should also be specified.
 ```python
 class ButterFingersPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     languages = ["en"]
+    keywords = ["morphological", "noise", "rule-based", "high-coverage", "high-precision"]
 ```
 
 **Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific transformation. E.g., a perturbation which changes gendered pronouns could give insights about gender bias in models.
@@ -48,7 +49,7 @@ class ButterFingersPerturbation(SentenceOperation):
 **Adding New Libraries:** We welcome addition of libraries which are light and can be installed via `pip`. Every library should specify the version number associated and be added in a new [requirements.txt](../transformations/punctuation) in the transformation's own folder. However, we discourage the use of heavy libraries for a few lines of code which could be manually written instead. Please ensure that all libraries have MIT, Apache 2, BSD, or other permissive license. GPL-licensed libraries are not approved for NL-Augmenter. If you are unsure, please email the organizers at nl-augmenter@googlegroups.com. 
 
 
-**Description:** The `README.md` file should clearly explain what the transformation is attempting to generate as well as the importance of that transformation for the specified tasks.
+**Description:** The `README.md` file should clearly explain what the transformation is attempting to generate as well as the importance of that transformation for the specified tasks. Here is a [sample README](https://github.com/GEM-benchmark/NL-Augmenter/tree/main/transformations/gender_culture_diverse_name_two_way).
 
 **Data and code source:** The `README.md` file should have a subsection titled "Data and code provenance", which should describe where data or code came from, or that it was fully created by the author. This section should also disclose the license that any external data or code is released under.
 
@@ -60,7 +61,9 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Languages other than English:** We strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “languages”.
 
-All of the above criteria extend to [filters](../filters) too.
+**Decent Programming Practise:** We recommend adding docstrings to help others follow your code with ease. Check the [PEP 257 Docstring Conventions](https://www.python.org/dev/peps/pep-0257/) to get an overview.
+
+All of the above criteria extend to [filters](../filters) too. 
  
 ## Writing a good transformation
 Writing a transformation is a creative process. Transformations could use both machine learning as well as rule based models. While there is no hard and fast rule, a transformation is useful if it can augment training data qualitatively or be able to generate perturbations which could reveal places where models' performance suffers. One of the quick ways to contribute would be to extend any of the existing transformations to a low-resource language.  
