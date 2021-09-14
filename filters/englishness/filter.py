@@ -4,17 +4,19 @@ import re
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-class BritishnessFilter(SentenceOperation):
-    """A filter selecting for British spellings and slang.
+"""A filter selecting for British spellings and slang.
 
-    Attributes
-    ----------
-    britwords_required : int
-        the number of British words required for a passage to pass the filter
-    """
+Attributes
+----------
+britwords_required : int
+    the number of British words required for a passage to pass the filter
+"""
+
+class EnglishnessFilter(SentenceOperation):
 
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = ["lexical", "rule-based"]
 
     def __init__(self, britwords_required=1):
         super().__init__()
