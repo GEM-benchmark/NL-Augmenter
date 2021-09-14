@@ -1,5 +1,8 @@
 import random
-import spacy
+
+from spacy import load as spacy_load
+from spacy.util import compile_prefix_regex, compile_suffix_regex, compile_infix_regex
+from spacy.tokenizer import Tokenizer
 
 from typing import List
 
@@ -37,8 +40,7 @@ class TokenReplacement(SentenceOperation):
         :param lookup: dictionary or a list of files with lookup tables
         """
         super().__init__(seed, max_outputs=max_outputs)
-        #self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy_load("en_core_web_sm")
         self.replacement_prob = replacement_prob
         self.max_dist = max_dist
         self.min_length = min_length
@@ -51,7 +53,12 @@ class TokenReplacement(SentenceOperation):
 
     def generate(self, sentence: str) -> List[str]:
 
-        random.seed(self.seed)        
+        # cache the old tokenizer (workaround)
+        old_tokenizer = self.nlp.tokenizer
+
+        reset_spacy_tokenizer(self.nlp)
+
+        random.seed(self.seed)
         
         perturbed_sentences = []
         
@@ -87,10 +94,32 @@ class TokenReplacement(SentenceOperation):
             
             perturbed_sentences.append(''.join(token for token in perturbed_tokens))
 
+        # restore the old tokenizer (workaround)
+        self.nlp.tokenizer = old_tokenizer
+
         return perturbed_sentences
 
 
-"""
+def reset_spacy_tokenizer(nlp):
+    """
+    Resets the tokenizer used by the given spacy model
+
+    :param nlp: a spacy model
+    """
+    rules = nlp.Defaults.tokenizer_exceptions
+    infix_re = compile_infix_regex(nlp.Defaults.infixes)
+    prefix_re = compile_prefix_regex(nlp.Defaults.prefixes)
+    suffix_re = compile_suffix_regex(nlp.Defaults.suffixes)
+
+    nlp.tokenizer = Tokenizer(
+        nlp.vocab,
+        rules = rules,
+        prefix_search=prefix_re.search,
+        suffix_search=suffix_re.search,
+        infix_finditer=infix_re.finditer,
+    )
+
+
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 
 if __name__ == '__main__':
@@ -126,4 +155,4 @@ if __name__ == '__main__':
     with open(os.path.join(dir_path, "test.json"), "w") as f:
         json.dump(json_file, f, indent=2, ensure_ascii=False)
 
-"""
+
