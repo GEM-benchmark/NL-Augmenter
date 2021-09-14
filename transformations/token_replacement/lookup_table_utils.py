@@ -4,7 +4,7 @@ import gzip
 import lzma
 import json
 
-from Levenshtein import distance as levenshtein_distance
+from editdistance import eval as levenshtein_distance
 
 from typing import List, Union
 
