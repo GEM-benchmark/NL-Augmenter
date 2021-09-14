@@ -1,4 +1,3 @@
-import itertools
 import json
 import os
 import random
@@ -7,7 +6,6 @@ import spacy
 from num2words import num2words
 from word2number import w2n
 
-from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -64,7 +62,7 @@ def convert_units(self, text, seed=0, max_outputs=1):
     random.seed(seed)
     doc = self.nlp(text)
     perturbed_texts = []
-    for _ in itertools.repeat(None, max_outputs):
+    for _ in range(max_outputs):
         perturbed_text = text
         for X in doc.ents:
             if X.label_ == "QUANTITY":
@@ -97,6 +95,7 @@ class UnitConverter(SentenceOperation):
     keywords = [
         "lexical",
         "rule-based",
+        "tokenizer-required",
         "unnaturally-written",
         "highly-meaning-preserving",
         "low-coverage",
@@ -104,7 +103,7 @@ class UnitConverter(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = spacy.load("en_core_web_sm")
 
         converter_plurals_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
