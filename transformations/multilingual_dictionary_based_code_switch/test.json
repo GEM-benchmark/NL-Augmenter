@@ -1,0 +1,60 @@
+{
+  "type": "multilingual_dictionary_based_code_switch",
+  "test_cases": [
+    {
+      "class": "MultilingualDictionaryBasedCodeSwitch",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [
+        {
+          "sentence": "Andrew اخيرا returned the French réserver to Chris that I купила 最後 सप्ताह"
+        }
+      ]
+    },
+    {
+      "class": "MultilingualDictionaryBasedCodeSwitch",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [
+        {
+          "sentence": "Sentences مع gapping, such as Paul aime кофе and Mary tea, 不足 an عام κατηγόρημα کو adierazi den relation ระหว่าง two or อื่นๆ arguments."
+        }
+      ]
+    },
+    {
+      "class": "MultilingualDictionaryBasedCodeSwitch",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [
+        {
+          "sentence": "Alice in Wonderland is a 2010 American live-action/animated тъмна fantasi 冒険 film"
+        }
+      ]
+    },
+    {
+      "class": "MultilingualDictionaryBasedCodeSwitch",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [
+        {
+          "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia de 2000 to 2001"
+        }
+      ]
+    },
+    {
+      "class": "MultilingualDictionaryBasedCodeSwitch",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [
+        {
+          "sentence": "Neuroplasticity is a continuous प्रसंस्करण allowing short-term, medium-term, och long-term remodeling of the neuronosynaptic organization."
+        }
+      ]
+    }
+  ]
+}
