@@ -15,6 +15,19 @@ This would help augment data for a NER task by keeping the labels still aligned.
 ## What are the limitations of this transformation?
 It is possible that shuffling could change the meaning of the sentence or have negative effect for NLU tasks.
 
+## Evaluation
+
+Here is the performance of the model dslim/bert-base-NER on the test[:20%] split of the 
+
+Dataset({
+    features: ['id', 'tokens', 'pos_tags', 'chunk_tags', 'ner_tags'],
+    num_rows: 691
+})
+
+The average accuracy on a subset of conll2003 = 81.3640468775567
+
+The average accuracy on its perturbed set = 70.13742999132477
+
 ## Previous Work
 This perturbation is adapted from the following paper:
 ```

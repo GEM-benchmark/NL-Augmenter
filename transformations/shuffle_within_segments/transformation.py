@@ -19,6 +19,15 @@ class ShuffleWithinSegments(TaggingOperation):
     """
     tasks = [TaskType.TEXT_TAGGING]
     languages = "All"
+    keywords = ["lexical",
+                "word-order",
+                "rule-based",
+                "unnaturally-written",
+                "unnatural-sounding",
+                "possible-meaning-preserving",
+                "high-precision",
+                "low-coverage",
+                "low-generations"]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
