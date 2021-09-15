@@ -1,13 +1,14 @@
-from interfaces.SentencePairOperation import SentencePairOperation
-from tasks.TaskTypes import TaskType
-from typing import Tuple, List
-from initialize import spacy_nlp
+from typing import List, Tuple
+
 import spacy
 
+from initialize import reinitialize_spacy, spacy_nlp
+from interfaces.SentencePairOperation import SentencePairOperation
+from tasks.TaskTypes import TaskType
 from transformations.back_translation import BackTranslation
 
 """
-This generates counterfactuals using a simple rule based approach which would be 
+This generates counterfactuals using a simple rule based approach which would be
 beneficial for paraphrase generation tasks.
 Assumes text pairs are labelled "1" for semantically similar and "0" for dissimilar.
 This is an example generator.
@@ -23,16 +24,31 @@ def get_tokens_of_pos_type(sentence, types: list):
 
 
 class LexicalCounterfactualGenerator(SentencePairOperation):
-    tasks = [
-        TaskType.PARAPHRASE_DETECTION
-    ]
+    tasks = [TaskType.PARAPHRASE_DETECTION]
     languages = ["en"]
-    to_avoid = ["no", "not", "nowhere", "hardly", "barely", "nobody",
-                "none", "nothing", "neither", "nowhere", "never", "scarcely", "n't", "nt"]
+    to_avoid = [
+        "no",
+        "not",
+        "nowhere",
+        "hardly",
+        "barely",
+        "nobody",
+        "none",
+        "nothing",
+        "neither",
+        "nowhere",
+        "never",
+        "scarcely",
+        "n't",
+        "nt",
+    ]
 
     def __init__(self, seed=0, max_outputs=2, pos_label="1", neg_label="0"):
         super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        # Reinitialize spacy tokens to default
+        if spacy_nlp:
+            reinitialize_spacy()
         self.pos_label = pos_label
         self.neg_label = neg_label
         self.bt = BackTranslation()
@@ -59,7 +75,9 @@ class LexicalCounterfactualGenerator(SentencePairOperation):
             return self.bt.generate(basic_negated_sentence)
         return [sentence]
 
-    def generate(self, sentence1: str, sentence2: str, target: str) -> List[Tuple[str, str, str]]:
+    def generate(
+        self, sentence1: str, sentence2: str, target: str
+    ) -> List[Tuple[str, str, str]]:
         """
         This implementation augments data for semantic similarity tasks.
         This converts pairs which are positive (i.e. paraphrases-> label:1) to non-paraphrases (label:0).
@@ -77,35 +95,51 @@ class LexicalCounterfactualGenerator(SentencePairOperation):
         return [(sentence1, sentence2, target)]
 
 
-'''
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 # You don't need to keep this code in your transformation.
-if __name__ == '__main__':
+if __name__ == "__main__":
     import json
+
     from TestRunner import convert_to_snake_case
 
     tf = LexicalCounterfactualGenerator(max_outputs=3)
     sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
-    for sentence1, sentence2 in zip(["Andrew finally returned the French book to Chris",
-                                     "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate.",
-                                     "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
-                                     "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
-                                    "The fighters would never give up.",
-                                     "Neuroplasticity allows short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."],
-                                    ["In the end returned the French book to Chris",
-                                     "Gapping sentences, such as Paul likes coffee and Mary tea, do not have an overt predicate.",
-                                     "Alice in Wonderland is an American animated, dark fantasy adventure film from 2010",
-                                     "U.D. Dosanjh was the 33rd Premier of British Columbia for a year from 2000",
-                                     "The warriors wouldn't leave the battlefield.",
-                                     "Neuroplasticity permits short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."]
-                                    ):
-        test_cases.append({
-            "class": tf.name(),
-            "inputs": {"sentence1": sentence1, "sentence2": sentence2, "target": "1"},
-            "outputs": [{"sentence1": o[0], "sentence2": o[1], "target": o[2]} for o in tf.generate(sentence1, sentence2, "1")]}
+    for sentence1, sentence2 in zip(
+        [
+            "Andrew finally returned the French book to Chris",
+            "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate.",
+            "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
+            "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
+            "The fighters would never give up.",
+            "Neuroplasticity allows short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
+        ],
+        [
+            "In the end returned the French book to Chris",
+            "Gapping sentences, such as Paul likes coffee and Mary tea, do not have an overt predicate.",
+            "Alice in Wonderland is an American animated, dark fantasy adventure film from 2010",
+            "U.D. Dosanjh was the 33rd Premier of British Columbia for a year from 2000",
+            "The warriors wouldn't leave the battlefield.",
+            "Neuroplasticity permits short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
+        ],
+    ):
+        test_cases.append(
+            {
+                "class": tf.name(),
+                "inputs": {
+                    "sentence1": sentence1,
+                    "sentence2": sentence2,
+                    "target": "1",
+                },
+                "outputs": [
+                    {"sentence1": o[0], "sentence2": o[1], "target": o[2]}
+                    for o in tf.generate(sentence1, sentence2, "1")
+                ],
+            }
         )
-    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
-    print(json.dumps(json_file))
-
-'''
+    json_file = {
+        "type": convert_to_snake_case(tf.name()),
+        "test_cases": test_cases,
+    }
+    with open("test.json", "w") as f:
+        json.dump(json_file, f, indent=2)
