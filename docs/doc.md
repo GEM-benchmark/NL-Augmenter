@@ -61,6 +61,8 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Languages other than English:** We strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “languages”.
 
+**Decent Programming Practise:** We recommend adding docstrings to help others follow your code with ease. Check the [PEP 257 Docstring Conventions](https://www.python.org/dev/peps/pep-0257/) to get an overview.
+
 All of the above criteria extend to [filters](../filters) too. 
  
 ## Writing a good transformation

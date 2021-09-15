@@ -13,3 +13,16 @@ This transformation can be used for tasks like Paraphrase Detection, Paraphrase 
 
 ## What are the limitations of this transformation?
 The transformation is very simple and can only be applied on a limited set of sentences (namely, those with adjectives that have antonyms in wordnet).
+
+## Robustness Evaluation
+
+### Sentence Operation
+
+| Transformation                   | roberta-base-SST-2   | bert-base-uncased-QQP   | roberta-large-mnli   | roberta-base-imdb   |
+|:---------------------------------|:---------------------|:------------------------|:---------------------|:--------------------|
+| SentenceAdjectivesAntonymsSwitch | 94.0->80.0 (-14.0)   | 92.0->87.0 ( -5.0)      | 91.0->77.0 (-14.0)   | 95.0->74.0 (-21.0)  |
+
+### Sentence Pair Operation
+| Transformation                   | paraphrase-xlm-r-multilingual-v1-MSRP | paraphrase-xlm-r-multilingual-v1-PAWS |
+|:---------------------------------|:--------------------------------------|:--------------------------------------|
+| PairAdjectivesAntonymsSwitch     | 69.0->36.0 (-33.0)                    | 44.0->30.0 (-14.0)                    |
