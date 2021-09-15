@@ -29,15 +29,24 @@ Benchmark results:
 
 - Sentiment analysis: 
 ```
-python evaluate.py -t CountryStateAbbreviation -task TEXT_CLASSIFICATION
+python evaluate.py -t CountryStateAbbreviation -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-imdb" -d "imdb" -p 20
 ```
-The original accuracy is 96.0 and the perturbed accuracy is 96.0.
+
+| Model  | Datasets | Performance  | 
+|---|---|---|
+| textattack/roberta-base-SST-2 | sst2 | 94.0->94.0 (0.0) | 
+| textattack/bert-base-uncased-QQP | qqp | 92.0->92.0 (0.0) |
+| roberta-large-mnli  | multi_nli | 91.0->91.0 (0.0)  |
+| textattack/roberta-base-imdb  | imdb | 95.0->95.0 (0.0) |
+
 
 - Text summarization: 
 ```
-python evaluate.py -t CountryStateAbbreviation -task TEXT_TO_TEXT_GENERATION
+python evaluate.py -t CountryStateAbbreviation -task TEXT_TO_TEXT_GENERATION -m "sshleifer/distilbart-xsum-12-6" -d "xsum" -p 20
 ```
-The original bleu is 14.88 and the perturbed bleu is 14.61.
+| Model  | Datasets | Performance  | 
+|---|---|---|
+| sshleifer/distilbart-xsum-12-6 | xsum | 14.88->14.61 (-0.27) | 
 
 
 ## Data provenance
