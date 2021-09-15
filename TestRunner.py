@@ -5,9 +5,9 @@ import re
 from importlib import import_module
 from pathlib import Path
 from pkgutil import iter_modules
+from test.mapper import map_filter, map_transformation
 from typing import Iterable
 
-from config import map_filter, map_transformation
 from interfaces.Operation import Operation
 from tasks.TaskTypes import TaskType
 
@@ -89,54 +89,53 @@ class OperationRuns(object):
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         filters_dir = package_dir.parent.joinpath(search)
 
-        for (_, m, _) in iter_modules([filters_dir]):
-            if m in disable_tests_for:
-                continue
-            print(f"Directory = {m}")
-            # Import light transformations only
-            if (
-                heavy is False
-                and search == "transformations"
-                and m in map_transformation["light"]
-            ):
-                t_py = import_module(f"{search}.{m}")
-                t_js = os.path.join(filters_dir, m, "test.json")
-            # Import heavy transformations only
-            elif (
-                heavy is True
-                and search == "transformations"
-                and m in map_transformation["heavy"]
-            ):
-                t_py = import_module(f"{search}.{m}")
-                t_js = os.path.join(filters_dir, m, "test.json")
-            # Import light filters only
-            elif (
-                heavy is False
-                and search == "filters"
-                and m in map_filter["light"]
-            ):
-                t_py = import_module(f"{search}.{m}")
-                t_js = os.path.join(filters_dir, m, "test.json")
-            # Import heavy filters only
-            elif (
-                heavy is True
-                and search == "filters"
-                and m in map_filter["heavy"]
-            ):
-                t_py = import_module(f"{search}.{m}")
-                t_js = os.path.join(filters_dir, m, "test.json")
-            # Import all filters or all transformations based on search term
-            else:
-                t_py = import_module(f"{search}.{m}")
-                t_js = os.path.join(filters_dir, m, "test.json")
-            filter_instance = None
-            prev_class_args = {}
-            for test_case in load_test_cases(t_js):
-                class_name = test_case["class"]
-                class_args = test_case["args"] if "args" in test_case else {}
-                cls = getattr(t_py, class_name)
+        # Import light transformations only
+        if heavy is False and search == "transformations":
+            for m in map_transformation["light"]:
+                print(f"Directory = {m}")
+                if m in disable_tests_for:
+                    continue
+                self._load_single_transformation_test_case(m, search)
+        # Import heavy transformations only
+        elif heavy is True and search == "transformations":
+            for m in map_transformation["heavy"]:
+                print(f"Directory = {m}")
+                if m in disable_tests_for:
+                    continue
+                self._load_single_transformation_test_case(m, search)
+        # Import light filters only
+        elif heavy is False and search == "filters":
+            for m in map_filter["light"]:
+                print(f"Directory = {m}")
+                if m in disable_tests_for:
+                    continue
+                self._load_single_transformation_test_case(m, search)
+        # Import heavy filters only
+        elif heavy is True and search == "filters":
+            for m in map_filter["heavy"]:
+                print(f"Directory = {m}")
+                if m in disable_tests_for:
+                    continue
+                self._load_single_transformation_test_case(m, search)
+        # Import all filters or all transformations based on search term
+        else:
+            for (_, m, _) in iter_modules([filters_dir]):
+                print(f"Directory = {m}")
+                if m in disable_tests_for:
+                    continue
 
-                is_heavy = cls.is_heavy()
+                t_py = import_module(f"{search}.{m}")
+                t_js = os.path.join(filters_dir, m, "test.json")
+                filter_instance = None
+                prev_class_args = {}
+                for test_case in load_test_cases(t_js):
+                    class_name = test_case["class"]
+                    class_args = (
+                        test_case["args"] if "args" in test_case else {}
+                    )
+                    cls = getattr(t_py, class_name)
+
+                    is_heavy = cls.is_heavy()
                 if (not heavy) and is_heavy:
                     continue
                 else:
@@ -152,8 +151,8 @@ class OperationRuns(object):
                     filters.append(filter_instance)
                     filter_test_cases.append(test_case)
 
-        self.operations = filters
-        self.operation_test_cases = filter_test_cases
+            self.operations = filters
+            self.operation_test_cases = filter_test_cases
 
     @staticmethod
     def get_all_folder_names(
@@ -230,20 +229,19 @@ def get_implementation(clazz: str, search="transformations"):
 
 
 if __name__ == "__main__":
-    # for x in OperationRuns.get_all_folder_names("transformations", "heavy"):
-    #    print(x)
-    # for x in OperationRuns.get_all_folder_names("transformations"):
-    #    print(x)
-    # for x in OperationRuns.get_all_folder_names("filters", "light"):
-    #    print(x)
-    # for x in OperationRuns.get_all_folder_names("filters"):
-    #    print(x)
+    for x in OperationRuns.get_all_folder_names("transformations", "heavy"):
+        print(x)
+    for x in OperationRuns.get_all_folder_names("transformations"):
+        print(x)
+    for x in OperationRuns.get_all_folder_names("filters", "light"):
+        print(x)
+    for x in OperationRuns.get_all_folder_names("filters"):
+        print(x)
     for x in OperationRuns.get_all_operations():
         print(x)
     for x in OperationRuns.get_all_operations("filters"):
         print(x)
     print()
-    """
     for transformation in OperationRuns.get_all_operations_for_task(
         TaskType.QUESTION_ANSWERING
     ):
@@ -261,4 +259,3 @@ if __name__ == "__main__":
         ]:
             for p in impl.generate(sentence):
                 print(p)
-    """
