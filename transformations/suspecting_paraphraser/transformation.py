@@ -1,14 +1,14 @@
 from typing import List, Tuple
 
-from gender_extractor import GenderExtractor
 import nltk
 import numpy as np
 
 # Spacy needs this module, but it's used only implicitly
 import pyinflect  # noqa: F401
 import spacy
+from gender_extractor import GenderExtractor
 
-from initialize import spacy_nlp
+from initialize import reinitialize_spacy, spacy_nlp
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
 
@@ -18,11 +18,12 @@ Base Class for implementing the different input transformations a generation sho
 
 
 class SuspectingParaphraser(QuestionAnswerOperation):
-    """ This paraphraser transforms a yes/no question into a tag one.
-     
-    Example: "Did the American National Shipment company really break its own fleet?" 
+    """This paraphraser transforms a yes/no question into a tag one.
+
+    Example: "Did the American National Shipment company really break its own fleet?"
     -> "The American National Shipment company really broke its own fleet, didn't it?"
     """
+
     tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
 
     languages = ["en"]
@@ -33,6 +34,9 @@ class SuspectingParaphraser(QuestionAnswerOperation):
         nltk.download("punkt")
 
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        # Reinitialize spacy to default tokenizer
+        if spacy_nlp:
+            reinitialize_spacy()
 
         self.gender_detector = GenderExtractor()
         self.pronouns = ["he", "she", "it", "they"]
@@ -158,46 +162,48 @@ class SuspectingParaphraser(QuestionAnswerOperation):
         return [(context, paraphrased, answers)]
 
 
-# if __name__ == "__main__":
-#     import json
+if __name__ == "__main__":
+    import json
 
-#     from TestRunner import convert_to_snake_case
+    from TestRunner import convert_to_snake_case
 
-#     tf = SuspectingParaphraser()
+    tf = SuspectingParaphraser()
 
-#     test_cases = []
-#     for i, sentence in enumerate(
-#         [
-#             "Did Sally finally return the french book to Chris?",
-#             "Did the American National Shipment company really break its own fleet?",
-#             "Couldn't she just leave?",
-#             "Shall you begone, lad?",
-#             "Has Buzz Aldrin, the first person who walked on the moon, brought back some aliens?",
-#         ]
-#     ):
-#         res = tf.generate("", sentence, [])
-#         test_cases.append(
-#             {
-#                 "class": tf.name(),
-#                 "inputs": {"context": "", "question": sentence, "answers": []},
-#                 "outputs": [],
-#             }
-#         )
+    test_cases = []
+    for i, sentence in enumerate(
+        [
+            "Did Sally finally return the french book to Chris?",
+            "Did the American National Shipment company really break its own fleet?",
+            "Couldn't she just leave?",
+            "Shall you begone, lad?",
+            "Has Buzz Aldrin, the first person who walked on the moon, brought back some aliens?",
+        ]
+    ):
+        res = tf.generate("", sentence, [])
+        test_cases.append(
+            {
+                "class": tf.name(),
+                "inputs": {"context": "", "question": sentence, "answers": []},
+                "outputs": [],
+            }
+        )
 
-#         for p_context, p_question, p_answers in res:
-#             print(sentence)
-#             print(p_question)
-#             print()
-#             test_cases[i]["outputs"].append(
-#                 {
-#                     "context": p_context,
-#                     "question": p_question,
-#                     "answers": p_answers,
-#                 }
-#             )
+        for p_context, p_question, p_answers in res:
+            print(sentence)
+            print(p_question)
+            print()
+            test_cases[i]["outputs"].append(
+                {
+                    "context": p_context,
+                    "question": p_question,
+                    "answers": p_answers,
+                }
+            )
 
-#     json_file = {
-#         "type": convert_to_snake_case(tf.name()),
-#         "test_cases": test_cases,
-#     }
-#     print(json.dumps(json_file))
+    json_file = {
+        "type": convert_to_snake_case(tf.name()),
+        "test_cases": test_cases,
+    }
+
+    with open("test.json", "w") as f:
+        json.dump(json_file, f, indent=2)
