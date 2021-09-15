@@ -14,6 +14,7 @@ map_transformation = {
         "adjectives_antonyms_switch",
         "butter_fingers_perturbation",
         "change_char_case",
+        "change_date_format",
         "change_person_named_entities",
         "change_two_way_ne",
         "close_homophones_swap",
@@ -54,7 +55,6 @@ map_transformation = {
     ],
     "heavy": [
         "back_translation",
-        "change_date_format",
         "formality_change",
         "lost_in_translation",
         "mixed_language_perturbation",

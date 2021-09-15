@@ -11,7 +11,7 @@ from config import map_filter, map_transformation
 from interfaces.Operation import Operation
 from tasks.TaskTypes import TaskType
 
-disable_tests_for = ["greetings_and_farewells"]
+disable_tests_for = ["greetings_and_farewells", "change_date_format"]
 
 
 def load(module, cls):
