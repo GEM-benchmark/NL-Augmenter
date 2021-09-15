@@ -24,7 +24,7 @@ class ShuffleWithinSegments(TaggingOperation):
                 "rule-based",
                 "unnaturally-written",
                 "unnatural-sounding",
-                "possible-meaning-preserving",
+                "possible-meaning-alteration",
                 "high-precision",
                 "low-coverage",
                 "low-generations"]
