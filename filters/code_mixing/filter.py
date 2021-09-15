@@ -17,6 +17,7 @@ class CodeMixing(SentenceOperation):
         TaskType.TEXT_TAGGING,
         TaskType.TEXT_CLASSIFICATION,
     ]
+    keywords = ['model-based', 'tokenizer-required']
     languages = [
         "en",
         "ru",
