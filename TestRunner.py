@@ -11,7 +11,10 @@ from config import map_filter, map_transformation
 from interfaces.Operation import Operation
 from tasks.TaskTypes import TaskType
 
-disable_tests_for = ["greetings_and_farewells", "change_date_format"]
+disable_tests_for = [
+    "greetings_and_farewells",
+    "change_date_format",
+]  # disabled test : remove later
 
 
 def load(module, cls):
@@ -85,12 +88,47 @@ class OperationRuns(object):
         filter_test_cases = []
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         filters_dir = package_dir.parent.joinpath(search)
+
         for (_, m, _) in iter_modules([filters_dir]):
             if m in disable_tests_for:
                 continue
             print(f"Directory = {m}")
-            t_py = import_module(f"{search}.{m}")
-            t_js = os.path.join(filters_dir, m, "test.json")
+            # Import light transformations only
+            if (
+                heavy is False
+                and search == "transformations"
+                and m in map_transformation["light"]
+            ):
+                t_py = import_module(f"{search}.{m}")
+                t_js = os.path.join(filters_dir, m, "test.json")
+            # Import heavy transformations only
+            elif (
+                heavy is True
+                and search == "transformations"
+                and m in map_transformation["heavy"]
+            ):
+                t_py = import_module(f"{search}.{m}")
+                t_js = os.path.join(filters_dir, m, "test.json")
+            # Import light filters only
+            elif (
+                heavy is False
+                and search == "filters"
+                and m in map_filter["light"]
+            ):
+                t_py = import_module(f"{search}.{m}")
+                t_js = os.path.join(filters_dir, m, "test.json")
+            # Import heavy filters only
+            elif (
+                heavy is True
+                and search == "filters"
+                and m in map_filter["heavy"]
+            ):
+                t_py = import_module(f"{search}.{m}")
+                t_js = os.path.join(filters_dir, m, "test.json")
+            # Import all filters or all transformations based on search term
+            else:
+                t_py = import_module(f"{search}.{m}")
+                t_js = os.path.join(filters_dir, m, "test.json")
             filter_instance = None
             prev_class_args = {}
             for test_case in load_test_cases(t_js):
@@ -145,7 +183,7 @@ class OperationRuns(object):
                 yield entry  # only heavy transformations
         elif search == "filters" and transformation_name == "light":
             for entry in map_filter["light"]:
-                yield entry  # only light filter
+                yield entry  # only light filters
         elif search == "filters" and transformation_name == "heavy":
             for entry in map_filter["heavy"]:
                 yield entry  # only heavy filters
@@ -192,19 +230,20 @@ def get_implementation(clazz: str, search="transformations"):
 
 
 if __name__ == "__main__":
-    for x in OperationRuns.get_all_folder_names("transformations", "light"):
-        print(x)
-    for x in OperationRuns.get_all_folder_names("transformations"):
-        print(x)
-    for x in OperationRuns.get_all_folder_names("filters", "light"):
-        print(x)
-    for x in OperationRuns.get_all_folder_names("filters"):
-        print(x)
+    # for x in OperationRuns.get_all_folder_names("transformations", "heavy"):
+    #    print(x)
+    # for x in OperationRuns.get_all_folder_names("transformations"):
+    #    print(x)
+    # for x in OperationRuns.get_all_folder_names("filters", "light"):
+    #    print(x)
+    # for x in OperationRuns.get_all_folder_names("filters"):
+    #    print(x)
     for x in OperationRuns.get_all_operations():
         print(x)
     for x in OperationRuns.get_all_operations("filters"):
         print(x)
     print()
+    """
     for transformation in OperationRuns.get_all_operations_for_task(
         TaskType.QUESTION_ANSWERING
     ):
@@ -222,3 +261,4 @@ if __name__ == "__main__":
         ]:
             for p in impl.generate(sentence):
                 print(p)
+    """
