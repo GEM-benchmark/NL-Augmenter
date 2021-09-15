@@ -40,7 +40,7 @@ class CorrectCommonMisspellings(SentenceOperation):
 
 def get_common_misspellings_dict():
     spell_corrections = os.path.join(
-        "transformations", "replace_spelling", "spell_corrections.json"
+        "transformations", "correct_common_misspellings", "spell_corrections.json"
     )
     with open(spell_corrections, "r") as fp:
         spell_corrections = json.load(fp)
