@@ -26,5 +26,13 @@ in this way may expose an algorithm's reliance on spurious correlations in the t
 ## Previous Work
 My implementation of Yoda Speak borrowed from this code: https://github.com/yevbar/Yoda-Script
 
+## Robustness Evaluation
+| Dataset          | Model      | Change                                                                  |
+| ------------------ | ----------- | -----------                                                                |
+| SST-2 | textattack/roberta-base-SST-2 | -4% (94 -> 90%
+| IMDB  | aychang/roberta-base-imdb | 0% (96 -> 96%)
+| QQP | textattack/bert-base-uncased-QQP | -2% (92 -> 90%)
+| MNLI | roberta-large-mnli | -3% (91 -> 88%)
+
 ## What are the limitations of this transformation?
 For sentences with a number of different subjects, the performance of this perturbation may degrade or yield unexpected results.
