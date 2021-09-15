@@ -7,6 +7,7 @@ from pathlib import Path
 from pkgutil import iter_modules
 from typing import Iterable
 
+from config import map_filter, map_transformation
 from interfaces.Operation import Operation
 from tasks.TaskTypes import TaskType
 
@@ -136,21 +137,22 @@ class OperationRuns(object):
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
-        for (_, folder, _) in iter_modules(
-            [transformations_dir]
-        ):  # ---> ["back_translation", ...]
-            if transformation_name == "light":
-                t_py = import_module(f"{search}.{folder}")
-                for name, obj in inspect.getmembers(t_py):
-                    if (
-                        inspect.isclass(obj)
-                        and issubclass(obj, Operation)
-                        and not obj.__module__.startswith("interfaces")
-                        and obj.heavy
-                        is False  # if the transformation is light
-                    ):
-                        yield folder  # only light transformations folder name
-            else:  # all folder names
+        if search == "transformations" and transformation_name == "light":
+            for entry in map_transformation["light"]:
+                yield entry  # only light transformations
+        elif search == "transformations" and transformation_name == "heavy":
+            for entry in map_transformation["heavy"]:
+                yield entry  # only heavy transformations
+        elif search == "filters" and transformation_name == "light":
+            for entry in map_filter["light"]:
+                yield entry  # only light filter
+        elif search == "filters" and transformation_name == "heavy":
+            for entry in map_filter["heavy"]:
+                yield entry  # only heavy filters
+        else:
+            for (_, folder, _) in iter_modules(
+                [transformations_dir]
+            ):  # ---> ["back_translation", ...]
                 yield folder
 
     @staticmethod
@@ -193,6 +195,8 @@ if __name__ == "__main__":
     for x in OperationRuns.get_all_folder_names("transformations", "light"):
         print(x)
     for x in OperationRuns.get_all_folder_names("transformations"):
+        print(x)
+    for x in OperationRuns.get_all_folder_names("filters", "light"):
         print(x)
     for x in OperationRuns.get_all_folder_names("filters"):
         print(x)
