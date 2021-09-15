@@ -14,3 +14,17 @@ This will benefit for robustness of text classification like sentiment analysis,
 
 ## What are the limitations of this transformation?
 It is limited to only adjectives and adverbs (comparative and superlative)
+
+## Robustness Evaluation
+
+original accuracy: 96.0  
+dataset_name: 'imdb'  
+model_name: 'aychang/roberta-base-imdb'  
+no_of_examples: 250  
+accuracy after perturbation: 91.0  
+ 
+The accuracy drops by 5% when tested on imdb dataset for roberta
+
+## KeyWords
+tokenizer-required  
+highly-meaning-preserving	
