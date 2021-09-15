@@ -3,6 +3,7 @@ from ftlid import identify_language
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
+from initialize import spacy_nlp
 
 
 class CodeMixing(SentenceOperation):
@@ -199,7 +200,7 @@ class CodeMixing(SentenceOperation):
 
     def __init__(self, k=2, threshold=0.5):
         super().__init__()
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.k = k
         self.threshold = threshold
 
