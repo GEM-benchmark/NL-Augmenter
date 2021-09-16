@@ -1,11 +1,11 @@
 # Replace Financial amounts 🦎  + ⌨️ → 🐍
 This transformation replaces consistently financial amounts throughout a text.
-The replacement changes the amount, the writting format as well as the currency of the financial amount.
+The replacement changes the amount, the writing format as well as the currency of the financial amount.
 The change is consistent in regard to:
 - the modifier used to change all amounts of the same currency throughout the text.
   - e.g., the sentence `I owe Fred € 20 and I need € 10 for the bus.` might be changed to `I owe Fred 2 906.37 Yen and I need 1 453.19 Yen for the bus.`
 - the modifier used to change the amounts so that new amounts are relatively close to the original amount.
-- the rate used for a change of currency, reflecting the actual bank rate.
+- the rate used for a change of currency, reflecting the bank rate applicable in August 2021.
 
 Author names:
 - Maxime Meyer (maxime.meyer@vadesecure.com, Vade)
@@ -71,6 +71,12 @@ I.e. we might have `12,38 $` or `12.38 $` output by the generator.
 The transformation can only change numeric financial amounts (i.e. it will not handle "two dollars" or "14k euros").
 
 Finally, the transformation is case sensitive i.e. 13 usd will not be considered as an amount. 
+
+### Bank Rate
+
+Currently, the bank rate is fixed and reflects the rate of August 2021.
+An improvement to this transformation could be to use a library such as `https://forex-python.readthedocs.io/en/latest/usage.html` to get actualized bank rates.
+
 
 ## Testing
 
