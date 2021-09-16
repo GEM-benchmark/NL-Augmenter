@@ -8,7 +8,7 @@
             },
             "outputs": [
                 {
-                    "sentence": "the French book has not returned Andrew to the library."
+                    "sentence": "The French book has not returned Andrew to the library."
                 }
             ]
         },
@@ -52,7 +52,7 @@
             },
             "outputs": [
                 {
-                    "sentence": "the fight would not give up The fighters."
+                    "sentence": "The fight would not give up The fighters."
                 }
             ]
         },
@@ -65,18 +65,18 @@
             },
             "outputs": [
                 {
-                    "sentence1": "the French book has not returned Andrew to the library.",
+                    "sentence1": "The French book has not returned Andrew to the library.",
                     "sentence2": "He hasn't brought back the library's books.",
                     "target": "0"
                 },
                 {
                     "sentence1": "Andrew has not returned the French book to the library.",
-                    "sentence2": "the library's books hasn't brought back He.",
+                    "sentence2": "The library's books hasn't brought back He.",
                     "target": "0"
                 },
                 {
-                    "sentence1": "the French book has not returned Andrew to the library.",
-                    "sentence2": "the library's books hasn't brought back He.",
+                    "sentence1": "The French book has not returned Andrew to the library.",
+                    "sentence2": "The library's books hasn't brought back He.",
                     "target": "1"
                 }
             ]
@@ -160,23 +160,23 @@
             "class": "PairSubjectObjectSwitch",
             "inputs": {
                 "sentence1": "The fighters would not give up the fight.",
-                "sentence2": "The warriors would stay in the battle",
+                "sentence2": "The warriors would stay in the battle.",
                 "target": "1"
             },
             "outputs": [
                 {
-                    "sentence1": "the fight would not give up The fighters.",
-                    "sentence2": "The warriors would stay in the battle",
+                    "sentence1": "The fight would not give up The fighters.",
+                    "sentence2": "The warriors would stay in the battle.",
                     "target": "0"
                 },
                 {
                     "sentence1": "The fighters would not give up the fight.",
-                    "sentence2": "the battle would stay in The warriors",
+                    "sentence2": "The battle would stay in The warriors.",
                     "target": "0"
                 },
                 {
-                    "sentence1": "the fight would not give up The fighters.",
-                    "sentence2": "the battle would stay in The warriors",
+                    "sentence1": "The fight would not give up The fighters.",
+                    "sentence2": "The battle would stay in The warriors.",
                     "target": "1"
                 }
             ]
