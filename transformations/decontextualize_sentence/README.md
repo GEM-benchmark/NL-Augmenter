@@ -1,4 +1,4 @@
-# Butter Fingers Perturbation 🦎  + ⌨️ → 🐍
+# Sentence Decontextualization 🦎  + ⌨️ → 🐍
 This perturbation removes the possible adjuncts from a sentence and generates new sentences, which convey the same general meaning as the original sentence.
 
 Author name: Ishan Jindal
@@ -23,7 +23,7 @@ This perturbation would largely benefit textual entailment task where given a se
 This transformation is applied to hypothesis and removes all the contextual information. That is the transformed sentence 
 won't be a paraphrase instead implied. Transformation leads to:
 - S1:`Two women are wandering along the shore drinking iced tea.`
-- S2:`Two women are sitting on a blanket near some rocks talking about politics.`
+- S2:`Two women are sitting on a blanket .`
 - label: `Contradiction`
 
 Further, this perturbation can benefit other tasks which have a sentence/paragraph/document as input like text classification, 
