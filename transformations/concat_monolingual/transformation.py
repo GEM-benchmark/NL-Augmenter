@@ -62,6 +62,7 @@ class ConcatMonolingual(SentenceOperation):
         "ur",
         "vi",
     ]
+    keywords = ["rule-based", "highly-meaning-preserving", "high-precision", "high-coverage", "low-generations"]
 
     def __init__(self, seed=0, max_outputs=1, last_source=""):
         super().__init__(seed, max_outputs=max_outputs)
