@@ -29,13 +29,18 @@ For more evaluation details, please see [here](https://github.com/GEM-benchmark/
 |:----------------------------|:---------------------|:------------------------|:---------------------|:--------------------|
 | UrbanThesaurusSwap          | 94.0->92.0 (-2.0)    | 92.0->90.0 (-2.0)       | 91.0->90.0 (-1.0)    | 95.0->94.0 (-1.0)   |
 
+Evaluation of the Text Generation task type was carried out with the default [xsum](https://huggingface.co/datasets/xsum) 
+dataset and [distilbart-xsum-12-6 model](https://huggingface.co/sshleifer/distilbart-xsum-12-6).
+
+| Transformation              | distilbart-xsum-12-6 | 
+|:----------------------------|:---------------------|
+| UrbanThesaurusSwap          | 14.9->13.3 (-1.4)    |
+
 ## Previous Work
 
 This transformation relies on the [Urban Thesaurus](https://urbanthesaurus.org/) website.
 
-Prior research leveraging Urban Dictionary:
-
-[Wilson et al. (2020)](https://aclanthology.org/2020.lrec-1.586/)
+Prior research leveraging Urban Dictionary: [Wilson et al. (2020)](https://aclanthology.org/2020.lrec-1.586/)
 ```bibtex
 @inproceedings{wilson-etal-2020-urban,
     title = "Urban Dictionary Embeddings for Slang {NLP} Applications",

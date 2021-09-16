@@ -78,9 +78,10 @@ class UrbanThesaurusSwap(SentenceOperation):
         """
         random.seed(self.seed)
         results = []
+        parse_text = self.nlp(text)
         for _ in range(self.max_outputs):
             new_text = []
-            for token in self.nlp(text):
+            for token in parse_text:
                 if token.pos_ == "NOUN" and random.random() < self.prob:
                     r = requests.get(self.url + token.text)
                     if r.status_code == 200:
