@@ -12,7 +12,6 @@ from interfaces.Operation import Operation
 from tasks.TaskTypes import TaskType
 
 disable_tests_for = [
-    "greetings_and_farewells",
     "change_date_format",
 ]  # disabled test : remove later
 
