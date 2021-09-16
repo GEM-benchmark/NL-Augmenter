@@ -2,7 +2,7 @@
     "type": "keywords",
     "test_cases": [
         {
-            "class": "BritishnessFilter",
+            "class": "EnglishnessFilter",
             "args": {
                 "britwords_required": 2
             },
@@ -12,7 +12,7 @@
             "outputs": true
         },
         {
-            "class": "BritishnessFilter",
+            "class": "EnglishnessFilter",
             "args": {
                 "britwords_required": 1
             },
@@ -22,7 +22,7 @@
             "outputs": false
         },
         {
-            "class": "BritishnessFilter",
+            "class": "EnglishnessFilter",
             "args": {
                 "britwords_required": 1
             },
@@ -32,7 +32,7 @@
             "outputs": true
         },
         {
-            "class": "BritishnessFilter",
+            "class": "EnglishnessFilter",
             "args": {
                 "britwords_required": 10
             },
@@ -42,7 +42,7 @@
             "outputs": true
         },
         {
-            "class": "BritishnessFilter",
+            "class": "EnglishnessFilter",
             "args": {
                 "britwords_required": 1
             },
@@ -52,7 +52,7 @@
             "outputs": true
         },
         {
-            "class": "BritishnessFilter",
+            "class": "EnglishnessFilter",
             "args": {
                 "britwords_required": 1
             },
@@ -62,7 +62,7 @@
             "outputs": false
         },
         {
-            "class": "BritishnessFilter",
+            "class": "EnglishnessFilter",
             "args": {
                 "britwords_required": 5
             },

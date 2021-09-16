@@ -35,11 +35,11 @@ class EnglishnessFilter(SentenceOperation):
 def get_britwords():
     britwords = []
 
-    spelling_json_file = open('filters/britishness/spelling_map.json')
+    spelling_json_file = open('filters/englishness/spelling_map.json')
     spelling_map = json.load(spelling_json_file)
     britwords += spelling_map.values()
 
-    vocab_json_file = open('filters/britishness/vocab_map.json')
+    vocab_json_file = open('filters/englishness/vocab_map.json')
     vocab_map = json.load(spelling_json_file)
     britwords += vocab_map.values()
 
