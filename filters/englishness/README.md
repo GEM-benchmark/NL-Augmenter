@@ -18,3 +18,14 @@ Translation between American and British English has been the subject of a slew 
 
 ## What are the limitations of this filter?
 This filter just naively selects for the presence of British vocabulary, ignoring subtler stylistic and grammatical differences between the two dialects, so it will inevitably fail to identify passages that a knowledgeable human would recognize as British English. Furthermore, in addition to these false negatives, this filter is prone to false positives, as Americans occasionally still find use for certain British spellings (as with the space shuttle Endeavour), and certain British terms like 'dynamo' and 'the fuzz' still have some trace presence in American English. It is also worth noting that British spellings and slang (e.g. "uni" for "college") are also used in other non-American English speaking countries like Australia, so this is ultimately more of a filter for uniquely non-American English than for specifically British English.
+
+## Filter evaluation
+Running `evaluate.py` on this filter yields the following output:
+
+```
+Here is the performance of the model aychang/roberta-base-imdb on the test[:20%] split of the imdb dataset
+Applying filtering:
+100% 1000/1000 [09:47<00:00,  1.70it/s]
+Here is the performance of the model on the filtered set
+The accuracy on this subset which has 193 examples = 96.0
+```
