@@ -22,6 +22,10 @@ tokens: `["Shannon", "received", "his", "doctorate", "from", "MIT", "in", "1940"
 
 tags: `["B-PER", "O", "O", "O", "O", "B-ORG", "O", "O", "O"]`
 
+
+Note that the transformation expects the list of `tokens` and `tags` as input, so please run your (*domain-specific*) entity tagger beforehand. Also, for `tags` the transformation expects the standard [IOB format](https://en.wikipedia.org/wiki/Inside%E2%80%93outside%E2%80%93beginning_(tagging)).
+
+
 ## What tasks does it intend to benefit?
 This transformation would benefit sequence labelling tasks such as named entity recognition.
 
