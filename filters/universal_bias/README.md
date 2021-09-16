@@ -14,13 +14,13 @@ FabLab by Inetum,
 75019 Paris - France 
 
 ## Why is measuring performance on this split important?
-This filter can be used to measure the underrepresentation of a specific group regarding gender, race, religion and other criteria.
+This filter can be used to measure the underrepresentation of a specific group regarding gender, ethnicity, religion and other criteria.
 The filter aims to prevent the propagation of the historial biases usually present in large text datasets.
 Finally, it additionally allows to retrieve the groups in question, which might be useful for further manipulation of the dataset.
 
 ## Related Work
-The problematics of the fairness present an active domain of research in NLP, however the existing methods of the bias measurement, such as PCA (Bolukbasi et al., 2016) or WEAT (Caliskan et al., 2017), may suffer from unclearness in the lexical seeds selection, pointed in a [recent ACL 2021 paper](https://www.aclanthology.org/2021.acl-long.148), the intrinsic measurements showed no correlation with extrinsic methods results, as showed a [recent research](https://www.aclanthology.org/2021.acl-long.150). On the other hand, the gender bias datasets (Winobias, Winogender, StereoSet, CrowS-Pairs) can present the unconsistencies, pointed by [another ACL paper](https://aclanthology.org/2021.acl-long.81.pdf) and might be far from  optimal in terms if bias measurement. 
-The beneficial impact of the current extrinsic filter is its complete transparency and extensibility, wich offers the user a great amont of control over the bias measurement parameters.
+The problematics of the gender fairness is an active domain of research in NLP, however the existing methods of the bias measurement, such as PCA (Bolukbasi et al., 2016) or WEAT (Caliskan et al., 2017), may suffer from unclearness in the lexical seeds selection, pointed in a recent ACL 2021 paper [[1]](https://www.aclanthology.org/2021.acl-long.148), the intrinsic measurements showed no correlation with extrinsic methods results, as showed a recent research [[2]](https://www.aclanthology.org/2021.acl-long.150). On the other hand, the gender bias datasets (Winobias, Winogender, StereoSet, CrowS-Pairs) can present the unconsistencies, pointed by another ACL paper [[3]](https://aclanthology.org/2021.acl-long.81.pdf) and might be far from  optimal in terms if bias measurement. 
+The beneficial impact of the current extrinsic filter is its complete transparency and extensibility, which offers the user a great amont of control over the bias measurement parameters.
 
 
 ## Example of use
@@ -47,7 +47,7 @@ print("minority tagged sentences:", minority)
 print("majority tagged sentences:", majority)
 print("Neutral tagged sentences:", neutral)
 ```
-Which outputs:
+Output:
 ```
 minority tagged sentences: 1
 majority tagged sentences: 2
@@ -61,7 +61,7 @@ print("This is a minority group:", minority_group)
 print("This is a majority group:", majority_group)
 print("This is a neutral group:", neutral_group)
 ```
-Which outputs:
+Output:
 ```
 This is a minority group: ['She is going to program']
 This is a majority group: ['He is going to make a cake.', 'He agreed to help me']
@@ -69,4 +69,4 @@ This is a neutral group: ['Nobody likes washing dishes']
 ```
 
 ## What are the limitations of this filter?
-This filter accepts unigram arrays, the n-gramms won't give the desired output, since the intersection with keywords is calculated after the sentence being passed throug split() function, wich returs an array of unigrams.
+This filter accepts unigram arrays, the n-gramms won't give the desired output, since the intersection with keywords is calculated after the sentence being passed through split() function, wich returs an array of unigrams.
