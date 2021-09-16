@@ -95,6 +95,13 @@ class YodaPerturbation(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "word-order",
+        "model-based",
+        "unnatural-sounding",
+        "highly-meaning-preserving",
+        "high-coverage",
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
