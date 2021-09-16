@@ -284,7 +284,7 @@ def generate_financial_amount_replacement(
         else:
             # case currency has never been encountered in the text previously
             currencies_generated = [
-                _c["name"] for _c in financial_amounts_encountered
+                financial_amounts_encountered[_c]["name"] for _c in financial_amounts_encountered
             ]
             (
                 new_financial_amount,

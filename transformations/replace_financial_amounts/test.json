@@ -13,6 +13,15 @@
     {
       "class": "ReplaceFinancialAmount",
       "inputs": {
+        "sentence": "It is 10 euros or 10 USD or 10 Pounds for the ticket? It is actually £ 20!"
+      },
+      "outputs": [{
+        "sentence": "It is 1 474.57 Yen or 11 dollars or 105 yuan for the ticket? It is actually 211.28 yuan!"
+      }]
+    },
+    {
+      "class": "ReplaceFinancialAmount",
+      "inputs": {
         "sentence": "Paul likes coffee and Mary tea does not contain financial amounts to replace."
       },
       "outputs": [{
