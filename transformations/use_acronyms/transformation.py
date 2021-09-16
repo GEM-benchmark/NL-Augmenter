@@ -60,7 +60,11 @@ class UseAcronyms(SentenceOperation):
             for line in file:
                 key, value = line.strip().split(sep)
                 temp_acronyms[key] = value
-        self.acronyms = temp_acronyms
+        # Place long keys first to prevent overlapping
+        acronyms = {}
+        for k in sorted(temp_acronyms, key=len, reverse=True):
+            acronyms[k] = temp_acronyms[k]
+        self.acronyms = acronyms
 
     def generate(self, sentence: str):
         return [transformation(sentence, self.lowercase, self.acronyms)]
