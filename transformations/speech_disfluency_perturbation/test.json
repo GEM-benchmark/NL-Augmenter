@@ -93,9 +93,8 @@
       "class": "SpeechDisfluencyPerturbation",
       "args": {
         "filler_words": [
-          "aaaah",
-          "eeeh",
-          "oof"
+          "oof",
+          "agh"
         ]
       },
       "inputs": {
@@ -103,7 +102,41 @@
       },
       "outputs": [
         {
-          "sentence": "Where did you learn how aaaah to drive again?"
+          "sentence": "Where did you learn how oof to drive again?"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "args": {
+        "filler_words": [
+          "eek"
+        ]
+      },
+      "inputs": {
+        "sentence": "I'm deathly afraid of mice!"
+      },
+      "outputs": [
+        {
+          "sentence": "I'm deathly eek afraid of mice!"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "args": {
+        "filler_words": [
+          "hmph",
+          "ahem",
+          "wheeze"
+        ]
+      },
+      "inputs": {
+        "sentence": "I've had a sore throat all week."
+      },
+      "outputs": [
+        {
+          "sentence": "I've had ahem a sore throat all week."
         }
       ]
     }

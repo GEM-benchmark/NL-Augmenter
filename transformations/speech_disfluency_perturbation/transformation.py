@@ -92,18 +92,23 @@ if __name__ == "__main__":
                 "outputs": [{"sentence": o} for o in tf.generate(sentence)],
             }
         )
-    tf2 = SpeechDisfluencyPerturbation(
-        max_outputs=1, filler_words=["aaaah", "eeeh", "agh"]
-    )
-    sentence = "Where did you learn how to drive again?"
-    test_cases.append(
-        {
-            "class": tf2.name(),
-            "args": {"filler_words": ["aaaah", "eeeh", "oof"]},
-            "inputs": {"sentence": sentence},
-            "outputs": [{"sentence": o} for o in tf2.generate(sentence)],
-        }
-    )
+    for filler_words, sentence in [
+        (["oof", "agh"], "Where did you learn how to drive again?"),
+        (["eek"], "I'm deathly afraid of mice!"),
+        (["hmph", "ahem", "wheeze"], "I've had a sore throat all week."),
+    ]:
+        tf2 = SpeechDisfluencyPerturbation(
+            max_outputs=1, filler_words=filler_words
+        )
+        test_cases.append(
+            {
+                "class": tf2.name(),
+                "args": {"filler_words": filler_words},
+                "inputs": {"sentence": sentence},
+                "outputs": [{"sentence": o} for o in tf2.generate(sentence)],
+            }
+        )
+
     json_file = {
         "type": convert_to_snake_case(tf.name()),
         "test_cases": test_cases,
