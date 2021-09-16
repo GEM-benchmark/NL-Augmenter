@@ -10,7 +10,11 @@ from typing import Iterable
 from interfaces.Operation import Operation
 from tasks.TaskTypes import TaskType
 
-disable_tests_for = ["greetings_and_farewells"]
+disable_tests_for = [
+    "negate_strengthen",
+    "word_noise",
+]  # TODO: Don't disable tests
+
 
 def load(module, cls):
     my_class = getattr(module, cls.__name__)
@@ -182,7 +186,9 @@ if __name__ == "__main__":
     ):
         print(transformation.name())
         impl = transformation()
-        for sentence in ["Mahendra Dhoni finally travelled to Australia with 5 suitcases. "
-                         "He wanted to prepare for the biggest game of the season!!!"]:
+        for sentence in [
+            "Mahendra Dhoni finally travelled to Australia with 5 suitcases. "
+            "He wanted to prepare for the biggest game of the season!!!"
+        ]:
             for p in impl.generate(sentence):
                 print(p)
