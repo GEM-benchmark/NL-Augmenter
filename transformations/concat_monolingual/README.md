@@ -25,3 +25,13 @@ This concatenation would benefit all text tasks that use a transformer (and like
 
 ## What are the limitations of this transformation?
 The transformation has only appeared in publications in Low Resource Settings and for Machine Translation. It is unclear what the benefits will be in a higher resource settting or in a monolingual task.
+
+## Robustness Evaluation
+Undefined task type, switching to default task %s TEXT_CLASSIFICATION
+Loading <imdb> dataset to evaluate <aychang/roberta-base-imdb> model.
+Here is the performance of the model aychang/roberta-base-imdb on the test[:20%] split of the imdb dataset
+The accuracy on this subset which has 1000 examples = 96.0
+Applying transformation:
+Finished transformation! 1000 examples generated from 1000 original examples, with 1000 successfully transformed and 0 unchanged (1.0 perturb rate)
+Here is the performance of the model on the transformed set
+The accuracy on this subset which has 1000 examples = 98.0
