@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 import spacy
 
-from initialize import reinitialize_spacy, spacy_nlp
+from initialize import spacy_nlp
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
 from transformations.back_translation import BackTranslation
@@ -46,9 +46,6 @@ class LexicalCounterfactualGenerator(SentencePairOperation):
     def __init__(self, seed=0, max_outputs=2, pos_label="1", neg_label="0"):
         super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-        # Reinitialize spacy tokens to default
-        if spacy_nlp:
-            reinitialize_spacy()
         self.pos_label = pos_label
         self.neg_label = neg_label
         self.bt = BackTranslation()

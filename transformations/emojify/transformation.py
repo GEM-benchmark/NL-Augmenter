@@ -4,7 +4,7 @@ from json import load
 
 import spacy
 
-from initialize import reinitialize_spacy, spacy_nlp
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -80,10 +80,6 @@ class EmojifyTransformation(SentenceOperation):
 
         # Load the spacy nlp
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-
-        # Reinitialize spacy to default tokenizer
-        if spacy_nlp:
-            reinitialize_spacy()
 
     def generate(self, sentence: str):
         """

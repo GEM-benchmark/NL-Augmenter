@@ -3,7 +3,7 @@ from typing import List
 
 from spacy import load as spacy_load
 
-from initialize import reinitialize_spacy, spacy_nlp
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from transformations.token_replacement.lookup_table_utils import (
@@ -41,9 +41,6 @@ class TokenReplacement(SentenceOperation):
         """
         super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy_load("en_core_web_sm")
-        # Reset spacy to default tokenizer
-        if spacy_nlp:
-            reinitialize_spacy()
         self.replacement_prob = replacement_prob
         self.max_dist = max_dist
         self.min_length = min_length

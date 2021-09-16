@@ -8,7 +8,7 @@ import pyinflect  # noqa: F401
 import spacy
 from gender_extractor import GenderExtractor
 
-from initialize import reinitialize_spacy, spacy_nlp
+from initialize import spacy_nlp
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
 
@@ -34,9 +34,6 @@ class SuspectingParaphraser(QuestionAnswerOperation):
         nltk.download("punkt")
 
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-        # Reinitialize spacy to default tokenizer
-        if spacy_nlp:
-            reinitialize_spacy()
 
         self.gender_detector = GenderExtractor()
         self.pronouns = ["he", "she", "it", "they"]
