@@ -1,3 +1,5 @@
+import os
+
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -34,7 +36,6 @@ class UseAcronyms(SentenceOperation):
         "lexical",
         "rule-based",
         "external-knowledge-based",
-        "tokenizer-required",
         "high-precision",
         "low-coverage",
         "low-generations",
@@ -45,18 +46,21 @@ class UseAcronyms(SentenceOperation):
         seed=0,
         max_outputs=1,
         lowercase=False,
-        acronyms_file="transformations/use_acronyms/acronyms.tsv",
+        acronyms_file_path=os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "acronyms.tsv"
+        ),
         sep="\t",
         encoding="utf-8",
     ):
         super().__init__(seed, max_outputs=max_outputs)
         self.lowercase = lowercase
-        acronyms = {}
-        with open(acronyms_file, "r", encoding=encoding) as file:
+        # Load acronyms from file
+        temp_acronyms = {}
+        with open(acronyms_file_path, "r", encoding=encoding) as file:
             for line in file:
                 key, value = line.strip().split(sep)
-                acronyms[key] = value
-        self.acronyms = acronyms
+                temp_acronyms[key] = value
+        self.acronyms = temp_acronyms
 
     def generate(self, sentence: str):
         return [transformation(sentence, self.lowercase, self.acronyms)]
