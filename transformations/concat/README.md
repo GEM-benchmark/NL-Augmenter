@@ -25,3 +25,7 @@ This concatenation would benefit all text tasks that use a transformer (and like
 
 ## What are the limitations of this transformation?
 The transformation has only appeared in publications in Low Resource Settings and for Machine Translation. It is unclear what the benefits will be in a higher resource settting or in a monolingual task.
+
+## Robustness Evaluation 
+Undefined task type, switching to default task %s TEXT_CLASSIFICATION
+No default evaluation model exists for the interface <class 'interfaces.SentenceOperation.SentenceAndTargetOperation'> in the locale en.It's okay to skip the evaluation for the purpose of the PR. If you are interested to evaluate your perturbation on a task and a dataset, the right place to do it would to add a new class in the evaluation folder and call it from execute_model. That's it!
