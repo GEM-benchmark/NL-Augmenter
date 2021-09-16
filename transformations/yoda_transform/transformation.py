@@ -20,6 +20,9 @@ comma = nlp(" , ")[1]
 
 
 def sentify(text):
+    """
+    Takes an input text, splits it into sentences, and applies a yoda transformation to individual clauses in the sentence
+    """
     output = []
     doc = nlp(text)
     for sent in doc.sents:
@@ -31,6 +34,9 @@ def sentify(text):
 
 
 def clausify(sent):
+    """
+    Turns sentences into clauses
+    """
     output = []
     cur = []
     for token in sent:
@@ -48,6 +54,9 @@ def clausify(sent):
 
 
 def yodafy(clause):
+    """
+    Takes each clause and puts it into yoda format
+    """
     new_array = []
     state = False
     for token in clause:
@@ -65,6 +74,14 @@ def yodafy(clause):
 
 
 def yoda(s):
+    """
+    Takes an input sentence and rearranges it in "Yoda-speak"
+
+    inputs:
+    s: string
+
+    returns: string
+    """
     string = []
     yodafied = sentify(s)
     for sentence in yodafied:
