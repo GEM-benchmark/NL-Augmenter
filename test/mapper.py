@@ -73,6 +73,7 @@ map_transformation = {
 # Mapping of light and heavy filters
 map_filter = {
     "light": [
+        "code_mixing",
         "encoding",
         "group_inequity",
         "keywords",
@@ -80,6 +81,7 @@ map_filter = {
         "length",
         "numeric",
         "polarity",
+        "quantitative_ques",
         "question_filter",
         "repetitions",
         "soundex",

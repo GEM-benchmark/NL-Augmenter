@@ -81,61 +81,50 @@ class OperationRuns(object):
         self.operations = filters
         self.operation_test_cases = filter_test_cases
 
-    def _load_all_transformation_test_case(
-        self, heavy=False, search="transformations"
+    def _load_multiple_transformation_test_case(
+        self,
+        transformation_names: str,
+        heavy: bool = False,
+        search: str = "transformations",
     ):
+        """Load multiple classes within a transforamtion.
+
+        Parameters:
+        -----------
+        heavy: bool, Default is False,
+            heavy or light transformation or filter.
+        transformation_names: str,
+            name of the transformations or filters.
+        search: str, Default is transformations,
+            either tranformations or filters.
+
+        Returns:
+        --------
+        None.
+
+        """
         filters = []
         filter_test_cases = []
-        package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        filters_dir = package_dir.parent.joinpath(search)
+        for (_, m, _) in iter_modules(transformation_names):
+            print(f"Directory = {m}")
+            if m in disable_tests_for:
+                continue
 
-        # Import light transformations only
-        if heavy is False and search == "transformations":
-            for m in map_transformation["light"]:
-                print(f"Directory = {m}")
-                if m in disable_tests_for:
-                    continue
-                self._load_single_transformation_test_case(m, search)
-        # Import heavy transformations only
-        elif heavy is True and search == "transformations":
-            for m in map_transformation["heavy"]:
-                print(f"Directory = {m}")
-                if m in disable_tests_for:
-                    continue
-                self._load_single_transformation_test_case(m, search)
-        # Import light filters only
-        elif heavy is False and search == "filters":
-            for m in map_filter["light"]:
-                print(f"Directory = {m}")
-                if m in disable_tests_for:
-                    continue
-                self._load_single_transformation_test_case(m, search)
-        # Import heavy filters only
-        elif heavy is True and search == "filters":
-            for m in map_filter["heavy"]:
-                print(f"Directory = {m}")
-                if m in disable_tests_for:
-                    continue
-                self._load_single_transformation_test_case(m, search)
-        # Import all filters or all transformations based on search term
-        else:
-            for (_, m, _) in iter_modules([filters_dir]):
-                print(f"Directory = {m}")
-                if m in disable_tests_for:
-                    continue
+            # Load only the specified transformation
+            t_py = import_module(f"{search}.{m}")
+            t_js = os.path.join(
+                Path(__file__).resolve().parent.joinpath(search), "test.json"
+            )
+            filter_instance = None
+            prev_class_args = {}
 
-                t_py = import_module(f"{search}.{m}")
-                t_js = os.path.join(filters_dir, m, "test.json")
-                filter_instance = None
-                prev_class_args = {}
-                for test_case in load_test_cases(t_js):
-                    class_name = test_case["class"]
-                    class_args = (
-                        test_case["args"] if "args" in test_case else {}
-                    )
-                    cls = getattr(t_py, class_name)
-
-                    is_heavy = cls.is_heavy()
+            # Load the test.json for the specified transformation
+            for test_case in load_test_cases(t_js):
+                class_name = test_case["class"]
+                class_args = test_case["args"] if "args" in test_case else {}
+                # construct filter class with input args
+                cls = getattr(t_py, class_name)
+                is_heavy = cls.is_heavy()
                 if (not heavy) and is_heavy:
                     continue
                 else:
@@ -148,11 +137,34 @@ class OperationRuns(object):
                         filter_instance = cls(**class_args)
                         prev_class_args = class_args
 
-                    filters.append(filter_instance)
-                    filter_test_cases.append(test_case)
+                filters.append(filter_instance)
+                filter_test_cases.append(test_case)
 
-            self.operations = filters
-            self.operation_test_cases = filter_test_cases
+        self.operations = filters
+        self.operation_test_cases = filter_test_cases
+
+    def _load_all_transformation_test_case(
+        self, heavy=False, search="transformations"
+    ):
+        if search == "transformations":
+            # Load either heavy or light transformations only based on heavy param
+            self._load_multiple_transformation_test_case(
+                map_transformation["heavy"]
+                if heavy
+                else map_transformation["light"],
+                heavy,
+            )
+        elif search == "filters":
+            # Load either heavy or light filters only based on heavy param
+            self._load_multiple_transformation_test_case(
+                map_filter["heavy"] if heavy else map_transformation["light"],
+                heavy,
+            )
+        else:
+            # Import all filters or all transformations based on search term
+            package_dir = Path(__file__).resolve()  # --> TestRunner.py
+            filters_dir = package_dir.parent.joinpath(search)
+            self._load_multiple_transformation_test_case([filters_dir], heavy)
 
     @staticmethod
     def get_all_folder_names(
@@ -236,6 +248,8 @@ if __name__ == "__main__":
     for x in OperationRuns.get_all_folder_names("filters", "light"):
         print(x)
     for x in OperationRuns.get_all_folder_names("filters"):
+        print(x)
+    for x in OperationRuns.get_all_folder_names():
         print(x)
     for x in OperationRuns.get_all_operations():
         print(x)
