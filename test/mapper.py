@@ -33,7 +33,6 @@ map_transformation = {
         "greetings_and_farewells",
         "insert_abbreviation",
         "leet_letters",
-        "lexical_counterfactual_generator",
         "longer_location_ner",
         "longer_names_ner",
         "mix_transliteration",
@@ -59,6 +58,7 @@ map_transformation = {
     "heavy": [
         "back_translation",
         "formality_change",
+        "lexical_counterfactual_generator",
         "lost_in_translation",
         "mixed_language_perturbation",
         "multilingual_back_translation",
