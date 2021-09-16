@@ -1,0 +1,50 @@
+{
+  "type": "greetings_and_farewells",
+  "test_cases": [
+    {
+      "class": "GreetingsAndFarewells",
+      "inputs": {
+        "sentence": "Good morning, John. I've sent a memo to your desk, let me know if you need anything else. Best regards"
+      },
+      "outputs": [{
+        "sentence": "Good afternoon, John. I've sent a memo to your desk, let me know if you need anything else. Have a nice weekend"
+      }]
+    },
+    {
+      "class": "GreetingsAndFarewells",
+      "inputs": {
+        "sentence": "Hey dude. What's up?"
+      },
+      "outputs": [{
+        "sentence": "Hi dude. Good afternoon"
+      }]
+    },
+    {
+      "class": "GreetingsAndFarewells",
+      "inputs": {
+        "sentence": "Hey everyone. It's nice to meet you. How have you been?"
+      },
+      "outputs": [{
+        "sentence": "Hi everyone. Pleased to meet you. How are you?"
+      }]
+    },
+    {
+      "class": "GreetingsAndFarewells",
+      "inputs": {
+        "sentence": "Hello, John. Thank you for your purchase. Have a great day!"
+      },
+      "outputs": [{
+        "sentence": "Hi, John. Thank you for your purchase. See ya!"
+      }]
+    },
+    {
+      "class": "GreetingsAndFarewells",
+      "inputs": {
+        "sentence": "Hey bro, I forgot my coat at home. I think I will be a little late to pick you up. Hold on a little bit more. See you soon!"
+      },
+      "outputs": [{
+        "sentence": "Hi bro, I forgot my coat at home. I think I will be a little late to pick you up. Hold on a little bit more. See ya!"
+      }]
+    }
+  ]
+}
