@@ -4,6 +4,7 @@ import re
 
 class UniversalBiasFilter(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
+    keywords = ["rule-based", "social-reasoning"]
 
     def __init__(self, minority=None, majority=None):
         super().__init__()
@@ -169,9 +170,14 @@ class UniversalBiasFilter(SentenceOperation):
             flagged_corpus
         )
 
-        # If the mumber of sentences in the minority group is lower than in the majority group, set bias to True
+        minority_percentage = 100 * float(minority_count) / float(len(sentences))
+        majority_percentage = 100 * float(majority_count) / float(len(sentences))
+
+
+        # If the mumber of sentences in terms of percentage in the minority group
+        # is lower than in the majority group, set bias to True
         # Note, that the neutral group is not taken into account in this calculation
-        if minority_count < majority_count:
+        if minority_percentage < majority_percentage:
             biased = True
         else:
             biased = False
