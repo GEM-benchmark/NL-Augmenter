@@ -161,7 +161,7 @@ class OperationRuns(object):
         elif search == "filters":
             # Load either heavy or light filters only based on heavy param
             self._load_multiple_transformation_test_case(
-                map_filter["heavy"] if heavy else map_transformation["light"],
+                map_filter["heavy"] if heavy else map_filter["light"],
                 heavy,
                 search,
             )
