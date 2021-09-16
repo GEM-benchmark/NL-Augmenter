@@ -43,7 +43,7 @@ class OperationRuns(object):
     def __init__(self, transformation_name, search="transformations"):
         if transformation_name == "light":
             self._load_all_transformation_test_case(heavy=False, search=search)
-        elif transformation_name == "all":
+        elif transformation_name == "heavy":
             self._load_all_transformation_test_case(heavy=True, search=search)
         else:
             self._load_single_transformation_test_case(
@@ -83,7 +83,7 @@ class OperationRuns(object):
 
     def _load_multiple_transformation_test_case(
         self,
-        transformation_names: str,
+        transformation_names: list,
         heavy: bool = False,
         search: str = "transformations",
     ):
@@ -94,7 +94,7 @@ class OperationRuns(object):
         heavy: bool, Default is False,
             heavy or light transformation or filter.
         transformation_names: str,
-            name of the transformations or filters.
+            list of the transformations or filters.
         search: str, Default is transformations,
             either tranformations or filters.
 
@@ -105,7 +105,8 @@ class OperationRuns(object):
         """
         filters = []
         filter_test_cases = []
-        for (_, m, _) in iter_modules(transformation_names):
+
+        for m in transformation_names:
             print(f"Directory = {m}")
             if m in disable_tests_for:
                 continue
@@ -113,7 +114,9 @@ class OperationRuns(object):
             # Load only the specified transformation
             t_py = import_module(f"{search}.{m}")
             t_js = os.path.join(
-                Path(__file__).resolve().parent.joinpath(search), "test.json"
+                Path(__file__).resolve().parent.joinpath(search),
+                m,
+                "test.json",
             )
             filter_instance = None
             prev_class_args = {}
@@ -153,18 +156,15 @@ class OperationRuns(object):
                 if heavy
                 else map_transformation["light"],
                 heavy,
+                search,
             )
         elif search == "filters":
             # Load either heavy or light filters only based on heavy param
             self._load_multiple_transformation_test_case(
                 map_filter["heavy"] if heavy else map_transformation["light"],
                 heavy,
+                search,
             )
-        else:
-            # Import all filters or all transformations based on search term
-            package_dir = Path(__file__).resolve()  # --> TestRunner.py
-            filters_dir = package_dir.parent.joinpath(search)
-            self._load_multiple_transformation_test_case([filters_dir], heavy)
 
     @staticmethod
     def get_all_folder_names(
@@ -245,7 +245,7 @@ if __name__ == "__main__":
         print(x)
     for x in OperationRuns.get_all_folder_names("transformations"):
         print(x)
-    for x in OperationRuns.get_all_folder_names("filters", "light"):
+    for x in OperationRuns.get_all_folder_names("filters", "heavy"):
         print(x)
     for x in OperationRuns.get_all_folder_names("filters"):
         print(x)
