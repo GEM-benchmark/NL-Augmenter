@@ -8,7 +8,7 @@
       },
       "outputs": [
         {
-          "sentence": "Andrew finally returned the er French book to Chris that I bought last week"
+          "sentence": "Andrew finally um returned the French book to Chris that I bought last ah week"
         }
       ]
     },
@@ -19,7 +19,7 @@
       },
       "outputs": [
         {
-          "sentence": "Sentences with gapping, such uh as Paul likes coffee and Mary tea, lack an overt um predicate to indicate the relation erm between two or more arguments."
+          "sentence": "Sentences with gapping, uh such as Paul likes coffee and Mary tea, lack an er overt predicate to indicate the uh relation between two or more arguments."
         }
       ]
     },
@@ -30,7 +30,7 @@
       },
       "outputs": [
         {
-          "sentence": "Alice in Wonderland is a 2010 ah American live-action/animated dark fantasy adventure film"
+          "sentence": "Alice in Wonderland is er a 2010 American live-action/animated dark fantasy adventure film"
         }
       ]
     },
@@ -41,7 +41,7 @@
       },
       "outputs": [
         {
-          "sentence": "Ujjal Dev um Dosanjh served as 33rd Premier of British Columbia from 2000 ah to 2001"
+          "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to ah 2001"
         }
       ]
     },
@@ -52,7 +52,58 @@
       },
       "outputs": [
         {
-          "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the ah neuronosynaptic organization."
+          "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of uh the neuronosynaptic organization."
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": "Yes"
+      },
+      "outputs": [
+        {
+          "sentence": "Yes ah"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": "Of course"
+      },
+      "outputs": [
+        {
+          "sentence": "Of ah course"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": ""
+      },
+      "outputs": [
+        {
+          "sentence": "ah"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "args": {
+        "filler_words": [
+          "aaaah",
+          "eeeh",
+          "oof"
+        ]
+      },
+      "inputs": {
+        "sentence": "Where did you learn how to drive again?"
+      },
+      "outputs": [
+        {
+          "sentence": "Where did you learn how aaaah to drive again?"
         }
       ]
     }

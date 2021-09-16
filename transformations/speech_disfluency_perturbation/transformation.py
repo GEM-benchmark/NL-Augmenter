@@ -43,15 +43,25 @@ class SpeechDisfluencyPerturbation(SentenceOperation):
 
         for _ in range(self.max_outputs):
             tokens = sentence.split()
+
+            # In the case of very short inputs, allow for the addition of
+            # tokens before/after the first/last token respectively.
+            short_input = len(tokens) <= 1
+            if short_input:
+                tokens = [None] + tokens + [None]
+
             choices = []
             while not choices:
-                for i in range(1, len(tokens) - 1):
+                for i in range(1, len(tokens)):
                     if random.random() < self.insert_prob:
                         choices.append(i)
 
             choices = choices[::-1]
             for i in choices:
                 tokens.insert(i, random.choice(self.filler_words))
+
+            if short_input:
+                tokens = tokens[1:-1]
 
             perturbed_texts.append(" ".join(tokens))
         return perturbed_texts
@@ -64,7 +74,6 @@ if __name__ == "__main__":
     from TestRunner import convert_to_snake_case
 
     tf = SpeechDisfluencyPerturbation(max_outputs=1)
-    sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
     for sentence in [
         "Andrew finally returned the French book to Chris that I bought last week",
@@ -72,6 +81,9 @@ if __name__ == "__main__":
         "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film",
         "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001",
         "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization.",
+        "Yes",
+        "Of course",
+        "",
     ]:
         test_cases.append(
             {
@@ -80,6 +92,18 @@ if __name__ == "__main__":
                 "outputs": [{"sentence": o} for o in tf.generate(sentence)],
             }
         )
+    tf2 = SpeechDisfluencyPerturbation(
+        max_outputs=1, filler_words=["aaaah", "eeeh", "agh"]
+    )
+    sentence = "Where did you learn how to drive again?"
+    test_cases.append(
+        {
+            "class": tf2.name(),
+            "args": {"filler_words": ["aaaah", "eeeh", "oof"]},
+            "inputs": {"sentence": sentence},
+            "outputs": [{"sentence": o} for o in tf2.generate(sentence)],
+        }
+    )
     json_file = {
         "type": convert_to_snake_case(tf.name()),
         "test_cases": test_cases,
