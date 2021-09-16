@@ -40,7 +40,7 @@ def get_britwords():
     britwords += spelling_map.values()
 
     vocab_json_file = open('filters/englishness/vocab_map.json')
-    vocab_map = json.load(spelling_json_file)
+    vocab_map = json.load(vocab_json_file)
     britwords += vocab_map.values()
 
     britslang = [
