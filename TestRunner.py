@@ -13,7 +13,9 @@ from tasks.TaskTypes import TaskType
 
 disable_tests_for = [
     "change_date_format",
-]  # disabled test : remove later
+    "negate_strengthen",
+    "word_noise",
+]  # TODO: Don't disable tests
 
 
 def load(module, cls):
