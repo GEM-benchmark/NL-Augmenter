@@ -1,10 +1,4 @@
 import spacy
-from spacy.tokenizer import Tokenizer
-from spacy.util import (
-    compile_infix_regex,
-    compile_prefix_regex,
-    compile_suffix_regex,
-)
 
 from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
@@ -15,24 +9,6 @@ from tasks.TaskTypes import TaskType
 Auxiliary Negation Removal.
     Remove auxiliary negations generating a sentence with oposite meaning.
 """
-
-
-def reinitialize_spacy():
-    nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-    rules = nlp.Defaults.tokenizer_exceptions
-    infix_re = compile_infix_regex(nlp.Defaults.infixes)
-    prefix_re = compile_prefix_regex(nlp.Defaults.prefixes)
-    suffix_re = compile_suffix_regex(nlp.Defaults.suffixes)
-
-    nlp.tokenizer = Tokenizer(
-        nlp.vocab,
-        rules=rules,
-        prefix_search=prefix_re.search,
-        suffix_search=suffix_re.search,
-        infix_finditer=infix_re.finditer,
-    )
-
-    return nlp
 
 
 def auxiliary_negation_removal(sentence, nlp):
@@ -136,9 +112,6 @@ class SentenceAuxiliaryNegationRemoval(SentenceOperation):
 
     def generate(self, sentence: str):
 
-        # Reinitialize spacy
-        self.nlp = reinitialize_spacy()
-
         # Initialize Variables
         output_sentence = sentence
 
@@ -173,9 +146,6 @@ class PairAuxiliaryNegationRemoval(SentencePairOperation):
         self.neg_label = neg_label
 
     def generate(self, sentence1: str, sentence2: str, target: str):
-
-        # Reinitialize spacy
-        self.nlp = reinitialize_spacy()
 
         # Initialize Variables
         output_sentences = []
