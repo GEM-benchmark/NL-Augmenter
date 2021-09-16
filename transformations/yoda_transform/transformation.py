@@ -2,6 +2,7 @@ import itertools
 
 import spacy
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -14,7 +15,7 @@ deprecation and to change some stylistic features
 """
 
 punctuation = [",", ".", ";", "?", "!"]
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 comma = nlp(" , ")[1]
 
 
