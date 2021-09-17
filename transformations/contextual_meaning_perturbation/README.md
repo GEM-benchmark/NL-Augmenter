@@ -1,6 +1,9 @@
 # Contextual Meaning Perturbation🦎  + ☎️️ → 🐍
 This transformation changes the meaning of the sentence while avoiding grammar, spelling and logical mistakes.
 
+*Author:
+Hanna Behnke, Imperial College London
+(hanna.behnke20@imperial.ac.uk)*
 
 ## What type of a transformation is this?
 This transformation's effect is comparable to the <i>"Chinese Whispers"</i> or <i>"Telephone"</i> children's game: The transformed sentence
@@ -18,12 +21,15 @@ A real-world example would be the training of quality estimation models for mach
 (does the translation maintain the meaning of the source?) or for text summarisation (does the summary capture the content of the source?).
 
 
-
 ## What kind of configurations are tweakable?
 - <b>pos_to_change</b>: Determines which tokens are eligible for change based on the part of speech – default: ['ADV','ADJ', 'VERB', 'NOUN', 'PROPN']
 - <b>perturbation_rate</b>: The percentage of eligible tokens that should be changed – default: 0.3
 - <b>language</b>: Currently supported languages include English (en) and German (de) – default: "en"
 - <b>top_k</b>: Determines how many replacement candidates should be proposed – default: 10
+
+With the pre-configured settings, the risk of introducing small grammar mistakes
+is about 5% for English and about 10% for German data for sentences of average length. The meaning of the original sentence is preserved in <1% of the cases (as intended).
+Lowering the perturbation rate increases the risk of paraphrasing the sentences without changing their meaning.
 
 
 ## Previous Work
@@ -38,12 +44,4 @@ this transformation can help to get the same effect with significantly fewer gra
 
 ## What are the limitations of this transformation?
 Without using an additional grammar correction tool, it is difficult to avoid grammar mistakes completely.
-With the pre-configured settings, the risk of introducing small grammar mistakes
-is about 5% for English and about 10% for German data for sentences of average length. The meaning of the original sentence is preserved in <1% of the cases (as intended).
-Lowering the perturbation rate increases the risk of paraphrasing the sentences without changing their meaning.
-
 Since this transformation requires the use of a pre-trained language model (via HuggingFace), it is comparatively heavy-weighted.
-
-Author:
-Hanna Behnke, Imperial College London
-(hanna.behnke20@imperial.ac.uk)
