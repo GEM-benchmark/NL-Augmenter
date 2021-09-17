@@ -6,6 +6,7 @@ import sys
 from tasks.TaskTypes import TaskType
 from interfaces.SentenceOperation import SentenceOperation
 import hashlib
+from initialize import spacy_nlp
 
 
 def hash(input: str):
@@ -189,10 +190,11 @@ class CityNamesTransformation(SentenceOperation):
 
         """
         super().__init__(seed, max_outputs=max_outputs)
-        if lang == "en":
-            self.model = spacy.load("en_core_web_sm")
-        else:
-            self.model = spacy.load("es_core_news_sm")
+        # if lang == "en":
+        #     self.model = spacy.load("en_core_web_sm")
+        # else:
+        #     self.model = spacy.load("es_core_news_sm")
+        self.model = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         if lang == "en":
             if data_path is None:
                 self.transformer = ChangeCityNames(
