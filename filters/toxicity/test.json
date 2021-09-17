@@ -1,0 +1,77 @@
+{
+    "type": "toxicity",
+    "test_cases": [
+        {
+            "class": "ToxicityFilter",
+            "args": {
+                "toxicity_type": "insult",
+                "op": ">=",
+                "threshold": 0.8
+            },
+            "inputs": {
+                "sentence": "What a moron!"
+            },
+            "outputs": true
+        },
+        {
+            "class": "ToxicityFilter",
+            "args": {
+                "toxicity_type": "toxicity",
+                "op": ">=",
+                "threshold": 0.9
+            },
+            "inputs": {
+                "sentence": "I disagree. It is not supposed to work that way."
+            },
+            "outputs": false
+        },
+        {
+            "class": "ToxicityFilter",
+            "args": {
+                "toxicity_type": "toxicity",
+                "op": ">",
+                "threshold": 0.8
+            },
+            "inputs": {
+                "sentence": "Shut up, faggot!"
+            },
+            "outputs": true
+        },
+        {
+            "class": "ToxicityFilter",
+            "args": {
+                "toxicity_type": "insult",
+                "op": "<",
+                "threshold": 0.75
+            },
+            "inputs": {
+                "sentence": "I am going to come right there and beat you into a pulp!"
+            },
+            "outputs": true
+        },
+        {
+            "class": "ToxicityFilter",
+            "args": {
+                "toxicity_type": "threat",
+                "op": "<=",
+                "threshold": 0.75
+            },
+            "inputs": {
+                "sentence": "I am going to come right there and beat you into a pulp!"
+            },
+            "outputs": false
+        },
+        {
+            "class": "ToxicityFilter",
+            "args": {
+                "toxicity_type": "toxicity",
+                "op": "<=",
+                "threshold": 0.5
+            },
+            "inputs": {
+                "sentence": "You are really clever"
+            },
+            "outputs": true
+        }
+    ]
+}

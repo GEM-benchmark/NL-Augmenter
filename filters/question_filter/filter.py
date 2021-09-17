@@ -11,14 +11,14 @@ class BaseFilter(QuestionAnswerOperation):
 
     def __init__(self, keywords: List[str] = []):
         super().__init__()
-        self.keywords = keywords
+        self.question_words = keywords
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def filter(self,context:str = None ,question: str = None, answers: List[str]= None) -> bool:
         '''Determines if some keyword is present in the given question or not'''
         tokenized = self.nlp(question)
         tokenized = [token.text.lower() for token in tokenized]
-        contained_keywords = set(tokenized).intersection(set(self.keywords))
+        contained_keywords = set(tokenized).intersection(set(self.question_words))
         return bool(contained_keywords)
 
 

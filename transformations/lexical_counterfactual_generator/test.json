@@ -45,7 +45,7 @@
       },
       "outputs": [
         {
-          "sentence1": "Alice in Wonderland is an American fantasy adventure film from 2010 that is not live-action / animated.",
+          "sentence1": "Alice in Wonderland is an American live-action / non-animated dark fantasy adventure film from 2010.",
           "sentence2": "Alice in Wonderland is an American animated, dark fantasy adventure film from 2010",
           "target": "0"
         }
@@ -76,8 +76,8 @@
       "outputs": [
         {
           "sentence1": "The fighters would never give up.",
-          "sentence2": "The warriors would not leave the battlefield.",
-          "target": "0"
+          "sentence2": "The warriors wouldn't leave the battlefield.",
+          "target": "1"
         }
       ]
     },

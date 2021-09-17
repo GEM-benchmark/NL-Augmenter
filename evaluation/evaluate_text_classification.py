@@ -85,7 +85,7 @@ def _process_model_pred(model_name, pred):
 
 def evaluate(
     operation, evaluate_filter, model_name, 
-    dataset_name, split="test[:20%]", batch_size=8, is_cuda=False):
+    dataset_name, split="test[:20%]", batch_size=8, is_cuda=torch.cuda.is_available()):
     if model_name is None: model_name = "aychang/roberta-base-imdb"
     if dataset_name is None: dataset_name = "imdb"
     print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")

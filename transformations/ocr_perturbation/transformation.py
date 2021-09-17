@@ -12,6 +12,8 @@ from tesserocr import PyTessBaseAPI, PSM, OEM
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
+from transformations.ocr_perturbation.example import generate_test_cases
+
 
 """
 This transformation renders input text as an image (optionally augmented with 
@@ -51,6 +53,17 @@ class RenderingParams(object):
 class OcrPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en", "fr", "es", "de"]
+    keywords = [
+        "lexical",
+        "morphological",
+        "discourse",
+        "api-based",
+        "tokenizer-required",
+        "unnatural-sounding",
+        "high-precision",
+        "high-coverage",
+        "low-generations",
+    ]
 
     def __init__(
         self, seed=0, max_outputs=1, language="en", params=RenderingParams()):
@@ -143,35 +156,10 @@ class OcrPerturbation(SentenceOperation):
 
 if __name__ == '__main__':
 
-    import json, os
-    from TestRunner import convert_to_snake_case
-    
     tf = OcrPerturbation(max_outputs=1)
-    test_cases = []
-    src = ["Manmohan Singh served as the PM of India.",
-           "Neil Alden Armstrong was an American astronaut.",
-           "Katheryn Elizabeth Hudson is an American singer.",
-           "The owner of the mall is Anthony Gonsalves.",
-           "Roger Michael Humphrey Binny (born 19 July 1955) is an Indian " +
-           "former cricketer."]
-
-    for idx, sent in enumerate(src):
-        outputs = tf.generate(sent)
-        test_cases.append({
-            "class": tf.name(),
-            "inputs": {"sentence": sent},
-            "outputs": []}
-        )
-        for out in outputs:
-            test_cases[idx]["outputs"].append({"sentence": out})
-
-    json_file = {"type": convert_to_snake_case(tf.name()), 
-        "test_cases": test_cases}
-    #print(json.dumps(json_file))
     
-    dir_path = os.path.dirname(os.path.realpath(__file__))
+    generate_test_cases(tf, print_result=True)
 
-    with open(os.path.join(dir_path, "test.json"), "w") as f:
-        json.dump(json_file, f, indent=2, ensure_ascii=False)
-
+    # generate 'test.json'
+    #generate_test_cases(tf, output_filename="test.json")
 """

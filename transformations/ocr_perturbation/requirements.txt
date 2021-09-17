@@ -1,2 +1,2 @@
-trdg>=1.7.0
+trdg==1.6.0
 tesserocr>=2.5.2
