@@ -51,6 +51,13 @@ class GenderNeoPronouns(SentenceOperation):
         super().__init__(seed=seed, verbose=verbose, max_outputs=max_outputs)
 
     def generate(self, sentence: str) -> List[str]:
+        """
+        Args:
+            sentence:
+                The input sentence to be transformed
+        Returns:
+            The transformed sentence
+        """
         doc = self.nlp(sentence)
         pieces = []
         for token in doc:
@@ -73,7 +80,7 @@ class GenderNeoPronouns(SentenceOperation):
                         else neopronoun.lower()
                     )
                     pieces.append(neopronoun)
-                except Exception:
+                except ValueError:
                     pieces.append(token.text)
             else:
                 # NOTE: find a more elegant solution to tokenizing punctuations.
