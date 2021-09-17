@@ -28,7 +28,6 @@ def chinese_antonym_synonym_substitution(text,
         output_list = output_list[1:]
         perturbed_texts = output_list
 
-
     if(config == 'antonym'):
 
         output = jieba.lcut(text)
@@ -77,6 +76,7 @@ class ChineseAntonymAndSynonymSubtitution(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION
     ]
     languages = ["zh"]
+    keywords = ["lexical", "rule-based", "api-based", "written", "highly-meaning-preserving", "meaning-alteration", "high-precision"]
 
     def __init__(self, seed=0, max_outputs=1, prob=1):
         super().__init__(seed, max_outputs=max_outputs)
@@ -98,7 +98,6 @@ class ChineseAntonymAndSynonymSubtitution(SentenceOperation):
 
 if __name__ == '__main__':
     simp_text = "汉字是语素文字，总数非常庞大。汉字总共有多少字？到目前为止，恐怕没人能够答得上来精确的数字。"
-    # simp_text = "打开兴盛"
     perturb_func = ChineseAntonymAndSynonymSubtitution()
     # new_text = perturb_func.generate(simp_text, config = "antonym")
     new_text = perturb_func.generate(simp_text)

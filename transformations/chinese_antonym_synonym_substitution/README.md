@@ -8,6 +8,13 @@ Author email: timothy22000@gmail.com
 This transformation perturbes Chinese input text to test robustness. Word segmentation is performed on the input text and Chinese words that are picked at random will be replaced with words 
 that have similar meaning or opposite meanings (based on the synonyms and antonyms list) to generate perturbations.
 
+## Robustness Evaluation
+Code to evaluate the model:
+```python evaluate.py -t ChineseAntonymAndSynonymSubtitution -task "TEXT_CLASSIFICATION" -l "zh" -m "clue/roberta_chinese_clue_large" -d "clue" -p 1```
+```model_name = "clue/roberta_chinese_clue_large"```
+```dataset_name = "clue"```
+The accuracy of a RoBERTa model (fine-tuned on CLUE) (model: "clue/roberta_chinese_clue_large") on a subset of CLUE dataset = 67
+The accuracy of the same model on the perturbed set = 67
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document with Chinese characters as input like text classification, 
