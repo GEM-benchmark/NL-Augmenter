@@ -67,7 +67,7 @@ def load_chinese_antonym_data():
     return words_list
 
 """
-Chinese Words and Characters Butter Fingers Perturbation
+Chinese Antonym And Synonym Substitution
 """
 
 class ChineseAntonymAndSynonymSubtitution(SentenceOperation):
