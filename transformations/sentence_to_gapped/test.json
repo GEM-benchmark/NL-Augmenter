@@ -31,10 +31,10 @@
     {
       "class": "SentenceToGapped",
       "inputs": {
-        "sentence": "He ate apples and she ate pears."
+        "sentence": "He likes apples and she doesn't like pears."
       },
       "outputs": [{
-        "sentence": "He ate apples and she pears."
+        "sentence": "He likes apples and she doesn't pears."
       }]
     },
     {

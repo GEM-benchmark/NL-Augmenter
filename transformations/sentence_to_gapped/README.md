@@ -29,5 +29,7 @@ The Hague, pages 249–259.
 
 ## What are the limitations of this transformation?
 - Currently, this transformation only produces single-predicate gaps; however, if a method is widely accepted for more complicated gapping, it is easy to extend this task
+- The task relies on the POS tagger for cases where tenses can introduce corner cases, e.g. "He ate apples and she didn't eat pears" -> "He ate apples and she didn't pears"
 - It is difficult in complex sentences to perfectly transform sentences to their "maximally gapped" forms; this is an active area of research (see Previous Work section)
 - The reverse direction is also valuable and is submitted in another transformation
+- Not so much a limitation, but sentences such as "Alex likes apples, oranges, and pears" can actually be seen as the gapped form of "Alex likes apples, Alex likes oranges, and Alex likes pears." As a design choice, our framework would also the explicit representation to the gapped form in this case.
