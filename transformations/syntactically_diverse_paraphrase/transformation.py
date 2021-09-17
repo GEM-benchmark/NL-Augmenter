@@ -12,17 +12,20 @@ from transformations.syntactically_diverse_paraphrase.sowreap.reap_utils import 
 from transformations.syntactically_diverse_paraphrase.sowreap.sow_utils import (
     sowModel,
 )
+from initialize import spacy_nlp
 
 
 class ParaphraseSowReap(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = ["syntactic", "transformer-based", "high-generations"]
+    heavy = True
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
         self.sow = sowModel("tanyagoyal/paraphrase-sow", max_outputs)
         self.reap = reapModel("tanyagoyal/paraphrase-reap", max_outputs)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         try:
             nltk.data.find(f"models/benepar_en3")
         except LookupError:
@@ -35,6 +38,7 @@ class ParaphraseSowReap(SentenceOperation):
         self.max_outputs = max_outputs
 
     def generate(self, sentence: str):
+        # use benepar model to retrieve the constituency parse (as a string)
         parse = list(self.nlp(sentence).sents)[0]._.parse_string
         sentence_parsed = Sentence(parse)
         reorderings = self.sow.get_reorderings(sentence_parsed)

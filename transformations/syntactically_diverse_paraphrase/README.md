@@ -8,7 +8,7 @@ The number of outputs can be specified by the user through `max_outputs`.
 
 The model paraphrases inputs using a two step framework:
 1. SOW (Source Order reWriting): This step enumerates multiple feasible syntactic transformations of the input sentence.
-2. REAP (REarrangement Aware Paraphrasing): This step conditions on the multiple reorderings/ rearragements produces by SOW and outputs diverse paraphrases corresponds to these reoderings.
+2. REAP (REarrangement Aware Paraphrasing): This step conditions on the multiple reorderings/ rearragements produced by SOW and outputs diverse paraphrases corresponding to these reoderings.
 
 
 ## What tasks does it intend to benefit?
@@ -35,4 +35,6 @@ Original Implementation: [here](https://github.com/malllabiisc/DiPS)
 }
 ```
 ## What are the limitations of this transformation?
+The transformation is designed to work only on single-sentence inputs. Multi-sentence inputs results in an empty string/no transformation.
+
 The model are trained on the ParaNMT-50M dataset, which tends to be quite noisy. A better paraphrase dataset would improve performance.
