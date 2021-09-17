@@ -1,26 +1,28 @@
 # Neopronoun substitution 🏳️‍⚧️
 
 Authors:
-- Vinay Prabhu \<vinay@unify.id\>
-- Sang Han \<sanghan@protonmail.com\>
-- Ryan Teehan \<rsteehan@gmail.com\>
-- Nicolas Roberts \<nick11roberts@cs.wisc.edu\>
+- Vinay Prabhu \<vinay@unify.id\> UnifyID
+- Sang Han \<sanghan@protonmail.com\> Independent Researcher
+- Ryan Teehan \<rsteehan@gmail.com\> Charles River Analytics
+- Nicolas Roberts \<nick11roberts@cs.wisc.edu\> UW Madison
 
-<img alt=" The neopronoun flag from the LGBTA Wiki page" title="Neopronouns Flag by Geekycorn on DeviantArt." src="https://static.wikia.nocookie.net/lgbta/images/4/47/Neopronoun_Flag.png/revision/latest/scale-to-width-down/220?cb=20200425234516" width="200" height="200" />
+<img alt="The neopronoun flag from the LGBTA Wiki page" title="Neopronouns Flag by Geekycorn on DeviantArt." src="https://static.wikia.nocookie.net/lgbta/images/4/47/Neopronoun_Flag.png/revision/latest/scale-to-width-down/220?cb=20200425234516" width="200" height="200" />
 
 **1. What are neopronouns?**
 
 Answer: _Neopronouns are a category of new (neo) pronouns that are increasingly used in place of “she,” “he,” or “they” when
 referring to a person. Some examples include: xe/xem/xyr, ze/hir/hirs, and ey/em/eir. Neopronouns can be used by
 anyone, though most often they are used by transgender, non-binary, and/or gender nonconforming people._
-Source: https://intercultural.uncg.edu/wp-content/uploads/Neopronouns-Explained-UNCG-Intercultural-Engagement.pdf
+Source: [link](https://intercultural.uncg.edu/wp-content/uploads/Neopronouns-Explained-UNCG-Intercultural-Engagement.pdf)
 
-In the image below, we can find the temporal variations in neopronoun usage over the past few years from  the **_Gender Census 2021: Worldwide Report_**.
+In the image below, we can find the temporal variations in neopronoun usage over the past few years from the **_Gender Census 2021: Worldwide Report_**.
 
 <img title=" The neopronoun preferences over times" src="https://gendercensus.files.wordpress.com/2021/03/gc2021-pronouns-over-time-minus-he-she-they.png" width="600" height="354" />
 
+The chart shows the resurgence of neopronoun usage of "xe", "fae" and "it" and a decrease in usage of "spivak" and "ze" over time.
+
 ## What type of a transformation is this?
-This transformation performs **_grammatically correct substitution_** of the gendered pronouns he/she in a given sentence with their neopronoun counterparts. The reason why a simple look-up-table approach might not work as depending on the context, the _case_ can belong to the _Nominative/Subject Pronouns,	Accusative/Object Pronouns,	Pronominal Possessive/Possessive Adjectives,	Predicative Possessive/Possessive Pronouns	or Reflexive Pronouns_ categories.
+This transformation performs **_grammatically correct substitution_** from english to english of the gendered pronouns he/she in a given sentence with their neopronoun counterparts. The reason why a simple look-up-table approach might not work as depending on the context, the _case_ can belong to the _Nominative/Subject Pronouns,	Accusative/Object Pronouns,	Pronominal Possessive/Possessive Adjectives,	Predicative Possessive/Possessive Pronouns	or Reflexive Pronouns_ categories.
 
 
 Example:
@@ -35,7 +37,7 @@ As things stand, NLP models such as those deployed for neural translation fail t
 This transformation seeks to render the training data used in NLP pipelines more neopronoun aware so as to help tackle the downstream risks of [trans erasure](https://allthingslinguistic.com/post/118373603278/i-am-at-the-end-of-my-first-semester-of).
 
 Benchmark Results:
-* Seq2Seq Generation task ran on IMDB dataset/Roberta model with a 1% sample size. The original accuracy was 96% and the perterbed accuracy was 95%
+* The classification task was ran on IMDB dataset with a masked language model using a 1% sample size. The original accuracy was 96% and the perturbed accuracy was 95%
 
 ## Previous Work
 
