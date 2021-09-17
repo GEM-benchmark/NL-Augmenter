@@ -13,7 +13,6 @@ from tasks.TaskTypes import TaskType
 class ContextualMeaningPerturbation(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
-        TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.QUALITY_ESTIMATION,
     ]
     languages = ["en", "de"]
