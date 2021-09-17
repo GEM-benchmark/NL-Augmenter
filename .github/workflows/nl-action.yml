@@ -23,9 +23,9 @@ jobs:
         path: ${{ env.pythonLocation }}
         key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
     - name: Install Tesseract
-        run: |
-          sudo apt-get update
-          sudo apt-get install tesseract-ocr libtesseract-dev libleptonica-dev pkg-config
+      run: |
+        sudo apt-get update
+        sudo apt-get install tesseract-ocr libtesseract-dev libleptonica-dev pkg-config
     - name: Install dependencies
       run: |
         if [ -f requirements.txt ]; then pip3 install --upgrade --upgrade-strategy eager -r requirements.txt -e . ; fi
