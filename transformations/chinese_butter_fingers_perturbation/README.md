@@ -18,6 +18,15 @@ It also uses a database of 575173 words (词库) that are combined from several 
 This perturbation would benefit all tasks which have a sentence/paragraph/document with Chinese words and characters as input like text classification, 
 text generation, etc.
 
+## Robustness Evaluation
+Code to evaluate the model:
+```python evaluate.py -t ChineseButterFingersPerturbation -task "TEXT_CLASSIFICATION" -l "zh" -m "clue/roberta_chinese_base" -d "clue" -p 1```
+```model_name = "clue/roberta_chinese_base"```
+```dataset_name = "clue"```
+The accuracy of a RoBERTa model (fine-tuned on CLUE) (model: "clue/roberta_chinese_base") on a subset of CLUE dataset = 67
+
+The accuracy of the same model on the perturbed set = 67
+
 ## Previous Work
 
 1) Xinhua Dictionary Database for Chinese characters: https://github.com/pwxcoo/chinese-xinhua

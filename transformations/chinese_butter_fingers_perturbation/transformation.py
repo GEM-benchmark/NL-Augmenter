@@ -6,7 +6,6 @@ import os
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-import shutil
 import jieba
 import pypinyin
 
@@ -22,9 +21,8 @@ def chinese_butter_finger(text,
                           consider_tone,
                           word_level_perturb):
     random.seed(seed)
-
     perturbed_texts = []
-    for _ in itertools.repeat(None, max_outputs):
+    for _ in range(max_outputs):
         butter_text = ""
         output = jieba.lcut(text)
         if(word_level_perturb):
@@ -57,7 +55,11 @@ def chinese_butter_finger(text,
                     new_chinese_character = chinese_character
 
                 butter_text += new_chinese_character
-        perturbed_texts.append(butter_text)
+
+        if(butter_text not in perturbed_texts):
+            perturbed_texts.append(butter_text)
+        else:
+            perturbed_texts.append("Similar output exists in perturbed outputs")
     return perturbed_texts
 
 def get_characters_with_similar_pinyin(chinese_character,
@@ -94,43 +96,50 @@ def get_words_with_similar_pinyin(text,
                                 chinese_words_database,
                                 consider_tone):
     words_and_similar_word_dict_list = []
-    for perturb_word in text:
-        words_and_similar_word_dict = {}
-        perturb_word_len = len(perturb_word)
-        words_and_similar_word_dict['perturb_word'] = perturb_word
+    for original_word in text:
+        words_and_similar_word_dict = {"perturb_word": original_word}
+        original_word_len = len(original_word)
         similar_word_pinyin_list = []
-        if (perturb_word_len == 1):
-            similar_pinyins = get_characters_with_similar_pinyin(perturb_word,
-                                                                 rare_word_prob,
-                                                                 chinese_character_database,
-                                                                 common_chinese_character_database,
-                                                                 consider_tone)
-            similar_word_pinyin_list = [char for char in similar_pinyins]
-
-        if(perturb_word_len > 1):
-            for i in range(len(chinese_words_database)):
-                word_dict = chinese_words_database[i]
-                word = word_dict['word']
-
-                if (len(word) == perturb_word_len):
-                    perturb_word_pinyins = pypinyin.pinyin(perturb_word)
-                    perturb_word_pinyins_flatten = [item for pinyin in perturb_word_pinyins for item in pinyin]
-                    perturb_word_pinyins_string = ''.join(perturb_word_pinyins_flatten)
-                    word_pinyins = pypinyin.pinyin(word)
-                    word_pinyins_flatten = [item for pinyin in word_pinyins for item in pinyin]
-                    word_pinyins_string = ''.join(word_pinyins_flatten)
-
-                    if(consider_tone == False):
-                        perturb_word_pinyins_string = u.unidecode(perturb_word_pinyins_string)
-                        word_pinyins_string = u.unidecode(word_pinyins_string)
-
-
-                    if ((perturb_word_pinyins_string == word_pinyins_string) and (perturb_word != word)):
-                        similar_word_pinyin_list.append(word)
+        similar_word_pinyin_list = get_similar_word_pinyin_list(chinese_character_database, chinese_words_database,
+                                                                common_chinese_character_database, consider_tone,
+                                                                original_word, original_word_len, rare_word_prob,
+                                                                similar_word_pinyin_list)
 
         words_and_similar_word_dict['similar_pinyin_words'] = similar_word_pinyin_list
         words_and_similar_word_dict_list.append(words_and_similar_word_dict)
     return words_and_similar_word_dict_list
+
+
+def get_similar_word_pinyin_list(chinese_character_database, chinese_words_database, common_chinese_character_database,
+                                 consider_tone, original_word, original_word_len, rare_word_prob,
+                                 similar_word_pinyin_list):
+    if (original_word_len == 1):
+        similar_pinyins = get_characters_with_similar_pinyin(original_word,
+                                                             rare_word_prob,
+                                                             chinese_character_database,
+                                                             common_chinese_character_database,
+                                                             consider_tone)
+        similar_word_pinyin_list = [char for char in similar_pinyins]
+    if (original_word_len > 1):
+        for i in range(len(chinese_words_database)):
+            word_dict = chinese_words_database[i]
+            candidate_word = word_dict['word']
+
+            if (len(candidate_word) == original_word_len):
+                perturb_word_pinyins = pypinyin.pinyin(original_word)
+                perturb_word_pinyins_flatten = [item for pinyin in perturb_word_pinyins for item in pinyin]
+                perturb_word_pinyins_string = ''.join(perturb_word_pinyins_flatten)
+                word_pinyins = pypinyin.pinyin(candidate_word)
+                word_pinyins_flatten = [item for pinyin in word_pinyins for item in pinyin]
+                word_pinyins_string = ''.join(word_pinyins_flatten)
+
+                if (consider_tone == False):
+                    perturb_word_pinyins_string = u.unidecode(perturb_word_pinyins_string)
+                    word_pinyins_string = u.unidecode(word_pinyins_string)
+
+                if ((perturb_word_pinyins_string == word_pinyins_string) and (original_word != candidate_word)):
+                    similar_word_pinyin_list.append(candidate_word)
+    return similar_word_pinyin_list
 
 
 def retrieve_from_database(chinese_character,
@@ -196,6 +205,7 @@ class ChineseButterFingersPerturbation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION
     ]
     languages = ["zh"]
+    keywords = ['morphological', 'lexical', 'rule-based', 'external-knowledge-based', 'aural', 'meaning-alteration', 'high-generations']
 
     def __init__(self, seed=0, max_outputs=1, prob=0.3, rare_word_prob = 0.1, consider_tone = False, word_level_perturb = True):
         super().__init__(seed, max_outputs=max_outputs)

@@ -156,7 +156,7 @@ def _get_model_pred(model, examples, batch_size):
     all_preds = []
     with torch.no_grad():
         for e in (range(0, len(examples), batch_size)):
-            print(examples[e:e+batch_size])
+
             all_preds += model(examples[e:e+batch_size], truncation=True)
     return [a["label"] for a in all_preds]
 
@@ -170,8 +170,5 @@ def evaluate_dataset(
     preds = [_process_model_pred(model_name, raw_pred) for raw_pred in raw_preds]
     accuracy = np.round(100 * np.mean(np.array(labels) == np.array(preds)))
     total = len(labels)
-    print("Raw Preds: " + str(raw_preds))
-    print("Preds: " + str(preds))
-    print("Labels: " + str(labels))
     print(f"The accuracy on this subset which has {total} examples = {accuracy}")
     return accuracy, total
