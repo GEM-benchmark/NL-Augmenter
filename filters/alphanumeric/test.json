@@ -1,0 +1,50 @@
+{
+    "type": "keywords",
+    "test_cases": [
+        {
+            "class": "AlphanumericCharactersFilter",
+            "args": {
+            },
+            "inputs": {
+                "sentence": "Andrew played cricket in India."
+            },
+            "outputs": true
+        },
+        {
+            "class": "AlphanumericCharactersFilter",
+            "args": {
+            },
+            "inputs": {
+                "sentence": "∂ is a Greek letter."
+            },
+            "outputs": false
+        },
+        {
+            "class": "AlphanumericCharactersFilter",
+            "args": {
+            },
+            "inputs": {
+                "sentence": "I love tennis!"
+            },
+            "outputs": true
+        },
+        {
+            "class": "AlphanumericCharactersFilter",
+            "args": {
+            },
+            "inputs": {
+                "sentence": "¿Cómo estás?"
+            },
+            "outputs": false
+        },
+        {
+            "class": "AlphanumericCharactersFilter",
+            "args": {
+            },
+            "inputs": {
+                "sentence": "Some non-alphanumeric characters are ^, *, and ž."
+            },
+            "outputs": false
+        }
+    ]
+}
