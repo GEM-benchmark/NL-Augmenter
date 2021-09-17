@@ -2,7 +2,7 @@
     "type": "keywords",
     "test_cases": [
         {
-            "class": "AlphanumericCharactersFilter",
+            "class": "AlphanumericFilter",
             "args": {
             },
             "inputs": {
@@ -11,7 +11,7 @@
             "outputs": true
         },
         {
-            "class": "AlphanumericCharactersFilter",
+            "class": "AlphanumericFilter",
             "args": {
             },
             "inputs": {
@@ -20,7 +20,7 @@
             "outputs": false
         },
         {
-            "class": "AlphanumericCharactersFilter",
+            "class": "AlphanumericFilter",
             "args": {
             },
             "inputs": {
@@ -29,7 +29,7 @@
             "outputs": true
         },
         {
-            "class": "AlphanumericCharactersFilter",
+            "class": "AlphanumericFilter",
             "args": {
             },
             "inputs": {
@@ -38,7 +38,7 @@
             "outputs": false
         },
         {
-            "class": "AlphanumericCharactersFilter",
+            "class": "AlphanumericFilter",
             "args": {
             },
             "inputs": {
