@@ -53,6 +53,17 @@ class RenderingParams(object):
 class OcrPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en", "fr", "es", "de"]
+    keywords = [
+        "lexical",
+        "morphological",
+        "discourse",
+        "api-based",
+        "tokenizer-required",
+        "unnatural-sounding",
+        "high-precision",
+        "high-coverage",
+        "low-generations",
+    ]
 
     def __init__(
         self, seed=0, max_outputs=1, language="en", params=RenderingParams()):
