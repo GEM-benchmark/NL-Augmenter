@@ -30,7 +30,7 @@ Transformations will be subject to a lightweight, public, and non-anonymous revi
 Each transformation will receive two reviews and the transformation may be edited in response to the reviews. Final decisions will then be made by a meta-review committee. Authors of transformation submissions may be asked to join the reviewer pool after their own transformation is accepted.
 
 ## Review Criteria for Submissions
-**Correctness:** Transformations must be valid Python code and must pass tests. 
+**Correctness:** Transformations must be valid Python code and must pass tests.
 
 **Interface:** Participants should ensure that they use the correct interface. The complete list is mentioned [here.](../interfaces) E.g., for tasks like machine translation, a transformation which changes the value of a named entity (Andrew->Jason) might need parallel changes in the output too. And hence, it might be more appropriate to use `SentenceAndTargetOperation` or `SentenceAndTargetsOperation` rather than `SentenceOperation`. Similarly, if a transformation changes the label of a sentence, the interface's generate method should take as input the label too - eg. if your transformation reverses the sentiment, `SentenceAndTargetOperation` would be more appropriate then `SentenceOperation`. If you wish to add transformations for input formats other than those specified, you should add an interface [here.](../interfaces)  
 
@@ -61,7 +61,7 @@ class ButterFingersPerturbation(SentenceOperation):
 
 **Languages other than English:** We strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “languages”.
 
-**Decent Programming Practise:** We recommend adding docstrings to help others follow your code with ease. Check the [PEP 257 Docstring Conventions](https://www.python.org/dev/peps/pep-0257/) to get an overview.
+**Decent Programming Practise:** We recommend adding docstrings to help others follow your code with ease. Check the [PEP 257 Docstring Conventions](https://www.python.org/dev/peps/pep-0257/) to get an overview. If you are using spacy, we suggest you use the common global version like [this](https://github.com/GEM-benchmark/NL-Augmenter/blob/d39f0e5f57a79937296351996617ac03ee80fb74/transformations/close_homophones_swap/transformation.py#L55).
 
 All of the above criteria extend to [filters](../filters) too. 
  
