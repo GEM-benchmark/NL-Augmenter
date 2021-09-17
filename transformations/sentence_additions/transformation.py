@@ -43,8 +43,7 @@ class SentenceAdditions(SentenceOperation):
 
 # For testing outputs
 if __name__ == "__main__":
-    print(tf.__spec__)
-    # sentence_addition = SentenceAdditions()
-    # text = "Trinity Medical Imaging is one of the foremost providers of private nuclear medicine imaging in London and Surrey. We work with the finest nuclear medicine consultants from a wide variety of specialist fields."
-    # new_text = sentence_addition.generate(text, prompt=True)
-    # print(new_text)
+    sentence_addition = SentenceAdditions()
+    text = "Trinity Medical Imaging is one of the foremost providers of private nuclear medicine imaging in London and Surrey. We work with the finest nuclear medicine consultants from a wide variety of specialist fields."
+    new_text = sentence_addition.generate(text, prompt=True)
+    print(new_text)
