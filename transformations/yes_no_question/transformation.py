@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Optional, Union
 
 import pyinflect  # noqa: F401
 import spacy
@@ -216,14 +216,53 @@ class YesNoQuestionPerturbation(SentenceOperation):
 
         return question
 
+    def rhetoricalize_question(self, sentence: str):
+        """Add appropriate "yes" or "no" to question. Remove "not" for "no"
+        questions.
+
+        E.g.:
+        - "Did Jenny come home?" -> "Did Jenny come home? Yes."
+        - "Did Jenny not come home?" -> "Did Jenny come home? No."
+        """
+        doc: Doc = self.nlp(sentence)
+
+        # Find verb head
+        verb_head: Token = doc[0]
+        while verb_head != verb_head.head:
+            verb_head = verb_head.head
+        # Give up on sentence if POS tag doesn't match dependency tag
+        if verb_head.pos not in {AUX, VERB}:
+            return None
+
+        # Look for negation
+        not_token: Optional[Token] = None
+        for token in doc:
+            if token.text == "not":
+                not_token = token
+
+        # If there is negation, remove it and append a "no"
+        if not_token is not None:
+            second_half_index = not_token.i + 1
+            positive_question_tokens = list(doc[: not_token.i]) + list(
+                doc[second_half_index:]
+            )
+            return (
+                "".join(t.text_with_ws for t in positive_question_tokens)
+                + " No."
+            )
+        # Otherwise, append a "yes"
+        else:
+            return sentence + " Yes."
+
     def generate(self, sentence: str) -> List[str]:
         doc: Doc = self.nlp(sentence)
 
-        questions: List[str] = []
+        outputs: List[str] = []
         for sentence in doc.sents:
             # TODO: Test if sentence is statement or question
             question = self.statement_to_question(sentence)
             if question is not None:
-                questions.append(question)
+                rhetorical_question = self.rhetoricalize_question(question)
+                outputs.append(rhetorical_question)
 
-        return questions
+        return outputs
