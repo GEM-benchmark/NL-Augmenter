@@ -36,6 +36,18 @@
         "outputs": [{
           "sentence": "Ey have to drive emself to school."
         }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "She walks to the mall"
+        },
+        "outputs": [{
+          "sentence": "They walks to the mall"
+        }]
       }
     ]
   }
