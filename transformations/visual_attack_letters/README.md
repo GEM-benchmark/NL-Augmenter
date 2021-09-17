@@ -55,3 +55,9 @@ This perturbation would benefit tasks which measure effectiveness against visual
 - Not all characters were visually embedded. For example, many emojis and other rare characters are missing. There were only 29,971 characters used. You can verify which ones were used by looking at the Gensim model.
 - I subjectively removed some letters. You could make it automatic, but I feared there would be some errors in it. For example, if you take the top 20 most visually similar letters to 'v', you would get a lot of variations on the letter 'y', but obviously that would conflict with another letter, so I subjectively removed some visually similar letters that were suggested by Eger et al.'s model.
 - This perturbation will not work well to non-alphabetic writing systems, e.g. logographic alphabets like Hanzi (Chinese), abjads like Arabic, and abugidas like Bengali. 
+
+Visually attacking the letters negatively affects the tokenization process. It can be improved by using Unicode Normalization (https://unicode.org/reports/tr15/) For example, Unicode Normalization could convert "Héllò hôw are ü?" to "Hello how are u?". Check out https://huggingface.co/docs/tokenizers/python/latest/api/reference.html#tokenizers.normalizers.Normalizer for a Normalizer offered by Huggingface.
+
+Anyway, usually the affected words will just be replaced by an [UNK] token in BERT. For Roberta-base, the tokenizer fails spectacularly, see example: https://github.com/huggingface/transformers/issues/1189 . For example, in evaluation, -m "roberta-large-mnli" -d "multi_nli" decreased score from 91.0 to 47.0
+
+XLM-Roberta tokenizer fares much better; it still usually tokenizes one character at a time, but since it has encountered a variety of characters, it can fare better.
