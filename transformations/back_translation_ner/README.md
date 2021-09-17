@@ -50,3 +50,17 @@ This transformation would benefit sequence labelling tasks such as named entity 
 ## What are the limitations of this transformation?
 This transformation intends to generate linguistically diverse paraphrases of the contexts around the entity mention(s) using backtranslation. The quality of the generated paraphrases solely depends on the underlying machine translation model; also the generated paraphrase may not always preserve the underlying semantics of the contexts.
 Nevertheless, exploiting this transformation as a data augmentation strategy has been empirically shown to improve the performance of the underlying sequence (NER) model ([Yaseen and Langer, 2021](https://arxiv.org/abs/2108.11703)).
+
+
+## Robustness Evaluation
+
+```python
+python evaluate.py -p 20 -t BackTranslationNER -m dslim/bert-base-NER -d bc2gm_corpus
+python evaluate.py -p 20 -t BackTranslationNER -m dslim/bert-base-NER -d jnlpba
+```
+
+| Dataset                     | `dslim/bert-base-NER-uncased`          | `dslim/bert-base-NER`     | `dslim/bert-large-NER`     |
+| --------------------------- | --------------------------- | --------------------------- | --------------------------- |
+| --------------------------- | --------------------------- | --------------------------- | --------------------------- |
+| [bc2gm_corpus](https://huggingface.co/datasets/bc2gm_corpus)              | 83.32 -> 89.37 (6.0)       | 87.99 -> 95.48 (7.4)   | 88.68 -> 96.36 (7.6)  |
+| [jnlpba](https://huggingface.co/datasets/jnlpba)                          | 78.08 -> 90.92 (12.84)     | 81.02 -> 95.32 (14.2)  | 81.44 -> 96.24 (14.7) |
