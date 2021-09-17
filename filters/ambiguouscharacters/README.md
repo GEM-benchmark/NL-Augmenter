@@ -3,6 +3,7 @@
 ## What type of a filter is this?
 
 This filter filters sentences that contain ambiguous characters.
+(Aside: `Buffalo buffalo buffalo Buffalo buffalo Buffalo buffalo buffalo --> Filter filters filter filter filters filter filters filter`?)
 
 Author: Mo Tiwari
 Author Email: motiwari@stanford.edu
@@ -14,9 +15,14 @@ This is of import in domains such as profanity detection and spam, where bad act
 
 For example, "Buy some piIIs here" actually contains two capital `I`s for `l`s.
 
+This feature is also common in password managers, e.g. as a setting to avoid ambiguous characters when generating
+passwords.
+
 ## Related Work
 
 N/A 
 
 ## What are the limitations of this filter?
-- The filter depends on font; fonts may have different sets of ambiguous characters 
+- The usefulness of the filter depends on font in which the initial text was rendered; future work could accept the 
+source font as an argument
+- The filter is also primarily useful for the English language.
