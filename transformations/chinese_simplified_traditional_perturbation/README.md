@@ -29,6 +29,14 @@ Traditional Chinese. This transformation can be performed in the opposite direct
 This perturbation would benefit all tasks which have a sentence/paragraph/document with Chinese characters as input like text classification, 
 text generation, etc.
 
+## Robustness Evaluation
+Code to evaluate the model:
+```python evaluate.py -t ChineseSimplifiedTraditionalPerturbation -task "TEXT_CLASSIFICATION" -l "zh" -m "clue/roberta_chinese_base" -d "clue" -p 10```
+```model_name = "clue/roberta_chinese_base"```
+```dataset_name = "clue"```
+The accuracy of a RoBERTa model (fine-tuned on CLUE) (model: "clue/roberta_chinese_base") on a subset of CLUE dataset = 60
+The accuracy of the same model on the perturbed set = 60
+
 ## Previous Work
 
 1) Open Chinese Convert: https://github.com/BYVoid/OpenCC
