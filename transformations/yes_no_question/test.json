@@ -7,7 +7,7 @@
         "sentence": "Andrew finally returned the French book to Chris that I bought last week"
       },
       "outputs": [{
-        "sentence": "Did Andrew finally return the French book to Chris that I bought last week?"
+        "sentence": "Did Andrew finally return the French book to Chris that I bought last week? Yes."
       }]
     },
     {
@@ -16,7 +16,7 @@
         "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
       },
       "outputs": [{
-        "sentence": "Did Ujjal Dev Dosanjh serve as 33rd Premier of British Columbia from 2000 to 2001?"
+        "sentence": "Did Ujjal Dev Dosanjh serve as 33rd Premier of British Columbia from 2000 to 2001? Yes."
       }]
     },
     {
@@ -25,7 +25,7 @@
         "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
       },
       "outputs": [{
-        "sentence": "Is neuroplasticity a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization?"
+        "sentence": "Is neuroplasticity a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization? Yes."
       }]
     },
     {
@@ -34,7 +34,7 @@
         "sentence": "Dave isn't going to Seattle."
       },
       "outputs": [{
-        "sentence": "Is Dave not going to Seattle?"
+        "sentence": "Is Dave going to Seattle? No."
       }]
     },
     {
@@ -43,7 +43,7 @@
         "sentence": "He has decided that you aren't ready yet."
       },
       "outputs": [{
-        "sentence": "Has he decided that you aren't ready yet?"
+        "sentence": "Has he decided that you aren't ready yet? Yes."
       }]
     },
     {
@@ -52,7 +52,7 @@
         "sentence": "He likes me because I cook for him."
       },
       "outputs": [{
-        "sentence": "Does he like me because I cook for him?"
+        "sentence": "Does he like me because I cook for him? Yes."
       }]
     },
     {
@@ -69,10 +69,10 @@
       },
       "outputs": [
         {
-          "sentence": "Was Vikram here yesterday?"
+          "sentence": "Was Vikram here yesterday? Yes."
         },
         {
-          "sentence": "Did he not want to eat any cake?"
+          "sentence": "Did he want to eat any cake? No."
         }
       ]
     }
