@@ -9,6 +9,50 @@ torch
 num2words==0.5.10
 word2number==1.1
 
+# for change_date_format
+dateparser
+
+# for change_person_named_entities
+checklist
+
+# for close_homophones_swap
+SoundsLike
+
+# for diverse_paragraphs
+torchtext
+
+# for english_inflectional_variation
+lemminflect
+
+# for mix_transliteration
+aaransia
+
+# for numeric_to_word
+phonenumbers
+num2words
+
+# for p1_noun_transformation
+wptools
+
+# for pinyin
+g2pM
+
+# for propbank_srl_roles
+allennlp
+
+# for punctuation
+cucco
+fastpunct
+
+# for replace_numerical_values
+word2number
+
+# for suspecting_paraphraser
+gender_extractor
+
+# for suspecting_paraphraser
+pyinflect
+
 # for test cases and coverage
 pytest==6.2.4
 pytest-cov==2.12.1
