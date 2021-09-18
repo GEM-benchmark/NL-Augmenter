@@ -16,6 +16,7 @@ def stopword_remove(text, max_outputs=1):
     text_tokenized = ToktokTokenizer().tokenize(text)
     return [TreebankWordDetokenizer().detokenize([word for word in text_tokenized if word.lower() not in stop_words])]
 
+
 class StopwordRemoval(SentenceOperation):
     """
       This class offers a method for a stopword removal function to transform
@@ -27,14 +28,14 @@ class StopwordRemoval(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["en"]
-    heavy = True
+    heavy = False
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
 
     def generate(self, raw_text: str):
-        pertubed_text = stopword_remove(
+        perturbed_text = stopword_remove(
             text=raw_text,
             max_outputs=self.max_outputs
         )
-        return pertubed_text
+        return perturbed_text
