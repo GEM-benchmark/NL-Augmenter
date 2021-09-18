@@ -1,0 +1,49 @@
+{
+  "type": "words_to_numbers",
+  "test_cases": [
+    {
+      "class": "WordsToNumbers",
+      "inputs": {
+        "sentence": "I have ten cats."
+      },
+      "outputs": [{
+        "sentence": "I have 10 cats."
+      }]
+    },
+    {
+      "class": "WordsToNumbers",
+      "inputs": {
+        "sentence": "Mo has twelve dogs who eat two hundred pieces of food every day."
+      },
+      "outputs": [{
+        "sentence": "Mo has 12 dogs who eat 200 pieces of food every day."
+      }]
+    },
+    {
+      "class": "WordsToNumbers",
+      "inputs": {
+        "sentence": "There are three hundred twelve million, five hundred thirty-four thousand, six hundred and seventy-two people in the United States."
+      },
+      "outputs": [{
+        "sentence": "There are 312,534,672 people in the United States."
+      }]
+    },
+    {
+      "class": "WordsToNumbers",
+      "inputs": {
+        "sentence": "One vigintillion is a one followed by sixty-three zeros."
+      },
+      "outputs": [{
+        "sentence": "1000000000000000000000000000000000000000000000000000000000000000000000000 is a 1 followed by 63 zeros."
+      }]
+    },
+    {
+      "class": "WordsToNumbers",
+      "inputs": {
+        "sentence": "Roughly one hundred forty million people are born each year."
+      "outputs": [{
+        "sentence": "Roughly 140,000,000 are born each year."
+      }]
+    }
+  ]
+}
