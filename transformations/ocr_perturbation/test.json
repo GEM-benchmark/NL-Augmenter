@@ -8,7 +8,7 @@
       },
       "outputs": [
         {
-          "sentence": "Manmolian Singh served as thé PM Of India."
+          "sentence": "Manmohan Singh ‘served :ds:the:PM of India:"
         }
       ]
     },
@@ -19,7 +19,7 @@
       },
       "outputs": [
         {
-          "sentence": "Neil Alden Armstrong was an Anierican astronaut."
+          "sentence": "Neil: Alden:Armstrong :was:an: American: astronaut:"
         }
       ]
     },
@@ -30,7 +30,7 @@
       },
       "outputs": [
         {
-          "sentence": "Katheryn Elizabeth Hudson isn American singer."
+          "sentence": "Katheryn Elizabeth Hudson js:an Américan singer."
         }
       ]
     },
@@ -41,7 +41,7 @@
       },
       "outputs": [
         {
-          "sentence": "The owner of the mali is Anthony Gonsalves,"
+          "sentence": "The: owner: of. the:mall:is Anthony ‘Gonsalves."
         }
       ]
     },
@@ -52,7 +52,7 @@
       },
       "outputs": [
         {
-          "sentence": "Roger Michael Huraphrey Binny {00rn 49 Juty-1ge5)is an Indian former cricketél:"
+          "sentence": "Roger -Michael Humphreg Binny (born 19 July 1958): is an Indian former cricketer:"
         }
       ]
     }

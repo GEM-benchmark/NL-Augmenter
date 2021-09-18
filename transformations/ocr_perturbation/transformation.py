@@ -7,6 +7,7 @@ from typing import List
 from initialize import spacy_nlp
 
 from trdg.generators import GeneratorFromStrings
+
 from tesserocr import PyTessBaseAPI, PSM, OEM
 
 from interfaces.SentenceOperation import SentenceOperation
@@ -36,7 +37,7 @@ trdg_lang = {
 }
 
 class RenderingParams(object):
-    def __init__(self, background_type=2, distortion_type=2, 
+    def __init__(self, background_type=2, distortion_type=0,
         distortion_orientation=0, blur=0):
         """
         :param background_type: 0=noisy, 1=clean, 2=texture, 3=color_texture
@@ -62,7 +63,7 @@ class OcrPerturbation(SentenceOperation):
         "unnatural-sounding",
         "high-precision",
         "high-coverage",
-        "low-generations",
+        "high-generations",
     ]
 
     def __init__(
@@ -101,9 +102,9 @@ class OcrPerturbation(SentenceOperation):
                 
                 for sent in doc.sents:
 
-                    image_generator = self._get_image_generator(sent.text)                        
+                    image_generator = self._get_image_generator(sent.text)
                     img, lbl = image_generator.next()
-                
+
                     ocr.SetImage(img)
 
                     try:
@@ -119,7 +120,7 @@ class OcrPerturbation(SentenceOperation):
         return perturbed_sentences                
         
     def _get_image_generator(self, sentence):
-        return GeneratorFromStrings(
+        gen = GeneratorFromStrings(
                 [sentence],
                 language=trdg_lang[self.language],
                 size=32,
@@ -138,6 +139,11 @@ class OcrPerturbation(SentenceOperation):
                 character_spacing=0,
                 margins=(2,2,2,2)
             )
+
+        # shuffle fonts
+        random.shuffle(gen.fonts)
+
+        return gen
             
     def _get_spacy_model(self):
         if self.language == 'en':
