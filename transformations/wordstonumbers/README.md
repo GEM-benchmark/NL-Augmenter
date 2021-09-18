@@ -36,3 +36,5 @@ language
 "one billion"
 - Could handle output styled numbers, e.g. "1000000" as "1000000"
 - Assumes formatting and well-formed input of number words
+- While the number of people at the event was two thousand, one million people showed up to vote
+- Doesn't allow for "and" like in "three hundred and twelve"
