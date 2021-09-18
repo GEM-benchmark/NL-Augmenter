@@ -8,7 +8,7 @@
       },
       "outputs": [
         {
-          "sentence": "Manmohan: Singh served :as the:PM ‘of india"
+          "sentence": "Manmohan Singh:served.as the PM of India."
         }
       ]
     },
@@ -19,7 +19,7 @@
       },
       "outputs": [
         {
-          "sentence": "Neil: Alden:Armstrong :was:an: American: astronaut:"
+          "sentence": "Neil: Alden Armstrong was.an American astronaut."
         }
       ]
     },
@@ -30,7 +30,7 @@
       },
       "outputs": [
         {
-          "sentence": "Katheryn Elizabeth Hudson js:an Américan singer."
+          "sentence": "Katheryn Elizabeth Hudson isan American singer."
         }
       ]
     },
@@ -41,7 +41,7 @@
       },
       "outputs": [
         {
-          "sentence": "The: owner: of. the:mall:is Anthony ‘Gonsalves."
+          "sentence": "The owner of the niall: is-Anthony Gonsalves."
         }
       ]
     },
@@ -52,7 +52,7 @@
       },
       "outputs": [
         {
-          "sentence": "Roger -Michael Humphreg Binny (born 19 July 1958): is an Indian former cricketer:"
+          "sentence": "Roger Michael Humphrey Binny (born 19-July 1955)is an Indian former cricketer."
         }
       ]
     }
