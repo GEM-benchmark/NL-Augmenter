@@ -6,6 +6,7 @@ import re
 
 from words_to_numbers_constants import units, tens, teens, scales
 
+
 def period_rep(tokens, period_start_loc, period_end_loc):
     """
     Parse a "period" of the number corresponding to 3 digits, given a sequence of tokens and the location of the period
@@ -42,11 +43,12 @@ def period_rep(tokens, period_start_loc, period_end_loc):
 
     return str_
 
+
 def is_token_numeric(token):
     """
     Decide if a given token is part of the number
     """
-    return token != ',' and (token in units or token in tens or token in scales or token == 'hundred' or token in teens)
+    return token != ',' and (token in units + tens + teens + scales or token == 'hundred')
 
 def find_continugous_number_words(tokens):
     """
@@ -63,7 +65,7 @@ def find_continugous_number_words(tokens):
     t_idx = 0
     new_word = True
     while t_idx < len(tokens):
-        if is_token_numeric(tokens[t_idx]): # BUG: What about commas and hyphens and "and"?
+        if is_token_numeric(tokens[t_idx]):
             if new_word: # We've found a new "word number"
                 start_idx = t_idx
                 start_idcs.append(t_idx)
@@ -76,6 +78,7 @@ def find_continugous_number_words(tokens):
         t_idx += 1
 
     return number_words, list(zip(start_idcs, end_idcs))
+
 
 def parse_number_word(number_tokens):
     """
@@ -158,5 +161,8 @@ def text2int(sentence):
         output_tokens = original_tokens
     return ' '.join(output_tokens)
 
-# BUG: Capitalization
-print(text2int("one thousand three hundred people went to three million twelve stores and two billion one thousand stores"))
+if __name__ == '__main__':
+    # BUG: What about commas and hyphens and "and"?
+    # BUG: capitalization
+    print(text2int("one thousand three hundred people went to three million twelve stores and two billion one thousand stores"))
+
