@@ -13,16 +13,17 @@ def period_rep(tokens, period_start_loc, period_end_loc):
     Parse a "period" of the number corresponding to 3 digits, given a sequence of tokens and the location of the period
     in that sentence
     """
+    #ipdb.set_trace()
     str_ = ''
 
     first_digit = '0'
     tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc]))
     if 'hundred' in tmp_tokens:
         # The token before "hundred" must be the "number of hundreds"
-        hundred_idx = tokens.index('hundred')
-        first_digit = units[tokens[hundred_idx - 1]]  # Will raise KeyError if malformed input
+        hundred_idx = tmp_tokens.index('hundred')
+        first_digit = units[tmp_tokens[hundred_idx - 1]]  # Will raise KeyError if malformed input
         period_start_loc += 2 # Now, only consider tokens after the "X hundred" in the sequence
-        tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc]))
+        tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc])) # start and end locs have changed
     str_ += first_digit
 
     second_digit = '0'
@@ -30,7 +31,7 @@ def period_rep(tokens, period_start_loc, period_end_loc):
         if t in tmp_tokens:
             second_digit = tens[t]
             period_start_loc += 1 # Now, only consider tokens after the tens quantifier in the sequence
-            tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc]))
+            tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc])) # start and end locs have changed
     str_ += second_digit
 
     third_digit = '0'
@@ -38,7 +39,7 @@ def period_rep(tokens, period_start_loc, period_end_loc):
         if u in tmp_tokens:
             third_digit = units[u]
             period_start_loc += 1 # Though this is not used currently, leave it here for extensions like "one point six"
-            tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc]))
+            tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc])) # start and end locs have changed
     str_ += third_digit
 
     # Handle the case of 11 - 19
@@ -53,7 +54,7 @@ def is_token_numeric(token):
     """
     Decide if a given token is part of the number
     """
-    return token != ',' and (token in units or token in tens or token in teens or  token in scales or token == 'hundred')
+    return token != ',' and (token in units or token in tens or token in teens or token.rstrip(',') in scales or token == 'hundred')
 
 def find_continugous_number_words(old_tokens):
     """
@@ -91,7 +92,6 @@ def parse_number_word(number_tokens):
     Given a sequence of tokens corresponding to a "word number", converts it to a decimal representation, e.g.
     'Three thousand five hundred twelve' -> '3512'
     """
-    #ipdb.set_trace()
     word_rep = ' '.join(number_tokens)
     word_rep = word_rep.replace('-', ' ')
     word_rep = word_rep.replace(' and ', ' ')
@@ -105,7 +105,6 @@ def parse_number_word(number_tokens):
     # As of Python 3.6, for the CPython implementation of Python, dictionaries maintain insertion order by default.
     for period in list(scales)[::-1]:
         if period in tokens:
-
             # We found a new period identifier and had an old one that wasn't the one immediately larger than it,
             # so we need to pad the middle with zeros, e.g. in the number "one billion, one thousand one"
             if last_found_period is not None:
@@ -149,7 +148,6 @@ def text2int(sentence):
     Given a sentence, find the contiguous subsequences of tokens that correspond to a number.
     Convert those to their decimal representations, and interlace them with the original sentence.
     """
-    #ipdb.set_trace()
     output_tokens = []
     original_tokens = sentence.split(" ")
     number_tokens, idcs = find_continugous_number_words(original_tokens)
@@ -170,10 +168,10 @@ def text2int(sentence):
     return ' '.join(output_tokens)
 
 if __name__ == '__main__':
-    # print(text2int("I have ten cats."))
+    print(text2int("I have ten cats."))
     print(text2int("Mo has twelve dogs who eat two hundred pieces of food every day."))
-    # print(text2int("There are three hundred twelve million, five hundred thirty four thousand, six hundred and seventy two people in the United States."))
-    # print(text2int("One vigintillion is a one followed by sixty three zeros."))
-    # print(text2int("Roughly one hundred forty million people are born each year."))
-    # print(text2int("One thousand three hundred people went to three million twelve stores and two billion one thousand stores"))
+    print(text2int("There are three hundred twelve million, five hundred thirty four thousand, six hundred seventy two people in the United States."))
+    print(text2int("One vigintillion is a one followed by sixty three zeros."))
+    print(text2int("Roughly one hundred forty million people are born each year."))
+    print(text2int("One thousand three hundred people went to three million twelve stores and two billion one thousand stores"))
 
