@@ -5,6 +5,7 @@ from tasks.TaskTypes import TaskType
 class AmbiguousCharactersFilter(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = ["highly-meaning-preserving", "low-generations", "rule-based"]
 
     def __init__(self, keywords=None):
         super().__init__()
