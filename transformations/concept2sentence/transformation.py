@@ -13,6 +13,23 @@ class C2S(SentenceAndTargetOperation):
         TaskType.TEXT_TO_TEXT_GENERATION
     ]
     languages = ["en"]
+    keywords = [
+        # type of linguistic change
+        "lexical", 
+        "semantic",
+        # type of algorithm
+        "model-based", 
+        "transformer-based", 
+        "api-based", 
+        "tokenizer-required",
+        # naturalness of the generation
+        "unnaturally-written",
+        # potential accuracy & precision of the generation
+        "possible-meaning-alteration",
+        "low-precision",
+        "high-coverage",
+        "high-generations"
+    ]
 
     def __init__(self, 
                  seed=0, 
@@ -22,11 +39,12 @@ class C2S(SentenceAndTargetOperation):
                  gen_beam_size=10,
                  text_min_length=10,
                  text_max_length=32,
-                 device='cpu',
+                 device='cuda',
                  task_config=None):
 
         super().__init__(seed, max_outputs=max_outputs)
-
+        self.seed = seed
+        self.max_outputs = max_outputs
         self.c2s = Concept2Sentence(
                         dataset = dataset,
                         extract = extract,
@@ -43,9 +61,13 @@ class C2S(SentenceAndTargetOperation):
                 'task_name': 'topic'
             }
 
-    def generate(self, sentence: str, target: int):
-        new_sentence, new_target = self.c2s.transform_Xy(sentence, target, self.task_config)
-        return new_sentence[0], new_target
+    def generate(self, sentence: str, target=None):
+        new_sentences, new_targets = [], []
+        for _ in range(self.max_outputs):
+            new_sentence, new_target = self.c2s.transform_Xy(sentence, target, self.task_config)
+            new_sentences.append(new_sentence[0])
+            new_targets.append(new_target)
+        return list(zip(new_sentences, new_targets))
 
 
 # if __name__ == '__main__':

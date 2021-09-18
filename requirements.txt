@@ -32,6 +32,3 @@ pre-commit==2.13.0
 
 flake8==3.9.2
 isort==5.9.1
-
-# for concept2sentence
-sibyl_tool==0.1.2
