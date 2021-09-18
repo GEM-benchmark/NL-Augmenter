@@ -10,6 +10,15 @@ from tasks.TaskTypes import TaskType
 class ReplaceHyponyms(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "external-knowledge-based",
+        "tokenizer-required",
+        "meaning-alteration",
+        "high-precision",
+        "high-generations",
+    ]
 
     def __init__(self, n=1, seed=0, max_output=2):
         super().__init__(seed)
@@ -47,6 +56,15 @@ class ReplaceHyponyms(SentenceOperation):
 class ReplaceHypernyms(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "external-knowledge-based",
+        "tokenizer-required",
+        "meaning-alteration",
+        "high-precision",
+        "high-generations",
+    ]
 
     def __init__(self, n=1, seed=0, max_output=2):
         super().__init__(seed)
