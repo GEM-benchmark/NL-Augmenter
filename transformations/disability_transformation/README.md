@@ -1,6 +1,9 @@
 # Disability/Differently Abled Transformation ♿
 This transformation changes outdated names of disabilities with more appropriate ones which are now used.
 
+Author: A.T. (atabassum.bee15seecs@seecs.edu.pk
+Affiliation: --
+
 ## What type of a transformation is this?
 This transformation replaces outdated names for disabilities with more considerate names now used in the modern world.
 For e.g. 
