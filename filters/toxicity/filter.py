@@ -20,6 +20,7 @@ class ToxicityTypes(str, enum.Enum):
 class ToxicityFilter(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    heavy = True
 
     def __init__(
         self,
