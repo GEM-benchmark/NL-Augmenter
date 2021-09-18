@@ -38,24 +38,24 @@ tens = {
 
 scales = {
     "thousand": 3, # 10^3
-    "million": 6, # 10^6
-    "billion": 9, # 10^9
-    "trillion": 12, # 10^12
-    "quadrillion": 15, # 10^15
-    "quintillion": 18, # 10^18
-    "sextillion": 21, # 10^21
-    "septillion": 24, # 10^24
-    "octillion": 27, # 10^27
-    "nonillion": 30, # 10^30
-    "decillion": 33, # 10^33
-    "undecillion": 36, # 10^36
-    "dodecillion": 39, # 10^39
-    "tredecillion": 42, # 10^42
-    "quattuordecillion": 45, # 10^45
-    "quindecillion": 48, # 10^48
-    "sexdecillion": 51, # 10^51
-    "septendecillion": 54, # 10^54
-    "octodecillion": 57, # 10^57
-    "novemdecillion": 60, # 10^60
-    "vigintillion": 63, # 10^63
+    # "million": 6, # 10^6
+    # "billion": 9, # 10^9
+    # "trillion": 12, # 10^12
+    # "quadrillion": 15, # 10^15
+    # "quintillion": 18, # 10^18
+    # "sextillion": 21, # 10^21
+    # "septillion": 24, # 10^24
+    # "octillion": 27, # 10^27
+    # "nonillion": 30, # 10^30
+    # "decillion": 33, # 10^33
+    # "undecillion": 36, # 10^36
+    # "dodecillion": 39, # 10^39
+    # "tredecillion": 42, # 10^42
+    # "quattuordecillion": 45, # 10^45
+    # "quindecillion": 48, # 10^48
+    # "sexdecillion": 51, # 10^51
+    # "septendecillion": 54, # 10^54
+    # "octodecillion": 57, # 10^57
+    # "novemdecillion": 60, # 10^60
+    # "vigintillion": 63, # 10^63
 }

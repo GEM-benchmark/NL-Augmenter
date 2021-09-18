@@ -3,6 +3,7 @@ Very loosely adapted from https://stackoverflow.com/questions/493174/is-there-a-
 '''
 
 import re
+import ipdb
 
 from words_to_numbers_constants import units, tens, teens, scales
 
@@ -21,6 +22,7 @@ def period_rep(tokens, period_start_loc, period_end_loc):
         hundred_idx = tokens.index('hundred')
         first_digit = units[tokens[hundred_idx - 1]]  # Will raise KeyError if malformed input
         period_start_loc += 2 # Now, only consider tokens after the "X hundred" in the sequence
+        tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc]))
     str_ += first_digit
 
     second_digit = '0'
@@ -28,6 +30,7 @@ def period_rep(tokens, period_start_loc, period_end_loc):
         if t in tmp_tokens:
             second_digit = tens[t]
             period_start_loc += 1 # Now, only consider tokens after the tens quantifier in the sequence
+            tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc]))
     str_ += second_digit
 
     third_digit = '0'
@@ -35,6 +38,7 @@ def period_rep(tokens, period_start_loc, period_end_loc):
         if u in tmp_tokens:
             third_digit = units[u]
             period_start_loc += 1 # Though this is not used currently, leave it here for extensions like "one point six"
+            tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc]))
     str_ += third_digit
 
     # Handle the case of 11 - 19
@@ -87,6 +91,7 @@ def parse_number_word(number_tokens):
     Given a sequence of tokens corresponding to a "word number", converts it to a decimal representation, e.g.
     'Three thousand five hundred twelve' -> '3512'
     """
+    #ipdb.set_trace()
     word_rep = ' '.join(number_tokens)
     word_rep = word_rep.replace('-', ' ')
     word_rep = word_rep.replace(' and ', ' ')
@@ -125,16 +130,16 @@ def parse_number_word(number_tokens):
     if last_found_period is not None and last_found_period != 'thousand':
         num_string += '0' * 3 * (list(scales).index(last_found_period))
 
-    # Trim leading 0s
-    num_string = num_string.lstrip('0')
-
     # If the last token is not a period identifier, then we have a number less than one thousand
     if last_found_period is None:
         num_string += period_rep(tokens, 0, len(tokens))
-    elif tokens.index(last_found_period) != len(scales):
+    elif tokens.index(last_found_period) != len(scales) - 1:
         num_string += period_rep(tokens, tokens.index(last_found_period)+1, len(tokens))
     else:
         num_string += '0' * scales[last_found_period] # Add right-zeros in the case we had a number like "one million"
+
+    # Trim leading 0s
+    num_string = num_string.lstrip('0')
 
     return num_string
 
@@ -144,6 +149,7 @@ def text2int(sentence):
     Given a sentence, find the contiguous subsequences of tokens that correspond to a number.
     Convert those to their decimal representations, and interlace them with the original sentence.
     """
+    #ipdb.set_trace()
     output_tokens = []
     original_tokens = sentence.split(" ")
     number_tokens, idcs = find_continugous_number_words(original_tokens)
@@ -164,6 +170,10 @@ def text2int(sentence):
     return ' '.join(output_tokens)
 
 if __name__ == '__main__':
-    # BUG: What about commas and hyphens and "and"?
-    print(text2int("One thousand three hundred people went to three million twelve stores and two billion one thousand stores"))
+    # print(text2int("I have ten cats."))
+    print(text2int("Mo has twelve dogs who eat two hundred pieces of food every day."))
+    # print(text2int("There are three hundred twelve million, five hundred thirty four thousand, six hundred and seventy two people in the United States."))
+    # print(text2int("One vigintillion is a one followed by sixty three zeros."))
+    # print(text2int("Roughly one hundred forty million people are born each year."))
+    # print(text2int("One thousand three hundred people went to three million twelve stores and two billion one thousand stores"))
 
