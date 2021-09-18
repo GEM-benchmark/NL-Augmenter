@@ -41,6 +41,7 @@ map_transformation = {
         "negate_strengthen",
         "number-to-word",
         "numeric_to_word",
+        "ocr_perturbation",
         "p1_noun_transformation",
         "propbank_srl_roles",
         "random_deletion",
