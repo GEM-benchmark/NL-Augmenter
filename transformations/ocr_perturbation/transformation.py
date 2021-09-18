@@ -105,10 +105,14 @@ class OcrPerturbation(SentenceOperation):
                     image_generator = self._get_image_generator(sent.text)
                     img, lbl = image_generator.next()
 
+                    fonts = image_generator.fonts
+                    gen_cnt = image_generator.generated_count
+                    print(gen_cnt, fonts[(gen_cnt - 1) % len(fonts)])
+
                     ocr.SetImage(img)
 
                     try:
-                        recognized_text = ocr.GetUTF8Text()        
+                        recognized_text = ocr.GetUTF8Text()
                         recognized_text = recognized_text.strip().replace("\n", "").replace("\t", "")
                     except RuntimeError:
                         recognized_text = sent.text
