@@ -35,14 +35,12 @@ python -m spacy download fr_core_web_sm
 python -m spacy download es_core_web_sm
 python -m spacy download de_core_web_sm
 ```
-2. Install *libtesseract* and *libleptonica*. Please refer to the documentation of the [tesserocr](https://pypi.org/project/tesserocr/) package for more details.
+2. Install [Tesseract](https://github.com/tesseract-ocr/tesseract) (including dependencies and models):
 
-3. Download [Tesseract models](https://tesseract-ocr.github.io/tessdoc/Data-Files) and copy them to the *tessdata* path on your machine (see [documentation](https://tesseract-ocr.github.io/tessdoc/Data-Files)):
-[Orientation and script detection](https://github.com/tesseract-ocr/tessdata/raw/3.04.00/osd.traineddata), 
-[English](https://github.com/tesseract-ocr/tessdata/raw/4.00/eng.traineddata), 
-[French](https://github.com/tesseract-ocr/tessdata/raw/4.00/fra.traineddata), 
-[Spanish](https://github.com/tesseract-ocr/tessdata/raw/4.00/spa.traineddata), 
-[German](https://github.com/tesseract-ocr/tessdata/raw/4.00/deu.traineddata).
+```bash
+apt-get install tesseract-ocr libtesseract-dev libleptonica-dev pkg-config \
+  tesseract-ocr-eng tesseract-ocr-osd tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa
+```
 
 #### Example Usage
 
