@@ -134,6 +134,7 @@ class ChangeDateFormat(SentenceOperation):
         TaskType.RDF_TO_TEXT,
     ]
     languages = ["en"]
+    keywords = ["lexical", "syntactic", "rule-based", "high-coverage", "high-precision"]
     heavy = True # TODO: need to remove this later (test cases failing temporary fix)
 
     def __init__(self, seed=0, max_output=1):
