@@ -7,16 +7,16 @@
         "sentence": "He is blind."
       },
       "outputs": [{
-        "sentence": "he is visually impaired."
+        "sentence": "He is visually impaired ."
       }]
     },
     {
       "class": "DifferentAbilityTransformation",
       "inputs": {
-        "sentence": "That kid is so slow he's probably a retard."
+        "sentence": "He is so slow he's probably a retard."
       },
       "outputs": [{
-        "sentence": "that kid is so slow he's probably a person with a learning disablity."
+        "sentence": "He is so slow he's probably a person with a learning disablity ."
       }]
     },
     {
@@ -25,16 +25,16 @@
         "sentence": "John is deaf."
       },
       "outputs": [{
-        "sentence": "john is hard-of-hearing."
+        "sentence": "John is  person with a hearing disability ."
       }]
     },
     {
       "class": "DifferentAbilityTransformation",
       "inputs": {
-        "sentence": "He is a retard."
+        "sentence": "Only a psycho will be admitted to a mental hospital."
       },
       "outputs": [{
-        "sentence": "he is a person with a learning disablity."
+        "sentence": "Only a  person with a psychotic condition will be admitted to a mental hospital ."
       }]
     },
     {
@@ -43,7 +43,7 @@
         "sentence": "She became a cripple after the accident."
       },
       "outputs": [{
-        "sentence": "she became a person with physical disability after the accident."
+        "sentence": "She became a  person with a physical disability after the accident ."
       }]
     }
   ]
