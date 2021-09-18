@@ -1,65 +1,69 @@
+'''
+Very loosely adapted from https://stackoverflow.com/questions/493174/is-there-a-way-to-convert-number-words-to-integers
+'''
+
 import re
 
 units = {
-        "zero" : "0'",
-        "a" : "1", # "a million"
-        "one" : "1",
-        "two" : "2",
-        "three" : "3",
-        "four" : "4",
-        "five" : "5",
-        "six" : "6",
-        "seven" : "7",
-        "eight" : "8",
-        "nine" : "9",
+        "zero": "0'",
+        "a": "1", # e.g. "a million"
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6",
+        "seven": "7",
+        "eight": "8",
+        "nine": "9",
 }
 
 teens = {
-        "ten" : "10",
-        "eleven" : "11",
-        "twelve" : "12",
-        "thirteen" : "13",
-        "fourteen" : "14",
-        "fifteen" : "15",
-        "sixteen" : "16",
-        "seventeen" : "17",
-        "eighteen" : "18",
-        "nineteen" : "19",
+        "ten": "10",
+        "eleven": "11",
+        "twelve": "12",
+        "thirteen": "13",
+        "fourteen": "14",
+        "fifteen": "15",
+        "sixteen": "16",
+        "seventeen": "17",
+        "eighteen": "18",
+        "nineteen": "19",
     }
 
 tens = {
-    "twenty" : '2',
-    "thirty" : '3',
-    "forty" : '4',
-    "fifty" : '5',
-    "sixty" : '6',
-    "seventy" : '7',
-    "eighty" : '8',
-    "ninety" : '9',
+    "twenty": '2',
+    "thirty": '3',
+    "forty": '4',
+    "fifty": '5',
+    "sixty": '6',
+    "seventy": '7',
+    "eighty": '8',
+    "ninety": '9',
 }
 
 scales = {
-    "thousand" : 3, # 10^3
-    "million" : 6, # 10^6
-    "billion" : 9, # 10^9
-    # "trillion", # 10^12
-    # "quadrillion", # 10^15
-    # "quintillion", # 10^18
-    # "sextillion", # 10^21
-    # "septillion", # 10^24
-    # "octillion", # 10^27
-    # "nonillion", # 10^30
-    # "decillion", # 10^33
-    # "undecillion", # 10^36
-    # "dodecillion", # 10^39
-    # "tredecillion", # 10^42
-    # "quattuordecillion", # 10^45
-    # "quindecillion", # 10^48
-    # "sexdecillion", # 10^51
-    # "septendecillion", # 10^54
-    # "octodecillion", # 10^57
-    # "novemdecillion", # 10^60
-    # "vigintillion", # 10^63
+    "thousand": 3, # 10^3
+    "million": 6, # 10^6
+    "billion": 9, # 10^9
+    "trillion": 12, # 10^12
+    "quadrillion": 15, # 10^15
+    "quintillion": 18, # 10^18
+    "sextillion": 21, # 10^21
+    "septillion": 24, # 10^24
+    "octillion": 27, # 10^27
+    "nonillion": 30, # 10^30
+    "decillion": 33, # 10^33
+    "undecillion": 36, # 10^36
+    "dodecillion": 39, # 10^39
+    "tredecillion": 42, # 10^42
+    "quattuordecillion": 45, # 10^45
+    "quindecillion": 48, # 10^48
+    "sexdecillion": 51, # 10^51
+    "septendecillion": 54, # 10^54
+    "octodecillion": 57, # 10^57
+    "novemdecillion": 60, # 10^60
+    "vigintillion": 63, # 10^63
 }
 
 def period_rep(tokens, period_start_loc, period_end_loc):
@@ -191,26 +195,23 @@ def parse_number_word(number_tokens):
 
 
 def text2int(sentence):
-    '''
-    Loosely adapted from https://stackoverflow.com/questions/493174/is-there-a-way-to-convert-number-words-to-integers
-    '''
-    ''' Interlace sentence with numbers '''
+    """
+    Given a sentence, find the contiguous subsequences of tokens that correspond to a number.
+    Convert those to their decimal representations, and interlace them with the original sentence.
+    """
+    output_tokens = []
     original_tokens = sentence.split(" ")
     number_tokens, idcs = find_continugous_number_words(original_tokens)
-    print(number_tokens)
-    print(idcs)
 
-    output_tokens = []
-
-    if len(number_tokens) != 0:
+    if len(number_tokens) != 0: # We have some numbers to convert
         number_tokens_counter = 0
         idx = 0
         while idx < len(original_tokens):
-            if number_tokens_counter < len(number_tokens) and idx == idcs[number_tokens_counter][0]:
+            if number_tokens_counter < len(number_tokens) and idx == idcs[number_tokens_counter][0]: # Number to convert
                 output_tokens.append(parse_number_word(number_tokens[number_tokens_counter]))
-                idx = idcs[number_tokens_counter][1]
+                idx = idcs[number_tokens_counter][1] # Skip ahead to the end of the word number
                 number_tokens_counter += 1
-            else:
+            else: # Keep original tokens
                 output_tokens.append(original_tokens[idx])
                 idx += 1
     else:
