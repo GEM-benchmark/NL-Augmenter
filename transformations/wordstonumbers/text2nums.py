@@ -48,7 +48,7 @@ def is_token_numeric(token):
     """
     Decide if a given token is part of the number
     """
-    return token != ',' and (token in units + tens + teens + scales or token == 'hundred')
+    return token != ',' and (token in units or token in tens or token in teens or  token in scales or token == 'hundred')
 
 def find_continugous_number_words(tokens):
     """
