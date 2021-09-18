@@ -88,9 +88,20 @@ class HashtagifyTransformation(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "parser-based",
+        "tokenizer-required",
+        "chunker-required",
+        "visual",
+        "highly-meaning-preserving",
+        "high-precision",
+        "high-coverage",
+        "social-reasoning",
+    ]
 
     def __init__(self, seed=666, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
