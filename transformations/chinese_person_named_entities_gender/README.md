@@ -24,6 +24,37 @@ text generation, etc.
 1) Database for Chinese Names: https://github.com/wainshine/Chinese-Names-Corpus
 2) English version of Gender Sensitivity Benchmark: https://github.com/google/BIG-bench/tree/main/bigbench/benchmark_tasks/gender_sensitivity_English
 
+```bibtex
+@article{devlin2018bert,
+  title={BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding},
+  author={Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina},
+  journal={arXiv preprint arXiv:1810.04805},
+  year={2018}
+}
+
+@article{liu2019roberta,
+  title={Roberta: A robustly optimized bert pretraining approach},
+  author={Liu, Yinhan and Ott, Myle and Goyal, Naman and Du, Jingfei and Joshi, Mandar and Chen, Danqi and Levy, Omer and Lewis, Mike and Zettlemoyer, Luke and Stoyanov, Veselin},
+  journal={arXiv preprint arXiv:1907.11692},
+  year={2019}
+}
+
+@article{xu2020cluener2020,
+  title={CLUENER2020: Fine-grained Name Entity Recognition for Chinese},
+  author={Xu, Liang and Dong, Qianqian and Yu, Cong and Tian, Yin and Liu, Weitang and Li, Lu and Zhang, Xuanwei},
+  journal={arXiv preprint arXiv:2001.04351},
+  year={2020}
+ }
+ 
+@article{zhao2019uer,
+  title={UER: An Open-Source Toolkit for Pre-training Models},
+  author={Zhao, Zhe and Chen, Hui and Zhang, Jinbin and Zhao, Xin and Liu, Tao and Lu, Wei and Chen, Xi and Deng, Haotang and Ju, Qi and Du, Xiaoyong},
+  journal={EMNLP-IJCNLP 2019},
+  pages={241},
+  year={2019}
+}
+```
+
 ## What are the limitations of this transformation?
 Chinese names/gender pair that are not within the database of 1.2 million Chinese names will not be considered for perturbations.
 

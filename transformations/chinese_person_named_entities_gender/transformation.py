@@ -4,8 +4,7 @@ import os
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 import jieba
-
-
+from transformers import (AutoTokenizer, pipeline, AutoModelForTokenClassification)
 
 def chinese_person_named_entities_gender(text,
                                          prob,
@@ -16,6 +15,24 @@ def chinese_person_named_entities_gender(text,
                                          ):
     random.seed(seed)
 
+    tokenizer = AutoTokenizer.from_pretrained('uer/roberta-base-finetuned-cluener2020-chinese')
+    model = AutoModelForTokenClassification.from_pretrained('uer/roberta-base-finetuned-cluener2020-chinese')
+
+    ner = pipeline('ner', model=model, tokenizer=tokenizer)
+    output = ner(text)
+    names_in_text = []
+    name = ""
+    pronoun_change = ""
+    for entity_dict in output:
+        if entity_dict['entity'] == 'B-name':
+            if(len(name) > 0):
+                names_in_text.append(name)
+            name = entity_dict['word']
+        if entity_dict['entity'] == 'I-name':
+            name += entity_dict['word']
+    if (len(name) > 0):
+        names_in_text.append(name)
+
     perturbed_texts = []
     names = [chinese_names['name'] for chinese_names in chinese_names_data]
     genders = [chinese_names['gender'] for chinese_names in chinese_names_data]
@@ -23,28 +40,34 @@ def chinese_person_named_entities_gender(text,
 
     for _ in itertools.repeat(None, max_outputs):
         butter_text = ""
-        for perturb_word in output:
-            perturb_word_len = len(perturb_word)
-            if (perturb_word_len > 1 and perturb_word in names):
-                name_index = names.index(perturb_word)
+        for original_word in output:
+            perturb_word_len = len(original_word)
+            if (perturb_word_len > 1 and original_word in names_in_text):
+                name_index = names.index(original_word)
                 gender_index = genders[name_index]
 
                 if(gender_index == '女' and gender_change):
                     indices = [index for index, gender in enumerate(genders) if gender == '男']
-                    perturb_name = [names[i] for i in indices]
+                    candidate_name = [names[i] for i in indices]
+                    pronoun_change = 'female_to_male'
                 elif(gender_index == '男' and gender_change):
                     indices = [index for index, gender in enumerate(genders) if gender == '女']
-                    perturb_name = [names[i] for i in indices]
+                    candidate_name = [names[i] for i in indices]
+                    pronoun_change = 'male_to_female'
                 else:
                     indices = [index for index, gender in enumerate(genders) if gender == gender_index]
-                    perturb_name = [names[i] for i in indices]
+                    candidate_name = [names[i] for i in indices]
                 if random.random() <= prob:
-                    new_chinese_character = random.choice(perturb_name)
+                    new_chinese_character = random.choice(candidate_name)
             else:
-                new_chinese_character = perturb_word
+                new_chinese_character = original_word
 
             butter_text += new_chinese_character
 
+        if(pronoun_change == 'female_to_male'):
+            butter_text = butter_text.replace('她','他')
+        elif(pronoun_change == 'male_to_female'):
+            butter_text = butter_text.replace('他','她')
         perturbed_texts.append(butter_text)
 
     return perturbed_texts
@@ -68,7 +91,7 @@ def load_chinese_names_data():
 
 
 """
-Chinese Words and Characters Butter Fingers Perturbation
+Chinese Person Named Entities and Gender Perturbation
 """
 
 class ChinesePersonNamedEntitiesAndGender(SentenceOperation):
@@ -77,6 +100,14 @@ class ChinesePersonNamedEntitiesAndGender(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION
     ]
     languages = ["zh"]
+    keywords = ["lexical",
+                "rule-based",
+                "model-based",
+                "transformer-based",
+                "external-knowledge-based",
+                "tokenizer-required",
+                "written",
+                "highly-precision"]
 
     def __init__(self, seed=0, max_outputs=1, prob=1):
         super().__init__(seed, max_outputs=max_outputs)
@@ -97,9 +128,9 @@ class ChinesePersonNamedEntitiesAndGender(SentenceOperation):
         return perturbed_texts
 
 if __name__ == '__main__':
-    text = "白楚只有初中文化程度,担任这样的复杂工种是比较吃力的,但她边干边学,终于胜任了。"
+    text = "阿朝只有初中文化程度,担任这样的复杂工种是比较吃力的,但他边干边学,终于胜任了。"
     perturb_func = ChinesePersonNamedEntitiesAndGender()
-    new_text = perturb_func.generate(text, seed=41, gender_change=False)
+    new_text = perturb_func.generate(text, seed=42, gender_change=True)
     print(new_text)
 
 

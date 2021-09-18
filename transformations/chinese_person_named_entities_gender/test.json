@@ -22,7 +22,7 @@
     {
       "class": "ChinesePersonNamedEntitiesAndGender",
       "inputs": {
-        "sentence": "我的名字是陈镇奎，我的年龄是20岁。我在江西武宁，我的工作是前台。",
+        "sentence": "我的名字是曾祥莉，我的年龄是20岁。我在江西武宁，我的工作是前台。",
         "seed": 42
       },
       "outputs": [{
@@ -43,12 +43,23 @@
     {
       "class": "ChinesePersonNamedEntitiesAndGender",
       "inputs": {
-        "sentence": "白楚只有初中文化程度,担任这样的复杂工种是比较吃力的,但她边干边学,终于胜任了",
-        "seed": 41,
+        "sentence": "阿冰只有初中文化程度,担任这样的复杂工种是比较吃力的,但她边干边学,终于胜任了。",
+        "seed": 42,
         "gender_change": false
       },
       "outputs": [{
-        "sentence": "雷娟娟只有初中文化程度,担任这样的复杂工种是比较吃力的,但她边干边学,终于胜任了"
+        "sentence": "曾祥莉只有初中文化程度,担任这样的复杂工种是比较吃力的,但她边干边学,终于胜任了。"
+      }]
+    },
+    {
+      "class": "ChinesePersonNamedEntitiesAndGender",
+      "inputs": {
+        "sentence": "阿冰只有初中文化程度,担任这样的复杂工种是比较吃力的,但她边干边学,终于胜任了。",
+        "seed": 42,
+        "gender_change": true
+      },
+      "outputs": [{
+        "sentence": "陈充全只有初中文化程度,担任这样的复杂工种是比较吃力的,但他边干边学,终于胜任了。"
       }]
     }
   ]
