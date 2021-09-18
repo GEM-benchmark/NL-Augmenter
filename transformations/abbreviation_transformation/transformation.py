@@ -36,9 +36,10 @@ def abbreviate(text, nlp, prob = 0.5, seed = 0, max_outputs = 1):
 
 
 class Abbreviate(SentenceOperation):
-    tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
+    tasks = [TaskType.TEXT_TO_TEXT_GENERATION,
+            TaskType.TEXT_CLASSIFICATION]
     languages = ["en"]
-    tgt_languages = ["en"]
+    keywords = ["lexical", "external-knowledge-based", "highly-meaning-preserving"]
 
     def __init__(self, prob = 0.5, seed = 0, max_outputs = 1):
         super().__init__(seed)
