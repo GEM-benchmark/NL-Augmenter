@@ -93,24 +93,18 @@ class OcrPerturbation(SentenceOperation):
         with PyTessBaseAPI(lang=tess_lang[self.language], psm=PSM.RAW_LINE, 
             oem=OEM.LSTM_ONLY) as ocr:
             
+            doc = self.nlp(sentence)
+            assert doc.has_annotation("SENT_START")
+
+            image_generators = [self._get_image_generator(sent.text) for sent in doc.sents]
+
             for idx in range(self.max_outputs):
             
                 perturbed_sentence = ""
-                
-                doc = self.nlp(sentence)
-                assert doc.has_annotation("SENT_START")
-                
-                for sent in doc.sents:
+                    
+                for sent, gen in zip(doc.sents, image_generators):
 
-                    image_generator = self._get_image_generator(sent.text)
-                    img, lbl = image_generator.next()
-
-                    import os
-                    fonts = image_generator.fonts
-                    gen_cnt = image_generator.generated_count
-                    font_names = [os.path.split(font)[1] for font in fonts]
-
-                    print(self.seed, gen_cnt, fonts[(gen_cnt - 1) % len(fonts)], font_names)
+                    img, lbl = gen.next()
 
                     ocr.SetImage(img)
 
@@ -147,12 +141,9 @@ class OcrPerturbation(SentenceOperation):
                 margins=(2,2,2,2)
             )
 
-        # shuffle fonts
-        #random.shuffle(gen.fonts)
-
-        keywords = ["display", "lt", "light", "thin", "oblique", "capture", "hairline"]
-
-        gen.fonts = sorted([font for font in gen.fonts if not any(k in font.lower() for k in keywords)])
+        # remove all 'display' fonts
+        fonts = [font for font in gen.fonts if not any(s in font.lower() for s in ["display"])]
+        gen.fonts = sorted(fonts)
 
         return gen
             
