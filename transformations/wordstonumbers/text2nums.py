@@ -15,7 +15,8 @@ def period_rep(tokens, period_start_loc, period_end_loc):
     str_ = ''
 
     first_digit = '0'
-    if 'hundred' in tokens[period_start_loc:period_end_loc]:
+    tmp_tokens = list(map(lambda x: x.lower(), tokens[period_start_loc:period_end_loc]))
+    if 'hundred' in tmp_tokens:
         # The token before "hundred" must be the "number of hundreds"
         hundred_idx = tokens.index('hundred')
         first_digit = units[tokens[hundred_idx - 1]]  # Will raise KeyError if malformed input
@@ -24,21 +25,21 @@ def period_rep(tokens, period_start_loc, period_end_loc):
 
     second_digit = '0'
     for t in tens:
-        if t in tokens[period_start_loc:period_end_loc]:
+        if t in tmp_tokens:
             second_digit = tens[t]
             period_start_loc += 1 # Now, only consider tokens after the tens quantifier in the sequence
     str_ += second_digit
 
     third_digit = '0'
     for u in units:
-        if u in tokens[period_start_loc:period_end_loc]:
+        if u in tmp_tokens:
             third_digit = units[u]
             period_start_loc += 1 # Though this is not used currently, leave it here for extensions like "one point six"
     str_ += third_digit
 
     # Handle the case of 11 - 19
     for te in teens:
-        if te in tokens[period_start_loc:period_end_loc]:
+        if te in tmp_tokens:
             str_ = str_[0] + teens[te] # Can't do in-place because of 'str' object does not support item assignment
 
     return str_
@@ -50,7 +51,7 @@ def is_token_numeric(token):
     """
     return token != ',' and (token in units or token in tens or token in teens or  token in scales or token == 'hundred')
 
-def find_continugous_number_words(tokens):
+def find_continugous_number_words(old_tokens):
     """
     Given all the tokens of a sentence, find all the phrases that correspond to words.
     This is necessary because several "word numbers" may be present in a sentence, e.g.
@@ -64,6 +65,7 @@ def find_continugous_number_words(tokens):
 
     t_idx = 0
     new_word = True
+    tokens = list(map(lambda x: x.lower(), old_tokens))
     while t_idx < len(tokens):
         if is_token_numeric(tokens[t_idx]):
             if new_word: # We've found a new "word number"
@@ -163,6 +165,5 @@ def text2int(sentence):
 
 if __name__ == '__main__':
     # BUG: What about commas and hyphens and "and"?
-    # BUG: capitalization
-    print(text2int("one thousand three hundred people went to three million twelve stores and two billion one thousand stores"))
+    print(text2int("One thousand three hundred people went to three million twelve stores and two billion one thousand stores"))
 
