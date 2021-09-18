@@ -65,7 +65,7 @@ Other oddities include:
 - unusual wording of extremely common compounds such as "stock market" -> "market for stock".
 - too many prepositions resulting in confusing text, such as: "Yesterday's army coup by the opposition leader of the liberation struggle" -> "Yesterday's coup involving the army by the leader of the opposition of the struggle for liberation"
 
-Also, future versions could include languages other than English.
+Also, future versions could include languages other than English (e.g., see https://aclanthology.org/W17-6941.pdf for a Portuguese dataset).
 
 **TODO:**
 
