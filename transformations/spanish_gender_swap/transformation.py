@@ -187,6 +187,13 @@ class SpanishGenderSwap(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["es"]
+    keywords = [
+        "morphological",
+        "rule-based",
+        "parser-based",
+        "high-precision",
+        "high-coverage",
+    ]
 
     def __init__(self, swap_names=False, seed=0):
         super().__init__(seed)
