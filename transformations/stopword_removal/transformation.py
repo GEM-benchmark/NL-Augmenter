@@ -5,7 +5,7 @@ from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
 
-def stopword_remove(text, max_outputs=1):
+def stopword_remove(text):
     """
     Remove stopwords using standard list comprehension.
     Assumes that user_input text is in the English language.
