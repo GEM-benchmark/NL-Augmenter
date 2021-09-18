@@ -148,7 +148,11 @@ class OcrPerturbation(SentenceOperation):
             )
 
         # shuffle fonts
-        random.shuffle(gen.fonts)
+        #random.shuffle(gen.fonts)
+
+        keywords = ["display", "lt", "light", "thin", "oblique", "capture", "hairline"]
+
+        gen.fonts = sorted([font for font in gen.fonts if not any(k in font.lower() for k in keywords)])
 
         return gen
             
