@@ -9,7 +9,7 @@ from text2nums import *
 class WordsToNumbers(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     languages = ["en"]
-    
+
     def __init__(self, seed: int = 0) -> None:
         super().__init__(seed=seed, max_outputs=max_outputs)
 

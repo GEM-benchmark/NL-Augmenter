@@ -174,4 +174,5 @@ if __name__ == '__main__':
     print(text2int("One vigintillion is a one followed by sixty three zeros."))
     print(text2int("Roughly one hundred forty million people are born each year."))
     print(text2int("One thousand three hundred people went to three million twelve stores and two billion one thousand stores"))
+    print(text2int("There are three hundred twelve million, five hundred thirty four thousand, six hundred seventy two people in the United States and one in every two is female."))
 
