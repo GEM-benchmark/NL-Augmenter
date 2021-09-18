@@ -110,7 +110,7 @@ class OcrPerturbation(SentenceOperation):
                     gen_cnt = image_generator.generated_count
                     font_names = [os.path.split(font)[1] for font in fonts]
 
-                    print(gen_cnt, fonts[(gen_cnt - 1) % len(fonts)], font_names)
+                    print(self.seed, gen_cnt, fonts[(gen_cnt - 1) % len(fonts)], font_names)
 
                     ocr.SetImage(img)
 
