@@ -57,7 +57,7 @@ class StyleTransferParaphraser(SentenceOperation):
 
         Args:
             style : str
-                The style to use. Options include Bible, Shakespeare, Basic, Romantic Poetry and Tweets.
+                The style to use. Options include Bible, Shakespeare, Basic, Romantic Poetry, Switchboard and Tweets.
             device : device to use for computations.
                 Default: None, and it will then resort to CUDA if available, else CPU.
             upper_length :
