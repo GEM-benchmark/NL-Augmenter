@@ -12,7 +12,7 @@ It's a novel transformation that works as follows:
 
 1. There is an input sentence (e.g. "I love potatoes")
 2. A new random writing system is generated. For example, a logographic system where the word "love" is written as "蘋"
-3. The output is the text in the new writing system. In out example, it's '蚴蘋䗑'
+3. The output is the text in the new writing system. In our example, it's '蚴蘋䗑'
 
 We use [CJK Unified Ideographs](https://en.wikipedia.org/wiki/CJK_Unified_Ideographs) 
 as the source of characters for the generated writing systems. 
@@ -29,6 +29,8 @@ Currently, this transformation can convert the input into the following writing 
 |partial phonemic | Hebrew,  Arabic                       | 阠㚶乍 渓绌敿                          |
 |logographic      | Ancient Egyptian, Oracle bone script  | 驿掩㑇㕶誨                             |
 
+The transformation accepts any textual input, regardless of its language.
+
 ## What tasks does it intend to benefit?
 This transformation could benefit text classification tasks (especially - language identification tasks).
 
@@ -43,9 +45,6 @@ For example, Japanese speakers can easily identify these texts as Japanese, and 
 The ability of ML models to identify and understand a language written in various writing systems could
 improve the quality of language identification in general, 
 and the quality of identification of low-resource languages in particular.
-
-As a useful side effect, it could help to decipher the [Voynich manuscript](https://en.wikipedia.org/wiki/Voynich_manuscript),
-the [Phaistos Disc](https://en.wikipedia.org/wiki/Phaistos_Disc), and other undeciphered artifacts.
 
 ## Robustness Evaluation
 
@@ -73,7 +72,18 @@ The accuracy on this subset which has 1000 examples = 100.0
 ```
 
 The performance is surprisingly good, considering the dramatic changes made by our transformation.
-We are not sure if the results make sense. Could they be explained by an abnormal behavior of the testing pipeline?
+We are not sure if the results make sense. 
+
+According to @Sotwi, in the 3 non-default tests the performance falls significantly, as expected:
+
+    roberta-base-SST-2: 94.0 -> 51.0
+    bert-base-uncased-QQP: 92.0 -> 67.0
+    roberta-large-mnli: 91.0 -> 43.0
+
+This indicates that both the transformation and the testing pipeline work as intended. 
+
+We speculate that the problem in the first test could be caused by some deficiency in 
+the model `aychang/roberta-base-imdb` and / or the `imdb` dataset.
 
 ## What are the limitations of this transformation?
 
@@ -114,3 +124,16 @@ could be a great inspiration for further additions.
 As suggested by @tia-e, we would like to provide a way to support transformation in the both directions,
 with the ability to define the source and the target writing system 
 (currently, the target system is selected at random, regardless of the source system). 
+
+This transformation could help to decipher 
+the [Voynich manuscript](https://en.wikipedia.org/wiki/Voynich_manuscript),
+the [Phaistos Disc](https://en.wikipedia.org/wiki/Phaistos_Disc), 
+and other undeciphered artifacts.
+
+It could be accomplished as follows: 
+0. create a corpus featuring hundreds of languages
+1. apply this transformation to the corpus' texts, thus obfuscating their writing systems, greatly expanding the corpus
+2. train a model on the corpus, to make it capable of identifying the language regardless of the writing system  
+3. apply the transformation to, say, the Voynich manuscript
+4. use the model to predict the language of the transformed manuscript
+5. verify the prediction by translating the manuscript as if it was written in the predicted language
