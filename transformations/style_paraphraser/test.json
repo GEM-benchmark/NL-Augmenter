@@ -76,18 +76,6 @@
       {
         "class": "StyleTransferParaphraser",
         "args" : {
-          "style" : "Switchboard"
-        },
-        "inputs": {
-          "sentence": "This car looks quite fascinating"
-        },
-        "outputs": [{
-           "sentence": "this car looks quite fascinating"
-        }]
-      },
-      {
-        "class": "StyleTransferParaphraser",
-        "args" : {
           "style" : "Shakespeare",
           "upper_length" : "same_5"
         },
