@@ -2,7 +2,6 @@ from functools import partial
 
 import numpy as np
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 
 """
@@ -11,28 +10,6 @@ import torch.nn.functional as F
     https://github.com/martiansideofthemoon/style-transfer-paraphrase
 
 """
-
-
-class GPT2ParentModule(nn.Module):
-    """
-    Parent module for the GPT2 model.
-
-    """
-
-    def __init__(self, gpt2, device):
-        super(GPT2ParentModule, self).__init__()
-        self.gpt2 = gpt2
-        self.device = device
-
-    def forward(self, batch):
-        sentences = batch["sentence"].to(self.device)
-        labels = batch["label"].to(self.device)
-        segments = batch["segment"].to(self.device)
-        outputs = self.gpt2(
-            input_ids=sentences, token_type_ids=segments, labels=labels
-        )
-        loss = {"lm": outputs[0]}
-        return loss
 
 
 def _beam_search(
@@ -326,7 +303,6 @@ class Instance(object):
     def preprocess(self, tokenizer):
         self.truncate()
         self.build_sentence(tokenizer)
-        self.build_label(tokenizer)
         self.build_segment(tokenizer)
 
     def truncate(self):
@@ -362,21 +338,6 @@ class Instance(object):
     def right_padding(self, data, pad_token, total_length):
         tokens_to_pad = total_length - len(data)
         return np.pad(data, (0, tokens_to_pad), constant_values=pad_token)
-
-    def build_label(self, tokenizer):
-        self.label_suffix = self.right_padding(
-            np.append(self.sent2_tokens, tokenizer.eos_token_id),
-            -100,
-            self.config["max_suffix_length"] + 1,
-        )
-        self.label = np.concatenate(
-            [
-                [],
-                [-100 for _ in self.sent_prefix],
-                [-100],
-                self.label_suffix,
-            ]
-        ).astype(np.int64)
 
     def build_segment(self, tokenizer):
         prefix_segment = [
