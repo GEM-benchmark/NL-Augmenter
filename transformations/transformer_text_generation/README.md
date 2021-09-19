@@ -13,6 +13,9 @@ In order to generate a sample preserving the label of the original sample, we fi
 
 In addition, we support general purpose unlabeled text generation using ```gpt2-xl``` pretrained model.
 
+Note that ```num_return_sequences``` parameter of ```generate``` method should be set to _n_ in order to predict top _n_ predictions (instead of one).
+
+
 
 ## What tasks does it intend to benefit?
 This transformation would benefit all tasks which have a sentence/paragraph/document as input like text classification, text generation and text tagging. In addition, this approach has been successfully used to augment data for distillation.
@@ -20,6 +23,8 @@ This transformation would benefit all tasks which have a sentence/paragraph/docu
 ```python evaluate.py -t TransformerTextGeneration -task TEXT_CLASSIFICATION```
 ```model_name = "textattack/roberta-base-SST-2" -d sst2```
 
+## What are the limitations of this transformation?
+In order to get high quality augmented data, we need a generative pretrained language model trained or fine-tuned with data from the domain.
 
 ## Previous Work
 Our approach follows previous work on data augmentation for distillation
