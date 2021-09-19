@@ -1,8 +1,10 @@
-import torchtext.vocab
 import torch
+import torchtext.vocab
 from torchtext.data import get_tokenizer
 from interfaces.KeyValuePairsOperation import KeyValuePairsOperation
 import spacy
+from initialize import spacy_nlp, glove
+
 from itertools import product
 import random
 from random import sample
@@ -11,19 +13,31 @@ from tasks.TaskTypes import TaskType
 class MRValueReplacement(KeyValuePairsOperation):
     tasks = [TaskType.E2E_TASK]
     languages = ["en"]
+    heavy = False
+
+    keywords = [
+        "lexical",
+        "rule-based",
+        "external-knowledge-based",
+        "highly-meaning-preserving",
+        "high-precision"
+    ]
   
     def __init__(
         self, seed=0, n_similar=10, max_outputs=1):
+        """Method for initializing tools and setting variables. """
+
         super().__init__(seed, max_outputs=max_outputs)
 
-        random.seed(seed)
-        self.glove = torchtext.vocab.GloVe(name = "6B", dim = "100")
-        self.spacy_model = spacy.load('en_core_web_sm')
+        self.glove = glove if glove else torchtext.vocab.GloVe(name = "6B", dim = "100")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+
         self.max_outputs = max_outputs
         self.n_similar = n_similar
 
     def generate(
         self, meaning_representation: dict, reference: str):
+        """Method for generating variatios of the MR/utterances. """
 
         outputs = []
         candidate_alignments = self.get_alignments(meaning_representation, reference)
@@ -44,6 +58,8 @@ class MRValueReplacement(KeyValuePairsOperation):
             return outputs
 
         products = list(product(*closest_set))
+
+        random.seed(self.seed)
         sample_output = sample(products, self.max_outputs)
 
         for output_instance in sample_output:   
@@ -57,8 +73,9 @@ class MRValueReplacement(KeyValuePairsOperation):
         return outputs
     
     def get_alignments(self, meaning_representation, reference):
+        """Method for extracting the alignments between MR values and the tokens in reference. """
     
-        tokens = self.spacy_model(reference)
+        tokens = self.nlp(reference)
         candidate_alignments = []
         for key, value in meaning_representation.items():
             for token in tokens:
@@ -69,12 +86,16 @@ class MRValueReplacement(KeyValuePairsOperation):
     
 
     def get_vector(self, word):
+        """Method for extracting a word vector"""
+
         if word in self.glove.stoi:
             return self.glove.vectors[self.glove.stoi[word]]
         else:
             return None
     
     def closest_words(self, word, n):
+        """Method for recovering a specific number of similar words according to a word. """
+
         vector = self.get_vector(word)
 
         if vector is None:
