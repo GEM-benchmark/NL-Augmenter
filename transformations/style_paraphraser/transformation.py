@@ -8,7 +8,6 @@ from transformers import GPT2LMHeadModel, GPT2Tokenizer
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from transformations.style_paraphraser.paraphraser_helpers.style_paraphraser import (
-    GPT2ParentModule,
     Instance,
     _beam_search,
     _sample_sequence,
@@ -63,6 +62,8 @@ class StyleTransferParaphraser(SentenceOperation):
             upper_length :
                 The maximum length.
                 Options: "eos" or "same_N" (e.g., "same_5"), where N will be the max_length.
+                    "eos" means the maximum length is the length of the sentence a paraphrase is generated for.
+                    "same_N" means the the length of the original sentence + N.
             beam_size : size of the beam during beam search (if top_p == 0.0)
                 Default: 1
             top_p : float
@@ -110,14 +111,14 @@ class StyleTransferParaphraser(SentenceOperation):
         self.config["global_dense_length"] = 0
         model = GPT2LMHeadModel.from_pretrained(model_path)
         model.to(self.device)
-        self.gpt2_model = GPT2ParentModule(gpt2=model, device=device)
+        self.gpt2_model = model  # GPT2ParentModule(gpt2=model, device=device)
         self.tokenizer = GPT2Tokenizer.from_pretrained(model_path)
 
     def modify_p(self, top_p):
         """Set top_p to another value"""
         self.args["top_p"] = top_p
 
-    def generate(self, sentence, top_p=None, n_samples: int = 1):
+    def generate(self, sentence, top_p=None, max_outputs: int = 1):
         """
         Generate paraphrases for a batch of outputs - or for the same but with a top_p != 0.0
         sentence : str
@@ -125,13 +126,13 @@ class StyleTransferParaphraser(SentenceOperation):
         top_p : float
             top_p sampling, between 0.0 and 1.0
             Default None, resorting to the model's top_p value
-        n_samples : int
+        max_outputs : int
             Number of samples to generate for a sentence.
-            Note: These will be the exact same if you use a greedy sampling (top_p=0.0), so if n_samples > 2, makes sure top_p != 0.0.
+            Note: These will be the exact same if you use a greedy sampling (top_p=0.0), so if max_outputs > 2, makes sure top_p != 0.0.
         """
         sent_text = nltk.sent_tokenize(sentence)
 
-        contexts = [sent_text] * n_samples
+        contexts = [sent_text] * max_outputs
 
         to_ret = []
         for context_ in contexts:
@@ -168,7 +169,7 @@ class StyleTransferParaphraser(SentenceOperation):
 
             if self.args["beam_size"] > 1:
                 output = _beam_search(
-                    model=self.gpt2_model.gpt2,
+                    model=self.gpt2_model,
                     length=generation_length,
                     context=gpt2_sentences[:, 0:init_context_size],
                     segments=segments[:, 0:init_context_size],
@@ -178,7 +179,7 @@ class StyleTransferParaphraser(SentenceOperation):
                 )
             else:
                 output = _sample_sequence(
-                    model=self.gpt2_model.gpt2,
+                    model=self.gpt2_model,
                     context=gpt2_sentences[:, 0:init_context_size],
                     segments=segments[:, 0:init_context_size],
                     eos_token_id=eos_token_id,
@@ -212,7 +213,7 @@ class StyleTransferParaphraser(SentenceOperation):
                     )
                 )
             to_ret.append(re.sub("!?\\??\\.+", ".", ". ".join(all_output)))
-        return to_ret[:n_samples]
+        return to_ret[:max_outputs]
 
 
 # Sample code to demonstrate usage of the this perturbation module.
