@@ -1,5 +1,7 @@
 import collections
 import itertools
+import os
+import pickle
 import random
 from typing import List, Tuple
 
@@ -37,6 +39,7 @@ Output:
 class TagSubsequenceSubstitution(TaggingOperation):
     tasks = [TaskType.TEXT_TAGGING]
     languages = "All"
+    keywords = ["lexical", "rule-based", "possible-meaning-alteration"]
 
     def __init__(
         self,
@@ -57,23 +60,32 @@ class TagSubsequenceSubstitution(TaggingOperation):
         self.min_n_gram = min_n_gram
 
     @staticmethod
-    def extract_stats(dataset, min_n_gram, max_n_gram):
-        stats = collections.defaultdict(collections.Counter)
-        for sentence, tags in dataset:
-            assert len(sentence) == len(tags)
-            length = len(sentence)
-            for ss_l in range(
-                min_n_gram, max_n_gram + 1
-            ):  # subsequence_length
-                for i in range(length - ss_l):
-                    subsequence_sentence = tuple(sentence[slice(i, i + ss_l)])
-                    subsequence_tags = tuple(tags[slice(i, i + ss_l)])
-                    stats[subsequence_tags][subsequence_sentence] += 1
+    def extract_stats(dataset, min_n_gram, max_n_gram, stats_path=None):
+        """Extract statistics from dataset, or load stats if specified."""
+        if stats_path and os.path.exists(stats_path):
+            stats = pickle.load(open(stats_path, "rb"))
+        else:
+            stats = collections.defaultdict(collections.Counter)
+            for sentence, tags in dataset:
+                assert len(sentence) == len(tags)
+                length = len(sentence)
+                for ss_l in range(
+                    min_n_gram, max_n_gram + 1
+                ):  # subsequence_length
+                    for i in range(length - ss_l):
+                        subsequence_sentence = tuple(
+                            sentence[slice(i, i + ss_l)]
+                        )
+                        subsequence_tags = tuple(tags[slice(i, i + ss_l)])
+                        stats[subsequence_tags][subsequence_sentence] += 1
+            if stats_path:
+                pickle.dump(stats, open(stats_path, "wb"))
         return stats
 
     def generate(
         self, token_sequence: List[str], tag_sequence: List[str]
     ) -> List[Tuple[List[str], List[str]]]:
+        """Generate a list of (sentence, tags) as output based on input."""
         random.seed(self.seed)
         token_seq = token_sequence.copy()
         length_token_seq = len(token_seq)
