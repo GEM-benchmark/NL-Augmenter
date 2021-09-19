@@ -5,9 +5,6 @@ numpy
 # for back_translation
 torch
 
-# for MRValueReplacement
-torchtext==0.9.1
-
 # for ReplaceNumericalValues
 num2words==0.5.10
 word2number==1.1
