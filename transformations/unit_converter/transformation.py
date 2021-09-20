@@ -6,6 +6,7 @@ import spacy
 from num2words import num2words
 from word2number import w2n
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -17,10 +18,13 @@ def convert(text, X, units, plurals, converter):
         try:
             q = float(q)
         except ValueError:
-            q = w2n.word_to_num(
-                q
-            )  # if it is not a numerical value, convert it and remember to convert it back after unit conversion
-            is_word = True
+            try:
+                q = w2n.word_to_num(
+                    q
+                )  # if it is not a numerical value, convert it and remember to convert it back after unit conversion
+                is_word = True
+            except ValueError:
+                return text
         q /= converter[
             plurals[X.root.lemma_]
         ]  # convert to base unit (meters, kilograms)
@@ -89,7 +93,6 @@ class UnitConverter(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
     keywords = [
@@ -103,7 +106,7 @@ class UnitConverter(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
         converter_plurals_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
