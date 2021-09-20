@@ -26,3 +26,16 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 The code is fully implemented by me.
 
 The table of conversion factors is derived from [Wikipedia](https://en.wikipedia.org/wiki/Conversion_of_units).
+
+
+## Robustness Evaluation
+
+Here is the performance of the model aychang/roberta-base-imdb on the test[:20%] split of the imdb dataset
+
+The accuracy on this subset which has 1000 examples = 96.0
+
+Finished transformation! 1000 examples generated from 1000 original examples, with 3 successfully transformed and 997 unchanged (0.003 perturb rate)
+
+Here is the performance of the model on the transformed set
+
+The accuracy on this subset which has 1000 examples = 96.0
