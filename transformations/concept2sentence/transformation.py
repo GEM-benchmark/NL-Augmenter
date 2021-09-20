@@ -62,6 +62,26 @@ class C2S(SentenceAndTargetOperation):
             }
 
     def generate(self, sentence: str, target=None):
+        """
+        Generates a new sentence from the concept
+        keywords extracted from the input sentence, 
+        optionally using the target to improve 
+        concept selection. 
+
+
+        Parameters
+        ----------
+        sentence : str
+            the input sentence(s) from which the 
+            concepts will be extracted and 
+            transformed into new, related outputs
+        target : int (optional)
+            the class label of the dataset provided
+            at initialization; used to provide a
+            salience-guided selection of concepts
+            and intended to improve semantic 
+            relatedness with the original sentence
+        """
         new_sentences, new_targets = [], []
         for _ in range(self.max_outputs):
             new_sentence, new_target = self.c2s.transform_Xy(sentence, target, self.task_config)
