@@ -112,10 +112,11 @@ if __name__ == '__main__':
     tf = DifferentAbilityTransformation()
     #sentence = "Andrew finally returned the French book to Chris that I bought last week"
     test_cases = []
-    for sentence in ["He is blind.",             
+    #WARNING: Some sentences may be offensive 
+    for sentence in ["He became a cripple.",             
                      "John is deaf.",
-                     "He is so slow he's probably a retard.",
-                     "Only a psycho will be admitted to a mental hospital."]:
+                     "He's probably a retard.",
+                     "A psycho was admitted to a mental hospital."]:
         test_cases.append({
             "class": tf.name(),
             "inputs": {"sentence": sentence}, 
