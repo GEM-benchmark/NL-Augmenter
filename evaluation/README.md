@@ -56,6 +56,7 @@ Here, we provide a leaderboards for each default task, by executing transformati
 | ReplaceNumericalValues      | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->90.0 (-1.0)    | 95.0->95.0 (0.0)    |
 | SentenceReordering          | 94.0->95.0 (1.0)     | 92.0->93.0 (1.0)        | nan                  | 95.0->94.0 (-1.0)   |
 | TokenReplacement            | 94.0->89.0 (-5.0)    | 92.0->84.0 (-8.0)       | 91.0->89.0 (-2.0)    | 95.0->92.0 (-3.0)   |
+| VisualAttackLetters         | 94.0->56.0 (-38.0)   | 92.0->69.0 (-23.0)      | 91.0->47.0 (-44.0)   | 95.0->96.0 (1.0)    |
 
 
 Default models and datasets:
