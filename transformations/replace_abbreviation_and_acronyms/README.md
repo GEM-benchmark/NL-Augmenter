@@ -53,6 +53,15 @@ The accuracy on this subset which has 1000 examples = 96.0
 }
 ```
 
+## Abbreviations and accronyms
+
+Currently the list of abbreviations and accronyms used in this transformation where manually gathered focusing on common abbreviations present in business communications. 
+Some of the sources are internet websites listing business abbreviations such as: https://www.themuse.com/advice/your-ultimate-cheat-sheet-to-deciphering-the-123-most-common-business-acronyms as well as abbreviations coming from documents processed at Vade.
+
+To update or change the list of abbreviations and accronyms used, you can modify the file `abbreviations.txt`.
+You can add or change abbreviations as long as you use the following format:
+`Abbrevation:Expanded form` with one abbrevation per line.
+
 ## What are the limitations of this transformation?
 The transformation's outputs are too simple to be used for data augmentation as a standalone module.
 However, combined with other modules, this transformation helps to improve the understanding of the context, and generates simple but precise similar sentences (same semantic similarity).
@@ -61,7 +70,6 @@ The transformation from the expanded form to the short form might be context dep
 (this might help to improve robustness in some context, e.g.: medical context).
 
 It is relatively easy to provide a new list of accepted acronyms and abbreviations when using the transformation (by modifying the file `abbreviations.txt`).
-Currently the list is relatively short and focuses on common abbreviations present in business communications.
 
 ## Testing
 You can test that everything works well by launching the test using the command below.
