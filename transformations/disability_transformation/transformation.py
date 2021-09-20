@@ -57,6 +57,8 @@ disability_names= {"blind ":" visually impaired ",
 def preserve_capitalization(original, transformed):
   if original[0].isupper():
     transformed = transformed.capitalize()
+  else:
+    return original
   return transformed
 
 def last_character(orig,trans):
