@@ -369,6 +369,12 @@ class Conjugation_transformation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["fr"]
+    KEYWORD = [
+        "lexical",
+        "model-based",
+        "highly-meaning-preserving",
+        "high-coverage",
+    ]
 
     # The transormation tense is specified here
     def __init__(self, tense):
