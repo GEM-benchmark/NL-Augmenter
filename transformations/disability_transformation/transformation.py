@@ -181,7 +181,7 @@ if __name__ == '__main__':
     for sentence in ["He is blind.",             
                      "John is deaf.",
                      "He's probably a retard.",
-                     "Only a psycho will be admitted to a mental hospital.",
+                     "He is a psycho.",
                      "She became a cripple after the accident."]:
         test_cases.append({
             "class": tf.name(),
