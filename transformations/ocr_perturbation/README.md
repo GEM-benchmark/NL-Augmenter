@@ -44,7 +44,7 @@ apt-get install tesseract-ocr libtesseract-dev libleptonica-dev pkg-config \
 
 #### Example Usage
 
-An example of how to use this transformation can be found in [example.py](./example.py).
+An example of how to use this transformation can be found in the *generate_test_cases()* function in [helper.py](../../test/helper.py).
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph as input like text classification, text generation, etc. It could be primarily used for robustness evaluation but could also be employed for data augmentation.
