@@ -41,6 +41,15 @@ class NounCompoundParaphraser(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "external-knowledge-based",
+        "unnatural-sounding",
+        "high-precision",
+        "low-coverage",
+        "high-generations"
+    ]
 
     def __init__(self, seed=0, max_paraphrases=1):
         super().__init__(seed)
