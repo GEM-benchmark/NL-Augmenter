@@ -15,37 +15,40 @@ import torch
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-'''
-def _mask_word(sentence, word_to_mask, tokenizer):
-    """ helper function,
-    replace word in a sentence with mask-token, as prep for BERT tokenizer"""
-    start_index = sentence.find(word_to_mask)
-    return sentence[0:start_index] + tokenizer.mask_token + sentence[
-        start_index + len(word_to_mask):]
-'''
-
 def _mask_word(sentence, split_indices, mask):
-    """ helper function,
-    replace word in a sentence with mask-token, as prep for BERT tokenizer"""
+    """ helper function to replace word in a sentence with mask-token, as prep 
+    for BERT tokenizer
+    
+    Args:
+    sentence (str): sentence with work to mask
+    split_indices ([int, int]): index of word to replace, begining and character 
+      after the end indices
+    mask (BERT Token): token for a BERT mask
+    
+    """
     return sentence[0:split_indices[0]] + mask + sentence[
         split_indices[1]:]
 
 
 def get_k_replacement_words(tokenized_text, tokenizer, model, k):
-    """return k most similar words from the model, for a tokenized mask-word in a sentence.
+    """return k most similar words from the model, for a tokenized mask-word 
+    in a sentence.
 
     Args:
         tokenized_text (str): sentence with a word masked out
-        model ([type]): model
         tokenizer ([type]): tokenizer
-        k (int, optional): how many similar words to find for a given tokenized-word. Defaults to 5.
+        model ([type]): model
+        k (int): how many similar words to find for a given tokenized-word. Checks
+          that generated word is a composed of letters or numbers.
 
     Returns:
         [list]: list of top k words
     """
     inputs = tokenizer.encode_plus(tokenized_text, return_tensors='pt', truncation=True, max_length = 512)
     index_to_mask = torch.where(inputs.input_ids[0] == tokenizer.mask_token_id)
-    if index_to_mask[0].numel() == 0: # Since we are truncating the input to be 512 tokens (BERT's max), we need to make sure the mask is in these first 512.
+    if index_to_mask[0].numel() == 0: # Since we are truncating the input to be 
+        # 512 tokens (BERT's max), we need to make sure the mask is in these first 512.
+        # If not, return False so that we try again.
         return None, False
     outputs = model(**inputs)
     softmax = F.softmax(outputs.logits, dim=-1)
@@ -53,7 +56,8 @@ def get_k_replacement_words(tokenized_text, tokenizer, model, k):
 
     sorted_tokens = torch.argsort(mask_word[0], descending=True)
     i = 0
-    valid_tokens = []
+    valid_tokens = [] # The k most probable tokens are guaranteed to be words,
+    # so we make sure they are.
     while len(valid_tokens) < k and i < len(sorted_tokens):
         if tokenizer.decode([sorted_tokens[i]]).isalnum():
             valid_tokens.append(sorted_tokens[i])
@@ -70,34 +74,34 @@ def single_sentence_random_step(sentence, tokenizer, model, k):
         sentence ([type]): sentence to perform random walk on
         tokenizer ([type]): tokenizer
         model ([type]): model
-        k (int, optional): how many replacement words to try. Defaults to 5.
+        k (int): how many replacement words to try.
 
     Returns:
         [list]: k-sentences with masked word replaced with top-k most similar words
     """
-    #text_split = re.split('[ ?.,!;"]', sentence)
-    split_iter = re.finditer(r"[\w']+|[.,!?;]", sentence)
+
+    split_iter = re.finditer(r"[\w']+|[.,!?;]", sentence) # Split sentence on puctuation.
     text_split = []
     split_indices = []
     for m in split_iter:
-      text_split.append(m.group(0))
-      split_indices.append((m.start(), m.end()))
+        text_split.append(m.group(0))
+        split_indices.append((m.start(), m.end()))
 
     included_mask = False
-    while not included_mask: # Loop until the masked word is one of the first 512 tokens of input, since all else are discarded.
-      # pick a random word to mask
+    while not included_mask: # Loop until the masked word is one of the first 
+        # 512 tokens of input, since all else are discarded.
       
-      rand_int = np.random.randint(len(text_split))
-      word_to_mask = text_split[rand_int]
-      while len(word_to_mask) == 0 and not word_to_mask.isalnum(): # Avoid empty strings in split text
-          rand_int = np.random.randint(len(text_split))
-          word_to_mask = text_split[rand_int]
-      
-      # mask word
-      new_text = _mask_word(sentence, split_indices[rand_int], tokenizer.mask_token)
+        rand_int = np.random.randint(len(text_split)) # pick a random word to mask
+        word_to_mask = text_split[rand_int]
+        while len(word_to_mask) == 0 and not word_to_mask.isalnum(): # Avoid empty strings in split text
+            rand_int = np.random.randint(len(text_split))
+            word_to_mask = text_split[rand_int]
+        
+        # mask word
+        new_text = _mask_word(sentence, split_indices[rand_int], tokenizer.mask_token)
 
-      # get k replacement words
-      top_k, included_mask = get_k_replacement_words(new_text, tokenizer, model, k=k)
+        # get k replacement words
+        top_k, included_mask = get_k_replacement_words(new_text, tokenizer, model, k=k)
     replacement_words = [tokenizer.decode([token]) for token in top_k]
 
     # replace mask-token with the word from the top-k replacements
@@ -114,9 +118,9 @@ def single_round(sentences: List[str], tokenizer, model, k) -> List[str]:
         sentences ([type]): list of sentnces to perform random walk on
         tokenizer ([type]): tokenizer
         model ([type]): model
-
+        k (int): how many words to sample to replace masked word
     Returns:
-        [List]: list of random-walked sentences
+        [List]: list of k random-walked sentences
     """
     new_sentences = []
 
@@ -129,17 +133,39 @@ def single_round(sentences: List[str], tokenizer, model, k) -> List[str]:
 
 def random_walk(original_text: str, steps: int, k: int, tokenizer,
                 model) -> List[str]:
-    old_sentences = [original_text]
+    """For a sentence, perform a random walk sequence on the sentence, generating
+    new sentences at each step and perturbing these during the next step.
 
-    # Do k steps of random walk procedure
+    Args:
+        original_text (str): original sentence we want to perturb
+        steps (int): how many random walks iterations we perform on the sentence
+        k (int): how many words to sample to replace masked word during each iteration
+        tokenizer ([type]): tokenizer
+        model ([type]): model
+    Returns:
+        [List]: list of steps^k random-walked sentences
+    """
+
+    old_sentences = [original_text]
+    # Do $steps$ steps of random walk procedure
     for _ in range(steps):
         sentences = single_round(old_sentences, tokenizer, model, k)
         old_sentences = copy.deepcopy(sentences)
 
-    #assert len(sentences) == k**steps  # This may not be possible if we cannot find k non-punctuation suggestions.
     return sentences
 
 def sentence_similarity_metric(similarity_model, sen_A, sen_B):
+    """Compute the similarity between two sentences by embedding them using a
+    sentence transformer and computing the cosine similarity.
+
+    Args:
+        similarity_model (type): sentence transformer
+        sen_A (str): first sentence
+        sen_B (str): second sentence
+    Returns:
+        float: sentence similarity
+    """
+
     emb_A = similarity_model.encode(sen_A)
     emb_B = similarity_model.encode(sen_B)
 
@@ -152,6 +178,10 @@ class RandomWalk(SentenceOperation):
         TaskType.TEXT_CLASSIFICATION
     ]
     languages = ["en"]
+    heavy = True
+    keywords = [ "model-based", "api-based", "transformer-based", "tokenizer-requried", \
+        "lexical", "possible-meaning-alteration", "low-precision", \
+        "high-coverage", "high-generations" ]
 
     # Default parameters match those of the 'test.json' below.
     def __init__(self, seed=0, max_outputs=3, steps=5, k=2, sim_req=0.25):
@@ -179,7 +209,8 @@ class RandomWalk(SentenceOperation):
         scores = []
         for o in perturbed_texts:
             scores.append(sentence_similarity_metric(self.sim_model, sentence, o))
-        valid_sentences = np.array(scores) > self.sim_req
+        valid_sentences = np.array(scores) > self.sim_req # Only sentences with a 
+        # high enough similarity score are kept.
         perturbed_texts = [o for o,s in zip(perturbed_texts, valid_sentences) if s]
         assert np.sum(valid_sentences) == len(perturbed_texts)
 
