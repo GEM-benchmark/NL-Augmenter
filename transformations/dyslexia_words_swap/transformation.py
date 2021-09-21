@@ -9,8 +9,11 @@ class DyslexiaWordsSwap(SentenceOperation):
 
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = ["lexical", "rule-based", "external-knowledge-based", "aural", "possible-meaning-alteration", "low-precision", "low-coverage", "low-generations"]
 
-    def __init__(self):
+    def __init__(self, seed=0, max_outputs=1):
+        super().__init__(seed=seed, max_outputs=max_outputs)
+
         self.nlp = spacy.load("en_core_web_sm")
         with open(os.path.join(os.path.dirname(__file__), 'data.json'), "r") as infile:
             data = json.load(infile)
