@@ -53,6 +53,7 @@ Here, we provide a leaderboards for each default task, by executing transformati
 | ButterFingersPerturbation   | 94.0->89.0 (-5.0)    | 92.0->89.0 (-3.0)       | 91.0->88.0 (-3.0)    | 95.0->93.0 (-2.0)   |
 | ChangePersonNamedEntities   | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->89.0 (-2.0)    | 95.0->95.0 (0.0)    |
 | CloseHomophonesSwap         | 94.0->91.0 (-3.0)    | 92.0->88.0 (-4.0)       | 91.0->89.0 (-2.0)    | 95.0->96.0 (1.0)    |
+| CorrectCommonMisspellings   | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->91.0 (0.0)     | 95.0->95.0 (0.0)    |
 | DiscourseMarkerSubstitution | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->91.0 (0.0)     | 95.0->95.0 (0.0)    |
 | MixedLanguagePerturbation   | 94.0->90.0 (-4.0)    | 92.0->86.0 (-6.0)       | 91.0->86.0 (-5.0)    | 95.0->91.0 (-4.0)   |
 | PunctuationWithRules        | 94.0->94.0 (0.0)     | 92.0->92.0 (0.0)        | 91.0->91.0 (0.0)     | 95.0->90.0 (-5.0)   |
