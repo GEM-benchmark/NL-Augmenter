@@ -4,46 +4,47 @@
     {
       "class": "GenderRandomizer",
       "inputs": {
-        "sentence": ""
+        "sentence": '“Edward turned to Miss Marple. “It’s like this, you see. As Uncle Mathew grew older, he got more and more suspicious. He didn’t trust anybody.” “Very wise of him,” said Miss Marple. “The depravity of human nature is unbelievable.” '
+
       },
       "outputs": [{
-        "sentence": ""
+        "sentence": '“Edward turned to Glynnis. “It’s like this, you see. As Ambros grew older, she got more and more suspicious. She didn’t trust anybody.” “Very wise of her,” said Glynnis. “The depravity of human nature is unbelievable.” '
       }]
     },
     {
       "class": "GenderRandomizer",
       "inputs": {
-        "sentence": ""
+        "sentence": "Henry wanted to study abroad that summer but he decided to travel with his friends instead."
       },
       "outputs": [{
-        "sentence": ""
+        "sentence": "Ambros wanted to study abroad that summer but he decided to travel with his friends instead."
       }]
     },
     {
       "class": "GenderRandomizer",
       "inputs": {
-        "sentence": ""
+        "sentence": "I thought that Kelly would go to medschool, but she told me she was applying for law."
       },
       "outputs": [{
-        "sentence": ""
+        "sentence": "I thought that Ambros would go to medschool, but he told me he was applying for law."
       }]
     },
     {
       "class": "GenderRandomizer",
       "inputs": {
-        "sentence": ""
+        "sentence": "Grace went to New York for Christmas last year, but she wanted to stay with family for New Years."
       },
       "outputs": [{
-        "sentence": ""
+        "sentence": "Grace went to New York for Christmas last year, but she wanted to stay with family for New Years."
       }]
     },
     {
       "class": "GenderRandomizer",
       "inputs": {
-        "sentence": ""
+        "sentence": "I think Eliza never tells herself the truth."
       },
       "outputs": [{
-        "sentence": ""
+        "sentence": "I think Ambros never tells himself the truth."
       }]
     }
   ]
