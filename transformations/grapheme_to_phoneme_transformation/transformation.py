@@ -65,6 +65,7 @@ class PhonemeSubstitution(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["en"]
+    keywords = ["lexical", "noise", "noise", "api-based", "aural", "high-precision"]
 
     def __init__(self, seed=0, prob=0.5, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
