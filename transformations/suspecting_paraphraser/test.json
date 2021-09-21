@@ -35,13 +35,13 @@
       "class": "SuspectingParaphraser",
       "inputs": {
         "context": "",
-        "question": "Would you be so kind to pass me the soup?",
+        "question": "Couldn't she just leave?",
         "answers": []
       },
       "outputs": [
         {
           "context": "",
-          "question": "You would be so kind to pass me the soup, wouldn't you?",
+          "question": "She just could leave, couldn't she?",
           "answers": []
         }
       ]
@@ -56,7 +56,7 @@
       "outputs": [
         {
           "context": "",
-          "question": "You shall Shall you begone, lad, right?",
+          "question": "You shall begone, lad, shan't you?",
           "answers": []
         }
       ]
@@ -71,7 +71,7 @@
       "outputs": [
         {
           "context": "",
-          "question": "Buzz has Aldrin, the first person who walked on the moon, brought back some aliens, hasn't it?",
+          "question": "Buzz Aldrin, the first person who walked on the moon, has brought back some aliens, hasn't he?",
           "answers": []
         }
       ]
