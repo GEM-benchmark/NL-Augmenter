@@ -8,9 +8,9 @@ Author names:
  - Jamie Simon (james.simon@berkeley.edu, UC Berkeley)
  - Chandan Singh (chandan_singh@berkeley.edu, UC Berkeley)
 
-## Extras
+## Data and Code Provenance
 
-This transformation requires the 'bert-large-cased' pretrained model (~1 GB) from the Hugging Face Transformers library and the 'all-mpnet-base-v2' pretrained model (~400 GB) from the Sentence Transformers model. Provided that the libraries are installed (as they should be from 'requirements.txt'), these models will be installed the first time this transformation is ran.
+This transformation requires the 'bert-large-cased' pretrained model (~1 GB) from the Hugging Face Transformers library and the 'all-mpnet-base-v2' pretrained model (~400 GB) from the Sentence Transformers library. Provided that the libraries are installed (as they should be from 'requirements.txt'), these models will be installed the first time this transformation is ran. Both libraries operates under the Apache 2.0 license
 
 ## What type of a transformation is this?
 This transformation acts like a perturbation to test robustness and generate sentences with similar syntactic content. By randomly replacing words with their mostly likely replacements, as determined by a bidirectional model that incorporates context clues from prevous and later words, we hope to generate similar sentences that make grammatical sense. We measure the similarity between the original and random-walked sentence by performing sentence embeddings and then calculate the cosine similarity bewteen the embedded vectors.
@@ -37,5 +37,10 @@ text generation, etc. Evaluating the perturbation using Google Colab is currentl
 This transformation can generate nonsensical words when the random walk has many steps (steps >~ number of words in sentence).
 
 ## References
-1) Saketh Kotamraju, "How to use BERT from the Hugging face transformer library", https://towardsdatascience.com/how-to-use-bert-from-the-hugging-face-transformer-library-d373a22b0209
+1) Saketh Kotamraju; "How to use BERT from the Hugging face transformer library"; https://towardsdatascience.com/how-to-use-bert-from-the-hugging-face-transformer-library-d373a22b0209
+
+As far as we know, this type of transformation where words are randomly perturbed has not been studied in published literature. Random walks have been used to measure sentence similarity, e.g. the papers listed below.
+
+2) Daniel Ramage, Anna N. Rafferty, and Christopher D. Manning; "Random Walks for Text Semantic Similarity"; https://nlp.stanford.edu/pubs/wordwalk-textgraphs09.pdf
+3) Ahmed Hassan, Amjad Abu-Jbara, Wanchen Lu, and Dragomir Radev; "A Random Walk–Based Model for Identifying Semantic Orientation"; https://aclanthology.org/J14-3003.pdf
 
