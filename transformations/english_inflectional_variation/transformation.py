@@ -24,6 +24,7 @@ from tasks.TaskTypes import TaskType
 
 class EnglishInflectionalVariation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    heavy = True
     locales = ["en"]
     content_words = {'NOUN', 'VERB', 'ADJ'}
     def __init__(self, seed=0, max_outputs=1):
@@ -82,10 +83,11 @@ class EnglishInflectionalVariation(SentenceOperation):
 
 
 class EnglishInflectionalVariationQAQuestionOnly(QuestionAnswerOperation):
+    tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
     heavy = True
+    locales = ["en"]
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed=seed, max_outputs=max_outputs)
-        self.tasks = [TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION]
         self.question_perturber = EnglishInflectionalVariation(seed=seed, max_outputs=max_outputs)
 
     def generate(self, context: str, question: str, answers: List[str]):
