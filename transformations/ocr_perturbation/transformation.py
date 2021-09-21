@@ -13,7 +13,7 @@ from tesserocr import PyTessBaseAPI, PSM, OEM
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-from transformations.ocr_perturbation.example import generate_test_cases
+from test.helper import generate_test_cases
 
 
 """
