@@ -63,7 +63,7 @@ def filler_word(text, prob=0.166, sp_p=True, unc_p=True, fill_p=True, seed=0, ma
             # Based on the random choice, insert a phrase before current word
             if random.choice(range(0, 100)) <= prob_of_insertion:
                 # To avoid always inserting the same word at the same location
-                # when running the script on a single example, I update the 
+                # when running the script on single examples, I update the 
                 # random seed based on the current word and its position
                 seed = len(cur_word) + len(out_list)
                 random.seed(seed)
@@ -93,6 +93,15 @@ class FillerWordAugmentation(SentenceOperation):
         TaskType.TEXT_CLASSIFICATION,
     ]
     languages = ["en"]
+    keywords = [
+            "noise", 
+            "rule-based", 
+            "external-knowledge-based", 
+            "tokenizer-required", 
+            "possible-meaning-alteration", 
+            "high-coverage", 
+            "high-generations",
+            ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
