@@ -1,0 +1,50 @@
+{
+  "type": "unit_converter",
+  "test_cases": [
+    {
+      "class": "UnitConverter",
+      "inputs": {
+        "sentence": "I weigh 100 pounds."
+      },
+      "outputs": [{
+        "sentence": "I weigh 1600.002 ounces."
+      }]
+    },
+    {
+      "class": "UnitConverter",
+      "inputs": {
+        "sentence": "I weigh one-hundred pounds."
+      },
+      "outputs": [{
+        "sentence": "I weigh one thousand, six hundred point zero zero two ounces."
+      }]
+    },
+    {
+      "class": "UnitConverter",
+      "inputs": {
+        "sentence": "The lake is three kilometers north of here."
+      },
+      "outputs": [{
+        "sentence": "The lake is three thousand, two hundred and eighty point eight four yards north of here."
+      }]
+    },
+    {
+      "class": "UnitConverter",
+      "inputs": {
+        "sentence": "The phone is five centimeters wide and it weighs 170 grams."
+      },
+      "outputs": [{
+        "sentence": "The phone is zero point zero five five yards wide and it weighs 5.997 ounces."
+      }]
+    },
+    {
+      "class": "UnitConverter",
+      "inputs": {
+        "sentence": "Is it bigger 1 feet, 1 yard, 1 meter or 1 inch?"
+      },
+      "outputs": [{
+        "sentence": "Is it bigger 0.333 yards, 1 yard, 1.094 yards or 1.0 inch?"
+      }]
+    }
+  ]
+}
