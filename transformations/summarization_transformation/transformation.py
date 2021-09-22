@@ -31,6 +31,10 @@ class Summarization(SentenceOperation):
         return summarization_texts
 
     def Summarize(self, tokens):
+        """
+        this algorithm is based on the dependence tree parshing. When the input sentence comes, we would first find the verbs and root token. If verbs exist, it would be easily to find the subject and object,
+        otherwise, we will split the sentence based on the root token.
+        """
         results = []
         verbs = [tok for tok in tokens if tok.pos_ == "VERB" or tok.pos_ == "AUX" or tok.dep_ == "aux" ]
         roots = [tok for tok in tokens if tok.dep_ == "ROOT"]
@@ -67,6 +71,9 @@ class Summarization(SentenceOperation):
         return final_results
     
     def getSubsFromConjunctions(self, subs):
+        """
+        search the subject when meet the conjuntions
+        """
         moreSubs = []
         for sub in subs:
             # rights is a generator
@@ -79,6 +86,9 @@ class Summarization(SentenceOperation):
         return moreSubs
 
     def isNegated(self, tok):
+        """
+        Check if verbs are negated
+        """
         negations = {"no", "not", "n't", "never", "none"}
         for dep in list(tok.lefts) + list(tok.rights):
             if dep.lower_ in negations:
@@ -86,6 +96,9 @@ class Summarization(SentenceOperation):
         return False
 
     def getObjsFromPrepositions(self, deps):
+        """
+        Not all objects come after the verbs, this function would double check if there exist prepositions, and check its next word
+        """
         objs = []
         for dep in deps:
             if dep.pos_ == "ADP" and dep.dep_ == "prep":
@@ -107,6 +120,9 @@ class Summarization(SentenceOperation):
         return None, None
 
     def getObjsFromConjunctions(self, objs):
+        """
+        Similar with finding subjects with conjunctions
+        """
         moreObjs = []
         for obj in objs:
             # rights is a generator
@@ -119,6 +135,10 @@ class Summarization(SentenceOperation):
         return moreObjs
 
     def getVerbsFromConjunctions(self, verbs):
+
+        """
+        Sometimes the verbs come with pair with conjunctions, or two clauses connected with conjunctions
+        """
         moreVerbs = []
         for verb in verbs:
             rightDeps = {tok.lower_ for tok in verb.rights}
@@ -129,6 +149,9 @@ class Summarization(SentenceOperation):
         return moreVerbs
 
     def findSubs(self, tok):
+        """
+        Based on the verbs, search backwards to find the subjects
+        """
         head = tok.head
         while head.pos_ != "VERB" and head.pos_ != "NOUN" and head.head != head:
             head = head.head
@@ -155,6 +178,7 @@ class Summarization(SentenceOperation):
         return subs, verbNegated
 
     def getAllObjs(self, v):
+
         rights = list(v.rights)
         objs = [tok for tok in rights if tok.dep_ in self.dicts['OBJECTS']]
         objs.extend(self.getObjsFromPrepositions(rights))
