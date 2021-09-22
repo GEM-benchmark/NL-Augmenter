@@ -2012,7 +2012,7 @@ names={1: {0: 'Mary',
 
 #NOUN LIST 186 PAIRS
 noun_pairs = {
-    "Artz": "Arztin",
+    "Arzt": "Arztin",
     "Vater": "Mutter",
     "Stiefsohn": "Stieftochter",
     "Herzog": "Herzogin",
@@ -2174,7 +2174,6 @@ noun_pairs = {
     "Spion":"Spionin",
     "Klager":"Klagerin",
     "Antragsteller":"Antragstellerin",
-    "Morder":"Morderin",
     "Dieb":"Diebin",
     "Pazifist":"Pazifistin",
     "Metzger":"Metzgerin",
@@ -2197,7 +2196,45 @@ noun_pairs = {
     "Maler":"Malerin",
     "Richter":"Richterin",
     "Experte":"Expertin",
-    "Lowe":"Lowin", #animals lion
+    "Komponist":"Komponistin",
+    "Trainer":"Trainerin",
+    "Tutor":"Tutorin",
+    "Erzieher":"Erzieherin",
+    "Chiropraktiker":"Chiropraktikerin",
+    "Blogger":"Bloggerin",
+    "Aktivist":"Aktivistin",
+    "Banker":"Bankerin",
+    "Biograph":"Biographin",
+    "Pilot":"Pilotin",
+    "Schiedsrichter":"Schiedsrichterin",
+    "Abenteurer":"Abenteurerin",
+    "Schneider":"Schneiderin",
+    "Ubersetzer":"Ubersetzerin",
+    "Verrater":"Verraterin",
+    "Sunder":"Sunderin",
+    "Bildhauer":"Bildhauerin",
+    "Politiker":"Politikerin",
+    "Philosoph":"Philosophin",
+    "Ornithologe":"Ornithologin",
+    "Motorradfahrer":"Motorradfahrerin",
+    "Radfahrer":"Radfahrerin",
+    "Moderator":"Moderatorin",
+    "Missionar":"Missionarin",
+    "Kuppler":"Kupplerin",
+    "Mikrobiologe":"Mikrobiologin",
+    "Holzfaller":"Holzfallerin",
+    "Interviewer":"Interviewerin",
+    "Zigeuner":"Zigeunerin",
+    "Gitarrist":"Gitarristin",
+    "Wahrsager":"Wahrsagerin",
+    "Fischhandler":"Fischhandlerin",
+    "Taucher":"Taucherin",
+    "Springer":"Springerin",
+    "Diplomat":"Diplomatin",
+    "Stellvertreter":"Stellvertreterin",
+    "Masseur":"Masseuse",
+    "Neffe":"Nichte",
+    "Lowe":"Lowin", #animals 
     "Kater":"Katze"
 }
 
@@ -2355,7 +2392,6 @@ def newnamerep(m,f,inp,names):
 def german_nouns(text, noun_pairs):
     t1=nounswap(text,noun_pairs)
     t2=replace_pers(t1,personalp)
-    print(t2)
     t3=newnamerep(m,f,t2,names)
     
     return t3 
