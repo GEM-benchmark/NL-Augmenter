@@ -106,7 +106,7 @@ def evaluate(
             # TODO: Needs to handle for multiple outputs.
             trans_input, trans_gold_tag_seq = operation.generate(
                 example["tokens"], gold_tag_seq
-            )
+            )[0]
             trans_gold_tag_seq = convert_ner_ids_to_tags(trans_gold_tag_seq)
             transformed_input_prediction = tagging_pipeline(trans_input)
             trans_predicted_tag_seq = create_prediction_seq(
