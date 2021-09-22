@@ -10,14 +10,9 @@ from nltk.tag import pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.tree import Tree
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-
-nltkdl("words")
-nltkdl("maxent_ne_chunker")
-nltkdl("punkt")
-nltkdl("averaged_perceptron_tagger")
-nltkdl("stopwords")
 
 
 def find_candidates(doc):
@@ -104,8 +99,15 @@ class HashtagifyTransformation(SentenceOperation):
     ]
 
     def __init__(self, seed=666, max_outputs=1):
+        nltkdl("words")
+        nltkdl("maxent_ne_chunker")
+        nltkdl("punkt")
+        nltkdl("averaged_perceptron_tagger")
+        nltkdl("stopwords")
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = self.nlp = (
+            spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        )
 
     def generate(self, sentence: str):
         perturbed_texts = hashtagify(
