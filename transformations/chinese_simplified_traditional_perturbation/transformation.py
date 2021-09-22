@@ -3,36 +3,6 @@ import opencc
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-
-
-def chinese_simplified_traditional_perturbation(text,
-                          transformation_prob,
-                          seed,
-                          max_outputs,
-                          converter_config
-                          ):
-    random.seed(seed)
-
-    perturbed_texts = []
-
-    converter = opencc.OpenCC(converter_config)
-
-    for _ in range(max_outputs):
-        butter_text = ""
-        for chinese_character in text:
-            if random.random() <= transformation_prob:
-
-                new_chinese_character = converter.convert(chinese_character)
-            else:
-                new_chinese_character = chinese_character
-
-            butter_text += new_chinese_character
-        perturbed_texts.append(butter_text)
-    return perturbed_texts
-
-
-
-
 """
 Chinese Simplified/Traditional Perturbation
 """
@@ -56,13 +26,24 @@ class ChineseSimplifiedTraditionalPerturbation(SentenceOperation):
         self.converter_config = converter_config
 
     def generate(self, sentence: str):
-        perturbed_texts = chinese_simplified_traditional_perturbation(
-            text=sentence,
-            transformation_prob=self.transformation_prob,
-            seed=self.seed,
-            max_outputs=self.max_outputs,
-            converter_config=self.converter_config
-        )
+
+        random.seed(self.seed)
+
+        perturbed_texts = []
+
+        converter = opencc.OpenCC(self.converter_config)
+
+        for _ in range(self.max_outputs):
+            butter_text = ""
+            for chinese_character in sentence:
+                if random.random() <= self.transformation_prob:
+
+                    new_chinese_character = converter.convert(chinese_character)
+                else:
+                    new_chinese_character = chinese_character
+
+                butter_text += new_chinese_character
+            perturbed_texts.append(butter_text)
         return perturbed_texts
 
 if __name__ == '__main__':
