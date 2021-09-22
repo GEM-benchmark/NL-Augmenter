@@ -6,6 +6,7 @@ from tasks.TaskTypes import TaskType
 class AzertyQwertyCharsSwap(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = ["morphological", "noise", "rule-based", "unnaturally-sounding", "unnaturally-written", "highly-meaning-preserving", "high-coverage", "high-precision"]
 
     def __init__(self, seed=0, percent_swap=0.2, max_outputs=1):
         super().__init__(seed=seed, max_outputs=max_outputs)
