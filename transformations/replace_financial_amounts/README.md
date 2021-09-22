@@ -5,7 +5,8 @@ The change is consistent in regard to:
 - the modifier used to change all amounts of the same currency throughout the text.
   - e.g., the sentence `I owe Fred € 20 and I need € 10 for the bus.` might be changed to `I owe Fred 2 906.37 Yen and I need 1 453.19 Yen for the bus.`
 - the modifier used to change the amounts so that new amounts are relatively close to the original amount.
-- the rate used for a change of currency, reflecting the bank rate applicable in August 2021.
+- the rate used for a change of currency reflects the actual rate on the day of use based on the forex exchange prices (this rate is fixed when using pytest).
+See https://www.forex.com/ie/ for more information about forex.
 
 Author names:
 - Maxime Meyer (maxime.meyer@vadesecure.com, Vade)
@@ -58,6 +59,7 @@ The accuracy on this subset which has 1000 examples = 96.0
 ## Common currencies
 Not all currencies have conversion rate associated. For the moment, only six currencies have a conversion rate associated so that the currency can be changed to one another while keeping the converted amount close to the original amount value.
 Those six currencies are: US dollar, Euro, Pound, Yen, Yuan and the Bitcoin.
+The bank rate is obtained using the forex exchange prices thanks to the `forex-python` library.
 
 Amounts corresponding to other currencies (e.g.: XAF) have just their amount modified.
 
@@ -70,18 +72,9 @@ I.e. we might have `12,38 $` or `12.38 $` output by the generator.
 
 The transformation can only change numeric financial amounts (i.e. it will not handle "two dollars" or "14k euros").
 
-Finally, the transformation is case sensitive i.e. 13 usd will not be considered as an amount. 
+Finally, the transformation is case-sensitive i.e., `13 usd` will not be considered as an amount.
 
 ### Bank Rate
 
 Currently, the bank rate is fixed and reflects the rate of August 2021.
 An improvement to this transformation could be to use a library such as `https://forex-python.readthedocs.io/en/latest/usage.html` to get actualized bank rates.
-
-
-## Testing
-
-You can test that everything works well by launching the test using the command below.
-Make sure that you are in `transformation/replace_financial_amounts` and do:
-```bash
-$ pytest -v
-```
