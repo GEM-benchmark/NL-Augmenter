@@ -34,7 +34,7 @@ sentences = [ "He is going to make a cake.",
 f.filter(sentences)
 ```
 
-The above statement returns True, as the number of sentences flagged as "masculine" is less than the number of sentences tagged as "feminine".
+The above statement returns `True`, as the number of sentences flagged as "masculine" is less than the number of sentences tagged as "feminine".
 You can check the exact number by calling the `count_genders()` static method on the instance of the class and providing it with the extracted flags with the `flag_sentences()` static method:
 ```
 flagged_sentences = f.flag_sentences(sentences, "en")
@@ -50,7 +50,7 @@ Feminine tagged sentences: 1
 Masculine tagged sentences: 2
 Neutral tagged sentences: 1
 ```
-You can also retrieve the arrays of sentences from each group, by calling the `sort_groups()` method on the instance of th class, providing it with flags, extracted by `flag_sentences()` method:
+You can also retrieve the arrays of sentences from each group, by calling the `sort_groups()` method on the instance of the class, providing it with flags, extracted by `flag_sentences()` method:
 
 ```
 flagged_sentences = f.flag_sentences(sentences, "en")
@@ -77,7 +77,7 @@ f = GenderBiasFilter("fr")
 f.filter(sentences)
 ```
 
-There is also a possibility to extend the vocabulary of the gender definition keywords. Let us see the example of it:
+There is also a possibility to extend the vocabulary of the gender definition keywords. Let's see the example:
 ```
 feminine_input = ["wow"]
 masculine_input = ["yey"]
@@ -109,7 +109,7 @@ Masculine flagged sentences: 3
 Neutral flagged sentences: 1
 ```
 
-and this piece of code gives us the exact sentences in each of these groups:
+and this piece of code gives us the exact sentences included into each of these groups:
 ```
 flagged_sentences = f.flag_sentences(sentences, "en", feminine_input, masculine_input)
 feminine_group, masculine_group, neutral_group = f.sort_groups(flagged_sentences)
@@ -127,4 +127,4 @@ This is a neutral group: ['Nobody likes washing dishes']
 ## What are the limitations of this filter?
 The filter result is based on n-gram intersection counting approach, which assumes that the word should have the exact form as the internally defined keywords.
 For the lexically rich languages, such as Polish and Russian, the noun conjugation may overlap with the infinitif of an opposite gender.
-For example, the word "nastolatek" is a teenage boy in infinitif, "nastolatka" - a teenage girl in infinitif, however, when answering the question "Whom are we missing?", the feminine form in plural ("nastolatki" in infinitif) will give the word "nastolatek", which overlaps with the masculin singular infinitif, designating a teenage boy.
+For example, the word "nastolatek" is a teenage boy in Polish (infinitif), "nastolatka" - a teenage girl (infinitif), however, when answering the question "Whom are we missing?", the feminine form in plural ("nastolatki" in infinitif) will give the word "nastolatek", which overlaps with the masculin singular infinitif, designating a teenage boy.

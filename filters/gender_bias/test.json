@@ -4,68 +4,78 @@
         {
             "class": "GenderBiasFilter",
             "args": {
-				"language": "en"
+                "language": "en"
             },
             "inputs": {
-                "sentences": ["He is going to make a cake.",
-				"She is going to program",
-				"He likes washing dishes"]
+                "sentences": [
+                    "He is going to make a cake.",
+                    "She is going to program",
+                    "He likes washing dishes"
+                ]
             },
             "outputs": true
         },
-         {
+        {
             "class": "GenderBiasFilter",
             "args": {
-				"language": "fr"
+                "language": "fr"
             },
             "inputs": {
-                "sentences": ["Il va preparer un gateau",
-				"Elle va créer un logiciel",
-				"Personne n'aime pas faire la vaiselle",
-				"Maman va à la conférence" ]
+                "sentences": [
+                    "Il va preparer un gateau",
+                    "Elle va créer un logiciel",
+                    "Personne n'aime pas faire la vaiselle",
+                    "Maman va à la conférence"
+                ]
             },
             "outputs": false
         },
-		{
+        {
             "class": "GenderBiasFilter",
             "args": {
-				"language": "pl"
+                "language": "pl"
             },
             "inputs": {
-                "sentences": ["On zamierza upiec ciasto.",
-				"Ona będzie programować",
-				"Nikt nie lubi zmywać naczyń",
-				"On zgodził się mu pomóc"]
+                "sentences": [
+                    "On zamierza upiec ciasto.",
+                    "Ona będzie programować",
+                    "Nikt nie lubi zmywać naczyń",
+                    "On zgodził się mu pomóc"
+                ]
             },
             "outputs": true
         },
-		{
+        {
             "class": "GenderBiasFilter",
             "args": {
-				"language": "en",
-				"feminine_input": ["wow"],
-				"masculine_input": ["yey"]
+                "language": "en",
+                "feminine_input": ["wow"],
+                "masculine_input": ["yey"]
             },
             "inputs": {
-                "sentences": ["He is going to make a cake.",
-				"She is going to program",
-				"Nobody likes washing dishes",
-				"He agreed to help him",
-				"Wow , it works!",
-				"Yey !!!!"]
+                "sentences": [
+                    "He is going to make a cake.",
+                    "She is going to program",
+                    "Nobody likes washing dishes",
+                    "He agreed to help him",
+                    "Wow , it works!",
+                    "Yey !!!!"
+                ]
             },
             "outputs": true
         },
-		{
+        {
             "class": "GenderBiasFilter",
             "args": {
-				"language": "ru"
-			},
+                "language": "ru"
+            },
             "inputs": {
-                "sentences": ["Он собирается испечь торт",
-            "Она создаст софт",
-            "Никто не любит мыть посуду",
-            "Мама идет на конференцию"]
+                "sentences": [
+                    "Он собирается испечь торт",
+                    "Она создаст софт",
+                    "Никто не любит мыть посуду",
+                    "Мама идет на конференцию"
+                ]
             },
             "outputs": false
         }
