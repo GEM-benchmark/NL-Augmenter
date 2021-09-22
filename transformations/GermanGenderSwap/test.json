@@ -40,10 +40,10 @@
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "er ist der Sohn"
+        "sentence": "Ich sehe den Mann"
       },
       "outputs": [{
-        "sentence": "sie ist die Tochtsie"
+        "sentence": "Ich sehe die Frau"
       }]
     }
   ]
