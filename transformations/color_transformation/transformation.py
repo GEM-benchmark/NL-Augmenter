@@ -1,6 +1,6 @@
+import json
 import os
 import random
-import re
 
 import nltk
 from nltk.tokenize.treebank import TreebankWordDetokenizer
@@ -35,19 +35,15 @@ class ColorTransformation(SentenceOperation):
         self.detokenizer = TreebankWordDetokenizer()
 
     def load_color_names(self):
-        self.color_names = []
-
         filepath = os.path.realpath(
             os.path.join(
-                os.getcwd(), os.path.dirname(__file__), "color_names.txt"
+                os.getcwd(), os.path.dirname(__file__), "colors.json"
             )
         )
 
         with open(filepath, "r") as f:
-            for line in f.readlines():
-                line = line.strip()
-                line = re.sub(r"(?<!^)(?=[A-Z])", " ", line).lower()
-                self.color_names.append(line)
+            self.colors = json.load(f)
+        self.color_names = [color["name"] for color in self.colors.values()]
 
     def generate(self, sentence: str):
         random.seed(self.seed)
@@ -60,12 +56,12 @@ class ColorTransformation(SentenceOperation):
         sentence = self.detokenizer.detokenize(words)
 
         indices = []
-        for color in self.color_names:
+        for color_name in self.color_names:
             try:
-                idx = sentence.index(color)
+                idx = sentence.index(color_name)
             except ValueError:
                 continue
-            indices.append((idx, idx + len(color)))
+            indices.append((idx, idx + len(color_name)))
 
         new_sentences = []
         for _ in range(self.max_outputs):
