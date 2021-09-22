@@ -4,46 +4,46 @@
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "der Arzt arbeitet."
+        "sentence": "der Artz arbeitet."
       },
       "outputs": [{
-        "sentence": "die Ärztin arbeitet"
+        "sentence": "die Arztin arbeitet"
       }]
     },
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "der Ingenieur geht."
+        "sentence": "Der Ingenieur geht."
       },
       "outputs": [{
-        "sentence": "die Ingenieurin geht."
+        "sentence": "Der Ingenieurin geht."
       }]
     },
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "der Vater hat dich gesegnet"
+        "sentence": "Er ist mein Vater."
       },
       "outputs": [{
-        "sentence": "die Mutter hat dich gesegnet"
+        "sentence": "Sie ist meine Mutter."
       }]
     },
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "der Mann ist weg"
+        "sentence": "Er ist weg."
       },
       "outputs": [{
-        "sentence": "die Frau ist weg"
+        "sentence": "Sie ist weg."
       }]
     },
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "der Fahrer fährt."
+        "sentence": "er ist der Sohn"
       },
       "outputs": [{
-        "sentence": "die Fahrerin fährt"
+        "sentence": "sie ist die Tochtsie"
       }]
     }
   ]
