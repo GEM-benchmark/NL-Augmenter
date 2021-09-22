@@ -34,7 +34,15 @@ user-provided filler words it will not work on languages without whitespace.
 Also note, inputs that are a single token (where tokens are defined
 merely as being white-space separated), then the output may be ungrammatical due
 to the creation of a new sentence, or due to violating capitalization. For
-example, "Yes." may become "uh Yes." or "Yes. uh". Also worth noting is that the
+example, "Yes." may become "uh Yes." or "Yes. uh".
+
+More generally, for inputs of more than a single token, the disfluency will only
+be inserted between input tokens. However, this transformation does not consider
+capitalization. Therefore, there may be violations to capitalization depending
+on the inputs (e.g., "Yes. The tower is that way" may become "Yes. uh The tower
+is that way").
+
+Also worth noting is that the
 number of possible outputs increases exponentially with the
 number of tokens (i.e., the number of places where disfluencies may be
 inserted). However, short inputs have a limited number of possible transformations
