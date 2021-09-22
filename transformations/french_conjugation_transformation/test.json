@@ -6,10 +6,10 @@
       "args": {
         "tense": "Futur"},
       "inputs": {
-        "sentence": "Vous chantiez des comptines et ils s'endormaient"
+        "sentence": "Vous chantiez des comptines et dansiez en harmonie, ils s'endormaient et firent jouer leur imaginiation"
       },
       "outputs": [{
-        "sentence": "Vous chanterez des comptines et ils s'endormiront"
+        "sentence": "Vous chanterez des comptines et danserez en harmonie, ils s'endormiront et feront jouer leur imaginiation"
       }]
     },
     {
