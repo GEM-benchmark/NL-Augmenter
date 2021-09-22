@@ -40,10 +40,10 @@
     {
       "class": "ColorTransformation",
       "inputs": {
-        "sentence": "All swan is white."
+        "sentence": "All swan are white."
       },
       "outputs": [{
-        "sentence": "All swan is misty rose."
+        "sentence": "All swan are misty rose."
       }]
     }
   ]
