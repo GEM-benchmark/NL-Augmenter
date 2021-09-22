@@ -35,7 +35,7 @@ python -m spacy download fr_core_web_sm
 python -m spacy download es_core_web_sm
 python -m spacy download de_core_web_sm
 ```
-2. Install [Tesseract](https://github.com/tesseract-ocr/tesseract) (including dependencies and models):
+2. Install [Tesseract](https://github.com/tesseract-ocr/tesseract) (including dependencies and models). See the [installation instructions](https://tesseract-ocr.github.io/tessdoc/#compiling-and-installation) for your operating system. For example, On Debian or Ubuntu, you can simply use its developer tools:
 
 ```bash
 apt-get install tesseract-ocr libtesseract-dev libleptonica-dev pkg-config \
