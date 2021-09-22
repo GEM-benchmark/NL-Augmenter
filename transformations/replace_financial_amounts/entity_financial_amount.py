@@ -1,3 +1,6 @@
+from transformations.replace_financial_amounts.rates import (
+    CURRENCIES_WITH_EXCHANGE_RATE,
+)
 from typing import List, Dict, Tuple
 import random
 import re
@@ -29,35 +32,6 @@ WORLD_CURRENCY_ABBREVIATIONS = load_currency_abbreviation_file(
     "currency_abbr.txt"
 )
 
-# The exchange rate used bellow are those used against 1 USD as of August 2021.
-CURRENCIES_WITH_EXCHANGE_RATE = {
-    "dollar": {
-        "name": "dollar",
-        "symbol": ["$", "dollar", "dollars", "USD", "US dollars", "Dollars"],
-        "rate": 1.0,
-    },
-    "euro": {
-        "name": "euro",
-        "symbol": ["€", "euro", "euros", "EUR", "Euros"],
-        "rate": 1.19,
-    },
-    "pound": {
-        "name": "pound",
-        "symbol": ["£", "pound", "pounds", "GBP", "Pounds"],
-        "rate": 1.39,
-    },
-    "yen": {
-        "name": "yen",
-        "symbol": ["¥", "yen", "JPY", "Yen"],
-        "rate": 0.0092,
-    },
-    "yuan": {"name": "yuan", "symbol": ["yuan", "CNY", "RMB"], "rate": 0.15},
-    "bitcoin": {
-        "name": "bitcoin",
-        "symbol": ["฿", "bitcoin", "bitcoins", "BTC"],
-        "rate": 37716,
-    },
-}
 
 CURRENCIES_WITH_EXCHANGE_RATE_SYMBOLS = []
 for _currency in CURRENCIES_WITH_EXCHANGE_RATE:
