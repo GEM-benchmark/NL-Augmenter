@@ -15,16 +15,6 @@ replaced with a random color.
 This perturbation would benefit all tasks which have a sentence / paragraph /
 document as input like text classification, text generation, etc. 
 
-```python evaluate.py -t ColorTransformation -task TEXT_CLASSIFICATION```
-```model_name = "aychang/roberta-base-imdb"```
-The accuracy of a RoBERTa model (fine-tuned on IMDB) (model: "aychang/roberta-base-imdb") 
-on a subset of IMDB sentiment dataset = 95.74
-The accuracy of the same model on the perturbed set = 88.26
-
-The average bleu score of a distillbert model (fine-tuned on xsum) (model: "sshleifer/distilbart-xsum-12-6") 
-on a subset (10%) of xsum test dataset = 14.9104
-The average bleu score of the same model on the perturbed set = 11.9221
-
 ## Data and code provenance
 
 The color names are obtained from the 147 extended color keywords specified by
@@ -45,6 +35,9 @@ This transformation finds color names by a simple word search, but some color
 names have different semantic meaning. Therefore, words that were not intended
 to describe color may be transformed. For example, "I am feeling blue" may be
 transformed to "I am feeling chocolate."
+
+It is possible for the user to minimize such side effects by specifying a stricter
+mapping of colors.
 
 ## References
 
