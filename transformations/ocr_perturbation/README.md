@@ -42,6 +42,12 @@ apt-get install tesseract-ocr libtesseract-dev libleptonica-dev pkg-config \
   tesseract-ocr-eng tesseract-ocr-osd tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa
 ```
 
+3. Install dependencies to other Python packages using [pip](https://pypi.org/project/pip/):
+
+```bash
+pip3 install -r requirements.txt
+```
+
 #### Example Usage
 
 An example of how to use this transformation can be found in the *generate_test_cases()* function in [helper.py](../../test/helper.py).
