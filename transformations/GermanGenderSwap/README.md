@@ -25,8 +25,7 @@ This transformation can benefit any task which wishes to generate more diverse f
 The 223 noun pairs are provided by the author, while the 2000 names are scraped from the web. The code is written by the author.
 
 ## What are the limitations of this transformation?
-The transformation doesn’t consider some other cases like dative of German language, for now, doesn’t consider context sometimes and assumes that the nouns are capitalized.
-
+The transformation doesn’t consider some other cases like dative of German language, for now, and doesn’t consider context sometimes.
 
 
 ## References:
