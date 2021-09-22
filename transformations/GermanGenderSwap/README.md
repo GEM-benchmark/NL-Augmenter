@@ -22,7 +22,7 @@ der Arzt behandelt ihn→die Arztin behandelt sie
 This transformation can benefit any task which wishes to generate more diverse feminine gendered data in German language, which can be useful in  bias exploration techniques.
 
 ## Data and code provenance
-The 186 noun pairs are provided by the author, while the 2000 names are scraped from the web. The code is written by the author.
+The 223 noun pairs are provided by the author, while the 2000 names are scraped from the web. The code is written by the author.
 
 ## What are the limitations of this transformation?
 The transformation doesn’t consider some other cases like dative of German language, for now, doesn’t consider context sometimes and assumes that the nouns are capitalized.
