@@ -9,7 +9,7 @@ The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 | Due date          | Description                                                                 |
 | ------------------ | -----------                                                                 |
 | A̶u̶g̶u̶s̶t̶ 3̶1̶, 2̶0̶2̶1̶ | P̶u̶l̶l̶ r̶e̶q̶u̶e̶s̶t̶ m̶u̶s̶t̶ b̶e̶ o̶p̶e̶n̶e̶d̶ t̶o̶ b̶e̶ e̶l̶i̶g̶i̶b̶l̶e̶ f̶o̶r̶ i̶n̶c̶l̶u̶s̶i̶o̶n̶ i̶n̶ t̶h̶e̶ f̶r̶a̶m̶e̶w̶o̶r̶k̶ a̶n̶d̶ a̶s̶s̶o̶c̶i̶a̶t̶e̶d̶ p̶a̶p̶e̶r̶  |
-| September 22, 2021 | Review process for pull request above must be complete           |
+| September 2̶2̶, 30 2021 | Review process for pull request above must be complete           |
 
 A transformation can be revised between the pull request submission and pull request merge deadlines. We will provide reviewer feedback to help with the revisions.
 
