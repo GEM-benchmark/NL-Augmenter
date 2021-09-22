@@ -72,6 +72,7 @@ def get_characters_with_similar_pinyin(chinese_character,
     for char_dict in chinese_character_database:
         if(chinese_character == char_dict['word']):
             pinyin_for_char_to_be_perturbed = char_dict['pinyin']
+            break
 
     chars_with_similar_pinyin = ""
     if random.random() <= rare_word_prob:
@@ -80,6 +81,7 @@ def get_characters_with_similar_pinyin(chinese_character,
                                                            chinese_character_database,
                                                            consider_tone,
                                                            pinyin_for_char_to_be_perturbed)
+
     else:
         chars_with_similar_pinyin = retrieve_from_database(chinese_character,
                                                            chars_with_similar_pinyin,
@@ -181,6 +183,9 @@ def load_chinese_words_data():
                 dict = {}
                 word_freq = line.split()
                 dict["word"] = word_freq[0]
+
+                # The word frequency of the Chinese word is also extracted since it is present in this database.
+                # It is not currently use at the moment and can be used in the future.
                 dict["freq"] = word_freq[1]
                 words_list.append(dict)
     with open(os.path.join(dirname, '四十万汉语大词库.txt'), mode='r') as file:
@@ -233,5 +238,11 @@ class ChineseButterFingersPerturbation(SentenceOperation):
             word_level_perturb = self.word_level_perturb
         )
         return perturbed_texts
+
+if __name__ == "__main__":
+    generator = ChineseButterFingersPerturbation(word_level_perturb=False)
+    output = generator.generate("本意是指词的起源义，即词的最初意义。引申义是由词的本意引申出来的并经过推演发展而产生的意义")
+    print(output)
+
 
 
