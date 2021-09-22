@@ -1,5 +1,5 @@
 # Multilingual Keyboard Change: AZERTY / QWERTY
-This transformation acts like a perturbation by replacing some characters regarding a possible change of keyboard. Given a character `c_qwerty` located at a certain position in a QWERTY keyboard, it is replaced with the character `c_azerty` located at the same position of an AZERTY keyboard.
+This transformation acts like a perturbation by replacing some characters regarding a possible change of keyboard. Given a character `c_qwerty` located at a certain position in a QWERTY or QWERTZ keyboard, it is replaced with the character `c_azerty` located at the same position of an AZERTY keyboard.
 
 ## What type of a transformation is this?
 This transformation acts like a perturbation and makes lexical replacement.

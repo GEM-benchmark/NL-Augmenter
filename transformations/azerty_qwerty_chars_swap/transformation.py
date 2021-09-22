@@ -10,7 +10,7 @@ class AzertyQwertyCharsSwap(SentenceOperation):
     def __init__(self, seed=0, percent_swap=0.2):
         super().__init__(seed)
         self.percent_swap = percent_swap
-        self.swap_dict = {"q": "a", "w": "z", "a": "q", "z": "w"}
+        self.swap_dict = {"q": "a", "w": "z", "a": "q", "z": "w", "y": "z"}
 
     def generate(self, sentence: str):
         np.random.seed(self.seed)
