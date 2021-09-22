@@ -2215,8 +2215,8 @@ def preserve_capitalization(original, transformed):
     transformed = transformed.capitalize()
     return transformed
   else:
-    transformed=transformed.lower()
     return transformed
+ 
 #CHECK IF PRECEEDING WORD NEEDS TO BE REPLACED
 def preceding_word(n):
   n = n.lower()
@@ -2250,6 +2250,7 @@ def preceding_word(n):
     return n
   elif n=="den": #accusative case
     n="die"
+    return n
   else:
     return n
 
