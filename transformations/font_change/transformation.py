@@ -11,9 +11,6 @@ from nltk.tokenize import word_tokenize
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-nltkdl("stopwords")
-nltkdl("punkt")
-
 
 def font_change(sentence, fonts, seed=666, max_outputs=1):
     random.seed(seed)
@@ -1094,6 +1091,8 @@ class FontChange(SentenceOperation):
     ]
 
     def __init__(self, seed=664, max_outputs=1):
+        nltkdl("stopwords")
+        nltkdl("punkt")
         super().__init__(seed, max_outputs=max_outputs)
 
         # Mapping tables based on unicode-formatter (MIT license)
