@@ -1,3 +1,4 @@
+import os
 import random
 import string
 import spacy
@@ -104,7 +105,7 @@ class OcrPerturbation(SentenceOperation):
                     
                 for sent, gen in zip(doc.sents, image_generators):
 
-                    img, lbl = gen.next()
+                    img, _ = gen.next()
 
                     ocr.SetImage(img)
 
@@ -169,5 +170,7 @@ if __name__ == '__main__':
     generate_test_cases(tf, print_result=True)
 
     # generate 'test.json'
-    #generate_test_cases(tf, output_filename="test.json")
+    #current_dir_path = os.path.dirname(os.path.realpath(__file__))
+    #out_path = os.path.join(current_dir_path, "test.json")
+    #generate_test_cases(tf, output_path=out_path)
 """
