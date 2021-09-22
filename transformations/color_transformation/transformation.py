@@ -45,9 +45,19 @@ class ColorTransformation(SentenceOperation):
             self.colors = json.load(f)
         self.color_names = [color["name"] for color in self.colors.values()]
 
-    def generate(self, sentence: str):
+    def generate(self, sentence: str, mapping: dict = None):
+        """
+        Tranform input sentence using a given mapping.
+
+        User can customize transformations by providing a mapping dictionary.
+        This dictionary has colors as keys and transformable colors as values.
+        If a color is missing from the keys, any color is used for transformation.
+        """
+        if mapping is None: mapping = {}
+
         random.seed(self.seed)
 
+        # Detokenize sentence
         try:
             words = nltk.word_tokenize(sentence)
         except LookupError:
@@ -55,21 +65,29 @@ class ColorTransformation(SentenceOperation):
             words = nltk.word_tokenize(sentence)
         sentence = self.detokenizer.detokenize(words)
 
-        indices = []
+        # Detect colors in a given sentence
+        colors_and_indices = []
         for color_name in self.color_names:
             try:
                 idx = sentence.index(color_name)
             except ValueError:
                 continue
-            indices.append((idx, idx + len(color_name)))
+            colors_and_indices.append((color_name, idx, idx + len(color_name)))
 
+        # Transform colors
         new_sentences = []
         for _ in range(self.max_outputs):
             new_sentence = sentence
-            for start_idx, end_idx in indices[::-1]:
+            for color, start_idx, end_idx in colors_and_indices[::-1]:
+                # Choose color
+                if color not in mapping:
+                    new_color = random.choice(self.color_names)
+                else:
+                    new_color = random.choice(mapping[new_color])
+                # Generate sentence
                 new_sentence = (
                     new_sentence[:start_idx]
-                    + random.choice(self.color_names)
+                    + new_color
                     + new_sentence[end_idx:]
                 )
             new_sentences.append(new_sentence)
