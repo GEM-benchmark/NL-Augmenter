@@ -7,41 +7,68 @@ marie.tolkiehn@desy.de
 
 ## What type of a filter is this?
 
-This filter returns True if a sentence is an alliteration and False otherwise.
-There is an option to remove stopwords from the sentences, and the default is True (remove stopwords). However, should the sentence solely consist of stop words, will they not be removed
+This filter returns True if any of the input sentences is an alliteration and False otherwise.
+By default, stop words are removed and do not count to the alliteration.
+However, should the sentence solely consist of stop words, will they not be removed.
 
-If the input contains more than one sentence, only the first sentence is used and filtered.
+A sentence is deemed an alliteration if it contains words starting with the same character or digraph ("ch", "ph", "sh", "th").
+The minimum alliteration length then governs how many words starting with the same first phoneme are required to be deemed a valid alliteration.
+The default minimum alliteration length is 3.
 
+These alliterative words do not need to appear contiguously in the sentence.
+This means that e.g. "Peter Aquarium prepared a pepperoni pizza." is a valid alliteration
+as it contains more than (default) 3 alliterative non-stopword words (despite "Aquarium").
+
+## Why is it a challenge?
+Alliterations attract audiences.
+Alliterations are a stylistic device and trope of literature or poetry.
+However, alliterations are around us all the time. From newspaper headlines
+("Beer Baron Beats Banner" or "Banner Bars Booze (Booze Barred By Banner)" (c) The Simpsons)
+over ads ("Taco Tuesdays"), and company/brand names ("Coca Cola", "Bed, Bath & Beyond", "PayPal"),
+protagonists ("Peter Pevensie", "Peter Pan", "Bilbo Baggins", "Donald Duck")
+and even academic publications, writers often use alliterations to catch the reader's (or listener's) attention,
+as through sound repetition, they are catchy and easy to remember.
+Alliterations generally sound pleasing and different phonemes create different rhythms and vibes.
+For example, alliterations starting with S are often connected to snake-like features,
+whereas alliterations with plosives such as P create a particular rhythm.
+
+This filter could check just how prevalent alliterations are in various types of texts and if there are particular areas they are particularly prevalent.
+A good language model may then be able to generate synonymous alliterations from non-alliterative texts.
 
 ## Robustness Evaluation
-### Removing Stopwords (True)
+### Removing Stopwords (True), minimum alliteration length = 3
 Here is the performance of the model on the filtered set:
 * **IMDB**\
   `python evaluate.py -f Alliteration -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-imdb" -d "imdb" -p 20`\
-    The accuracy on this subset which has 24 examples = 100.0
+    The accuracy on this subset which has 597 examples = 94.0
+
 * **SST-2**\
   `python evaluate.py -f Alliteration -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-SST-2" -d "sst2" -p 20`\
-    The accuracy on this subset which has 4 examples = 100.0
+    The accuracy on this subset which has 21 examples = 90.0
+
 * **QQP** \
     `python evaluate.py -f Alliteration -task "TEXT_CLASSIFICATION" -m "textattack/bert-base-uncased-QQP" -d "qqp" -p 20`\
-    The accuracy on this subset which has 28 examples = 96.0
+    The accuracy on this subset which has 27 examples = 96.0
+
 * **MNLI**\
     `python evaluate.py -f Alliteration -task "TEXT_CLASSIFICATION" -m "roberta-large-mnli" -d "multi_nli" -p 20`\
-  The accuracy on this subset which has 77 examples = 91.0
+  The accuracy on this subset which has 92 examples = 97.0
 
-### Not removing stopwords (False)
+
+### Not removing stopwords (False), minimum alliteration length = 3
 * **IMDB**\
   `python evaluate.py -f Alliteration -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-imdb" -d "imdb" -p 20`\
-    The accuracy on this subset which has 8 examples = 100.0
+    The accuracy on this subset which has 943 examples = 95.0
 * **SST-2**\
   `python evaluate.py -f Alliteration -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-SST-2" -d "sst2" -p 20`\
-    The accuracy on this subset which has 1 examples = 100.0
+    The accuracy on this subset which has 54 examples = 96.0
 * **QQP** \
     `python evaluate.py -f Alliteration -task "TEXT_CLASSIFICATION" -m "textattack/bert-base-uncased-QQP" -d "qqp" -p 20`\
-    The accuracy on this subset which has 1 examples = 100.0
+    The accuracy on this subset which has 101 examples = 94.0
 * **MNLI**\
     `python evaluate.py -f Alliteration -task "TEXT_CLASSIFICATION" -m "roberta-large-mnli" -d "multi_nli" -p 20`\
-  The accuracy on this subset which has 22 examples = 91.0
+  The accuracy on this subset which has 294 examples = 93.0\
+
 
 
 ## Data and code source

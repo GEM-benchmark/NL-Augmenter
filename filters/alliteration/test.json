@@ -69,7 +69,7 @@
             "inputs": {
                 "sentence": "She showed Shawn some shady shandy."
             },
-            "outputs": false
+            "outputs": true
         },
                 {
             "class": "Alliteration",
@@ -79,7 +79,40 @@
             "inputs": {
                 "sentence": "Peter Piper picked a peck of pickled peppers."
             },
+            "outputs": true
+        },
+                {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": true
+            },
+            "inputs": {
+                "sentence": "4 *((( ::). She showed Aquarium Shawn shady shandy. This is the second sentence Sandy sorted. It is imminent in Iowa."
+            },
+            "outputs": true
+        },
+                {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": false,
+                "min_alliteration_length": 5
+            },
+            "inputs": {
+                "sentence": "4 *((( ::). She offered Shawn super shandy. This is the second sentence Sandy sorted. It is imminent in Iowa."
+            },
+            "outputs": true
+        },
+                {
+            "class": "Alliteration",
+            "args": {
+                "stopwords": true,
+                "min_alliteration_length": 5
+            },
+            "inputs": {
+                "sentence": "4 *((( ::). She offered Shawn super shandy. This is the second sentence Sandy sorted. It is imminent in Iowa."
+            },
             "outputs": false
         }
     ]
 }
+
