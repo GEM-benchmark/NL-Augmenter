@@ -19,7 +19,7 @@ class NeuralParaphaserPerturbation(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
-    keywords = ["transformer-based", "highly-meaning-preserving", "high-precision"]
+    keywords = ["transformer-based", "high-coverage", "high-generations"]
 
     def __init__(self, seed=0, max_output=1):
         super().__init__(seed)
