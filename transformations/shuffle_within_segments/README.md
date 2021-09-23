@@ -13,7 +13,7 @@ text generation, and most importantly, a tagging task.
 This would help augment data for a NER task by keeping the labels still aligned.
 
 ## What are the limitations of this transformation?
-It is possible that shuffling could change the meaning of the sentence or have negative effect for NLU tasks.
+It is possible that shuffling could change the meaning of the sentence, the meaning the entity itself or have negative effect for NLU tasks.
 
 ## Evaluation
 
@@ -31,10 +31,19 @@ The average accuracy on its perturbed set = 70.13742999132477
 ## Previous Work
 This perturbation is adapted from the following paper:
 ```
-@misc{2010.11683,
-Author = {Xiang Dai and Heike Adel},
-Title = {An Analysis of Simple Data Augmentation for Named Entity Recognition},
-Year = {2020},
-Eprint = {arXiv:2010.11683},
+@inproceedings{dai-adel-2020-analysis,
+    title = "An Analysis of Simple Data Augmentation for Named Entity Recognition",
+    author = "Dai, Xiang  and
+      Adel, Heike",
+    booktitle = "Proceedings of the 28th International Conference on Computational Linguistics",
+    month = dec,
+    year = "2020",
+    address = "Barcelona, Spain (Online)",
+    publisher = "International Committee on Computational Linguistics",
+    url = "https://aclanthology.org/2020.coling-main.343",
+    doi = "10.18653/v1/2020.coling-main.343",
+    pages = "3861--3867",
+    abstract = "Simple yet effective data augmentation techniques have been proposed for sentence-level and sentence-pair natural language processing tasks. Inspired by these efforts, we design and compare data augmentation for named entity recognition, which is usually modeled as a token-level sequence labeling problem. Through experiments on two data sets from the biomedical and materials science domains (i2b2-2010 and MaSciP), we show that simple augmentation can boost performance for both recurrent and transformer-based models, especially for small training sets.",
+}
 }
 ```
