@@ -1,5 +1,9 @@
+#!/usr/bin/env python3
+# *_* coding: utf-8 *_*
+
 import string
 
+import numpy as np
 import spacy
 
 from initialize import spacy_nlp
@@ -12,10 +16,16 @@ class Alliteration(SentenceOperation):
     languages = ["en"]
     keywords = ["morphological"]
 
-    def __init__(self, stopwords: bool = True, min_alliteration_length=3):
+    def __init__(
+        self,
+        stopwords: bool = True,
+        min_alliteration_length: int = 3,
+        allowed_offwords: int = 2,
+    ):
         super().__init__()
         self.stopwords = stopwords
         self.min_alliteration_length = min_alliteration_length
+        self.allowed_offwords = allowed_offwords
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def filter(self, sentence: str = None, min_sentence_length=3) -> bool:
@@ -29,17 +39,20 @@ class Alliteration(SentenceOperation):
         """
 
         def get_phonemes(word: str):
-            # We are adding some digraphs to avoid 'sand' and 'shady' to alliterate.
-            # Then we check for these digraphs first
+            """
+            We are adding some digraphs to avoid 'sand' and 'shady' to alliterate.
+            Then we check for these digraphs first
+            """
             digraphs = ["ch", "ph", "sh", "th"]
             if word[:2] in digraphs:
                 return word[:2]
             else:
                 return word[:1]
 
-        def segment_sentences(sentence, min_sentence_length):
+        def segment_sentences(self, sentence, min_sentence_length):
             """
-            If the input contains multiple sentences, only take the sentences that have the min_sentence_length and that do contain alphanumeric characters.
+            If the input contains multiple sentences, only take the sentences that have the min_sentence_length
+            and that do contain alphanumeric characters.
             """
             sent = self.nlp(sentence.lstrip())
             segmented_sentence = list(sent.sents)
@@ -76,30 +89,56 @@ class Alliteration(SentenceOperation):
 
             return filt_sentences
 
-        # tokenized = self.nlp(sentence, disable=["parser", "tagger", "ner"])
-        # tokenizedB = [token.text for token in tokenized if token.text.isalpha()]
-        # tokened_text = [w.lower() for w in tokenizedB]  # make it lowercase
+        def rolling_window(data, windowlen):
+            """
+            Create a 1-dimensional rolling window of size windowlen.
+            If the windowlen is smaller than the length of the data, use the length of the data instead.
+            """
+            if len(data) < windowlen:
+                windowlen = len(data)
+            shape = data.shape[:-1] + (
+                data.shape[-1] - windowlen + 1,
+                windowlen,
+            )
+            strides = data.strides + (data.strides[-1],)
+            return np.lib.stride_tricks.as_strided(
+                data, shape=shape, strides=strides
+            )
+
+        def find_contiguous_elements(
+            elements, min_alliteration_length, allowed_offwords
+        ):
+            """
+            Create rolling windows of size min_alliteration_length + allowed_offwords
+            and check if any window contains a block of the same elements of the size min_alliteration_length.
+            Return True if any window with the min_alliteration_length is found, False otherwise.
+            """
+            rolling_sent = rolling_window(
+                elements, min_alliteration_length + allowed_offwords
+            )
+
+            for windows in rolling_sent:
+                if (
+                    windows == max(set(windows), key=sorted(windows).count)
+                ).sum() >= min_alliteration_length:
+                    return True
+
+            return False
 
         # Process input sentences
-        sentenceS = segment_sentences(sentence, min_sentence_length)
+        sentenceS = segment_sentences(self, sentence, min_sentence_length)
 
         # Iterate through sentences
         sentence_count = []
         for sen in sentenceS:
-
-            first_phon = get_phonemes(sen[0])
-            start_phon = [get_phonemes(word) == first_phon for word in sen]
-            sentence_count.append(
-                sum(start_phon) >= self.min_alliteration_length
+            cat_sentence = np.array([get_phonemes(word) for word in sen])
+            phonemes_bool = find_contiguous_elements(
+                cat_sentence,
+                self.min_alliteration_length,
+                self.allowed_offwords,
             )
+            sentence_count.append(phonemes_bool)
 
         return any(
             sentence_count
         )  # return True if any of the input sentences are alliterative
-
-
-# Alliteration(SentenceOperation).filter("It is I in it.")
-# Alliteration(SentenceOperation).filter("It is not my fault.")
-# print(Alliteration(SentenceOperation).filter("4 *((( ::). She showed Aquarium Shawn shady shandy. This is the second sentence Sandy sorted. It is imminent in Iowa."))
-# print(Alliteration(SentenceOperation).filter("She showed Shawn some shady shandy."))
-# print(Alliteration(SentenceOperation).filter("Peter Piper picked a peck of pickled peppers."))
