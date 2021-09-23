@@ -15,12 +15,25 @@ SIMPLE_REPLACE.update(GENDERED_TERMS)
 # English multi-task CNN trained on OntoNotes
 # Assigns context-specific token vectors, POS tags, dependency parse and named entities
 # https://spacy.io/models/en
-import en_core_web_sm
+from initialize import spacy_nlp
+import spacy
 
-nlp = en_core_web_sm.load()
+self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
 # SpaCy: lowercase is for dependency parser, uppercase is for part-of-speech tagger
-from spacy.symbols import nsubj, nsubjpass, conj, poss, obj, iobj, pobj, dobj, VERB, AUX, NOUN
+from spacy.symbols import (
+    nsubj,
+    nsubjpass,
+    conj,
+    poss,
+    obj,
+    iobj,
+    pobj,
+    dobj,
+    VERB,
+    AUX,
+    NOUN,
+)
 from spacy.tokens import Token, Doc
 
 # Load pre-trained language model and tokenizer
@@ -28,25 +41,35 @@ from spacy.tokens import Token, Doc
 from transformers import GPT2LMHeadModel, GPT2TokenizerFast
 
 if torch.cuda.is_available():
-    device = 'cuda'
+    device = "cuda"
 else:
-    device = 'cpu'
+    device = "cpu"
 
-model_id = 'gpt2'  # can also change to gpt-2 large if size is not an issue
+model_id = "gpt2"  # can also change to gpt-2 large if size is not an issue
 model = GPT2LMHeadModel.from_pretrained(model_id).to(device)
 tokenizer = GPT2TokenizerFast.from_pretrained(model_id)
 
 
-def convert(sentence: str) -> str:
+def convert(sentence: str, max_outputs: int) -> str:
     """
     convert a sentence to gender-neutral form
     :param sentence: sentence meeting SNAPE criteria (meaning 1 entity and 1 gender)
     :return: sentence in gender-neutral form
     """
+    if max_outputs != 1:
+        ValueError(
+            "Gender-neutral rewrite is meant to be applied to one sentence. Re-writing more than one sentence can "
+            "lead to ambiguity. "
+        )
 
     # check error case when input is a single word and the word is a non function pronoun
-    if sentence.strip(punctuation).strip().lower() in NON_FUNCTION_PRONOUNS.keys():
-        raise ValueError("Input is a pronoun with a one-to-many mapping. Insufficient context.")
+    if (
+        sentence.strip(punctuation).strip().lower()
+        in NON_FUNCTION_PRONOUNS.keys()
+    ):
+        raise ValueError(
+            "Input is a pronoun with a one-to-many mapping. Insufficient context."
+        )
 
     # use a LM to break ties for pronouns when there is a one-to-many mapping
     for word, choices in NON_FUNCTION_PRONOUNS.items():
@@ -83,14 +106,17 @@ def smart_pronoun_replace(sentence: str, token: str, choices: list) -> str:
     for choice in choices:
         new_sentence = regex_token_replace(sentence, token, replacement=choice)
         if sentence != new_sentence:
-            new_score = score(sentence=new_sentence,
-                              stride=1)
+            new_score = score(sentence=new_sentence, stride=1)
             sentence_scores[new_sentence] = new_score
 
-    if not sentence_scores:  # source pronoun not found in sentence, meaning there are no choices to choose from
+    if (
+        not sentence_scores
+    ):  # source pronoun not found in sentence, meaning there are no choices to choose from
         return sentence
 
-    return min(sentence_scores, key=sentence_scores.get)  # return sentence with lowest score (perplexity)
+    return min(
+        sentence_scores, key=sentence_scores.get
+    )  # return sentence with lowest score (perplexity)
 
 
 def regex_token_replace(sentence: str, token: str, replacement: str) -> str:
@@ -101,11 +127,16 @@ def regex_token_replace(sentence: str, token: str, replacement: str) -> str:
     :param replacement: replacement word for the target token
     :return: sentence with the all occurrences of the target token substituted by its replacement
     """
-    replace_map = [[token, replacement], [token.capitalize(), replacement.capitalize()],
-                   [token.upper(), replacement.upper()]]
+    replace_map = [
+        [token, replacement],
+        [token.capitalize(), replacement.capitalize()],
+        [token.upper(), replacement.upper()],
+    ]
 
     for j in range(len(replace_map)):
-        pattern = re.compile(r'\b{}\b'.format(replace_map[j][0]))  # \b indicates a word boundary in regex
+        pattern = re.compile(
+            r"\b{}\b".format(replace_map[j][0])
+        )  # \b indicates a word boundary in regex
         sentence = re.sub(pattern, replace_map[j][1], sentence)
 
     return sentence
@@ -142,20 +173,26 @@ def score(sentence: str, stride: int = 1) -> float:
     # compromise, allowing computation to proceed much faster while still giving the model a large context to make
     # predictions at each step.
 
-    encodings = tokenizer(sentence, return_tensors='pt')
+    encodings = tokenizer(sentence, return_tensors="pt")
 
     # can adjust stride based on size of input
     # if (1) input is longer (e.g. document) or (2) we wish to have faster computation, we can set longer stride
     # reference: https://huggingface.co/transformers/perplexity.html
 
-    if stride == 1:  # if stride is 1, just return average log prob of each token (no need to copy and mask)
+    if (
+        stride == 1
+    ):  # if stride is 1, just return average log prob of each token (no need to copy and mask)
         input_ids = encodings.input_ids.to(device)
         with torch.no_grad():  # don't need gradients for evaluation
             outputs = model(input_ids, labels=input_ids)
             return float(torch.exp(outputs[0]))  # outputs[0] is avg log prob
 
-    max_length = model.config.n_positions  # max length for gpt2-large and gpt is 1024
-    num_tokens = encodings.input_ids.size(1)  # usually punctuation will count as separate tokens
+    max_length = (
+        model.config.n_positions
+    )  # max length for gpt2-large and gpt is 1024
+    num_tokens = encodings.input_ids.size(
+        1
+    )  # usually punctuation will count as separate tokens
 
     # calculate neg log prob for each token given context of previous tokens in the sentence
     # if stride=1, context will be all previous tokens in sentence (assuming # of tokens < max_length)
@@ -169,7 +206,11 @@ def score(sentence: str, stride: int = 1) -> float:
 
         input_ids = encodings.input_ids[:, begin_loc:end_loc].to(device)
         target_ids = input_ids.clone()
-        target_ids[:, :-stride] = -100  # mask prior tokens (the context) since we only care about current token
+        target_ids[
+            :, :-stride
+        ] = (
+            -100
+        )  # mask prior tokens (the context) since we only care about current token
 
         with torch.no_grad():  # don't need gradients for evaluation
             outputs = model(input_ids, labels=target_ids)
@@ -179,7 +220,9 @@ def score(sentence: str, stride: int = 1) -> float:
 
     # formula for perplexity
     # dividing by (num_tokens - 1) because model does not calculate log prob for first token
-    perplexity = torch.exp(torch.stack(log_probabilities).sum() / (num_tokens - 1))
+    perplexity = torch.exp(
+        torch.stack(log_probabilities).sum() / (num_tokens - 1)
+    )
 
     return float(perplexity)
 
@@ -196,37 +239,34 @@ def simple_replace(token: Token):
     # use dependency parser to resolve "her" --> "their" / "them"
     # if "her" is a possessive pronoun, then its replacement should be "their"
     # if "her" is an object, then its replacement should be "them"
-    if text.lower() == 'her':
-        is_obj = (token.dep == obj or
-                  token.dep == iobj or
-                  token.dep == pobj or
-                  token.dep == dobj or
-                  token.dep_ == "dative")
+    if text.lower() == "her":
+        is_obj = (
+            token.dep == obj
+            or token.dep == iobj
+            or token.dep == pobj
+            or token.dep == dobj
+            or token.dep_ == "dative"
+        )
         if token.dep == poss:
-            return capitalization_helper(original=text,
-                                         replacement='their')
+            return capitalization_helper(original=text, replacement="their")
         elif is_obj:
-            return capitalization_helper(original=text,
-                                         replacement='them')
+            return capitalization_helper(original=text, replacement="them")
         else:
             return None
 
     # their vs theirs: https://ell.stackexchange.com/questions/18604/how-to-use-their-and-theirs
-    if text.lower() == 'his':
-        implied_head = (token.head.pos != NOUN)
+    if text.lower() == "his":
+        implied_head = token.head.pos != NOUN
         if implied_head:
-            return capitalization_helper(original=text,
-                                         replacement='theirs')
+            return capitalization_helper(original=text, replacement="theirs")
         else:
-            return capitalization_helper(original=text,
-                                         replacement='their')
+            return capitalization_helper(original=text, replacement="their")
 
     # use a lookup for direct mappings
     # e.g. he --> they, she --> they, policeman --> police officer
     elif text.lower() in SIMPLE_REPLACE.keys():
         replace = SIMPLE_REPLACE[text.lower()]
-        return capitalization_helper(original=text,
-                                     replacement=replace)
+        return capitalization_helper(original=text, replacement=replace)
 
     return None
 
@@ -255,7 +295,7 @@ def identify_verbs_and_auxiliaries(doc: Doc) -> dict:
     :return: dictionary with verbs (SpaCy Token) as keys, auxiliaries as values (SpaCy Token)
     """
     # no need to include uppercase pronouns bc searching for potential_subject checks lower-cased version of each token
-    SUBJECT_PRONOUNS = ['she', 'he']
+    SUBJECT_PRONOUNS = ["she", "he"]
 
     # identify all verbs
     verbs = set()
@@ -263,11 +303,18 @@ def identify_verbs_and_auxiliaries(doc: Doc) -> dict:
     # verb Token with same text will have different position (makes them unique)
     for possible_subject in doc:
         is_subject = (
-                (possible_subject.dep == nsubj or
-                 possible_subject.dep == nsubjpass) and  # current token is a subject
-                # head of current token is a verb
-                (possible_subject.head.pos == VERB or possible_subject.head.pos == AUX) and
-                possible_subject.text.lower() in SUBJECT_PRONOUNS  # current token is either she / he
+            (
+                possible_subject.dep == nsubj
+                or possible_subject.dep == nsubjpass
+            )
+            and  # current token is a subject
+            # head of current token is a verb
+            (
+                possible_subject.head.pos == VERB
+                or possible_subject.head.pos == AUX
+            )
+            and possible_subject.text.lower()
+            in SUBJECT_PRONOUNS  # current token is either she / he
         )
         if is_subject:
             verbs.add(possible_subject.head)
@@ -276,8 +323,9 @@ def identify_verbs_and_auxiliaries(doc: Doc) -> dict:
     # e.g. he dances and prances --> prances would be a conjunct
     for possible_conjunct in doc:
         is_conjunct = (
-                possible_conjunct.dep == conj and  # current token is a conjunct
-                possible_conjunct.head in verbs  # the subject of that verb is she / he
+            possible_conjunct.dep == conj
+            and possible_conjunct.head  # current token is a conjunct
+            in verbs  # the subject of that verb is she / he
         )
         if is_conjunct:
             verbs.add(possible_conjunct)
@@ -287,8 +335,9 @@ def identify_verbs_and_auxiliaries(doc: Doc) -> dict:
         verbs_auxiliaries[verb] = list()
     for possible_aux in doc:
         is_auxiliary = (
-                possible_aux.pos == AUX and  # current token is an auxiliary verb
-                possible_aux.head in verbs  # the subject of that verb is she / he
+            possible_aux.pos == AUX
+            and possible_aux.head  # current token is an auxiliary verb
+            in verbs  # the subject of that verb is she / he
         )
         if is_auxiliary:
             verb = possible_aux.head
@@ -312,15 +361,18 @@ def pluralize_verbs(verbs_auxiliaries: dict) -> dict:
 
         # there are auxiliary verbs
         else:
-            verbs_replacements[verb] = None  # do not need to pluralize root verb if there are auxiliaries
+            verbs_replacements[
+                verb
+            ] = None  # do not need to pluralize root verb if there are auxiliaries
 
             # use a lookup to find replacements for auxiliaries
             for auxiliary in auxiliaries:
                 text = auxiliary.text
                 if text.lower() in IRREGULAR_VERBS.keys():
                     replacement = IRREGULAR_VERBS[text.lower()]
-                    verbs_replacements[auxiliary] = capitalization_helper(original=text,
-                                                                          replacement=replacement)
+                    verbs_replacements[auxiliary] = capitalization_helper(
+                        original=text, replacement=replacement
+                    )
                 else:
                     verbs_replacements[auxiliary] = None
 
@@ -338,10 +390,10 @@ def pluralize_single_verb(verb: Token):
     # check verb tense (expect to be either past simple or present simple)
     verb_tense = verb.morph.get("Tense")[0]  # list with 1 item
 
-    if verb_tense == 'Past':
+    if verb_tense == "Past":
         # was is an irregular past tense verb from third-person singular to third-person plural
-        if verb_text.lower() == 'was':
-            return capitalization_helper(verb_text, 'were')
+        if verb_text.lower() == "was":
+            return capitalization_helper(verb_text, "were")
 
         # other past-tense verbs remain the same
         else:
@@ -351,9 +403,11 @@ def pluralize_single_verb(verb: Token):
     # the POS of these other verbs are usually misclassified as NOUN
     # e.g. He dances and prances and sings. --> "prances" and "sings" are conjuncts marked as NOUN (should be VERB)
     # checking if verb ends with "s" is a band-aid fix
-    elif verb_tense == 'Pres' or verb.text.endswith('s'):
-        return capitalization_helper(original=verb_text.lower(),
-                                     replacement=pluralize_present_simple(verb_text))
+    elif verb_tense == "Pres" or verb.text.endswith("s"):
+        return capitalization_helper(
+            original=verb_text.lower(),
+            replacement=pluralize_present_simple(verb_text),
+        )
 
     return None
 
@@ -368,15 +422,15 @@ def pluralize_present_simple(lowercase_verb: str):
         if lowercase_verb == singular:
             return plural
 
-    if lowercase_verb.endswith('ies'):
-        return lowercase_verb[:-3] + 'y'
+    if lowercase_verb.endswith("ies"):
+        return lowercase_verb[:-3] + "y"
 
     # -es rule: https://howtospell.co.uk/adding-es-plural-rule
     for suffix in VERB_ES_SUFFIXES:
         if lowercase_verb.endswith(suffix):
             return lowercase_verb[:-2]
 
-    if lowercase_verb.endswith('s'):
+    if lowercase_verb.endswith("s"):
         return lowercase_verb[:-1]
 
     return None
@@ -391,8 +445,9 @@ def create_new_doc(doc: Doc, verbs_replacements: dict):
     """
     token_texts = []
     for token in doc:
-        replace_verb = (token in verbs_replacements.keys() and
-                        verbs_replacements[token])
+        replace_verb = (
+            token in verbs_replacements.keys() and verbs_replacements[token]
+        )
 
         if token._.simple_replace:
             token_texts.append(token._.simple_replace)
@@ -405,7 +460,7 @@ def create_new_doc(doc: Doc, verbs_replacements: dict):
         if token.whitespace_:  # filter out empty strings
             token_texts.append(token.whitespace_)
 
-    new_sentence = ''.join(token_texts)
+    new_sentence = "".join(token_texts)
     return new_sentence
 
 
@@ -420,6 +475,8 @@ class GenderNeutralRewrite(SentenceOperation):
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
 
-    def generate(self, sentence: str):
-        gender_neutral_sentence = convert(sentence)
+    def generate(self, sentence: str) -> List[str]:
+        gender_neutral_sentence = convert(
+            sentence=sentence, max_outputs=self.max_outputs
+        )
         return [gender_neutral_sentence]
