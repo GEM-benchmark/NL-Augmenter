@@ -54,6 +54,7 @@ map_transformation = {
         "synonym_substitution",
         "whitespace_perturbation",
         "word_noise",
+        "yes_no_question",
     ],
     "heavy": [
         "back_translation",
