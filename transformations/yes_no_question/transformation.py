@@ -201,6 +201,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
             else:
                 auxiliary = "Do"
             infinitive = verb_head._.inflect("VB")
+            if infinitive is None:
+                return None
             question = self.detokenizer.detokenize(
                 filter(
                     len,
