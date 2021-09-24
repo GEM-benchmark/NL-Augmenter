@@ -92,7 +92,7 @@ class Alliteration(SentenceOperation):
         def rolling_window(data, windowlen):
             """
             Create a 1-dimensional rolling window of size windowlen.
-            If the windowlen is smaller than the length of the data, use the length of the data instead.
+            If the windowlen is larger than the length of the data, use the length of the data instead.
             """
             if len(data) < windowlen:
                 windowlen = len(data)
