@@ -12,15 +12,13 @@ def abbreviate(text, nlp, prob = 0.25, seed = 0, max_outputs = 1):
     for _ in range(max_outputs):
         trans_text = text
         for phrase in phrase_abbrev_dict:
-            random_num = random.random()
-            if random_num < prob:
+            if random.random() < prob:
                 trans_text = trans_text.replace(phrase, phrase_abbrev_dict[phrase])
         doc = nlp(trans_text).doc
         trans = []
         for token in doc:
-            random_num = random.random()
             word = token.text
-            if word in word_abbrev_dict and random_num < prob:
+            if word in word_abbrev_dict and random.random() < prob:
                 trans.append(word_abbrev_dict[word])
             else:
                 trans.append(word)
