@@ -1,4 +1,6 @@
 """
+THIS CODE IS NOT BEING USED DIRECTLY. This is the code used to scrape the dictionaries.
+
 #!/usr/bin/env python
 # coding: utf-8
 
