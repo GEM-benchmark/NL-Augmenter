@@ -6,13 +6,6 @@ import os.path
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-scriptpath = os.path.dirname(__file__)
-with open(os.path.join(scriptpath, 'phrase_abbrev_dict.json'),'r') as file:
-    phrase_abbrev_dict = json.loads(file.read())
-with open(os.path.join(scriptpath, 'word_abbrev_dict.json'), 'r') as file:
-    word_abbrev_dict = json.loads(file.read())
-    
-
 def abbreviate(text, nlp, prob = 0.5, seed = 0, max_outputs = 1):
     random.seed(seed)
     transf = []
@@ -42,6 +35,13 @@ class Abbreviate(SentenceOperation):
     keywords = ["lexical", "external-knowledge-based", "highly-meaning-preserving"]
 
     def __init__(self, prob = 0.5, seed = 0, max_outputs = 1):
+        #reading in slang dictionaries
+        scriptpath = os.path.dirname(__file__)
+        with open(os.path.join(scriptpath, 'phrase_abbrev_dict.json'),'r') as file:
+            phrase_abbrev_dict = json.loads(file.read())
+        with open(os.path.join(scriptpath, 'word_abbrev_dict.json'), 'r') as file:
+            word_abbrev_dict = json.loads(file.read())
+
         super().__init__(seed)
         self.prob = prob
         self.max_outputs = max_outputs
