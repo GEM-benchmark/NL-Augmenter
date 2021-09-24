@@ -6,13 +6,15 @@ import os.path
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-def abbreviate(text, nlp, prob = 0.5, seed = 0, max_outputs = 1):
+def abbreviate(text, nlp, prob = 0.25, seed = 0, max_outputs = 1):
     random.seed(seed)
     transf = []
     for _ in range(max_outputs):
         trans_text = text
         for phrase in phrase_abbrev_dict:
-            trans_text = trans_text.replace(phrase, phrase_abbrev_dict[phrase])
+            random_num = random.random()
+            if random_num < prob:
+                trans_text = trans_text.replace(phrase, phrase_abbrev_dict[phrase])
         doc = nlp(trans_text).doc
         trans = []
         for token in doc:
