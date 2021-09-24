@@ -1,3 +1,4 @@
+"""
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -49,3 +50,4 @@ with open('phrase_abbrev_dict.json','w') as file:
     jsonDict = json.dump(phrase_abbr_dict,file)
 with open('word_abbrev_dict.json', 'w') as file:
     jsonDict = json.dump(word_abbr_dict, file)
+"""
