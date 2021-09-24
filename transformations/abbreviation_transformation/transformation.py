@@ -45,7 +45,7 @@ class Abbreviate(SentenceOperation):
         super().__init__(seed)
         self.prob = prob
         self.max_outputs = max_outputs
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def generate(self, sentence: str):
         perturbed = abbreviate(
