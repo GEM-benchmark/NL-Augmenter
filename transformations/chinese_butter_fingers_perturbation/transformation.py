@@ -33,13 +33,13 @@ def chinese_butter_finger(text,
                                                                             chinese_words_database,
                                                                             consider_tone)
             for dict in words_and_similar_word_dict_list:
-                perturb_word = dict['perturb_word']
+                original_word = dict['original_word']
                 similar_pinyins_words = dict['similar_pinyin_words']
                 if random.random() <= prob and len(similar_pinyins_words) != 0:
 
                     new_chinese_character = random.choice(similar_pinyins_words)
                 else:
-                    new_chinese_character = perturb_word
+                    new_chinese_character = original_word
                 butter_text += new_chinese_character
         else:
             for chinese_character in text:
@@ -99,7 +99,7 @@ def get_words_with_similar_pinyin(text,
                                 consider_tone):
     words_and_similar_word_dict_list = []
     for original_word in text:
-        words_and_similar_word_dict = {"perturb_word": original_word}
+        words_and_similar_word_dict = {"original_word": original_word}
         original_word_len = len(original_word)
         similar_word_pinyin_list = []
         similar_word_pinyin_list = get_similar_word_pinyin_list(chinese_character_database, chinese_words_database,
