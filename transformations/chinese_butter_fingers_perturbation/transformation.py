@@ -128,18 +128,18 @@ def get_similar_word_pinyin_list(chinese_character_database, chinese_words_datab
             candidate_word = word_dict['word']
 
             if (len(candidate_word) == original_word_len):
-                perturb_word_pinyins = pypinyin.pinyin(original_word)
-                perturb_word_pinyins_flatten = [item for pinyin in perturb_word_pinyins for item in pinyin]
-                perturb_word_pinyins_string = ''.join(perturb_word_pinyins_flatten)
+                original_word_pinyins = pypinyin.pinyin(original_word)
+                original_word_pinyins_flatten = [item for pinyin in original_word_pinyins for item in pinyin]
+                original_word_pinyins_string = ''.join(original_word_pinyins_flatten)
                 word_pinyins = pypinyin.pinyin(candidate_word)
                 word_pinyins_flatten = [item for pinyin in word_pinyins for item in pinyin]
                 word_pinyins_string = ''.join(word_pinyins_flatten)
 
                 if (consider_tone == False):
-                    perturb_word_pinyins_string = u.unidecode(perturb_word_pinyins_string)
+                    original_word_pinyins_string = u.unidecode(original_word_pinyins_string)
                     word_pinyins_string = u.unidecode(word_pinyins_string)
 
-                if ((perturb_word_pinyins_string == word_pinyins_string) and (original_word != candidate_word)):
+                if ((original_word_pinyins_string == word_pinyins_string) and (original_word != candidate_word)):
                     similar_word_pinyin_list.append(candidate_word)
     return similar_word_pinyin_list
 
