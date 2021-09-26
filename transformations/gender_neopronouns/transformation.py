@@ -93,8 +93,7 @@ class GenderNeoPronouns(SentenceOperation):
                 pieces.append(token.lemma_)
 
             else:
-                # NOTE: find a more elegant solution to tokenizing punctuations.
-                if token.is_punct and len(pieces) != 0:
+                if token.is_punct and token.is_sent_end:
                     pieces[-1] += token.text
                 else:
                     pieces.append(token.text)
