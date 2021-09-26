@@ -62,6 +62,7 @@ map_transformation = {
         "lost_in_translation",
         "mixed_language_perturbation",
         "multilingual_back_translation",
+        "ocr_perturbation",
         "pinyin",
         "punctuation",
         "quora_trained_t5_for_qa",
