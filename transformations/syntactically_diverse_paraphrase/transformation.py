@@ -25,7 +25,7 @@ class ParaphraseSowReap(SentenceOperation):
         super().__init__(seed, max_outputs=max_outputs)
         self.sow = sowModel("tanyagoyal/paraphrase-sow", max_outputs)
         self.reap = reapModel("tanyagoyal/paraphrase-reap", max_outputs)
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = spacy.load("en_core_web_sm")
         try:
             nltk.data.find(f"models/benepar_en3")
         except LookupError:
@@ -54,6 +54,6 @@ if __name__ == "__main__":
 
     tf = ParaphraseSowReap(max_outputs=10)
 
-    sentence = "the company withdrew its application on the 196th day its submission ."
+    sentence = "the company withdrew its application on the 196th day its submission."
     output = tf.generate(sentence)
     print(output)
