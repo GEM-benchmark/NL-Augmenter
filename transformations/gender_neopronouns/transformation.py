@@ -62,16 +62,21 @@ class GenderNeoPronouns(SentenceOperation):
         pieces = []
         for token in doc:
             morph = token.morph.to_dict()
+            child = next(token.children, spacy.tokens.Token)
+
             if token.pos_ == "PRON":
                 if "Case" in morph and "Reflex" in morph:
                     pron_type = "REF"
                 elif "Case" in morph:
                     pron_type = morph["Case"].upper()
-                elif "Poss" in morph:
-                    pron_type = morph["PronType"].upper()
+                elif token.tag_ == 'PRP$':
+                    pron_type = 'PRS'
+                elif token.tag_ == 'PRP':
+                    pron_type = 'PRP'
                 else:
-                    pron_type = "ACC"
+                    pron_type = token.tag_
 
+                # handle case when using `token.tag_` as index
                 try:
                     neopronoun = TAGS[self.swap_neopronoun][pron_type]
                     neopronoun = (
@@ -82,6 +87,11 @@ class GenderNeoPronouns(SentenceOperation):
                     pieces.append(neopronoun)
                 except ValueError:
                     pieces.append(token.text)
+
+            # handle third person singular -s cases
+            elif token.tag_ == 'VBZ' and child.pos_ == 'PRON':
+                pieces.append(token.lemma_)
+
             else:
                 # NOTE: find a more elegant solution to tokenizing punctuations.
                 if token.is_punct and len(pieces) != 0:

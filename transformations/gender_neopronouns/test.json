@@ -43,10 +43,46 @@
           "swap_neopronoun": "They"
        },
         "inputs": {
-          "sentence": "She walks to the mall"
+          "sentence": "She walks to the mall."
         },
         "outputs": [{
-          "sentence": "They walks to the mall"
+          "sentence": "They walk to the mall."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "He misses the train."
+        },
+        "outputs": [{
+          "sentence": "They miss the train."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "Ze"
+       },
+        "inputs": {
+          "sentence": "He worries too much."
+        },
+        "outputs": [{
+          "sentence": "Ze worry too much."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "Ze"
+       },
+        "inputs": {
+          "sentence": "His arm hurts."
+        },
+        "outputs": [{
+          "sentence": "Zirs arm hurts."
         }]
       }
     ]
