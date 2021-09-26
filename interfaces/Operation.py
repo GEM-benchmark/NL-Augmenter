@@ -8,6 +8,7 @@ class Operation(object):
     seed = 0
     heavy = False
     max_outputs = 1
+    keywords = None
 
     def __init__(self, seed=0, verbose=False, max_outputs=1):
         self.seed = seed

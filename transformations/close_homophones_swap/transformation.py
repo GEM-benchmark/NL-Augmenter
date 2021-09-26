@@ -1,14 +1,11 @@
-import itertools
 import random
-import spacy
-import numpy
 
+import spacy
+from SoundsLike.SoundsLike import Search
+
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from SoundsLike.SoundsLike import Search
-from spacy.attrs import LOWER, POS, ENT_TYPE, IS_ALPHA
-from spacy.tokens import Doc
-from initialize import spacy_nlp
 
 
 def close_homophones_swap(text, corrupt_prob, seed=0, max_outputs=1, nlp=None):
@@ -21,12 +18,17 @@ def close_homophones_swap(text, corrupt_prob, seed=0, max_outputs=1, nlp=None):
         for index, token in enumerate(doc):
             if random.uniform(0, 1) < corrupt_prob:
                 try:
-                    replacement = random.choice(Search.closeHomophones(token.text))
-                    if replacement.lower() != token.text.lower() and token.text.lower() != 'a':
+                    replacement = random.choice(
+                        Search.closeHomophones(token.text)
+                    )
+                    if (
+                        replacement.lower() != token.text.lower()
+                        and token.text.lower() != "a"
+                    ):
                         perturbed_text.append(replacement)
                     else:
                         perturbed_text.append(token.text)
-                except:
+                except Exception:
                     perturbed_text.append(token.text)
             else:
                 perturbed_text.append(token.text)
@@ -35,8 +37,8 @@ def close_homophones_swap(text, corrupt_prob, seed=0, max_outputs=1, nlp=None):
         for index, token in enumerate(perturbed_text):
             textbf.append(token)
             if spaces[index]:
-                textbf.append(' ')
-        perturbed_texts.append(''.join(textbf))
+                textbf.append(" ")
+        perturbed_texts.append("".join(textbf))
     return perturbed_texts
 
 
@@ -47,6 +49,13 @@ class CloseHomophonesSwap(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "high-coverage",
+        "high-precision",
+        "unnaturally-written",
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed)
@@ -55,6 +64,10 @@ class CloseHomophonesSwap(SentenceOperation):
 
     def generate(self, sentence: str):
         perturbed_texts = close_homophones_swap(
-            text=sentence, corrupt_prob=0.5, seed=self.seed, max_outputs=self.max_outputs, nlp=self.nlp
+            text=sentence,
+            corrupt_prob=0.5,
+            seed=self.seed,
+            max_outputs=self.max_outputs,
+            nlp=self.nlp,
         )
         return perturbed_texts

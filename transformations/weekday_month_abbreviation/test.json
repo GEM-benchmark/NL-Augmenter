@@ -1,0 +1,50 @@
+{
+  "type": "weekday_month_abbreviation",
+  "test_cases": [
+    {
+      "class": "WeekdayMonthAbbreviation",
+      "inputs": {
+        "sentence": "I am busy Saturday night."
+      },
+      "outputs": [{
+        "sentence": "I am busy Sat. night."
+      }]
+    },
+    {
+      "class": "WeekdayMonthAbbreviation",
+      "inputs": {
+        "sentence": "When: Thu. 29 Jun. 16:00 GMT+2"
+      },
+      "outputs": [{
+        "sentence": "When: Thursday 29 June 16:00 GMT+2"
+      }]
+    },
+    {
+      "class": "WeekdayMonthAbbreviation",
+      "inputs": {
+        "sentence": "On October I am on holidays but I will be back Sun. 31."
+      },
+      "outputs": [{
+        "sentence": "On Oct. I am on holidays but I will be back Sunday 31."
+      }]
+    },
+    {
+      "class": "WeekdayMonthAbbreviation",
+      "inputs": {
+        "sentence": "We will meet on Monday."
+      },
+      "outputs": [{
+        "sentence": "We will meet on Mon.."
+      }]
+    },
+    {
+      "class": "WeekdayMonthAbbreviation",
+      "inputs": {
+        "sentence": "The restaurant is open on Sundays and closed on Augusts."
+      },
+      "outputs": [{
+        "sentence": "The restaurant is open on Sundays and closed on Augusts."
+      }]
+    }
+  ]
+}
