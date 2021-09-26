@@ -62,7 +62,7 @@ class GenderNeoPronouns(SentenceOperation):
         pieces = []
         for token in doc:
             morph = token.morph.to_dict()
-            child = next(token.children, spacy.tokens.Token)
+            children = list(token.children)
 
             if token.pos_ == "PRON":
                 if "Case" in morph and "Reflex" in morph:
@@ -89,7 +89,7 @@ class GenderNeoPronouns(SentenceOperation):
                     pieces.append(token.text)
 
             # handle third person singular -s cases
-            elif token.tag_ == 'VBZ' and child.pos_ == 'PRON':
+            elif children and token.tag_ == 'VBZ' and children[0].pos_ == 'PRON':
                 pieces.append(token.lemma_)
 
             else:
