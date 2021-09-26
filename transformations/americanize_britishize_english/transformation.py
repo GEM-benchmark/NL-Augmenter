@@ -17,7 +17,8 @@ def britishize_americanize(string, final_dict):
 
 
 class AmericanizeBritishizeEnglish(SentenceOperation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.SENTIMENT_ANALYSIS]
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.SENTIMENT_ANALYSIS,
+             TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION, TaskType.PARAPHRASE_DETECTION]
     languages = ["en"]
 
     def __init__(self, n=1, seed=0, max_outputs=1):
@@ -93,11 +94,14 @@ class AmericanizeBritishizeEnglish(SentenceOperation):
          Gets the american to British english dictionary
          Merges both these dictionaries with the custom vocab dictionary.
         """
-        url = "https://raw.githubusercontent.com/hyperreality/American-British-English-Translator/master/data/american_spellings.json"
-        american_british_dict = requests.get(url).json()
+        try:
+            url = "https://raw.githubusercontent.com/hyperreality/American-British-English-Translator/master/data/american_spellings.json"
+            american_british_dict = requests.get(url).json()
 
-        url = "https://raw.githubusercontent.com/hyperreality/American-British-English-Translator/master/data/british_spellings.json"
-        british_american_dict = requests.get(url).json()
+            url = "https://raw.githubusercontent.com/hyperreality/American-British-English-Translator/master/data/british_spellings.json"
+            british_american_dict = requests.get(url).json()
+        except requests.exceptions.RequestException as e:
+            raise SystemExit(e)
 
         self.final_dict = {**american_british_dict, **british_american_dict, **vocab_diff}
 
