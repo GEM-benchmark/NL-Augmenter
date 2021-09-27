@@ -81,7 +81,7 @@ def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
 
 
 """
-Substitute words with synonyms using stanza (for POS) and wordnet via nltk (for synonyms)
+Substitute words with antonyms using stanza (for POS) and wordnet via nltk (for antonyms)
 """
 
 
