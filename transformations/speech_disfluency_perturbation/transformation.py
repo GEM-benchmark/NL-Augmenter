@@ -17,9 +17,6 @@ class SpeechDisfluencyPerturbation(SentenceOperation):
         "rule-based",
         "highly-meaning-preserving",
         "high-precision",
-        "high-coverage",
-        "high-generations",
-        "social-reasoning",
     ]
 
     filler_words: List[str] = ["um", "uh", "erm", "ah", "er"]
@@ -66,7 +63,7 @@ class SpeechDisfluencyPerturbation(SentenceOperation):
             perturbed_texts.append(" ".join(tokens))
         return perturbed_texts
 
-
+"""
 # Sample code to demonstrate usage.
 if __name__ == "__main__":
     import json
@@ -114,3 +111,4 @@ if __name__ == "__main__":
         "test_cases": test_cases,
     }
     print(json.dumps(json_file, indent=2))
+"""
