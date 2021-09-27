@@ -47,6 +47,7 @@ map_transformation = {
         "random_upper_transformation",
         "redundant_context_for_qa",
         "replace_numerical_values",
+        "replace_financial_amounts",
         "replace_spelling",
         "sentiment_emoji_augmenter",
         "suspecting_paraphraser",

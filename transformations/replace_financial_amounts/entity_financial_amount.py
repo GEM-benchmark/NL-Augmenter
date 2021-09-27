@@ -46,7 +46,14 @@ def generate_new_amount(
 ) -> float:
     """
     | Generate new amount from current amount.
-    |  The value of percentage_financial_amount_variation should be between 1 and 20 to ensure coherence.
+    | percentage_financial_amount_variation which is randomly sampled in `generate` between 1 and 20 to ensure coherence.
+
+    Parameters:
+        amount: The float representing the amount to modify.
+        percentage_financial_amount_variation: The modifier applied to the amount.
+
+    Returns:
+        float: The new value of the amount.
     """
     percentage_value = amount * (percentage_financial_amount_variation / 100)
     return round(amount + percentage_value, 2)
@@ -55,6 +62,12 @@ def generate_new_amount(
 def generate_new_symbol(symbol: List[str]) -> str:
     """
     Select a new currency symbol.
+
+    Parameters:
+        symbol: The list of currency symbols available.
+
+    Returns:
+        str: The symbol selected randomly
     """
     index = random.randint(0, len(symbol) - 1)
     return symbol[index]
@@ -63,6 +76,13 @@ def generate_new_symbol(symbol: List[str]) -> str:
 def generate_new_format(amount: float, symbol: str) -> str:
     """
     Format the numerical amount and place the currency symbol appropriately.
+
+    Parameters:
+        amount: The float representing the amount to format.
+        symbol: The currency symbol to use for the financial amount.
+
+    Returns:
+        str: The formatted financial amount.
     """
     if symbol in CURRENCY_SYMBOLS:
         formatted_amount = format_amount(amount)
@@ -75,6 +95,14 @@ def generate_new_format(amount: float, symbol: str) -> str:
 def convert_currency(amount: float, old_rate: float, new_rate: float) -> float:
     """
     Convert the amount of a currency to another amount of a currency based on a conversion rate.
+
+    Parameters:
+        amount: The float representing the amount to convert.
+        old_rate: The current conversion rate between the currency and the USD.
+        new_rate: The new conversion rate between the currency and the USD.
+
+    Returns:
+        float: The converted amount value
     """
     return round(amount * old_rate / new_rate, 2)
 
@@ -85,6 +113,14 @@ def change_currency(
     """
     | Change a currency to another currency.
     | The currency generated is necessarily different for the current one and from those generated previously.
+
+    Parameters:
+        amount: The float representing the amount to change.
+        currency: The currency corresponding to the financial amount.
+        currencies_generated: The list of currencies already changed, to keep coherent replacements.
+
+    Results:
+        Tuple[float, Dict] The new amount generated as well as the new currency.
     """
     all_keys = list(CURRENCIES_WITH_EXCHANGE_RATE.keys())
 
@@ -119,6 +155,15 @@ def generate_financial_amount_for_currency_with_exchange_rate(
 ) -> Tuple[str, Dict, str]:
     """
     Generate a new financial amount, potentially changing the currency as well.
+
+    Parameters:
+        amount: The float representing the amount to change.
+        currency: The currency corresponding to the financial amount.
+        currencies_generated: The list of currencies already changed, to keep coherent replacements.
+        percentage_financial_amount_variation: The modifier applied to the amount.
+
+    Returns
+        Tuple[str, Dict, str]: The new formatted financial amount, the new currency and the new symbol used.
     """
     new_amount = generate_new_amount(
         amount, percentage_financial_amount_variation
@@ -151,6 +196,16 @@ def generate_financial_amount_for_specific_currency(
 ) -> str:
     """
     Generate a new financial amount for a specific currency.
+
+    Parameters:
+        amount: The float representing the amount to change.
+        currency: The currency corresponding to the financial amount.
+        currency_to_generate: The currency to use for the change of financial amount.
+        encountered_symbol: The symbol to use for the change of financial amount
+        percentage_financial_amount_variation: The modifier applied to the amount.
+
+    Returns:
+        str: The new formatted financial amount.
     """
     new_amount = generate_new_amount(
         amount, percentage_financial_amount_variation
@@ -166,6 +221,12 @@ def get_amount_and_currency(token_value: str) -> Tuple[float, Dict]:
     """
     Return the amount and the currency used in a string value.
     e.g.: `10,30 euros` -> `(10.30, CURRENCIES_WITH_EXCHANGE_RATE['euro'])`.
+
+    Parameters:
+        token_value: The value of the token corresponding to a financial amount.
+
+    Returns:
+        Tuple[float, Dict]: The identified amount and the identified currency corresponding to the token value.
     """
     amount = re.findall(
         r"[0-9]+(?:\s?(?:,?\s?[0-9]{3})\s?)*\s?(?:\.?\s?[0-9]{2}|[kK]?)",
@@ -184,6 +245,12 @@ def get_amount_and_currency(token_value: str) -> Tuple[float, Dict]:
 def determine_currency(token_list: List[str]) -> Dict or None:
     """
     Return a currency, either as one from CURRENCIES_WITH_EXCHANGE_RATE or as a simple dictionary.
+
+    Parameters:
+        token_list: The list of tokens in which a financial symbol is present.
+
+    Returns:
+        Dict or None: The currency if found.
     """
     if len(token_list) == 1:
         currency = token_list[0]
@@ -210,6 +277,12 @@ def determine_currency(token_list: List[str]) -> Dict or None:
 def determine_amount(token_list: List[str]) -> float:
     """
     Determine the amount as a float associated to the token_list.
+
+    Parameters:
+        token_list: The list of tokens for which an amount is present.
+
+    Returns:
+        str: The identified amount.
     """
     amount = ""
     for token in token_list:
@@ -224,6 +297,12 @@ def format_amount(amount: float) -> str:
     """
     | Formats randomly an amount as a string to be printed.
     | Formatted amounts are limited to a maximum of two decimal digits.
+
+    Parameters:
+        amount: An amount to format.
+
+    Returns:
+        str: The formatted amount as a string.
     """
     thousands = int(amount / 1000)
     hundreds = int(amount % 1000)

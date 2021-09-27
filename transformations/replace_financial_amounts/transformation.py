@@ -1,4 +1,5 @@
 from typing import List, Dict, Tuple
+from initialize import spacy_nlp
 import random
 import spacy
 import ftfy
@@ -17,10 +18,13 @@ def create_tokens(text: str) -> List[Token]:
     Create a list of tokens that represents the input text.
 
     Parameters:
-        `text`: The text or sentence to split into tokens.
+        text: The text or sentence to split into tokens.
+
+    Returns:
+        List[Token]: a list of tokens modified from Spacy tokens
     """
     text = ftfy.fix_text(text)
-    nlp = spacy.load("en_core_web_sm")
+    nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
     spacy_tokens = nlp(text)
     return [
         {
@@ -39,7 +43,10 @@ def is_numeric(text: str) -> bool:
     Determine whether or not a given input text represent a numeric value.
 
     Parameters:
-        `text`: The input string to analyse.
+        text: The input string to analyse.
+
+    Returns:
+        bool: Whether the text contains only digits plus dots or commas.
     """
     return text.strip().replace(".", "").replace(",", "").isdigit()
 
@@ -49,7 +56,10 @@ def tag_tokens(tokens: List[Token]) -> List[Token]:
     Determine the type of each tokens in a list of tokens.
 
     Parameters:
-        `tokens`: Token representation of the sentence to analyse.
+        tokens: Token representation of the sentence to analyse.
+
+    Returns:
+        List[Token]: a list of tokens modified from Spacy tokens with their information modified to reflect their type
     """
     counter = 0
 
@@ -76,8 +86,8 @@ def replace(token: Token, replacement: str):
     Replace the token by another string.
 
     Parameters:
-        `token`: Token concerned by the replacement.
-        `replacement`: Replacement text.
+        token: Token concerned by the replacement.
+        replacement: Replacement text.
     """
     if token["text"].endswith(" "):
         token["text"] = replacement.strip(" ") + " "
@@ -88,6 +98,16 @@ def replace(token: Token, replacement: str):
 def look_ahead_for_amount(
     token_index: int, token_list: List[Token]
 ) -> Tuple[int, int]:
+    """
+    Determine if a token or a list of tokens correspond to a financial amount, going forward.
+
+    Parameters:
+        token_index: The index to the initial token being a candidate for a financial amount.
+        token_list: The list of tokens.
+
+    Returns:
+        Tuple[int, int]: The indexes of the initial token and final token being considered for the financial amount.
+    """
     # we are going forward
     initial_index, final_index = token_index, token_index
     n_tokens = len(token_list)
@@ -153,6 +173,16 @@ def look_ahead_for_amount(
 def look_backward_for_amount(
     token_index: int, token_list: List[Token]
 ) -> Tuple[int, int]:
+    """
+    Determine if a token or a list of tokens correspond to a financial amount, going backward.
+
+    Parameters:
+        token_index: The index to the final token being a candidate for a financial amount.
+        token_list: The list of tokens.
+
+    Returns:
+        Tuple[int, int]: The indexes of the initial token and final token being considered for the financial amount.
+    """
     # We are going backward
 
     initial_index, final_index = token_index, token_index
@@ -217,8 +247,11 @@ def is_numeric_token(token: Token, expected_length: int or None) -> bool:
     Determine whether a given token is a numeric token of the certain length.
 
     Parameters:
-        `token`: Token to be checked.
-        `expected_length`: The shape (number of digit) the token is expected to be.
+        token: Token to be checked.
+        expected_length: The shape (number of digit) the token is expected to be.
+
+    Returns:
+        bool: Whether the token is_numeric and matches a specific length
     """
     if expected_length is None:
         return token["category"] == "numeric"
@@ -237,6 +270,14 @@ def generate_financial_amount_replacement(
     """
     Generate replacements for an amount and currency based on previous amounts generated to
     conserve coherence within document.
+
+    Parameters:
+        token: The financial amount token for which a replacement is generated.
+        financial_amounts_encountered: The dictionary of currency and amounts already encountered.
+        percentage_financial_amount_variation: The variation applied when generating the amount.
+
+    Returns:
+          Tuple[str, Dict]: The financial amount generated and the updates dict of financial_amounts_encountered
     """
     amount, currency = entity_financial_amount.get_amount_and_currency(
         token["text"].strip()
@@ -376,8 +417,11 @@ def indexes_of_financial_amount(
     Search for the initial and final token indexes of a financial amount in a list of tokens.
 
     Parameters:
-        `tokens`: Token representation of the sentence to analyse.
-        `token_index`: index from which to search for financial amount.
+        token_list: Token representation of the sentence to analyse.
+        token_index: index from which to search for financial amount.
+
+    Returns:
+        Tuple[int, int]: The indexes of the initial token and final token being considered for the financial amount.
     """
     initial_index, final_index = token_index, token_index
     # we test if we should go backward or forward to search for the amount
@@ -409,9 +453,12 @@ def merge(
     Merge the tokens identified as financial amount into a unique token tagged accordingly.
 
     Parameters:
-        `tokens`: Token representation of the sentence to analyse.
-        `initial_index`: starting index of identified financial amount.
-        `final_index`: ending index of identified financial amount.
+        token_list: Token representation of the sentence to analyse.
+        initial_index: starting index of identified financial amount.
+        final_index: ending index of identified financial amount.
+
+    Returns:
+        List[Token]: The updated list of tokens
     """
     # The token is just a currency symbol not followed by any numbers
     if initial_index == final_index:
