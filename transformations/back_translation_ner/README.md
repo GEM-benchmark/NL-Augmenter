@@ -59,6 +59,12 @@ python evaluate.py -p 20 -t BackTranslationNER -m dslim/bert-base-NER -d bc2gm_c
 python evaluate.py -p 20 -t BackTranslationNER -m dslim/bert-base-NER -d jnlpba
 ```
 
+The following table reports the impact of backtranslation on model performance (accuracy) for various datasets.
+
+Output format: `accuracy without transformation -> accuracy with transformation (absolute difference)`
+
+where `absolute difference = accuracy with transformation - accuracy without transformation`
+
 | Dataset                     | `dslim/bert-base-NER-uncased`          | `dslim/bert-base-NER`     | `dslim/bert-large-NER`     |
 | --------------------------- | --------------------------- | --------------------------- | --------------------------- |
 | --------------------------- | --------------------------- | --------------------------- | --------------------------- |
