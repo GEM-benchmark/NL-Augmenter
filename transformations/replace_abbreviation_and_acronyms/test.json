@@ -31,10 +31,10 @@
     {
       "class": "ReplaceAbbreviations",
       "inputs": {
-        "sentence": "Sorry, I will be out of office until May 3rd for personal reasons."
+        "sentence": "Sorry, I am currently out. I will be out of office until May 3rd for personal reasons."
       },
       "outputs": [{
-        "sentence": "Sorry, I will be OOO until May 3rd for personal reasons."
+        "sentence": "Sorry, I am currently out. I will be OOO until May 3rd for personal reasons."
       }]
     },
     {

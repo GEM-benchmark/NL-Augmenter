@@ -19,18 +19,12 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 text generation, etc. 
 
 ## Robustness Evaluation
-```bash
-$ python evaluate.py -t ReplaceAbbreviations
-Undefined task type, switching to default task %s TEXT_CLASSIFICATION
-Loading <imdb> dataset to evaluate <aychang/roberta-base-imdb> model.
-Here is the performance of the model aychang/roberta-base-imdb on the test[:20%] split of the imdb dataset
-The accuracy on this subset which has 1000 examples = 96.0
-Applying transformation:
-100%|███████████████████████████████████████████████████████████████████████████████| 1000/1000 [06:47<00:00,  2.46it/s]
-Finished transformation! 1000 examples generated from 1000 original examples, with 129 successfully transformed and 871 unchanged (0.129 perturb rate)
-Here is the performance of the model on the transformed set
-The accuracy on this subset which has 1000 examples = 96.0
-```
+
+### Text Classification
+
+| Transformation                   | roberta-base-IMDB   |
+|:---------------------------------|:--------------------|
+| AbbreviationReplacement          | 96.0 -> 96.0 (0.0)  |
 
 ## Previous Work
 1) This perturbation was used as part of several augmentation modules used to augment short text. It helps with diversity when combined to other perturbations such as back translation (Arxiv 2020):

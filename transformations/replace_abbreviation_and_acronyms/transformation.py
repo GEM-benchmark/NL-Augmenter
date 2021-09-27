@@ -1,8 +1,9 @@
-from typing import List, Tuple
+from typing import List, Tuple, Set
+from initialize import spacy_nlp
 import random
-import os
 import spacy
 import ftfy
+import os
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
@@ -66,7 +67,7 @@ def create_tokens(text: str) -> List:
         A list of tokens.
     """
     text = ftfy.fix_text(text)
-    nlp = spacy.load("en_core_web_sm")
+    nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
     spacy_tokens = nlp(text)
     return [
         {
@@ -81,12 +82,17 @@ def create_tokens(text: str) -> List:
     ]
 
 
-def indexes_of_abbreviations(
+def identify_init_and_end_of_expanded_abbreviations(
     tokens: List, abbreviation: str
 ) -> Tuple[int, int]:
     """
-    Look for indexes of beginning and ending of detected abbreviation in input tokens.
+    Look for init and end token indexes matching an expanded abbreviation.
     Return -1, -1 if the abbreviation was not found.
+    ```
+    tokens = [{"text": "as", ...}, {"text": "soon", ...}, {"text": "as", ...}, {"text": "possible", ...}, {"text": "do", ...}]
+    abbreviation = "as soon as possible"
+    (0, 3) = identify_init_and_end_of_expanded_abbreviations(tokens, abbreviation)
+    ```
 
     Parameters:
         `tokens`: The list of tokens representing a sentence.
@@ -94,71 +100,73 @@ def indexes_of_abbreviations(
     Returns:
         The first and last index of abbreviation if found in the token list.
     """
+    candidate_abbreviation: str = ""
     for i, token in enumerate(tokens):
-        if abbreviation.lower().startswith(token["text"].lower()):
-            k = length_of(tokens[i:], abbreviation)
-            if k == -1:
-                return -1, -1
-            return i, i + k
+        candidate_abbreviation = (
+            candidate_abbreviation + token["text"] + token["end_space"]
+        )
+        if candidate_abbreviation.lower().strip() == abbreviation.lower():
+            return 0, i
+        if candidate_abbreviation.lower() in abbreviation.lower():
+            continue
+        else:
+            return -1, -1
     return -1, -1
 
 
-def length_of(tokens: List, abbreviation: str) -> int:
+def fuse_token_values_for_expanded_abbreviations(
+    tokens: List, merge_collection: Set[Tuple[int, int]]
+) -> List:
     """
-    Look for the given abbreviation in the list of tokens and
-    return the number of tokens required to match the abbreviation string.
-    If no match is found, -1 is returned.
-
-    Parameters:
-        `tokens`: The list of tokens representing a sentence.
-        `abbreviation`: The abbreviation string to search for in the list of tokens.
-    Returns:
-        The number of tokens required to match the abbreviation string.
-    """
-    var: str = ""
-    for i, token in enumerate(tokens):
-        var = var + token["text"] + token["end_space"]
-        if var.lower().strip() == abbreviation.lower():
-            return i
-        if var.lower() in abbreviation.lower():
-            continue
-        else:
-            return -1
-    return -1
-
-
-def merge(tokens: List, start: int, finish: int) -> List:
-    """
-    Merge the tokens that have been identified as abbreviations into one token.
+    Fuse token values for tokens that have been identified as expanded abbreviations into a single token.
     Ex: `[{'text' : 'as'}, {'text' : 'soon'}, {'text' : 'as'}, {'text' : 'possible'}]` =>
     `[{'text' : 'as soon as possible'}]`.
 
     Parameters:
         `tokens`: The list of tokens representing a sentence.
-        `start`: The first index of identified abbreviation.
-        `finish`: The last index of identified abbreviation.
+        `merge_collection`: List of `start` and `finish` indexes.
+            `start`: The first index of identified abbreviation.
+            `finish`: The last index of identified abbreviation.
     Returns:
-        A list of tokens with identified abbreviation tokens merged.
+        A list of tokens with expanded abbreviation tokens fused.
     """
-    if finish - start == 0:
-        tokens[start]["is_abbreviation"] = True
-        tokens[start]["is_expanded_abbreviation"] = True
-        return tokens
+    start_indexes = [start for start, _ in merge_collection]
+    new_tokens = []
+    counter = 0
+    while counter < len(tokens):
+        if counter not in start_indexes:
+            new_tokens.append(tokens[counter])
+            counter += 1
+            continue
 
-    new_token_text = {}
+        finish = [
+            finish for start, finish in merge_collection if start == counter
+        ][0]
 
-    text = "".join(
-        [
-            token["text"] + token["end_space"]
-            for token in tokens[start : finish + 1]
-        ]
-    )
-    new_token_text["text"] = text.strip()
-    new_token_text["end_space"] = tokens[finish]["end_space"]
-    new_token_text["is_abbreviation"] = True
-    new_token_text["is_expanded_abbreviation"] = True
+        if finish - counter == 0:
+            tokens[counter]["is_abbreviation"] = True
+            tokens[counter]["is_expanded_abbreviation"] = True
+            new_tokens.append(tokens[counter])
+            counter += 1
+            continue
 
-    return tokens[:start] + [new_token_text] + tokens[finish + 1 :]
+        new_token_text = {}
+
+        text = "".join(
+            [
+                token["text"] + token["end_space"]
+                for token in tokens[counter : finish + 1]
+            ]
+        )
+        new_token_text["text"] = text.strip()
+        new_token_text["end_space"] = tokens[finish]["end_space"]
+        new_token_text["is_abbreviation"] = True
+        new_token_text["is_expanded_abbreviation"] = True
+
+        new_tokens.append(new_token_text)
+        counter = finish + 1
+
+    return new_tokens
 
 
 class ReplaceAbbreviations(SentenceOperation):
@@ -224,20 +232,26 @@ class ReplaceAbbreviations(SentenceOperation):
             ]
             for candidate_abbreviation in candidate_abbreviations:
                 # search for the candidate abbreviation in the rest of the token list.
-                start, finish = indexes_of_abbreviations(
-                    tokens, candidate_abbreviation
+                (
+                    start,
+                    finish,
+                ) = identify_init_and_end_of_expanded_abbreviations(
+                    tokens[counter:], candidate_abbreviation
                 )
                 if start == -1 and finish == -1:  # case abbreviation not found
-                    counter += 1
                     continue
                 else:  # abbreviation found, add it to the merge set
-                    merge_collection.add((start, finish))
-                    counter = counter + finish - 1
+                    merge_collection.add((start + counter, finish + counter))
+                    counter += finish
+                    break
             counter += 1
 
         # merge all found expanded abbreviation and tag them as abbreviation
-        for start, finish in merge_collection:
-            tokens = merge(tokens, start, finish)
+        tokens = fuse_token_values_for_expanded_abbreviations(
+            tokens, merge_collection
+        )
+        for t in tokens:
+            print(t)
         return tokens
 
     def replace_abbreviation(self, token):
