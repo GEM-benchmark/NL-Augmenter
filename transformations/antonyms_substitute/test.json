@@ -33,6 +33,28 @@
           "sentence": "Steve is unable to recommend movies that depicts the lives of ugly minds."
         }
       ]
+    },
+    {
+      "class": "AntonymsSubstitute",
+      "inputs": {
+        "sentence": "It is useful to have a team review before the final presentation."
+      },
+      "outputs": [
+        {
+          "sentence": "It is useless to lack a team review before the final presentation."
+        }
+      ]
+    },
+    {
+      "class": "AntonymsSubstitute",
+      "inputs": {
+        "sentence": "Recently, we are more interested in leveraging AI to solve ethic issues."
+      },
+      "outputs": [
+        {
+          "sentence": "Recently, we are less uninterested in leveraging AI to solve ethic issues."
+        }
+      ]
     }
   ]
 }
