@@ -1,7 +1,7 @@
 # Replace Financial amounts 🦎  + ⌨️ → 🐍
 This transformation replaces consistently financial amounts throughout a text.
 The replacement changes the amount, the writing format as well as the currency of the financial amount.
-The change is consistent in regard to:
+The change is consistent with respect to:
 - the modifier used to change all amounts of the same currency throughout the text.
   - e.g., the sentence `I owe Fred € 20 and I need € 10 for the bus.` might be changed to `I owe Fred 2 906.37 Yen and I need 1 453.19 Yen for the bus.`
 - the modifier used to change the amounts so that new amounts are relatively close to the original amount.
@@ -22,18 +22,12 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 text generation, etc. 
 
 ## Robustness Evaluation
-```bash
-$ python evaluate.py -t ReplaceFinancialAmount
-Undefined task type, switching to default task %s TEXT_CLASSIFICATION
-Loading <imdb> dataset to evaluate <aychang/roberta-base-imdb> model.
-Here is the performance of the model aychang/roberta-base-imdb on the test[:20%] split of the imdb dataset
-The accuracy on this subset which has 1000 examples = 96.0
-Applying transformation:
-100%|███████████████████████████████████████████████████████████████████████████████| 1000/1000 [06:21<00:00,  2.62it/s]
-Finished transformation! 1000 examples generated from 1000 original examples, with 35 successfully transformed and 965 unchanged (0.035 perturb rate)
-Here is the performance of the model on the transformed set
-The accuracy on this subset which has 1000 examples = 96.0
-```
+
+### Text Classification
+
+| Transformation                   | roberta-base-IMDB   |
+|:---------------------------------|:--------------------|
+| FinancialAmountReplacement       | 96.0 -> 96.0 (0.0)  |
 
 ## Previous Work
 1) This perturbation was as part of an augmentation library described by Regina and al. in (Arxiv 2020):
@@ -64,15 +58,16 @@ The bank rate is obtained using the forex exchange prices thanks to the `forex-p
 Amounts corresponding to other currencies (e.g.: XAF) have just their amount modified.
 
 ## What are the limitations of this transformation?
-The transformation's outputs are too simple to be used for data augmentation as a standalone module.
+
+- The transformation's outputs are too simple to be used for data augmentation as a standalone module.
 However, combined with other modules, this transformation helps improve the understanding of the context, and generates simple but precise similar sentences (same semantic similarity).
 
-The transformation outputs financial amounts independently of the format expected for the country.
+- The transformation outputs financial amounts independently of the format expected for the country.
 I.e. we might have `12,38 $` or `12.38 $` output by the generator.
 
-The transformation can only change numeric financial amounts (i.e. it will not handle "two dollars" or "14k euros").
+- The transformation can only change numeric financial amounts (i.e. it will not handle "two dollars" or "14k euros").
 
-Finally, the transformation is case-sensitive i.e., `13 usd` will not be considered as an amount.
+- Finally, the transformation is case-sensitive i.e., `13 usd` will not be considered as an amount.
 
 ### Bank Rate
 
