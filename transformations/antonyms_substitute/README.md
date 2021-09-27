@@ -6,11 +6,11 @@ Author name:
 - Jing Zhang (jing.zhang2@emory.edu, Emory University)
 
 ## What type of a transformation is this?
-This transformation could introduce semantic diversity by adding antonyms. Specifically, it will help revert the semantics to an opposite position or uses double negation to express the similar semantics.
+This transformation could introduce semantic diversity by adding antonyms. Specifically, it will help revert the semantics to an opposite position or uses double negation to express the similar semantics. In general, we assume that an even number of transforms will remain the semantics in terms of sentiment; however, an odd number of transforms will revert the semantics. 
 
 
 ## What tasks does it intend to benefit?
-This augmentation would benefit tasks related to sentiment analysis, contrastive learning and classification, by augmenting the dataset.
+This augmentation would benefit tasks related to sentiment analysis, contrastive learning and classification, by augmenting the dataset. The preserance of the labels would be dependent to the number of transforms that were applied in given text.
 
 ## Related Work
 Special thanks to @zijwang, whose contribution has inspired this work. The code was adapted from his submission, and the tokenization and POS tagging were adapted from Stanza
