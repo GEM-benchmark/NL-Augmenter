@@ -126,12 +126,12 @@ class ChinesePersonNamedEntitiesAndGender(SentenceOperation):
             chinese_names_data=self.chinese_names_data
         )
         return perturbed_texts
-
+"""
 if __name__ == '__main__':
     text = "阿朝只有初中文化程度,担任这样的复杂工种是比较吃力的,但他边干边学,终于胜任了。"
     perturb_func = ChinesePersonNamedEntitiesAndGender()
     new_text = perturb_func.generate(text, seed=42, gender_change=True)
     print(new_text)
-
+"""
 
 
