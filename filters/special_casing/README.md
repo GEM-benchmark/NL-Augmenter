@@ -3,6 +3,7 @@
 ## What type of a filter is this?
 
 This filter checks if the input sentence has a special casing, i.e. the string is either all lowercased, all uppercased or has title casing.
+
 Author: Vikas Raunak (viraunak@microsoft.com)
 
 ## Why is measuring performance on this split important?

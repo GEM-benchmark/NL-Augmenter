@@ -8,7 +8,8 @@ class TextSpecialCasingFilter(SentenceOperation):
     """
 
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING, TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION, TaskType.SENTIMENT_ANALYSIS]
-    languages = ["en"]
+    languages = ["en", "fr", "es", "it", "pt", "fi", "nl", "da", "cs", "hr", "bg", "be", "eu", "ru", "uk", "pl", "sv", "sk", "sl"]
+    keywords = ["casing", "uppercase", "lowercase", "titlecase", "Latin", "Cyrillic"]
 
     def __init__(self):
         super().__init__()
