@@ -7,10 +7,10 @@
           "swap_neopronoun": "They"
        },
         "inputs": {
-          "sentence": "He went to the mall."
+          "sentence": "She walks to the mall."
         },
         "outputs": [{
-          "sentence": "They went to the mall."
+          "sentence": "They walk to the mall."
         }]
       },
       {
