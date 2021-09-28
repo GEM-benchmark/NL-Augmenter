@@ -14,7 +14,7 @@ This augmentation would benefit tasks related to sentiment analysis, contrastive
 
 Benchmark results:
 
-Sentiment analysis: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 89.0.
+Sentiment analysis: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 61.0.
 
 
 ## Related Work
