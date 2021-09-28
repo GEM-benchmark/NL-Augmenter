@@ -129,7 +129,7 @@ def placement(index_of_dis, wl,pl,input,disability_names,name):
               text = s
    
           elif pl[i+1]!='NOUN':
-              s=' '.join(wl) #convert to a string and replace with disability name
+              s = ' '.join(wl) #convert to a string and replace with disability name
               namew = wl[i]
               wl[i] = disability_names[namew]
               text = ' '.join(wl)
