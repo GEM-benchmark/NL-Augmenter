@@ -91,6 +91,7 @@ class AntonymsSubstitute(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["en"]
+    keywords = ["lexical", "noise", "rule-based", "tokenizer-required", "high-precision"]
 
     def __init__(self, seed=42, prob=0.5, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
