@@ -66,20 +66,26 @@ class GenderNeoPronouns(SentenceOperation):
             morph = token.morph.to_dict()
             children = list(token.children)
 
-            if token.pos_ == "PRON" and token.text.lower() not in ['i', 'my']:
+            if token.pos_ == "PRON" and token.text.lower() not in ["i", "my"]:
                 if "Case" in morph and "Reflex" in morph:
                     pron_type = "REF"
-                elif "Case" in morph and morph['Case'] == 'Nom':
-                    pron_type = 'NOM'
-                elif "Case" in morph and morph['Case'] == 'Acc':
-                    pron_type = 'ACC'
-                elif 'Poss' in morph and morph['Poss'] == 'Yes':
-                    if token.text.lower() in ['mine', 'yours', 'his', 'hers', 'its']:
-                        pron_type = 'PRED'
+                elif "Case" in morph and morph["Case"] == "Nom":
+                    pron_type = "NOM"
+                elif "Case" in morph and morph["Case"] == "Acc":
+                    pron_type = "ACC"
+                elif "Poss" in morph and morph["Poss"] == "Yes":
+                    if token.text.lower() in [
+                        "mine",
+                        "yours",
+                        "his",
+                        "hers",
+                        "its",
+                    ]:
+                        pron_type = "PRED"
                     else:
-                        pron_type = 'PRNOM'
-                elif token.tag_ == 'PRP':
-                    pron_type = 'NOM'
+                        pron_type = "PRNOM"
+                elif token.tag_ == "PRP":
+                    pron_type = "NOM"
                 else:
                     pron_type = token.tag_
 
@@ -96,7 +102,9 @@ class GenderNeoPronouns(SentenceOperation):
                     pieces.append(token.text)
 
             # handle third person singular -s cases
-            elif children and token.tag_ == 'VBZ' and children[0].pos_ == 'PRON':
+            elif (
+                children and token.tag_ == "VBZ" and children[0].pos_ == "PRON"
+            ):
                 pieces.append(token.lemma_)
 
             else:
