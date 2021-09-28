@@ -4,46 +4,46 @@
     {
       "class": "DifferentAbilityTransformation",
       "inputs": {
-        "sentence": "He is blind."
+        "sentence": "He's blind."
       },
       "outputs": [{
-        "sentence": "He is person with a visual impairment "
+        "sentence": "He's person or people with a visual impairment."
       }]
     },
     {
       "class": "DifferentAbilityTransformation",
       "inputs": {
-        "sentence": "He is so slow he's probably a retard."
+        "sentence": "They are deaf."
       },
       "outputs": [{
-        "sentence": "He is so slow he's probably a person with a learning disablity "
+        "sentence": "They are person or people with a hearing disability."
       }]
     },
     {
       "class": "DifferentAbilityTransformation",
       "inputs": {
-        "sentence": "John is deaf."
+        "sentence": "Did she become a cripple after the accident???"
       },
       "outputs": [{
-        "sentence": "John is  person with a hearing disability "
+        "sentence": "Did she become a person with a physical disability after the accident???"
       }]
     },
     {
       "class": "DifferentAbilityTransformation",
       "inputs": {
-        "sentence": "He is a psycho."
+        "sentence": "He is a lunatic!!!"
       },
       "outputs": [{
-        "sentence": "He is a person with a psychotic condition "
+        "sentence": "He is a person with a mental disability!!!"
       }]
     },
     {
       "class": "DifferentAbilityTransformation",
       "inputs": {
-        "sentence": "She became a cripple after the accident."
+        "sentence": "She's wheelchairbound and he's deaf."
       },
       "outputs": [{
-        "sentence": "She became a  person with a physical disability after the accident"
+        "sentence": "She's wheelchairbound and he's person or people with a hearing disability."
       }]
     }
   ]
