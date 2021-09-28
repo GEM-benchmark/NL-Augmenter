@@ -6,6 +6,7 @@ import os
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
+from initialize import spacy_nlp
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.
@@ -172,7 +173,7 @@ class Slangificator(SentenceOperation):
 
         pathDic = os.path.dirname(os.path.abspath(__file__))
 
-        self.nlp = spacy.load("en_core_web_sm")  # get an instnace of the tokenizer
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")  # get an instnace of the tokenizer
 
         # Load dictionaries
         self.Slang_Nouns = [
