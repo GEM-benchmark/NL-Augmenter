@@ -2,7 +2,9 @@
 This transformation replaces some of the words (in particular, nouns, adjectives, and adverbs) of the original text with their corresponding slang. The replacement is done with the subset of the "Dictionary of English Slang & Colloquialisms". The amount of replacement is proportional to the corresponding probabilities of replacement.
 
 Author name: Denis Kleyko
+
 Author email: denis.kleyko@gmail.com
+
 Author Affiliation: University of California, Berkeley and Research Institutes of Sweden
 
 ## What type of a transformation is this?
@@ -13,15 +15,15 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 text generation, etc. 
 
 ## Robustness Evaluation
-The outcome of running 'python evaluate.py -t Slangificator' was as follows:
+The outcome of running 'python evaluate.py -t Slangificator -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-imdb" -d "imdb" -p 20 was as follows:
 
-The accuracy on this subset which has 1000 examples = 96.0
+The accuracy on this subset which has 1000 examples = 95.0
 
 Finished transformation! 1000 examples generated from 1000 original examples, with 999 successfully transformed and 1 unchanged (0.999 perturb rate)
 
 Here is the performance of the model on the transformed set
 
-The accuracy on this subset which has 1000 examples = 93.0
+The accuracy on this subset which has 1000 examples = 94.0
 
 ## Previous Work
 The author is not aware of the previous research work is this direction. 
