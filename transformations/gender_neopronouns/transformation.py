@@ -16,6 +16,13 @@ class GenderNeoPronouns(SentenceOperation):
 
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "model-based",
+        "tokenizer-required",
+        "highly-meaning-preserving",
+        "high-coverage",
+    ]
 
     def __init__(
         self,
