@@ -2,120 +2,120 @@ TAGS = {
     "Thon": {
         "NOM": "Thon",
         "ACC": "Thon",
-        "PRP": "Thons",
-        "PRS": "Thon's",
+        "PRNOM": "Thons",
+        "PRED": "Thon's",
         "REF": "Thonself"
     },
     "E": {
         "NOM": "E",
         "ACC": "Em",
-        "PRP": "Eir",
-        "PRS": "Eirs",
+        "PRNOM": "Eir",
+        "PRED": "Eirs",
         "REF": "Emself"
     },
     "Ae": {
         "NOM": "Ae",
         "ACC": "Aer",
-        "PRP": "Aer",
-        "PRS": "Aers",
+        "PRNOM": "Aer",
+        "PRED": "Aers",
         "REF": "Aerself"
     },
     "Co": {
         "NOM": "Co",
         "ACC": "Co",
-        "PRP": "Cos/Co's",
-        "PRS": "Co's",
+        "PRNOM": "Cos/Co's",
+        "PRED": "Co's",
         "REF": "Coself"
     },
     "Vi": {
         "NOM": "Vi",
         "ACC": "Vir",
-        "PRP": "Vis",
-        "PRS": "Virs",
+        "PRNOM": "Vis",
+        "PRED": "Virs",
         "REF": "Virself"
     },
     "Ve": {
         "NOM": "Ve",
         "ACC": "Ver",
-        "PRP": "Vis",
-        "PRS": "Vers",
+        "PRNOM": "Vis",
+        "PRED": "Vers",
         "REF": "Verself"
     },
     "Xe": {
         "NOM": "Xe",
         "ACC": "Xem",
-        "PRP": "Xyr",
-        "PRS": "Xyrs",
+        "PRNOM": "Xyr",
+        "PRED": "Xyrs",
         "REF": "Xemself"
     },
     "Per": {
         "NOM": "Per",
         "ACC": "Per",
-        "PRP": "Per",
-        "PRS": "Pers",
+        "PRNOM": "Per",
+        "PRED": "Pers",
         "REF": "Perself"
     },
     "Person": {
         "NOM": "Person",
         "ACC": "Per",
-        "PRP": "Per",
-        "PRS": "Pers",
+        "PRNOM": "Per",
+        "PRED": "Pers",
         "REF": "Perself"
     },
     "Ey": {
         "NOM": "Ey",
         "ACC": "Em",
-        "PRP": "Eir",
-        "PRS": "Eirs",
+        "PRNOM": "Eir",
+        "PRED": "Eirs",
         "REF": "Emself"
     },
     "Hu": {
         "NOM": "Hu",
         "ACC": "Hum",
-        "PRP": "Hus",
-        "PRS": "Hus",
+        "PRNOM": "Hus",
+        "PRED": "Hus",
         "REF": "Huself"
     },
     "Ze": {
         "NOM": "Ze",
         "ACC": "Zir",
-        "PRP": "Zir",
-        "PRS": "Zirs",
+        "PRNOM": "Zir",
+        "PRED": "Zirs",
         "REF": "Zirself"
     },
     "Fae": {
         "NOM": "Fae",
         "ACC": "Faer",
-        "PRP": "Faer",
-        "PRS": "Faers",
+        "PRNOM": "Faer",
+        "PRED": "Faers",
         "REF": "Faerself"
     },
     "She": {
         "NOM": "She",
         "ACC": "Her",
-        "PRP": "Her",
-        "PRS": "Hers",
+        "PRNOM": "Her",
+        "PRED": "Hers",
         "REF": "Herself"
     },
     "He": {
         "NOM": "He",
         "ACC": "Him",
-        "PRP": "His",
-        "PRS": "His",
+        "PRNOM": "His",
+        "PRED": "His",
         "REF": "Himself"
     },
     "They": {
         "NOM": "They",
         "ACC": "Them",
-        "PRP": "Their",
-        "PRS": "Theirs",
+        "PRNOM": "Their",
+        "PRED": "Theirs",
         "REF": "Themselves"
     },
     "Ne": {
         "NOM": "Ne",
         "ACC": "Nem",
-        "PRP": "Nir",
-        "PRS": "Nirs",
+        "PRNOM": "Nir",
+        "PRED": "Nirs",
         "REF": "Nemself"
     }
 }

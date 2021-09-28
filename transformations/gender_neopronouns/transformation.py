@@ -52,6 +52,8 @@ class GenderNeoPronouns(SentenceOperation):
 
     def generate(self, sentence: str) -> List[str]:
         """
+        Generate neopronoun substitution on `sentence`.
+
         Args:
             sentence:
                 The input sentence to be transformed
@@ -64,19 +66,24 @@ class GenderNeoPronouns(SentenceOperation):
             morph = token.morph.to_dict()
             children = list(token.children)
 
-            if token.pos_ == "PRON":
+            if token.pos_ == "PRON" and token.text.lower() not in ['i', 'my']:
                 if "Case" in morph and "Reflex" in morph:
                     pron_type = "REF"
-                elif "Case" in morph:
-                    pron_type = morph["Case"].upper()
-                elif token.tag_ == 'PRP$':
-                    pron_type = 'PRS'
+                elif "Case" in morph and morph['Case'] == 'Nom':
+                    pron_type = 'NOM'
+                elif "Case" in morph and morph['Case'] == 'Acc':
+                    pron_type = 'ACC'
+                elif 'Poss' in morph and morph['Poss'] == 'Yes':
+                    if token.text.lower() in ['mine', 'yours', 'his', 'hers', 'its']:
+                        pron_type = 'PRED'
+                    else:
+                        pron_type = 'PRNOM'
                 elif token.tag_ == 'PRP':
-                    pron_type = 'PRP'
+                    pron_type = 'NOM'
                 else:
                     pron_type = token.tag_
 
-                # handle case when using `token.tag_` as index
+                # try-catch to handle case when `token.tag_` is index
                 try:
                     neopronoun = TAGS[self.swap_neopronoun][pron_type]
                     neopronoun = (
@@ -85,7 +92,7 @@ class GenderNeoPronouns(SentenceOperation):
                         else neopronoun.lower()
                     )
                     pieces.append(neopronoun)
-                except ValueError:
+                except KeyError:
                     pieces.append(token.text)
 
             # handle third person singular -s cases

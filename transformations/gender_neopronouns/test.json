@@ -22,19 +22,19 @@
           "sentence": "I met them today."
         },
         "outputs": [{
-          "sentence": "Xe met xem today."
+          "sentence": "I met xem today."
         }]
       },
       {
         "class": "GenderNeoPronouns",
         "args" :{
-          "swap_neopronoun": "Ey"
+          "swap_neopronoun": "Per"
        },
         "inputs": {
           "sentence": "I have to drive myself to school."
         },
         "outputs": [{
-          "sentence": "Ey have to drive emself to school."
+          "sentence": "I have to drive perself to school."
         }]
       },
       {
@@ -43,10 +43,10 @@
           "swap_neopronoun": "They"
        },
         "inputs": {
-          "sentence": "She walks to the mall."
+          "sentence": "She walked her dog today."
         },
         "outputs": [{
-          "sentence": "They walk to the mall."
+          "sentence": "They walked their dog today."
         }]
       },
       {
@@ -64,13 +64,13 @@
       {
         "class": "GenderNeoPronouns",
         "args" :{
-          "swap_neopronoun": "Ze"
+          "swap_neopronoun": "Ae"
        },
         "inputs": {
           "sentence": "He worries too much."
         },
         "outputs": [{
-          "sentence": "Ze worry too much."
+          "sentence": "Ae worry too much."
         }]
       },
       {
@@ -83,6 +83,18 @@
         },
         "outputs": [{
           "sentence": "Zirs arm hurts."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "E"
+       },
+        "inputs": {
+          "sentence": "If I need a phone my friend will let me borrow his"
+        },
+        "outputs": [{
+          "sentence": "If I need a phone my friend will let em borrow eirs"
         }]
       }
     ]
