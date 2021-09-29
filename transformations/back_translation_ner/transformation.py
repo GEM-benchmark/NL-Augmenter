@@ -10,6 +10,7 @@ from tasks.TaskTypes import TaskType
 
 class BackTranslationNER(TaggingOperation):
     tasks = [TaskType.TEXT_TAGGING]
+    heavy = True
     keywords = [
         "lexical",
         "model-based",
