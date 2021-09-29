@@ -120,6 +120,18 @@
         "outputs": [{
           "sentence": "They had their friends tell them about the event."
         }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "You and your friends are all welcome to come."
+        },
+        "outputs": [{
+          "sentence": "You and your friends are all welcome to come."
+        }]
       }
     ]
   }
