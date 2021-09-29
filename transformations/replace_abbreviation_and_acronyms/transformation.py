@@ -1,4 +1,4 @@
-from typing import List, Tuple, Set
+from typing import List, Tuple, Set, Dict
 from initialize import spacy_nlp
 import random
 import spacy
@@ -14,8 +14,9 @@ def load(path_to_file: str) -> List[List[str]]:
     Load from a file, the list of abbreviations as tuple(list) of the expanded and the contracted form.
 
     Parameters:
-        `path_to_file`: Path to file containing the abbreviations.
-        The file should contains one abbreviation pair per line, separated by a semicolon. e.g.: ACCT:account.
+        path_to_file: Path to file containing the abbreviations.
+            The file should contains one abbreviation pair per line, separated by a semicolon. e.g.: ACCT:account.
+
     Returns:
         List of pairs of contracted and expanded abbreviations.
     """
@@ -36,7 +37,7 @@ def load(path_to_file: str) -> List[List[str]]:
 
 
 def separate_into_contracted_and_expanded_form(
-    abbreviations: List,
+    abbreviations: List, case_sensitive: bool
 ) -> Tuple[List, List]:
     """
     Split a given list of abbreviations pairs into two lists.
@@ -44,7 +45,9 @@ def separate_into_contracted_and_expanded_form(
     The abbreviation list has the form ACCT:account.
 
     Parameters:
-        `abbreviations`: A list of pairs of contracted and expanded abbreviations.
+        abbreviations: A list of pairs of contracted and expanded abbreviations.
+        case_sensitive: If we want to check abbreviations while being case sensitive.
+
     Returns:
         A Tuple of two lists.
     """
@@ -52,8 +55,12 @@ def separate_into_contracted_and_expanded_form(
     expanded_abbreviations = []
 
     for contracted_form, expanded_form in abbreviations:
-        contracted_abbreviations.append(contracted_form.lower())
-        expanded_abbreviations.append(expanded_form.lower())
+        if case_sensitive:
+            contracted_abbreviations.append(contracted_form)
+            expanded_abbreviations.append(expanded_form)
+        else:
+            contracted_abbreviations.append(contracted_form.lower())
+            expanded_abbreviations.append(expanded_form.lower())
     return contracted_abbreviations, expanded_abbreviations
 
 
@@ -62,7 +69,8 @@ def create_tokens(text: str) -> List:
     Create a list of tokens that represents the input text.
 
     Parameters:
-        `text`: The text to transform into token list.
+        text: The text to transform into token list.
+
     Returns:
         A list of tokens.
     """
@@ -95,8 +103,8 @@ def identify_init_and_end_of_expanded_abbreviations(
     ```
 
     Parameters:
-        `tokens`: The list of tokens representing a sentence.
-        `abbreviation`: The abbreviation string to search for in the list of tokens.
+        tokens: The list of tokens representing a sentence.
+        abbreviation: The abbreviation string to search for in the list of tokens.
     Returns:
         The first and last index of abbreviation if found in the token list.
     """
@@ -123,10 +131,11 @@ def fuse_token_values_for_expanded_abbreviations(
     `[{'text' : 'as soon as possible'}]`.
 
     Parameters:
-        `tokens`: The list of tokens representing a sentence.
-        `merge_collection`: List of `start` and `finish` indexes.
+        tokens: The list of tokens representing a sentence.
+        merge_collection: List of `start` and `finish` indexes.
             `start`: The first index of identified abbreviation.
             `finish`: The last index of identified abbreviation.
+
     Returns:
         A list of tokens with expanded abbreviation tokens fused.
     """
@@ -170,6 +179,11 @@ def fuse_token_values_for_expanded_abbreviations(
 
 
 class ReplaceAbbreviations(SentenceOperation):
+    """
+    This transformation changes abbreviations and acronyms appearing in a text to their expanded form and respectively,
+    changes expanded abbreviations and acronyms appearing in a text to their shorter form.
+    """
+
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
@@ -191,20 +205,25 @@ class ReplaceAbbreviations(SentenceOperation):
         self,
         seed: int = 0,
         max_outputs: int = 1,
+        case_sensitive: bool = False,
     ) -> None:
         super().__init__(seed=seed, max_outputs=max_outputs)
         self.abbreviations = load("abbreviations.txt")
+        self.case_sensitive = case_sensitive
         (
             self.contracted_abbreviations,
             self.expanded_abbreviations,
-        ) = separate_into_contracted_and_expanded_form(self.abbreviations)
+        ) = separate_into_contracted_and_expanded_form(
+            self.abbreviations, self.case_sensitive
+        )
 
     def tag_tokens(self, tokens: List) -> List:
         """
         Iterate over all tokens and tags tokens that correspond to contracted or expanded abbreviations.
 
         Parameters:
-            `tokens`: The list of tokens representing a sentence.
+            tokens: The list of tokens representing a sentence.
+
         Returns:
             The list of tokens with abbreviation token(s) tagged.
         """
@@ -213,12 +232,17 @@ class ReplaceAbbreviations(SentenceOperation):
         # loop over token in list looking for abbreviation to tag.
         while counter < len(tokens):
             token = tokens[counter]
+            if self.case_sensitive:
+                token_text = token["text"]
+            else:
+                token_text = token["text"].lower()
+
             # skip when the token represent a verb
             if token["is_a_verb"]:
                 counter += 1
                 continue
             # tag when a contracted abbreviation is detected
-            if token["text"].lower() in self.contracted_abbreviations:
+            if token_text in self.contracted_abbreviations:
                 tokens[counter]["is_abbreviation"] = True
                 counter += 1
                 continue
@@ -228,7 +252,7 @@ class ReplaceAbbreviations(SentenceOperation):
             candidate_abbreviations = [
                 abbr
                 for abbr in self.expanded_abbreviations
-                if abbr.startswith(token["text"].lower() + token["end_space"])
+                if abbr.startswith(token_text + token["end_space"])
             ]
             for candidate_abbreviation in candidate_abbreviations:
                 # search for the candidate abbreviation in the rest of the token list.
@@ -250,31 +274,45 @@ class ReplaceAbbreviations(SentenceOperation):
         tokens = fuse_token_values_for_expanded_abbreviations(
             tokens, merge_collection
         )
-        for t in tokens:
-            print(t)
         return tokens
 
-    def replace_abbreviation(self, token):
+    def replace_abbreviation(self, token: Dict):
         """
         Replace the input token with its contracted form it is an expanded one, or with its expanded one otherwise.
 
         Parameters:
-            `token`: a representation of one unit of the sentence (a word, a punctuation, an abbreviation...).
+            token: a representation of one unit of the sentence (a word, a punctuation, an abbreviation...).
         """
         if token["is_abbreviation"] and not token["is_expanded_abbreviation"]:
-            replacement = [
-                position[1]
-                for position in self.abbreviations
-                if position[0].lower() == token["text"].lower()
-            ][0]
-            token["text"] = replacement.lower()
+            if self.case_sensitive:
+                replacement = [
+                    position[1]
+                    for position in self.abbreviations
+                    if position[0] == token["text"]
+                ][0]
+                token["text"] = replacement
+            else:
+                replacement = [
+                    position[1]
+                    for position in self.abbreviations
+                    if position[0].lower() == token["text"].lower()
+                ][0]
+                token["text"] = replacement.lower()
         else:
-            replacement = [
-                position[0]
-                for position in self.abbreviations
-                if position[1].lower() == token["text"].lower()
-            ][0]
-            token["text"] = replacement
+            if self.case_sensitive:
+                replacement = [
+                    position[0]
+                    for position in self.abbreviations
+                    if position[1] == token["text"]
+                ][0]
+                token["text"] = replacement
+            else:
+                replacement = [
+                    position[0]
+                    for position in self.abbreviations
+                    if position[1].lower() == token["text"].lower()
+                ][0]
+                token["text"] = replacement
 
     def generate(self, sentence: str) -> List[str]:
         random.seed(self.seed)

@@ -3,8 +3,6 @@ This transformation changes abbreviations and acronyms appearing in a text to th
 changes expanded abbreviations and acronyms appearing in a text to their shorter form.
 E.g.: `send this file asap to human resources` might be changed to `send this file as soon as possible to HR`. As soon as possible is the expanded form of asap.
 
-keywords
-
 Author names:
 - Maxime Meyer (maxime.meyer@vadesecure.com, Vade)
 - Tatiana Ekeinhor (tatiana.ekeinhor@vadesecure.com, Vade)
@@ -47,14 +45,20 @@ text generation, etc.
 }
 ```
 
-## Abbreviations and accronyms
+## Abbreviations and acronyms
 
-Currently the list of abbreviations and accronyms used in this transformation where manually gathered focusing on common abbreviations present in business communications. 
-Some of the sources are internet websites listing business abbreviations such as: https://www.themuse.com/advice/your-ultimate-cheat-sheet-to-deciphering-the-123-most-common-business-acronyms as well as abbreviations coming from documents processed at Vade.
+Currently, the list of abbreviations and acronyms used in this transformation where manually gathered focusing on common abbreviations present in business communications. 
+Some sources are internet websites listing business abbreviations such as: https://www.themuse.com/advice/your-ultimate-cheat-sheet-to-deciphering-the-123-most-common-business-acronyms as well as abbreviations coming from documents processed at Vade.
 
-To update or change the list of abbreviations and accronyms used, you can modify the file `abbreviations.txt`.
+To update or change the list of abbreviations and acronyms used, you can modify the file `abbreviations.txt`.
 You can add or change abbreviations as long as you use the following format:
-`Abbrevation:Expanded form` with one abbrevation per line.
+`Abbrevation:Expanded form` with one abbreviation per line.
+
+The transformation can be configured to be case-sensitive.
+By default, it is not the case, however this might impact the transformation when using lists of acronyms that are part of the common language.
+For example: `AT` for `Anti-Tank`.
+Similarly, it might impact the meaning when changing from the expanded form to the abbreviated form.
+For example: `the new York stadium` for `the NY stadium`.
 
 ## What are the limitations of this transformation?
 The transformation's outputs are too simple to be used for data augmentation as a standalone module.
