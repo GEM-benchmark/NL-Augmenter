@@ -28,6 +28,17 @@ class ColorTransformation(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "tokenizer-required",
+        "unnatural-sounding",
+        "unnaturally-written",
+        "possible-meaning-alteration",
+        "high-precision",
+        "low-coverage",
+        "high-generations",
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
