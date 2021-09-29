@@ -108,6 +108,18 @@
         "outputs": [{
           "sentence": "Their phone beeped unexpectedly and startled them."
         }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "She had her friends tell her about the event."
+        },
+        "outputs": [{
+          "sentence": "They had their friends tell them about the event."
+        }]
       }
     ]
   }
