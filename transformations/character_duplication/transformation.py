@@ -1,4 +1,3 @@
-import itertools
 import random
 
 from interfaces.SentenceOperation import SentenceOperation
@@ -6,13 +5,18 @@ from tasks.TaskTypes import TaskType
 
 
 def duplicate(text, prob=0.1, seed=42, max_outputs=1):
+    """
+    This function duplicates random chars (not digits) in the text string, with specified probability. It returns a list of different perturbed strings, whose length is specified by max_outputs.
+    """
     random.seed(seed)
 
     original_text = list(text)
     perturbed_texts = []
-    for _ in itertools.repeat(None, max_outputs):
+    for _ in range(max_outputs):
         perturbed_text = [
-            [letter] if random.random() > prob else [letter, letter]
+            [letter]
+            if letter.isdigit() or random.random() > prob
+            else [letter, letter]
             for letter in original_text
         ]
         perturbed_text = [
@@ -26,7 +30,6 @@ class CharacterDuplication(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
     ]
     languages = ["All"]
     keywords = [

@@ -25,7 +25,7 @@
         "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
       },
       "outputs": [{
-        "sentence": "Allice inn WWondderland  is a 200110 American livve-aaction/animated dark fanntasy adventure film"
+        "sentence": "Allice inn WWondderland  is a 2010 AAmmerican live-acctioon/animated dark fantasyy adventure film"
       }]
     },
     {
@@ -34,7 +34,7 @@
         "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
       },
       "outputs": [{
-        "sentence": "Ujjjal Deev  Dossanjh seerved ass  33rd Premier oof BBritish Columbia from 20000 to 2001"
+        "sentence": "Ujjjal Deev  Dossanjh seerved ass  33rd Premier of  Briitish Columbia from 2000 to  2001"
       }]
     },
     {
