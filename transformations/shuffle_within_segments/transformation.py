@@ -35,7 +35,6 @@ class ShuffleWithinSegments(TaggingOperation):
     def generate(
             self, token_sequence: List[str], tag_sequence: List[str]
     ) -> List[Tuple[List[str], List[str]]]:
-        random.seed(self.seed)
 
         # it is necessary to set up numpy random seed due to np.random.binomial
         np.random.seed(self.seed)
