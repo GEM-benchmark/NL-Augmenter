@@ -19,7 +19,7 @@ summarization of the sentence (such as TF-IDF method), it summarizes only based 
 ## Previous Work
 1) Summarization implementation borrowed and modified from this code https://github.com/NSchrading/intro-spacy-nlp
 
-2) Please kindly find the reference for the tags (various categories' abbreviations such as "nsubj", "dobj", and so on) we used in the code here (https://downloads.cs.stanford.edu/nlp/software/dependencies_manual.pdf).
+2) Please kindly find the reference for the tags (various categories' abbreviations such as "nsubj", "dobj", and so on.) we used in the code here (https://downloads.cs.stanford.edu/nlp/software/dependencies_manual.pdf).
 
 3) There has been some recent work utilizing this idea:
 ```bibtex
