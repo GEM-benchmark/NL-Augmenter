@@ -13,7 +13,7 @@ Author names:
 - Tatiana Ekeinhor (tatiana.ekeinhor@vadesecure.com, Vade)
 - Antoine Honoré (antoine.honore@vadesecure.com, Vade)
 
-## What type of a transformation is this?
+## What type of transformation is this?
 This transformation acts like a perturbation to test robustness. Generated transformations display high similarity to the 
 source sentences i.e. the code outputs highly precise generations. It is a substitution of a financial amount to another financial amount. 
 
@@ -25,9 +25,9 @@ text generation, etc.
 
 ### Text Classification
 
-| Transformation                   | roberta-base-IMDB   |
-|:---------------------------------|:--------------------|
-| FinancialAmountReplacement       | 96.0 -> 96.0 (0.0)  |
+| Transformation              | roberta-base-SST-2  | bert-base-uncased-QQP | roberta-large-mnli  | roberta-base-imdb   |
+| :-------------------------- | :------------------ | :-------------------- | :------------------ | :------------------ |
+| ReplaceFinancialAmount      | 94.0->94.0 (0.0)    | 92.0->92.0 (0.0)      | 91.0->91.0 (0.0)    | 95.0->95.0 (0.0)    |
 
 ## Previous Work
 1) This perturbation was as part of an augmentation library described by Regina and al. in (Arxiv 2020):
@@ -49,6 +49,10 @@ text generation, etc.
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
+
+## Data and Code Provenance
+
+The data and code used for this transformation where adapted from the code used for the paper mentioned above. 
 
 ## Common currencies
 Not all currencies have conversion rate associated. For the moment, only six currencies have a conversion rate associated so that the currency can be changed to one another while keeping the converted amount close to the original amount value.
