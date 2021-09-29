@@ -32,7 +32,7 @@ class Summarization(SentenceOperation):
 
     def Summarize(self, tokens):
         """
-        this algorithm is based on the dependence tree parshing. When the input sentence comes, we would first find the verbs and root token. If verbs exist, it would be easily to find the subject and object,
+        this algorithm is based on the dependence tree parsing. When the input sentence comes, we would first find the verbs and root token. If verbs exist, it would be easily to find the subject and object,
         otherwise, we will split the sentence based on the root token.
         """
         results = []
@@ -135,7 +135,6 @@ class Summarization(SentenceOperation):
         return moreObjs
 
     def getVerbsFromConjunctions(self, verbs):
-
         """
         Sometimes the verbs come with pair with conjunctions, or two clauses connected with conjunctions
         """
@@ -178,7 +177,6 @@ class Summarization(SentenceOperation):
         return subs, verbNegated
 
     def getAllObjs(self, v):
-
         rights = list(v.rights)
         objs = [tok for tok in rights if tok.dep_ in self.dicts['OBJECTS']]
         objs.extend(self.getObjsFromPrepositions(rights))
