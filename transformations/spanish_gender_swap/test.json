@@ -1,0 +1,808 @@
+{
+  "type": "spanish_gender_swap",
+  "test_cases": [
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ese se\u00f1or es un detective privado."
+      },
+      "outputs": [
+        {
+          "sentence": "Esa se\u00f1ora es una detective privada."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ese hombre es un ingeniero y escritor."
+      },
+      "outputs": [
+        {
+          "sentence": "Esa mujer es una ingeniera y escritora."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "El ingeniero alem\u00e1n es muy experto."
+      },
+      "outputs": [
+        {
+          "sentence": "La ingeniera alemana es muy experta."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Su consagrante principal fue el Obispo Tom\u00e1s Penswick."
+      },
+      "outputs": [
+        {
+          "sentence": "Su consagrante principal fue la Obispa Tom\u00e1s Penswick."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ayer compr\u00e9 bombones, pero no queda ninguno."
+      },
+      "outputs": [
+        {
+          "sentence": "Ayer compr\u00e9 bombones, pero no queda ninguno."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ninguna de las peras est\u00e1 madura todav\u00eda."
+      },
+      "outputs": [
+        {
+          "sentence": "Ninguna de las peras est\u00e1 madura todav\u00eda."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Doctor Ruiz es italiano, neur\u00f3tico, habla alem\u00e1n, y le gustan las abejas."
+      },
+      "outputs": [
+        {
+          "sentence": "Doctora Ruiz es italiana, neur\u00f3tica, habla alem\u00e1n, y le gustan las abejas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ese doctor es italiano y rubio, mientras que el otro doctor es noruego."
+      },
+      "outputs": [
+        {
+          "sentence": "Esa doctora es italiana y rubia, mientras que la otra doctora es noruega."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Esos moscovitas me irritan."
+      },
+      "outputs": [
+        {
+          "sentence": "Esas moscovitas me irritan."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Reservas 'fantasma', infartos, paparazzi y clientes groseros."
+      },
+      "outputs": [
+        {
+          "sentence": "Reservas 'fantasma', infartos, paparazzi y clientas groseras."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Estos son algunos de los retos que afrontan los 'Se\u00f1ores Lobo' que mueven los hilos de los mejores restaurantes de Espa\u00f1a."
+      },
+      "outputs": [
+        {
+          "sentence": "Estos son algunos de los retos que afrontan las 'Se\u00f1oras Loba' que mueven los hilos de los mejores restaurantes de Espa\u00f1a."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Todos los habitantes de marte son marcianos, pero solo algunos individuos de la Luna son lun\u00e1ticos."
+      },
+      "outputs": [
+        {
+          "sentence": "Todas las habitantes de marte son marcianas, pero solo algunas individuas de la Luna son lun\u00e1ticas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Esta es una lista de todos los pa\u00edses del mundo."
+      },
+      "outputs": [
+        {
+          "sentence": "Esta es una lista de todos los pa\u00edses del mundo."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Manuel, tu esposo, me dijo que ese hijo tuyo estaba hospitalizado."
+      },
+      "outputs": [
+        {
+          "sentence": "Manuel, tu esposa, me dijo que esa hija tuya estaba hospitalizada."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "\u00a1Qu\u00e9 necios son quienes se fabrican \u00eddolos para tenerlos como sus dioses!"
+      },
+      "outputs": [
+        {
+          "sentence": "\u00a1Qu\u00e9 necias son quienes se fabrican \u00eddolos para tenerlos como sus diosas!"
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Te presento a nuestro sobrino."
+      },
+      "outputs": [
+        {
+          "sentence": "Te presento a nuestra sobrina."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "El Coliseo es famoso y el Capitolio tambi\u00e9n."
+      },
+      "outputs": [
+        {
+          "sentence": "El Coliseo es famoso y el Capitolio tambi\u00e9n."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Este navegador es famoso y ese otro tambi\u00e9n."
+      },
+      "outputs": [
+        {
+          "sentence": "Esta navegadora es famosa y esa otra tambi\u00e9n."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Este navegador es famoso y algunos de esos otros tambi\u00e9n lo son."
+      },
+      "outputs": [
+        {
+          "sentence": "Esta navegadora es famosa y algunas de esas otras tambi\u00e9n lo son."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Sus hijos ser\u00edan considerados hijos del ama est\u00e9ril."
+      },
+      "outputs": [
+        {
+          "sentence": "Sus hijas ser\u00edan consideradas hijas del ama est\u00e9ril."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "\u00c9ste es mi nieto favorito."
+      },
+      "outputs": [
+        {
+          "sentence": "\u00c9sta es mi nieta favorita."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Cierto alumno de tu clase es un amigo m\u00edo."
+      },
+      "outputs": [
+        {
+          "sentence": "Cierta alumna de tu clase es una amiga m\u00eda."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Nuestros vecinos fueron bendecidos por el papa."
+      },
+      "outputs": [
+        {
+          "sentence": "Nuestras vecinas fueron bendecidas por la papisa."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ese jugador es un primo m\u00edo."
+      },
+      "outputs": [
+        {
+          "sentence": "Esa jugadora es una prima m\u00eda."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Nuestro gato esta gordo."
+      },
+      "outputs": [
+        {
+          "sentence": "Nuestra gata esta gorda."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "La v\u00edctima, un hombre joven, fue trasladada al hospital m\u00e1s cercano."
+      },
+      "outputs": [
+        {
+          "sentence": "La v\u00edctima, una mujer joven, fue trasladada al hospital m\u00e1s cercano."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ese personaje es mi favorito."
+      },
+      "outputs": [
+        {
+          "sentence": "Ese personaje es mi favorito."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Los asistentes al partido estaban emocionados."
+      },
+      "outputs": [
+        {
+          "sentence": "Las asistentes al partido estaban emocionadas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Los hombres han descubierto algo."
+      },
+      "outputs": [
+        {
+          "sentence": "Las mujeres han descubierto algo."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Los hombres fueron descubiertos."
+      },
+      "outputs": [
+        {
+          "sentence": "Las mujeres fueron descubiertas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "El mandatario lo ha expresasado."
+      },
+      "outputs": [
+        {
+          "sentence": "La mandataria lo ha expresasado."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Mi gato est\u00e1 vacunado."
+      },
+      "outputs": [
+        {
+          "sentence": "Mi gata est\u00e1 vacunada."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Mi gato fue vacunado esta ma\u00f1ana."
+      },
+      "outputs": [
+        {
+          "sentence": "Mi gata fue vacunada esta ma\u00f1ana."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Los ejemplares del nuevo libro de mi autor favorito fueron publicados hace un mes."
+      },
+      "outputs": [
+        {
+          "sentence": "Los ejemplares del nuevo libro de mi autora favorita fueron publicados hace un mes."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Los dibujos fueron hechos por los ni\u00f1os groseros."
+      },
+      "outputs": [
+        {
+          "sentence": "Los dibujos fueron hechos por las ni\u00f1as groseras."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Nosotros est\u00e1bamos dormidos."
+      },
+      "outputs": [
+        {
+          "sentence": "Nosotras est\u00e1bamos dormidas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Nosotros est\u00e1bamos durmiendo."
+      },
+      "outputs": [
+        {
+          "sentence": "Nosotras est\u00e1bamos durmiendo."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Aquellos deportistas franceses y alemanes est\u00e1n cansados."
+      },
+      "outputs": [
+        {
+          "sentence": "Aquellas deportistas francesas y alemanas est\u00e1n cansadas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ese es un ni\u00f1o mal portado."
+      },
+      "outputs": [
+        {
+          "sentence": "Esa es una ni\u00f1a mal portada."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "El chico ha visto el coche."
+      },
+      "outputs": [
+        {
+          "sentence": "La chica ha visto el coche."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ese es nuestro apartamento."
+      },
+      "outputs": [
+        {
+          "sentence": "Ese es nuestro apartamento."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Esos son nuestros gatos."
+      },
+      "outputs": [
+        {
+          "sentence": "Esas son nuestras gatas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Esos son los gatos del alcalde."
+      },
+      "outputs": [
+        {
+          "sentence": "Esas son las gatas de la alcaldesa."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "El se\u00f1or ha terminado la cena."
+      },
+      "outputs": [
+        {
+          "sentence": "La se\u00f1ora ha terminado la cena."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "El chico ha sido un ganador en todos los lugares donde ha estado."
+      },
+      "outputs": [
+        {
+          "sentence": "La chica ha sido una ganadora en todos los lugares donde ha estado."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ren\u00e9 deja escritos muchos trabajos ejemplares."
+      },
+      "outputs": [
+        {
+          "sentence": "Ren\u00e9 deja escritos muchos trabajos ejemplares."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "\u00c9l ha sido elegido presidente."
+      },
+      "outputs": [
+        {
+          "sentence": "Ella ha sido elegida presidenta."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Los alumnos han sido reprendidos."
+      },
+      "outputs": [
+        {
+          "sentence": "Las alumnas han sido reprendidas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Los abogados est\u00e1n avisados."
+      },
+      "outputs": [
+        {
+          "sentence": "Las abogadas est\u00e1n avisadas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Contando mentiras es lo que est\u00e1 haciendo Pedro."
+      },
+      "outputs": [
+        {
+          "sentence": "Contando mentiras es lo que est\u00e1 haciendo Pedro."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Los ex\u00e1menes tienen que ser corregidos."
+      },
+      "outputs": [
+        {
+          "sentence": "Los ex\u00e1menes tienen que ser corregidos."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Te tengo dicho que no salgas."
+      },
+      "outputs": [
+        {
+          "sentence": "Te tengo dicho que no salgas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Su trabajo es muy cansado."
+      },
+      "outputs": [
+        {
+          "sentence": "Su trabajo es muy cansado."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "El hombre est\u00e1 cansado."
+      },
+      "outputs": [
+        {
+          "sentence": "La mujer est\u00e1 cansada."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Tu hermano ha conocido al rey."
+      },
+      "outputs": [
+        {
+          "sentence": "Tu hermana ha conocido a la reina."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "El gato vacunada se march\u00f3."
+      },
+      "outputs": [
+        {
+          "sentence": "La gata vacunada se march\u00f3."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Mi amigo tiene guardado un cocodrilo."
+      },
+      "outputs": [
+        {
+          "sentence": "Mi amiga tiene guardado un cocodrilo."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Algunos de nuestros gatos han estado bailando."
+      },
+      "outputs": [
+        {
+          "sentence": "Algunas de nuestras gatas han estado bailando."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Los mineros han estado atrapados demasiado tiempo."
+      },
+      "outputs": [
+        {
+          "sentence": "Las mineras han estado atrapadas demasiado tiempo."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "El hombre tiene le\u00eddas muchas obras."
+      },
+      "outputs": [
+        {
+          "sentence": "La mujer tiene le\u00eddas muchas obras."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "He sido un tonto."
+      },
+      "outputs": [
+        {
+          "sentence": "He sido una tonta."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "T\u00fa est\u00e1s divorciado."
+      },
+      "outputs": [
+        {
+          "sentence": "T\u00fa est\u00e1s divorciada."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Ellos fueron expulsados por el director del colegio."
+      },
+      "outputs": [
+        {
+          "sentence": "Ellas fueron expulsadas por la directora del colegio."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "A lo mejor los jovenes creen en lo que dicen."
+      },
+      "outputs": [
+        {
+          "sentence": "A lo mejor las jovenes creen en lo que dicen."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Todo el mundo habla de lo bueno que es ese pianista."
+      },
+      "outputs": [
+        {
+          "sentence": "Todo el mundo habla de lo buena que es esa pianista."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Eso es lo bueno de mi primo."
+      },
+      "outputs": [
+        {
+          "sentence": "Eso es lo bueno de mi prima."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Lo bueno de mi sobrino es que apoya mis estupideces."
+      },
+      "outputs": [
+        {
+          "sentence": "Lo bueno de mi sobrina es que apoya mis estupideces."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "\u00bfQu\u00e9 hay de nuevo con tu amigo?"
+      },
+      "outputs": [
+        {
+          "sentence": "\u00bfQu\u00e9 hay de nuevo con tu amiga?"
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Te has fijado en lo delgado que est\u00e1."
+      },
+      "outputs": [
+        {
+          "sentence": "Te has fijado en lo delgado que est\u00e1."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Cuidado con los viejos astronautas australianos."
+      },
+      "outputs": [
+        {
+          "sentence": "Cuidado con las viejas astronautas australianas."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Todos los alpinistas italianos hablan italiano."
+      },
+      "outputs": [
+        {
+          "sentence": "Todas las alpinistas italianas hablan italiano."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Unos d\u00edas hace fr\u00edo."
+      },
+      "outputs": [
+        {
+          "sentence": "Unos d\u00edas hace fr\u00edo."
+        }
+      ]
+    },
+    {
+      "class": "SpanishGenderSwap",
+      "inputs": {
+        "sentence": "Unos cuantos me dicen que no."
+      },
+      "outputs": [
+        {
+          "sentence": "Unas cuantas me dicen que no."
+        }
+      ]
+    }
+  ]
+}
