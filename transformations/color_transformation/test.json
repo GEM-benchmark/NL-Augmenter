@@ -13,10 +13,10 @@
     {
       "class": "ColorTransformation",
       "inputs": {
-        "sentence": "I bought this pink shoes today! Isn't it pretty?"
+        "sentence": "I bought this pink pair of shoes today! Isn't it pretty?"
       },
       "outputs": [{
-        "sentence": "I bought this misty rose shoes today! Isn't it pretty?"
+        "sentence": "I bought this misty rose pair of shoes today! Isn't it pretty?"
       }]
     },
     {
@@ -40,10 +40,10 @@
     {
       "class": "ColorTransformation",
       "inputs": {
-        "sentence": "All swan are white."
+        "sentence": "All swans are white."
       },
       "outputs": [{
-        "sentence": "All swan are misty rose."
+        "sentence": "All swans are misty rose."
       }]
     }
   ]
