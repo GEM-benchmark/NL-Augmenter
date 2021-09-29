@@ -73,7 +73,7 @@ class GenderNeoPronouns(SentenceOperation):
             morph = token.morph.to_dict()
             children = list(token.children)
 
-            if token.pos_ == "PRON" and token.text.lower() not in ["i", "my"]:
+            if token.pos_ == "PRON" and "1" not in token.morph.get("Person"):
                 if "Case" in morph and "Reflex" in morph:
                     pron_type = "REF"
                 elif "Case" in morph and morph["Case"] == "Nom":

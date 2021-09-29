@@ -28,18 +28,6 @@
       {
         "class": "GenderNeoPronouns",
         "args" :{
-          "swap_neopronoun": "Per"
-       },
-        "inputs": {
-          "sentence": "I have to drive myself to school."
-        },
-        "outputs": [{
-          "sentence": "I have to drive perself to school."
-        }]
-      },
-      {
-        "class": "GenderNeoPronouns",
-        "args" :{
           "swap_neopronoun": "They"
        },
         "inputs": {
@@ -91,10 +79,34 @@
           "swap_neopronoun": "E"
        },
         "inputs": {
-          "sentence": "If I need a phone my friend will let me borrow his"
+          "sentence": "If I need a phone my friend will let me borrow his."
         },
         "outputs": [{
-          "sentence": "If I need a phone my friend will let em borrow eirs"
+          "sentence": "If I need a phone my friend will let me borrow eirs."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "Her dog nuzzled her."
+        },
+        "outputs": [{
+          "sentence": "Their dog nuzzled them."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "Her phone beeped unexpectedly and startled her."
+        },
+        "outputs": [{
+          "sentence": "Their phone beeped unexpectedly and startled them."
         }]
       }
     ]
