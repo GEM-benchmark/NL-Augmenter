@@ -55,6 +55,7 @@ Here, we provide a leaderboards for each default task, by executing transformati
 | MixedLanguagePerturbation   | 94.0->90.0 (-4.0)   | 92.0->86.0 (-6.0)     | 91.0->86.0 (-5.0)   | 95.0->91.0 (-4.0)   |
 | OcrPerturbation             | 94.0->89.0 (-5.0)   | 92.0->87.0 (-5.0)     | 91.0->89.0 (-2.0)   | 95.0->94.0 (-1.0)   |
 | PunctuationWithRules        | 94.0->94.0 (0.0)    | 92.0->92.0 (0.0)      | 91.0->91.0 (0.0)    | 95.0->90.0 (-5.0)   |
+| ReplaceFinancialAmount      | 94.0->94.0 (0.0)    | 92.0->92.0 (0.0)      | 91.0->91.0 (0.0)    | 95.0->95.0 (0.0)    |
 | ReplaceNumericalValues      | 94.0->94.0 (0.0)    | 92.0->92.0 (0.0)      | 91.0->90.0 (-1.0)   | 95.0->95.0 (0.0)    |
 | SentenceReordering          | 94.0->95.0 (1.0)    | 92.0->93.0 (1.0)      | nan                 | 95.0->94.0 (-1.0)   |
 | TokenReplacement            | 94.0->89.0 (-5.0)   | 92.0->84.0 (-8.0)     | 91.0->89.0 (-2.0)   | 95.0->92.0 (-3.0)   |
