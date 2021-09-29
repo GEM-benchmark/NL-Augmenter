@@ -1,0 +1,4 @@
+# for removing accent in characters
+Unidecode==1.2.0
+pypinyin==0.42.0
+jieba==0.42.1

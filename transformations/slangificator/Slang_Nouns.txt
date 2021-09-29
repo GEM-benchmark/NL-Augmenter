@@ -1,0 +1,665 @@
+terror,abdabs,abdabs
+money,ackers,ackers
+money,bugs bunny,bugs bunny
+money,bunce,bunce
+water,Adam's ale,Adam's ales
+advertisement,advert,adverts
+afternoon,afto,aftos
+aggression,aggro,aggros
+violence,aggro,aggros
+underwear,Alan Whickers,Alan Whickers
+alcoholic,alkie,alkies
+bar,all time loser,all time losers
+sock,almond rock,almond rocks
+lager,amber nectar,amber nectars
+brake,anchor,anchors
+stair,apple and pear,apples and pears
+trouble,argy-bargy,argy-bargies
+afternoon,avvy,avvies
+guitar,axe,axes
+fool,baboon,baboons
+bribe,backhander,backhanders
+tobacco,backy,backies
+towel,baden powell,baden powells
+mouth,bake,bakes
+tip,baksheesh,baksheeshes
+idea,baldy notion,baldy notions
+queen,baked bean,baked beans
+balaclava,bally,ballies
+nonsense,baloney,baloneys
+sausage,banger,bangers
+shovel,banjo,banjos
+hair,barnet,barnets
+argument,barney,barneys
+attempt,bash,bashes
+bastard,basket,baskets
+judge,beak,beaks
+eye,beady,beadies
+drink,belt,belts
+nothing,zilch,zilch
+nap,z's,z's
+home,yam,yams
+hooligan,yob,yobs
+coward,yitney,yitneys
+vegetable,veg,veg
+atmosphere,vibe,vibes
+vodka,voddy,voddy
+vomit,vom,vom
+doctor,quack,quacks
+u-turn,u-ee,u-ees
+head,uncle ned,uncle neds
+rabbit,underground chicken,underground chickens
+university,uni,unis
+vomit,upchuck,upchucks
+cutlery,eating irons,eating irons
+idiot,eejit,eejits
+tourist,emmet,emmets
+area,endz,endz
+expatriate,expat,expats
+jewellery,ice,ice
+piano,ivories,ivories
+party,beanfeast,beanfeasts
+money,beer tokens,beer tokens
+complaint,belly-ache,belly-aches
+food,belly timber,belly timber
+idiot,berk,berks
+drink,bevvy,bevvys
+cookie,bicky,bickies
+cancer,big c,big c
+hammer,birmingham screwdriver,birmingham screwdrivers
+police,bizzies,bizzies
+gossip,blabbermouth,blabbermouths
+robber,blagger,blaggers
+toilet,bog,bogs
+cocaine,bolivian marching powder,bolivian marching powder
+jewellery,bling bling,bling blings
+man,bloke,blokes
+mistake,bloomer,bloomers
+policeman,bobby,bobbies
+person,bod,bods
+intellectual,boffin,boffins
+head,bonce,bonces
+helmet,bonedome,bonedomes
+mistake,booboo,booboos
+drink,booze,booze
+bar,boozer,boozers
+alcoholic,boozer,boozers
+nonsense,bosh,bosh
+nonsense,bullshit, bullshit
+boyfriend,boyf,boyfs
+trouble,bovver,bovvers
+umbrella,brolly,brollies
+brother,bro,bros
+beer,britney,britneys
+money,bread,bread
+friend,bredrin,bredrins
+hooligan,bovver boy,bovver boys
+courage,bottle,bottles
+cigarette,tab,tabs
+moustache,tash,tashes
+wife,trouble and strife,troubles and strifes
+alleyway,twittern,twitterns
+twin,twinnie,twinnies
+idiot,turnip,turnips
+thief,tea leaf,tea leaves
+rubbish,tat,tats
+junk,tat,tats
+television,telly,tellies
+marijuana,tex mex,tex mex
+thing,thang,thangs
+cloth,thread,threads
+lavatory,throne,thrones
+toilet,thunderbox,thunderboxes
+reprimand,ticking off,ticking offs
+style,tip,tips
+manner,tip,tips
+fool,toby jug,toby jugs
+soccer,togger,togger
+nonsense,tommy-rot,tommy-rots
+rubbish,tommy-rot,tommy-rots
+condom,tonky,tonkies
+boss,top banana,top bananas
+bicycle,treader,treaders
+underwear,trolleys,trolleys
+food,tuck,tucks
+turnip,tumshie,tumshies
+rubbish,tut,tuts
+nonsense,tut,tuts
+fool,twerp,twerps
+leg,lally,lallies
+woman,lass,lasses
+mouth,laughing gear,laughing gears
+electricity,lecky,lecky
+legend,ledge,ledges
+fool,lemon,lemons
+idiot,lemon,lemons
+disappointment,let down,let downs
+head,loaf,loaves
+language,lingo,lingos
+pill,little,littles
+money,lolly,lolly
+hippy,long-hair,long-hairs
+lavatory,loo,loos
+toilet,loo,loos
+money,lookah,lookah
+ear,lug,lugs
+thousand,K,Ks
+kilogram,K,Ks
+underwear,kegs,kegs
+toilet,kermit,kermits
+candy,ket,kets
+watch,kettle,kettles
+idiot,knobber,knobbers
+mouth,kisser,kissers
+sleep,kip,kips
+blame,rap,raps
+nonsense,ratshit,ratshits
+rubbish,ratshit,ratshits
+squirrel,rat with furry tail,rats with furry tails
+pigeon,rat with wing,rats with wings
+money,readies,readies
+parent,rent,rents
+hair,riah,riahs
+diamond,rock,rocks
+policeman,rozzer,rozzers
+pub,rub-a-dub,rub-a-dubs
+condom,rubber johnny,rubber johnnies
+sea,oggin,oggins
+water,oggin,oggins
+cigarette,oily,oilies
+mother,old lady,old ladies
+father,old man,old men
+fool,omadhaun,omadhauns
+simpleton,omadhaun,omadhauns
+fluff,oose,oose
+dismissal,order of the boot,orders of the boot
+vaccination,jab,jabs
+hill,jack,jacks
+story,jackanory,jackanories
+food,jackbit,jackbits
+injection,jag,jags
+alcoholic,jake,jakes
+car,jam jar,jam jars
+pyjama,jammy,jammies
+nonsense,jank,jank
+rubbish,jank,jank
+wasp,jasper,jaspers
+idiot,jerk,jerks
+sandal,Jesus boot,Jesus boots
+deception,jiggery pokery,jiggery pokeries
+trickery,jiggery pokery,jiggery pokeries
+holiday,jolly,jollies
+vacation,jollies,jollies
+dollop,jollop,jollops
+journalist,journo,journos
+prison,jug,jugs
+petrol,juice,juices
+electricity,juice,juices
+pill,jimmy hill,jimmy hills
+dinner,jim skinner,jim skinners
+hassle,jip,jips
+alleyway,jitty,jitties
+taxi,joe baxi,joe baxies
+musician,muso,musos
+mushroom,mushy,mushies
+cat,moggie,moggies
+milk,moo juice,moo juices
+money,moolah,moolah
+McDonalds,Maccy D's,Maccy D's
+nonsense,malarkey,malarkeys
+foolishness,malarkey,malarkeys
+scar,mars bar,mars bars
+marijuana,mary jane,mary jane
+friend,mate,mates
+eye,mince pie,mince pies
+killjoy,misery-guts,misery-guts
+moment,mo,mos
+mouth,mush,mushes
+food,munch,munchies
+snack,munch,munches
+face,mug,mugs
+mouth,mug,mugs
+idiot,muffin,muffins
+fool,muffin,muffins
+mosquito,mozzy,mozzies
+gin,mother's ruin,mother's ruins
+idiot,muppet,muppets
+marijuana,wacky backy,wacky backy
+cannabis,wacky backy,wacky backy
+idiot,wally,wallies
+wasp,wap,waps
+idiot,wassock,wassocks
+imbecile,wassock,wassocks
+fool,wasteman,wastemen
+coat,weasel,weasels
+jacket,weasel,weasels
+money,wedge,wedges
+marijuana,weed,weeds
+cannabis,weed,weeds
+eccentric,weirdo,weirdos
+cider,winona ryder,winona ryders
+money,wonga,wongas
+idiot,wolly,wollies
+beer,wobbly pop,wobbly pops
+suit,whistle,whistles
+coffin,wooden overcoat,wooden overcoats
+lunatic,nutter,nutters
+lunatic,nutcase,nutcases
+eccentric,nutcase,nutcases
+idiot,nutter,nutters
+grandmother,nan,nanies
+novice,noob,noobs
+beginner,noob,noobs
+head,noodle,noodles
+food,nom nom,noms noms
+condom,nodder,nodders
+head,noggin,noggins
+handkerchief,nose-rag,nose-rags
+food,nosh,noshes
+idiot,nugget,nuggets
+fool,nugget,nuggets
+food,nose-bag,nose-bags
+meal,nose-bag,nose-bags
+cafe,noshery,nosheries
+restaurant,noshery,nosheries
+pub,nuclear sub,nuclear subs
+bar,nuclear sub,nuclear subs
+fool,numpty,numpties
+idiot,numpty,numpties
+fool,nerk,nerks
+nose,neb,nebs
+toilet,nettie,netties
+novice,newbie,newbies
+beginner,newbie,newbies
+newspaper,newsy,newsies
+snack,nibble,nibbles
+prison,nick,nicks
+terror,habdabs,habdabs
+idiot,helmet,helmets
+egg,hen fruit,hen fruits
+marijuana,hippy lettuce,hippy lettuces
+tantrum,hissy fit,hissy fits
+holiday,hol,hols
+friend,homie,homies
+nonsense,hooey,hooeys
+Wednesday,hump day,hump days
+injection,hit,hits
+murder,hit,hits
+mess,hames,hames
+pseudonym,handle,handles
+alias,handle,handles
+nonsense,hot air,hot air
+lunatic,head-the-ball,head-the-balls
+idiot,head-the-ball,head-the-balls
+boss,head-honcho,head-honchos
+nonsense,hogwash,hogwash
+rubbish,hogwash,hogwash
+lunatic,headcase,headcases
+lout,hoon,hoons
+commotion,hoo-ha,hoo-has
+trouble,hoo-ha,hoo-has
+mess,horlicks,horlicks
+snack,pack up,pack ups
+room,pad,pads
+home,pad,pads
+tantrum,paddy,paddies
+friend,pal,pals
+proletariat,prole,proles
+bet,punt,punts
+risk,punt,punts
+gamble,punt,punts
+nonsense,parp,parp
+rubbish,parp,parp
+people,peeps,peeps
+soldier,pongo,pongos
+marijuana,piff,piffs
+idiot,plank,planks
+beating,pasting,pasting
+stink,pen and ink,pen and ink
+simpleton,pie-eater,pie-eaters
+mouth,pie-hole,pie-holes
+computer,pooter,pooters
+police,po po,po po
+money,poppy,poppy
+postman,postie,posties
+postwoman,postie,posties
+marijuana,pot,pot
+present,prezzie,prezzies
+gift,prezzie,prezzies
+brawl,punch up,punch ups
+crash,purler,purlers
+infatuation,pash,pashes
+tramp,paraffin,paraffins
+vagrant,paraffin,paraffins
+idiot,pilchard,pilchards
+alcohol,poison,poison
+drink,peeve,peeves
+toilet,pan,pans
+policecar,panda,pandas
+dole,pancrack,pancracks
+discussion,palaver,palavers
+bed,pit,pits
+nonsense,piffle,piffles
+drivel,piffle,piffles
+fool,pie-can,pie-cans
+idiot,pie-can,pie-cans
+mess,pig's ear,pig's ears
+disaster,pig's ear,pig's ears
+idiot,prannock,prannocks
+trouble,pickle,pickles
+idiot,prannet,prannets
+imbecile,prannet,prannets
+crash,prang,prangs
+accident,prang,prangs
+feet,plate,plates
+leg,pin,pins
+pantomine,panto,pantos
+fingerprint,dab,dabs
+fool,daftie,dafties
+idiot,daftie,dafties
+idiot,dumbnut,dumbnuts
+stair,dancer,dancers
+idiot,dimbo,dimbos
+fool,dimbo,dimbos
+dusk,dimpsey,dimpseys
+twilight,dimpsey,dimpseys
+shower,david gower,david gowers
+house,drum,drums
+home,drum,drums
+look,deek,deeks
+glance,deek,deeks
+money,dough,dough
+tranquillizer,downer,downers
+Australia,down under,down under
+alleyway,drangway,drangways
+thirst,drooth,drooths
+condom,dunky,dunkies
+toilet,dunny,dunnies
+clerk,desk pilot,desk pilots
+money,dosh,dosh
+idiot,dunderhead,dunderheads
+nonsense,double dutch,double dutch
+laundry,doby,dobbies
+idiot,div,divs
+imbecile,dimmock,dimmocks
+idiot,dimmock,dimmocks
+dinner,din-dins,din-dins
+argument,ding-dong,ding-dongs
+commotion,ding-dong,ding-dongs
+fight,ding-dong,ding-dongs
+shirt,dicky dirt,dicky dirts
+gypsy,diddicoy,diddicoys
+rag,dwile,dwiles
+fight,dust-up,dust-ups
+quarrel,dust-up,dust-ups
+idiot,durbrain,durbrains
+fool,durbrain,durbrains
+look,dekko,dekkos
+glance,dekko,dekkos
+claim,dibs,dibs
+lodging,digs,digs
+accommodation,digs,digs
+snack,docky,dockies
+telephone,dog and bone,dogs and bones
+policeman,dibble,dibbles
+policewoman,dibble,dibbles
+fool,duckegg,duckeggs
+idiot,duckegg,duckeggs
+idiot,digby,digbies
+imbecile,digby,digbies
+punch,dry slap,dry slaps
+stone,ducker,duckers
+idiot,doughnut,doughnuts
+nothing,diddly-squat,diddly-squat
+jacket,desmond,desmonds
+cost,damage,damages
+expense,damage,damages
+walk,dander,danders
+wander,dander,danders
+gram,g,gs
+boss,gaffer,gaffers
+marijuana,ganja,ganja
+cigarette,gasper,gaspers
+policeman,gavver,gavvers
+policewoman,gavver,gavvers
+heed,gawm,gawms
+notice,gawm,gawms
+attention,gawm,gawms
+information,gen,gen
+idiot,gimboid,gimboids
+fool,gimboid,gimboids
+idiot,gobbin,gobbins
+fool,gobbin,gobbins
+alleyway,gennell,gennells
+passageway,gennell,gennells
+nonsense,gobbledygook,gobbledygook
+neck,gregory,gregories
+marijuana,green,greens
+look,gander,ganders
+glance,gander,ganders
+nonsense,gobbledygook,gobbledygooks
+television,gogglebox,goggleboxes
+idiot,goit,goits
+fool,goit,goits
+pullover,gansie,gansies
+jumper,gansie,gansies
+sweater,gansie,gansies
+headbutt,glasgow kiss,glasgow kisses
+idiot,gonk,gonks
+railway,gricer,gricers
+train,gricer,gricers
+bicycle,grod,grods
+underwear,grundies,grundies
+power,grunt,grunt
+hassle,gyp,gyps
+bother,gyp,gyps
+nonsense,gumf,gumf
+rubbish,gumf,gumf
+policeman,grasshopper,grasshoppers
+trouble,grief,griefs
+hassle,grief,griefs
+informer,grasser,grassers
+news,griff,griff
+information,griff,griff
+fool,goon,goons
+leg,gam,gams
+marijuana,grass,grasses
+resourcefulness,gumption,gumption
+initiative,gumption,gumption
+look,goosey,gooseys
+dirt,grot,grot
+rubbish,grot,grot
+lunatic,fruit and nut case,fruit and nut cases
+misbehaviour,funny business,funny businesses
+deception,funny business,funny businesses
+idiot,fannybaws,fannybaws
+fool,fannybaws,fannybaws
+road,frog and toad,frogs and toads
+forehead,fod,fods
+backyard,fode,fodes
+money,folding,folding
+brawl,fisticuffs,fisticuffs
+football,fitba,fitba
+face,fizzog,fizzogs
+cinema,flicks,flicks
+movie,flicks,flicks
+family,fam,fams
+friend,fam,fams
+festival,fest,fests
+film,fillem,fillems
+police,filth,filth
+fundamentalist,fundy,fundies
+bench,form,forms
+bet,flutter,flutters
+police,fuzz,fuzz
+tobacco,salmon and trout,salmons and trouts
+sandwich,sanger,sangers
+heroin,scag,scag
+trick,scam,scams
+drink,scoop,scoops
+underwear,scuds,scuds
+food,snappin,snappins
+gun,strap,straps
+sunglass,sunny,sunnies
+vomit,spew,spews
+nose,snotbox,snotboxes
+drunkard,soak,soaks
+sparrow,spadger,spadgers
+vehicle,set of wheels,set of wheels
+money,sovs,sovs
+scavenger,scav,scavs
+policeman,scuffer,scuffers
+prison,shovel,shovels
+tea,splosh,sploshes
+child,sprog,sprogs
+thief,sticky fingers,sticky fingers
+alleyway,snicket,snickets
+electrician,spark,sparks
+drink,sauce,sauces
+food,scran,scran
+steroid,sted,steds
+money,spondulicks,spondulicks
+drink,sherbet,sherbets
+taxi,sherbet,sherbets
+swindle,swizz,swizzes
+dawn,sparrowfart,sparrowfarts
+parody,send up,send ups
+fight,swedge,swedges
+food,scram,scrams
+scratch,scram,scrams
+nuisance,scunner,scunners
+drink,shant,shants
+idiot,silly bugger,silly buggers
+fool,silly bugger,silly buggers
+heroin,skag,skags
+skinhead,skin,skins
+sister,skin,skins
+information,skinny,skinny
+detail,skinny,skinny
+nonsense,squit,squit
+rubbish,squit,squit
+tantrum,stecky,steckies
+head,swede,swedes
+cafe,caff,caffs
+cousin,cuz,cuzes
+friend,cuz,cuzes
+canal,cut,cuts
+headphone,can,cans
+cardigan,cardie,cardies
+mouth,cake-hole,cake-holes
+cigarette,cancer stick,cancer sticks
+water,council pop,council pops
+cocaine,ching,chings
+conversation,chin-wag,chin-wags
+chat,chin-wag,chin-wags
+mouth,chops,chops
+vomit,chunder,chunders
+cigarette,cig,cigs
+cigarette,ciggy,ciggies
+blood,claret,clarets
+mud,clart,clarts
+prison,clink,clinks
+idiot,clot,clots
+fool,clot,clots
+nonsense,codswallop,codswallop
+cigarette,coffin nail,coffin nails
+cocaine,coke,cokes
+nose,conk,conks
+policeman,copper,coppers
+policewoman,copper,coppers
+policeman,cop,cops
+policewoman,cop,cops
+cocaine,chisel,chisels
+tooth,chopper,choppers
+prison,chokey,chokeys
+food,chow,chows
+clue,scooby,scoobies
+champagne,champs,champs
+cocaine,chang,changs
+arm,chalk,chalks
+tea,char,chars
+cocaine,charlie,charlies
+fool,charlie,charlies
+idiot,charlie,charlies
+friend,charver,charvers
+boy,charver,charvers
+child,chavvy,chavvies
+face,chevy,chevies
+flirtation,chirpsing,chirpsings
+rubbish,crud,cruds
+dirt,crud,cruds
+nonsense,crock,crock
+Christmas,crimbo,crimbos
+gang,crewage,crewages
+toilet,crapper,crappers
+sycophant,crawler,crawlers
+jean,steve mcqueen,steve mcqueens
+look,squiz,squizes
+glance,squiz,squizes
+milk,cow juice,cow juices
+face,coupon,coupons
+nonsense,crap,craps
+rubbish,crap,craps
+waste,crap,craps
+water,corporation pop,corporation pops
+hysterics,conniption,conniptions
+excuse,cop-out,cop-outs
+farmer,clodhopper,clodhoppers
+bed,sack,sacks
+splinter,skelf,skelfs
+priest,skypilot,skypilots
+confectionary,snashters,snashters
+sparrow,spuggy,spuggies
+money,sobs,sobs
+tobacco,snout,snouts
+informer,snout,snouts
+fool,chump,chumps
+head,chump,chumps
+friend,chum,chums
+train,chuffer,chuffers
+underwear,chuddies,chuddies
+underpant,chuddies,chuddies
+knife,chib,chibs
+blade,chib,chibs
+SUV,chelsea tractor,chelsea tractors
+underpant,cack,cacks
+trouser,cack,cacks
+rubbish,cack,cacks
+saboteur,sab,sabs
+sabotage,sab,sabs
+mushroom,shroom,shrooms
+supermarket,soopy,soopies
+handkerchief,snot rag,snot rags
+informer,snitcher,snitchers
+heroin,smack,smacks
+chocolate,chocker,chockers
+chat,conflab,conflabs
+conversation,conflab,conflabs
+fragment,skerret,skerrets
+underwear,skids,skids
+underpant,skids,skids
+idiot,smeghead,smegheads
+look,skeg,skegs
+boastfulness,side,sides
+arrogance,side,sides
+hand,spud,spuds
+food,snap,snaps
+snack,snap,snaps
+spy,spook,spooks
+ghost,spook,spooks
+man,chap,chaps
+temper,cob on,cob on
+lavatory,cludgie,cludgies
+insect,creepy-crawly,creepy-crawlies
+spider,creepy-crawly,creepy-crawlies
+mistake,clanger,clangers
+blunder,clanger,clangers
+nothing,sod-all,sod-all
+carpenter,chippy,chippies
+nothing,chuff-all,chuff-all
+look,shufty,shufties
+glance,shufty,shufties
+hassle,stick,sticks
+effort,stick,sticks
+impudence,chelp,chelp
+sun,currant bun,currant buns
