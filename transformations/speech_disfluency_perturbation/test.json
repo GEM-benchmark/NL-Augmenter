@@ -1,0 +1,144 @@
+{
+  "type": "speech_disfluency_perturbation",
+  "test_cases": [
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [
+        {
+          "sentence": "Andrew finally um returned the French book to Chris that I bought last ah week"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [
+        {
+          "sentence": "Sentences with gapping, uh such as Paul likes coffee and Mary tea, lack an er overt predicate to indicate the uh relation between two or more arguments."
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [
+        {
+          "sentence": "Alice in Wonderland is er a 2010 American live-action/animated dark fantasy adventure film"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [
+        {
+          "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to ah 2001"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [
+        {
+          "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of uh the neuronosynaptic organization."
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": "Yes"
+      },
+      "outputs": [
+        {
+          "sentence": "Yes ah"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": "Of course"
+      },
+      "outputs": [
+        {
+          "sentence": "Of ah course"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "inputs": {
+        "sentence": ""
+      },
+      "outputs": [
+        {
+          "sentence": "ah"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "args": {
+        "filler_words": [
+          "oof",
+          "agh"
+        ]
+      },
+      "inputs": {
+        "sentence": "Where did you learn how to drive again?"
+      },
+      "outputs": [
+        {
+          "sentence": "Where did you learn how oof to drive again?"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "args": {
+        "filler_words": [
+          "eek"
+        ]
+      },
+      "inputs": {
+        "sentence": "I'm deathly afraid of mice!"
+      },
+      "outputs": [
+        {
+          "sentence": "I'm deathly eek afraid of mice!"
+        }
+      ]
+    },
+    {
+      "class": "SpeechDisfluencyPerturbation",
+      "args": {
+        "filler_words": [
+          "hmph",
+          "ahem",
+          "wheeze"
+        ]
+      },
+      "inputs": {
+        "sentence": "I've had a sore throat all week."
+      },
+      "outputs": [
+        {
+          "sentence": "I've had ahem a sore throat all week."
+        }
+      ]
+    }
+  ]
+}
