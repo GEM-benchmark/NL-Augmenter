@@ -1,3 +1,9 @@
+# linguistic change: lexical, syntactic
+# algorithm: rule-based, api-based, transformer-based, tokenizer-required
+# naturalness: natural-sounding
+# generation: high-precision
+# skills: gender, gender-neutral, rewrite, translation
+
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -471,6 +477,11 @@ class GenderNeutralRewrite(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = ["lexical", "syntactic",
+                "rule-based", "api-based", "transformer-based", "tokenizer-required",
+                "natural-sounding",
+                "high-precision",
+                "gender", "gender-neutral", "rewrite", "translation"]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
