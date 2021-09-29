@@ -1,737 +1,443 @@
 {
     "AliceBlue": {
-        "decimal": "240,248,255",
-        "hex": "#F0F8FF",
         "name": "alice blue"
     },
     "AntiqueWhite": {
-        "decimal": "250,235,215",
-        "hex": "#FAEBD7",
         "name": "antique white"
     },
     "Aqua": {
-        "decimal": "0,255,255",
-        "hex": "#00FFFF",
         "name": "aqua"
     },
     "Aquamarine": {
-        "decimal": "127,255,212",
-        "hex": "#7FFFD4",
         "name": "aquamarine"
     },
     "Azure": {
-        "decimal": "240,255,255",
-        "hex": "#F0FFFF",
         "name": "azure"
     },
     "Beige": {
-        "decimal": "245,245,220",
-        "hex": "#F5F5DC",
         "name": "beige"
     },
     "Bisque": {
-        "decimal": "255,228,196",
-        "hex": "#FFE4C4",
         "name": "bisque"
     },
     "Black": {
-        "decimal": "0,0,0",
-        "hex": "#000000",
         "name": "black"
     },
     "BlanchedAlmond": {
-        "decimal": "255,235,205",
-        "hex": "#FFEBCD",
         "name": "blanched almond"
     },
     "Blue": {
-        "decimal": "0,0,255",
-        "hex": "#0000FF",
         "name": "blue"
     },
     "BlueViolet": {
-        "decimal": "138,43,226",
-        "hex": "#8A2BE2",
         "name": "blue violet"
     },
     "Brown": {
-        "decimal": "165,42,42",
-        "hex": "#A52A2A",
         "name": "brown"
     },
     "BurlyWood": {
-        "decimal": "222,184,135",
-        "hex": "#DEB887",
         "name": "burly wood"
     },
     "CadetBlue": {
-        "decimal": "95,158,160",
-        "hex": "#5F9EA0",
         "name": "cadet blue"
     },
     "Chartreuse": {
-        "decimal": "127,255,0",
-        "hex": "#7FFF00",
         "name": "chartreuse"
     },
     "Chocolate": {
-        "decimal": "210,105,30",
-        "hex": "#D2691E",
         "name": "chocolate"
     },
     "Coral": {
-        "decimal": "255,127,80",
-        "hex": "#FF7F50",
         "name": "coral"
     },
     "CornflowerBlue": {
-        "decimal": "100,149,237",
-        "hex": "#6495ED",
         "name": "cornflower blue"
     },
     "Cornsilk": {
-        "decimal": "255,248,220",
-        "hex": "#FFF8DC",
         "name": "cornsilk"
     },
     "Crimson": {
-        "decimal": "220,20,60",
-        "hex": "#DC143C",
         "name": "crimson"
     },
     "Cyan": {
-        "decimal": "0,255,255",
-        "hex": "#00FFFF",
         "name": "cyan"
     },
     "DarkBlue": {
-        "decimal": "0,0,139",
-        "hex": "#00008B",
         "name": "dark blue"
     },
     "DarkCyan": {
-        "decimal": "0,139,139",
-        "hex": "#008B8B",
         "name": "dark cyan"
     },
     "DarkGoldenRod": {
-        "decimal": "184,134,11",
-        "hex": "#B8860B",
         "name": "dark golden rod"
     },
     "DarkGray": {
-        "decimal": "169,169,169",
-        "hex": "#A9A9A9",
         "name": "dark gray"
     },
     "DarkGreen": {
-        "decimal": "169,169,169",
-        "hex": "#A9A9A9",
         "name": "dark green"
     },
     "DarkGrey": {
-        "decimal": "0,100,0",
-        "hex": "#006400",
         "name": "dark grey"
     },
     "DarkKhaki": {
-        "decimal": "189,183,107",
-        "hex": "#BDB76B",
         "name": "dark khaki"
     },
     "DarkMagenta": {
-        "decimal": "139,0,139",
-        "hex": "#8B008B",
         "name": "dark magenta"
     },
     "DarkOliveGreen": {
-        "decimal": "85,107,47",
-        "hex": "#556B2F",
         "name": "dark olive green"
     },
     "DarkOrchid": {
-        "decimal": "153,50,204",
-        "hex": "#9932CC",
         "name": "dark orchid"
     },
     "DarkRed": {
-        "decimal": "139,0,0",
-        "hex": "#8B0000",
         "name": "dark red"
     },
     "DarkSalmon": {
-        "decimal": "233,150,122",
-        "hex": "#E9967A",
         "name": "dark salmon"
     },
     "DarkSeaGreen": {
-        "decimal": "143,188,143",
-        "hex": "#8FBC8F",
         "name": "dark sea green"
     },
     "DarkSlateBlue": {
-        "decimal": "72,61,139",
-        "hex": "#483D8B",
         "name": "dark slate blue"
     },
     "DarkSlateGray": {
-        "decimal": "47,79,79",
-        "hex": "#2F4F4F",
         "name": "dark slate gray"
     },
     "DarkSlateGrey": {
-        "decimal": "47,79,79",
-        "hex": "#2F4F4F",
         "name": "dark slate grey"
     },
     "DarkTurquoise": {
-        "decimal": "0,206,209",
-        "hex": "#00CED1",
         "name": "dark turquoise"
     },
     "DarkViolet": {
-        "decimal": "148,0,211",
-        "hex": "#9400D3",
         "name": "dark violet"
     },
     "Darkorange": {
-        "decimal": "255,140,0",
-        "hex": "#FF8C00",
         "name": "darkorange"
     },
     "DeepPink": {
-        "decimal": "255,20,147",
-        "hex": "#FF1493",
         "name": "deep pink"
     },
     "DeepSkyBlue": {
-        "decimal": "0,191,255",
-        "hex": "#00BFFF",
         "name": "deep sky blue"
     },
     "DimGray": {
-        "decimal": "105,105,105",
-        "hex": "#696969",
         "name": "dim gray"
     },
     "DimGrey": {
-        "decimal": "105,105,105",
-        "hex": "#696969",
         "name": "dim grey"
     },
     "DodgerBlue": {
-        "decimal": "30,144,255",
-        "hex": "#1E90FF",
         "name": "dodger blue"
     },
     "FireBrick": {
-        "decimal": "178,34,34",
-        "hex": "#B22222",
         "name": "fire brick"
     },
     "FloralWhite": {
-        "decimal": "255,250,240",
-        "hex": "#FFFAF0",
         "name": "floral white"
     },
     "ForestGreen": {
-        "decimal": "34,139,34",
-        "hex": "#228B22",
         "name": "forest green"
     },
     "Fuchsia": {
-        "decimal": "255,0,255",
-        "hex": "#FF00FF",
         "name": "fuchsia"
     },
     "Gainsboro": {
-        "decimal": "220,220,220",
-        "hex": "#DCDCDC",
         "name": "gainsboro"
     },
     "GhostWhite": {
-        "decimal": "248,248,255",
-        "hex": "#F8F8FF",
         "name": "ghost white"
     },
     "Gold": {
-        "decimal": "255,215,0",
-        "hex": "#FFD700",
         "name": "gold"
     },
     "GoldenRod": {
-        "decimal": "218,165,32",
-        "hex": "#DAA520",
         "name": "golden rod"
     },
     "Gray": {
-        "decimal": "128,128,128",
-        "hex": "#808080",
         "name": "gray"
     },
     "Green": {
-        "decimal": "173,255,47",
-        "hex": "#ADFF2F",
         "name": "green"
     },
     "GreenYellow": {
-        "decimal": "128,128,128",
-        "hex": "#808080",
         "name": "green yellow"
     },
     "Grey": {
-        "decimal": "0,128,0",
-        "hex": "#008000",
         "name": "grey"
     },
     "HoneyDew": {
-        "decimal": "240,255,240",
-        "hex": "#F0FFF0",
         "name": "honey dew"
     },
     "HotPink": {
-        "decimal": "255,105,180",
-        "hex": "#FF69B4",
         "name": "hot pink"
     },
     "IndianRed": {
-        "decimal": "205,92,92",
-        "hex": "#CD5C5C",
         "name": "indian red"
     },
     "Indigo": {
-        "decimal": "75,0,130",
-        "hex": "#4B0082",
         "name": "indigo"
     },
     "Ivory": {
-        "decimal": "255,255,240",
-        "hex": "#FFFFF0",
         "name": "ivory"
     },
     "Khaki": {
-        "decimal": "240,230,140",
-        "hex": "#F0E68C",
         "name": "khaki"
     },
     "Lavender": {
-        "decimal": "230,230,250",
-        "hex": "#E6E6FA",
         "name": "lavender"
     },
     "LavenderBlush": {
-        "decimal": "255,240,245",
-        "hex": "#FFF0F5",
         "name": "lavender blush"
     },
     "LawnGreen": {
-        "decimal": "124,252,0",
-        "hex": "#7CFC00",
         "name": "lawn green"
     },
     "LemonChiffon": {
-        "decimal": "255,250,205",
-        "hex": "#FFFACD",
         "name": "lemon chiffon"
     },
     "LightBlue": {
-        "decimal": "173,216,230",
-        "hex": "#ADD8E6",
         "name": "light blue"
     },
     "LightCoral": {
-        "decimal": "240,128,128",
-        "hex": "#F08080",
         "name": "light coral"
     },
     "LightCyan": {
-        "decimal": "224,255,255",
-        "hex": "#E0FFFF",
         "name": "light cyan"
     },
     "LightGoldenRodYellow": {
-        "decimal": "250,250,210",
-        "hex": "#FAFAD2",
         "name": "light golden rod yellow"
     },
     "LightGray": {
-        "decimal": "211,211,211",
-        "hex": "#D3D3D3",
         "name": "light gray"
     },
     "LightGreen": {
-        "decimal": "211,211,211",
-        "hex": "#D3D3D3",
         "name": "light green"
     },
     "LightGrey": {
-        "decimal": "144,238,144",
-        "hex": "#90EE90",
         "name": "light grey"
     },
     "LightPink": {
-        "decimal": "255,182,193",
-        "hex": "#FFB6C1",
         "name": "light pink"
     },
     "LightSalmon": {
-        "decimal": "255,160,122",
-        "hex": "#FFA07A",
         "name": "light salmon"
     },
     "LightSeaGreen": {
-        "decimal": "32,178,170",
-        "hex": "#20B2AA",
         "name": "light sea green"
     },
     "LightSkyBlue": {
-        "decimal": "135,206,250",
-        "hex": "#87CEFA",
         "name": "light sky blue"
     },
     "LightSlateGray": {
-        "decimal": "119,136,153",
-        "hex": "#778899",
         "name": "light slate gray"
     },
     "LightSlateGrey": {
-        "decimal": "119,136,153",
-        "hex": "#778899",
         "name": "light slate grey"
     },
     "LightSteelBlue": {
-        "decimal": "176,196,222",
-        "hex": "#B0C4DE",
         "name": "light steel blue"
     },
     "LightYellow": {
-        "decimal": "255,255,224",
-        "hex": "#FFFFE0",
         "name": "light yellow"
     },
     "Lime": {
-        "decimal": "0,255,0",
-        "hex": "#00FF00",
         "name": "lime"
     },
     "LimeGreen": {
-        "decimal": "50,205,50",
-        "hex": "#32CD32",
         "name": "lime green"
     },
     "Linen": {
-        "decimal": "250,240,230",
-        "hex": "#FAF0E6",
         "name": "linen"
     },
     "Magenta": {
-        "decimal": "255,0,255",
-        "hex": "#FF00FF",
         "name": "magenta"
     },
     "Maroon": {
-        "decimal": "128,0,0",
-        "hex": "#800000",
         "name": "maroon"
     },
     "MediumAquaMarine": {
-        "decimal": "102,205,170",
-        "hex": "#66CDAA",
         "name": "medium aqua marine"
     },
     "MediumBlue": {
-        "decimal": "0,0,205",
-        "hex": "#0000CD",
         "name": "medium blue"
     },
     "MediumOrchid": {
-        "decimal": "186,85,211",
-        "hex": "#BA55D3",
         "name": "medium orchid"
     },
     "MediumPurple": {
-        "decimal": "147,112,219",
-        "hex": "#9370DB",
         "name": "medium purple"
     },
     "MediumSeaGreen": {
-        "decimal": "60,179,113",
-        "hex": "#3CB371",
         "name": "medium sea green"
     },
     "MediumSlateBlue": {
-        "decimal": "123,104,238",
-        "hex": "#7B68EE",
         "name": "medium slate blue"
     },
     "MediumSpringGreen": {
-        "decimal": "0,250,154",
-        "hex": "#00FA9A",
         "name": "medium spring green"
     },
     "MediumTurquoise": {
-        "decimal": "72,209,204",
-        "hex": "#48D1CC",
         "name": "medium turquoise"
     },
     "MediumVioletRed": {
-        "decimal": "199,21,133",
-        "hex": "#C71585",
         "name": "medium violet red"
     },
     "MidnightBlue": {
-        "decimal": "25,25,112",
-        "hex": "#191970",
         "name": "midnight blue"
     },
     "MintCream": {
-        "decimal": "245,255,250",
-        "hex": "#F5FFFA",
         "name": "mint cream"
     },
     "MistyRose": {
-        "decimal": "255,228,225",
-        "hex": "#FFE4E1",
         "name": "misty rose"
     },
     "Moccasin": {
-        "decimal": "255,228,181",
-        "hex": "#FFE4B5",
         "name": "moccasin"
     },
     "NavajoWhite": {
-        "decimal": "255,222,173",
-        "hex": "#FFDEAD",
         "name": "navajo white"
     },
     "Navy": {
-        "decimal": "0,0,128",
-        "hex": "#000080",
         "name": "navy"
     },
     "OldLace": {
-        "decimal": "253,245,230",
-        "hex": "#FDF5E6",
         "name": "old lace"
     },
     "Olive": {
-        "decimal": "128,128,0",
-        "hex": "#808000",
         "name": "olive"
     },
     "OliveDrab": {
-        "decimal": "107,142,35",
-        "hex": "#6B8E23",
         "name": "olive drab"
     },
     "Orange": {
-        "decimal": "255,165,0",
-        "hex": "#FFA500",
         "name": "orange"
     },
     "OrangeRed": {
-        "decimal": "255,69,0",
-        "hex": "#FF4500",
         "name": "orange red"
     },
     "Orchid": {
-        "decimal": "218,112,214",
-        "hex": "#DA70D6",
         "name": "orchid"
     },
     "PaleGoldenRod": {
-        "decimal": "238,232,170",
-        "hex": "#EEE8AA",
         "name": "pale golden rod"
     },
     "PaleGreen": {
-        "decimal": "152,251,152",
-        "hex": "#98FB98",
         "name": "pale green"
     },
     "PaleTurquoise": {
-        "decimal": "175,238,238",
-        "hex": "#AFEEEE",
         "name": "pale turquoise"
     },
     "PaleVioletRed": {
-        "decimal": "219,112,147",
-        "hex": "#DB7093",
         "name": "pale violet red"
     },
     "PapayaWhip": {
-        "decimal": "255,239,213",
-        "hex": "#FFEFD5",
         "name": "papaya whip"
     },
     "PeachPuff": {
-        "decimal": "255,218,185",
-        "hex": "#FFDAB9",
         "name": "peach puff"
     },
     "Peru": {
-        "decimal": "205,133,63",
-        "hex": "#CD853F",
         "name": "peru"
     },
     "Pink": {
-        "decimal": "255,192,203",
-        "hex": "#FFC0CB",
         "name": "pink"
     },
     "Plum": {
-        "decimal": "221,160,221",
-        "hex": "#DDA0DD",
         "name": "plum"
     },
     "PowderBlue": {
-        "decimal": "176,224,230",
-        "hex": "#B0E0E6",
         "name": "powder blue"
     },
     "Purple": {
-        "decimal": "128,0,128",
-        "hex": "#800080",
         "name": "purple"
     },
     "Red": {
-        "decimal": "255,0,0",
-        "hex": "#FF0000",
         "name": "red"
     },
     "RosyBrown": {
-        "decimal": "188,143,143",
-        "hex": "#BC8F8F",
         "name": "rosy brown"
     },
     "RoyalBlue": {
-        "decimal": "65,105,225",
-        "hex": "#4169E1",
         "name": "royal blue"
     },
     "SaddleBrown": {
-        "decimal": "139,69,19",
-        "hex": "#8B4513",
         "name": "saddle brown"
     },
     "Salmon": {
-        "decimal": "250,128,114",
-        "hex": "#FA8072",
         "name": "salmon"
     },
     "SandyBrown": {
-        "decimal": "244,164,96",
-        "hex": "#F4A460",
         "name": "sandy brown"
     },
     "SeaGreen": {
-        "decimal": "46,139,87",
-        "hex": "#2E8B57",
         "name": "sea green"
     },
     "SeaShell": {
-        "decimal": "255,245,238",
-        "hex": "#FFF5EE",
         "name": "sea shell"
     },
     "Sienna": {
-        "decimal": "160,82,45",
-        "hex": "#A0522D",
         "name": "sienna"
     },
     "Silver": {
-        "decimal": "192,192,192",
-        "hex": "#C0C0C0",
         "name": "silver"
     },
     "SkyBlue": {
-        "decimal": "135,206,235",
-        "hex": "#87CEEB",
         "name": "sky blue"
     },
     "SlateBlue": {
-        "decimal": "106,90,205",
-        "hex": "#6A5ACD",
         "name": "slate blue"
     },
     "SlateGray": {
-        "decimal": "112,128,144",
-        "hex": "#708090",
         "name": "slate gray"
     },
     "SlateGrey": {
-        "decimal": "112,128,144",
-        "hex": "#708090",
         "name": "slate grey"
     },
     "Snow": {
-        "decimal": "255,250,250",
-        "hex": "#FFFAFA",
         "name": "snow"
     },
     "SpringGreen": {
-        "decimal": "0,255,127",
-        "hex": "#00FF7F",
         "name": "spring green"
     },
     "SteelBlue": {
-        "decimal": "70,130,180",
-        "hex": "#4682B4",
         "name": "steel blue"
     },
     "Tan": {
-        "decimal": "210,180,140",
-        "hex": "#D2B48C",
         "name": "tan"
     },
     "Teal": {
-        "decimal": "0,128,128",
-        "hex": "#008080",
         "name": "teal"
     },
     "Thistle": {
-        "decimal": "216,191,216",
-        "hex": "#D8BFD8",
         "name": "thistle"
     },
     "Tomato": {
-        "decimal": "255,99,71",
-        "hex": "#FF6347",
         "name": "tomato"
     },
     "Turquoise": {
-        "decimal": "64,224,208",
-        "hex": "#40E0D0",
         "name": "turquoise"
     },
     "Violet": {
-        "decimal": "238,130,238",
-        "hex": "#EE82EE",
         "name": "violet"
     },
     "Wheat": {
-        "decimal": "245,222,179",
-        "hex": "#F5DEB3",
         "name": "wheat"
     },
     "White": {
-        "decimal": "255,255,255",
-        "hex": "#FFFFFF",
         "name": "white"
     },
     "WhiteSmoke": {
-        "decimal": "245,245,245",
-        "hex": "#F5F5F5",
         "name": "white smoke"
     },
     "Yellow": {
-        "decimal": "255,255,0",
-        "hex": "#FFFF00",
         "name": "yellow"
     },
     "YellowGreen": {
-        "decimal": "154,205,50",
-        "hex": "#9ACD32",
         "name": "yellow green"
     }
 }
