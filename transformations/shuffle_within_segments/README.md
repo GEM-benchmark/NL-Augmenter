@@ -13,7 +13,7 @@ text generation, and most importantly, a tagging task.
 This would help augment data for a NER task by keeping the labels still aligned.
 
 ## What are the limitations of this transformation?
-It is possible that shuffling could change the meaning of the sentence, the meaning the entity itself or have negative effect for NLU tasks.
+It is possible that shuffling could change the meaning of the sentence, the meaning of the entity itself or have a negative effect on NLU tasks.
 
 ## Evaluation
 
