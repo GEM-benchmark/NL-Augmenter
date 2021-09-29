@@ -39,6 +39,24 @@ transformed to "I am feeling chocolate."
 It is possible for the user to minimize such side effects by specifying a stricter
 mapping of colors.
 
+## Evaluation Results
+
+| Model                            | Original | Transformed | Difference (T-O) |
+|:--------------------------------:|:--------:|:-----------:|:----------------:|
+| textattack/roberta-base-SST-2    | 94.0     | 94.0        | -0.0             |
+| textattack/roberta-base-imdb     | 95.0     | 95.0        | -0.0             |
+| textattack/bert-base-uncased-QQP | 92.0     | 91.0        | -1.0             |
+| roberta-large-mnli               | 91.0     | 91.0        | -0.0             |
+
+The following code was used for the evaluation.
+
+```
+python evaluate.py -t ColorTransformation -m "textattack/roberta-base-SST-2" -d "sst2"
+python evaluate.py -t ColorTransformation -m "textattack/roberta-base-imdb" -d "imdb"
+python evaluate.py -t ColorTransformation -m "textattack/bert-base-uncased-QQP" -d "qqp"
+python evaluate.py -t ColorTransformation -m "roberta-large-mnli" -d "multi_nli"
+```
+
 ## References
 
 [1] Pemberton, S., &amp; Pettit, B. (2021, August 5). *Css Color Module Level 3*. World Wide Web Consortium (W3C). https://www.w3.org/TR/2021/REC-css-color-3-20210805/. 
