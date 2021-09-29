@@ -17,7 +17,7 @@ class Summarization(SentenceOperation):
 
     def __init__(self):
         # super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy_nlp if spacy.load('en_core_web_sm', disable=['ner','textcat'])
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.dicts ={
             'SUBJECTS': ["nsubj", "nsubjpass", "csubj", "csubjpass", "agent", "expl"],
             'OBJECTS': ["dobj", "dative", "attr", "oprd", "acomp", "advcl", "advmod", "amod", "appos", "nn", "nmod", "ccomp", "complm", "hmod", "infmod", "xcomp", "rcmod", "poss"," possessive"],
