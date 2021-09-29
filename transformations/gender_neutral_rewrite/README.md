@@ -1,7 +1,4 @@
-# Gender Neutral Translation
-This perturbation adds noise to all types of text sources (sentence, paragraph, etc.) proportional to noise erupting 
-from keyboard typos making common spelling errors.
-
+# Gender Neutral Rewrite
 Author name: Tony Sun
 Author email: thetonysun@gmail.com
 Author Affiliation: UC Santa Barbara / Google

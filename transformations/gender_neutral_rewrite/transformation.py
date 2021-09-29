@@ -471,6 +471,12 @@ def create_new_doc(doc: Doc, verbs_replacements: dict):
 
 
 class GenderNeutralRewrite(SentenceOperation):
+    """
+    This transformation involves rewriting a gendered sentence in English with its gender-neutral variant.
+    For example, the sentence "His dream is to be a fireman when he grows up" can be rewritten as
+                              "Their dream is to be a firefighter when they grow up."
+    Source: https://arxiv.org/pdf/2102.06788.pdf
+    """
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
