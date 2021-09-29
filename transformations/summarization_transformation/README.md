@@ -1,11 +1,14 @@
 # Sentence Summarizaiton 🦎  + ⌨️ → 🐍
 This perturbation extracts all types of text sources (sentence, paragraph, etc.) for the summarization of the sentence without changing meanings. 
+
 Author name: Jing Zhang (jing.zhang2@emory.edu, Emory University)
 
 Author name: Zhexiong Liu (zhexiong@cs.pitt.edu, University of Pittsburgh)
 
 ## What type of a transformation is this?
-This transformation acts like extracting subjects, verbs, and objects as an summarization of the given sentence. Keep the original basic meanings and retain the negations. The basic idea is to extract a triplet (subject, predicate, object) from a given sentence, which contains salient information of the sentence. We used tags, such as POS, dependency tags, to label each token and used our algorithm to extract the triplet based on the tags. This paper (https://aclanthology.org/2021.acl-long.70.pdf) demonstrates that nouns, verbs are the most useful information regardless of word orders in the given context, so our triplet extraction shows great potential for information extraction with the ability to keep most salient information in a triplet.
+This transformation acts like extracting subjects, verbs, and objects as an summarization of the given sentence. Keep the original basic meanings and retain the negations. 
+
+The basic idea is to extract a triplet (subject, predicate, object) from a given sentence, which contains salient information of the sentence. We used tags, such as POS, dependency tags, to label each token and used our algorithm to extract the triplet based on the tags. This paper (https://aclanthology.org/2021.acl-long.70.pdf) demonstrates that nouns, verbs are the most useful information regardless of word orders in the given context, so our triplet extraction shows great potential for information extraction with the ability to keep most salient information in a triplet.
 
 It also robust to generate the summarizaiton of the sentence which contains grammar issues (test case 2).
 
