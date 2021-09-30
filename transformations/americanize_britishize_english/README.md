@@ -23,3 +23,17 @@ Hyperreality - American-British-English-Translator -> Its a command line tool fo
 
 ## What are the limitations of this transformation?
 There is no set standard dictionary available to fetch all the permutations and combinations.
+
+
+## Robustness Evaluation:-
+
+Evaluation Result 1:-
+
+model: `sshleifer/distilbart-xsum-12-6` <br>
+split: `20%` <br>
+dataset: `xsum` <br>
+
+| Sentence Type | Predicted BELU Score|
+|--------------------|------|
+|Original Dataset | 14.877283 |
+|Transformed Dataset| 14.489393|
