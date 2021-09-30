@@ -265,6 +265,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
             question = self.statement_to_question(sentence)
             if question is not None:
                 rhetorical_question = self.rhetoricalize_question(question)
-                outputs.append(rhetorical_question)
+                if rhetorical_question is not None:
+                    outputs.append(rhetorical_question)
 
-        return [" ".join(outputs)]
+        sentence = " ".join(output for output in outputs if output is not None)
+        return [sentence] if sentence else []
