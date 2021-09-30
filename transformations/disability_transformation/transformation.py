@@ -123,10 +123,8 @@ def different_ability(input, disability_names):
             wl, pl = postag(text)
             max_len = len(wl)
             indices = get_index(wl, name)
-            textp = placement(indices, wl, pl, input, disability_names, name)
-            text = restore_punc(textp)
-           
-        text = preserve_capitalization(input,text)
+            text = placement(indices, wl, pl, input, disability_names, name)         
+        text = preserve_capitalization(input, text)
         text = restore_punc(text)
     return text
 
@@ -138,8 +136,9 @@ class DifferentAbilityTransformation(SentenceOperation):
     languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=1):
-        super().__init__(seed, max_outputs=max_outputs)
+        super().__init__(seed, max_outputs = max_outputs)
         self.disability_names = disability_names
-
+        self.nlp = spacy.load("en_core_web_sm")
+        
     def generate(self, sentence: str):
       return [different_ability(sentence, self.disability_names)]
