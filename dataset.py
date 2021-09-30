@@ -193,7 +193,7 @@ class KeyValueDataset(BaseDataset):
                 data.append({key: example[key] for key in fields})
         else:
             # this is an ugly implementation, which hard-codes the squad data format
-            # TODO might need a more elegant way to deal with the fields with hierachy, e.g. the answers field in squad data (exampl['answers']['text'])
+            # TODO might need a more elegant way to deal with the fields with hierarchy, e.g. the answers field in squad data (exampl['answers']['text'])
             for example in list(dataset)[:max_size]:
                 data.append(
                     {

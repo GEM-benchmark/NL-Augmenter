@@ -116,7 +116,7 @@ def split_text_into_random_length_chunks(
 ):
     """Returns a list of strings, each string being a part of the input text.
 
-    The lengh of each part is selected randomly.
+    The length of each part is selected randomly.
 
     >>> test_rnd_generator = np.random.default_rng(seed=42)
     >>> split_text_into_random_length_chunks("I love carrots", test_rnd_generator, exclude_white_spaces=True)
@@ -308,7 +308,7 @@ def to_syllabary(
 
     For example, "I love carrots" could be converted into a fake syllabary system as follows:
     0. Randomly assign syllables: ['I', 'lov', 'e', 'pota', 't', 'oes']
-    1. Assing each syllable a random character:
+    1. Assign each syllable a random character:
     '蚴 䬔蕆 富憩䗑'
 
     >>> test_rnd_gen = np.random.default_rng(seed=42)
@@ -355,7 +355,7 @@ def to_logographic(
 
     For example, "I love carrots" could be converted into a fake logographic system as follows:
     0. Split the text into words: ['I', 'love', 'carrots']
-    1. Assing each word a random character:
+    1. Assign each word a random character:
     '蚴 䬔 䗑'
 
     >>> test_rnd_gen = np.random.default_rng(seed=111)
@@ -421,10 +421,10 @@ def to_partial_phonemic(
     For example, "I love cats" could be converted into a fake partial phonemic system as follows:
     0. Split the text into small random parts: ['I', 'lo', 've', 'ca', 'ts']
     1. Remove a random selection of the parts: ['lo', 've', 'ca']
-    1. Assing each remaining part a random character:
+    1. Assign each remaining part a random character:
     '蚴 䬔 䗑'
 
-    vowel_ratio determines how many parts will be removed, simulating the ommision of vowels
+    vowel_ratio determines how many parts will be removed, simulating the omission of vowels
     in partial phonemic writing systems.
 
     >>> test_rnd_generator = np.random.default_rng(seed=42)

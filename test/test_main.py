@@ -19,7 +19,7 @@ expected_keywords = keywords_in_file()
 def get_assert_message(transformation, expected_output, predicted_output):
     transformation_name = transformation.__class__.__name__
     return (
-        f"Mis-match in expected and predicted output for {transformation_name} transformation: \n "
+        f"Mismatch in expected and predicted output for {transformation_name} transformation: \n "
         f"Expected Output: {expected_output} \n "
         f"Predicted Output: {predicted_output}"
     )

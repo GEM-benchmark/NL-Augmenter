@@ -48,7 +48,7 @@ and the quality of identification of low-resource languages in particular.
 
 ## Robustness Evaluation
 
-We've evaluated this transformation by running the build-in evaluate.py script as follows:
+We've evaluated this transformation by running the built-in evaluate.py script as follows:
 `python3 evaluate.py -t WritingSystemReplacement`
 
 Note: it seems that there is a bug in 

@@ -10,7 +10,7 @@ from tasks.TaskTypes import TaskType
 
 """
 Adjectives Antonyms Switch.
-    Change adjectives for their antonyms generating a sentence with oposite meaning.
+    Change adjectives for their antonyms generating a sentence with opposite meaning.
 """
 
 
@@ -193,7 +193,7 @@ if __name__ == '__main__':
                                     ["He was a very big guy.",
                                      "Her mother was a good looking woman.",
                                      "Thomas became very rich once the war was over.",
-                                     "You had to be very skillfull to make such a machine.",
+                                     "You had to be very skillful to make such a machine.",
                                      "To sit there doing nothing was very stupid."],
                                      ["1",
                                       "1",

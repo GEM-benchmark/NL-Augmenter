@@ -21,7 +21,7 @@ from tasks.TaskTypes import TaskType
 
     args:
         language (str): base language for butter fingers
-        keyboard (str): preffered keyboard schema (currently available: "inscript")
+        keyboard (str): preferred keyboard schema (currently available: "inscript")
         seed (int, default = 0): seed for reproducibility 
 '''
 

@@ -36,4 +36,4 @@ Implementation heavily borrowed from
 ```
 
 ## What are the limitations of this transformation?
-The quality of transformation depends on the quality of the neural model and it was original proposed for dialog systems. This transformation requieres a question question paraphraser.
+The quality of transformation depends on the quality of the neural model and it was original proposed for dialog systems. This transformation requires a question question paraphraser.
