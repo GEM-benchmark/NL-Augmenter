@@ -285,6 +285,14 @@ preceeding_word = {
     "Den": "Die",
     "einen": "eine",
     "Einen": "Eine",
+    "dieser": "diese",
+    "Dieser": "Diese",
+    "diesen": "diese",
+    "Diesen": "Diese",
+    "meinen": "meine",
+    "Meinen": "Meine",
+    "deinen": "deine",
+    "Deinen": "Deine",
 }
 
 
