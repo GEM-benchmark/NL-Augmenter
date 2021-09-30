@@ -267,4 +267,4 @@ class YesNoQuestionPerturbation(SentenceOperation):
                 rhetorical_question = self.rhetoricalize_question(question)
                 outputs.append(rhetorical_question)
 
-        return outputs
+        return [" ".join(outputs)]
