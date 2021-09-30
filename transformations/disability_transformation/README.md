@@ -7,9 +7,12 @@ Affiliation: --
 
 ## What type of a transformation is this?
 This transformation replaces outdated names for disabilities with more considerate names now used in the modern world.
-For e.g. 
+For example:
+
 If the input sentence is: "After the accident, she is now a cripple."
+
 The output will be: "After the accident, she is now a person or people with a physical disability.".
+
 This transformation uses several different online sources for compilation of a list of offensive terms and their alternatives. All the sources are referenced below. [1]
 
 ## What tasks does it intend to benefit?
@@ -24,7 +27,7 @@ The transformation may generate some nonsensical outputs as it does not consider
 ## References:
 [1] Sources: 
 * Inclusive language: words to use and avoid when writing about disability:
-**  https://www.gov.uk/government/publications/inclusive-communication/inclusive-language-words-to-use-and-avoid-when-writing-about-disability
+> https://www.gov.uk/government/publications/inclusive-communication/inclusive-language-words-to-use-and-avoid-when-writing-about-disability
 
 * List of disability-related terms with negative connotations: 
 > https://en.wikipedia.org/wiki/List_of_disability-related_terms_with_negative_connotations
