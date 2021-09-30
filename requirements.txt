@@ -29,6 +29,6 @@ sentencepiece==0.1.95
 black==21.5b2
 pre-commit==2.13.0
 
-
+codespell==2.1.0 
 flake8==3.9.2
 isort==5.9.1

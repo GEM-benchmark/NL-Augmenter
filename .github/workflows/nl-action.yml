@@ -28,6 +28,9 @@ jobs:
       run: |
         if [ -f requirements.txt ]; then pip3 install --upgrade --upgrade-strategy eager -r requirements.txt -e . ; fi
         pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz
+    - name: Discover typos with codespell
+      run: |
+        codespell --ignore-words-list="als,ans,ba,fo,fro,ines,ist,medias,oder,ser,som,te" --skip="*.ipynb,*.json,*.txt"
     - name: Test with pytest
       run: |
         pytest -s --t=light --f=light
