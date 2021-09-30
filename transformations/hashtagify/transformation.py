@@ -16,6 +16,9 @@ from tasks.TaskTypes import TaskType
 
 
 def find_candidates(doc):
+    """
+    return the named entities, nouns and verbs as a list of candidates for hashtagify
+    """
     chunked = ne_chunk(pos_tag(word_tokenize(doc.text)))
     candidates = []
     current_chunk = []
@@ -51,6 +54,9 @@ def find_candidates(doc):
 
 
 def hashtagify(sentence, nlp, prob=0.5, seed=666, max_outputs=1):
+    """
+    add hashtag prefix (#) to the candidates according to a fixed probability
+    """
     random.seed(seed)
     doc = nlp(sentence)
     perturbed_texts = []
