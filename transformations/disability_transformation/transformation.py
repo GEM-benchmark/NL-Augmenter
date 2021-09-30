@@ -1,4 +1,7 @@
 !python -m spacy download en_core_web_sm
+from interfaces.SentenceOperation import SentenceOperation
+from evaluation.evaluation_engine import evaluate, execute_model
+from tasks.TaskTypes import TaskType
 import spacy
 import string
 from spacy.lang.en.examples import sentences 
