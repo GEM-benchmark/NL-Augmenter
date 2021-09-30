@@ -100,6 +100,7 @@ class SimpleCiphers(SentenceOperation):
   
   tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
   languages = ["en"]
+  keywords = ["morphological", "rule-based", "highly-meaning-preserving", "high-precision", "low-generations"]
   
   def generate(self, sentence):
     return [
