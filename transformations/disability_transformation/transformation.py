@@ -50,7 +50,6 @@ disability_names =  {"blind":"person or people with a visual impairment",
                            "retards":"people with an intellectual disability", 
                            "retarded":"person or people with an intellectual disability", 
                            }
-
 def postag(text):
     doc = nlp(text)
     pos_list = []
@@ -103,7 +102,7 @@ def placement(index_of_dis, wl, pl, input, disability_names, name):
     wl,pl = postag(text)
     index_of_dis = get_index(wl,name)
     max_len = len(wl)
-    #FOR EACH VALUE OF INDEX
+
     for i in index_of_dis: 
         print("For Occurence", i)
         print("For Words Less than Maximum Length:")
@@ -130,7 +129,6 @@ def placement(index_of_dis, wl, pl, input, disability_names, name):
   
 def different_ability(input, disability_names):
     text = input.lower()
-    text = ''.join(' ' if c in '.!' else c for c in text)
     for name in disability_names.keys():
         if name in text:
             wl, pl = postag(text)
