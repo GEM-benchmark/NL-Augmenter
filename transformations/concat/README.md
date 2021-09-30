@@ -1,6 +1,10 @@
 # Concatenate Two Random Sentences
 This transformation concats two random sentences as explained in [Nguyen et al., 2021](https://arxiv.org/abs/2105.01691). This is the bilingual version. A monolingual version is available under concat monlingual.
 
+Author Name: Kenton Murray
+Author Contact: kenton@jhu.edu
+Author Affiliation: Johns Hopkins University
+
 ## What type of a transformation is this?
 This transformation creates longer data sequences.
 
