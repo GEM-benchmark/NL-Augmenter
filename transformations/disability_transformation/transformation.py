@@ -62,32 +62,6 @@ def postag(text):
         word_list.append(token.text)
     print(pos_list, word_list)
     return word_list, pos_list
-
-def cleanup(text):
-    st = text
-    l = len(st)
-    indices = [i for i, x in enumerate(st) if x in string.punctuation]
-    new_str = ""
-    if len(indices) != 0:
-        if indices[-1] == l-1:
-            j = 0
-            for i in indices:
-                new_str += st[j:i-1]
-                j = i
-            new_str += st[j:]
-            return new_str  
-        elif indices[-1] < l-1:
-            j = 0
-            for i in indices:
-                new_str += st[j:i-1]
-                j = i
-            notlast = indices[-1]
-            new_str += st[notlast:]
-            return new_str      
-    elif len(indices) == 0:
-        return st
-    else:
-        return st
       
 def preserve_capitalization(original, transformed):
     if original[0].isupper():
@@ -128,17 +102,32 @@ def placement(index_of_dis, wl, pl, input, disability_names, name):
             s = ' '.join(wl)
             text = s
         text = preserve_capitalization(input, text)
-    return text    
-  
+    return text   
+
+def replace_punc(text):
+    for i in string.punctuation:
+        text = text.replace(i," "+i)
+    return text  
+
+def restore_punc(text):
+    for i in string.punctuation:
+        text = text.replace(" "+i,i)
+    return text
+
+
 def different_ability(input, disability_names):
     text = input.lower()
+    text=replace_punc(text)
     for name in disability_names.keys():
         if name in text:
             wl, pl = postag(text)
             max_len = len(wl)
             indices = get_index(wl, name)
-            textp = placement(indices, wl, pl, input, disability_names, name) 
-            text = cleanup(textp)
+            textp = placement(indices, wl, pl, input, disability_names, name)
+            text = restore_punc(textp)
+           
+        text = preserve_capitalization(input,text)
+        text = restore_punc(text)
     return text
 
 class DifferentAbilityTransformation(SentenceOperation):
