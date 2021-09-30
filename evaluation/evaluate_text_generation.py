@@ -11,7 +11,9 @@ def sacrebleu_score(hypotheses, references):
     return corpus_bleu(hypotheses, [references]).score
 
 
-def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"):
+def evaluate(
+    operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"
+):
     # load model
     if model_name is None:
         model_name = "sshleifer/distilbart-xsum-12-6"
@@ -19,7 +21,9 @@ def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:
     if dataset_name is None:
         dataset_name = "xsum"
 
-    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
+    print(
+        f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model."
+    )
     hf_dataset = (
         load_dataset(dataset_name, "3.0.0", split=split)
         if dataset_name == "xsum"
@@ -51,7 +55,7 @@ def evaluate(operation, evaluate_filter, model_name, dataset_name, split="test[:
 
 
 def filter_performance(dataset, summarization_pipeline, filter):
-    print(f"Here is the performance of the model on the filtered set")
+    print("Here is the performance of the model on the filtered set")
     filtered_dataset = dataset.apply_filter(filter, subfields=["document"])
     return performance_on_dataset(filtered_dataset, summarization_pipeline)
 
@@ -62,10 +66,16 @@ and on the perturbed set.
 """
 
 
-def transformation_performance(dataset, summarization_pipeline, transformation):
-    performance = performance_on_dataset(dataset, summarization_pipeline)  # 15.989 BLEU
-    pt_dataset = dataset.apply_transformation(transformation, subfields=["document"])
-    print(f"Here is the performance of the model on the transformed set")
+def transformation_performance(
+    dataset, summarization_pipeline, transformation
+):
+    performance = performance_on_dataset(
+        dataset, summarization_pipeline
+    )  # 15.989 BLEU
+    pt_dataset = dataset.apply_transformation(
+        transformation, subfields=["document"]
+    )
+    print("Here is the performance of the model on the transformed set")
     pt_performance = performance_on_dataset(
         pt_dataset, summarization_pipeline
     )  # 11.830 BLEU
@@ -88,7 +98,9 @@ def performance_on_dataset(dataset, summarization_pipeline):
 
         references.append(gold_summary)
         raw_hypotheses.append(predicted_summary)
-    predicted_summary_score = sacrebleu_score(raw_hypotheses, references)  # 15.989 BLEU
+    predicted_summary_score = sacrebleu_score(
+        raw_hypotheses, references
+    )  # 15.989 BLEU
 
     print(f"Predicted BLEU score = {predicted_summary_score}")
     return {

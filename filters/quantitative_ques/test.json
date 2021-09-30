@@ -1,0 +1,46 @@
+{
+   "type": "quantitative_question",
+   "test_cases": [
+      {
+         "class": "QuantitativeQuestion",
+         "inputs": {
+            "context":"The journey from Delhi to New York takes 14 hours",
+            "question": "How long does the journey take?",
+            "answers":["14",
+                       "14 hours"]
+         },
+         "outputs": true
+      },
+      {
+         "class": "QuantitativeQuestion",
+         "inputs": {
+            "context":"The journey from Delhi to New York takes 14 hours",
+            "question": "Where is Delhi located ?",
+            "answers":["in India",
+                       "India"]
+         },
+         "outputs": false
+      },
+      {
+         "class": "QuantitativeQuestion",
+         "inputs": {
+            "context":"Sams' father is 60 years old",
+            "question": "How old is Sams' father",
+            "answers":["60",
+                       "60 years",
+                       "60 years old"]
+         },
+         "outputs": true
+      },
+      {
+         "class": "QuantitativeQuestion",
+         "inputs": {
+            "context":"Marry is 5 feet tall  while Sam is 6 feet tall",
+            "question": "How tall is Sam",
+            "answers":["6",
+                       "6 feet"]
+         },
+         "outputs": true
+      }
+   ]
+}

@@ -1,0 +1,2 @@
+# for CloseHomophonesSwap
+SoundsLike==0.0.11

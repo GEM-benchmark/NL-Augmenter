@@ -4,6 +4,7 @@ import numpy as np
 import spacy
 from checklist.perturb import Perturb
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceAndTargetOperation
 from tasks.TaskTypes import TaskType
 
@@ -18,14 +19,16 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
     tgt_languages = ["en"]
+    keywords = ["lexical", "rule-based", "high-coverage", "high-precision"]
 
-    def __init__(self, first_only=False, last_only=False, n=1, seed=0, max_output=1):
-        super().__init__(seed)
-        self.nlp = spacy.load("en_core_web_sm")
+    def __init__(
+        self, first_only=False, last_only=False, n=1, seed=0, max_outputs=1
+    ):
+        super().__init__(seed, max_outputs=max_outputs)
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.first_only = first_only  # first name
         self.last_only = last_only  # last name
         self.n = n
-        self.max_output = max_output
 
     def generate(self, sentence: str, target: str):
         np.random.seed(self.seed)
@@ -35,7 +38,9 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
         doc = self.nlp(sentence).doc
         # (1) replace person entities
         person_entities = [
-            x.text for x in doc.ents if np.all([a.ent_type_ == "PERSON" for a in x])
+            x.text
+            for x in doc.ents
+            if np.all([a.ent_type_ == "PERSON" for a in x])
         ]
         ret = []
         ret_m = []
@@ -50,10 +55,11 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
             if not sex:
                 continue
             if len(x.split()) > 1:
-                l = x.split()[1]
+                l_split = x.split()[1]
                 if (
-                    len(l) > 2
-                    and l.capitalize() not in Perturb.data["name_set"]["last"]
+                    len(l_split) > 2
+                    and l_split.capitalize()
+                    not in Perturb.data["name_set"]["last"]
                 ):
                     continue
             else:
@@ -80,13 +86,18 @@ class ChangeTwoWayNe(SentenceAndTargetOperation):
         if len(ret) > 0 and ret[0] != sentence:
             perturbed_source = ret[0]
             perturbed_target = outs[0]
-            print(
-                f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}"
-            )
+            if self.verbose:
+                print(
+                    f"Perturbed Input from {self.name()} : \nSource: {perturbed_source}\nLabel: {perturbed_target}"
+                )
             return [(perturbed_source, perturbed_target)]
 
         # (2) add location named entities
-        ents = [x.text for x in doc.ents if np.all([a.ent_type_ == "GPE" for a in x])]
+        ents = [
+            x.text
+            for x in doc.ents
+            if np.all([a.ent_type_ == "GPE" for a in x])
+        ]
         ret = []
         ret_m = []
         outs = []

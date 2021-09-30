@@ -1,0 +1,38 @@
+{
+  "type": "synonym_substitution",
+  "test_cases": [
+    {
+      "class": "SynonymSubstitution",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week."
+      },
+      "outputs": [
+        {
+          "sentence": "Andrew ultimately retort the French book to Chris that I buy final week."
+        }
+      ]
+    },
+    {
+      "class": "SynonymSubstitution",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [
+        {
+          "sentence": "sentence with gapping, such as Paul like coffee and Mary tea, miss an overt predicate to bespeak the relation between two or more arguments."
+        }
+      ]
+    },
+    {
+      "class": "SynonymSubstitution",
+      "inputs": {
+        "sentence": "Albany Theatre is a historic theater in Albany, Georgia. It was added to the National Register of Historic Places on August 21, 2006."
+      },
+      "outputs": [
+        {
+          "sentence": "Albany Theatre is a historic dramaturgy in Albany, Georgia. It was total to the National Register of Historic Places on August 21, 2006."
+        }
+      ]
+    }
+  ]
+}

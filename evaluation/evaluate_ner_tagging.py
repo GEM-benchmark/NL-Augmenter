@@ -18,7 +18,9 @@ def convert_ner_ids_to_tags(ner_tags):
         8: "I-MISC",
     }
     for tag in ner_tags:
-        ner_tag_sequence.append(ner_tag_dict.get(tag, "0"))  # '0', tag for no ner token
+        ner_tag_sequence.append(
+            ner_tag_dict.get(tag, "0")
+        )  # '0', tag for no ner token
     return ner_tag_sequence
 
 
@@ -50,7 +52,11 @@ TODO: this implementation should change - needs to be done dataset wise
 
 
 def evaluate(
-    operation, evaluate_filter, model_name, dataset_name, split="validation[:20%]"
+    operation,
+    evaluate_filter,
+    model_name,
+    dataset_name,
+    split="validation[:20%]",
 ):
     # load modal
     if model_name is None:
@@ -59,7 +65,9 @@ def evaluate(
     if dataset_name is None:
         dataset_name = "conll2003"
 
-    print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
+    print(
+        f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model."
+    )
     dataset = load_dataset(dataset_name, split=split)
     tagging_pipeline = pipeline("ner", model=model_name, tokenizer=model_name)
 
@@ -79,7 +87,9 @@ def evaluate(
         # Calculating the performance on the original set
         gold_tag_seq = convert_ner_ids_to_tags(example["ner_tags"])
         prediction = tagging_pipeline(example["tokens"])
-        predicted_tag_seq = create_prediction_seq(prediction, len(gold_tag_seq))
+        predicted_tag_seq = create_prediction_seq(
+            prediction, len(gold_tag_seq)
+        )
         score = accuracy_score([gold_tag_seq], [predicted_tag_seq])
         average_score += score
         if evaluate_filter:
@@ -96,13 +106,15 @@ def evaluate(
             # TODO: Needs to handle for multiple outputs.
             trans_input, trans_gold_tag_seq = operation.generate(
                 example["tokens"], gold_tag_seq
-            )
+            )[0]
             trans_gold_tag_seq = convert_ner_ids_to_tags(trans_gold_tag_seq)
             transformed_input_prediction = tagging_pipeline(trans_input)
             trans_predicted_tag_seq = create_prediction_seq(
                 transformed_input_prediction, len(trans_gold_tag_seq)
             )
-            pt_score = accuracy_score([trans_gold_tag_seq], [trans_predicted_tag_seq])
+            pt_score = accuracy_score(
+                [trans_gold_tag_seq], [trans_predicted_tag_seq]
+            )
             average_pertubed_score += pt_score
 
     average_score = average_score / len(dataset) * 100
@@ -110,7 +122,9 @@ def evaluate(
     print(
         f"Here is the performance of the model {model_name} on the {split} split of the {dataset} dataset"
     )
-    print(f"The average accuracy on a subset of {dataset_name} = {average_score}")
+    print(
+        f"The average accuracy on a subset of {dataset_name} = {average_score}"
+    )
     performance = {
         "model_name": model_name,
         "split": split,
@@ -118,7 +132,9 @@ def evaluate(
         "accuracy": np.round(average_score, 1),
     }
     if evaluate_filter:
-        filter_true_average_score = filter_true_average_score / filter_true_count * 100
+        filter_true_average_score = (
+            filter_true_average_score / filter_true_count * 100
+        )
         filter_false_average_score = (
             filter_false_average_score / filter_false_count * 100
         )
@@ -135,6 +151,8 @@ def evaluate(
     else:
         performance["pt_accuracy"]: np.round(average_pertubed_score, 1)
         average_pertubed_score = average_pertubed_score / len(dataset) * 100
-        print(f"The average accuracy on its perturbed set = {average_pertubed_score}")
+        print(
+            f"The average accuracy on its perturbed set = {average_pertubed_score}"
+        )
 
     return performance

@@ -78,7 +78,7 @@ def execute_model(
 ):
     interface = implementation.__bases__[0]  # SentenceTransformation
     impl = implementation()
-    if locale == "en":
+    if locale in ("en", "zh"):
         if (
             isinstance(impl, SentenceOperation)
             and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION
