@@ -47,6 +47,7 @@ map_transformation = {
         "random_upper_transformation",
         "redundant_context_for_qa",
         "replace_numerical_values",
+        "replace_financial_amounts",
         "replace_spelling",
         "sentiment_emoji_augmenter",
         "suspecting_paraphraser",
@@ -54,6 +55,7 @@ map_transformation = {
         "synonym_substitution",
         "whitespace_perturbation",
         "word_noise",
+        "yes_no_question",
     ],
     "heavy": [
         "back_translation",
@@ -62,6 +64,7 @@ map_transformation = {
         "lost_in_translation",
         "mixed_language_perturbation",
         "multilingual_back_translation",
+        "ocr_perturbation",
         "pinyin",
         "punctuation",
         "quora_trained_t5_for_qa",

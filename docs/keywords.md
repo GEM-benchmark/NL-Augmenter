@@ -50,5 +50,6 @@ Keyword | Description
   `causal-reasoning` | ability to reason about cause and effect
   `social-reasoning` | ability to understand and reason about human social interactions
   `figurative-language` | ability to understand figures of speech
+  `domain-knowledge` | ability to understand domain knowledge (e.g.: `financial domain`)
   `world-knowledge` | ability to understand world knowledge
   
