@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+import random
+import string
+from typing import List
+from checklist.editor import Editor
+from interfaces.SentenceOperation import SentenceOperation
+from evaluation.evaluation_engine import evaluate, execute_model
+from tasks.TaskTypes import TaskType
+import json
 
 
 noun_pairs = {
@@ -231,15 +239,6 @@ noun_pairs = {
     "Kater": "Katze",
 }
 
-# -*- coding: utf-8 -*-
-import random
-import string
-from typing import List
-from checklist.editor import Editor
-from interfaces.SentenceOperation import SentenceOperation
-from evaluation.evaluation_engine import evaluate, execute_model
-from tasks.TaskTypes import TaskType
-import json
 
 f = open(
     "data.json",
