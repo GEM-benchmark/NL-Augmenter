@@ -10,13 +10,23 @@ Affiliation: --
 ## What type of a transformation is this?
 This transformation will swap the 226 male nouns and pronouns and of input sentences with female nouns and pronouns. It mostly deals with nominative singular  cases, and some accusative ones. It also takes the most common top 1000 German male names[1] and if they are present in the input, they are  replaced with a random female name from  top 1000 German female names[2]. 
 
-Input --> Output
-Ich sehe den Mann -->Ich sehe die Frau
-John ist hier →Sandy ist hier *
-Er ist der Prasident, sie ist die Herrscherin und sie werden jetzt bald Ehemann und Ehefrau sein! → Sie ist die Prasidentin, sie ist die Herrscherin und sie werden jetzt bald Frau und Ehefrau sein!
-Der Ingenieur geht→Die Ingenieurin  geht
-Ich sehe, dass der Dichter und die Schauspielerin jetzt Freunde sind! → 
-Ich sehe, dass die Dichterin und die Schauspielerin jetzt Freunde sind!
+
+|         Input                                            |                  Output                                 |
+| -------------------------------------------------------- | ------------------------------------------------------- |
+|                                                          |                                                         |
+| Ich sehe den Mann                                        | Ich sehe die Frau                                       |
+|                                                          |                                                         |
+| John ist hier                                            | Sandy ist hier *                                        |
+|                                                          |                                                         |
+| Ich sehe, dass der Dichter und die Schauspielerin jetzt  |Ich sehe, dass die Dichterin und die Schauspielerin jetzt|                     | Freunde sind!                                            | Freunde sind!                                           |
+|                                                          |                                                         |
+|                                                          |                                                         |
+| Content Cell                                             | Content Cell                                            |
+|                                                          |                                                         |
+| Content Cell                                             | Content Cell                                            |
+
+
+
 
 *The female name is picked at random and will always be different.
 
