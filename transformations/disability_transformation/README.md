@@ -22,11 +22,10 @@ The transformation may generate some nonsensical outputs as it does not consider
 
 ## References:
 [1] Sources: 
-Inclusive language: words to use and avoid when writing about disability:
-https://www.gov.uk/government/publications/inclusive-communication/inclusive-language-words-to-use-and-avoid-when-writing-about-disability
-List of disability-related terms with negative connotations:
-https://en.wikipedia.org/wiki/List_of_disability-related_terms_with_negative_connotations
-Terms to Avoid When Writing About Disability:
-https://ncdj.org/2015/09/terms-to-avoid-when-writing-about-disability/
-National Youth Leadership Network Respectful Disability Language: Here’s What’s Up!
-https://www.aucd.org/docs/add/sa_summits/Language%20Doc.pdf
+* Inclusive language: words to use and avoid when writing about disability: https://www.gov.uk/government/publications/inclusive-communication/inclusive-language-words-to-use-and-avoid-when-writing-about-disability
+
+* List of disability-related terms with negative connotations: https://en.wikipedia.org/wiki/List_of_disability-related_terms_with_negative_connotations
+
+* Terms to Avoid When Writing About Disability: https://ncdj.org/2015/09/terms-to-avoid-when-writing-about-disability/
+
+* National Youth Leadership Network Respectful Disability Language: Here’s What’s Up! https://www.aucd.org/docs/add/sa_summits/Language%20Doc.pdf
