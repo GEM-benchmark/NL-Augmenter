@@ -18,13 +18,12 @@ This transformation will swap the 226 male nouns and pronouns and of input sente
 |                                                          |                                                         |
 | John ist hier                                            | Sandy ist hier *                                        |
 |                                                          |                                                         |
-| Ich sehe, dass der Dichter und die Schauspielerin jetzt  | Ich sehe, dass die Dichterin und die Schauspielerin     |                     | Freunde sind!                                            | jetzt Freunde sind!                                     |
+| Ich sehe, dass der Dichter und die Schauspielerin        | Ich sehe, dass die Dichterin und die Schauspielerin     |                     
 |                                                          |                                                         |
-|                                                          |                                                         |
+|  jetzt Freunde sind!                                     | jetzt Freunde sind!                                     |                     
 
 
-
-
+ 
 *The female name is picked at random and will always be different.
 
 ## What tasks does it intend to benefit?
