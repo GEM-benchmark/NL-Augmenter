@@ -7,6 +7,7 @@ import spacy
 class GroupInequityFilter(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en", "fr"]
+    keywords = ["rule-based", "social-reasoning"]
 
     def __init__(self, language, minority_group, majority_group, minority_factor, majority_factor):
         super().__init__()
