@@ -69,10 +69,7 @@
       },
       "outputs": [
         {
-          "sentence": "Was Vikram here yesterday? Yes."
-        },
-        {
-          "sentence": "Did he want to eat any cake? No."
+          "sentence": "Was Vikram here yesterday? Yes. Did he want to eat any cake? No."
         }
       ]
     }
