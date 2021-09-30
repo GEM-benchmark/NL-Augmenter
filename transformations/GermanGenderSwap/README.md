@@ -20,7 +20,7 @@ This transformation will swap the 226 male nouns and pronouns and of input sente
 |                                                          |                                                         |
 | Ich sehe, dass der Dichter und die Schauspielerin        | Ich sehe, dass die Dichterin und die Schauspielerin     |                     
 |                                                          |                                                         |
-|  jetzt Freunde sind!                                     | jetzt Freunde sind!                                     |                     
+ |  jetzt Freunde sind!                                     | jetzt Freunde sind!                                     |                     
 
 
  
