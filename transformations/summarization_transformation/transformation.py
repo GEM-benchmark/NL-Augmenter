@@ -14,6 +14,7 @@ class Summarization(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["en"]
+    keywords = ["parser-based", "possible-meaning-alteration","rule-based"]
 
     def __init__(self):
         # super().__init__(seed, max_outputs=max_outputs)
