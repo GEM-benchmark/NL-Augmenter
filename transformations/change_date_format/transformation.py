@@ -46,7 +46,7 @@ class DateFormatTransformation:
     def parse_date(self, text: str):
         """Parse the text to extract the date components and return a datetime object."""
 
-        # By defualt the parser fills the missing values with current day"s values,
+        # By default the parser fills the missing values with current day"s values,
         # hence, using boolean values to keep track of what info is present in the text.
         date = None
         has_year = False

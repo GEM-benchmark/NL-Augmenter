@@ -231,7 +231,7 @@ class GenderBiasFilter(SentenceOperation):
                 set(joint_masculine)
             )
 
-            # If the intersection occured, the intersection_feminine and intersection_masculine variables will contain at least one common keyword
+            # If the intersection occurred, the intersection_feminine and intersection_masculine variables will contain at least one common keyword
             # use this intersection information to get the value for the corresponding flags
             feminine_flag = len(intersection_feminine) > 0
             masculine_flag = len(intersection_masculine) > 0

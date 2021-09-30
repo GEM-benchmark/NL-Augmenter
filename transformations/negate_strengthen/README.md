@@ -1,5 +1,5 @@
 # Causal Negation & Strengthen 🦎  + ⌨️ → 🐍
-This transformation is targetted at augmenting Causal Relations in text and adapts the code from paper ['Causal Augmentation for Causal Sentence Classification'](https://openreview.net/pdf/17eafef9e25b48eb90a9a7f32c4f52e21177cc73.pdf) (Anon, 2021). In a nutshell, we have two operations:
+This transformation is targeted at augmenting Causal Relations in text and adapts the code from paper ['Causal Augmentation for Causal Sentence Classification'](https://openreview.net/pdf/17eafef9e25b48eb90a9a7f32c4f52e21177cc73.pdf) (Anon, 2021). In a nutshell, we have two operations:
 1. **Causal Negation:** We introduce negative words like "not, no, did not" into sentences to unlink the causal relation. 
 2. **Causal Strengthening:** We strengthen the causal meaning by converting weaker modal words like "may" to "will" to assert causal strength.
 

@@ -63,7 +63,7 @@ class GenderSwap(SentenceOperation):
         # Dash is a special case for entities like 'step-son'.
         raw = "".join(c for c in raw if c.isalpha() or c == "-").lower()
 
-        # Edge case 'step-son-': --> we want 'step-son' ony.
+        # Edge case 'step-son-': --> we want 'step-son' only.
         raw = raw.strip("-")
         raw = raw.lower()
 

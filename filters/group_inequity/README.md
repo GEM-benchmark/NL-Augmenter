@@ -7,7 +7,7 @@ This is a topic agnostic filter which accepts user-defined parameters, consistin
 major group, minor factor and major factor.
 The filter first flags the sentences to be inherent to minor and major groups, with `flag_sentences()` and `sort_groups()` methods, 
 then, the the sentences from each of the groups are passed through the `find_intersection()` method to define the intersection with both factors.
-The final boolean value is calculated in regards of the values retrived from `count_itersections()` method.
+The final boolean value is calculated in regards of the values retrieved from `count_itersections()` method.
 
 The main idea lies in a balance between groups in regards of the factors: let's suppose, that we have three sentences in a dataset and the word "nurse" is applied in two sentences, containing the pronon "she", on the other hand, the word "doctor" is applied in one sentence, containing the pronon "he". We may suggest that the gender discrimination in regards of the profession stereotypes takes place. 
 The minority group array, therefore, will contain the word "she" and the minority factor array will contain the word "nurse", while the majority group array will contain "he" and the major factor array - "doctor".
@@ -123,7 +123,7 @@ flagged_corpus = f.flag_sentences(sentences, minority_group, majority_group)
 # Use the flagged objects to get the groups
 minority_group, majority_group, union_group, neutral_group = f.sort_groups(flagged_corpus)
 
-# Retrive the flags of intersection for the miority and majority groups
+# Retrieve the flags of intersection for the miority and majority groups
 doubble_flagged_corpus = f.find_intersection(language, minority_group, majority_group, minority_factor, majority_factor)
 
 # Count the number of intersections with the minority and majority factors
@@ -154,7 +154,7 @@ f = DiscriminationFilter("fr", minority_group, majority_group, minority_factor, 
 f.filter(sentences)
 ```
 
-If you want to use a filter with French texts, you might want to install the spacy French model first, as spacy dependecy is used for lemmatization on the sentences before comparing them to the factor arrays:
+If you want to use a filter with French texts, you might want to install the spacy French model first, as spacy dependency is used for lemmatization on the sentences before comparing them to the factor arrays:
 ```
 python -m spacy download fr_core_news_sm
 ```

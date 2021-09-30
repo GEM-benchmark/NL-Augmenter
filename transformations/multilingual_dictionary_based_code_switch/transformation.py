@@ -85,7 +85,7 @@ class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
 
     def generate(self, sentence: str):
         random.seed(self.seed)
-        ouputs = []
+        outputs = []
         for i in range(self.max_outputs):
             words = sentence.split(" ")
             out = []
@@ -94,9 +94,9 @@ class MultilingualDictionaryBasedCodeSwitch(SentenceOperation):
                     code_switch(word, self.switch_dict, self.code_switch_rate)
                 )
             out = " ".join(out)
-            if out not in ouputs:
-                ouputs.append(out)
-        return ouputs
+            if out not in outputs:
+                outputs.append(out)
+        return outputs
 
 
 if __name__ == "__main__":

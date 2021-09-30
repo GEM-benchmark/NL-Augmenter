@@ -96,7 +96,7 @@ class OperationRuns(object):
         transformation_names: str,
             list of the transformations or filters.
         search: str, Default is transformations,
-            either tranformations or filters.
+            either transformations or filters.
 
         Returns:
         --------
