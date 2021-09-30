@@ -1,7 +1,8 @@
 # Disability/Differently Abled Transformation ♿
-This transformation changes outdated names of disabilities with more appropriate ones which are now used.
+This transformation changes outdated names of disabilities with more appropriate and respectful ones which are now used in the modern.
 
 Author: A.T. (atabassum.bee15seecs@seecs.edu.pk)
+
 Affiliation: --
 
 ## What type of a transformation is this?
@@ -26,10 +27,10 @@ The transformation may generate some nonsensical outputs as it does not consider
 **  https://www.gov.uk/government/publications/inclusive-communication/inclusive-language-words-to-use-and-avoid-when-writing-about-disability
 
 * List of disability-related terms with negative connotations: 
-** https://en.wikipedia.org/wiki/List_of_disability-related_terms_with_negative_connotations
+> https://en.wikipedia.org/wiki/List_of_disability-related_terms_with_negative_connotations
 
 * Terms to Avoid When Writing About Disability: 
-** https://ncdj.org/2015/09/terms-to-avoid-when-writing-about-disability/
+> https://ncdj.org/2015/09/terms-to-avoid-when-writing-about-disability/
 
 * National Youth Leadership Network Respectful Disability Language: Here’s What’s Up! 
-** https://www.aucd.org/docs/add/sa_summits/Language%20Doc.pdf
+> https://www.aucd.org/docs/add/sa_summits/Language%20Doc.pdf
