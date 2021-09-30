@@ -4,7 +4,7 @@
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "der Artz arbeitet."
+        "sentence": "der Arzt arbeitet."
       },
       "outputs": [{
         "sentence": "die Arztin arbeitet"
