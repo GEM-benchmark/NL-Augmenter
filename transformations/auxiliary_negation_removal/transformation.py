@@ -13,6 +13,18 @@ Auxiliary Negation Removal.
 
 def auxiliary_negation_removal(sentence, nlp):
 
+    """returns (arg1 / arg2) + arg3
+
+    This functions removes auxiliary negations when present.
+
+    :param sentence: sentence to process
+    :param nlp: spacy pipeline for tokenization
+    :type sentence: str
+    :type nlp: spacy module
+    :returns: sprocessed sentences
+    :rtype: str
+    """
+
     # Tokenize Sentence
     doc = nlp(sentence)
 
