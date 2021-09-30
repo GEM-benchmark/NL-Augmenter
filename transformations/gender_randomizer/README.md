@@ -10,8 +10,8 @@ This transformation changes names in English texts, randomizing selection so tha
 ## What tasks does it intend to benefit?
 This is intended to avoid gender bias in natural language processing models. Run this transformation on text data prior to using it to train a model.
 
-## Previous Work
-This uses the coreferee library (https://github.com/msg-systems/coreferee). The code is downloaded and included locally, to allow for slight modifications to the setup file to allow for installation in python 3.7, as required for this transformations (the coreferee library was designed/tested in python 3.8).
+## Data and Code Provenance
+This uses the coreferee library (https://github.com/msg-systems/coreferee). This package exists as a fully developed library and would normally be included in the requirements.txt file and installed via pip. However, the code is downloaded and included locally in this transformation to allow slight modifications to the setup file to make the library compatible with, and possible to install in python 3.7, as required for this transformation. The coreferee library was designed/tested in python 3.8, and the recent update made it compatible with python 3.9. The readme within the directory provides more details, and for complete, updated information about the coreferee package, please see the linked github repository. **All code within the coreferee directory was created by the coreferee library developers.**
 
 The names directory comes from https://www.kaggle.com/nltkdata/names. The README within the directory provides more detail.
 
