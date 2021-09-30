@@ -138,7 +138,7 @@ class DifferentAbilityTransformation(SentenceOperation):
     languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=1):
-        super().__init__(seed, max_outputs = max_outputs)
+        super().__init__(seed, max_outputs=max_outputs)
         self.disability_names = disability_names
 
     def generate(self, sentence: str):
