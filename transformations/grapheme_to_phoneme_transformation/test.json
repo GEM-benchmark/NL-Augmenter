@@ -1,0 +1,71 @@
+
+{
+  "type": "phoneme_substitution",
+  "test_cases": [
+    {
+      "class": "PhonemeSubstitution",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week."
+      },
+      "outputs": [
+        {
+          "sentence": [
+            "Andrew finally rihternd dhah French buhk to krihs dhaet I bought last wiyk."
+          ]
+        }
+      ]
+    },
+    {
+      "class": "PhonemeSubstitution",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [
+        {
+          "sentence": [
+            "Sentences with gapping, sahch as paol likes kaafiy ahnd Mary tea, lack aen overt predicate tuw indicate the relation between tuw or more arguments."
+          ]
+        }
+      ]
+    },
+    {
+      "class": "PhonemeSubstitution",
+      "inputs": {
+        "sentence": "Albany Theatre is a historic theater in Albany, Georgia. It was added to the National Register of Historic Places on August 21, 2006."
+      },
+      "outputs": [
+        {
+          "sentence": [
+            "Albany Theatre ihz ah historic thiyahter in aolbahniy, jhaorjhah. It was added tuw the National rehjhihster of Historic Places on aagahst 21, 2006."
+          ]
+        }
+      ]
+    },
+    {
+      "class": "PhonemeSubstitution",
+      "inputs": {
+        "sentence": "The Royal Air Force (RAF) is the United Kingdom's aerial warfare force."
+      },
+      "outputs": [
+        {
+          "sentence": [
+            "The Royal ehr faors( RAF) ihz the yuwnaytihd kihngdahm 's aerial warfare faors."
+          ]
+        }
+      ]
+    },
+    {
+      "class": "PhonemeSubstitution",
+      "inputs": {
+        "sentence": " The drink's name is a combination of the word pisco, which is its base liquor, and the term sour, in reference to sour citrus juice and sweetener components."
+      },
+      "outputs": [
+        {
+          "sentence": [
+            "  The drihngk ehs name ihz a kaambahneyshahn ahv the word pisco, wihch is its beys liquor, and the term sawer, in reference to sawer sihtrahs jhuws and sweetener components."
+          ]
+        }
+      ]
+    }
+  ]
+}

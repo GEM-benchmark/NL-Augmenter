@@ -1,0 +1,50 @@
+{
+  "type": "slangificator",
+  "test_cases": [
+    {
+      "class": "Slangificator",
+      "inputs": {
+        "sentence": "I picked up a stone and attempted to skim it across the water."
+      },
+      "outputs": [{
+        "sentence": "I picked up a ducker and attempted to skim it across the corporation pop."
+      }]
+    },
+    {
+      "class": "Slangificator",
+      "inputs": {
+        "sentence": "The hooligans in balaclavas have attempted to steal jewellery."
+      },
+      "outputs": [{
+        "sentence": "The bovver boys in ballies have attempted to steal bling bling."
+      }]
+    },
+    {
+      "class": "Slangificator",
+      "inputs": {
+        "sentence": "What is relevant to the role of intellectuals is the atmosphere in which these governments based their previous actions that led up to this crisis."
+      },
+      "outputs": [{
+        "sentence": "What is relevant to the role of boffins is the vibe in which these governments based their previous actions that led up to this crisis."
+      }]
+    },
+    {
+      "class": "Slangificator",
+      "inputs": {
+        "sentence": "It was totally excellent but useless bet."
+      },
+      "outputs": [{
+        "sentence": "It was totes grand but cruddy flutter."
+      }]
+    },
+    {
+      "class": "Slangificator",
+      "inputs": {
+        "sentence": "Obviously, money are a great stimulus but people might go to crazy about it."
+      },
+      "outputs": [{
+        "sentence": "Obvs, spondulicks are a nang stimulus but peeps might go to radio rental about it."
+      }]
+    }
+  ]
+}
