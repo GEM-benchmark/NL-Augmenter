@@ -4,46 +4,46 @@
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "der Arzt arbeitet."
+        "sentence": "Mein Vater und dein Bruder sind hier?"
       },
       "outputs": [{
-        "sentence": "die Arztin arbeitet"
+        "sentence": "Meine Mutter und deine Schwester sind hier?"
       }]
     },
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "Der Ingenieur geht."
+        "sentence": "Er ist ein Arzt und mein Vater."
       },
       "outputs": [{
-        "sentence": "Die Ingenieurin geht."
+        "sentence": "Sie ist eine Arztin und meine Mutter."
       }]
     },
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "Er ist mein Vater."
+        "sentence": "Ich sehe den Mann."
       },
       "outputs": [{
-        "sentence": "Sie ist meine Mutter."
+        "sentence": "Ich sehe die Frau."
       }]
     },
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "Er ist weg."
+        "sentence": "Er ist der Prasident, sie ist die Herrscherin und sie werden jetzt bald Ehemann und Ehefrau sein!"
       },
       "outputs": [{
-        "sentence": "Sie ist weg."
+        "sentence": "Sie ist die Prasidentin, sie ist die Herrscherin und sie werden jetzt bald Frau und Ehefrau sein!"
       }]
     },
     {
       "class": "GermanGenderSwap",
       "inputs": {
-        "sentence": "Ich sehe den Mann"
+        "sentence": "Ich sehe, dass der Dichter und die Schauspielerin jetzt Freunde sind!"
       },
       "outputs": [{
-        "sentence": "Ich sehe die Frau"
+        "sentence": "Ich sehe, dass die Dichterin und die Schauspielerin jetzt Freunde sind!"
       }]
     }
   ]
