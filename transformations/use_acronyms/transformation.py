@@ -70,7 +70,7 @@ class UseAcronyms(SentenceOperation):
         return [transformation(sentence, self.lowercase, self.acronyms)]
 
 
-# """
+"""
 # Sample code to demonstrate usage. Can also assist in adding test cases.
 # You don't need to keep this code in your transformation.
 if __name__ == "__main__":
@@ -99,4 +99,4 @@ if __name__ == "__main__":
         "test_cases": test_cases,
     }
     print(json.dumps(json_file))
-# """
+"""
