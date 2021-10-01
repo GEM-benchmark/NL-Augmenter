@@ -1,5 +1,5 @@
 # Close Homophones Swap 🦎  + ⌨️ → 🐍
-This perturbation adds perturbation to sentences and paragraphes mimicing writing behaviors where users swap words with similar homophones either intentionally or by accident.
+This perturbation adds perturbation to sentences and paragraphes mimicking writing behaviors where users swap words with similar homophones either intentionally or by accident.
 
 Author name: Kaizhao Liang
 Author email: kl2@illinois.edu

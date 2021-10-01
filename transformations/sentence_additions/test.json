@@ -1,0 +1,96 @@
+{
+  "type": "sentence_additions",
+  "test_cases": [
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "The Battle of Caen on 26 July 1346 was an assault on the French-held town by a force of archers and men-at-arms, part of an invading English army under King Edward III during the Hundred Years' War."
+      },
+      "outputs": [
+        {
+          "sentence": "The Battle of Caen on 26 July 1346 was an assault on the French-held town by a force of archers and men-at-arms, part of an invading English army under King Edward III during the Hundred Years' War. It took place in a wooded valley near St. Quentin's Abbey, a pilgrimage spot. Caen was founded in 1271"
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "The Battle of Caen on 26 July 1346 was an assault on the French-held town by a force of archers and men-at-arms, part of an invading English army under King Edward III during the Hundred Years' War.",
+        "prompt": true
+      },
+      "outputs": [
+        {
+          "sentence": "The Battle of Caen on 26 July 1346 was an assault on the French-held town by a force of archers and men-at-arms, part of an invading English army under King Edward III during the Hundred Years' War. PARAPHRASE:  (A) The English army advanced, under the leadership of Edward, to attack a city."
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "Hello, I'm a language model."
+      },
+      "outputs": [
+        {
+          "sentence": "Hello, I'm a language model. It's not the first, nor the last, or even the most efficient. It's simply the one that I like to know about, and that I'm very happy to share. But it can be useful — in the sense that it's a place where your programming language models can get a little help from you, a place where"
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "Apple was founded by Steve Jobs, Steve Wozniak and Ronald Wayne in April 1976."
+      },
+      "outputs": [
+        {
+          "sentence": "Apple was founded by Steve Jobs, Steve Wozniak and Ronald Wayne in April 1976. It is not the first of its kind, but it's one of the biggest and most successful. The company provides a range of products, including computer, mobile devices and hardware. In the third quarter of this year, Apple recorded over $43 billion in revenue. But at its"
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "Apple was founded by Steve Jobs, Steve Wozniak and Ronald Wayne in April 1976.",
+        "prompt": true
+      },
+      "outputs": [
+        {
+          "sentence": "Apple was founded by Steve Jobs, Steve Wozniak and Ronald Wayne in April 1976. PARAPHRASE:  (Mozart, Beethoven, Goethe, Mozart, Bach, Liszt, Beethoven, Mozart, Mozart) Apple Computer Inc. was launched in 1976 by Steve Jobs in Cupertino, California,"
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "Historically, the uncertainty principle has been confused with a related effect in physics, called the observer effect, which notes that measurements of certain systems cannot be made without affecting the system, that is, without changing something in a system."
+      },
+      "outputs": [
+        {
+          "sentence": "Historically, the uncertainty principle has been confused with a related effect in physics, called the observer effect, which notes that measurements of certain systems cannot be made without affecting the system, that is, without changing something in a system. One example is the fact that different kinds of clocks can be used in a system with a known frequency. One cannot determine if a clock has been"
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "Trinity Medical Imaging is one of the foremost providers of private nuclear medicine imaging in London and Surrey. We work with the finest nuclear medicine consultants from a wide variety of specialist fields."
+      },
+      "outputs": [
+        {
+          "sentence": "Trinity Medical Imaging is one of the foremost providers of private nuclear medicine imaging in London and Surrey. We work with the finest nuclear medicine consultants from a wide variety of specialist fields. We also own the world's largest and most powerful MRI scanner - called the Trinity XA - and a variety of radiation technology equipment including nuclear medicine detectors, detectors of radionuclides such as"
+        }
+      ]
+    },
+    {
+      "class": "SentenceAdditions",
+      "inputs": {
+        "sentence": "Trinity Medical Imaging is one of the foremost providers of private nuclear medicine imaging in London and Surrey. We work with the finest nuclear medicine consultants from a wide variety of specialist fields.",
+        "prompt": true
+      },
+      "outputs": [
+        {
+          "sentence": "Trinity Medical Imaging is one of the foremost providers of private nuclear medicine imaging in London and Surrey. We work with the finest nuclear medicine consultants from a wide variety of specialist fields. PARAPHRASE: ________________________________________________________________________________ ________________________________________________________________________________ Trinity Health has a proud and productive history in the health care industry. We hold that quality care is a shared resource and our commitment to ensuring"
+        }
+      ]
+    }
+  ]
+}

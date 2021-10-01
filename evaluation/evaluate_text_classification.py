@@ -24,6 +24,8 @@ class QQP_LABEL(enum.Enum):
 def _process_data(dataset_name, split):
     if dataset_name in ["qqp", "sst2"]:
         hf_dataset = load_dataset("glue", dataset_name, split=split)
+    elif dataset_name in ['clue']:
+        hf_dataset = load_dataset(dataset_name, "cluewsc2020", split=split)
     else:
         hf_dataset = load_dataset(dataset_name, split=split)
 
@@ -36,6 +38,11 @@ def _process_data(dataset_name, split):
         label_name = "label"
         label_func = lambda x: SENTIMENT_LABELS.POSITIVE if x == 1 else SENTIMENT_LABELS.NEGATIVE
         instance_name = ["sentence"]
+        data_class = TextLineDataset
+    elif dataset_name == "clue":
+        label_name = "label"
+        label_func = lambda x: SENTIMENT_LABELS.POSITIVE if x == 1 else SENTIMENT_LABELS.NEGATIVE
+        instance_name = ["text"]
         data_class = TextLineDataset
     elif dataset_name in ["multi_nli", "snli"]:
         label_name = "label"
@@ -67,7 +74,9 @@ def _process_model_pred(model_name, pred):
         return SENTIMENT_LABELS.POSITIVE if pred =="pos" else SENTIMENT_LABELS.NEGATIVE
     elif model_name in [
         "textattack/roberta-base-imdb",
-        "textattack/roberta-base-SST-2"]:
+        "textattack/roberta-base-SST-2",
+        "clue/roberta_chinese_base",
+        "clue/roberta_chinese_clue_large"]:
         return SENTIMENT_LABELS.POSITIVE if pred == "LABEL_1" else SENTIMENT_LABELS.NEGATIVE
     elif model_name in [
         "ji-xin/roberta_base-QQP-two_stage",
@@ -85,13 +94,23 @@ def _process_model_pred(model_name, pred):
 
 def evaluate(
     operation, evaluate_filter, model_name, 
-    dataset_name, split="test[:20%]", batch_size=8, is_cuda=True):
+    dataset_name, split="test[:20%]", batch_size=8, is_cuda=torch.cuda.is_available()):
     if model_name is None: model_name = "aychang/roberta-base-imdb"
     if dataset_name is None: dataset_name = "imdb"
     print(f"Loading <{dataset_name}> dataset to evaluate <{model_name}> model.")
-    text_classification_pipeline = pipeline(
-        "sentiment-analysis", model=model_name, tokenizer=model_name, 
-        device=0 if is_cuda else -1)
+
+    # For the roberta_chinese_base model, you have to call the tokenizer for BERT instead:
+    # https://huggingface.co/clue/roberta_chinese_base
+    if model_name in [
+        "clue/roberta_chinese_base",
+        "clue/roberta_chinese_clue_large"]:
+        text_classification_pipeline = pipeline(
+            "sentiment-analysis", model=model_name, tokenizer="bert-base-chinese",
+            device=0 if is_cuda else -1)
+    else:
+        text_classification_pipeline = pipeline(
+            "sentiment-analysis", model=model_name, tokenizer=model_name,
+            device=0 if is_cuda else -1)
     
     percent = f"[{split.split('[')[-1]}" if "[" in split else ""
     if dataset_name == "multi_nli": split = f"validation_matched{percent}"
@@ -137,6 +156,7 @@ def _get_model_pred(model, examples, batch_size):
     all_preds = []
     with torch.no_grad():
         for e in (range(0, len(examples), batch_size)):
+
             all_preds += model(examples[e:e+batch_size], truncation=True)
     return [a["label"] for a in all_preds]
 
@@ -145,12 +165,10 @@ def evaluate_dataset(
     accuracy = 0
     total = 0
     examples = [_get_instance_by_keys(list(raw_text)[:-1]) for raw_text in dataset]
-    #print(examples)
     labels = [label_func(list(raw_text)[-1]) for raw_text in dataset]
     raw_preds = _get_model_pred(text_classification_pipeline, examples, batch_size=batch_size)
     preds = [_process_model_pred(model_name, raw_pred) for raw_pred in raw_preds]
     accuracy = np.round(100 * np.mean(np.array(labels) == np.array(preds)))
     total = len(labels)
-
     print(f"The accuracy on this subset which has {total} examples = {accuracy}")
     return accuracy, total

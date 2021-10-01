@@ -13,7 +13,7 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 text generation, etc. 
 
 ## Previous Work
-Standard technic for NLP it is similar to what is proposed in EDA.
+Standard technique for NLP it is similar to what is proposed in EDA.
 
 ```bibtex
 @article{wei2019eda,

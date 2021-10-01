@@ -1,0 +1,62 @@
+{
+    "type": "keywords",
+    "test_cases": [
+        {
+            "class": "TextSpecialCasingFilter",
+
+            "inputs": {
+                "sentence": "let's go to chipotle"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextSpecialCasingFilter",
+
+            "inputs": {
+                "sentence": "AMBER ALERT: 4-YEAR OLD MISSING"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextSpecialCasingFilter",
+
+            "inputs": {
+                "sentence": "American Troops Withdraw From Afghanistan"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextSpecialCasingFilter",
+
+            "inputs": {
+                "sentence": "It has been brought to my notice that bread has gluten in it."
+            },
+            "outputs": false
+        },
+        {
+            "class": "TextSpecialCasingFilter",
+
+            "inputs": {
+                "sentence": "Leo Tolstoy wrote a very long book."
+            },
+            "outputs": false
+        },
+        {
+            "class": "TextSpecialCasingFilter",
+
+            "inputs": {
+                "sentence": "American Sniper was based on a real story."
+            },
+            "outputs": false
+        },
+        {
+            "class": "TextSpecialCasingFilter",
+
+            "inputs": {
+                "sentence": "One can become addicted to sugar, and sugary foods as well."
+            },
+            "outputs": false
+        }
+
+    ]
+}
