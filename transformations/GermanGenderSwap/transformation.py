@@ -190,8 +190,6 @@ class GermanGenderSwap(SentenceOperation):
         return [german_nouns(sentence, self.nouns, self.names)]
 
 
-# -*- coding: utf-8 -*-
-
 if __name__ == "__main__":
     import json
     from TestRunner import convert_to_snake_case
