@@ -1,0 +1,59 @@
+{
+  "type": "diacritic_removal",
+  "test_cases": [
+    {
+      "class": "DiacriticRemoval",
+      "inputs": {
+        "sentence": "Feluda handed over the blue attaché case before he sat down."
+      },
+      "outputs": [{
+          "sentence": "Feluda handed over the blue attache case before he sat down."
+        }]
+    },
+    {
+      "class": "DiacriticRemoval",
+      "inputs": {
+        "sentence": "She lookèd east an she lookèd west."
+      },
+      "outputs": [{
+          "sentence": "She looked east an she looked west."
+        }]
+    },
+    {
+      "class": "DiacriticRemoval",
+      "inputs": {
+        "sentence": "un garçon"
+      },
+      "outputs": [{
+          "sentence": "un garcon"
+        }]
+    },
+    {
+      "class": "DiacriticRemoval",
+      "inputs": {
+        "sentence": "Karel Čapek was a Czech writer, playwright and critic."
+      },
+      "outputs": [{
+          "sentence": "Karel Capek was a Czech writer, playwright and critic."
+        }]
+    },
+    {
+      "class": "DiacriticRemoval",
+      "inputs": {
+        "sentence": "HNO₃-oplossing"
+      },
+      "outputs": [{
+          "sentence": "HNO-oplossing"
+        }]
+    },
+    {
+      "class": "DiacriticRemoval",
+      "inputs": {
+        "sentence": "Jonathan was a Seagull."
+      },
+      "outputs": [{
+          "sentence": "Jonathan was a Seagull."
+        }]
+    }
+  ]
+}

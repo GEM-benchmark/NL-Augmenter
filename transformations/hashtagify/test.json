@@ -1,0 +1,71 @@
+{
+  "type": "hastagify",
+  "test_cases": [
+    {
+      "class": "HashtagifyTransformation",
+      "inputs": {
+        "sentence": "Apple is looking at buying U.K. startup for $132 billion."
+      },
+      "outputs": [
+        {
+          "sentence": "#Apple is looking at #buying U.K. startup for $132 billion."
+        }
+      ]
+    },
+    {
+      "class": "HashtagifyTransformation",
+      "inputs": {
+        "sentence": "We had to box part of the pizza to take it home and we were out the door by 6:42."
+      },
+      "outputs": [
+        {
+          "sentence": "We had to #box part of the #pizza to take it home and we were out the door by 6:42."
+        }
+      ]
+    },
+    {
+      "class": "HashtagifyTransformation",
+      "inputs": {
+        "sentence": "The quick brown fox jumps over the lazy dog."
+      },
+      "outputs": [
+        {
+          "sentence": "The quick #brown fox #jumps over the lazy dog."
+        }
+      ]
+    },
+    {
+      "class": "HashtagifyTransformation",
+      "inputs": {
+        "sentence": "Mumbai, Bengaluru, New Delhi are among the many famous places in India."
+      },
+      "outputs": [
+        {
+          "sentence": "#Mumbai, Bengaluru, #NewDelhi are among the many famous places in India."
+        }
+      ]
+    },
+    {
+      "class": "HashtagifyTransformation",
+      "inputs": {
+        "sentence": "New Delhi is among the many famous places in India."
+      },
+      "outputs": [
+        {
+          "sentence": "#NewDelhi is among the many famous places in India."
+        }
+      ]
+    },
+    {
+      "class": "HashtagifyTransformation",
+      "inputs": {
+        "sentence": "Oh, and their spring rolls and the accompanying peanuts and hot sauces were also delicious."
+      },
+      "outputs": [
+        {
+          "sentence": "Oh, and their #spring rolls and the accompanying peanuts and hot sauces were also delicious."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "type": "writing_system_replacement",
+  "test_cases": [
+    {
+      "class": "WritingSystemReplacement",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [
+        {
+          "sentence": "农垚垚㻼臀筸令阤㑓睆盔鞿馼矖㴕蚄魔䇑陟譻葃牚"
+        }
+      ]
+    },
+    {
+      "class": "WritingSystemReplacement",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [
+        {
+          "sentence": "䵨䡖鏹䁆岈癢潠嗘䚜楣炠鿔砡體鄊礟㛍嚇呌㺦繲㒤鏹厘䟴埃䌬陊区畇㑑䵨䗞挏菇玜䵨䴭㯳龃曅㚩麛骀尽鱭㿛侕"
+        }
+      ]
+    },
+    {
+      "class": "WritingSystemReplacement",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [
+        {
+          "sentence": "㻼臀筸令阤㑓睆盔鞿馼矖㴕蚄魔䇑陟譻葃牚橤景皒臀㮴㝌䁫臀讶"
+        }
+      ]
+    },
+    {
+      "class": "WritingSystemReplacement",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [
+        {
+          "sentence": "鱾偠偠蠿祡儋蚋鎟羕䵨䡖鏹䁆岈癢潠嗘䚜楣炠鿔砡體鄊"
+        }
+      ]
+    },
+    {
+      "class": "WritingSystemReplacement",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [
+        {
+          "sentence": "盔鞿馼矖㴕蚄魔䇑陟譻葃牚橤景皒㮴㝌䁫讶帪駡曏讶䵘捛䋕渢盔龑䝺蓟馼醭脃䣒䟒邸鞿邸盔俁罽笵蛱汒鴃䣒懝婝"
+        }
+      ]
+    }
+  ]
+}

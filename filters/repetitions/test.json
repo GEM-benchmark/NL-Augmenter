@@ -1,0 +1,45 @@
+{
+    "type": "repetitions",
+    "test_cases": [
+      {
+        "class": "TextContainsRepetitionsFilter",
+        "args": {},
+        "inputs": {
+          "sentence": "I love cat"
+        },
+        "outputs": false
+      },
+      {
+        "class": "TextContainsRepetitionsFilter",
+        "args": {},
+        "inputs": {
+          "sentence": "I love cat cat !!"
+        },
+        "outputs": true
+      },
+      {
+        "class": "TextContainsRepetitionsFilter",
+        "args": {},
+        "inputs": {
+          "sentence": "I I want to sleep"
+        },
+        "outputs": true
+      },
+      {
+        "class": "TextContainsRepetitionsFilter",
+        "args": {},
+        "inputs": {
+          "sentence": "I want to sleep"
+        },
+        "outputs": false
+      },
+      {
+        "class": "TextContainsRepetitionsFilter",
+        "args": {},
+        "inputs": {
+          "sentence": "Hi hi I want to stay"
+        },
+        "outputs": true
+      }
+    ]
+  }

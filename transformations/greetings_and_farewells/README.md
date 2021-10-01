@@ -6,7 +6,7 @@ This transformation will replace greetings (e.g. "Hi", "Howdy") and farewells (e
 **Author Affiliation**: 
 
 ## What type of a transformation is this?
-This transformation is intended to create text variants, without losing the meaning of the whole sentence. These variants can act like a pertubation, in order to check if it changes the model performance.
+This transformation is intended to create text variants, without losing the meaning of the whole sentence. These variants can act like a perturbation, in order to check if it changes the model performance.
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, text generation, etc.

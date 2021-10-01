@@ -1,0 +1,59 @@
+{
+  "type": "replace_abbreviation_and_acronyms",
+  "test_cases": [
+    {
+      "class": "ReplaceAbbreviations",
+      "inputs": {
+        "sentence": "Please, could you send me your report asap?"
+      },
+      "outputs": [{
+        "sentence": "Please, could you send me your report as soon as possible?"
+      }]
+    },
+    {
+      "class": "ReplaceAbbreviations",
+      "inputs": {
+        "sentence": "Paul likes coffee and Mary tea does not contain relation predicate."
+      },
+      "outputs": [{
+        "sentence": "Paul likes coffee and Mary tea does not contain relation predicate."
+      }]
+    },
+    {
+      "class": "ReplaceAbbreviations",
+      "inputs": {
+        "sentence": "The email from the HR indicated that the whole COVID situation is not solved yet."
+      },
+      "outputs": [{
+        "sentence": "The email from the human resources indicated that the whole COVID situation is not solved yet."
+      }]
+    },
+    {
+      "class": "ReplaceAbbreviations",
+      "inputs": {
+        "sentence": "Sorry, I am currently out. I will be out of office until May 3rd for personal reasons."
+      },
+      "outputs": [{
+        "sentence": "Sorry, I am currently out. I will be OOO until May 3rd for personal reasons."
+      }]
+    },
+    {
+      "class": "ReplaceAbbreviations",
+      "inputs": {
+        "sentence": "The new R&D department was assigned a new chief technology officer in order to replace the previous one as soon as possible"
+      },
+      "outputs": [{
+        "sentence": "The new research and development department was assigned a new CTO in order to replace the previous one as soon as possible"
+      }]
+    },
+    {
+      "class": "ReplaceAbbreviations",
+      "inputs": {
+        "sentence": "Kapur's credit,"
+      },
+      "outputs": [{
+        "sentence": "Kapur's CR,"
+      }]
+    }
+  ]
+}

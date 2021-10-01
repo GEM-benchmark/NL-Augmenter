@@ -115,7 +115,7 @@ def get_noun_definitions(inp_sent, cached_stop_words, max_ngrams):
 '''
 search for noun phrases from wikidata lookup 
 and then add definitions in braces after 
-phrase occurences to add more context
+phrase occurrences to add more context
 NOTE: requires three nltk downloads (only 1 time)
 '''
 

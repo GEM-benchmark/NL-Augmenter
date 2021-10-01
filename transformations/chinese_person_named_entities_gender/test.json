@@ -1,0 +1,66 @@
+{
+  "type": "chinese_person_named_entities_gender",
+  "test_cases": [
+    {
+      "class": "ChinesePersonNamedEntitiesAndGender",
+      "inputs": {
+        "sentence": "邹志元给自己所有的衬衣都缝上了标有姓名的签条。"
+      },
+      "outputs": [{
+        "sentence": "舒双双给自己所有的衬衣都缝上了标有姓名的签条。"
+      }]
+    },
+    {
+      "class": "ChinesePersonNamedEntitiesAndGender",
+      "inputs": {
+        "sentence": "这些都是按照作者史永莉的字母顺序归档的。"
+      },
+      "outputs": [{
+        "sentence": "这些都是按照作者王克礼的字母顺序归档的。"
+      }]
+    },
+    {
+      "class": "ChinesePersonNamedEntitiesAndGender",
+      "inputs": {
+        "sentence": "我的名字是曾祥莉，我的年龄是20岁。我在江西武宁，我的工作是前台。",
+        "seed": 42
+      },
+      "outputs": [{
+        "sentence": "我的名字是陈充全，我的年龄是20岁。我在江西武宁，我的工作是前台。"
+      }]
+    },
+    {
+      "class": "ChinesePersonNamedEntitiesAndGender",
+      "inputs": {
+        "sentence": "中文系毕业后，陈镇奎如愿以偿地进入报社工作。",
+        "seed": 42,
+        "gender_change": false
+      },
+      "outputs": [{
+        "sentence": "中文系毕业后，陈充全如愿以偿地进入报社工作。"
+      }]
+    },
+    {
+      "class": "ChinesePersonNamedEntitiesAndGender",
+      "inputs": {
+        "sentence": "阿冰只有初中文化程度,担任这样的复杂工种是比较吃力的,但她边干边学,终于胜任了。",
+        "seed": 42,
+        "gender_change": false
+      },
+      "outputs": [{
+        "sentence": "曾祥莉只有初中文化程度,担任这样的复杂工种是比较吃力的,但她边干边学,终于胜任了。"
+      }]
+    },
+    {
+      "class": "ChinesePersonNamedEntitiesAndGender",
+      "inputs": {
+        "sentence": "阿冰只有初中文化程度,担任这样的复杂工种是比较吃力的,但她边干边学,终于胜任了。",
+        "seed": 42,
+        "gender_change": true
+      },
+      "outputs": [{
+        "sentence": "陈充全只有初中文化程度,担任这样的复杂工种是比较吃力的,但他边干边学,终于胜任了。"
+      }]
+    }
+  ]
+}
