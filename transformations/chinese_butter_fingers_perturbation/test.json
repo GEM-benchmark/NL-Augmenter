@@ -1,0 +1,50 @@
+{
+  "type": "chinese_butter_fingers_perturbation",
+  "test_cases": [
+    {
+      "class": "ChineseButterFingersPerturbation",
+      "inputs": {
+        "sentence": "谢尔曼将访问中国天津，中国外交部主管中美关系的副部长谢峰将和她会谈."
+      },
+      "outputs": [{
+        "sentence": "谢尔曼将访问中国天津，中国外交部朱观中美关系的副部长谢峰蒋和她回滩."
+      }]
+    },
+    {
+      "class": "ChineseButterFingersPerturbation",
+      "inputs": {
+        "sentence": "本意是指词的起源义，即词的最初意义。引申义是由词的本意引申出来的并经过推演发展而产生的意义"
+      },
+      "outputs": [{
+        "sentence": "本意始指词的起源义，即词的最初一医。引申义驶由词得本谊引申出来的并经过推演发展而缠声得意义"
+      }]
+    },
+    {
+      "class": "ChineseButterFingersPerturbation",
+      "inputs": {
+        "sentence": "汉字是语素文字，总数非常庞大。汉字总共有多少字？到目前为止，恐怕没人能够答得上来精确的数字。"
+      },
+      "outputs": [{
+        "sentence": "酣紫是语素文字，总数非常庞大。汉字总共有多少字？到目前为止，恐怕美人能够大德上来精确的数字。"
+      }]
+    },
+    {
+      "class": "ChineseButterFingersPerturbation",
+      "inputs": {
+        "sentence": "恰当的运用反义词，可以形成鲜明的对比，把事物的特点表达得更充分，给人留下深刻难忘的印象。"
+      },
+      "outputs": [{
+        "sentence": "恰当的运用反义词，可以形成鲜明的对比，把石屋的特点表达得更充分，给人溜下深刻难忘的印象。"
+      }]
+    },
+    {
+      "class": "ChineseButterFingersPerturbation",
+      "inputs": {
+        "sentence": "随着两个遗迹文明的发展，他们终于开始了争斗。遗迹之间的能量冲突是战争的导火索，因为一方出现，另一方的遗迹能量就会相应的颓落。"
+      },
+      "outputs": [{
+        "sentence": "随着两个遗迹文明的发展，他们终于开始了正斗。遗迹之间的能量冲突驶战争德导火索，因为一方出现，另一方的伊籍能量就挥相应德颓落。"
+      }]
+    }
+  ]
+}

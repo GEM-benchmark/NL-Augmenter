@@ -13,7 +13,7 @@ This perturbation would benefit all tasks that require whitespace-dependent toke
 >>> tokenizer = RobertaTokenizer.from_pretrained("roberta-base")
 >>> tokenizer.tokenize('a whitespace') # original
 ['a', 'Ġwhites', 'pace']
->>> tokenizer.tokenize('awhitespace') # remove a whitepsace
+>>> tokenizer.tokenize('awhitespace') # remove a whitespace
 ['aw', 'h', 'ites', 'pace']
 >>> tokenizer.tokenize('a whi tespace') # add a whitespace
 ['a', 'Ġwh', 'i', 'Ġt', 'esp', 'ace']

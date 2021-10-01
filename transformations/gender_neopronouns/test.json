@@ -1,0 +1,137 @@
+{
+    "type": "gender_neopronouns",
+    "test_cases": [
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "She walks to the mall."
+        },
+        "outputs": [{
+          "sentence": "They walk to the mall."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "Xe"
+       },
+        "inputs": {
+          "sentence": "I met them today."
+        },
+        "outputs": [{
+          "sentence": "I met xem today."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "She walked her dog today."
+        },
+        "outputs": [{
+          "sentence": "They walked their dog today."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "He misses the train."
+        },
+        "outputs": [{
+          "sentence": "They miss the train."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "Ae"
+       },
+        "inputs": {
+          "sentence": "He worries too much."
+        },
+        "outputs": [{
+          "sentence": "Ae worry too much."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "Ze"
+       },
+        "inputs": {
+          "sentence": "His arm hurts."
+        },
+        "outputs": [{
+          "sentence": "Zirs arm hurts."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "E"
+       },
+        "inputs": {
+          "sentence": "If I need a phone my friend will let me borrow his."
+        },
+        "outputs": [{
+          "sentence": "If I need a phone my friend will let me borrow eirs."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "Her dog nuzzled her."
+        },
+        "outputs": [{
+          "sentence": "Their dog nuzzled them."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "Her phone beeped unexpectedly and startled her."
+        },
+        "outputs": [{
+          "sentence": "Their phone beeped unexpectedly and startled them."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "She had her friends tell her about the event."
+        },
+        "outputs": [{
+          "sentence": "They had their friends tell them about the event."
+        }]
+      },
+      {
+        "class": "GenderNeoPronouns",
+        "args" :{
+          "swap_neopronoun": "They"
+       },
+        "inputs": {
+          "sentence": "You and your friends are all welcome to come."
+        },
+        "outputs": [{
+          "sentence": "You and your friends are all welcome to come."
+        }]
+      }
+    ]
+  }

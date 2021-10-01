@@ -1,0 +1,104 @@
+{
+  "type": "gender_neutral_rewrite",
+  "test_cases": [
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "His dream is to be a fireman when he grows up."
+      },
+      "outputs": [{
+        "sentence": "Their dream is to be a firefighter when they grow up."
+      }]
+    },
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "Her friend is a teacher at the local elementary school."
+      },
+      "outputs": [{
+        "sentence": "Their friend is a teacher at the local elementary school."
+      }]
+    },
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "Does she know what happened to her friend?"
+      },
+      "outputs": [{
+        "sentence": "Do they know what happened to their friend?"
+      }]
+    },
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "His uncle is the chairman of the board."
+      },
+      "outputs": [{
+        "sentence": "Their uncle is the chair of the board."
+      }]
+    },
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "This is her pen."
+      },
+      "outputs": [{
+        "sentence": "This is their pen."
+      }]
+    },
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "This pen belongs to her."
+      },
+      "outputs": [{
+        "sentence": "This pen belongs to them."
+      }]
+    },
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "This pen is hers."
+      },
+      "outputs": [{
+        "sentence": "This pen is theirs."
+      }]
+    },
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "This is his pen."
+      },
+      "outputs": [{
+        "sentence": "This is their pen."
+      }]
+    },
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "This pen is his."
+      },
+      "outputs": [{
+        "sentence": "This pen is theirs."
+      }]
+    },
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "This pen belongs to him."
+      },
+      "outputs": [{
+        "sentence": "This pen belongs to them."
+      }]
+    },
+    {
+      "class": "GenderNeutralRewrite",
+      "inputs": {
+        "sentence": "He'shan"
+      },
+      "outputs": [{
+        "sentence": "He'shan"
+      }]
+    }
+  ]
+}

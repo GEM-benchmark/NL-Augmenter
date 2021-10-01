@@ -1,0 +1,68 @@
+{
+  "type": "concatmonolingual",
+  "test_cases": [
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "Initial, no concat"
+     },
+      "outputs": [{
+        "sentence": "Initial, no concat "
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "a b"
+     },
+      "outputs": [{
+        "sentence": "a b Initial, no concat"
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "a b"
+     },
+      "outputs": [{
+        "sentence": "a b a b"
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": ""
+     },
+      "outputs": [{
+        "sentence": " a b"
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": ""
+     },
+      "outputs": [{
+        "sentence": " "
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "long sentence"
+     },
+      "outputs": [{
+        "sentence": "long sentence "
+      }]
+    },
+    {
+     "class": "ConcatMonolingual",
+     "inputs": {
+       "sentence": "Yo am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation..."
+     },
+      "outputs": [{
+        "sentence": "Yo am just generating a very very very long sentence to make sure that the method is able to handle it. It does not even need to be a sentence. Right? This is not splitting on punctuation... long sentence"
+      }]
+    }
+  ]
+}

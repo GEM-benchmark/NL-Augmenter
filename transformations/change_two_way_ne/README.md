@@ -8,7 +8,7 @@ This transformation acts like a perturbation and makes lexical substitutions.
 This perturbation would benefit all text-to-text tasks like summarization, simplification, paraphrase generation, etc.  
 
 ## Previous Work and References
-1) The list of names and the implemetation of perturbation has been taken from Checklist.
+1) The list of names and the implementation of perturbation has been taken from Checklist.
 ```bibtex
 @inproceedings{ribeiro-etal-2020-beyond,
     title = "Beyond Accuracy: Behavioral Testing of {NLP} Models with {C}heck{L}ist",
