@@ -184,7 +184,7 @@ class GermanGenderSwap(SentenceOperation):
         super().__init__(seed, max_outputs)
         self.nouns = nouns
         self.names = names
-        self.sp = sp
+    
 
     def generate(self, sentence: str):
         return [german_nouns(sentence, self.nouns, self.names)]
