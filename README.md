@@ -1,3 +1,8 @@
+![Checks](https://github.com/GEM-benchmark/NL-Augmenter/actions/workflows/nl-action.yml)
+![Open issues](https://img.shields.io/github/issues-raw/GEM-benchmark/NL-Augmenter)
+![Open pull requests](https://img.shields.io/github/issues-pr-raw/GEM-benchmark/NL-Augmenter)
+![License](https://img.shields.io/github/license/GEM-benchmark/NL-Augmenter)
+
 # NL-Augmenter 🦎 → 🐍
 
 The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: randomizing names and numbers, changing style/syntax, [paraphrasing](https://aclanthology.org/J13-3001.pdf), KB-based paraphrasing ... and whatever creative augmentation you contribute. We invite submissions of transformations to this framework by way of GitHub pull request, through August 31, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework.
@@ -114,7 +119,7 @@ Alternatively, you can do so from the GitHub website.
 We also accept pull-requests for creating [filters](filters) which identify interesting subpopulations of a dataset. The process to add a new filter is just the same as above. All filter implementations require implementing `.filter` instead of `.generate` and need to be placed in the [filters](filters) folder. So, just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters simply return True or False! For step-by-step instructions, follow [these](filters) steps.
 
 ## BIG-Bench :chair:
-If you are interested in NL-Augmenter, you may also be interested in the [BIG-bench](https://github.com/google/BIG-bench/) large scale collaborative benchmark for language models. 
+If you are interested in NL-Augmenter, you may also be interested in the [BIG-bench](https://github.com/google/BIG-bench/) large scale collaborative benchmark for language models.
 
 ### Most Creative Implementations 🏆
 
