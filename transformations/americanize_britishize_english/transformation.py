@@ -20,6 +20,8 @@ class AmericanizeBritishizeEnglish(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.SENTIMENT_ANALYSIS,
              TaskType.QUESTION_ANSWERING, TaskType.QUESTION_GENERATION, TaskType.PARAPHRASE_DETECTION]
     languages = ["en"]
+    keywords = ["lexical", "rule-based", "syntactic", "api-based", "external-knowledge-based",
+                "highly-meaning-preserving", "high-precision", "low-coverage"]
 
     def __init__(self, n=1, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
