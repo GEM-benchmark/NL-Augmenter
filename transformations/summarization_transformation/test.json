@@ -1,0 +1,41 @@
+{
+  "type": "summarization_transformation",
+  "test_cases": [
+    {
+      "class": "Summarization",
+      "inputs": {
+        "sentence": "Apple is looking at buying U.K. startup which costs me for $132 billion."
+      },
+      "outputs": [{
+        "sentence": "Apple looking startup, startup costs me"
+      }]
+    },
+    {
+      "class": "Summarization",
+      "inputs": {
+        "sentence": "Parsley Energy to acquire Jagged Peak Energy Company in an all-stock deal."
+      },
+      "outputs": [{
+        "sentence": "Energy acquire Company"
+      }]
+    },
+    {
+      "class": "Summarization",
+      "inputs": {
+        "sentence": "Stillwater is not a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "Stillwater !is film"
+      }]
+    },
+    {
+      "class": "Summarization",
+      "inputs": {
+        "sentence": "Jack was the leader of the team, but Harry is better than him."
+      },
+      "outputs": [{
+        "sentence": "Jack was leader, Harry is better"
+      }]
+    }
+  ]
+}
