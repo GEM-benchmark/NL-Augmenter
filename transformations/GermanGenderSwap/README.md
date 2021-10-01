@@ -35,8 +35,10 @@ The 226 noun pairs are provided by the author, while the 2000 names are scraped 
 ## What are the limitations of this transformation?
 * This transformation does not replace words for cases other than nominative and possessive(the dative and genitive cases of German language).
 * Some outputs may not make sense: 
-“Dieser Mann hat mehr Testosteron als die Frau.” transforms into  “Diese Frau hat mehr Testosteron als die Frau." which is nonsensical
-* It acts upon the singular formS of nouns only, not on their plural forms. It also does not act upon the interrogative forms of pronouns present in the sentence.
+“Dieser Mann hat mehr Testosteron als die Frau.” transforms into  “Diese Frau hat mehr Testosteron als die Frau." which is nonsensical.
+* It acts upon the singular forms of nouns only, not on their plural forms. It also does not act upon the interrogative forms of pronouns present in the sentence.
+* If the input sentence contains gender pairs like: Mutter und Vater, it will be transformed into Mutter und Mutter. Cases like these can result in a lot of repetitive text.
+
 
 ## References:
 * [1]https://de.wiktionary.org/wiki/Verzeichnis:Deutsch/Namen/die_h%C3%A4ufigsten_m%C3%A4nnlichen_Vornamen_Deutschlands
