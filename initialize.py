@@ -1,4 +1,5 @@
 import spacy
+import torchtext.vocab as vocab
 from spacy.tokenizer import Tokenizer
 from spacy.util import (
     compile_infix_regex,
@@ -13,8 +14,13 @@ spacy_nlp = None
 
 def initialize_models():
     global spacy_nlp
+    global glove
+
     # load spacy
     spacy_nlp = spacy.load("en_core_web_sm")
+
+    # load glove
+    glove = vocab.GloVe(name = "6B", dim = "100")
 
 
 def reinitialize_spacy():

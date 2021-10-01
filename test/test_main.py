@@ -3,6 +3,7 @@ from test.keywords import keywords_in_file
 
 import pytest
 
+from interfaces.KeyValuePairsOperation import KeyValuePairsOperation
 from initialize import initialize_models, reinitialize_spacy
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import (
@@ -98,6 +99,25 @@ def execute_tagging_test_case(transformation, test):
             transformation, expected_tags, p_tags
         )
 
+def execute_key_value_pair_test_case(transformation, test):
+    filter_args = test["inputs"]
+    mr = filter_args["meaning_representation"]
+    reference = filter_args["reference"]
+    outputs = test["outputs"]
+    perturbs = transformation.generate(
+        mr, reference
+    )
+    for idx, (p_mr, p_ref) in enumerate(perturbs):
+        print(p_mr)      
+        expected_mr = outputs[idx]["meaning_representation"]
+        expected_ref = outputs[idx]["reference"]
+        assert p_mr == expected_mr, get_assert_message(
+            transformation, expected_mr, p_mr
+        )
+        assert p_ref == expected_ref, get_assert_message(
+            transformation, expected_ref, p_ref
+        )
+
 
 def assert_keywords(transformation):
     print("Checking for keywords")
@@ -131,6 +151,8 @@ def execute_test_case_for_transformation(transformation_name):
             execute_ques_ans_test_case(transformation, test)
         elif isinstance(transformation, TaggingOperation):
             execute_tagging_test_case(transformation, test)
+        elif isinstance(transformation, KeyValuePairsOperation):
+            execute_key_value_pair_test_case(transformation, test)
         else:
             print(f"Invalid transformation type: {transformation}")
         # Reinitialize spacy tokenizer [TODO: Need to run only for transformations using spacy]
