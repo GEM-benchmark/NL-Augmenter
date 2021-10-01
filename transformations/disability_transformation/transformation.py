@@ -1,11 +1,9 @@
-!python -m spacy download en_core_web_sm
 from interfaces.SentenceOperation import SentenceOperation
 from evaluation.evaluation_engine import evaluate, execute_model
 from tasks.TaskTypes import TaskType
 import spacy
 import string
 from spacy.lang.en.examples import sentences 
-nlp = spacy.load("en_core_web_sm")
 
 # A dict containing offensive words and their alternatives
 disability_names =  {"blind":"person or people with a visual impairment", 
@@ -134,11 +132,20 @@ class DifferentAbilityTransformation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION
     ]
     languages = ["en"]
+    
+    keywords = [
+        "lexical",
+        "rule-based",
+        "tokenizer-required",
+        "social-reasoning",
+    ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs = max_outputs)
         self.disability_names = disability_names
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = self.nlp = (
+            spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        )
         
     def generate(self, sentence: str):
       return [different_ability(sentence, self.disability_names)]
