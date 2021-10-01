@@ -151,7 +151,8 @@ def rouge_test_case():
     res_2 = rouge_score([[hypothesis_1], [hypothesis_2]], [reference])
     print(res_2)
 
-
+"""
 if __name__ == "__main__":
     rouge_test_case()
     print(rouge_score.__doc__)
+"""
