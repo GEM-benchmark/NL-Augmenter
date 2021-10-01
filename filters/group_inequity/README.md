@@ -44,7 +44,7 @@ sentences = [ "He is going to make a cake.",
               "She is going to make a computer program",              
               ]
 
-f = DiscriminationFilter("en", minority_group, majority_group, minority_factor, majority_factor)
+f = GroupInequityFilter("en", minority_group, majority_group, minority_factor, majority_factor)
 f.filter(sentences)
 ```
 
@@ -63,7 +63,7 @@ sentences = [ "She is going to make a cake.",
               "He is going to make a computer program",
               ]
 
-f = DiscriminationFilter("en", minority_group, majority_group, minority_factor, majority_factor)
+f = GroupInequityFilter("en", minority_group, majority_group, minority_factor, majority_factor)
 f.filter(sentences)
 ```
 
@@ -83,7 +83,7 @@ sentences = [ "He is going to make a cake.",
               "Nobody likes making cakes!"                          
               ]
 
-f = DiscriminationFilter("en", minority_group, majority_group, minority_factor, majority_factor)
+f = GroupInequityFilter("en", minority_group, majority_group, minority_factor, majority_factor)
 
 flagged_corpus = f.flag_sentences(sentences, minority_group, majority_group)
 minority_group, majority_group, union_group, neutral_group = f.sort_groups(flagged_corpus)
@@ -117,7 +117,7 @@ sentences = [ "He is going to make a cake.",
               "She is going to make a computer program",            
               "Nobody likes making cakes!"                          
               ]
-f = DiscriminationFilter(language , minority_group, majority_group, minority_factor, majority_factor)
+f = GroupInequityFilter(language , minority_group, majority_group, minority_factor, majority_factor)
 
 # Retrieve the flags for each of the sentences
 flagged_corpus = f.flag_sentences(sentences, minority_group, majority_group)
@@ -152,7 +152,7 @@ sentences = ["Il va faire un gâteau.",
              "Personne va faire un logiciel"            
               ]
 
-f = DiscriminationFilter("fr", minority_group, majority_group, minority_factor, majority_factor)
+f = GroupInequityFilter("fr", minority_group, majority_group, minority_factor, majority_factor)
 f.filter(sentences)
 ```
 
@@ -163,8 +163,8 @@ python -m spacy download fr_core_news_sm
 
 
 ## What are the limitations of this filter?
-The filter does not take into calculation condition the the sentences from the `union_group`, which where flagged as inherent to both - minor and major groups at the same time. 
-You might want to expract the content of this group using "sort_groups()" method ad check it manually or using other methods.
+The filter does not take into calculation condition sentences from the `union_group`, which where flagged as inherent to both - minor and major groups at the same time. 
+You might want to extract the content of this group using "sort_groups()" method and check it manually or using other methods.
 
 ## References
 _[1]_
