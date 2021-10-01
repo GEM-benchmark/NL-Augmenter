@@ -115,7 +115,7 @@ def restore_punc(text):
 
 def different_ability(input, disability_names):
     text = input.lower()
-    text=replace_punc(text)
+    text = replace_punc(text)
     for name in disability_names.keys():
         if name in text:
             wl, pl = postag(text)
