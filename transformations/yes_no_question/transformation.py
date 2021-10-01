@@ -260,13 +260,13 @@ class YesNoQuestionPerturbation(SentenceOperation):
         doc: Doc = self.nlp(sentence)
 
         outputs: List[str] = []
-        for sentence in doc.sents:
+        for sent in doc.sents:
             # TODO: Test if sentence is statement or question
-            question = self.statement_to_question(sentence)
+            question = self.statement_to_question(sent)
             if question is not None:
                 rhetorical_question = self.rhetoricalize_question(question)
                 if rhetorical_question is not None:
                     outputs.append(rhetorical_question)
 
-        sentence = " ".join(output for output in outputs if output is not None)
-        return [sentence] if sentence else []
+        new_sentence = " ".join(output for output in outputs)
+        return [new_sentence] if new_sentence else [sentence]

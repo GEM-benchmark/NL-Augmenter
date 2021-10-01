@@ -60,7 +60,9 @@
       "inputs": {
         "sentence": "He likes to walk and she likes to run."
       },
-      "outputs": []
+      "outputs": [{
+        "sentence": "He likes to walk and she likes to run."
+      }]
     },
     {
       "class": "YesNoQuestionPerturbation",
