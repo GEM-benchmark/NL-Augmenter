@@ -1,0 +1,80 @@
+{
+  "type": "yes_no_question_perturbation",
+  "test_cases": [
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "Did Andrew finally return the French book to Chris that I bought last week? Yes."
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [{
+        "sentence": "Did Ujjal Dev Dosanjh serve as 33rd Premier of British Columbia from 2000 to 2001? Yes."
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [{
+        "sentence": "Is neuroplasticity a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization? Yes."
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "Dave isn't going to Seattle."
+      },
+      "outputs": [{
+        "sentence": "Is Dave going to Seattle? No."
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "He has decided that you aren't ready yet."
+      },
+      "outputs": [{
+        "sentence": "Has he decided that you aren't ready yet? Yes."
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "He likes me because I cook for him."
+      },
+      "outputs": [{
+        "sentence": "Does he like me because I cook for him? Yes."
+      }]
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "He likes to walk and she likes to run."
+      },
+      "outputs": []
+    },
+    {
+      "class": "YesNoQuestionPerturbation",
+      "inputs": {
+        "sentence": "Vikram was here yesterday. He didn't want to eat any cake."
+      },
+      "outputs": [
+        {
+          "sentence": "Was Vikram here yesterday? Yes."
+        },
+        {
+          "sentence": "Did he want to eat any cake? No."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,378 @@
+São Paulo
+Mexico City
+Buenos Aires
+Rio de Janeiro
+Lima
+Bogotá
+Santiago
+Guadalajara
+Belo Horizonte
+Barcelona
+Monterrey
+Madrid
+Santa Cruz
+Brasília
+Salvador
+La Paz
+Guayaquil
+Santo Domingo
+Medellín
+Cali
+Fortaleza
+Guatemala City
+Tijuana
+Havana
+Quito
+Caracas
+Curitiba
+Asunción
+Barranquilla
+Manaus
+Vitória
+Ecatepec
+Puebla
+Recife
+Santiago
+Maracaibo
+Porto Alegre
+Valencia
+León de los Aldama
+Goiânia
+Belém
+Córdoba
+Guarulhos
+Juárez
+Montevideo
+Comayagüela
+Sevilla
+Vila Velha
+Rosario
+Campinas
+Zapopan
+Callao
+Tegucigalpa
+Ciudad Nezahualcóyotl
+Nezahualcóyotl
+Mexicali
+São Luís
+San Pedro Sula
+Barquisimeto
+Cartagena
+Maceió
+Managua
+Arequipa
+Panama City
+San Salvador
+Sucre
+San José
+Joinvile
+Natal
+Aguascalientes
+Trujillo
+Olinda
+Mérida
+Natal
+Novo Hamburgo
+Chihuahua
+Campo Grande
+Barinas
+Teresina
+Iguaçu
+Naucalpan de Juárez
+San Luis Potosí
+Toluca
+Querétaro
+São Bernardo do Campo
+Hermosillo
+Saltillo
+João Pessoa
+Valencia
+Morelia
+Culiacán
+Tlalnepantla
+Ciudad Guayana
+Cúcuta
+San Cristóbal
+Cancún
+Reynosa
+Jaboatão
+Santo André
+Soledad
+Osasco
+Guadalupe
+Aracaju
+São José dos Campos
+Acapulco de Juárez
+Torreón
+São José dos Pinhais
+Ribeirão Prêto
+Catia La Mar
+Durango
+Zaragoza
+Sorocaba
+Villahermosa
+Cochabamba
+Chimalhuacán
+San Miguel de Tucumán
+Uberlândia
+Canoas
+Tuxtla
+Mar del Plata
+Cuiabá
+Bucaramanga
+Tlaquepaque
+Málaga
+Pereira
+Ciudad Bolívar
+Tlajomulco de Zúñiga
+Veracruz
+Chiclayo
+Maturín
+Ibagué
+Salta
+Xalapa
+Villavicencio
+Ensenada
+Ciudad Apodaca
+Santa Teresa del Tuy
+Londrina
+Heroica Matamoros
+Bello
+Cuautitlán Izcalli
+Santa Marta
+Mazatlán
+Mazatán
+Niterói
+Chimbote
+Ixtapaluca
+Ciudad López Mateos
+Tultitlán de Mariano Escobedo
+Valledupar
+San Nicolás de los Garza
+Juiz de Fora
+Feira de Santana
+Americana
+Florianópolis
+San Juan
+Vila Velha
+Macapá
+Piura
+Celaya
+Lanús
+Mauá
+Montería
+Volta Redonda
+Barcelona
+Santiago de Cuba
+São José do Rio Prêto
+Diadema
+Santos
+Cusco
+Mogi das Cruzes
+Palma
+Ipatinga
+Ciudad Obregón
+Maracay
+Murcia
+Santa Fe
+Campina Grande
+Carapicuíba
+Jundiaí
+Campos
+San Lorenzo
+Caxias do Sul
+Tonalá
+Las Palmas
+Rio Branco
+Pasto
+Irapuato
+Antofagasta
+Huancayo
+Usulután
+Iquitos
+A Coruña
+Manizales
+Cumaná
+Nuevo Laredo
+Cuernavaca
+Nicolás Romero
+Bauru
+Anápolis
+Tecámac
+Ciudad General Escobedo
+Montes Claros
+Donostia
+São Vicente
+Itaquaquecetuba
+Minatitlán
+Bilbao
+Corrientes
+Cabimas
+Holguín
+Piracicaba
+Franca
+Tepic
+Alicante
+Viña del Mar
+Cuenca
+Maringá
+San Juan
+Pelotas
+Gómez Palacio
+Itajaí
+Boa Vista
+Pucallpa
+Córdoba
+Uberaba
+Uruapan
+Camagüey
+San Salvador de Jujuy
+Tapachula
+Coatzacoalcos
+Tampico
+Boaco
+Neiva
+Vitória da Conquista
+Guarujá
+Porto Velho
+Chalco
+Blumenau
+Puerto La Cruz
+Ciudad del Este
+Ciudad Victoria
+Oaxaca
+Armenia
+Taubaté
+Popayán
+Praia Grande
+Mérida
+Valladolid
+Bahía Blanca
+Petrópolis
+Vigo
+Valparaíso
+Limeira
+Ponta Grossa
+Resistencia
+Juliaca
+Punto Fijo
+Tacna
+Coacalco
+Crato
+Coro
+Taboão da Serra
+Temuco
+Ica
+Sincelejo
+Pachuca
+Posadas
+Tehuacán
+La Guaira
+Crato
+Gijón
+Palmas
+Santo Domingo de los Colorados
+Santa Ana
+Salamanca
+Sumaré
+Marabá
+Petrolina
+Oruro
+Barueri
+Ciudad Benito Juárez
+Cascavel
+Governador Valadares
+Ciudad Santa Catarina
+Los Mochis
+Texcoco
+Playa del Carmen
+Foz do Iguaçu
+Santa Maria
+La Paz
+Turmero
+Buenaventura
+Vitoria-Gasteiz
+Várzea Grande
+Santiago del Estero
+Los Teques
+Caruaru
+San Bernardo
+Paraná
+Oruro
+Merlo
+Colón
+Puerto Montt
+González Catán
+Juazeiro do Norte
+Tarapoto
+San Juan del Río
+São Carlos
+Ilhéus
+Quilmes
+El Tigre
+Bayamo
+Granada
+Machala
+Monclova
+Santarém
+Rancagua
+Marília
+Indaiatuba
+Itabuna
+Neuquén
+Badalona
+Cotia
+Guantánamo
+Guadalupe
+Huixquilucan
+Puerto Vallarta
+Jacareí
+Buenavista
+Quetzaltenango
+Araraquara
+Heroica Nogales
+Itapevi
+Campeche
+Carlos Manuel de Céspedes
+Cartago
+Soledad de Graciano Sánchez
+Presidente Prudente
+José C. Paz
+Formosa
+Imperatriz
+La Serena
+San Felipe
+La Vega
+Córdoba
+San Pedro de Macorís
+Ciudad Acuña
+Sabadell
+Hortolândia
+Manta
+San Miguel
+Concepción
+Los Ángeles
+Cúa
+Cartagena
+La Victoria
+Criciúma
+Warnes
+Ciudad Madero
+Jerez de la Frontera
+Timon
+Metepec
+Pamplona
+Guarenas
+Puerto Cabello
+La Romana
+Santa Cruz
+Santa Clara
+Portoviejo
+Mossoró
+Sete Lagoas
+Coquimbo
+Poza Rica de Hidalgo
+Las Tunas
+Arica
+Huacho
+Cajamarca

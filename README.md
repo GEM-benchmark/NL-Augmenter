@@ -1,6 +1,13 @@
+[![Checks](https://github.com/GEM-benchmark/NL-Augmenter/workflows/nl-tests/badge.svg)](https://github.com/GEM-benchmark/NL-Augmenter/actions/workflows/nl-action.yml)
+[![Forks](https://img.shields.io/github/forks/GEM-benchmark/NL-Augmenter)](https://github.com/GEM-benchmark/NL-Augmenter/network/members)
+[![Issues](https://img.shields.io/github/issues/GEM-benchmark/NL-Augmenter)](https://github.com/GEM-benchmark/NL-Augmenter/issues)
+[![Pull requests](https://img.shields.io/github/issues-pr/GEM-benchmark/NL-Augmenter)](https://github.com/GEM-benchmark/NL-Augmenter/pulls)
+[![Contributors](https://img.shields.io/github/contributors/GEM-benchmark/NL-Augmenter)](https://github.com/GEM-benchmark/NL-Augmenter/graphs/contributors)
+[![License](https://img.shields.io/github/license/GEM-benchmark/NL-Augmenter)](https://opensource.org/licenses/MIT)
+
 # NL-Augmenter 🦎 → 🐍
 
-The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: introducing spelling errors, randomizing names and numbers, changing style, [paraphrasing](https://aclanthology.org/J13-3001.pdf), KB-based paraphrasing ... and whatever creative augmentation you contribute. We invite submissions of transformations to this framework by way of GitHub pull request, through July 25, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework.
+The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: randomizing names and numbers, changing style/syntax, [paraphrasing](https://aclanthology.org/J13-3001.pdf), KB-based paraphrasing ... and whatever creative augmentation you contribute. We invite submissions of transformations to this framework by way of GitHub pull request, through August 31, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework.
 
 The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
@@ -8,10 +15,8 @@ The framework organizers can be contacted at nl-augmenter@googlegroups.com.
 
 | Due date          | Description                                                                 |
 | ------------------ | -----------                                                                 |
-|  July 25, 2021   | Pull request must be opened to be invited as a reviewer and be included in the framework & associated paper |
-|  August 15, 2021   | Review process for pull request above must be complete to be invited as a reviewer and be included in the framework & associated paper |
-| August 31, 2021 | Pull request must be opened to be eligible for inclusion in the framework and associated paper  |
-| September 22, 2021 | Review process for pull request above must be complete           |
+| A̶u̶g̶u̶s̶t̶ 3̶1̶, 2̶0̶2̶1̶ | P̶u̶l̶l̶ r̶e̶q̶u̶e̶s̶t̶ m̶u̶s̶t̶ b̶e̶ o̶p̶e̶n̶e̶d̶ t̶o̶ b̶e̶ e̶l̶i̶g̶i̶b̶l̶e̶ f̶o̶r̶ i̶n̶c̶l̶u̶s̶i̶o̶n̶ i̶n̶ t̶h̶e̶ f̶r̶a̶m̶e̶w̶o̶r̶k̶ a̶n̶d̶ a̶s̶s̶o̶c̶i̶a̶t̶e̶d̶ p̶a̶p̶e̶r̶  |
+| September 2̶2̶, 30 2021 | Review process for pull request above must be complete           |
 
 A transformation can be revised between the pull request submission and pull request merge deadlines. We will provide reviewer feedback to help with the revisions.
 
@@ -114,6 +119,9 @@ Alternatively, you can do so from the GitHub website.
 ## How do I create a filter?
 
 We also accept pull-requests for creating [filters](filters) which identify interesting subpopulations of a dataset. The process to add a new filter is just the same as above. All filter implementations require implementing `.filter` instead of `.generate` and need to be placed in the [filters](filters) folder. So, just the way transformations can transform examples of text, filters can identify whether an example follows some pattern of text! The only difference is that while transformations return another example of the same input format, filters simply return True or False! For step-by-step instructions, follow [these](filters) steps.
+
+## BIG-Bench :chair:
+If you are interested in NL-Augmenter, you may also be interested in the [BIG-bench](https://github.com/google/BIG-bench/) large scale collaborative benchmark for language models.
 
 ### Most Creative Implementations 🏆
 

@@ -1,0 +1,108 @@
+{
+    "type": "polarity",
+    "test_cases": [
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed":  0.5
+            },
+            "inputs": {
+                "sentence1": "Hotel is nice",
+                "sentence2": "Hotel is good"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed":  0.5
+            },
+            "inputs": {
+                "sentence1": "Hotel is awesome",
+                "sentence2": "Hotel is bad"
+            },
+            "outputs": false
+        },
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed":  0.5
+            },
+            "inputs": {
+                "sentence1": "Hotel is terrible",
+                "sentence2": "Hotel is great"
+            },
+            "outputs": false
+        },
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed":  0.5
+            },
+            "inputs": {
+                "sentence1": "Hotel is awful",
+                "sentence2": "Hotel is bad"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed":  1.0
+            },
+            "inputs": {
+                "sentence1": "Hotel is weird",
+                "sentence2": "Hotel is ok"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed":  0.5,
+                "strict_polarity": true
+            },
+            "inputs": {
+                "sentence1": "Hotel is okayish",
+                "sentence2": "Hotel is not good"
+            },
+            "outputs": true
+        },
+                {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed":  0.5,
+                "strict_polarity": true
+            },
+            "inputs": {
+                "sentence1": "Hotel is awful",
+                "sentence2": "Hotel is bad"
+            },
+            "outputs": true
+        },
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed": 0.7,
+                "strict_polarity": true
+            },
+            "inputs": {
+                "sentence1": "Hotel is not good",
+                "sentence2": "Hotel is not bad"
+            },
+            "outputs": false
+        },
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed": 0.7,
+                "strict_polarity": true
+            },
+            "inputs": {
+                "sentence1": "Hotel is not good but I liked it anyway",
+                "sentence2": "Hotel is not great but I liked it anyway"
+            },
+            "outputs": true
+        }
+    ]
+}

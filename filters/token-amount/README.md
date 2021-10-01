@@ -9,7 +9,7 @@ This filter filters an example text based on a set of keywords and returns wheth
 Inputs:
 
 - Array of words (e.g. ["is", "are"]), a single string is also possible
-- Array of integers of elementwise required occurences (e.g. [2, 4]), if a single integer is given same threshold is applied to all keywords
+- Array of integers of elementwise required occurrences (e.g. [2, 4]), if a single integer is given same threshold is applied to all keywords
 - Array of strings of comparison operations (e.g. ["<", ">"]), if a single string is given the same operation is applied to all keywords
 
 Supported operations:
