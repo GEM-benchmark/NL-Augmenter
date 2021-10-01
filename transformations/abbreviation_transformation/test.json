@@ -1,0 +1,50 @@
+{
+  "type": "abbreviate", 
+  "test_cases": [
+    {
+      "class": "Abbreviate", 
+      "inputs": {
+        "sentence": "I will turn in the homework on Friday for sure!"
+      }, 
+      "outputs": [{
+        "sentence": "I will turn in the hwk on fri. fsho !"
+      }]
+    }, 
+    {
+      "class": "Abbreviate", 
+      "inputs": {
+        "sentence": "I love you bro, but for the love of god, just google it."
+      }, 
+      "outputs": [{
+        "sentence": "ilu bro , but ftlog , just google it ."
+      }]
+    }, 
+    {
+      "class": "Abbreviate", 
+      "inputs": {
+        "sentence": "Just so you know, we have a meeting in two hours."
+      }, 
+      "outputs": [{
+        "sentence": "jsyk , we hve a meeting in two hrs ."
+      }]
+    },
+    {
+      "class": "Abbreviate", 
+      "inputs": {
+        "sentence": "You driving at 80 miles per hour is why insurance is so freaking expensive."
+      }, 
+      "outputs": [{
+        "sentence": "You driving at 80 mph tis why insurance tis so freaking expensive ."
+      }]
+    },
+    {
+      "class": "Abbreviate",
+      "inputs": {
+        "sentence": "My bad, my bad, this is my first time playing a First Person Shooter."
+      },
+      "outputs": [{
+        "sentence": "My bad , mb , dis is mai first time playing a fps ."
+      }]
+    }
+  ]
+}

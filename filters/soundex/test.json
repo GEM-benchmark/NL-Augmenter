@@ -1,0 +1,60 @@
+{
+    "type": "soundex",
+    "test_cases": [
+        {
+            "class": "PhoneticMatchFilter",
+            "args": {
+                "keywords": ["sausage"],
+                "algorithm": "soundex"
+            },
+            "inputs": {
+                "sentence": "I ate a sausag"
+            },
+            "outputs": true
+        },
+        {
+            "class": "PhoneticMatchFilter",
+            "args": {
+                "keywords": ["trombone"],
+                "algorithm": "soundex"
+            },
+            "inputs": {
+                "sentence": "I left my trombno on the train"
+            },
+            "outputs": true
+        },
+        {
+            "class": "PhoneticMatchFilter",
+            "args": {
+                "keywords": ["systematac"],
+                "algorithm": "nysiis"
+            },
+            "inputs": {
+                "sentence": "We carried out a systematic analysis"
+            },
+            "outputs": true
+        },
+        {
+            "class": "PhoneticMatchFilter",
+            "args": {
+                "keywords": ["lollipop"],
+                "algorithm": "soundex"
+            },
+            "inputs": {
+                "sentence": "lolling back on the car seat in repose"
+            },
+            "outputs": false
+        },
+        {
+            "class": "PhoneticMatchFilter",
+            "args": {
+                "keywords": ["swallowed", "breathing"],
+                "algorithm": "match_rating_codex"
+            },
+            "inputs": {
+                "sentence": "the dock smashed, breaking free of its foundation"
+            },
+            "outputs": false
+        }
+    ]
+}

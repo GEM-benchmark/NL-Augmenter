@@ -17,7 +17,7 @@ Author Affiliation: Naver Labs Europe
 ## What type of a transformation is this?
 This transformation acts like a perturbation to test robustness.
 This perturbation replaces in texts some well known words or expressions with (one of) their abbreviations.
-Most of the abbreviations covered here are quite common on social medias platforms, even though some of them are quite generic.
+Most of the abbreviations covered here are quite common on social media platforms, even though some of them are quite generic.
 The transformations are applied wia two classes :  
 	- AbbreviationInsertionEN for English
 	- AbbreviationInsertionFR for French.

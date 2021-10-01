@@ -14,7 +14,7 @@ Multilingual Lexicon Perturbation
 
 This perturbation helps to creates code-mixed sentences for both high-resource and low-resource languages (See supported languages below). This perturbation performs randomly translates words with a specified probability from any supported languages (e.g., English) to other supported languages (e.g., Chinese) by using a multilingual lexicon. Thus, it can be used to generate code-mixed training data to improve the robustness of a model in the multilingual and cross-lingual settings.
 
-There are 100 langauges supported as listed below:
+There are 100 languages supported as listed below:
 Afrikaans (af), Amharic (am), Arabic (ar), Asturian (ast), Azerbaijani (az), Bashkir (ba), Belarusian (be), Bulgarian (bg), Bengali (bn),
 Breton (br), Bosnian (bs), Catalan; Valencian (ca), Cebuano (ceb), Czech (cs), Welsh (cy), Danish (da), German (de), Greeek (el), English (en),
 Spanish (es), Estonian (et), Persian (fa), Fulah (ff), Finnish (fi), French (fr), Western Frisian (fy), Irish (ga), Gaelic; Scottish Gaelic (gd),
