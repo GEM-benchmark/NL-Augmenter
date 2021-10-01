@@ -8,242 +8,12 @@ from evaluation.evaluation_engine import evaluate, execute_model
 from tasks.TaskTypes import TaskType
 import json
 
+with open("data.json", "r", encoding="utf-8") as f:
+    names = json.load(f)
 
-noun_pairs = {
-    "Arzt": "Arztin",
-    "Bruder": "Schwester",
-    "Prinz": "Prinzessin",
-    "Vater": "Mutter",
-    "Stiefsohn": "Stieftochter",
-    "Herzog": "Herzogin",
-    "Zauberer": "Hexe",
-    "Baron": "Baronin",
-    "Prinz": "Prinzessin",
-    "Schwiegersohn": "Schwiegersohn",
-    "Freund": "Freundin ",
-    "Onkel": "Tante ",
-    "Jager": "Jagerin",
-    "Meister": "Herrin",
-    "Grossvater": "Oma",
-    "Madchen": "Junge",
-    "Mann": "Frau",
-    "Priester": "Priesterin",
-    "Monch": "Nonne",
-    "Gott": " Gottin",
-    "Steward": "Sewardess",
-    "Mord": "Morderin",
-    "Kellner": "Kellnerin",
-    "Kaiser": "Kaiserin",
-    "Konig": "Konigin",
-    "Ehemann": "Frau",
-    "Stiefvater": "Stiefmutter",
-    "Sohn": "Tochter",
-    "Geschaftsmann": "Geschaftsfrau",
-    "Witwer": "Witwe",
-    "Schauspieler": "Schauspielerin",
-    "Krankenpfleger": "Krankenschwester",
-    "Schreiber": "Schreiberin",
-    "Patensohn": "Patentochter",
-    "Pate": "Patin",
-    "Techniker": "Technikerin",
-    "Ingenieur": "Ingenieurin ",
-    "Fahrer": "Fahrerin",
-    "Chirurg": "Chirurgin",
-    "Mechaniker": "Mechanikerin",
-    "Pionier": "Pionierin",
-    "Regisseur": "Regisseurin",
-    "Karikaturist": "Karikaturistin",
-    "Musiker": "Musikerin",
-    "Physiker": "Physikerin",
-    "Grunder": "Grunderin",
-    "Muslim": "Muslimin",
-    "Christ": "Christin",
-    "Jude": "Judin",
-    "Atheist": "Atheistin",
-    "Botaniker": "Botanikerin",
-    "Chemiker": "Chemikerin",
-    "Historiker": "Historikerin",
-    "Burger": "Burgerin",
-    "Gegner": "Gegnerin",
-    "Auslander": "Auslanderin",
-    "Sanger": "Sangerin",
-    "Dichter": "Dichterin",
-    "Teilnehmer": "Teilnehmerin",
-    "Handwerker": "Handwerkerin",
-    "Partisan": "Partisanin",
-    "Soldat": "Soldatin",
-    "Boss": "Bossin",
-    "Chef": "Chefin",
-    "Fuhrer": "Fuhrerin",
-    "Kommandant": "Kommandantin",
-    "Kapitan": "Kapitanin",
-    "Sklave": "Sklavin",
-    "Entertainer": "Entertainerin",
-    "Prasident": "Prasidentin",
-    "Skifahrer": "Skifahrerin",
-    "Fussballer": "Fussballerin",
-    "Cricketspieler": "Cricketspielerin",
-    "Berater": "Beraterin",
-    "Therapeut": "Therapeutin",
-    "Psychologe": "Psychologin",
-    "Kardiologe": "Kardiologin",
-    "Dermatologe": "Dermatologin",
-    "Zahnarzt": "Zahnarztin",
-    "Praktiker": "Praktikerin",
-    "Neurologe": "Neurologin",
-    "Ernahrungsberater": "Ernahrungsberaterin",
-    "Anasthesist": "Anasthesistin",
-    "Apotheker": "Apothekerin",
-    "Chirurg": "Chirurgin",
-    "Entbindungspfleger": "Hebamme",
-    "Audiologe": "Audiologin",
-    "Augenoptiker": "Augenoptikerinnen",
-    "Optiker": "Optikerin",
-    "Tierarzte": "Tierarztinnen",
-    "Podologen": "Podologinnen",
-    "Endokrinologe": "Endokrinologin",
-    "Geriater": "Geriater",
-    "Internist": "Internistin",
-    "Geburtshelfer": "Geburtshelferin",
-    "Urologe": "Urologin",
-    "Neurochirurg": "Neurochirurgin",
-    "Statistiker": "Statistikerin",
-    "Wissenschaftler": "Wissenschaftlerin",
-    "Erfinder": "Erfinderin",
-    "Urheber": "Urheberin",
-    "Autor": "Autorin",
-    "Herrscher": "Herrscherin",
-    "Schriftsteller": "Schriftstellerin",
-    "Archaologe": "Archaologin",
-    "Astronaut": "Astronautin",
-    "Astronom": "Astronomin",
-    "Biochemiker": "Biochemikerin",
-    "Gynakologe": "Gynakologin",
-    "Okologe": "Okologin",
-    "Förster": "Försterin",
-    "Aufseher": "Aufseherin",
-    "Geograph": "Geographin",
-    "Naturforscher": "Naturforscherin",
-    "Pathologe": "Pathologin",
-    "Palaontologe": "Palaontologin",
-    "Anthropologe": "Anthropologin",
-    "Okonom": "Okonomin",
-    "Historiker": "Historikerin",
-    "Soziologe": "Soziologin",
-    "Planer": "Planerin",
-    "Klempner": "Klempnerin",
-    "Schweisser": "Schweisserin",
-    "Holzarbeiter": "Holzarbeiterinnen",
-    "Arbeiter": "Arbeiterin",
-    "Muller": "Mullerin",
-    "Leibwachter": "Leibwachterin",
-    "Polizist": "Polizistin",
-    "Rechtsanwalt": "Rechtsanwaltin",
-    "Stellvertreter": "Stellvertreterin",
-    "Vertreter": "Vertreterin",
-    "Verkaufer": "Verkauferin",
-    "Verkaufer": "Verkauferin",
-    "Aufseher": "Aufseherin",
-    "Rektor": "Rektorin",
-    "Pastor": "Pastorin",
-    "Cousin": "Cousine",
-    "Tanzer": "Tanzerin",
-    "Dieb": "Diebin",
-    "Ehepartner": "Ehepartnerin",
-    "Illustrator": "Illustratorin",
-    "Designer": "Designerin",
-    "Jager": "Jagerin",
-    "Angreifer": "Angreiferin",
-    "Uberlebender": "Uberlebende",
-    "Einwohner": "Einwohnerin",
-    "Bewohner": "Bewohnerin",
-    "Forscher": "Forscherin",
-    "Programmierer": "Programmiererin",
-    "Professor": "Professorin",
-    "Dozent": "Dozentin",
-    "Begleiter": "Begleiterin",
-    "Besucher": "Besucherin",
-    "Theologe": "Theologin",
-    "Immigrant": "Immigrantin",
-    "Farmer": "Farmerin",
-    "Senator": "Senatorin",
-    "Wanderer": "Wanderin",
-    "Kurator": "Kuratorin",
-    "Wachter": "Wachterin",
-    "Treuhander": "Treuhanderin",
-    "Huter": "Huterin",
-    "Spion": "Spionin",
-    "Klager": "Klagerin",
-    "Antragsteller": "Antragstellerin",
-    "Dieb": "Diebin",
-    "Pazifist": "Pazifistin",
-    "Metzger": "Metzgerin",
-    "Verfuhrer": "Verfihrerin",
-    "Kanzler": "Kanzlerin",
-    "Gewinner": "Gewinnerin",
-    "Einsiedler": "Einsiedlerin",
-    "Prostituierter": "Prostituierte",
-    "Gastronom": "Gastronomin",
-    "Laufer": "Lauferin",
-    "Bote": "Botin",
-    "Journalist": "Journalistin",
-    "Publizist": "Publizistin",
-    "Vegetarier": "Vegetarierin",
-    "Schwimmer": "Schwimmerin",
-    "Uhrmacher": "Uhrmacherin",
-    "Lugner": "Lugnerin",
-    "Schwindler": "Schwindlerin",
-    "Stripper": "Stripperin",
-    "Maler": "Malerin",
-    "Richter": "Richterin",
-    "Experte": "Expertin",
-    "Komponist": "Komponistin",
-    "Trainer": "Trainerin",
-    "Tutor": "Tutorin",
-    "Erzieher": "Erzieherin",
-    "Chiropraktiker": "Chiropraktikerin",
-    "Blogger": "Bloggerin",
-    "Aktivist": "Aktivistin",
-    "Banker": "Bankerin",
-    "Biograph": "Biographin",
-    "Pilot": "Pilotin",
-    "Schiedsrichter": "Schiedsrichterin",
-    "Abenteurer": "Abenteurerin",
-    "Schneider": "Schneiderin",
-    "Ubersetzer": "Ubersetzerin",
-    "Verrater": "Verraterin",
-    "Sunder": "Sunderin",
-    "Bildhauer": "Bildhauerin",
-    "Politiker": "Politikerin",
-    "Philosoph": "Philosophin",
-    "Ornithologe": "Ornithologin",
-    "Motorradfahrer": "Motorradfahrerin",
-    "Radfahrer": "Radfahrerin",
-    "Moderator": "Moderatorin",
-    "Missionar": "Missionarin",
-    "Kuppler": "Kupplerin",
-    "Mikrobiologe": "Mikrobiologin",
-    "Holzfaller": "Holzfallerin",
-    "Interviewer": "Interviewerin",
-    "Zigeuner": "Zigeunerin",
-    "Gitarrist": "Gitarristin",
-    "Wahrsager": "Wahrsagerin",
-    "Fischhandler": "Fischhandlerin",
-    "Taucher": "Taucherin",
-    "Springer": "Springerin",
-    "Diplomat": "Diplomatin",
-    "Stellvertreter": "Stellvertreterin",
-    "Masseur": "Masseuse",
-    "Neffe": "Nichte",
-    "Lowe": "Lowin",
-    "Kater": "Katze",
-}
+with open("noun_pairs.json", "r", encoding="utf-8") as fn:
+    nouns = json.load(fn)
 
-
-f = open(
-    "data.json",
-)
-names = json.load(f)
 f = list(names["1"].values())
 m = list(names["2"].values())
 
@@ -307,14 +77,15 @@ def replace_prev_word(ind, text, noundict):
     return t2
 
 
-def replace_noun_pairs(inp, noun_pairs):
+def replace_noun_pairs(inp, nouns):
     i = replace_punc(inp)
     text = i.split()
-    for name in noun_pairs.keys():
+    for name in nouns.keys():
         if name in text:
             ind = get_index(text, name)
-            newtext = replace_name_in_list(ind, text, noun_pairs)
+            newtext = replace_name_in_list(ind, text, nouns)
             newtext = replace_prev_word(ind, newtext, preceeding_word)
+
         else:
             newtext = text
     newtext = " ".join(str(x) for x in newtext)
@@ -359,7 +130,6 @@ def replace_personal(inp, personalp):
     return newtext
 
 
-# Replace Names
 def findname(sent, malenames, femalenames):
     t = sent.split()
     for word in t:
@@ -396,9 +166,9 @@ def newnamerep(m, f, inp, names):
     return sent
 
 
-def german_nouns(inp, noun_pairs):
+def german_nouns(inp, nouns, names):
     text = replace_punc(inp)
-    t1 = replace_noun_pairs(text, noun_pairs)
+    t1 = replace_noun_pairs(text, nouns)
     t2 = replace_personal(t1, personalp)
     t3 = newnamerep(m, f, t2, names)
     t4 = restore_punc(t3)
@@ -412,11 +182,15 @@ class GermanGenderSwap(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs)
-        self.noun_pairs = noun_pairs
+        self.nouns = nouns
+        self.names = names
+        self.sp = sp
 
     def generate(self, sentence: str):
-        return [german_nouns(sentence, self.noun_pairs)]
+        return [german_nouns(sentence, self.nouns, self.names)]
 
+
+# -*- coding: utf-8 -*-
 
 if __name__ == "__main__":
     import json
@@ -425,8 +199,9 @@ if __name__ == "__main__":
     tf = GermanGenderSwap(max_outputs=1)
     test_cases = []
     for sentence in [
+        "Der liebe Gott hat uns noch ein paar wunderschöne Tage mit ihr geschenkt, in denen sich der größte Teil ihrer Familie und ihrer Freunde bei ihr verabschieden konnte, sagte Thurn und Taxis auch im Namen ihrer Brüder Alexander und Carl-Alban.",
         "Mein Vater und dein Bruder sind hier?",
-        "Er ist der Prasident, sie ist die Herrscherin und sie werden jetzt bald Ehemann und Ehefrau sein!",
+        "Er ist der Präsident, sie ist die Herrscherin und sie werden jetzt bald Ehemann und Ehefrau sein!",
         "Er ist ein Arzt und mein Vater.",
         "Ich sehe, dass der Dichter und die Schauspielerin jetzt Freunde sind!",
     ]:
