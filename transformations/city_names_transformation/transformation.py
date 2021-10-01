@@ -167,6 +167,7 @@ class CityNamesTransformation(SentenceOperation):
         TaskType.TEXT_TAGGING
     ]
     languages = ["en", "es"]
+    heavy = True
     keywords = ["lexical","model-based","tokenizer-required","highly-meaning-preserving","high-precision","low-coverage","high-generations","world-knowledge"]
     # languages the operation can operate on.
     def __init__(self, seed=0, max_outputs=1, lang="en", data_path=None):
