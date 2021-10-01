@@ -17,7 +17,7 @@ with open("noun_pairs.json", "r", encoding="utf-8") as fn:
 f = list(names["1"].values())
 m = list(names["2"].values())
 
-# Noun Pairs
+# Noun Pairs.
 def replace_punc(text):
     for i in string.punctuation:
         text = text.replace(i, " " + i)
@@ -92,7 +92,7 @@ def replace_noun_pairs(inp, nouns):
     return newtext
 
 
-# Personal Pronouns
+# Personal Pronouns.
 personalp = {
     "er": "sie",
     "Er": "Sie",
@@ -189,34 +189,6 @@ class GermanGenderSwap(SentenceOperation):
         super().__init__(seed, max_outputs)
         self.nouns = nouns
         self.names = names
-    
 
     def generate(self, sentence: str):
         return [german_nouns(sentence, self.nouns, self.names)]
-
-
-if __name__ == "__main__":
-    import json
-    from TestRunner import convert_to_snake_case
-
-    tf = GermanGenderSwap(max_outputs=1)
-    test_cases = []
-    for sentence in [
-        "Der liebe Gott hat uns noch ein paar wunderschöne Tage mit ihr geschenkt, in denen sich der größte Teil ihrer Familie und ihrer Freunde bei ihr verabschieden konnte, sagte Thurn und Taxis auch im Namen ihrer Brüder Alexander und Carl-Alban.",
-        "Mein Vater und dein Bruder sind hier?",
-        "Er ist der Präsident, sie ist die Herrscherin und sie werden jetzt bald Ehemann und Ehefrau sein!",
-        "Er ist ein Arzt und mein Vater.",
-        "Ich sehe, dass der Dichter und die Schauspielerin jetzt Freunde sind!",
-    ]:
-        test_cases.append(
-            {
-                "class": tf.name(),
-                "inputs": {"sentence": sentence},
-                "outputs": [{"sentence": o} for o in tf.generate(sentence)],
-            }
-        )
-    json_file = {
-        "type": convert_to_snake_case(tf.name()),
-        "test_cases": test_cases,
-    }
-    print(json.dumps(json_file, indent=2))
