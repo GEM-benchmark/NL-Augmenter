@@ -1,8 +1,8 @@
-[![Checks](https://github.com/GEM-benchmark/NL-Augmenter/workflows/nl-action/badge.svg)](https://github.com/GEM-benchmark/NL-Augmenter/actions/workflows/nl-action.yml)
+[![Checks](https://github.com/GEM-benchmark/NL-Augmenter/workflows/nl-action.yml/badge.svg)](https://github.com/GEM-benchmark/NL-Augmenter/actions/workflows/nl-action.yml)
 [![Forks](https://img.shields.io/github/forks/GEM-benchmark/NL-Augmenter)](https://github.com/GEM-benchmark/NL-Augmenter/network/members)
 [![Issues](https://img.shields.io/github/issues/GEM-benchmark/NL-Augmenter)](https://github.com/GEM-benchmark/NL-Augmenter/issues)
 [![Pull requests](https://img.shields.io/github/issues-pr/GEM-benchmark/NL-Augmenter)](https://github.com/GEM-benchmark/NL-Augmenter/pulls)
-[![Contributors]((https://img.shields.io/github/contributors/GEM-benchmark/NL-Augmenter)](https://github.com/GEM-benchmark/NL-Augmenter/graphs/contributors)
+[![Contributors](https://img.shields.io/github/contributors/GEM-benchmark/NL-Augmenter)](https://github.com/GEM-benchmark/NL-Augmenter/graphs/contributors)
 [![License](https://img.shields.io/github/license/GEM-benchmark/NL-Augmenter)](https://opensource.org/licenses/MIT)
 
 # NL-Augmenter 🦎 → 🐍
