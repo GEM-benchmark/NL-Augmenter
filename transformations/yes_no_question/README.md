@@ -22,6 +22,18 @@ This transformation would particularly benefit question-answering and
 question-generation tasks, as well as providing surplus legal text for language
 modeling and masked language modeling.
 
+### Evaluation: Text Classification
+
+The model was evaluated on the `TEXT_CLASSIFICATION` task, using the `evaluate.py` script, with "percentage of
+examples" (`-p` set to `20`):
+
+| Model | Dataset | Perturb Rate | Original Performance | Transformation Performance |
+|-------|---------|--------------|----------------------|----------------------------|
+| textattack/roberta-base-imdb | imdb | 0.967 | 95.0 | 90.0 |
+| roberta-large-mnli | multi_nli | 1.0 | 91.0 | 89.0 |
+| textattack/bert-base-uncased-QQP | qqp | 1.0 | 92.0 | 91.0 |
+| textattack/roberta-base-SST-2 | sst2 | 0.40804597701149425 | 94.0 | 94.0 |
+
 ## What are the limitations of this transformation?
 
 More work needs to be done to ensure the generated questions are of reasonably
