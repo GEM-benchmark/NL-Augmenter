@@ -2,14 +2,14 @@
 
 ## What type of a filter is this?
 
-This is a bilingual filter (for English and French languages), which filters helps to discover potential group inequity issues in the text corpus.
+This is a bilingual filter (for English and French languages), which helps to discover potential group inequity issues in the text corpus.
 This is a topic agnostic filter which accepts user-defined parameters, consisting of keywords inherent to minor group (which potentially might suffer from the discrimination), 
 major group, minor factor and major factor.
 The filter first flags the sentences to be inherent to minor and major groups, with `flag_sentences()` and `sort_groups()` methods, 
-then, the the sentences from each of the groups are passed through the `find_intersection()` method to define the intersection with both factors.
+then, the sentences from each of the groups are passed through the `find_intersection()` method to define the intersection with both factors.
 The final boolean value is calculated in regards of the values retrived from `count_itersections()` method.
 
-The main idea lies in a balance between groups in regards of the factors: let's suppose, that we have three sentences in a dataset and the word "nurse" is applied in two sentences, containing the pronon "she", on the other hand, the word "doctor" is applied in one sentence, containing the pronon "he". We may suggest that the gender discrimination in regards of the profession stereotypes takes place. 
+The main idea is in a balance between groups in regards of the factors: let's suppose, that we have three sentences in a dataset and the word "nurse" is applied in two sentences, containing the pronon "she", on the other hand, the word "doctor" is applied in one sentence, containing the pronon "he". We may suggest that the gender discrimination in regards of the profession stereotypes takes place. 
 The minority group array, therefore, will contain the word "she" and the minority factor array will contain the word "nurse", while the majority group array will contain "he" and the major factor array - "doctor".
 In a described situation, the filter will return `True`, which means, that the minority group is indeed potentially discriminated.
 However, if in one of the sentences containing the word "nurse", the pronoun will be replaced by "he" - the filter will return `False`, as both genders represent the profession "nurse", therefore there is no group inequity in this regard.
@@ -25,7 +25,7 @@ France
 
 ## Why is measuring performance on this split important?
 This filter aims to help with discovering potential inequity issues in regards of on group, compared to another. 
-This might help fighting historical gender/ethnic/regilious prejudices in existing and newly created NLP datasets.
+This might help fighting historical gender/ethnic/regilion prejudices in existing and newly created NLP datasets.
 
 ## Related Work
 The problematics of the gender fairness is an active domain of research in NLP, however the existing methods of the bias measurement, such as PCA [[1]](https://arxiv.org/abs/1607.06520) or WEAT [[2]](https://arxiv.org/abs/1608.07187), may suffer from unclearness in the lexical seeds selection, pointed in a recent ACL 2021 paper [[3]](https://www.aclanthology.org/2021.acl-long.148), the intrinsic measurements showed no correlation with extrinsic methods results, as showed a recent research [[4]](https://www.aclanthology.org/2021.acl-long.150). On the other hand, the gender bias datasets (Winobias, Winogender, StereoSet, CrowS-Pairs) can present the unconsistencies, pointed by another ACL paper [[5]](https://aclanthology.org/2021.acl-long.81) and might be far from  optimal in terms if bias measurement. 
@@ -103,7 +103,7 @@ Sentences from the union group: ['As she is a good programmer, he makes her a ca
 Sentences from the neutral group: ['Nobody likes making cakes!']
 ```
 
-For the statistics of the potential discrimination, use the `count_intersections()` method:
+For the statistics of the potential group inequity, use the `count_intersections()` method:
 
 ```
 language = "en"
