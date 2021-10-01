@@ -1,0 +1,3 @@
+#for yes_no_question
+pyinflect==0.5.1
+nltk==3.6.2

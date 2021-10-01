@@ -1,0 +1,57 @@
+{
+   "type": "code-mixing",
+   "test_cases": [
+      {
+         "class": "CodeMixing",
+         "args": {},
+         "inputs": {
+            "sentence": "Andrew played cricket in India"
+         },
+         "outputs": false
+      },
+      {
+         "class": "CodeMixing",
+         "args": {},
+         "inputs": {
+            "sentence": "Back in 中国, public transportation is somewhat better developed."
+         },
+         "outputs": true
+      },
+      {
+         "class": "CodeMixing",
+         "args": {},
+         "inputs": {
+            "sentence": "Yo estaba con Esteban yesterday, he was telling me about lo que su esposa vio en los Estados Unidos."
+         },
+         "outputs": true
+      },
+      {
+         "class": "CodeMixing",
+         "args": {},
+         "inputs": {
+            "sentence": "The Chinese word for 'dragon' is “龙”. The previous sentence, while containing multiple languages, is not technically code-mixing."
+         },
+         "outputs": true
+      },
+      {
+         "class": "CodeMixing",
+         "args": {
+            "k": 3
+         },
+         "inputs": {
+            "sentence": "When you speak en trois idiomas, it is called 'super code-mixing'."
+         },
+         "outputs": true
+      },
+      {
+         "class": "CodeMixing",
+         "args": {
+            "k": 4
+         },
+         "inputs": {
+            "sentence": "When you speak en trois idiomas, it is called 'super code-mixing'."
+         },
+         "outputs": false
+      }
+   ]
+}

@@ -1,27 +1,25 @@
-import pytest
 from itertools import zip_longest
+from test.keywords import keywords_in_file
 
+import pytest
 
-from initialize import initialize_models
-
-from interfaces.SentencePairOperation import SentencePairOperation
-
+from initialize import initialize_models, reinitialize_spacy
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import (
     SentenceAndTargetOperation,
     SentenceOperation,
 )
+from interfaces.SentencePairOperation import SentencePairOperation
 from interfaces.TaggingOperation import TaggingOperation
-
 from TestRunner import OperationRuns
-from test.keywords import keywords_in_file
 
 expected_keywords = keywords_in_file()
+
 
 def get_assert_message(transformation, expected_output, predicted_output):
     transformation_name = transformation.__class__.__name__
     return (
-        f"Mis-match in expected and predicted output for {transformation_name} transformation: \n "
+        f"Mismatch in expected and predicted output for {transformation_name} transformation: \n "
         f"Expected Output: {expected_output} \n "
         f"Predicted Output: {predicted_output}"
     )
@@ -104,12 +102,17 @@ def execute_tagging_test_case(transformation, test):
 def assert_keywords(transformation):
     print("Checking for keywords")
     keywords_t = transformation.keywords
-    if keywords_t is not None: #TODO: later remove this as soon as all transformations have keywords
-        assert keywords_t is not None and len(keywords_t) > 0, f"Keywords of {transformation.name()} " \
-                                                               f"should not be empty"
-        assert set(keywords_t) < set(expected_keywords), f"Some Keywords in {transformation.name()} " \
-                                                        f"not present in docs/keywords.md file " \
-                                                         f": {set(keywords_t) - set(expected_keywords)} "
+    if (
+        keywords_t is not None
+    ):  # TODO: later remove this as soon as all transformations have keywords
+        assert keywords_t is not None and len(keywords_t) > 0, (
+            f"Keywords of {transformation.name()} " f"should not be empty"
+        )
+        assert set(keywords_t) < set(expected_keywords), (
+            f"Some Keywords in {transformation.name()} "
+            f"not present in docs/keywords.md file "
+            f": {set(keywords_t) - set(expected_keywords)} "
+        )
 
 
 def execute_test_case_for_transformation(transformation_name):
@@ -130,6 +133,8 @@ def execute_test_case_for_transformation(transformation_name):
             execute_tagging_test_case(transformation, test)
         else:
             print(f"Invalid transformation type: {transformation}")
+        # Reinitialize spacy tokenizer [TODO: Need to run only for transformations using spacy]
+        reinitialize_spacy()
 
 
 def execute_test_case_for_filter(filter_name):
@@ -140,7 +145,7 @@ def execute_test_case_for_filter(filter_name):
         filter_args = test["inputs"]
         output = filter.filter(**filter_args)
         assert (
-                output == test["outputs"]
+            output == test["outputs"]
         ), f"Executing {test['class']} The filter should return {test['outputs']} for the inputs {test['inputs']}"
 
 

@@ -71,7 +71,7 @@ class TransformerFill(SentenceOperation):
         self.pos_tokens = pos_tokens
         self.sample_top_k = sample_top_k
 
-        # context text get's prepended to sentence - can be used to prime transformer predictions
+        # context text gets prepended to sentence - can be used to prime transformer predictions
         self.context_text = context_text
 
         self.tokenizer = AutoTokenizer.from_pretrained(transformer_model)

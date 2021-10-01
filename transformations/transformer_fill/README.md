@@ -101,7 +101,7 @@ There are many limitations to such approach and any use of this augmentation wil
 
    For instance the sentence `"This is pretty cool"`. If you want choose to replace adjectives, you might end up asking the model to fill in the blank for the sentence: `"This is pretty <mask>"`. In which case it might decide that the most likely word would make: `"This is pretty bad"`.
 
-   A way to alleviate this is to condition the augmentation or prime the model towards certain words. For instance, by prepending `"Positive review:"` to the aformentioned sentence, we are more likely to obtain predictions that will also align with the prompt or primer.
+   A way to alleviate this is to condition the augmentation or prime the model towards certain words. For instance, by prepending `"Positive review:"` to the aforementioned sentence, we are more likely to obtain predictions that will also align with the prompt or primer.
 
 2. While this augmentation has the potential to help low-data regimes and models generalise more, **there is the risk of introducing or reinforcing additional biases** which may and likely do exist in the large masked language models.
 

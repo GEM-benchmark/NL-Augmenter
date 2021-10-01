@@ -1,0 +1,85 @@
+{
+  "type": "entity_mention_replacement_ner",
+  "test_cases": [
+      {
+        "args":
+          {
+          "token_sequences": [["Judea", "Pearl", "was", "born", "in", "Tel", "Aviv", "."]],
+          "tag_sequences": [["B-PER", "I-PER", "O", "O", "O", "B-LOC", "I-LOC", "O"]],
+          "p": 1.0
+          }
+        ,
+        "class": "EntityMentionReplacementNER",
+        "inputs": {"token_sequence": "Elon Musk lives in San Francisco .",
+        "tag_sequence": "B-PER I-PER O O B-LOC I-LOC O"},
+        "outputs": [
+          {"token_sequence": "Judea Pearl lives in Tel Aviv .",
+            "tag_sequence": "B-PER I-PER O O B-LOC I-LOC O"}
+        ]
+      },
+      {
+        "args":
+          {
+          "token_sequences": [["Demis", "Hassabis", "is", "the", "chief", "executive", "officer", "of", "DeepMind", "."]],
+          "tag_sequences": [["B-PER", "I-PER", "O", "O", "O", "O", "O", "O", "B-ORG", "O"]],
+          "p": 1.0
+          }
+        ,
+        "class": "EntityMentionReplacementNER",
+        "inputs": {"token_sequence": "Elon Musk is the co-founder of SpaceX .",
+        "tag_sequence": "B-PER I-PER O O O O B-ORG O"},
+        "outputs": [
+          {"token_sequence": "Demis Hassabis is the co-founder of DeepMind .",
+            "tag_sequence": "B-PER I-PER O O O O B-ORG O"}
+        ]
+      },
+      {
+        "args":
+          {
+          "token_sequences": [["BMW", "is", "headquartered", "in", "Munich", "."]],
+          "tag_sequences": [["B-ORG", "O", "O", "O", "B-LOC", "O"]],
+          "p": 1.0
+          }
+        ,
+        "class": "EntityMentionReplacementNER",
+        "inputs": {"token_sequence": "Audi has its roots at Ingolstadt .",
+        "tag_sequence": "B-ORG O O O O B-LOC O"},
+        "outputs": [
+          {"token_sequence": "BMW has its roots at Munich .",
+            "tag_sequence": "B-ORG O O O O B-LOC O"}
+        ]
+      },
+      {
+        "args":
+          {
+          "token_sequences": [["The", "Boeing", "company", "has", "its", "corporate", "headquarters", "in", "Chicago", "."]],
+          "tag_sequences": [["O", "B-ORG", "O", "O", "O", "O", "O", "O", "B-LOC", "O"]],
+          "p": 1.0
+          }
+        ,
+        "class": "EntityMentionReplacementNER",
+        "inputs": {"token_sequence": "The registered headquarters of Airbus is in Leiden .",
+        "tag_sequence": "O O O O B-ORG O O B-LOC O"},
+        "outputs": [
+          {"token_sequence": "The registered headquarters of Boeing is in Chicago .",
+            "tag_sequence": "O O O O B-ORG O O B-LOC O"}
+        ]
+      },
+      {
+        "args":
+          {
+          "token_sequences": [["Zuckerberg", "built", "a", "website", "called", "Facemash", "in", "2003", "while", "attending", "Harvard", "University", "."]],
+          "tag_sequences": [["B-PER", "O", "O", "O", "O", "O", "O", "O", "O", "O", "B-ORG", "I-ORG", "O"]],
+          "p": 1.0
+          }
+        ,
+        "class": "EntityMentionReplacementNER",
+        "inputs": {"token_sequence": "Larry Page developed PageRank at Stanford University in 1996 as part of a research project .",
+        "tag_sequence": "B-PER I-PER O O O B-ORG I-ORG O O O O O O O O O"},
+        "outputs": [
+          {"token_sequence": "Zuckerberg developed PageRank at Harvard University in 1996 as part of a research project .",
+            "tag_sequence": "B-PER O O O B-ORG I-ORG O O O O O O O O O"}
+        ]
+      }
+    ]
+  }

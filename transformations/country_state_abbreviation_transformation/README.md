@@ -25,6 +25,30 @@ This transformation provides flexible options for Country/State abbreviation and
 | abbr  |  Boolean | Enable/disable full name -> abbreviation  |  True  | 
 | exp  | Boolean  | Enable/disable abbreviation -> full name | True  |  
 
+Benchmark results:
+
+- Sentiment analysis: 
+```
+python evaluate.py -t CountryStateAbbreviation -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-imdb" -d "imdb" -p 20
+```
+
+| Model  | Datasets | Performance  | 
+|---|---|---|
+| textattack/roberta-base-SST-2 | sst2 | 94.0->94.0 (0.0) | 
+| textattack/bert-base-uncased-QQP | qqp | 92.0->92.0 (0.0) |
+| roberta-large-mnli  | multi_nli | 91.0->91.0 (0.0)  |
+| textattack/roberta-base-imdb  | imdb | 95.0->95.0 (0.0) |
+
+
+- Text summarization: 
+```
+python evaluate.py -t CountryStateAbbreviation -task TEXT_TO_TEXT_GENERATION -m "sshleifer/distilbart-xsum-12-6" -d "xsum" -p 20
+```
+| Model  | Datasets | Performance  | 
+|---|---|---|
+| sshleifer/distilbart-xsum-12-6 | xsum | 14.88->14.61 (-0.27) | 
+
+
 ## Data provenance
 This transformation uses country/state name and abbreviation as a lite version of Countries States Cities Database (https://github.com/dr5hn/countries-states-cities-database). We use iso3 country as the abbreviation and state_code of states as the abbreviation.
 

@@ -1,0 +1,60 @@
+{
+  "type": "ocr_perturbation",
+  "test_cases": [
+    {
+      "class": "OcrPerturbation",
+      "inputs": {
+        "sentence": "Manmohan Singh served as the PM of India."
+      },
+      "outputs": [
+        {
+          "sentence": "Manmohan Singh-served.as the PM of India."
+        }
+      ]
+    },
+    {
+      "class": "OcrPerturbation",
+      "inputs": {
+        "sentence": "Neil Alden Armstrong was an American astronaut."
+      },
+      "outputs": [
+        {
+          "sentence": "Neil: Alden Armstrong was an-American astronaut."
+        }
+      ]
+    },
+    {
+      "class": "OcrPerturbation",
+      "inputs": {
+        "sentence": "Katheryn Elizabeth Hudson is an American singer."
+      },
+      "outputs": [
+        {
+          "sentence": "Katheryn Elizabeth Hudson isan American singer."
+        }
+      ]
+    },
+    {
+      "class": "OcrPerturbation",
+      "inputs": {
+        "sentence": "The owner of the mall is Anthony Gonsalves."
+      },
+      "outputs": [
+        {
+          "sentence": "The owner of the mall is: Anthony Gonsalves."
+        }
+      ]
+    },
+    {
+      "class": "OcrPerturbation",
+      "inputs": {
+        "sentence": "Roger Michael Humphrey Binny (born 19 July 1955) is an Indian former cricketer."
+      },
+      "outputs": [
+        {
+          "sentence": "Roger Michael- Humphrey Binny (born 19-Joly 1955)-is an Indian former cricketer."
+        }
+      ]
+    }
+  ]
+}
