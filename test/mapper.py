@@ -53,6 +53,7 @@ map_transformation = {
         "suspecting_paraphraser",
         "swap_characters",
         "synonym_substitution",
+        "use_acronyms",
         "whitespace_perturbation",
         "word_noise",
         "yes_no_question",
