@@ -12,10 +12,22 @@ This transformation introduces semantic diversity by replacing even number of ad
 ## What tasks does it intend to benefit?
 This augmentation would benefit tasks related to sentiment analysis by augmenting the dataset. The labels for generated sentences would be the semantically similar to their previous one as the double negation mechanism does not change original sentence semantics.
 
-Benchmark results:
+## Evaluation Results
+| Model                            | Original | Transformed | Difference (T-O) |
+|:--------------------------------:|:--------:|:-----------:|:----------------:|
+| textattack/roberta-base-SST-2    | 94.0     | 84.0        | -10.0             |
+| textattack/roberta-base-imdb     | 96.0     | 83.0        | -13.0             |
+| textattack/bert-base-uncased-QQP | 92.0     | 91.0        | -1.0             |
+| roberta-large-mnli               | 91.0     | 85.0        | -6.0             |
 
-Sentiment analysis: we run sentiment analysis on 1000 samples of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 83.0.
+The following code was used for the evaluation.
 
+```
+python evaluate.py -t AntonymsSubstitute -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-SST-2" -d "sst2"
+python evaluate.py -t AntonymsSubstitute -task "TEXT_CLASSIFICATION" -m "aychang/roberta-base-imdb" -d "imdb"
+python evaluate.py -t AntonymsSubstitute -task "TEXT_CLASSIFICATION" -m "textattack/bert-base-uncased-QQP" -d "qqp"
+python evaluate.py -t AntonymsSubstitute -task "TEXT_CLASSIFICATION" -m "roberta-large-mnli" -d "multi_nli"
+```
 
 ## Related Work
 Special thanks to @zijwang, whose contribution has inspired this work. The code was adapted from his submission, and the tokenization and POS tagging were adapted from Stanza
