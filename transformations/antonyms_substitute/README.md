@@ -1,16 +1,18 @@
 # Antonyms Substitute (Double Negation)  🦎  + ⌨️ → 🐍
-This transformation aims to substitute even number of words with their antonyms which would increase the diversity of the given content. Its double negation mechanism does not revert original sentence semantics.
+This transformation aims to substitute an even number of words with their antonyms which would increase the diversity of the given content. Its double negation mechanism does not revert original sentence semantics.
 
 Author name:
 - Zhexiong Liu (zhexiong@cs.pitt.edu, University of Pittsburgh)
 - Jing Zhang (jing.zhang2@emory.edu, Emory University)
 
 ## What type of a transformation is this?
-This transformation introduces semantic diversity by replacing even number of adjective/adverb antonyms in given text. We assume that an even number of transforms will remain the semantics in terms of sentiment; however, an odd number of transforms will revert the semantics. Thus, it only applies to the sentence that the number of revertable adjective or adverb in the given sentence is even. We called it double negation.
+This transformation introduces semantic diversity by replacing an even number of adjective/adverb antonyms in a given text. We assume that an even number of antonyms transforms will revert back sentence semantics; however, an odd number of transforms will revert the semantics. Thus, our transform only applies to the sentence that has an even number of revertable adjectives or adverbs. We called this mechanism double negation. 
+
+Please note that we'll avoid word transform if two of the revertable words are already synonyms or antonyms (i.e. words "skilled" and "talented" in the sentence "he is a skilled and talented engineer"), which ensures the semantic perseverance of the transformation.
 
     
-## What tasks does it intend to benefit?
-This augmentation would benefit tasks related to sentiment analysis by augmenting the dataset. The labels for generated sentences would be the semantically similar to their previous one as the double negation mechanism does not change original sentence semantics.
+## What tasks does it intend to benefit from?
+This augmentation would benefit tasks related to sentiment analysis by augmenting the dataset. The labels for generated sentences would be semantically similar to their previous one as the double negation mechanism does not change original sentence semantics.
 
 ## Evaluation Results
 | Model                            | Original | Transformed | Difference (T-O) |
@@ -61,4 +63,4 @@ The antonyms are based on WordNet via NLTK
 
 
 ## What are the limitations of this transformation?
-Since the antonyms are generated using WordNet, it would have limitation to augment issues, such as making the text non-grammarly correct.
+Since the antonyms are generated using WordNet, it would have limitations if WordNet did not return any antonyms. Occasionally, it would slightly alter sentence semantics if the WordNet returned antonyms did not perfectly have an opposite sentiment or semantics.
