@@ -8,24 +8,24 @@ Author name:
 ## What type of a transformation is this?
 This transformation introduces semantic diversity by replacing even number of adjective/adverb antonyms in given text. We assume that an even number of transforms will remain the semantics in terms of sentiment; however, an odd number of transforms will revert the semantics. Thus, it only applies to the sentence that the number of revertable adjective or adverb in the given sentence is even. We called it double negation.
 
-
+    
 ## What tasks does it intend to benefit?
 This augmentation would benefit tasks related to sentiment analysis by augmenting the dataset. The labels for generated sentences would be the semantically similar to their previous one as the double negation mechanism does not change original sentence semantics.
 
 ## Evaluation Results
 | Model                            | Original | Transformed | Difference (T-O) |
 |:--------------------------------:|:--------:|:-----------:|:----------------:|
-| textattack/roberta-base-SST-2    | 94.0     | 84.0        | -10.0             |
-| textattack/roberta-base-imdb     | 96.0     | 83.0        | -13.0             |
+| textattack/roberta-base-imdb     | 96.0     | 93.0        | -3.0             |
 | textattack/bert-base-uncased-QQP | 92.0     | 91.0        | -1.0             |
+| textattack/roberta-base-SST-2    | 94.0     | 84.0        | -10.0             |
 | roberta-large-mnli               | 91.0     | 85.0        | -6.0             |
 
 The following code was used for the evaluation.
 
 ```
-python evaluate.py -t AntonymsSubstitute -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-SST-2" -d "sst2"
 python evaluate.py -t AntonymsSubstitute -task "TEXT_CLASSIFICATION" -m "aychang/roberta-base-imdb" -d "imdb"
 python evaluate.py -t AntonymsSubstitute -task "TEXT_CLASSIFICATION" -m "textattack/bert-base-uncased-QQP" -d "qqp"
+python evaluate.py -t AntonymsSubstitute -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-SST-2" -d "sst2"
 python evaluate.py -t AntonymsSubstitute -task "TEXT_CLASSIFICATION" -m "roberta-large-mnli" -d "multi_nli"
 ```
 
