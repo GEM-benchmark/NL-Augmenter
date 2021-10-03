@@ -1,4 +1,4 @@
-# Antonyms Substitute (Double Negation)
+# Antonyms Substitute (Double Negation)  🦎  + ⌨️ → 🐍
 This transformation aims to substitute even number of words with their antonyms which would increase the diversity of the given content. Its double negation mechanism does not revert original sentence semantics.
 
 Author name:
