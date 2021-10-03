@@ -39,6 +39,26 @@ def untokenize(words):
     return step6.strip()
 
 
+def is_synonyms(word1, word2):
+    synonyms = []
+    for syn in wordnet.synsets(word1):
+        for l in syn.lemmas():
+            synonyms.append(l.name())
+    if word2 in synonyms:
+        return True
+    return False
+
+def is_antonyms(word1, word2):
+    antonyms = []
+    for syn in wordnet.synsets(word1):
+        for l in syn.lemmas():
+            if l.antonyms():
+                antonyms.append(l.antonyms()[0].name())
+    if word2 in antonyms:
+        return True
+    return False
+
+
 def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
     np.random.seed(seed)
     upos_wn_dict = {
@@ -52,6 +72,7 @@ def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
     results = []
     for _ in range(max_outputs):
         result = []
+        converted_words = []
         counter = 0
         for token in doc:
             word = token.text
@@ -72,6 +93,7 @@ def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
                     antonyms = sorted(antonyms)
                     result.append(antonyms[0].replace("_", " "))
                     counter += 1
+                    converted_words.append(word)
                 else:
                     result.append(word)
 
@@ -81,6 +103,16 @@ def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
         # choose even number of changes
         if counter%2 != 0:
             result = text
+
+        # avoid doing transformation that original words are either synonyms or antonyms
+        # e.g. do not transform "Ram is talented and skilled archer"
+        for word1 in converted_words:
+            for word2 in converted_words:
+                if word1 != word2:
+                    if is_antonyms(word1, word2) or is_synonyms(word1, word2):
+                        result = text
+                        break
+
 
         if result not in results:
             # make sure there is no dup in results
