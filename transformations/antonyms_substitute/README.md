@@ -1,20 +1,20 @@
-# Antonyms Substitute
-This transformation aims to substitute words with their antonyms, which facilitates the diversity of the content.
+# Antonyms Substitute (Double Negation)
+This transformation aims to substitute even number of words with their antonyms which would increase the diversity of the given content. Its double negation mechanism does not revert original sentence semantics.
 
 Author name:
 - Zhexiong Liu (zhexiong@cs.pitt.edu, University of Pittsburgh)
 - Jing Zhang (jing.zhang2@emory.edu, Emory University)
 
 ## What type of a transformation is this?
-This transformation could introduce semantic diversity by adding antonyms. Specifically, it will help revert the semantics to an opposite position or uses double negation to express the similar semantics. In general, we assume that an even number of transforms will remain the semantics in terms of sentiment; however, an odd number of transforms will revert the semantics. 
+This transformation introduces semantic diversity by replacing even number of adjective/adverb antonyms in given text. We assume that an even number of transforms will remain the semantics in terms of sentiment; however, an odd number of transforms will revert the semantics. Thus, it only applies to the sentence that the number of revertable adjective or adverb in the given sentence is even. We called it double negation.
 
 
 ## What tasks does it intend to benefit?
-This augmentation would benefit tasks related to sentiment analysis, contrastive learning and classification, by augmenting the dataset. The preserance of the labels would be dependent to the number of transforms that were applied in given text.
+This augmentation would benefit tasks related to sentiment analysis by augmenting the dataset. The labels for generated sentences would be the semantically similar to their previous one as the double negation mechanism does not change original sentence semantics.
 
 Benchmark results:
 
-Sentiment analysis: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 61.0.
+Sentiment analysis: we run sentiment analysis on 1000 samples of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 83.0.
 
 
 ## Related Work
