@@ -42,8 +42,8 @@ def untokenize(words):
 def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
     np.random.seed(seed)
     upos_wn_dict = {
-        "VERB": "v",
-        "NOUN": "n",
+        # "VERB": "v",
+        # "NOUN": "n",
         "ADV": "r",
         "ADJ": "s",
     }
@@ -52,6 +52,7 @@ def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
     results = []
     for _ in range(max_outputs):
         result = []
+        counter = 0
         for token in doc:
             word = token.text
             wn_pos = upos_wn_dict.get(token.pos_)
@@ -68,12 +69,19 @@ def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
                 antonyms = list(set(antonyms))
 
                 if len(antonyms) > 0:
-                    result.append(np.random.choice(antonyms).replace("_", " "))
+                    antonyms = sorted(antonyms)
+                    result.append(antonyms[0].replace("_", " "))
+                    counter += 1
                 else:
                     result.append(word)
 
         # detokenize sentences
         result = untokenize(result)
+
+        # choose even number of changes
+        if counter%2 != 0:
+            result = text
+
         if result not in results:
             # make sure there is no dup in results
             results.append(result)
@@ -91,7 +99,7 @@ class AntonymsSubstitute(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["en"]
-    keywords = ["lexical", "noise", "rule-based", "tokenizer-required", "low-precision"]
+    keywords = ["lexical", "noise", "rule-based", "tokenizer-required"]
 
     def __init__(self, seed=42, prob=0.5, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
