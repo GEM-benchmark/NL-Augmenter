@@ -22,7 +22,9 @@ def set_seed(seed: int, no_cuda: bool):
     if not no_cuda:
         torch.cuda.manual_seed_all(seed)
 
-
+""" The following transformation generates next word(s) in a sequence based on the prefix of the 
+original text, with an option to preserve the label of the original sample.  
+"""
 class TransformerTextGeneration(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
@@ -30,31 +32,44 @@ class TransformerTextGeneration(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    heavy = True
+    keywords = ["text-generation", "transformer"]
 
     def __init__(
         self,
         eos: str = "</s>",
         no_cuda: bool = False,
-        dataset="sst2",
-        labeled=True,
-        seed=42,
+        dataset: str = "sst2",
+        labeled: bool = True,
+        seed: int = 42
     ):
+        '''
+        Initialization.
 
+                Parameters:
+                        eos (str): end of sentence string used by the model.
+                        no_cuda (bool): if True, it disables all cuda stuff.
+                        dataset (str): dataset with labeled data used to fine-tune model
+                        labeled (bool): if True, preserve the label of the original sample
+                        during augmentation.
+                        seed (int): random seed.
+        '''
+
+        super().__init__()
         set_seed(seed, no_cuda)
+
+        model_text_generation: str = "gpt2-xl"
+        model_sentiment_classification = None
 
         if labeled:
             if dataset == "imdb":
                 model_text_generation: str = "jmamou/gpt2-medium-IMDB"
-                # model_sentiment_classification = 'aychang/roberta-base-imdb'
                 model_sentiment_classification = "textattack/roberta-base-imdb"
             elif dataset == "sst2":
                 model_text_generation: str = "jmamou/gpt2-medium-SST-2"
                 model_sentiment_classification = (
                     "textattack/roberta-base-SST-2"
                 )
-        else:
-            model_text_generation: str = "gpt2-xl"
-            model_sentiment_classification = None
 
         self.eos = eos
         device = -1 if no_cuda else 0
@@ -85,14 +100,37 @@ class TransformerTextGeneration(SentenceOperation):
         sequence: str,
         num_return_sequences: int = 1,
         prefix_ratio: float = 0.5,
-        max_length_factor=3,
-        max_prefix_length=400,
-        model_max_length=512,
+        max_length_factor:int = 3,
+        max_prefix_length:int = 400,
+        model_max_length:int = 512,
         temperature: float = 1.0,
         repetition_penalty: float = 1.2,
         k: int = 0,
         p: float = 0.9,
     ):
+        '''
+        generates next word(s) in a sequence based on the prefix of the original text.
+
+                Parameters:
+                        sequence (str): the original text.
+                        num_return_sequences (int): the number of sequences to generate.
+                        prefix_ratio (float): the ratio of words to define as prefix sequence.
+                        max_length_factor (int): factor to define the maximal length (number of
+                        tokens) of the generated sequence as a multiplication of the length of the
+                        orignal text sequence.
+                        max_prefix_length (int): the maximal length of the prefix of the
+                        original text.
+                        model_max_length (int): the maximal sequence length of the model.
+                        temperature (float): the value used to module the next token probabilities.
+                        repetition_penalty (float): the parameter for repetition penalty. 1.0
+                        means no penalty.
+                        k (int): the number of highest probability vocabulary tokens to keep for top-k-filtering.
+                        p (float): if set to float < 1, only the most probable tokens with
+                        probabilities that add up to p or higher are kept for generation.
+
+                Returns:
+                        augmented_texts (list of str): list of augmented sequences
+        '''
 
         logger.info("original text: " + sequence)
         augmented_texts = []
