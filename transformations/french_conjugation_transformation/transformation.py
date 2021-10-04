@@ -11,7 +11,6 @@ from tasks.TaskTypes import TaskType
 
 default_conjugator = mlconjug.Conjugator(language="fr")
 
-nlp = spacy.load("fr_core_news_lg")
 nltk.download("wordnet")
 nltk.download("punkt")
 nlp = spacy.load("fr_core_news_md")
