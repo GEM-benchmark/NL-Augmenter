@@ -24,7 +24,7 @@ This perturbation would benefit all tasks which have a sentence/paragraph/docume
 text generation, etc, but may be especially useful for robustness of POS tagging algorithms. Modifying sentence structure
 in this way may expose an algorithm's reliance on spurious correlations in the training data.
 ## Previous Work
-My implementation of Yoda Speak borrowed from this code: https://github.com/yevbar/Yoda-Script
+Our implementation of Yoda Speak borrowed from this code: https://github.com/yevbar/Yoda-Script
 
 ## Robustness Evaluation
 | Dataset          | Model      | Change                                                                  |
@@ -36,3 +36,5 @@ My implementation of Yoda Speak borrowed from this code: https://github.com/yevb
 
 ## What are the limitations of this transformation?
 For sentences with a number of different subjects, the performance of this perturbation may degrade or yield unexpected results.
+In addition, in some instances it may remove proper noun capitalization (depending on the underlying SpaCy model) and may
+add an unnecessary space between "/" separated words (ex. action/adventure).
