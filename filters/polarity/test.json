@@ -91,6 +91,18 @@
                 "sentence2": "Hotel is not bad"
             },
             "outputs": false
+        },
+        {
+            "class": "TextRetainsPolarity",
+            "args": {
+                "diff_allowed": 0.7,
+                "strict_polarity": true
+            },
+            "inputs": {
+                "sentence1": "Hotel is not good but I liked it anyway",
+                "sentence2": "Hotel is not great but I liked it anyway"
+            },
+            "outputs": true
         }
     ]
 }

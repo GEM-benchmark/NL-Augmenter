@@ -1,0 +1,50 @@
+{
+    "type": "back_translation_ner",
+    "test_cases": [
+        {
+            "class": "BackTranslationNER",
+            "inputs": {"token_sequence": "Musk has been the subject of criticism due to unorthodox or unscientific stances and highly publicized controversies.",
+            "tag_sequence": "B-PER O O O O O O O O O O O O O O O O"},
+            "outputs": [
+                {"token_sequence": "Musk has been criticized for unorthodox or unscientific attitudes and public controversies.",
+                "tag_sequence": "B-PER O O O O O O O O O O O"}
+            ]
+        },
+        {
+            "class": "BackTranslationNER",
+            "inputs": {"token_sequence": "The US Securities and Exchange Commission sued Musk for falsely tweeting that he had secured funding for a private takeover of Tesla.",
+            "tag_sequence": "O B-ORG I-ORG I-ORG I-ORG I-ORG O B-PER O O O O O O O O O O O O O B-ORG"},
+            "outputs": [
+              {"token_sequence": "The US Securities and Exchange Commission sued Musk because he mistakenly tweeted that he had secured funding for a private takeover of Tesla.",
+                "tag_sequence": "O B-ORG I-ORG I-ORG I-ORG I-ORG O B-PER O O O O O O O O O O O O O O B-ORG"}
+            ]
+          },
+          {
+            "class": "BackTranslationNER",
+            "inputs": {"token_sequence": "At age 10 , Musk developed an interest in computing and video games and purchased a Commodore VIC-20.",
+            "tag_sequence": "O O O O B-PER O O O O O O O O O O O B-DEVICE I-DEVICE"},
+            "outputs": [
+              {"token_sequence": "At the age of 10 years, Musk developed an interest in computer and video games and bought a Commodore VIC-20.",
+                "tag_sequence": "O O O O O O B-PER O O O O O O O O O O O B-DEVICE I-DEVICE"}
+            ]
+          },
+          {
+            "class": "BackTranslationNER",
+            "inputs": {"token_sequence": "Shannon received his PhD from MIT in 1940.",
+            "tag_sequence": "B-PER O O O O B-ORG O O"},
+            "outputs": [
+              {"token_sequence": "Shannon received his doctorate from MIT in 1940.",
+                "tag_sequence": "B-PER O O O O B-ORG O O"}
+            ]
+          },
+          {
+            "class": "BackTranslationNER",
+            "inputs": {"token_sequence": "Facebook announced that it would combat fake news by using fact checkers from sites like FactCheck.org and Associated Press.",
+            "tag_sequence": "B-ORG O O O O O O O O O O O O O O B-WEBSITE O B-WEBSITE I-WEBSITE"},
+            "outputs": [
+              {"token_sequence": "Facebook announced that it would fight fake news by providing fact-checkers from sites such as FactCheck.org and Associated Press.",
+                "tag_sequence": "B-ORG O O O O O O O O O O O O O O B-WEBSITE O B-WEBSITE I-WEBSITE"}
+            ]
+          }
+      ]
+    }

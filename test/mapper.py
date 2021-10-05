@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Sep 14 15:37:10 2021
+
 Script to keep track of some global config
+
 @author: Abinaya.M02
 """
 

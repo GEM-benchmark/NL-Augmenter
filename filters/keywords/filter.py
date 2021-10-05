@@ -12,11 +12,11 @@ class TextContainsKeywordsFilter(SentenceOperation):
         super().__init__()
         if keywords is None:
             keywords = ["these", "keywords", "are", "only", "for", "demo"]
-        self.keywords = keywords
+        self.key_words = keywords
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def filter(self, sentence: str = None) -> bool:
         tokenized = self.nlp(sentence, disable=["parser", "tagger", "ner"])
         tokenized = [token.text for token in tokenized]
-        contained_keywords = set(tokenized).intersection(set(self.keywords))
+        contained_keywords = set(tokenized).intersection(set(self.key_words))
         return bool(contained_keywords)

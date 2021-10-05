@@ -1,0 +1,50 @@
+{
+  "type": "different_ability",
+  "test_cases": [
+    {
+      "class": "DifferentAbilityTransformation",
+      "inputs": {
+        "sentence": "He's blind."
+      },
+      "outputs": [{
+        "sentence": "He's person or people with a visual impairment."
+      }]
+    },
+    {
+      "class": "DifferentAbilityTransformation",
+      "inputs": {
+        "sentence": "They are deaf."
+      },
+      "outputs": [{
+        "sentence": "They are person or people with a hearing disability."
+      }]
+    },
+    {
+      "class": "DifferentAbilityTransformation",
+      "inputs": {
+        "sentence": "Did she become a cripple after the accident?"
+      },
+      "outputs": [{
+        "sentence": "Did she become a person with a physical disability after the accident?"
+      }]
+    },
+    {
+      "class": "DifferentAbilityTransformation",
+      "inputs": {
+        "sentence": "He is a lunatic!!!"
+      },
+      "outputs": [{
+        "sentence": "He is a person with a mental disability!!!"
+      }]
+    },
+    {
+      "class": "DifferentAbilityTransformation",
+      "inputs": {
+        "sentence": "She's wheelchairbound so she needs help."
+      },
+      "outputs": [{
+        "sentence": "She's wheelchair user so she needs help."
+      }]
+    }
+  ]
+}

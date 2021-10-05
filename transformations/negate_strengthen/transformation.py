@@ -28,7 +28,7 @@ MODAL_STRENGTHEN_DICT = {
     'will': 'will'
 }
 
-# intialize
+# initialize
 try:
     conjugate_en(verb='testing',tense='present',number='singular')
 except:
@@ -36,7 +36,7 @@ except:
 
 
 """
-Negation Strengthen implementation targetted at augmenting 
+Negation Strengthen implementation targeted at augmenting 
 Causal Relations in text adapted from the paper at 
 https://openreview.net/pdf/17eafef9e25b48eb90a9a7f32c4f52e21177cc73.pdf.
 """

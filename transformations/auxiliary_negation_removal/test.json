@@ -1,0 +1,145 @@
+{
+  "type": "auxiliary_negation_removal",
+  "test_cases": [
+    {
+      "class": "SentenceAuxiliaryNegationRemoval",
+      "inputs": {"sentence": "Andrew has not returned the French book to the library."},
+      "outputs": [{"sentence": "Andrew has returned the French book to the library."}]
+    },
+    {
+      "class": "SentenceAuxiliaryNegationRemoval",
+      "inputs": {"sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, do not have an overt predicate."},
+      "outputs": [{"sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, have an overt predicate."}]
+    },
+    {
+      "class": "SentenceAuxiliaryNegationRemoval",
+      "inputs": {"sentence": "Alice in Wonderland isn't a 1997 American live-action/animated dark fantasy adventure film."},
+      "outputs": [{"sentence": "Alice in Wonderland is a 1997 American live-action/animated dark fantasy adventure film."}]
+    },
+    {
+      "class": "SentenceAuxiliaryNegationRemoval",
+      "inputs": {"sentence": "Ujjal Dev Dosanjh was not the 1st Premier of British Columbia from 1871 to 1872."},
+      "outputs": [{"sentence": "Ujjal Dev Dosanjh was the 1st Premier of British Columbia from 1871 to 1872."}]
+    },
+    {
+      "class": "SentenceAuxiliaryNegationRemoval",
+      "inputs": {"sentence": "The fighters would not give up."},
+      "outputs": [{"sentence": "The fighters would give up."}]
+    },
+    {
+      "class": "PairAuxiliaryNegationRemoval",
+      "inputs": {
+        "sentence1": "Andrew has not returned the French book to the library.",
+        "sentence2": "He hasn't brought back the library's books.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Andrew has returned the French book to the library.",
+          "sentence2": "He hasn't brought back the library's books.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Andrew has not returned the French book to the library.",
+          "sentence2": "He has brought back the library's books.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Andrew has returned the French book to the library.",
+          "sentence2": "He has brought back the library's books.",
+          "target": "1"
+        }
+      ]
+    },
+    {
+      "class": "PairAuxiliaryNegationRemoval",
+      "inputs": {
+        "sentence1": "Sentences with gapping, such as Paul likes coffee and Mary tea, do not have an overt predicate.",
+        "sentence2": "Gapping sentences, such as Paul likes coffee and Mary tea, lack an overt predicate.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Sentences with gapping, such as Paul likes coffee and Mary tea, have an overt predicate.",
+          "sentence2": "Gapping sentences, such as Paul likes coffee and Mary tea, lack an overt predicate.",
+          "target": "0"
+        }
+      ]
+    },
+    {
+      "class": "PairAuxiliaryNegationRemoval",
+      "inputs": {
+        "sentence1": "Alice in Wonderland isn't a 1997 American live-action/animated dark fantasy adventure film.",
+        "sentence2": "Alice in Wonderland is not an American animated, dark fantasy adventure film from 1997.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Alice in Wonderland is a 1997 American live-action/animated dark fantasy adventure film.",
+          "sentence2": "Alice in Wonderland is not an American animated, dark fantasy adventure film from 1997.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Alice in Wonderland isn't a 1997 American live-action/animated dark fantasy adventure film.",
+          "sentence2": "Alice in Wonderland is an American animated, dark fantasy adventure film from 1997.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Alice in Wonderland is a 1997 American live-action/animated dark fantasy adventure film.",
+          "sentence2": "Alice in Wonderland is an American animated, dark fantasy adventure film from 1997.",
+          "target": "1"
+        }
+      ]
+    },
+    {
+      "class": "PairAuxiliaryNegationRemoval",
+      "inputs": {
+        "sentence1": "Ujjal Dev Dosanjh was not the 1st Premier of British Columbia from 1871 to 1872.",
+        "sentence2": "U.D. Dosanjh wasn't the 1st Premier of British Columbia for a year from 1871.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "Ujjal Dev Dosanjh was the 1st Premier of British Columbia from 1871 to 1872.",
+          "sentence2": "U.D. Dosanjh wasn't the 1st Premier of British Columbia for a year from 1871.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Ujjal Dev Dosanjh was not the 1st Premier of British Columbia from 1871 to 1872.",
+          "sentence2": "U.D. Dosanjh was the 1st Premier of British Columbia for a year from 1871.",
+          "target": "0"
+        },
+        {
+          "sentence1": "Ujjal Dev Dosanjh was the 1st Premier of British Columbia from 1871 to 1872.",
+          "sentence2": "U.D. Dosanjh was the 1st Premier of British Columbia for a year from 1871.",
+          "target": "1"
+        }
+      ]
+    },
+    {
+      "class": "PairAuxiliaryNegationRemoval",
+      "inputs": {
+        "sentence1": "The fighters would not give up.",
+        "sentence2": "The warriors wouldn't leave the battlefield.",
+        "target": "1"
+      },
+      "outputs": [
+        {
+          "sentence1": "The fighters would give up.",
+          "sentence2": "The warriors wouldn't leave the battlefield.",
+          "target": "0"
+        },
+        {
+          "sentence1": "The fighters would not give up.",
+          "sentence2": "The warriors would leave the battlefield.",
+          "target": "0"
+        },
+        {
+          "sentence1": "The fighters would give up.",
+          "sentence2": "The warriors would leave the battlefield.",
+          "target": "1"
+        }
+      ]
+    }
+  ]
+}
