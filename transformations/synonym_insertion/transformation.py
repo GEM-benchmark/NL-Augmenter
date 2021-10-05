@@ -99,6 +99,7 @@ class SynonymInsertion(SentenceOperation, ABC):
     """
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    heavy = False
     keywords = [
         "tokenizer", "external-knowledge-based", "lexical", "low-precision", "low-coverage", "low-generations"
     ]
