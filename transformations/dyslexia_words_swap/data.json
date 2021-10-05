@@ -1,0 +1,42 @@
+{
+  "similar": {
+    "of": "off",
+    "lose": "loose",
+    "than": "then",
+    "though": "through",
+    "well": "will",
+    "air": "hair"
+  },
+  "verbs": {
+    "would": "could",
+    "might": "would"
+  },
+  "homophones": {
+    "heir": "air",
+    "your": "you're",
+    "write": "right",
+    "four": "for",
+    "here": "hear",
+    "hi": "high",
+    "hour": "our",
+    "no": "know",
+    "height": "knight",
+    "knot": "not",
+    "see": "sea",
+    "since": "cents",
+    "some": "sum",
+    "ate": "eight",
+    "mate": "malt",
+    "merry": "marry",
+    "meet": "meat",
+    "son": "sun",
+    "sight": "site",
+    "one": "won",
+    "wait": "weight",
+    "wear": "where",
+    "bye": "by",
+    "by": "buy",
+    "to": "too",
+    "there": "their"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "type": "add_noun_definition",
+  "test_cases": [
+    {
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "Andrew finally returned the Comic book to Chris that I bought last week"
+      },
+      "outputs": [
+        {
+          "sentence": "Andrew finally returned the Comic book(publication of comics art) to Chris that I bought last week(time unit equal to seven days)"
+        }
+      ]
+    },
+    {
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "Chris borrowed the Comic book from Andrew last weekend"
+      },
+      "outputs": [
+        {
+          "sentence": "Chris borrowed the Comic book(publication of comics art) from Andrew last weekend"
+        }
+      ]
+    },
+    {
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "Turn off the light please"
+      },
+      "outputs": [
+        {
+          "sentence": "Turn off the light please(english word indicating politeness)"
+        }
+      ]
+    },
+    {
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "I love cat"
+      },
+      "outputs": [
+        {
+          "sentence": "I love cat(domesticated felid species)"
+        }
+      ]
+    },
+    {
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "Thomas loves to cook chicken every Monday"
+      },
+      "outputs": [
+        {
+          "sentence": "Thomas loves to cook chicken(subspecies of domesticated bird) every Monday"
+        }
+      ]
+    },
+    {
+      "class": "AddNounDefinition",
+      "inputs": {
+        "sentence": "John killed Mary with a gun"
+      },
+      "outputs": [
+        {
+          "sentence": "John killed Mary with a gun(ranged weapon that shoots projectiles)"
+        }
+      ]
+    }
+  ]
+}

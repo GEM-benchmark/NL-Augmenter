@@ -1,0 +1,61 @@
+{
+  "type": "use_acronyms",
+  "test_cases": [
+
+    {
+      "class": "UseAcronyms",
+      "inputs": {
+        "sentence": "I studied at New York University and Massachusetts Institute of Technology."
+      },
+      "outputs": [
+        {
+          "sentence": "I studied at NYU and MIT."
+        }
+      ]
+    },
+    {
+      "class": "UseAcronyms",
+      "inputs": {
+        "sentence": "They changed my connection flight from Newark Liberty International Airport to Los Angeles International Airport."
+      },
+      "outputs": [
+        {
+          "sentence": "They changed my connection flight from EWR to LAX."
+        }
+      ]
+    },
+    {
+      "class": "UseAcronyms",
+      "inputs": {
+        "sentence": "My brother works at the Center for Science in the Public Interest."
+      },
+      "outputs": [
+        {
+          "sentence": "My brother works at the CSPI."
+        }
+      ]
+    },
+    {
+      "class": "UseAcronyms",
+      "inputs": {
+        "sentence": "Electro-Optical Tactical Sensor are a fundamental part of the system."
+      },
+      "outputs": [
+        {
+          "sentence": "EOTS are a fundamental part of the system."
+        }
+      ]
+    },
+    {
+      "class": "UseAcronyms",
+      "inputs": {
+        "sentence": "A strong ElectroMagnetic Pulse will damage nearby electronic devices."
+      },
+      "outputs": [
+        {
+          "sentence": "A strong EMP will damage nearby electronic devices."
+        }
+      ]
+    }
+  ]
+}

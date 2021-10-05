@@ -1,0 +1,265 @@
+{
+  "type": "protaugment_diverse_paraphrase",
+  "test_cases": [
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "bigram"
+      },
+      "inputs": {
+        "sentence": "What should I do if the ATM \"stole\" my card?"
+      },
+      "outputs": [
+        {
+          "sentence": "What is the best way to deal with an ATM scam?"
+        },
+        {
+          "sentence": "What would be the best way to get my ATM card back if someone stole it?"
+        },
+        {
+          "sentence": "What is the best thing I can do when my ATM has stolen my money?"
+        },
+        {
+          "sentence": "What does it take to steal a card from a bank ATM?"
+        },
+        {
+          "sentence": "What does it take to get a card from an ATM without a PIN or password?"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "bigram"
+      },
+      "inputs": {
+        "sentence": "Please explain your exchange rate policy."
+      },
+      "outputs": [
+        {
+          "sentence": "How do you explain the exchange rates policy of the United States?"
+        },
+        {
+          "sentence": "Can you explain the exchange rates policy of the U.S.?"
+        },
+        {
+          "sentence": "\"How do you explain the exchange rates policy to me?\""
+        },
+        {
+          "sentence": "\"How do you explain the exchange rates policy?\"\""
+        },
+        {
+          "sentence": "\"How do I explain our exchange rates?\"\""
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "bigram"
+      },
+      "inputs": {
+        "sentence": "change my house lights colour to blue"
+      },
+      "outputs": [
+        {
+          "sentence": "Change the color of the lights in your house from blue to green"
+        },
+        {
+          "sentence": "I have changed the color of my lights from blue to green."
+        },
+        {
+          "sentence": "I have changed the color of my lights from blue to red."
+        },
+        {
+          "sentence": "How do I change the color of my bedroom lights from blue?"
+        },
+        {
+          "sentence": "Can you change the color of your house light bulbs?"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "bigram"
+      },
+      "inputs": {
+        "sentence": "Add \"bohemian rapshody\" to my rock playlist"
+      },
+      "outputs": [
+        {
+          "sentence": "What is the best way to add a song to your playlist of rock?"
+        },
+        {
+          "sentence": "What is the best way to add a song to your playlist of music?"
+        },
+        {
+          "sentence": "Can I add a song to the playlist of my favorite rock band?"
+        },
+        {
+          "sentence": "I want to add a song to the rock music playlist of my favorite artists."
+        },
+        {
+          "sentence": "I want to add a song to the rock music playlist of my friend."
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "bigram"
+      },
+      "inputs": {
+        "sentence": "Which soft drink does Madonna advertise for ?"
+      },
+      "outputs": [
+        {
+          "sentence": "What is the best drink that Madonna advertises?"
+        },
+        {
+          "sentence": "What is the best drink that Madonna advertises in the world?"
+        },
+        {
+          "sentence": "What are some of the soft drinks that Madonna advertises?"
+        },
+        {
+          "sentence": "What soft drinks do Madonna advertize for in the magazine?"
+        },
+        {
+          "sentence": "What is Madonna's Soft drink and what is it?"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "unigram"
+      },
+      "inputs": {
+        "sentence": "What should I do if the ATM \"stole\" my card?"
+      },
+      "outputs": [
+        {
+          "sentence": "How can you deal with a thief who stole your bank account account?"
+        },
+        {
+          "sentence": "How can you deal with a thief who stole your bank account account account?"
+        },
+        {
+          "sentence": "What would be a good way to deal with ATM theft?"
+        },
+        {
+          "sentence": "Why did someone steal money from an ATM? How can you fix it?"
+        },
+        {
+          "sentence": "Why did someone steal money from an ATM? How can you fix this?"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "unigram"
+      },
+      "inputs": {
+        "sentence": "Please explain your exchange rate policy."
+      },
+      "outputs": [
+        {
+          "sentence": "I want to know how do I change my currency policies?"
+        },
+        {
+          "sentence": "How do I explain my currency change? Please explain."
+        },
+        {
+          "sentence": "How can we determine the value of the currency in the future?"
+        },
+        {
+          "sentence": "Can I ask you for an explanation of the Exchange Rate Policy?"
+        },
+        {
+          "sentence": "How can we determine the value of the currency in India?"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "unigram"
+      },
+      "inputs": {
+        "sentence": "change my house lights colour to blue"
+      },
+      "outputs": [
+        {
+          "sentence": "How do I change the color of my bedroom light?"
+        },
+        {
+          "sentence": "I changed the color of my curtains from blue and red."
+        },
+        {
+          "sentence": "I changed the color of my bedroom light from blue and red."
+        },
+        {
+          "sentence": "I have changed the color of my House Lights from blue."
+        },
+        {
+          "sentence": "Can you change the color of your bedroom light bulbs in blue?"
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "unigram"
+      },
+      "inputs": {
+        "sentence": "Add \"bohemian rapshody\" to my rock playlist"
+      },
+      "outputs": [
+        {
+          "sentence": "I like the sound of the song \"Boho,\" and I like it a lot more."
+        },
+        {
+          "sentence": "I like the sound of the song \"Boho,\" and I like the music of the soundtrack."
+        },
+        {
+          "sentence": "If you like the music, add the song \"Boho-Raptown,\" on your iPod."
+        },
+        {
+          "sentence": "Add a song like \"Boho-Raptown,\" on my Rock Playlist for the weekend."
+        },
+        {
+          "sentence": "Add a song like \"Boho-Raptown,\" on my Rock Playlist for the weekend."
+        }
+      ]
+    },
+    {
+      "class": "ProtaugmentDiverseParaphrase",
+      "args": {
+        "forbid_strategy": "unigram"
+      },
+      "inputs": {
+        "sentence": "Which soft drink does Madonna advertise for ?"
+      },
+      "outputs": [
+        {
+          "sentence": "What are some of the best soft drinks to buy in the United States?"
+        },
+        {
+          "sentence": "What is the best soft drinks to buy in the United States and why?"
+        },
+        {
+          "sentence": "What is the best soft drinks to buy in the US?"
+        },
+        {
+          "sentence": "What is the best soda to buy in the US?"
+        },
+        {
+          "sentence": "What is the best soda to buy in the UK for a date night?"
+        }
+      ]
+    }
+  ]
+}

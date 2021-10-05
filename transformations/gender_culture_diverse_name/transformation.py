@@ -10,6 +10,8 @@ import json
 import random
 import hashlib
 from checklist.perturb import process_ret
+from initialize import spacy_nlp
+
 
 def hash(input:str):
     t_value = input.encode('utf8')
@@ -43,7 +45,7 @@ class ChangeGenderCultureDiverseName:
                         self.name2country[name] = set([country])
                     else:
                         self.name2country[name].add(country)
-        
+
         self.name_all = sorted(self.name_all)
         for name in self.name_all:
             self.name2gender[name] = sorted(self.name2gender[name])
@@ -136,10 +138,12 @@ class GenderCultureDiverseName(SentenceOperation):
         'ee', 'fi', 'cy'
         ]
     # language code following ISO 639-1 standard
+    keywords = ["lexical", "noise", "rule-based", "external-knowledge-based", "high-coverage", "high-precision",
+             "social-reasoning", "world-knowledge"]
 
     def __init__(self, n=1, seed=0, max_output=1, retain_gender=False, retain_culture=False, data_path=None):
         super().__init__(seed)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.n = n
         self.max_output = max_output
 
