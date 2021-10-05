@@ -11,7 +11,7 @@
           "sentence": "She finally returned the French book to me that I bought last year."
         },
         {
-          "sentence": "She finally returned the French book for me that I bought last year."
+          "sentence": "She finally returned the picture book for me that I bought last year."
         },
         {
           "sentence": "Andrew finally returned the French box to Chris that I bought last week."
@@ -25,13 +25,13 @@
       },
       "outputs": [
         {
-          "sentence": "Lines with gappinglines such as Paul likes coffee and Mary tea, lack an overt attempt to indicate a relation between two or more arguments."
+          "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an explicit predicate to explain the relation between two or more arguments."
         },
         {
-          "sentence": "Sentences with gapping, in that Paul drinks coffee and Mary tea, lack an overt attempt to show the relation between two or more arguments."
+          "sentence": "Sentences involving gapping, such as John likes coffee and Mary tea, lack an appropriate predicate to indicate the relation between two or three arguments."
         },
         {
-          "sentence": "Sentences with women, such that Paul likes coffee and Mary tea, lack any overt attempt to explain the relation between two or more arguments."
+          "sentence": "Examples with gapping, Such as Paul likes coffee and Mary tea, lack an appropriate predicate to indicate the relation between two or more arguments."
         }
       ]
     },
@@ -42,13 +42,13 @@
       },
       "outputs": [
         {
-          "sentence": "Alice In Wonderland is a 2014 American live-action/animated dark fantasy adventure film"
+          "sentence": "Alice in Wonderland is a 2010 American live-Action/Animated romantic fantasy adventure film"
         },
         {
-          "sentence": "Alice in Wonderland is a 2015 Canadian live-action/animation dark fantasy adventure film"
+          "sentence": "Alice In Wonderland is a 2010 Canadian live-Action/animated dark fantasy adventure film"
         },
         {
-          "sentence": "Alice In Wonderland is a 2015 American live-action/animated dark fantasy adventure film"
+          "sentence": "Alice in Wonderland is a 2010 American live-Action/Animated dark fantasy adventure film"
         }
       ]
     },
@@ -59,13 +59,13 @@
       },
       "outputs": [
         {
-          "sentence": "Ujjal Dev Dosanjh served the 13th Premier of British Columbia from 2000 until 2001"
+          "sentence": "Ujjal Dev who served as the Premier of Sri Columbia from 2000 until 2001"
         },
         {
-          "sentence": "Ujjal Dev Dosanjh was the 33rd Premier of British Columbia from 2000 to 2001"
+          "sentence": "Ram Dev Dosanjh served as 33rd Premier of British Columbia from 2000 until 2003"
         },
         {
-          "sentence": "Ujjal Dev has served as 33rd premier in British Columbia from 2000 to 2001"
+          "sentence": "and Dev Dosanjh serving as Deputy Premier of British Columbia from 2000 to 2001"
         }
       ]
     },
@@ -76,13 +76,13 @@
       },
       "outputs": [
         {
-          "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and longer-term remodeling of the neuronosynaptic organization."
+          "sentence": "Neuroplasticity is a continuous processing allowing short-term, mid-term, and long-term remodeling of the brain organization."
         },
         {
-          "sentence": "Neuroplasticity is a continuous processing allowing short-duration, medium-termstability and long-term remodeling of the neuronosynaptic network."
+          "sentence": "Neuroplasticity is a neural processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
         },
         {
-          "sentence": "It is a dynamic processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+          "sentence": "It is a dynamic processing allowing short-duration, medium-term, and long-term remodeling of the neuronosynaptic organization."
         }
       ]
     }
