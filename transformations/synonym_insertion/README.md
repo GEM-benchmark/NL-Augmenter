@@ -24,6 +24,12 @@ Benchmark results:
 
 - Text Classification: we run sentiment analysis on a 1% sample of the IMDB dataset. The original accuracy is 96.0 and the perturbed accuracy is 94.0.
 ```
+Applying transformation:
+100%|██████████| 250/250 [00:18<00:00, 13.85it/s]
+Finished transformation! 250 examples generated from 250 original examples, with 250 successfully transformed and 0 unchanged (1.0 perturb rate)
+Here is the performance of the model on the transformed set
+The accuracy on this subset which has 250 examples = 94.0
+
  {'accuracy': 96.0,
  'dataset_name': 'imdb',
  'model_name': 'aychang/roberta-base-imdb',
@@ -31,13 +37,19 @@ Benchmark results:
  'pt_accuracy': 94.0,
  'split': 'test[:1%]'}
 ```
-- Text summarization: we run text summarization on a 1% sample of the xsum dataset. The original bleu is 15.99 and the perturbed bleu is 13.5.
+- Text Generation: we run text generation on a 1% sample of the xsum dataset. The original bleu is 16 and the perturbed bleu is 13.85.
 ```
- {'bleu': 16.0,
- 'pt_bleu': 13.5,
+Applying transformation:
+100%|██████████| 113/113 [00:12<00:00,  9.31it/s]
+Finished transformation! 113 examples generated from 113 original examples, with 113 successfully transformed and 0 unchanged (1.0 perturb rate)
+Here is the performance of the model on the transformed set
+Length of Evaluation dataset is 113
+Predicted BLEU score = 13.849736846663058
+{'bleu': 16.0,
+ 'dataset_name': 'xsum',
  'model_name': 'sshleifer/distilbart-xsum-12-6',
- 'split': 'test[:1%]',
- 'dataset_name': 'xsum'}
+ 'pt_bleu': 13.8,
+ 'split': 'test[:1%]'}
 ```
 
 ## Related Work
