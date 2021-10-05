@@ -69,4 +69,4 @@ This is a neutral group: ['Nobody likes washing dishes']
 ```
 
 ## What are the limitations of this filter?
-This filter accepts unigram arrays, the n-gramms won't give the desired output, since the intersection with keywords is calculated after the sentence being passed through split() function, wich returs an array of unigrams.
+This filter accepts unigram arrays, the n-gramms won't give the desired output, since the intersection with keywords is calculated after the sentence being passed through split() function, which returns an array of unigrams.

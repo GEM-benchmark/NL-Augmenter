@@ -1,0 +1,84 @@
+{
+  "type": "noun_compound_paraphraser",
+  "test_cases": [
+    {
+      "class": "NounCompoundParaphraser",
+      "inputs": {
+        "sentence": "Enter through the front gate, then turn left."
+      },
+      "outputs": [
+        {
+          "sentence": "Enter through the gate at the front, then turn left."
+        }
+      ]
+    },
+    {
+      "class": "NounCompoundParaphraser",
+      "inputs": {
+        "sentence": "The rugby captain enjoyed his breakfast coffee."
+      },
+      "outputs": [
+        {
+          "sentence": "The rugby captain enjoyed his coffee for breakfast."
+        },
+        {
+          "sentence": "The captain of the rugby team enjoyed his breakfast coffee."
+        },
+        {
+          "sentence": "The captain of the rugby team enjoyed his coffee for breakfast."
+        }
+      ]
+    },
+    {
+      "class": "NounCompoundParaphraser",
+      "inputs": {
+        "sentence": "Now we shall film the love scene at the garden party."
+      },
+      "outputs": [
+        {
+          "sentence": "Now we shall film the love scene at the party in a garden."
+        },
+        {
+          "sentence": "Now we shall film the scene of love at the garden party."
+        },
+        {
+          "sentence": "Now we shall film the scene of love at the party in a garden."
+        }
+      ]
+    },
+    {
+      "class": "NounCompoundParaphraser",
+      "inputs": {
+        "sentence": "There was a car accident near the castle gate."
+      },
+      "outputs": [
+        {
+          "sentence": "There was a accident caused by a car near the castle gate."
+        },
+        {
+          "sentence": "There was a car accident near the gate of the castle."
+        },
+        {
+          "sentence": "There was a accident caused by a car near the gate of the castle."
+        }
+      ]
+    },
+    {
+      "class": "NounCompoundParaphraser",
+      "inputs": {
+        "sentence": "After the bike ride, John stopped by the club house."
+      },
+      "outputs": [
+        {
+          "sentence": "After the ride on a bike, John stopped by the club house."
+        },
+        {
+          "sentence": "After the bike ride, John stopped by the house for club activities."
+        },
+        {
+          "sentence": "After the ride on a bike, John stopped by the house for club activities."
+        }
+      ]
+    }
+  ]
+}

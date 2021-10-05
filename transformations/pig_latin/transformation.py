@@ -11,6 +11,9 @@ class PigLatin(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = ["morphological", "noise", "rule-based", "high-coverage", "high-precision", 
+            "unnatural-sounding", "unnaturally-written", "highly-meaning-preserving", 
+            "high-generations", "world-knowledge"]
 
     def __init__(self, seed=0, max_outputs=1, replace_prob=1.0):
         super().__init__(seed, max_outputs=max_outputs)
