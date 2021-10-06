@@ -12,6 +12,7 @@ map_transformation = {
     "light": [
         "add_hashtags",
         "adjectives_antonyms_switch",
+        "auxiliary_negation_removal",
         "butter_fingers_perturbation",
         "change_char_case",
         "change_date_format",
@@ -53,6 +54,7 @@ map_transformation = {
         "suspecting_paraphraser",
         "swap_characters",
         "synonym_substitution",
+        "use_acronyms",
         "whitespace_perturbation",
         "word_noise",
         "yes_no_question",
