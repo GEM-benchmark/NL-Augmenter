@@ -20,6 +20,8 @@ def uncapitalize(string: str):
     """De-capitalize first character of string
 
     E.g. 'How is Michael doing?' -> 'how is Michael doing?'
+
+    :param str string: String to be uncapitalized
     """
     if len(string):
         return string[0].lower() + string[1:]
@@ -35,6 +37,8 @@ def front_auxiliary(auxiliary: Token) -> str:
     E.g.:
     - <Token 'has'> -> 'Has'
     - <Token "'ve"> -> 'Have'
+
+    :param Token auxiliary: auxiliary word (or contraction) to be fronted
     """
     if auxiliary.text == "'d":
         if "Part" in auxiliary.head.morph.get("VerbForm"):
@@ -61,6 +65,8 @@ def front_be_verb(be_verb: Token) -> str:
     E.g.:
     - <Token 'is'> -> 'Is'
     - <Token "'re"> -> 'Are'
+
+    :param Token be_verb: The be verb to be fronted
     """
     if be_verb.text == "'s":
         return "Is"
@@ -225,6 +231,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
         E.g.:
         - "Did Jenny come home?" -> "Did Jenny come home? Yes."
         - "Did Jenny not come home?" -> "Did Jenny come home? No."
+
+        :param str sentence: Original question to which to append "yes" or "no"
         """
         doc: Doc = self.nlp(sentence)
 
