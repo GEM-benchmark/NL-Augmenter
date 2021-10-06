@@ -95,6 +95,9 @@ class YesNoQuestionPerturbation(SentenceOperation):
     def statement_to_question(self, sentence: Span) -> Union[str, None]:
         """Given a statement (type: spacy Span), convert to corresponding
         yes-or-no question.
+
+        :param Span sentence: Span of Spacy Tokens representing an individual
+        statement
         """
 
         # Look for sentence verb head, starting with first token
