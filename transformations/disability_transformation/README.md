@@ -1,5 +1,6 @@
 # Disability/Differently Abled Transformation ♿
-This transformation changes outdated names of disabilities with more appropriate and respectful ones which are now used in the modern.
+
+This transformation changes outdated and offensive names of disabilities with more appropriate and respectful ones.
 
 Author: A.T. (atabassum.bee15seecs@seecs.edu.pk)
 
@@ -16,12 +17,14 @@ The output will be: "After the accident, she is now a person or people with a ph
 This transformation uses several different online sources for compilation of a list of offensive terms and their alternatives. All the sources are referenced below. [1]
 
 ## What tasks does it intend to benefit?
+
 This transformation would benefit all tasks which intend to generate datasets with more respectful versions of terms involving people with disabilities, resulting in less offensive datasets.
  
 
 
 ## What are the limitations of this transformation?
-The transformation may generate some nonsensical outputs as it does not consider the context of some cases.
+
+The transformation may generate some nonsensical outputs as it does not consider the context of some input sentences.
 
 
 ## References:
@@ -37,3 +40,5 @@ The transformation may generate some nonsensical outputs as it does not consider
 
 * National Youth Leadership Network Respectful Disability Language: Here’s What’s Up! 
 > https://www.aucd.org/docs/add/sa_summits/Language%20Doc.pdf
+
+
