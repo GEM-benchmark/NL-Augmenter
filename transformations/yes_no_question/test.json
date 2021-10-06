@@ -60,7 +60,9 @@
       "inputs": {
         "sentence": "He likes to walk and she likes to run."
       },
-      "outputs": []
+      "outputs": [{
+        "sentence": "He likes to walk and she likes to run."
+      }]
     },
     {
       "class": "YesNoQuestionPerturbation",
@@ -69,10 +71,7 @@
       },
       "outputs": [
         {
-          "sentence": "Was Vikram here yesterday? Yes."
-        },
-        {
-          "sentence": "Did he want to eat any cake? No."
+          "sentence": "Was Vikram here yesterday? Yes. Did he want to eat any cake? No."
         }
       ]
     }
