@@ -25,6 +25,3 @@ accuracy after perturbation: 91.0
  
 The accuracy drops by 5% when tested on imdb dataset for roberta
 
-## KeyWords
-tokenizer-required  
-highly-meaning-preserving	

@@ -11,6 +11,8 @@ from tasks.TaskTypes import TaskType
 class NegatedAntonym(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = ["sentiment-analysis", "tokenizer-required", "highly-meaning-preserving"]
+
 
     def __init__(self, seed=0):
         super().__init__(seed)
