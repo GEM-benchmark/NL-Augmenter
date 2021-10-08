@@ -1,0 +1,40 @@
+{
+  "type": "american_british_english_translation",
+  "test_cases": [
+    {"class": "AmericanizeBritishizeEnglish",
+      "inputs": {
+        "sentence": "I love the pastel colours"
+      },
+      "outputs": [{
+        "sentence": "I love the pastel colors"
+      }]
+    },
+    {
+      "class": "AmericanizeBritishizeEnglish",
+      "inputs": {
+        "sentence": "That shop is so unorganised"
+      },
+      "outputs": [{
+        "sentence": "That store is so unorganized"
+      }]
+    },
+    {
+      "class": "AmericanizeBritishizeEnglish",
+      "inputs": {
+        "sentence": "Carry encyclopedia on vacation"
+      },
+      "outputs": [{
+        "sentence": "Carry encyclopaedia on holiday"
+      }]
+    },
+    {
+      "class": "AmericanizeBritishizeEnglish",
+      "inputs": {
+        "sentence": "He was so ill that he had to be hospitalized"
+      },
+      "outputs": [{
+        "sentence": "He was so sick that he had to be hospitalised"
+      }]
+    }
+  ]
+}
