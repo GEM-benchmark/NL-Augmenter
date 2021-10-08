@@ -1,0 +1,50 @@
+{
+  "type": "color_transformation",
+  "test_cases": [
+    {
+      "class": "ColorTransformation",
+      "inputs": {
+        "sentence": "I am feeling blue today."
+      },
+      "outputs": [{
+        "sentence": "I am feeling misty rose today."
+      }]
+    },
+    {
+      "class": "ColorTransformation",
+      "inputs": {
+        "sentence": "I bought this pink pair of shoes today! Isn't it pretty?"
+      },
+      "outputs": [{
+        "sentence": "I bought this misty rose pair of shoes today! Isn't it pretty?"
+      }]
+    },
+    {
+      "class": "ColorTransformation",
+      "inputs": {
+        "sentence": "What is your favorite color? I think mine is blue, but sometimes I prefer orange."
+      },
+      "outputs": [{
+        "sentence": "What is your favorite color? I think mine is orchid, but sometimes I prefer misty rose."
+      }]
+    },
+    {
+      "class": "ColorTransformation",
+      "inputs": {
+        "sentence": "Tom bought 3 apples, 1 orange, and 4 bananas and paid $10."
+      },
+      "outputs": [{
+        "sentence": "Tom bought 3 apples, 1 misty rose, and 4 bananas and paid $10."
+      }]
+    },
+    {
+      "class": "ColorTransformation",
+      "inputs": {
+        "sentence": "All swans are white."
+      },
+      "outputs": [{
+        "sentence": "All swans are misty rose."
+      }]
+    }
+  ]
+}

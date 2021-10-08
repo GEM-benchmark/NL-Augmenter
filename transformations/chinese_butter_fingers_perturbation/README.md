@@ -1,6 +1,6 @@
 # Chinese Pinyin Butter Fingers Perturbation 🦎  + ⌨️ → 🐍
 This perturbation adds noise to all types of text sources containing Chinese words and characters (sentence, paragraph, etc.) proportional to noise erupting 
-from keyboard typos making errors resulting from Chinese words and characters that have similiar Pinyin (with or without tones). 
+from keyboard typos making errors resulting from Chinese words and characters that have similar Pinyin (with or without tones). 
 
 Author name: Timothy Sum Hon Mun
 Author email: timothy22000@gmail.com

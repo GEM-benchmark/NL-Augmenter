@@ -1,0 +1,50 @@
+{
+  "type": "paraphrase-sow-reap",
+  "test_cases": [
+    {
+      "class": "ParaphraseSowReap",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week."
+      },
+      "outputs": [{
+        "sentence": "andrew finally returned chris 's last week 's french book ."
+      }]
+    },
+    {
+      "class": "ParaphraseSowReap",
+      "inputs": {
+        "sentence": "the current communication reflects the results of the commission 's study ."
+      },
+      "outputs": [{
+        "sentence": "the results of the commission 's study are reflected in this communication ."
+      }]
+    },
+    {
+      "class": "ParaphraseSowReap",
+      "inputs": {
+        "sentence": "she worked at the georgetown tavern when you were in law school ."
+      },
+      "outputs": [{
+        "sentence": "when you were in law school , she worked at georgetown 's tavern ."
+      }]
+    },
+    {
+      "class": "ParaphraseSowReap",
+      "inputs": {
+        "sentence": "compared to the previous year , there was a significant increase in the late transposition of directives in 2011 ."
+      },
+      "outputs": [{
+        "sentence": "there was a significant increase in late transposition of directives in 2011 compared to the previous year ."
+      }]
+    },
+    {
+      "class": "ParaphraseSowReap",
+      "inputs": {
+        "sentence": "the company withdrew its application on the 196th day its submission ."
+      },
+      "outputs": [{
+        "sentence": "the company withdrew its application on the 196th day of its submission ."
+      }]
+    }
+  ]
+}

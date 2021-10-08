@@ -1,6 +1,6 @@
 # Mix-Transliteration 🦎  + ⌨️ → 🐍
 
-This transformation transliterates randomly picked words from the input sentence (of given source languae script) to a target language script. 
+This transformation transliterates randomly picked words from the input sentence (of given source language script) to a target language script. 
 It can be used to train/test multilingual models to improve/evaluate their ability to understand complete or partially transliterated text.
 
 Author name: Tanay Dixit, Mukund Varma T

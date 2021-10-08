@@ -52,7 +52,7 @@ class GroupInequityFilter(SentenceOperation):
                 set(majority_group)
             )
 
-            # If the intersection occured, the intersection_minority_group and intersection_majority_group will contain at least one common keyword
+            # If the intersection occurred, the intersection_minority_group and intersection_majority_group will contain at least one common keyword
             # use this intersection information to get the value for the corresponding flags
             minority_group_flag = len(intersection_minority_group) > 0
             majority_group_flag = len(intersection_majority_group) > 0
@@ -129,7 +129,7 @@ class GroupInequityFilter(SentenceOperation):
         :param majority_factor: array of keywords, describing majority factor 
         :return: array of objects, each containing the analyzed sentence along with two flags
         """
-        # Load the appropriate langauge model from spacy
+        # Load the appropriate language model from spacy
         if language == "en":
             nlp = spacy.load("en_core_web_sm")
         elif language == "fr":
@@ -275,7 +275,7 @@ class GroupInequityFilter(SentenceOperation):
         # Use the flagged objects to get the groups
         minority_group, majority_group, union_group, neutral_group = self.sort_groups(flagged_corpus)
 
-        # Retrive the flags of intersection for the miority and majority groups
+        # Retrieve the flags of intersection for the miority and majority groups
         doubble_flagged_corpus = self.find_intersection(self.language, minority_group, majority_group, self.minority_factor, self.majority_factor)
 
         # Count the number of intersections with the minority and majority factors

@@ -26,7 +26,7 @@ on the imdb dataset.
 The transformation's outputs are simple, and incapable of
  generating linguistically diverse text. Currently, the transformation
 only contains English filler words, therefore the user must provide
-filler words for other languages should they wish to use this tranformation
+filler words for other languages should they wish to use this transformation
 on other languages. Finally, the current implementation
 inserts disfluencies between words denoted by whitespace, therefore even with
 user-provided filler words it will not work on languages without whitespace.

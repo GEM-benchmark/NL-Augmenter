@@ -89,9 +89,8 @@ def performance_on_dataset(dataset, summarization_pipeline):
 
     for example in dataset:
         article, gold_summary = example
-        max_len = (
-            len(gold_summary.split(" ")) + 10
-        )  # approximate max length to control summary generation upto length of gold summary
+        # approximate max length to control summary generation up to length of gold summary
+        max_len = len(gold_summary.split(" ")) + 10
         predicted_summary = summarization_pipeline(
             article, truncation=True, max_length=max_len
         )[0]["summary_text"]
