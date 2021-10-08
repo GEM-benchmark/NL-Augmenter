@@ -13,22 +13,6 @@ default_conjugator = mlconjug.Conjugator(language="fr")
 
 nltk.download("wordnet")
 nltk.download("punkt")
-nlp = spacy.load("fr_core_news_md")
-# definition of spacy pipeline
-
-
-@Language.factory("french_lemmatizer")
-def create_french_lemmatizer(nlp, name):
-    return LefffLemmatizer()
-
-
-@Language.factory("POSTagger")
-def create_POSTagger(nlp, name):
-    return POSTagger()
-
-
-nlp.add_pipe("POSTagger", name="pos")
-nlp.add_pipe("french_lemmatizer", name="lefff", after="pos")
 
 dicPronouns = {
     "j'": "1s",
@@ -128,8 +112,18 @@ def n_exception(sentence):
     return sentence
 
 
+@Language.factory("french_lemmatizer")
+def create_french_lemmatizer(nlp, name):
+    return LefffLemmatizer()
+
+
+@Language.factory("POSTagger")
+def create_POSTagger(nlp, name):
+    return POSTagger()
+
+
 # for the library ML conjug, verbs must be in their infinitive form
-def TurnToInfinitif(sentence):
+def TurnToInfinitif(nlp,sentence):
     doc = nlp(sentence)
     verbs = [d.text for d in doc if d.pos_ == "VERB"]
     auxs = [d.text for d in doc if d.pos_ == "AUX"]
@@ -173,8 +167,8 @@ def TurnToInfinitif(sentence):
 
 
 # function that conjugate verbs with mlconjug
-def conjugate(sentence, pronoun, tense):
-    infinitive = TurnToInfinitif(sentence)
+def conjugate(nlp,sentence, pronoun, tense):
+    infinitive = TurnToInfinitif(nlp,sentence)
     conjugatedSentence = []
     for tuple in infinitive:
         if tuple[1] == "VERB" or tuple[1] == "AUX":
@@ -224,7 +218,7 @@ def anomalous_indicators_transform(sentence):
 
 # final function used to conjugate verbs
 def french_conjugation_transformation(
-    sentence, tense, dict_pronouns=dicPronouns
+    nlp,sentence, tense, dict_pronouns=dicPronouns
 ):
     """this function allows you to conjugate a multiverbal sentence where there are one or different
     pronouns. If the sentence is multiverbal, verbs are supposed to be conjugated on the same tense
@@ -258,7 +252,7 @@ def french_conjugation_transformation(
                 ispronoun = re.search(r"\b({})\b".format(pronoun), sentence)
                 index_pronoun = ispronoun.start()
                 pronouns_final_list.append(dict_pronouns[pronoun])
-                conjugated = conjugate(sentence, pronouns_final_list[0], tense)
+                conjugated = conjugate(nlp,sentence, pronouns_final_list[0], tense)
                 conjugated = conjugated.replace(".", "")
                 final_sent = re.sub(" +", " ", conjugated)
                 final_sent = final_sent.replace(" , ", ", ")
@@ -304,6 +298,7 @@ def french_conjugation_transformation(
                                 pronouns_final_list[i],
                             ]
                             conjugated = conjugate(
+                                nlp,
                                 splited_sentences[i],
                                 pronouns_final_list[i],
                                 tense,
@@ -340,7 +335,7 @@ def french_conjugation_transformation(
                                 splited_sentences[i],
                                 pronouns_final_list[i],
                             ]
-                            conjugated = conjugate(
+                            conjugated = conjugate(nlp,
                                 splited_sentences[i],
                                 pronouns_final_list[i],
                                 tense,
@@ -369,11 +364,11 @@ class Conjugation_transformation(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["fr"]
-    KEYWORD = [
-        "lexical",
-        "model-based",
-        "highly-meaning-preserving",
+    keyword = [
         "high-coverage",
+        "highly-meaning-preserving",
+        "lexical",
+        "model-based",    
     ]
 
     # The transormation tense is specified here
@@ -381,9 +376,17 @@ class Conjugation_transformation(SentenceOperation):
         super().__init__()
         assert tense in ["Futur", "Imparfait"]
         self.tense = tense
+        
+        
+        self.nlp = spacy.load("fr_core_news_md")
+        # definition of spacy pipeline
+
+        self.nlp.add_pipe("POSTagger", name="pos")
+        self.nlp.add_pipe("french_lemmatizer", name="lefff", after="pos")
 
     def generate(self, sentence: str):
         perturbed_texts = french_conjugation_transformation(
+            self.nlp,
             sentence,
             self.tense,
         )
