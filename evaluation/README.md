@@ -89,6 +89,9 @@ Default models and datasets:
 | Transformation                   | paraphrase-xlm-r-multilingual-v1-MRPC | paraphrase-xlm-r-multilingual-v1-PAWS |
 |:---------------------------------|:--------------------------------------|:--------------------------------------|
 | LexicalCounterfactualGenerator   | 69.0->50.0 (-19.0)                    | 44.0->23.0 (-21.0)                    |
+| PairAdjectivesAntonymsSwitch     | 69.0->36.0 (-33.0)                    | 44.0->30.0 (-14.0)                    |
+| PairAuxiliaryNegationRemoval     | 69.0->65.0 ( -4.0)                    | 44.0->44.0 (  0.0)                    |
+| PairSubjectObjectSwitch          | 69.0->30.0 (-39.0)                    | 44.0->24.0 (-20.0)                    |
 
 Default models and datasets:
 

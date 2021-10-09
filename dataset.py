@@ -291,6 +291,7 @@ class KeyValueDataset(BaseDataset):
     def _apply_sentence1_sentence2_target_filter(
         self, datapoint: dict, filter: SentencePairOperation
     ):
+        """Apply a filter to SentencePairOperations."""
         sentence1 = datapoint[self.fields[0]]
         sentence2 = datapoint[self.fields[1]]
         target = datapoint[self.fields[2]]
@@ -397,6 +398,7 @@ class KeyValueDataset(BaseDataset):
     def _apply_sentence1_sentence2_target_transformation(
         self, datapoint: dict, transformation: SentencePairOperation
     ):
+        """Apply a transformation to SentencePairOperations."""
         sentence1 = datapoint[self.fields[0]]
         sentence2 = datapoint[self.fields[1]]
         target = datapoint[self.fields[2]]
