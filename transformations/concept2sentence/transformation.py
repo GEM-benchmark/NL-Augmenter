@@ -3,6 +3,7 @@ import random
 
 from interfaces.SentenceOperation import SentenceAndTargetOperation
 from tasks.TaskTypes import TaskType
+import torch
 
 from sibyl import Concept2Sentence
 
@@ -39,7 +40,7 @@ class C2S(SentenceAndTargetOperation):
                  gen_beam_size=10,
                  text_min_length=10,
                  text_max_length=32,
-                 device='cuda',
+                 device='cpu',
                  task_config=None):
 
         super().__init__(seed, max_outputs=max_outputs)
@@ -60,6 +61,8 @@ class C2S(SentenceAndTargetOperation):
                 'label_type': 'hard',
                 'task_name': 'topic'
             }
+        if torch.cuda.is_available():
+            self.device = "cuda"
 
     def generate(self, sentence: str, target=None):
         """
