@@ -1,0 +1,50 @@
+{
+  "type": "german_gender_swap",
+  "test_cases": [
+    {
+      "class": "GermanGenderSwap",
+      "inputs": {
+        "sentence": "Der liebe Gott hat uns noch ein paar wundersch\u00f6ne Tage mit ihr geschenkt, in denen sich der gr\u00f6\u00dfte Teil ihrer Familie und ihrer Freunde bei ihr verabschieden konnte, sagte Thurn und Taxis auch im Namen ihrer Br\u00fcder."
+      },
+      "outputs": [{
+        "sentence": "Der liebe G\u00f6ttin hat uns noch ein paar wundersch\u00f6ne Tage mit sie geschenkt, in denen sich der gr\u00f6\u00dfte Teil ihrer Familie und ihrer Freunde bei sie verabschieden konnte, sagte Thurn und Taxis auch im Namen ihrer Schwestern."
+      }]
+    },
+    {
+      "class": "GermanGenderSwap",
+      "inputs": {
+        "sentence": "Er ist der Pr\u00e4sident, sie ist die Herrscherin und sie werden jetzt bald Ehemann und Ehefrau sein!"
+      },
+      "outputs": [{
+        "sentence": "Sie ist die Pr\u00e4sidentin, sie ist die Herrscherin und sie werden jetzt bald Frau und Ehefrau sein!"
+      }]
+    },
+    {
+      "class": "GermanGenderSwap",
+      "inputs": {
+        "sentence": "Er ist ein Arzt und mein Vater."
+      },
+      "outputs": [{
+        "sentence": "Sie ist eine \u00c4rztin und meine Mutter."
+      }]
+    },
+    {
+      "class": "GermanGenderSwap",
+      "inputs": {
+        "sentence": "Sie ist meine Mutter und er ist mein Vater."
+      },
+      "outputs": [{
+        "sentence": "Sie ist meine Mutter und sie ist meine Mutter."
+      }]
+    },
+    {
+      "class": "GermanGenderSwap",
+      "inputs": {
+        "sentence": "Ich sehe, dass der Dichter und die Schauspielerin jetzt Freunde sind!"
+      },
+      "outputs": [{
+        "sentence": "Ich sehe, dass die Dichterin und die Schauspielerin jetzt Freunde sind!"
+      }]
+    }
+  ]
+}

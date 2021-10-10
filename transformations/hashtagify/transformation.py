@@ -10,17 +10,15 @@ from nltk.tag import pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.tree import Tree
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-nltkdl("words")
-nltkdl("maxent_ne_chunker")
-nltkdl("punkt")
-nltkdl("averaged_perceptron_tagger")
-nltkdl("stopwords")
-
 
 def find_candidates(doc):
+    """
+    return the named entities, nouns and verbs as a list of candidates for hashtagify
+    """
     chunked = ne_chunk(pos_tag(word_tokenize(doc.text)))
     candidates = []
     current_chunk = []
@@ -56,6 +54,9 @@ def find_candidates(doc):
 
 
 def hashtagify(sentence, nlp, prob=0.5, seed=666, max_outputs=1):
+    """
+    add hashtag prefix (#) to the candidates according to a fixed probability
+    """
     random.seed(seed)
     doc = nlp(sentence)
     perturbed_texts = []
@@ -88,13 +89,31 @@ class HashtagifyTransformation(SentenceOperation):
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
-        TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
+    keywords = [
+        "lexical",
+        "rule-based",
+        "parser-based",
+        "tokenizer-required",
+        "chunker-required",
+        "visual",
+        "highly-meaning-preserving",
+        "high-precision",
+        "high-coverage",
+        "social-reasoning",
+    ]
 
     def __init__(self, seed=666, max_outputs=1):
+        nltkdl("words")
+        nltkdl("maxent_ne_chunker")
+        nltkdl("punkt")
+        nltkdl("averaged_perceptron_tagger")
+        nltkdl("stopwords")
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = self.nlp = (
+            spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        )
 
     def generate(self, sentence: str):
         perturbed_texts = hashtagify(

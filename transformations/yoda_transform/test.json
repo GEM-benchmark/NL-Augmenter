@@ -1,0 +1,50 @@
+{
+  "type": "yoda_transform",
+  "test_cases": [
+    {
+      "class": "YodaPerturbation",
+      "inputs": {
+        "sentence": "Andrew returned my book"
+      },
+      "outputs": [{
+        "sentence": "My book, Andrew returned"
+      }]
+    },
+    {
+      "class": "YodaPerturbation",
+      "inputs": {
+        "sentence": "You must find the treasure"
+      },
+      "outputs": [{
+        "sentence": "Find the treasure, you must"
+      }]
+    },
+    {
+      "class": "YodaPerturbation",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "A 2010 american live- action/ animated dark fantasy adventure film, alice in Wonderland is"
+      }]
+    },
+    {
+      "class": "YodaPerturbation",
+      "inputs": {
+        "sentence": "The brain is one of the most complex organs in the body"
+      },
+      "outputs": [{
+        "sentence": "One of the most complex organs in the body, the brain is"
+      }]
+    },
+    {
+      "class": "YodaPerturbation",
+      "inputs": {
+        "sentence": "We are unwrapping our Christmas presents"
+      },
+      "outputs": [{
+        "sentence": "Unwrapping our Christmas presents, we are"
+      }]
+    }
+  ]
+}

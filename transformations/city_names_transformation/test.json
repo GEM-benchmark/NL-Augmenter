@@ -1,0 +1,48 @@
+{
+    "type": "city_names_transformation", 
+    "test_cases": [{
+        "class": "CityNamesTransformation", 
+        "inputs": {
+            "sentence": "Jarry returned to London and applied himself to drinking, writing, and the company of friends who appreciated his witty, sweet-tempered, and unpredictable conversation."
+        }, 
+        "outputs": [{
+            "sentence": "Jarry returned to Woods Creek and applied himself to drinking , writing , and the company of friends who appreciated his witty , sweet - tempered , and unpredictable conversation ."
+        }]
+    }, 
+    {
+        "class": "CityNamesTransformation", 
+        "inputs": {
+            "sentence": "The team was established in Dallas in 1898 and was a charter member of the NFL in 1920."
+        }, 
+        "outputs": [{
+            "sentence": "The team was established in Viera West in 1898 and was a charter member of the NFL in 1920 ."}]
+        }, 
+    {
+        "class": "CityNamesTransformation", 
+        "inputs": {
+            "sentence": "The Falcons had their first Monday Night Football game in Los Angeles during the 1970 season."
+        }, 
+        "outputs": [{
+            "sentence": "The Falcons had their first Monday Night Football game in Old Jefferson during the 1970 season ."
+        }]
+    }, 
+    {
+        "class": "CityNamesTransformation", 
+        "inputs": {
+            "sentence": "In the event, Manchester was chosen instead of Miami, owing to political circumstances."
+        }, 
+        "outputs": [{
+            "sentence": "In the event , Manchester was chosen instead of Hertford , owing to political circumstances ."
+        }]
+    }, 
+    {
+        "class": "CityNamesTransformation", 
+        "inputs": {
+            "sentence": "In 1841, Sax relocated permanently to Boston and began work on a new set of instruments which were exhibited there in 1844."
+        }, 
+        "outputs": [{
+            "sentence": "In 1841 , Sax relocated permanently to Stony Plain and began work on a new set of instruments which were exhibited there in 1844 ."
+        }]
+    }
+    ]
+}
