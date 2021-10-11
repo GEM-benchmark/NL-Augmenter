@@ -9,7 +9,7 @@ from tasks.TaskTypes import TaskType
 
 
 class NegatedAntonym(SentenceOperation):
-    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.SENTIMENT_ANALYSIS]
     languages = ["en"]
     keywords = ["sentiment-analysis", "tokenizer-required", "highly-meaning-preserving"]
 
@@ -38,5 +38,12 @@ class NegatedAntonym(SentenceOperation):
 
                 if len(antonyms) != 0:
                     tokenized_sent[i] = 'not ' + antonyms[0]
+
+        for item in range(len(tokenized_sent)):
+            if tokenized_sent[item] == '.' or tokenized_sent[item] == ',' or tokenized_sent[item][0] == "'":
+                tokenized_sent[item - 1] = tokenized_sent[item - 1] + tokenized_sent[item]
+        tokenized_sent = [x for x in tokenized_sent if x != '.']
+        tokenized_sent = [x for x in tokenized_sent if x != ',']
+        tokenized_sent = [x for x in tokenized_sent if x[0] != "'"]
 
         return ' '.join(tokenized_sent)

@@ -7,7 +7,7 @@
         "sentence": "I think you are successful."
       },
       "outputs": [{
-        "sentence": "I think you are not unsuccessful ."
+        "sentence": "I think you are not unsuccessful."
       }]
     },
     {
@@ -16,7 +16,7 @@
         "sentence": "I think you are prepared for the test."
       },
       "outputs": [{
-        "sentence": "I think you are not unprepared for the test ."
+        "sentence": "I think you are not unprepared for the test."
       }]
     },
     {
@@ -34,7 +34,7 @@
         "sentence": "He plays the flute beautifully."
       },
       "outputs": [{
-        "sentence": "He plays the flute not unattractively ."
+        "sentence": "He plays the flute not unattractively."
       }]
     },
     {
@@ -43,25 +43,25 @@
         "sentence": "I think you are joyful."
       },
       "outputs": [{
-        "sentence": "I think you are not sorrowful ."
+        "sentence": "I think you are not sorrowful."
       }]
     },
     {
       "class": "NegatedAntonym",
       "inputs": {
-        "sentence": "I think you are smarter than me."
+        "sentence": "During Harry's fourth year of school, Harry is unwillingly entered as a participant in the Triwizard Tournament, a dangerous yet exciting contest where three champions, one from each participating school, must compete with each other in three tasks in order to win the Triwizard Cup."
       },
       "outputs": [{
-        "sentence": "I think you are not stupid than me ."
+        "sentence": "During Harry's fourth year of school, Harry is not willingly entered as a participant in the Triwizard Tournament, a not safe yet exciting contest where three champions, one from each participating school, must compete with each not same in three tasks in order to win the Triwizard Cup."
       }]
     },
     {
       "class": "NegatedAntonym",
       "inputs": {
-        "sentence": "The movie was bad."
+        "sentence": "Umbridge's incessant and persistent efforts to land him in trouble and the defensive lessons, Harry begins to lose sleep as he constantly receives disturbing dreams about a dark corridor in the Ministry of Magic, followed by a burning desire to learn more."
       },
       "outputs": [{
-        "sentence": "The movie was not good ."
+        "sentence": "Umbridge's incessant and not caducous efforts to land him in trouble and the not offensive lessons, Harry begins to lose sleep as he constantly receives disturbing dreams about a not light corridor in the Ministry of Magic, followed by a burning desire to learn not less."
       }]
     }
   ]
