@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import random
 import string
+import json
 from typing import List
 from checklist.editor import Editor
 from interfaces.SentenceOperation import SentenceOperation
 from evaluation.evaluation_engine import evaluate, execute_model
 from tasks.TaskTypes import TaskType
-import json
+
 
 with open("data.json", "r", encoding="utf-8") as f:
     names = json.load(f)
@@ -17,7 +18,7 @@ with open("noun_pairs.json", "r", encoding="utf-8") as fn:
 f = list(names["1"].values())
 m = list(names["2"].values())
 
-# Noun Pairs.
+
 def replace_punc(text):
     for i in string.punctuation:
         text = text.replace(i, " " + i)
@@ -66,7 +67,7 @@ preceeding_word = {
 }
 
 
-def replace_prev_word(ind, text, noundict):
+def replace_prev_word(ind, text, noun_dict):
     t2 = text
     for i in ind:
         prev_ind = i - 1
@@ -83,17 +84,16 @@ def replace_noun_pairs(inp, nouns):
     for name in nouns.keys():
         if name in text:
             ind = get_index(text, name)
-            newtext = replace_name_in_list(ind, text, nouns)
-            newtext = replace_prev_word(ind, newtext, preceeding_word)
+            new_text = replace_name_in_list(ind, text, nouns)
+            new_text = replace_prev_word(ind, new_text, preceeding_word)
 
         else:
-            newtext = text
-    newtext = " ".join(str(x) for x in newtext)
-    return newtext
+            new_text = text
+    new_text = " ".join(str(x) for x in new_text)
+    return new_text
 
 
-# Personal Pronouns.
-personalp = {
+personal_pron = {
     "er": "sie",
     "Er": "Sie",
     "ihr": "sie",
@@ -110,40 +110,40 @@ def get_index(wl, n):
     return indices
 
 
-def replace_name_in_list(ind, text, noundict):
+def replace_name_in_list(ind, text, noun_dict):
     t2 = text
     for i in ind:
-        t2[i] = noundict[t2[i]]
+        t2[i] = noun_dict[t2[i]]
     return t2
 
 
-def replace_personal(inp, personalp):
+def replace_personal(inp, personal_pron):
     i = replace_punc(inp)
     text = i.split()
-    for name in personalp.keys():
+    for name in personal_pron.keys():
         if name in text:
             ind = get_index(text, name)
-            newtext = replace_name_in_list(ind, text, personalp)
+            new_text = replace_name_in_list(ind, text, personal_pron)
         else:
-            newtext = text
-    newtext = " ".join(str(x) for x in newtext)
-    return newtext
+            new_text = text
+    new_text = " ".join(str(x) for x in new_text)
+    return new_text
 
 
-def findname(sent, malenames, femalenames):
+def find_name(sent, male_names, female_names):
     t = sent.split()
     for word in t:
-        if word in malenames:
+        if word in male_names:
             w = word
             return w
-        elif word in femalenames:
+        elif word in female_names:
             w = word
             return w
         else:
             print(" ")
 
 
-def swapname(name, names):
+def swap_name(name, names):
     for n in names["2"].values():
         if name in m:
             new = random.choice([i for i in names["1"].values()])
@@ -152,14 +152,14 @@ def swapname(name, names):
             return name
 
 
-def newnamerep(m, f, inp, names):
-    n = findname(inp, m, f)
+def new_name_rep(m, f, inp, names):
+    n = find_name(inp, m, f)
     sent = inp
     t = sent.split()
     for word in t:
         if word in m and n != "None":
             if n != None:
-                fname = swapname(word, names)
+                fname = swap_name(word, names)
                 sent = sent.replace(word, str(fname))
             else:
                 sent = sent
@@ -169,8 +169,8 @@ def newnamerep(m, f, inp, names):
 def german_nouns(inp, nouns, names):
     text = replace_punc(inp)
     t1 = replace_noun_pairs(text, nouns)
-    t2 = replace_personal(t1, personalp)
-    t3 = newnamerep(m, f, t2, names)
+    t2 = replace_personal(t1, personal_pron)
+    t3 = new_name_rep(m, f, t2, names)
     t4 = restore_punc(t3)
     return t4
 

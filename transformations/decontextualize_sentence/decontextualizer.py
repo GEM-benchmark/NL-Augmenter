@@ -7,8 +7,8 @@ punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
 def decontextualize_text(pred_arg_pair: dict, words: list):
     """
     Given the predicate-argument pair this function removes all the contextual arguments except AM-MOD
-    :param pred_arg_pair:
-    :param words:
+    :param pred_arg_pair: Dictionary containing srl tags for each token
+    :param words: List of tokenized words
     :return: String
     """
     tags = pred_arg_pair["tags"]

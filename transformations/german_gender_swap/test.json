@@ -1,5 +1,5 @@
 {
-  "type": "GermanGenderSwap",
+  "type": "german_gender_swap",
   "test_cases": [
     {
       "class": "GermanGenderSwap",

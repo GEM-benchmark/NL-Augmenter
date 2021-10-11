@@ -13,6 +13,10 @@ class Decontextualize(SentencePairOperation):
     languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=3):
+        """
+        :param seed: Set to 0 for reproducibility
+        :param max_outputs: Cap on max number of decontextualize sentences
+        """
         super().__init__(seed, max_outputs=max_outputs)
         from allennlp.predictors.predictor import Predictor
         self.predictor = Predictor.from_path(
