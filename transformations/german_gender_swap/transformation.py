@@ -9,10 +9,10 @@ from evaluation.evaluation_engine import evaluate, execute_model
 from tasks.TaskTypes import TaskType
 
 
-with open("data.json", "r", encoding="utf-8") as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data.json'), "r", encoding="utf-8") as f:
     names = json.load(f)
 
-with open("noun_pairs.json", "r", encoding="utf-8") as fn:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'noun_pairs.json'), "r", encoding="utf-8") as fn:
     nouns = json.load(fn)
 
 f = list(names["1"].values())
