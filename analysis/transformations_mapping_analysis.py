@@ -12,15 +12,21 @@ from importlib import import_module
 import json
 
 from interfaces.Operation import Operation
+from interfaces.KeyValuePairsOperation import KeyValuePairsOperation
+from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
+from interfaces.SentenceOperation import SentenceOperation
+from interfaces.SentencePairOperation import SentencePairOperation
+from interfaces.TaggingOperation import TaggingOperation
 
 class TransformationMappingAnalysis():
-    ignore_list = ["GermanGenderSwap", "disability_transformation", "gender_neutral_rewrite",
+    ignore_list = ["german_gender_swap", "disability_transformation",
                    "english_inflectional_variation", "correct_common_misspellings", "ocr_perturbation",
                    "p1_noun_transformation", "summarization_transformation"]
 
     keyword_mappings = {}
 
     dataset = {
+        "1_operation_type": [],
         "2_transformation_package_name": [],
         "3_transformation_class_name": [],
         "4_challenge_set_type": [],
@@ -86,8 +92,25 @@ class TransformationMappingAnalysis():
                             result_obj = obj("ar")
                         else:
                             result_obj = obj()
-                        transformations[a_package].append({"class_name": name, "result_obj": result_obj})
+                        # Find out which operation type:
+                        operation_type = self.get_operation_type(result_obj)
+                        transformations[a_package].append({"class_name": name,
+                                                           "operation_type": operation_type,
+                                                           "result_obj": result_obj})
         return transformations
+
+    def get_operation_type(self, result_obj):
+        if isinstance(result_obj, KeyValuePairsOperation):
+            return KeyValuePairsOperation.name()
+        elif isinstance(result_obj, QuestionAnswerOperation):
+            return QuestionAnswerOperation.name()
+        elif isinstance(result_obj, SentenceOperation):
+            return SentenceOperation.name()
+        elif isinstance(result_obj, SentencePairOperation):
+            return SentencePairOperation.name()
+        elif isinstance(result_obj, TaggingOperation):
+            return TaggingOperation.name()
+        return "None"
 
     def build_keyword_mappings(self, transformations: dict):
         print("*** Building Keyword Mappings.")
@@ -95,6 +118,7 @@ class TransformationMappingAnalysis():
             package_class_list = transformations[a_package]
 
             for a_pkg_class in package_class_list:
+                self.dataset["1_operation_type"].append(a_pkg_class["operation_type"])
                 self.dataset["2_transformation_package_name"].append(a_package)
                 self.dataset["3_transformation_class_name"].append(a_pkg_class["class_name"])
                 self.dataset["4_challenge_set_type"].append("Transformation")
@@ -136,17 +160,22 @@ class TransformationMappingAnalysis():
                         self.dataset[a_mapping_rule].append(", ".join(found_keywords))
 
     def generate_csv(self):
-        print("*** Generating CSV file.")
+        print("*** Generating Complete CSV file.")
+        output_dir_name = os.path.dirname(os.path.abspath(__file__))
         dataset_df = pd.DataFrame.from_dict(self.dataset)
-        dataset_df.to_csv(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'transformations_dataset.csv'),
+        dataset_df.to_csv(os.path.join(output_dir_name, "output", "transformations_dataset.csv"),
                           index=False)
+        print("*** Generating Operation Type CSV files.")
+        for a_operation_type in dataset_df["1_operation_type"].unique().tolist():
+            operation_type_df = dataset_df.loc[dataset_df["1_operation_type"] == a_operation_type]
+            operation_type_df.to_csv(os.path.join(output_dir_name, "output",
+                                                  f"{(a_operation_type.lower())}_dataset.csv"), index=False)
 
 def main():
     analysis = TransformationMappingAnalysis()
     package_dir_list = analysis.fetch_transformation_directories()
     transformations = analysis.find_transformation_classes(package_dir_list)
     analysis.build_keyword_mappings(transformations)
-    print(analysis.dataset)
     analysis.generate_csv()
 
 
