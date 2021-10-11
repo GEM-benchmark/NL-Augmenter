@@ -4,6 +4,7 @@ from tasks.TaskTypes import TaskType
 import spacy
 import string
 from spacy.lang.en.examples import sentences 
+from initialize import spacy_nlp
 
 # A dict containing offensive words and their alternatives
 disability_names =  {"blind":"person or people with a visual impairment", 
