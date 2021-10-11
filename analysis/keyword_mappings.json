@@ -1,0 +1,57 @@
+{
+  "9_linguistic_level" : {
+    "morphological" : "Morphological",
+    "lexical" : "Lexical",
+    "syntactic" : "Syntactic",
+    "word-order" : "Word-order",
+    "discourse" : "Discourse",
+    "noise" : "Character"
+  },
+  "10_output_ratio": {
+    "high-generations": " >1 (High)",
+    "low-generations": " >1 (Low)"
+  },
+  "11_input_output_cognitive_skills": {
+    "causal-reasoning":	"causal-reasoning",
+    "social-reasoning": "social-reasoning",
+    "figurative-language": "figurative-language",
+    "world-knowledge": "world-knowledge"
+  },
+  "12_input_output_similarity": {
+    "visual": "Visual",
+    "aural": "Aural",
+    "written": "Other_(specify): Written"
+  },
+  "13_meaning_preservation": {
+    "highly-meaning-preserving": "Preserved",
+    "possible-meaning-alteration": "Can-be-impaired",
+    "meaning-alteration": "Impaired"
+  },
+  "15_readability": {
+    "unnaturally-written": "Impaired"
+  },
+  "16_naturalness": {
+    "unnatural-sounding": "Impaired"
+  },
+  "17_input_data_processing": {
+    "parser-based": "Parsing",
+    "tokenizer-required": "Tokenisation",
+    "chunker-required": "Chunking",
+    "discourse-segmenter-required": "Segmentation"
+  },
+  "18_rule_model" : {
+    "rule-based": "Rule-based",
+    "model-based": "Model-based"
+  },
+  "19_algorithm_type": {
+    "api-based": "API-based",
+    "external-knowledge-based": "External-knowledge-based",
+    "transformer-based": "Transformer-Based"
+  },
+  "20_precision_recall": {
+    "precision" : ["high-precision", "low-precision"],
+    "coverage": [ "high-coverage", "low-coverage"],
+    "mappings": ["high-precision_high-coverage", "high-precision_low-coverage", "low-precision_high-coverage",
+      "low-precision_low-coverage"]
+  }
+}
