@@ -62,6 +62,7 @@ map_transformation = {
     "heavy": [
         "back_translation",
         "formality_change",
+        "gender_neutral_rewrite",
         "lexical_counterfactual_generator",
         "lost_in_translation",
         "mixed_language_perturbation",
