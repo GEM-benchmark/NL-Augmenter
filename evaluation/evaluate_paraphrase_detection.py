@@ -10,7 +10,15 @@ from tasks.TaskTypes import TaskType
 
 # Mean Pooling - Take attention mask into account for correct averaging
 def mean_pooling(model_output, attention_mask):
-    """This function applies mean poling to the sentence embeddings."""
+    """This function applies mean poling to the sentence embeddings.
+
+    Args:
+        model_output: token embeddings of size 768xtokens.
+        param2: Attention mask of the embeddings.
+
+    Returns:
+        A single sentence emebdding of size 768.
+    """
     token_embeddings = model_output[
         0
     ].cpu()  # First element of model_output contains all token embeddings
@@ -28,7 +36,18 @@ def mean_pooling(model_output, attention_mask):
 def evaluate(
     operation, evaluate_filter, model_name, dataset_name, split="test[:20%]"
 ):
-    """Perform paraphrase detection evaluation."""
+    """Perform paraphrase detection evaluation.
+
+    Args:
+        operation: the operation to be evaluated.
+        evaluate_filter: if a filter should be evaluated or not.
+        model_name: name of the model to be evaluated.
+        dataset_name: name of the dataset to be evaluated.
+        split: split to be used in the evaluation.
+
+    Returns:
+        A dictionary with the evaluation's performance information.
+    """
     # load model
     if model_name is None:
         model_name = "sentence-transformers/paraphrase-xlm-r-multilingual-v1"
@@ -75,7 +94,18 @@ def evaluate(
 
 
 def filter_performance(dataset, tokenizer, model, device, filter):
-    """Obtain the performance of the model on the filtered dataset."""
+    """Obtain the performance of the model on the filtered dataset.
+
+    Args:
+       dataset: the dataset to be evaluated.
+       tokenizer: the tokenized to apply on the data.
+       model: the model to be evaluated.
+       device: the device in which to run the evaluation.
+       filter: the filter to be applied.
+
+    Returns:
+        A dictionary with the evaluation's performance information.
+    """
     print("Here is the performance of the model on the filtered set")
     filtered_dataset = dataset.apply_filter(
         filter, subfields=["sentence1", "sentence2", "label"]
@@ -86,7 +116,18 @@ def filter_performance(dataset, tokenizer, model, device, filter):
 def transformation_performance(
     dataset, tokenizer, model, device, transformation
 ):
-    """Obtain the performance of the model on the transformed dataset."""
+    """Obtain the performance of the model on the transformed dataset.
+
+    Args:
+       dataset: the dataset to be evaluated.
+       tokenizer: the tokenized to apply on the data.
+       model: the model to be evaluated.
+       device: the device in which to run the evaluation.
+       transformation: the transformation to be applied.
+
+    Returns:
+        A dictionary with the evaluation's performance information.
+    """
     performance = performance_on_dataset(dataset, tokenizer, model, device)
     pt_dataset = dataset.apply_transformation(
         transformation, subfields=["sentence1", "sentence2", "label"]
@@ -98,7 +139,17 @@ def transformation_performance(
 
 
 def performance_on_dataset(dataset, tokenizer, model, device):
-    """Obtain the performance of the model on a dataset."""
+    """Obtain the performance of the model on a dataset.
+
+    Args:
+       dataset: the dataset to be evaluated.
+       tokenizer: the tokenized to apply on the data.
+       model: the model to be evaluated.
+       device: the device in which to run the evaluation.
+
+    Returns:
+        A dictionary with the evaluation's performance information.
+    """
     labels = []
     preds = []
     print(f"Length of Evaluation dataset is {len(dataset)}")
