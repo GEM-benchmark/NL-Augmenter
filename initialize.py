@@ -10,6 +10,7 @@ from spacy.util import (
 # Use this file to initialize all the heavy common packages shared by multiple transformation and filters.
 
 spacy_nlp = None
+glove = None
 
 
 def initialize_models():

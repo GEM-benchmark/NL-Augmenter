@@ -24,8 +24,6 @@ SIMPLE_REPLACE.update(GENDERED_TERMS)
 from initialize import spacy_nlp
 import spacy
 
-self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-
 # SpaCy: lowercase is for dependency parser, uppercase is for part-of-speech tagger
 from spacy.symbols import (
     nsubj,
@@ -491,8 +489,9 @@ class GenderNeutralRewrite(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
-    def generate(self, sentence: str) -> List[str]:
+    def generate(self, sentence: str) -> list[str]:
         gender_neutral_sentence = convert(
             sentence=sentence, max_outputs=self.max_outputs
         )
