@@ -7,7 +7,7 @@ from checklist.editor import Editor
 from interfaces.SentenceOperation import SentenceOperation
 from evaluation.evaluation_engine import evaluate, execute_model
 from tasks.TaskTypes import TaskType
-
+import os
 
 with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data.json'), "r", encoding="utf-8") as f:
     names = json.load(f)
