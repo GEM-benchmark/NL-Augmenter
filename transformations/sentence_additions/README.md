@@ -25,12 +25,24 @@ This perturbation would benefit all tasks on text classification and generation.
 This is inspired by ideas that are related to the AddSent and AddOneSent adversarial examples covered in this EMNLP 2017 paper:
 
 ```bibtex
-@article{jia2017adversarial,
-  title={Adversarial examples for evaluating reading comprehension systems},
-  author={Jia, Robin and Liang, Percy},
-  journal={arXiv preprint arXiv:1707.07328},
-  year={2017}
-}
+@inproceedings{DBLP:conf/emnlp/JiaL17,
+  author    = {Robin Jia and
+               Percy Liang},
+  editor    = {Martha Palmer and
+               Rebecca Hwa and
+               Sebastian Riedel},
+  title     = {Adversarial Examples for Evaluating Reading Comprehension Systems},
+  booktitle = {Proceedings of the 2017 Conference on Empirical Methods in Natural
+               Language Processing, {EMNLP} 2017, Copenhagen, Denmark, September
+               9-11, 2017},
+  pages     = {2021--2031},
+  publisher = {Association for Computational Linguistics},
+  year      = {2017},
+  url       = {https://doi.org/10.18653/v1/d17-1215},
+  doi       = {10.18653/v1/d17-1215},
+  timestamp = {Fri, 06 Aug 2021 00:40:40 +0200},
+  biburl    = {https://dblp.org/rec/conf/emnlp/JiaL17.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
 
