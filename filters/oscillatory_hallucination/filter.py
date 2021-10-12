@@ -19,6 +19,7 @@ class OscillatoryHallucinationFilter(SentenceAndTargetOperation):
 
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     keywords = ["generation", "translation", "language-agnostic"]
+    heavy = True
 
     def __init__(
         self,
