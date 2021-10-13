@@ -23,7 +23,7 @@ def _mask_word(sentence, split_indices, mask):
     Args:
     sentence (str): sentence with work to mask
     split_indices ([int, int]): index of word to replace, begining and character 
-      after the end indices
+		after the end indices
     mask (BERT Token): token for a BERT mask
     
     """
@@ -44,6 +44,7 @@ def get_k_replacement_words(tokenized_text, tokenizer, model, k):
 
     Returns:
         [list]: list of top k words
+		[bool]: Whether or not we found the desired number of valid replacement words
     """
     inputs = tokenizer.encode_plus(tokenized_text, return_tensors='pt', truncation=True, max_length = 512)
     index_to_mask = torch.where(inputs.input_ids[0] == tokenizer.mask_token_id)
@@ -51,6 +52,7 @@ def get_k_replacement_words(tokenized_text, tokenizer, model, k):
         # 512 tokens (BERT's max), we need to make sure the mask is in these first 512.
         # If not, return False so that we try again.
         return None, False
+        # This should not occur since we split long sentences.
     outputs = model(**inputs)
     softmax = F.softmax(outputs.logits, dim=-1)
     mask_word = softmax[0, index_to_mask, :]
@@ -64,7 +66,9 @@ def get_k_replacement_words(tokenized_text, tokenizer, model, k):
             valid_tokens.append(sorted_tokens[i])
         i += 1
     assert len(valid_tokens) == k or i == len(sorted_tokens)    # We either have found k valid (non punctuation) tokens or we have looked through all the tokens.
-    return valid_tokens, True
+    if len(valid_tokens) < k:
+        valid_tokens += (k - len(valid_tokens)) * [valid_tokens[0]]
+	return valid_tokens, True
 
 
 def single_sentence_random_step(sentence, tokenizer, model, nlp, names, k):
@@ -77,7 +81,7 @@ def single_sentence_random_step(sentence, tokenizer, model, nlp, names, k):
         tokenizer ([type]): tokenizer
         model ([type]): model
         nlp ([type]): Spacy NLP model for finding named entities
-        names (bool): Whether or not to change named entities
+        names (list): Named entities to not replace.
         k (int): how many replacement words to try.
 
     Returns:
@@ -92,51 +96,65 @@ def single_sentence_random_step(sentence, tokenizer, model, nlp, names, k):
     base_index = 0
     for m in split_iter:
         text_split[-1].append(m.group(0))
-        split_indices[-1].append((m.start(), m.end()))
+        split_indices[-1].append((m.start() - base_index, m.end() - base_index))
+        
         if m.end() - base_index > 450:
-          sentence_parts.append(sentence[base_index:m.end()])
-          base_index = m.end()
-          text_split.append([])
-          split_indices.append([])
-    
+            sentence_parts.append(sentence[base_index:m.end()])
+            base_index = m.end()
+            text_split.append([])
+            split_indices.append([])
+            
     sentence_parts.append(sentence[base_index:])
 
+    # Remove any empty sentence parts.
+    valid_splits = [len(ts) > 0 for ts in text_split]
+    text_split = [ts for ts, vs in zip(text_split, valid_splits) if vs]
+    split_indices = [si for si, vs, in zip(split_indices, valid_splits) if vs]
+    sentence_parts = [sen for sen, vs in zip(sentence_parts, valid_splits) if vs]
+
     new_sentences = []
-    for ts, si, sen in zip (text_split, split_indices, sentence_parts):
-      included_mask = False
-      while not included_mask: # Loop until the masked word is one of the first 
-          # 512 tokens of input, since all else are discarded.
-          if names:
-              doc = nlp(sen)
-              entities = [ent.text for ent in doc.ents]
-          else:
-              entities = []
+    for ts, si, sen in zip (text_split, split_indices, sentence_parts):		
+        if len(ts) == 0:
+            print(text_split, split_indices, sentence_parts)
+            raise ValueError("Somehow we got a sentence part that is emtpy. Not good!")
+        rand_int = np.random.randint(len(ts)) # pick a random word to mask
+        word_to_mask = ts[rand_int]
+        iter_count = 1
+        give_up = False
+        while len(word_to_mask) == 0 or not word_to_mask.isalnum() or word_to_mask in names: # Avoid empty strings in split text
+            rand_int = np.random.randint(len(ts))
+            word_to_mask = ts[rand_int]
+            iter_count += 1
+            if iter_count > len(ts):
+                print("In the sentence <" + sen + ">, no valid words to mask.")
+                give_up = True
+                break
           
-          rand_int = np.random.randint(len(ts)) # pick a random word to mask
-          word_to_mask = ts[rand_int]
-          while len(word_to_mask) == 0 or not word_to_mask.isalnum() or word_to_mask in entities: # Avoid empty strings in split text
-              rand_int = np.random.randint(len(ts))
-              word_to_mask = ts[rand_int]
-          
-          # mask word
-          new_text = _mask_word(sen, si[rand_int], tokenizer.mask_token)
+        if not give_up:
+            # mask word
+            new_text = _mask_word(sen, si[rand_int], tokenizer.mask_token)
+            # get k replacement words
+            top_k, included_mask = get_k_replacement_words(new_text, tokenizer, model, k=k)
+            assert included_mask == True
+            
+            replacement_words = [tokenizer.decode([token]) for token in top_k]
 
-          # get k replacement words
-          top_k, included_mask = get_k_replacement_words(new_text, tokenizer, model, k=k)
-          assert included_mask == True
-      replacement_words = [tokenizer.decode([token]) for token in top_k]
-
-      # replace mask-token with the word from the top-k replacements
-      new_sentences.append([
-          new_text.replace(tokenizer.mask_token, word)
-          for word in replacement_words
-      ])
+            # replace mask-token with the word from the top-k replacements
+            new_sentences.append([
+                new_text.replace(tokenizer.mask_token, word)
+                for word in replacement_words
+            ])
+        else:
+            new_sentences.append([
+                sen for _ in range(k)
+            ])
     
     final_sentences = new_sentences[0]
     for sens in new_sentences[1:]:
-       sentences = [s + a for s, a in zip(final_sentences, sens)]
-
+        final_sentences = [s + a for s, a in zip(final_sentences, sens)]
     return final_sentences
+	
+	
 def single_round(sentences: List[str], tokenizer, model, nlp, names, k) -> List[str]:
     """For a given list of sentences, do a random walk on each sentence.
 
@@ -145,7 +163,7 @@ def single_round(sentences: List[str], tokenizer, model, nlp, names, k) -> List[
         tokenizer ([type]): tokenizer
         model ([type]): model
         nlp ([type]): Spacy NLP model for finding named entities
-        names (bool): Whether or not to change named entities
+        names (list): Named entities to not replace.
         k (int): how many words to sample to replace masked word
     Returns:
         [List]: list of k random-walked sentences
@@ -155,7 +173,6 @@ def single_round(sentences: List[str], tokenizer, model, nlp, names, k) -> List[
     for sentence in sentences:
         new_sentences.extend(
             single_sentence_random_step(sentence, tokenizer, model, nlp, names, k))
-
     return new_sentences
 
 
@@ -176,11 +193,21 @@ def random_walk(original_text: str, steps: int, k: int, tokenizer,
     Returns:
         [List]: list of steps^k random-walked sentences
     """
-
+    if names:
+        doc = nlp(original_text)
+        entities = [ent.text for ent in doc.ents]
+        split_entities = []
+        for ent in entities:
+            split_iter = re.finditer(r"[\w']+|[.,!?;]", ent)
+            for m in split_iter:
+                split_entities.append(m.group(0))
+        print('Named entities: ', split_entities)
+    else:
+        split_entities = []
     old_sentences = [original_text]
     # Do $steps$ steps of random walk procedure
     for _ in range(steps):
-        sentences = single_round(old_sentences, tokenizer, model, nlp, names, k)
+        sentences = single_round(old_sentences, tokenizer, model, nlp, split_entities, k)
         old_sentences = copy.deepcopy(sentences)
     return sentences
 
@@ -215,8 +242,11 @@ class RandomWalk(SentenceOperation):
 
     # Default parameters match those of the 'test.json' below.
     def __init__(self, seed=0, max_outputs=3, steps=5, k=2, sim_req=0.25, named_entities=False):
-        random.seed(seed)
-        np.random.seed(seed)
+    # For evaluation, use parameters that are less compute intensive.
+    # def __init__(self, seed=0, max_outputs=1, steps=5, k=1, sim_req=0, named_entities=True):
+        random.seed(self.seed)
+        np.random.seed(self.seed)
+        
         super().__init__(seed, max_outputs=max_outputs)
         self.tokenizer = BertTokenizer.from_pretrained('bert-large-cased')
         self.model = BertForMaskedLM.from_pretrained('bert-large-cased')
@@ -239,17 +269,19 @@ class RandomWalk(SentenceOperation):
             nlp=self.spacy_nlp,
             names = self.named_entities
         )
-
         scores = []
         for o in perturbed_texts:
             scores.append(sentence_similarity_metric(self.sim_model, sentence, o))
         valid_sentences = np.array(scores) > self.sim_req # Only sentences with a 
+        assert np.sum(valid_sentences) > 0, "Similarity requirement too high; no valid sentences. Note: Long sentences have very low similarity."
+        
         # high enough similarity score are kept.
         perturbed_texts = [o for o,s in zip(perturbed_texts, valid_sentences) if s]
         assert np.sum(valid_sentences) == len(perturbed_texts)
 
         if len(perturbed_texts) > self.max_outputs:
             perturbed_texts = random.sample(perturbed_texts, self.max_outputs)
+          
         return perturbed_texts
 
 """

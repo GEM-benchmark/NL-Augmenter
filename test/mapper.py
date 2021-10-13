@@ -71,6 +71,7 @@ map_transformation = {
         "pinyin",
         "punctuation",
         "quora_trained_t5_for_qa",
+        "random_walk"
         "sentence_reordering",
         "synonym_substitution",
         "token_replacement",
