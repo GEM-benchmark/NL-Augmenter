@@ -101,21 +101,25 @@ class TextLineDataset(BaseDataset):
         self, transformation: SentenceOperation
     ) -> TextLineDataset:
         transformed_data = []
+        transformed_labels = []
         print("Applying transformation:")
 
         # calculating ratio of transformed example to unchanged example
         successful_num = 0
         failed_num = 0
 
-        for line in tqdm(self.data):
-            pt_examples = transformation.generate(line)
+        for datapoint, label in tqdm(
+            zip(self.data, self.labels), total=len(self.data)
+        ):
+            pt_examples = transformation.generate(datapoint)
             successful_pt, failed_pt = transformation.compare(
-                line, pt_examples
+                datapoint, pt_examples
             )
             successful_num += successful_pt
             failed_num += failed_pt
 
             transformed_data.extend(pt_examples)
+            transformed_labels.extend([label]*len(pt_examples))
 
         total_num = successful_num + failed_num
         print(
@@ -129,7 +133,7 @@ class TextLineDataset(BaseDataset):
         )
         if total_num == 0:
             return None
-        return TextLineDataset(transformed_data, self.labels)
+        return TextLineDataset(transformed_data, transformed_labels)
 
     def __iter__(self):
         for text, label in zip(self.data, self.labels):
