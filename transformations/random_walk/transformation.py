@@ -31,7 +31,7 @@ def _mask_word(sentence, split_indices, mask):
         split_indices[1]:]
 
 
-def get_k_replacement_words(tokenized_text, tokenizer, model, k):
+def get_k_replacement_words(tokenized_text, tokenizer, model, k, descending=True):
     """return k most similar words from the model, for a tokenized mask-word 
     in a sentence.
 
@@ -41,10 +41,12 @@ def get_k_replacement_words(tokenized_text, tokenizer, model, k):
         model ([type]): model
         k (int): how many similar words to find for a given tokenized-word. Checks
           that generated word is a composed of letters or numbers.
+        descending (bool): If true, sort tokens by  in decreasing order of probability.
+          Else sort in increasing order of probability. We sample from sorted tokens.
 
     Returns:
         [list]: list of top k words
-		[bool]: Whether or not we found the desired number of valid replacement words
+        bool: Whether or not we found the desired number of valid replacement words
     """
     inputs = tokenizer.encode_plus(tokenized_text, return_tensors='pt', truncation=True, max_length = 512)
     index_to_mask = torch.where(inputs.input_ids[0] == tokenizer.mask_token_id)
@@ -57,7 +59,7 @@ def get_k_replacement_words(tokenized_text, tokenizer, model, k):
     softmax = F.softmax(outputs.logits, dim=-1)
     mask_word = softmax[0, index_to_mask, :]
 
-    sorted_tokens = torch.argsort(mask_word[0], descending=True)
+    sorted_tokens = torch.argsort(mask_word[0], descending=descending)
     i = 0
     valid_tokens = [] # The k most probable tokens are guaranteed to be words,
     # so we make sure they are.
@@ -67,11 +69,12 @@ def get_k_replacement_words(tokenized_text, tokenizer, model, k):
         i += 1
     assert len(valid_tokens) == k or i == len(sorted_tokens)    # We either have found k valid (non punctuation) tokens or we have looked through all the tokens.
     if len(valid_tokens) < k:
-        valid_tokens += (k - len(valid_tokens)) * [valid_tokens[0]]
-	return valid_tokens, True
+      valid_tokens += (k - len(valid_tokens)) * [valid_tokens[0]]
+    
+    return valid_tokens, True
 
 
-def single_sentence_random_step(sentence, tokenizer, model, nlp, names, k):
+def single_sentence_random_step(sentence, tokenizer, model, nlp, names, k, descending):
     """For a given sentence, choose a random word to mask, and
     replace it with a word the top-k most similar words in BERT model.
     Return k sentences, each with a different replacement word for the mask.
@@ -83,6 +86,8 @@ def single_sentence_random_step(sentence, tokenizer, model, nlp, names, k):
         nlp ([type]): Spacy NLP model for finding named entities
         names (list): Named entities to not replace.
         k (int): how many replacement words to try.
+        descending (bool): If true, sort tokens by  in decreasing order of probability.
+          Else sort in increasing order of probability. We sample from sorted tokens.
 
     Returns:
         [list]: k-sentences with masked word replaced with top-k most similar words
@@ -134,7 +139,8 @@ def single_sentence_random_step(sentence, tokenizer, model, nlp, names, k):
             # mask word
             new_text = _mask_word(sen, si[rand_int], tokenizer.mask_token)
             # get k replacement words
-            top_k, included_mask = get_k_replacement_words(new_text, tokenizer, model, k=k)
+            top_k, included_mask = get_k_replacement_words(new_text, tokenizer, 
+                                                          model, k=k, descending=descending)
             assert included_mask == True
             
             replacement_words = [tokenizer.decode([token]) for token in top_k]
@@ -155,7 +161,7 @@ def single_sentence_random_step(sentence, tokenizer, model, nlp, names, k):
     return final_sentences
 	
 	
-def single_round(sentences: List[str], tokenizer, model, nlp, names, k) -> List[str]:
+def single_round(sentences: List[str], tokenizer, model, nlp, names, k, descending) -> List[str]:
     """For a given list of sentences, do a random walk on each sentence.
 
     Args:
@@ -165,6 +171,9 @@ def single_round(sentences: List[str], tokenizer, model, nlp, names, k) -> List[
         nlp ([type]): Spacy NLP model for finding named entities
         names (list): Named entities to not replace.
         k (int): how many words to sample to replace masked word
+        descending (bool): If true, sort tokens by  in decreasing order of probability.
+          Else sort in increasing order of probability. We sample from sorted tokens.
+
     Returns:
         [List]: list of k random-walked sentences
     """
@@ -172,12 +181,12 @@ def single_round(sentences: List[str], tokenizer, model, nlp, names, k) -> List[
 
     for sentence in sentences:
         new_sentences.extend(
-            single_sentence_random_step(sentence, tokenizer, model, nlp, names, k))
+            single_sentence_random_step(sentence, tokenizer, model, nlp, names, k, descending))
     return new_sentences
 
 
 def random_walk(original_text: str, steps: int, k: int, tokenizer,
-                model, nlp, names) -> List[str]:
+                model, nlp, names: bool, descending: bool) -> List[str]:
     """For a sentence, perform a random walk sequence on the sentence, generating
     new sentences at each step and perturbing these during the next step.
 
@@ -189,6 +198,8 @@ def random_walk(original_text: str, steps: int, k: int, tokenizer,
         model ([type]): model
         nlp ([type]): Spacy NLP model for finding named entities
         names (bool): Whether or not to change named entities
+        descending (bool): If true, sort tokens by  in decreasing order of probability.
+          Else sort in increasing order of probability. We sample from sorted tokens.
 
     Returns:
         [List]: list of steps^k random-walked sentences
@@ -207,7 +218,7 @@ def random_walk(original_text: str, steps: int, k: int, tokenizer,
     old_sentences = [original_text]
     # Do $steps$ steps of random walk procedure
     for _ in range(steps):
-        sentences = single_round(old_sentences, tokenizer, model, nlp, split_entities, k)
+        sentences = single_round(old_sentences, tokenizer, model, nlp, split_entities, k, descending)
         old_sentences = copy.deepcopy(sentences)
     return sentences
 
@@ -241,9 +252,10 @@ class RandomWalk(SentenceOperation):
         "high-coverage", "high-generations" ]
 
     # Default parameters match those of the 'test.json' below.
-    def __init__(self, seed=0, max_outputs=3, steps=5, k=2, sim_req=0.25, named_entities=False):
+    def __init__(self, seed=0, max_outputs=3, steps=5, k=2, sim_req=0.25, 
+                  named_entities=False, descending=True):
     # For evaluation, use parameters that are less compute intensive.
-    # def __init__(self, seed=0, max_outputs=1, steps=5, k=1, sim_req=0, named_entities=True):
+    # def __init__(self, seed=0, max_outputs=1, steps=5, k=1, sim_req=0, named_entities=True, descending=True):
         random.seed(self.seed)
         np.random.seed(self.seed)
         
@@ -257,6 +269,7 @@ class RandomWalk(SentenceOperation):
         self.k = k
         self.sim_req = sim_req
         self.named_entities = named_entities
+        self.descending = descending
 
     def generate(self, sentence: str):
         print('Random walking on the sentence:', sentence)
@@ -267,7 +280,8 @@ class RandomWalk(SentenceOperation):
             tokenizer=self.tokenizer,
             model=self.model,
             nlp=self.spacy_nlp,
-            names = self.named_entities
+            names=self.named_entities,
+            descending=self.descending
         )
         scores = []
         for o in perturbed_texts:
