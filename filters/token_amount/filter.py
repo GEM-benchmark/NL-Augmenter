@@ -1,10 +1,11 @@
 import operator
+from collections import defaultdict
+from typing import Union
+
 import spacy
 
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from collections import defaultdict
-from typing import Union
 
 """
 A filter on if the tokens contain specific keywords a certain number of times.
@@ -22,7 +23,9 @@ class TokenAmountFilter(SentenceOperation):
         operations: Union[list, str] = None,
     ):
         super().__init__()
-        self.max_input_length = self.get_input_length(keywords, thresholds, operations)
+        self.max_input_length = self.get_input_length(
+            keywords, thresholds, operations
+        )
         self.final_operators = self.parse_operator(operations)
         self.final_keywords = self.convert_scalar_to_list(keywords)
         self.final_thresholds = self.convert_scalar_to_list(thresholds)
@@ -44,7 +47,9 @@ class TokenAmountFilter(SentenceOperation):
         if unique_lengths == {1}:
             return 1
         elif len(unique_lengths) > 2:
-            raise ValueError("One or more lists given with non-matching lengths")
+            raise ValueError(
+                "One or more lists given with non-matching lengths"
+            )
 
         return max(unique_lengths)
 
@@ -117,7 +122,9 @@ class TokenAmountFilter(SentenceOperation):
         for curr_keyword, curr_threshold, curr_operator in zip(
             self.final_keywords, self.final_thresholds, self.final_operators
         ):
-            if not curr_operator(contained_keywords[curr_keyword], curr_threshold):
+            if not curr_operator(
+                contained_keywords[curr_keyword], curr_threshold
+            ):
                 return False
 
         return True
