@@ -4,45 +4,51 @@
 # generation: high-precision
 # skills: gender, gender-neutral, rewrite, translation
 
-from interfaces.SentenceOperation import SentenceOperation
-from tasks.TaskTypes import TaskType
-
 import re
-import torch
 from string import punctuation
+from typing import List
 
-from transformations.gender_neutral_rewrite.myconstants import *
+import spacy
+import torch
 
-# direct replacement mapping
-SIMPLE_REPLACE = EASY_PRONOUNS
-SIMPLE_REPLACE.update(GENDERED_TERMS)
+# SpaCy: lowercase is for dependency parser, uppercase is for part-of-speech tagger
+from spacy.symbols import (
+    AUX,
+    NOUN,
+    VERB,
+    conj,
+    dobj,
+    iobj,
+    nsubj,
+    nsubjpass,
+    obj,
+    pobj,
+    poss,
+)
+from spacy.tokens import Doc, Token
+
+# Load pre-trained language model and tokenizer
+# https://huggingface.co/transformers/model_doc/gpt2.html
+from transformers import GPT2LMHeadModel, GPT2TokenizerFast
 
 # load SpaCy's "en_core_web_sm" model
 # English multi-task CNN trained on OntoNotes
 # Assigns context-specific token vectors, POS tags, dependency parse and named entities
 # https://spacy.io/models/en
 from initialize import spacy_nlp
-import spacy
-
-# SpaCy: lowercase is for dependency parser, uppercase is for part-of-speech tagger
-from spacy.symbols import (
-    nsubj,
-    nsubjpass,
-    conj,
-    poss,
-    obj,
-    iobj,
-    pobj,
-    dobj,
-    VERB,
-    AUX,
-    NOUN,
+from interfaces.SentenceOperation import SentenceOperation
+from tasks.TaskTypes import TaskType
+from transformations.gender_neutral_rewrite.myconstants import (
+    EASY_PRONOUNS,
+    GENDERED_TERMS,
+    IRREGULAR_VERBS,
+    NON_FUNCTION_PRONOUNS,
+    VERB_ES_SUFFIXES,
 )
-from spacy.tokens import Token, Doc
 
-# Load pre-trained language model and tokenizer
-# https://huggingface.co/transformers/model_doc/gpt2.html
-from transformers import GPT2LMHeadModel, GPT2TokenizerFast
+# direct replacement mapping
+SIMPLE_REPLACE = EASY_PRONOUNS
+SIMPLE_REPLACE.update(GENDERED_TERMS)
 
 if torch.cuda.is_available():
     device = "cuda"
@@ -54,10 +60,12 @@ model = GPT2LMHeadModel.from_pretrained(model_id).to(device)
 tokenizer = GPT2TokenizerFast.from_pretrained(model_id)
 
 
-def convert(sentence: str, max_outputs: int) -> str:
+def convert(sentence: str, max_outputs: int, nlp: object) -> str:
     """
     convert a sentence to gender-neutral form
     :param sentence: sentence meeting SNAPE criteria (meaning 1 entity and 1 gender)
+    :param max_outputs: number of output sentence
+    :param nlp: spacy model
     :return: sentence in gender-neutral form
     """
     if max_outputs != 1:
@@ -311,9 +319,9 @@ def identify_verbs_and_auxiliaries(doc: Doc) -> dict:
                 possible_subject.dep == nsubj
                 or possible_subject.dep == nsubjpass
             )
-            and  # current token is a subject
-            # head of current token is a verb
-            (
+            and (
+                # current token is a subject
+                # head of current token is a verb
                 possible_subject.head.pos == VERB
                 or possible_subject.head.pos == AUX
             )
@@ -475,24 +483,33 @@ class GenderNeutralRewrite(SentenceOperation):
                               "Their dream is to be a firefighter when they grow up."
     Source: https://arxiv.org/pdf/2102.06788.pdf
     """
+
     tasks = [
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.TEXT_TAGGING,
     ]
+    heavy = True
     languages = ["en"]
-    keywords = ["lexical", "syntactic",
-                "rule-based", "api-based", "transformer-based", "tokenizer-required",
-                "natural-sounding",
-                "high-precision",
-                "gender", "gender-neutral", "rewrite", "translation"]
+    keywords = [
+        "lexical",
+        "syntactic",
+        "rule-based",
+        "api-based",
+        "transformer-based",
+        "tokenizer-required",
+        "high-precision",
+    ]
+    # Commenting these keywords for now to make the evaluation script work
+    # TODO: uncomment later
+    # "gender", "gender-neutral", "rewrite", "translation", "natural-sounding",]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
-    def generate(self, sentence: str) -> list[str]:
+    def generate(self, sentence: str) -> List[str]:
         gender_neutral_sentence = convert(
-            sentence=sentence, max_outputs=self.max_outputs
+            sentence=sentence, max_outputs=self.max_outputs, nlp=self.nlp
         )
         return [gender_neutral_sentence]

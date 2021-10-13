@@ -1,0 +1,60 @@
+{
+  "type": "AzertyQwertyCharsSwap",
+  "test_cases": [
+    {
+      "class": "AzertyQwertyCharsSwap",
+      "inputs": {
+        "sentence": "The US carried out a defensive airstrike in Kabul, targeting a suspected ISIS-K suicide bomber who posed an 'imminent' threat to the airport, US Central Command said Sunday."
+      },
+      "outputs": [
+        {
+          "sentence": "The US carried out a defensive airstrike in Kabul, targeting a suspected ISIS-K suicide bomber who posed an 'imminent' threat to the airport, US Central Command said Sundaz."
+        }
+      ]
+    },
+    {
+      "class": "AzertyQwertyCharsSwap",
+      "inputs": {
+        "sentence": "The stage and its single RL10 engine provide the in-space propulsion needed to send NASA’s Orion spacecraft and its crew on a precise trajectory to the Moon for Artemis II."
+      },
+      "outputs": [
+        {
+          "sentence": "The stage and its single RL10 engine provide the in-space propulsion needed to send NASA’s Orion spacecraft and its crew on a precise trajectory to the Moon for Artemis II."
+        }
+      ]
+    },
+    {
+      "class": "AzertyQwertyCharsSwap",
+      "inputs": {
+        "sentence": "Another critique I would offer of the extant taxonomies involves a reassessment of causality, which is more properly the province of psychology and philosophy."
+      },
+      "outputs": [
+        {
+          "sentence": "Another critique I would offer of the extant taxonomies involves a reassessment of causality, which is more properly the province of psychology qnd philosophz."
+        }
+      ]
+    },
+    {
+      "class": "AzertyQwertyCharsSwap",
+      "inputs": {
+        "sentence": "First know what you own and second pay attention to what's happening in the world that you live in and will be living in in the future."
+      },
+      "outputs": [
+        {
+          "sentence": "First know what you own and second pay attention to what's happening in the world that zou live in qnd zill be living in in the future."
+        }
+      ]
+    },
+    {
+      "class": "AzertyQwertyCharsSwap",
+      "inputs": {
+        "sentence": "Preferably use the above download link, not the links provided by GitHub to download the source tarball, as the release tarballs are generated deterministically whereas GitHub's are not."
+      },
+      "outputs": [
+        {
+          "sentence": "Preferably use the above download link, not the links provided by GitHub to download the source tarball, as the release tarballs qre generqted deterministicqlly whereas GitHub's are not."
+        }
+      ]
+    }
+  ]
+}

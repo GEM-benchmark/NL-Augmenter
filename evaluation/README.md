@@ -1,6 +1,6 @@
 # Evaluation
 
-A transformation would be most effective when it can either reveal potential failures in a model or act as a data augmenter to generate more training data. 
+A transformation would be most effective when it can either reveal potential failures in a model or act as a data augmenter to generate more training data.
 
 
 ### Table of Contents
@@ -22,10 +22,10 @@ A transformation would be most effective when it can either reveal potential fai
 
 ## Evaluation Guideline and Scripts
 
-To evaluate how good a transformation is, you can simply call `evaluate.py` in the following manner:  
+To evaluate how good a transformation is, you can simply call `evaluate.py` in the following manner:
 
 ```bash
-python evaluate.py -t ButterFingersPerturbation 
+python evaluate.py -t ButterFingersPerturbation
 ```
 
 Depending on the interface of the transformation, `evaluate.py` would transform every example of a pre-defined dataset and evaluate how well the model performs on these new examples. The default dataset and models are mentioned [here](../interfaces/README.md). These dataset and model combinations are mapped to each task. The first task you specify in the `tasks` field is used by default.
@@ -39,7 +39,7 @@ Note that it's highly possible that some of the evaluate_* functionality won't w
 
 ## Leaderboard
 
-Here, we provide a leaderboards for each default task, by executing transformations on typical models in each task (p=20). If you would like to join the leaderboard party encourage you to submit pull requests! 
+Here, we provide a leaderboards for each default task, by executing transformations on typical models in each task (p=20). If you would like to join the leaderboard party encourage you to submit pull requests!
 
 ### Text Classification
 
@@ -84,3 +84,18 @@ Default models and datasets:
 ### Question Generation
 ### AMR-to-Text
 ### End-to-End Task
+### Paraphrase Detection
+
+| Transformation                   | paraphrase-xlm-r-multilingual-v1-MRPC | paraphrase-xlm-r-multilingual-v1-PAWS |
+|:---------------------------------|:--------------------------------------|:--------------------------------------|
+| LexicalCounterfactualGenerator   | 69.0->50.0 (-19.0)                    | 44.0->23.0 (-21.0)                    |
+| PairAdjectivesAntonymsSwitch     | 69.0->36.0 (-33.0)                    | 44.0->30.0 (-14.0)                    |
+| PairAuxiliaryNegationRemoval     | 69.0->65.0 ( -4.0)                    | 44.0->44.0 (  0.0)                    |
+| PairSubjectObjectSwitch          | 69.0->30.0 (-39.0)                    | 44.0->24.0 (-20.0)                    |
+
+Default models and datasets:
+
+
+- [MRPC](https://huggingface.co/datasets/glue): [paraphrase-xlm-r-multilingual-v1](https://huggingface.co/sentence-transformers/paraphrase-xlm-r-multilingual-v1)
+- [PAWS](https://huggingface.co/datasets/paws): [paraphrase-xlm-r-multilingual-v1](https://huggingface.co/sentence-transformers/paraphrase-xlm-r-multilingual-v1)
+

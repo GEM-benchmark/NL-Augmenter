@@ -62,6 +62,7 @@ map_transformation = {
     "heavy": [
         "back_translation",
         "formality_change",
+        "gender_neutral_rewrite",
         "lexical_counterfactual_generator",
         "lost_in_translation",
         "mixed_language_perturbation",
@@ -92,8 +93,8 @@ map_filter = {
         "question_filter",
         "repetitions",
         "soundex",
-        "speech-tag",
-        "token-amount",
+        "speech_tag",
+        "token_amount",
         "yesno_question",
     ],
     "heavy": ["quantitative_ques", "toxicity"],

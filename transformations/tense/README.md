@@ -31,20 +31,26 @@ There have been a couple of attempts to perform controlled attribute text transf
 ## Citations
 
 ```bibtex
-@article{DBLP:journals/corr/abs-1811-01135,
-    author    = {Lajanugen Logeswaran and
-                Honglak Lee and
-                Samy Bengio},
-    title     = {Content preserving text generation with attribute controls},
-    journal   = {CoRR},
-    volume    = {abs/1811.01135},
-    year      = {2018},
-    url       = {http://arxiv.org/abs/1811.01135},
-    archivePrefix = {arXiv},
-    eprint    = {1811.01135},
-    timestamp = {Thu, 22 Nov 2018 17:58:30 +0100},
-    biburl    = {https://dblp.org/rec/journals/corr/abs-1811-01135.bib},
-    bibsource = {dblp computer science bibliography, https://dblp.org}
+@inproceedings{DBLP:conf/nips/LogeswaranLB18,
+  author    = {Lajanugen Logeswaran and
+               Honglak Lee and
+               Samy Bengio},
+  editor    = {Samy Bengio and
+               Hanna M. Wallach and
+               Hugo Larochelle and
+               Kristen Grauman and
+               Nicol{\`{o}} Cesa{-}Bianchi and
+               Roman Garnett},
+  title     = {Content preserving text generation with attribute controls},
+  booktitle = {Advances in Neural Information Processing Systems 31: Annual Conference
+               on Neural Information Processing Systems 2018, NeurIPS 2018, December
+               3-8, 2018, Montr{\'{e}}al, Canada},
+  pages     = {5108--5118},
+  year      = {2018},
+  url       = {https://proceedings.neurips.cc/paper/2018/hash/7cf64379eb6f29a4d25c4b6a2df713e4-Abstract.html},
+  timestamp = {Thu, 21 Jan 2021 15:15:20 +0100},
+  biburl    = {https://dblp.org/rec/conf/nips/LogeswaranLB18.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
 ### Data and Source Code
