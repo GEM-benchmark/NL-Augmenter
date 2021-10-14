@@ -1,7 +1,7 @@
-import spacy
 import json
 import os
-from initialize import spacy_nlp
+
+from initialize import initialize_models, spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -25,7 +25,9 @@ class CorrectCommonMisspellings(SentenceOperation):
     def __init__(self):
         super().__init__()
         self.COMMON_MISSPELLINGS_DICT = get_common_misspellings_dict()
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = (
+            spacy_nlp if spacy_nlp else initialize_models()
+        )  # loads en_core_web_sm by default
 
     def generate(self, sentence: str):
         doc = self.nlp(sentence)
@@ -40,7 +42,9 @@ class CorrectCommonMisspellings(SentenceOperation):
 
 def get_common_misspellings_dict():
     spell_corrections = os.path.join(
-        "transformations", "correct_common_misspellings", "spell_corrections.json"
+        "transformations",
+        "correct_common_misspellings",
+        "spell_corrections.json",
     )
     with open(spell_corrections, "r") as fp:
         spell_corrections = json.load(fp)
