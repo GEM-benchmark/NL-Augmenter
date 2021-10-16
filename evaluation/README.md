@@ -39,7 +39,7 @@ Note that it's highly possible that some of the evaluate_* functionality won't w
 
 ## Colab notebook
 
-<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Running_Evaluation_NL_Augmenter_(All_Operations).ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly run evaluation on any transforamtion, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Running_Evaluation_NL_Augmenter_(All_Operations).ipynb).
+<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Running_Evaluation_NL_Augmenter_(All_Operations).ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly run evaluation on any transformation, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Running_Evaluation_NL_Augmenter_(All_Operations).ipynb).
 
 ## Leaderboard
 
