@@ -1,9 +1,9 @@
-import os
 import json
-import spacy
+import os
+
+from initialize import initialize_models, spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from initialize import spacy_nlp
 
 
 class DyslexiaWordsSwap(SentenceOperation):
@@ -13,10 +13,8 @@ class DyslexiaWordsSwap(SentenceOperation):
         seed: initial seed. Defaults: 0.
         max_outputs: maximum number of generated outputs. Defaults: 1.
     """
-    tasks = [
-        TaskType.TEXT_CLASSIFICATION,
-        TaskType.TEXT_TO_TEXT_GENERATION
-    ]
+
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
     keywords = [
         "lexical",
@@ -26,23 +24,29 @@ class DyslexiaWordsSwap(SentenceOperation):
         "possible-meaning-alteration",
         "low-precision",
         "low-coverage",
-        "low-generations"
+        "low-generations",
     ]
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed=seed, max_outputs=max_outputs)
 
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-        with open(os.path.join(os.path.dirname(__file__), 'data.json'), "r") as infile:
+        self.nlp = (
+            spacy_nlp if spacy_nlp else initialize_models()
+        )  # loads en_core_web_sm by default
+        with open(
+            os.path.join(os.path.dirname(__file__), "data.json"), "r"
+        ) as infile:
             data = json.load(infile)
-        self.swap_words = {k: v for dict in data.values() for k, v in dict.items()}
+        self.swap_words = {
+            k: v for dict in data.values() for k, v in dict.items()
+        }
         self.swap_words_2 = {v: k for k, v in self.swap_words.items()}
 
     def generate(self, sentence: str):
         end_idx = 0
         new_sentence = ""
         for word in self.nlp(sentence):
-            new_sentence += sentence[end_idx: word.idx]
+            new_sentence += sentence[end_idx : word.idx]
 
             new_word = word.text
             key = word.text.lower()
