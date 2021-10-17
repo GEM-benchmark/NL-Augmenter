@@ -1,13 +1,12 @@
 from typing import List, Optional, Union
 
 import pyinflect  # noqa: F401
-import spacy
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 from spacy.symbols import AUX, NOUN, PRON, PROPN, VERB, aux, cc, nsubj
 from spacy.tokens import Span, Token
 from spacy.tokens.doc import Doc
 
-from initialize import spacy_nlp
+from initialize import initialize_models, spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -90,7 +89,9 @@ class YesNoQuestionPerturbation(SentenceOperation):
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
         self.detokenizer = TreebankWordDetokenizer()
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = (
+            spacy_nlp if spacy_nlp else initialize_models()
+        )  # loads en_core_web_sm by default
 
     def statement_to_question(self, sentence: Span) -> Union[str, None]:
         """Given a statement (type: spacy Span), convert to corresponding
