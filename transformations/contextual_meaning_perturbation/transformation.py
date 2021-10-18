@@ -16,6 +16,17 @@ class ContextualMeaningPerturbation(SentenceOperation):
         TaskType.QUALITY_ESTIMATION,
     ]
     languages = ["en", "de"]
+    keywords = [
+        "lexical",
+        "transformer-based",
+        "parser-based",
+        "tokenizer-required",
+        "natural",
+        "meaning-alteration",
+        "high-precision",
+        "high-coverage",
+        "high-generation",
+    ]
     heavy = True
 
     def __init__(

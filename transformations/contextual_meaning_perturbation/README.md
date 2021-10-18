@@ -41,6 +41,9 @@ a large number of grammar mistakes. If the aim is to change the sentence's meani
 this transformation can help to get the same effect with significantly fewer grammatical errors. Li et al. (2021) propose an alternative approach to achieve a similar objective in their paper
 "Contextualized Perturbation for Textual Adversarial Attack".
 
+## Warning
+This transformation intends to change the meaning of the source but is not explicitly designed to reverse the statement (introduce negations, etc.).
+For classification problems such as sentiment analysis, this transformation might not be the best choice since there is no guarantee for the label to be preserved or, alternatively, changed in every case.
 
 ## What are the limitations of this transformation?
 Without using an additional grammar correction tool, it is difficult to avoid grammar mistakes completely.
