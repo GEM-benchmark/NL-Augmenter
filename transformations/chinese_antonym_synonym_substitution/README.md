@@ -26,7 +26,14 @@ text generation, etc.
 2) NLPCDA: https://github.com/425776024/nlpcda
 
 ## What are the limitations of this transformation?
-There could be synonyms and antonyms of Chinese words that are not present within the database.
+
+1) There could be synonyms and antonyms of Chinese words that are not present within the database. 
+
+2) The dictionary-based synonym and antonym replacement does not guarantee syntactical correctness. 
+
+3) Sentence semantics can be changed by the transformation. A noun may be changed to an adjective.
+   
+4) The current implementation of antonym substitution does not guarantee that the entire sentence meaning is reversed.
 
 This perturbation can be improved by providing a larger database of synonyms and antonyms. This will be left as future work for the project.
 
