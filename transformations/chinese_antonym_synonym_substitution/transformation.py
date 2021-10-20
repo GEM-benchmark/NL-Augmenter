@@ -14,7 +14,6 @@ def chinese_antonym_synonym_substitution(text,
                           config,
                           chinese_antonym_data
                           ):
-    random.seed(seed)
 
     perturbed_texts = []
     word1_list = [chinese_antonym['word1'] for chinese_antonym in chinese_antonym_data]
@@ -78,8 +77,9 @@ class ChineseAntonymAndSynonymSubtitution(SentenceOperation):
     languages = ["zh"]
     keywords = ["lexical", "rule-based", "api-based", "written", "highly-meaning-preserving", "meaning-alteration", "high-precision"]
 
-    def __init__(self, seed=0, max_outputs=1, prob=1):
+    def __init__(self, seed=0, max_outputs=1, prob=0.5):
         super().__init__(seed, max_outputs=max_outputs)
+        random.seed(seed)
         self.prob = prob
         self.seed = seed
         self.max_outputs = max_outputs
