@@ -7,63 +7,55 @@ from tasks.TaskTypes import TaskType
 import jieba
 from nlpcda import Similarword
 
-def chinese_antonym_synonym_substitution(text,
+def chinese_antonym_substitution(text,
                           prob,
-                          seed,
-                          max_outputs,
-                          config,
                           chinese_antonym_data
                           ):
 
-    perturbed_texts = []
-    word1_list = [chinese_antonym['word1'] for chinese_antonym in chinese_antonym_data]
-    word2_list = [chinese_antonym['word2'] for chinese_antonym in chinese_antonym_data]
 
-    if(config == 'synonym'):
-        smw = Similarword(create_num=max_outputs+1, change_rate=prob)
-        output_list = smw.replace(text)
+    perturb_list = []
+    for perturb_word in text:
+        perturb_antonym = []
 
-        # Notice that the first input is the non-perturb version
-        output_list = output_list[1:]
-        perturbed_texts = output_list
+        if perturb_word not in chinese_antonym_data.keys():
+            print("Word to be perturbed is not in the Chinese Antonym database")
+        else:
+            perturb_antonym = chinese_antonym_data[perturb_word]
 
-    if(config == 'antonym'):
+        if random.random() <= prob and len(perturb_antonym) != 0:
+            new_chinese_character = random.choice(perturb_antonym)
+        else:
+            new_chinese_character = perturb_word
+        perturb_list.append(new_chinese_character)
 
-        output = jieba.lcut(text)
-        for _ in itertools.repeat(None, max_outputs):
-            butter_text = ""
-            for perturb_word in output:
-                perturb_antonym = []
-                if(perturb_word in word1_list):
-                    indices = [index for index, word1 in enumerate(word1_list) if word1 == perturb_word]
-                    perturb_antonym = [word2_list[index] for index in indices]
-                elif(perturb_word in word2_list):
-                    indices = [index for index, word2 in enumerate(word2_list) if word2 == perturb_word]
-                    perturb_antonym = [word1_list[index] for index in indices]
-                else:
-                    print("Word to be perturbed is not in the Chinese Antonym database")
-
-                if random.random() <= prob and len(perturb_antonym) != 0:
-                    new_chinese_character = random.choice(perturb_antonym)
-                else:
-                    new_chinese_character = perturb_word
-                butter_text += new_chinese_character
-            perturbed_texts.append(butter_text)
-    return perturbed_texts
+    perturb_text = ''.join(perturb_list)
+    return perturb_text
 
 def load_chinese_antonym_data():
     dirname = os.path.dirname(__file__)
-    words_list = []
+    antonym_dict = {}
     with open(os.path.join(dirname, '反义词库.txt'), mode='r') as file:
         lines = file.readlines()
         for line in lines:
             if(line.rstrip() != ""):
-                dict = {}
-                word_freq = line.split("-")
-                dict["word1"] = word_freq[0]
-                dict["word2"] = word_freq[1].rstrip()
-                words_list.append(dict)
-    return words_list
+                antonym_list = []
+                word_antonym = line.split("-")
+                new_antonym = word_antonym[1].rstrip()
+                if(word_antonym[0] in antonym_dict.keys()):
+
+                    values = antonym_dict[word_antonym[0]]
+
+                    for value in values:
+                        antonym_list.append(value)
+                    if(new_antonym not in values):
+                        antonym_list.append(new_antonym)
+                    antonym_dict[word_antonym[0]] = antonym_list
+
+                else:
+                    antonym_list.append(word_antonym[1].rstrip())
+                    antonym_dict[word_antonym[0]] = antonym_list
+
+    return antonym_dict
 
 """
 Chinese Antonym And Synonym Substitution
@@ -79,28 +71,38 @@ class ChineseAntonymAndSynonymSubtitution(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1, prob=0.5):
         super().__init__(seed, max_outputs=max_outputs)
-        random.seed(seed)
         self.prob = prob
         self.seed = seed
         self.max_outputs = max_outputs
         self.chinese_antonym_data = load_chinese_antonym_data()
 
     def generate(self, sentence: str, config : str = 'synonym'):
-        perturbed_texts = chinese_antonym_synonym_substitution(
-            text=sentence,
-            prob=self.prob,
-            seed=self.seed,
-            max_outputs=self.max_outputs,
-            config=config,
-            chinese_antonym_data=self.chinese_antonym_data
-        )
+        random.seed(self.seed)
+        perturbed_texts = []
+        if (config == 'synonym'):
+            smw = Similarword(create_num=self.max_outputs + 1, change_rate=self.prob)
+            output_list = smw.replace(sentence)
+
+            # Notice that the first input is the non-perturb version
+            output_list = output_list[1:]
+            perturbed_texts = output_list
+
+        elif (config == 'antonym'):
+            output = jieba.lcut(sentence)
+            for _ in itertools.repeat(None, self.max_outputs):
+                perturbed_text = chinese_antonym_substitution(
+                    text=output,
+                    prob=self.prob,
+                    chinese_antonym_data=self.chinese_antonym_data
+                )
+            perturbed_texts.append(perturbed_text)
         return perturbed_texts
 
 if __name__ == '__main__':
     simp_text = "汉字是语素文字，总数非常庞大。汉字总共有多少字？到目前为止，恐怕没人能够答得上来精确的数字。"
     perturb_func = ChineseAntonymAndSynonymSubtitution()
-    # new_text = perturb_func.generate(simp_text, config = "antonym")
-    new_text = perturb_func.generate(simp_text)
+    new_text = perturb_func.generate(simp_text, config = "antonym")
+    # new_text = perturb_func.generate(simp_text)
     print(new_text)
 
 
