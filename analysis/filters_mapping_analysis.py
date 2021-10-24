@@ -65,7 +65,7 @@ def main():
     analysis = FilterMappingAnalysis()
     package_dir_list = analysis.fetch_filter_directories()
     transformations = analysis.find_filter_classes(package_dir_list)
-    analysis.mapping_analysis_utils.build_keyword_mappings(operations=transformations, type="Filters")
+    analysis.mapping_analysis_utils.build_keyword_mappings(operations=transformations, type="Filter")
     analysis.mapping_analysis_utils.generate_csv(type="filters")
 
 
