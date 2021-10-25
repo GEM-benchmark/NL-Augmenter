@@ -115,7 +115,13 @@ class MappingAnalysisUtilities():
                             for a_mapping_keyword in mapping_keywords.keys():
                                 if a_mapping_keyword in keywords:
                                     found_keywords.append(mapping_keywords[a_mapping_keyword])
-                        self.dataset[a_mapping_rule].append(", ".join(found_keywords))
+                        self.dataset[a_mapping_rule].append(self.create_mapping_keywords_text(found_keywords))
+
+    def create_mapping_keywords_text(self, found_keywords: list):
+        output_text = ", ".join(found_keywords)
+        if len(found_keywords) > 1:
+            output_text = "Multiple_(specify): " + output_text
+        return output_text
 
     def generate_csv(self, type: str):
         print("*** Generating Complete CSV file.")

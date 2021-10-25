@@ -24,8 +24,8 @@
   },
   "13_meaning_preservation": {
     "highly-meaning-preserving": "Always-preserved",
-    "possible-meaning-alteration": "Possibly-impaired",
-    "meaning-alteration": "Always-impaired"
+    "possible-meaning-alteration": "Possibly-changed",
+    "meaning-alteration": "Always-changed"
   },
   "15_readability": {
     "unnaturally-written": "Always-Impaired"
