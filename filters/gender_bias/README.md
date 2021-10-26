@@ -1,4 +1,4 @@
-## Gender bias filter
+## gender bias filter
 
 ## What type of a filter is this?
 
@@ -18,9 +18,9 @@ Being currently implemented for English, French, Polish and Russian languages, t
 A list of lexicals used for the filter is available in `lexicals.json` file and includes such filter categories as personal pronouns, words defining the relation, titles and names, corresponding to the female and male genders accordingly.
 
 ## Related Work
-The problematics of the gender fairness is an active domain of research in NLP, however the existing methods of the bias measurement, such as PCA [[1]](https://arxiv.org/abs/1607.06520) or WEAT [[2]](https://arxiv.org/abs/1608.07187), may suffer from unclearness in the lexical seeds selection, pointed in a recent ACL 2021 paper [[3]](https://www.aclanthology.org/2021.acl-long.148), the intrinsic measurements showed no correlation with extrinsic methods results, as showed a recent research [[4]](https://www.aclanthology.org/2021.acl-long.150). On the other hand, the gender bias datasets (Winobias, Winogender, StereoSet, CrowS-Pairs) can present the unconsistencies, pointed by another ACL paper [[5]](https://aclanthology.org/2021.acl-long.81) and might be far from  optimal in terms if bias measurement.
+The problematics of the gender fairness is an active domain of research in NLP, however the existing methods of the bias measurement, such as PCA (Bolukbasi et al., 2016) or WEAT (Caliskan et al., 2017), may suffer from unclearness in the lexical seeds selection, pointed in a recent ACL 2021 paper [[1]](https://www.aclanthology.org/2021.acl-long.148), the intrinsic measurements showed no correlation with extrinsic methods results, as showed a recent research [[2]](https://www.aclanthology.org/2021.acl-long.150). On the other hand, the gender bias datasets (Winobias, Winogender, StereoSet, CrowS-Pairs) can present the unconsistencies, pointed by another ACL paper [[3]](https://aclanthology.org/2021.acl-long.81.pdf) and might be far from  optimal in terms if bias measurement. 
 The beneficial impact of the current extrinsic filter is its complete transparency and extensibility, which offers the user a great amont of control over the bias measurement parameters.
-The set of names for English was taken from [[6]](https://www.verywellfamily.com/), for French - from [[7]](https://www.journaldesfemmes.fr), for Polish - from [[8]](https://www.edziecko.pl) and [[9]](https://www.klups.pl), and for Russian - from [[10]](https://imenika.ru/).
+The set of names for English was taken from [[4]](https://www.verywellfamily.com/), for French - from [[5]](https://www.journaldesfemmes.fr), for Polish - from [[6]](https://www.edziecko.pl) and [[7]](https://www.klups.pl), and for Russian - from [[8]](https://imenika.ru/).
 
 ## Examples of use
 
@@ -128,88 +128,3 @@ This is a neutral group: ['Nobody likes washing dishes']
 The filter result is based on n-gram intersection counting approach, which assumes that the word should have the exact form as the internally defined keywords.
 For the lexically rich languages, such as Polish and Russian, the noun conjugation may overlap with the infinitif of an opposite gender.
 For example, the word "nastolatek" is a teenage boy in Polish (infinitif), "nastolatka" - a teenage girl (infinitif), however, when answering the question "Whom are we missing?", the feminine form in plural ("nastolatki" in infinitif) will give the word "nastolatek", which overlaps with the masculin singular infinitif, designating a teenage boy.
-
-## References
-_[1]_
-```bibtex
-@misc{bolukbasi2016man,
-      title={Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings}, 
-      author={Tolga Bolukbasi and Kai-Wei Chang and James Zou and Venkatesh Saligrama and Adam Kalai},
-      year={2016},
-      eprint={1607.06520},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
-}
-```
-_[2]_
-```bibtex
-@article{Caliskan_2017,
-   title={Semantics derived automatically from language corpora contain human-like biases},
-   volume={356},
-   ISSN={1095-9203},
-   url={http://dx.doi.org/10.1126/science.aal4230},
-   DOI={10.1126/science.aal4230},
-   number={6334},
-   journal={Science},
-   publisher={American Association for the Advancement of Science (AAAS)},
-   author={Caliskan, Aylin and Bryson, Joanna J. and Narayanan, Arvind},
-   year={2017},
-   month={Apr},
-   pages={183–186}
-}
-```
-_[3]_
-```bibtex
-@inproceedings{antoniak-mimno-2021-bad,
-    title = "Bad Seeds: Evaluating Lexical Methods for Bias Measurement",
-    author = "Antoniak, Maria  and
-      Mimno, David",
-    booktitle = "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)",
-    month = aug,
-    year = "2021",
-    address = "Online",
-    publisher = "Association for Computational Linguistics",
-    url = "https://aclanthology.org/2021.acl-long.148",
-    doi = "10.18653/v1/2021.acl-long.148",
-    pages = "1889--1904",    
-}
-```
-_[4]_
-```bibtex
-@inproceedings{goldfarb-tarrant-etal-2021-intrinsic,
-    title = "Intrinsic Bias Metrics Do Not Correlate with Application Bias",
-    author = "Goldfarb-Tarrant, Seraphina  and
-      Marchant, Rebecca  and
-      Mu{\~n}oz S{\'a}nchez, Ricardo  and
-      Pandya, Mugdha  and
-      Lopez, Adam",
-    booktitle = "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)",
-    month = aug,
-    year = "2021",
-    address = "Online",
-    publisher = "Association for Computational Linguistics",
-    url = "https://aclanthology.org/2021.acl-long.150",
-    doi = "10.18653/v1/2021.acl-long.150",
-    pages = "1926--1940",   
-}
-```
-_[5]_
-```bibtex
-@inproceedings{blodgett-etal-2021-stereotyping,
-    title = "Stereotyping {N}orwegian Salmon: An Inventory of Pitfalls in Fairness Benchmark Datasets",
-    author = "Blodgett, Su Lin  and
-      Lopez, Gilsinia  and
-      Olteanu, Alexandra  and
-      Sim, Robert  and
-      Wallach, Hanna",
-    booktitle = "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)",
-    month = aug,
-    year = "2021",
-    address = "Online",
-    publisher = "Association for Computational Linguistics",
-    url = "https://aclanthology.org/2021.acl-long.81",
-    doi = "10.18653/v1/2021.acl-long.81",
-    pages = "1004--1015", 
-}
-```
-
