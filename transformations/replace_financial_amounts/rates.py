@@ -3,7 +3,7 @@ from forex_python.bitcoin import BtcConverter
 import sys
 
 
-# Those default exchange rates bellow are those used against 1 USD as of August 2021.
+# Those default exchange rates below are those used against 1 USD as of August 2021.
 EXCHANGE_RATES = {
     "EUR_to_USD": 1.19,
     "GBP_to_USD": 1.39,

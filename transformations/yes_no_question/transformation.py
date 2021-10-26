@@ -20,6 +20,8 @@ def uncapitalize(string: str):
     """De-capitalize first character of string
 
     E.g. 'How is Michael doing?' -> 'how is Michael doing?'
+
+    :param str string: String to be uncapitalized
     """
     if len(string):
         return string[0].lower() + string[1:]
@@ -35,6 +37,8 @@ def front_auxiliary(auxiliary: Token) -> str:
     E.g.:
     - <Token 'has'> -> 'Has'
     - <Token "'ve"> -> 'Have'
+
+    :param Token auxiliary: auxiliary word (or contraction) to be fronted
     """
     if auxiliary.text == "'d":
         if "Part" in auxiliary.head.morph.get("VerbForm"):
@@ -61,6 +65,8 @@ def front_be_verb(be_verb: Token) -> str:
     E.g.:
     - <Token 'is'> -> 'Is'
     - <Token "'re"> -> 'Are'
+
+    :param Token be_verb: The be verb to be fronted
     """
     if be_verb.text == "'s":
         return "Is"
@@ -89,6 +95,9 @@ class YesNoQuestionPerturbation(SentenceOperation):
     def statement_to_question(self, sentence: Span) -> Union[str, None]:
         """Given a statement (type: spacy Span), convert to corresponding
         yes-or-no question.
+
+        :param Span sentence: Span of Spacy Tokens representing an individual
+        statement
         """
 
         # Look for sentence verb head, starting with first token
@@ -225,6 +234,8 @@ class YesNoQuestionPerturbation(SentenceOperation):
         E.g.:
         - "Did Jenny come home?" -> "Did Jenny come home? Yes."
         - "Did Jenny not come home?" -> "Did Jenny come home? No."
+
+        :param str sentence: Original question to which to append "yes" or "no"
         """
         doc: Doc = self.nlp(sentence)
 
@@ -260,11 +271,13 @@ class YesNoQuestionPerturbation(SentenceOperation):
         doc: Doc = self.nlp(sentence)
 
         outputs: List[str] = []
-        for sentence in doc.sents:
+        for sent in doc.sents:
             # TODO: Test if sentence is statement or question
-            question = self.statement_to_question(sentence)
+            question = self.statement_to_question(sent)
             if question is not None:
                 rhetorical_question = self.rhetoricalize_question(question)
-                outputs.append(rhetorical_question)
+                if rhetorical_question is not None:
+                    outputs.append(rhetorical_question)
 
-        return outputs
+        new_sentence = " ".join(output for output in outputs)
+        return [new_sentence] if new_sentence else [sentence]

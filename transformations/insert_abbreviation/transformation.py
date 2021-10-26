@@ -1,12 +1,12 @@
 import itertools
 import random
 import sys
+import transformations.insert_abbreviation.grammaire as grammaire
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
+import os
 
-sys.path.append("./transformations/insert_abbreviation")
-import grammaire
-
+#sys.path.append("./transformations/insert_abbreviation")
 
 def readfile(file):
     with open(file, encoding='utf8') as input:
@@ -32,7 +32,8 @@ class AbbreviationInsertionEN(SentenceOperation):
     languages = ["en"]
 
     def __init__(self, seed=0, max_outputs=1):
-        rulefile_en = "./transformations/insert_abbreviation/replacement_rules_en.txt"
+        current_path = os.path.realpath(__file__).replace(os.path.basename(__file__), "")
+        rulefile_en = f"{current_path}replacement_rules_en.txt"
         super().__init__(seed, max_outputs=max_outputs)
         rules_en = load_rules(rulefile_en)
         # First we compile our rules...
@@ -61,7 +62,8 @@ class AbbreviationInsertionFR(SentenceOperation):
     languages = ["fr"]
 
     def __init__(self, seed=0, max_outputs=1):
-        rulefile_fr = "./transformations/insert_abbreviation/replacement_rules_fr.txt"
+        current_path = os.path.realpath(__file__).replace(os.path.basename(__file__), "")
+        rulefile_fr = f"{current_path}replacement_rules_fr.txt"
         super().__init__(seed, max_outputs=max_outputs)
         rules_fr = load_rules(rulefile_fr)
         # First we compile our rules...

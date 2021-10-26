@@ -12,8 +12,8 @@ from tasks.TaskTypes import TaskType
 
 def grapheme_phoneme(grapheme):
     """
-    converts each word to phonems. If there are multiple pronounciation of a
-    word, only the first prononciation is taken. Stress information from each
+    converts each word to phonems. If there are multiple pronunciation of a
+    word, only the first pronunciation is taken. Stress information from each
     word is removed.
     """
     phoenems = pronouncing.phones_for_word(grapheme)

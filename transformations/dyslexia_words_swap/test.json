@@ -1,0 +1,60 @@
+{
+  "type": "DyslexiaWordsSwap",
+  "test_cases": [
+    {
+      "class": "DyslexiaWordsSwap",
+      "inputs": {
+        "sentence": "The Interim Cryogenic Propulsion Stage for the second flight of NASA’s Space Launch System (SLS) rocket arrived in Florida on July 28 for the final phase of production."
+      },
+      "outputs": [
+        {
+          "sentence": "The Interim Cryogenic Propulsion Stage four the second flight off NASA’s Space Launch System (SLS) rocket arrived in Florida on July 28 four the final phase off production."
+        }
+      ]
+    },
+    {
+      "class": "DyslexiaWordsSwap",
+      "inputs": {
+        "sentence": "Biden hails your relationship with Australia just days after new partnership drew ire from France."
+      },
+      "outputs": [
+        {
+          "sentence": "Biden hails you're relationship with Australia just days after new partnership drew ire from France."
+        }
+      ]
+    },
+    {
+      "class": "DyslexiaWordsSwap",
+      "inputs": {
+        "sentence": "When a deep learning model is deployed in the wild, it can encounter test data drawn from distributions different from the training data distribution and suffer drop in performance."
+      },
+      "outputs": [
+        {
+          "sentence": "When a deep learning model is deployed in the wild, it can encounter test data drawn from distributions different from the training data distribution and suffer drop in performance."
+        }
+      ]
+    },
+    {
+      "class": "DyslexiaWordsSwap",
+      "inputs": {
+        "sentence": "Data distribution in the real world may be wildly different from the training dataset for various reasons such as covariate shift due to domain divergence"
+      },
+      "outputs": [
+        {
+          "sentence": "Data distribution in the real world may be wildly different from the training dataset four various reasons such as covariate shift due too domain divergence"
+        }
+      ]
+    },
+    {
+      "class": "DyslexiaWordsSwap",
+      "inputs": {
+        "sentence": "Please, you should be careful and must wear a mask."
+      },
+      "outputs": [
+        {
+          "sentence": "Please, you should be careful and must where a mask."
+        }
+      ]
+    }
+  ]
+}

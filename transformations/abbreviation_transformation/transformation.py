@@ -3,23 +3,25 @@ import json
 import spacy
 import os.path
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-def abbreviate(text, nlp, prob = 0.25, seed = 0, max_outputs = 1):
+
+def abbreviate(self, text, nlp, prob = 0.25, seed = 0, max_outputs = 1):
     random.seed(seed)
     transf = []
     for _ in range(max_outputs):
         trans_text = text
-        for phrase in phrase_abbrev_dict:
+        for phrase in self.phrase_abbrev_dict:
             if random.random() < prob:
-                trans_text = trans_text.replace(phrase, phrase_abbrev_dict[phrase])
+                trans_text = trans_text.replace(phrase, self.phrase_abbrev_dict[phrase])
         doc = nlp(trans_text).doc
         trans = []
         for token in doc:
             word = token.text
-            if word in word_abbrev_dict and random.random() < prob:
-                trans.append(word_abbrev_dict[word])
+            if word in self.word_abbrev_dict and random.random() < prob:
+                trans.append(self.word_abbrev_dict[word])
             else:
                 trans.append(word)
         trans1 = " ".join([str(word) for word in trans])
@@ -38,9 +40,9 @@ class Abbreviate(SentenceOperation):
         #reading in slang dictionaries
         scriptpath = os.path.dirname(__file__)
         with open(os.path.join(scriptpath, 'phrase_abbrev_dict.json'),'r') as file:
-            phrase_abbrev_dict = json.loads(file.read())
+            self.phrase_abbrev_dict = json.loads(file.read())
         with open(os.path.join(scriptpath, 'word_abbrev_dict.json'), 'r') as file:
-            word_abbrev_dict = json.loads(file.read())
+            self.word_abbrev_dict = json.loads(file.read())
 
         super().__init__(seed)
         self.prob = prob
@@ -48,7 +50,7 @@ class Abbreviate(SentenceOperation):
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
 
     def generate(self, sentence: str):
-        perturbed = abbreviate(
+        perturbed = abbreviate(self,
             text = sentence, nlp = self.nlp, prob = self.prob, seed = self.seed, max_outputs = self.max_outputs
         )
         return perturbed

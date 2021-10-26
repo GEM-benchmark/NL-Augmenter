@@ -11,6 +11,7 @@ from interfaces.SentenceOperation import (
     SentenceAndTargetsOperation,
     SentenceOperation,
 )
+from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
 
 
@@ -100,21 +101,25 @@ class TextLineDataset(BaseDataset):
         self, transformation: SentenceOperation
     ) -> TextLineDataset:
         transformed_data = []
+        transformed_labels = []
         print("Applying transformation:")
 
         # calculating ratio of transformed example to unchanged example
         successful_num = 0
         failed_num = 0
 
-        for line in tqdm(self.data):
-            pt_examples = transformation.generate(line)
+        for datapoint, label in tqdm(
+            zip(self.data, self.labels), total=len(self.data)
+        ):
+            pt_examples = transformation.generate(datapoint)
             successful_pt, failed_pt = transformation.compare(
-                line, pt_examples
+                datapoint, pt_examples
             )
             successful_num += successful_pt
             failed_num += failed_pt
 
             transformed_data.extend(pt_examples)
+            transformed_labels.extend([label]*len(pt_examples))
 
         total_num = successful_num + failed_num
         print(
@@ -126,8 +131,9 @@ class TextLineDataset(BaseDataset):
                 successful_num / total_num if total_num > 0 else 0,
             )
         )
-        if total_num == 0: return None
-        return TextLineDataset(transformed_data, self.labels)
+        if total_num == 0:
+            return None
+        return TextLineDataset(transformed_data, transformed_labels)
 
     def __iter__(self):
         for text, label in zip(self.data, self.labels):
@@ -163,7 +169,7 @@ class KeyValueDataset(BaseDataset):
         TaskType.TEXT_TO_TEXT_GENERATION,
         TaskType.QUESTION_ANSWERING,
         TaskType.QUESTION_GENERATION,
-        TaskType.TEXT_CLASSIFICATION, # for >1 field classification
+        TaskType.TEXT_CLASSIFICATION,  # for >1 field classification
     ]
 
     # data: input data samples read from jsonl file
@@ -193,7 +199,7 @@ class KeyValueDataset(BaseDataset):
                 data.append({key: example[key] for key in fields})
         else:
             # this is an ugly implementation, which hard-codes the squad data format
-            # TODO might need a more elegant way to deal with the fields with hierachy, e.g. the answers field in squad data (exampl['answers']['text'])
+            # TODO might need a more elegant way to deal with the fields with hierarchy, e.g. the answers field in squad data (exampl['answers']['text'])
             for example in list(dataset)[:max_size]:
                 data.append(
                     {
@@ -232,6 +238,8 @@ class KeyValueDataset(BaseDataset):
                 self.operation_type = "question_answer"
         elif self.task_type in [TaskType.TEXT_CLASSIFICATION]:
             self.operation_type = "sentence"
+        elif self.task_type in [TaskType.PARAPHRASE_DETECTION]:
+            self.operation_type = "sentence1_sentence2_target"
 
         filter_func = self.__getattribute__(
             "_apply_" + self.operation_type + "_filter"
@@ -284,6 +292,15 @@ class KeyValueDataset(BaseDataset):
         answers = [datapoint[answer_key] for answer_key in self.fields[2:]]
         return filter.filter(context, question, answers)
 
+    def _apply_sentence1_sentence2_target_filter(
+        self, datapoint: dict, filter: SentencePairOperation
+    ):
+        """Apply a filter to SentencePairOperations."""
+        sentence1 = datapoint[self.fields[0]]
+        sentence2 = datapoint[self.fields[1]]
+        target = datapoint[self.fields[2]]
+        return filter.filter(sentence1, sentence2, str(target))
+
     # this function is an adapter and will call the corresponding transform function for the task
     # subfields: the fields to apply transformation, it is a subset of self.fields
     def apply_transformation(
@@ -292,11 +309,11 @@ class KeyValueDataset(BaseDataset):
         _, transformation_func = self._analyze(subfields)
         transformed_data = []
         print("Applying transformation:")
-        
+
         # calculating ratio of transformed example to unchanged example
         successful_num = 0
         failed_num = 0
-        
+
         for datapoint in tqdm(self.data):
             pt_examples = transformation_func(datapoint.copy(), transformation)
             successful_pt, failed_pt = transformation.compare(
@@ -304,9 +321,11 @@ class KeyValueDataset(BaseDataset):
             )
             successful_num += successful_pt
             failed_num += failed_pt
-            
-            transformed_data.extend(pt_examples)  # don't want self.data to be changed
-        
+
+            transformed_data.extend(
+                pt_examples
+            )  # don't want self.data to be changed
+
         total_num = successful_num + failed_num
 
         print(
@@ -318,7 +337,8 @@ class KeyValueDataset(BaseDataset):
                 successful_num / total_num if total_num > 0 else 0,
             )
         )
-        if total_num == 0: return None
+        if total_num == 0:
+            return None
         return KeyValueDataset(transformed_data, self.task_type, self.fields)
 
     def _apply_sentence_transformation(
@@ -377,6 +397,27 @@ class KeyValueDataset(BaseDataset):
                 ]  # answers starting from pos 2
             datapoints.append(datapoint_n)
 
+        return datapoints
+
+    def _apply_sentence1_sentence2_target_transformation(
+        self, datapoint: dict, transformation: SentencePairOperation
+    ):
+        """Apply a transformation to SentencePairOperations."""
+        sentence1 = datapoint[self.fields[0]]
+        sentence2 = datapoint[self.fields[1]]
+        target = datapoint[self.fields[2]]
+        target_type = type(target)
+
+        transformed = transformation.generate(
+            sentence1, sentence2, str(target)
+        )
+        datapoints = []
+        for to in transformed:
+            datapoint_n = dict()
+            datapoint_n[self.fields[0]] = to[0]
+            datapoint_n[self.fields[1]] = to[1]
+            datapoint_n[self.fields[2]] = target_type(to[2])
+            datapoints.append(datapoint_n)
         return datapoints
 
     def __iter__(self):

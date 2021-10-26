@@ -92,9 +92,9 @@ class CountryStateAbbreviation(SentenceOperation):
         # eg. country_pattern = '...|United States|...|USA|...'
         country_pattern = '|'.join(country_mapping.keys())
         # Adding backslash before '(' and ')' in country name as the escape character (eg. Virgin Islands (US))
-        country_pattern = country_pattern.replace('(', '\(')
-        country_pattern = country_pattern.replace(')', '\)')
-        country_regex = re.compile("(^|\s+)(" + country_pattern + ")(\s+|\?|!|$|\.|,)")
+        country_pattern = country_pattern.replace('(', r'\(')
+        country_pattern = country_pattern.replace(')', r'\)')
+        country_regex = re.compile(r"(^|\s+)(" + country_pattern + r")(\s+|\?|!|$|\.|,)")
         perturbed_text = country_regex.sub(
             lambda y: y[1] + country_mapping[y[2]] + y[3],
             text,
@@ -104,9 +104,9 @@ class CountryStateAbbreviation(SentenceOperation):
         # eg. state_pattern = '...|Pennsylvania|...|PA|...'
         state_pattern = '|'.join(state_mapping.keys())
         # Adding backslash before '(' and ')' in state name as the escape character
-        state_pattern = state_pattern.replace('(', '\(')
-        state_pattern = state_pattern.replace(')', '\)')
-        state_regex = re.compile("(^|\s+)(" + state_pattern + ")(\s+|\?|!|$|\.|,)")
+        state_pattern = state_pattern.replace('(', r'\(')
+        state_pattern = state_pattern.replace(')', r'\)')
+        state_regex = re.compile(r"(^|\s+)(" + state_pattern + r")(\s+|\?|!|$|\.|,)")
         perturbed_text = state_regex.sub(
             lambda y: y[1] + self.dict_value_helper(state_mapping, y[2]) + y[3],
             perturbed_text,
