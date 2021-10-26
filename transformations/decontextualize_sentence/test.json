@@ -1,0 +1,71 @@
+{
+  "type": "Decontextualizer",
+  "test_cases": [
+    {
+      "class": "Decontextualize",
+      "inputs": {
+        "sentence1": "Two women are wandering along the shore drinking iced tea.",
+        "sentence2": "Two women are sitting on a blanket near some rocks talking about politics.",
+        "target": "Contradiction"
+      },
+      "outputs": [{
+        "sentence1": "Two women are wandering along the shore drinking iced tea.",
+        "sentence2": "Two women are sitting on a blanket .",
+        "target": "Contradiction"}
+      ]
+    },
+    {
+      "class": "Decontextualize",
+      "inputs": {
+        "sentence1": "John drove the car to reach the hospital.",
+        "sentence2": "John drove the car to reach the hospital.",
+        "target": "Entailment"
+      },
+      "outputs": [{
+        "sentence1": "John drove the car to reach the hospital.",
+        "sentence2": "John drove the car .",
+        "target": "Entailment"}
+      ]
+    },
+    {
+      "class": "Decontextualize",
+      "inputs": {
+        "sentence1": "A Filipino hostage in Iraq was released.",
+        "sentence2": "A Filipino hostage was freed in Iraq.",
+        "target": "Entailment"
+      },
+      "outputs": [{
+        "sentence1": "A Filipino hostage in Iraq was released.",
+        "sentence2": "A Filipino hostage was freed .",
+        "target": "Entailment"}
+      ]
+    },
+    {
+      "class": "Decontextualize",
+      "inputs": {
+        "sentence1": "Two dogs are running through a field.",
+        "sentence2": "The pets are sitting on a couch in a grass field.",
+        "target": "Contradiction"
+      },
+      "outputs": [{
+        "sentence1": "Two dogs are running through a field.",
+        "sentence2": "The pets are sitting on a couch .",
+        "target": "Contradiction"}
+      ]
+    },
+    {
+      "class": "Decontextualize",
+      "inputs": {
+        "sentence1": "American Airlines began laying off hundreds of flight attendants on Tuesday, after a federal judge turned aside a union’s bid to block the job losses",
+        "sentence2": "American Airlines will recall hundreds of flight attendants as it steps up the number of flights it operates",
+        "target": "Contradiction"
+      },
+      "outputs": [{
+        "sentence1": "American Airlines began laying off hundreds of flight attendants on Tuesday, after a federal judge turned aside a union’s bid to block the job losses",
+        "sentence2": "American Airlines will recall hundreds of flight attendants",
+        "target": "Contradiction"}
+      ]
+    }
+
+  ]
+}

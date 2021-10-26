@@ -38,19 +38,26 @@ text generation, etc.
 }
 
 
-@article{DBLP:journals/corr/abs-1901-11196,
+@inproceedings{DBLP:conf/emnlp/WeiZ19,
   author    = {Jason W. Wei and
                Kai Zou},
+  editor    = {Kentaro Inui and
+               Jing Jiang and
+               Vincent Ng and
+               Xiaojun Wan},
   title     = {{EDA:} Easy Data Augmentation Techniques for Boosting Performance
                on Text Classification Tasks},
-  journal   = {CoRR},
-  volume    = {abs/1901.11196},
+  booktitle = {Proceedings of the 2019 Conference on Empirical Methods in Natural
+               Language Processing and the 9th International Joint Conference on
+               Natural Language Processing, {EMNLP-IJCNLP} 2019, Hong Kong, China,
+               November 3-7, 2019},
+  pages     = {6381--6387},
+  publisher = {Association for Computational Linguistics},
   year      = {2019},
-  url       = {http://arxiv.org/abs/1901.11196},
-  archivePrefix = {arXiv},
-  eprint    = {1901.11196},
-  timestamp = {Mon, 04 Feb 2019 08:11:03 +0100},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-1901-11196.bib},
+  url       = {https://doi.org/10.18653/v1/D19-1670},
+  doi       = {10.18653/v1/D19-1670},
+  timestamp = {Thu, 05 Aug 2021 17:36:17 +0200},
+  biburl    = {https://dblp.org/rec/conf/emnlp/WeiZ19.bib},
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
