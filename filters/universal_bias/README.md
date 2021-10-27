@@ -2,8 +2,8 @@
 
 ## What type of a filter is this?
 
-This filter is language and topic agnostic, allowing the user to specify the minority and the majority parameters at the object initialisation step, which filter the text corpus.
-Since the filtering parameters are user defined, it may be applied in any language.
+This filter is currently contains lexical seeds for 10 categories () in English, however it can be extended to any language or topic by simple addition of desired entries to `lexicals.json` 
+file in current directoryalong with the text corpus in corresponding language.
 The minority parameter is a potentially underrepresented group, defined with its own set of keywords; the majority parameter is a set of keywords, representing the dominating group.
 The filter returns "True" if the minority group is indeed underrepresented, "False" otherwise.
 
@@ -25,22 +25,26 @@ The beneficial impact of the current extrinsic filter is its complete transparen
 
 ## Example of use
 ```
-minority = ["she", "her", "hers"]
-majority = ["he", "him", "his"]
-
 sentences = [ "He is going to make a cake.",
-              "She is going to program",
+              "Olivia is going to program",
               "Nobody likes washing dishes",
               "He agreed to help me" ]
 
-f = UniversalBiasFilter(minority, majority)
+language = "en"
+category = "gender"
+minority = "female"
+majority = "male"
+
+
+f = UniversalBiasFilter(language, category, minority, majority)
 
 f.filter(sentences)
 ```
 Which returns `True`, as the number of sentences flagged as "minority" is less than the number of sentences tagged as "majority".
 You can check the exact number by calling the `count_groups()` static method on the instance of the class and providing it with the extracted flags with the `flag_sentences()` static method:
 ```
-flagged_sentences = f.flag_sentences(sentences, minority, majority)
+f = UniversalBiasFilter("en", "gender", "female", "male")
+flagged_sentences = f.flag_sentences(sentences)
 minority, majority, neutral = f.count_groups(flagged_sentences)
 
 print("minority tagged sentences:", minority)
@@ -55,7 +59,7 @@ Neutral tagged sentences: 1
 ```
 You can also retrieve the arrays of sentences from each group, by calling the `sort_groups()` method on the instance of th class, providing it with flags, extracted by `flag_sentences()` method:
 ```
-flagged_sentences = f.flag_sentences(sentences, minority, majority)
+flagged_sentences = f.flag_sentences(sentences)
 minority_group, majority_group, neutral_group = f.sort_groups(flagged_sentences)
 print("This is a minority group:", minority_group)
 print("This is a majority group:", majority_group)
@@ -70,6 +74,81 @@ This is a neutral group: ['Nobody likes washing dishes']
 
 ## What are the limitations of this filter?
 This filter accepts unigram arrays, the n-gramms won't give the desired output, since the intersection with keywords is calculated after the sentence being passed through split() function, wich returs an array of unigrams.
+
+## Structure of lexical seeds
+Current struncture of the `lexicals.json` is as follows:
+```
+"en": {
+		"religion": {
+			"christianity": [],
+			"buddhism_hinduism_jainism": [],
+			"confucianism": [],
+			"islam": [],
+			"judaism": [],
+			"atheism": []			
+		},
+		
+		"race" : {
+			"white": [],
+			"black": [],
+			"asian": [],
+			"latino": [],
+			"american_indian": []		
+		},
+		
+		"ethnicity" : {
+			"european": [],
+			"african": [],
+			"eurasian": [],
+			"asian": [],
+			"hispanic": [],
+			"american_indian": []
+		},
+		
+		"gender" : {
+			"male": [],
+			"female": []			
+		},
+		
+		"sexual_orientation": {
+			"hetero": [],
+			"homo": []
+		},
+		
+		"age": {
+			"young": [],
+			"old": []			
+		},
+		
+		"appearencence": {
+			"attractive": [],
+			"unattractive": []
+		},
+		
+		"disability": {
+			"healthy": [],
+			"disabled": []			
+		},
+		
+		"experience": {
+			"experienced": [],
+			"inexperienced" : []
+		},
+		
+		"education": {
+			"educated": [],
+			"uneducated": []
+		},
+		
+		"economic_status": {
+			"rich": [],
+			"poor": []
+		}	
+	}
+```
+Changing the language key with the corresponding lexical seeds precision allows adapt this data structure to any language. 
+The categories with their respective attributes can also be modified (the data extraction is made dynamicaly in the code). 
+
 
 ## References
 _[1]_
