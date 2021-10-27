@@ -66,7 +66,7 @@ def main():
     analysis = TransformationMappingAnalysis()
     package_dir_list = analysis.fetch_transformation_directories()
     transformations = analysis.find_transformation_classes(package_dir_list)
-    analysis.mapping_analysis_utils.build_keyword_mappings(operations=transformations, type="Transformations")
+    analysis.mapping_analysis_utils.build_keyword_mappings(operations=transformations, type="Transformation")
     analysis.mapping_analysis_utils.generate_csv(type="transformations")
 
 

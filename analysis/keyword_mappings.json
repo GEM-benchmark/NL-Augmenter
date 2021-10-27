@@ -23,15 +23,15 @@
     "written": "Other_(specify): Written"
   },
   "13_meaning_preservation": {
-    "highly-meaning-preserving": "Preserved",
-    "possible-meaning-alteration": "Can-be-impaired",
-    "meaning-alteration": "Impaired"
+    "highly-meaning-preserving": "Always-preserved",
+    "possible-meaning-alteration": "Possibly-changed",
+    "meaning-alteration": "Always-changed"
   },
   "15_readability": {
-    "unnaturally-written": "Impaired"
+    "unnaturally-written": "Always-Impaired"
   },
   "16_naturalness": {
-    "unnatural-sounding": "Impaired"
+    "unnatural-sounding": "Always-Impaired"
   },
   "17_input_data_processing": {
     "parser-based": "Parsing",
