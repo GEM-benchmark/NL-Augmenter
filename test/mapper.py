@@ -79,6 +79,7 @@ map_transformation = {
         "synonym_substitution",
         "token_replacement",
         "transformer_fill",
+        "transformer_text_generation",
     ],
 }
 
