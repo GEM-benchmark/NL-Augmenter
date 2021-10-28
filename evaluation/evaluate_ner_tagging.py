@@ -83,6 +83,9 @@ def evaluate(
         filter_false_count = (
             0  # This will track the number of examples where the filter is -ve
         )
+    pt_count = 0
+    successful_num = 0
+    failed_num = 0
     for example in dataset:
         # Calculating the performance on the original set
         gold_tag_seq = convert_ner_ids_to_tags(example["ner_tags"])
@@ -104,19 +107,26 @@ def evaluate(
             # The Operation is a "transformation"
             # Calculating the performance on the perturbed set
             # TODO: Needs to handle for multiple outputs.
-            trans_input, trans_gold_tag_seq = operation.generate(
-                example["tokens"], gold_tag_seq
-            )[0]
-            trans_gold_tag_seq = convert_ner_ids_to_tags(trans_gold_tag_seq)
-            transformed_input_prediction = tagging_pipeline(trans_input)
-            trans_predicted_tag_seq = create_prediction_seq(
-                transformed_input_prediction, len(trans_gold_tag_seq)
-            )
-            pt_score = accuracy_score(
-                [trans_gold_tag_seq], [trans_predicted_tag_seq]
-            )
-            average_pertubed_score += pt_score
 
+            pt_examples = operation.generate(example["tokens"], gold_tag_seq)
+            datapoint = (example["tokens"], gold_tag_seq)
+            successful_pt, failed_pt = operation.compare(
+                datapoint, pt_examples
+            )
+            successful_num += successful_pt
+            failed_num += failed_pt
+            for (trans_input, trans_gold_tag_seq) in pt_examples:
+                trans_gold_tag_seq = convert_ner_ids_to_tags(trans_gold_tag_seq)
+                transformed_input_prediction = tagging_pipeline(trans_input)
+                trans_predicted_tag_seq = create_prediction_seq(
+                    transformed_input_prediction, len(trans_gold_tag_seq)
+                )
+                pt_score = accuracy_score(
+                    [trans_gold_tag_seq], [trans_predicted_tag_seq]
+                )
+                average_pertubed_score += pt_score
+                pt_count +=1
+    total_num = successful_num + failed_num
     average_score = average_score / len(dataset) * 100
 
     print(
@@ -149,10 +159,21 @@ def evaluate(
         performance["filter_true_average_score"] = filter_true_average_score
         performance["filter_false_average_score"] = filter_false_average_score
     else:
+
+        average_pertubed_score = average_pertubed_score / pt_count * 100 if pt_count > 0 else 0
         performance["pt_accuracy"]: np.round(average_pertubed_score, 1)
-        average_pertubed_score = average_pertubed_score / len(dataset) * 100
+
         print(
             f"The average accuracy on its perturbed set = {average_pertubed_score}"
+        )
+        print(
+            "Finished transformation! {} examples generated from {} original examples, with {} successfully transformed and {} unchanged ({} perturb rate)".format(
+                total_num,
+                len(dataset),
+                successful_num,
+                failed_num,
+                successful_num / total_num if total_num > 0 else 0,
+            )
         )
 
     return performance

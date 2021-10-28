@@ -30,7 +30,7 @@ map_transformation = {
         "gender_culture_diverse_name",
         "gender_culture_diverse_name_two_way",
         "gender_swap",
-        "geonames_transformation",
+        "geo_names_transformation",
         "greetings_and_farewells",
         "insert_abbreviation",
         "leet_letters",
