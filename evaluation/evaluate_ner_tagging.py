@@ -167,7 +167,8 @@ def evaluate(
             f"The average accuracy on its perturbed set = {average_pertubed_score}"
         )
         print(
-            "Finished transformation! {} examples generated from {} original examples, with {} successfully transformed and {} unchanged ({} perturb rate)".format(
+            "Finished transformation! {} examples generated from {} original examples, "
+            "with {} successfully transformed and {} unchanged ({} perturb rate)".format(
                 total_num,
                 len(dataset),
                 successful_num,
