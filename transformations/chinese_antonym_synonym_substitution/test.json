@@ -1,0 +1,62 @@
+{
+  "type": "chinese_antonym_synonym_substitution",
+  "test_cases": [
+    {
+      "class": "ChineseAntonymAndSynonymSubtitution",
+      "inputs": {
+        "sentence": "汉字是语素文字，总数非常庞大。汉字总共有多少字？到目前为止，恐怕没人能够答得上来精确的数字。"
+      },
+      "outputs": [{
+        "sentence": "汉字是语素言，总数甚庞大。汉字总共有不怎么字？到目前为止，恐怕没人克答得上来精确的数字。"
+      }]
+    },
+    {
+      "class": "ChineseAntonymAndSynonymSubtitution",
+      "inputs": {
+        "sentence": "汉字是语素文字，总数非常庞大。汉字总共有多少字？到目前为止，恐怕没人能够答得上来精确的数字。",
+        "config" : "antonym"
+      },
+      "outputs": [{
+        "sentence": "汉字是语素文字，总数非常细小。汉字单独无多少字？到目前为止，恐怕没人能够答得上去粗略的数字。"
+      }]
+    },
+    {
+      "class": "ChineseAntonymAndSynonymSubtitution",
+      "inputs": {
+        "sentence": "恰当的运用反义词，可以形成鲜明的对比，把事物的特点表达得更充分，给人留下深刻难忘的印象。"
+      },
+      "outputs": [{
+        "sentence": "允当的动反义词，可以摇身一变鲜明的对比，把事物的风味表达得更尽管，给人留成深刻念兹在兹的印象。"
+      }]
+    },
+    {
+      "class": "ChineseAntonymAndSynonymSubtitution",
+      "inputs": {
+        "sentence": "恰当的运用反义词，可以形成鲜明的对比，把事物的特点表达得更充分，给人留下深刻难忘的印象。",
+        "config" : "antonym"
+      },
+      "outputs": [{
+        "sentence": "恰当的运用反义词，可以形成隐晦的对比，把事物的特点表达得更充分，给神迁移肤浅难忘的印象。"
+      }]
+    },
+    {
+      "class": "ChineseAntonymAndSynonymSubtitution",
+      "inputs": {
+        "sentence": "随着两个遗迹文明的发展，他们终于开始了争斗。遗迹之间的能量冲突是战争的导火索，因为一方出现，另一方的遗迹能量就会相应的颓落。"
+      },
+      "outputs": [{
+        "sentence": "迨两个遗迹温文尔雅的发展，她俩终于开始了争斗。遗迹里头的能量扑是烽烟的导火索，因为一方起，另一方的遗迹能量就会相应的颓落。"
+      }]
+    },
+    {
+      "class": "ChineseAntonymAndSynonymSubtitution",
+      "inputs": {
+        "sentence": "随着两个遗迹文明的发展，他们终于开始了争斗。遗迹之间的能量冲突是战争的导火索，因为一方出现，另一方的遗迹能量就会相应的颓落。",
+        "config": "antonym"
+      },
+      "outputs": [{
+        "sentence": "随着两个遗迹野蛮的发展，他们终于开始了和解。遗迹之间的能量冲突非战争的导火索，所以一方消失，另一方的遗迹能量就会相应的颓落。"
+      }]
+    }
+  ]
+}
