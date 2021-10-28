@@ -1,9 +1,10 @@
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 import random
-from spacy import load
-from typing import List
 
+from typing import List
+import spacy
+from initialize import spacy_nlp
 
 def extract_names_and_titles():
     """
@@ -179,7 +180,7 @@ class FactiveVerbTransformation(SentenceOperation):
 
     def __init__(self, seed=1, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = load('en_core_web_sm')
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.initial_verbs = ["", "have to", "has to", "need to"] # TODO: use this in next push after discussion
         #TODO: we can add third person variation like (after discussion)
         # "Peter published a research paper. => John revealed that, Peter published a research paper."
