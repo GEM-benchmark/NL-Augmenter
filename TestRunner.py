@@ -212,14 +212,60 @@ class OperationRuns(object):
         for (_, folder, _) in iter_modules(
             [transformations_dir]
         ):  # ---> ["back_translation", ...]
-            t_py = import_module(f"{search}.{folder}")
+            try:
+                t_py = import_module(f"{search}.{folder}")
+                for name, obj in inspect.getmembers(t_py):
+                    if (
+                        inspect.isclass(obj)
+                        and issubclass(obj, Operation)
+                        and not obj.__module__.startswith("interfaces")
+                    ):
+                        yield  obj
+            except Exception:
+                print (f"Issue in importing module in folder {folder}")
+                continue
+
+    @staticmethod
+    def get_operation(search="transformations",
+                      queryOperationName="ButterFingersPerturbation",
+                      queryFolder=None):
+        # iterate through the modules in the current package
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        transformations_dir = package_dir.parent.joinpath(search)
+        # (1) first check camel caas folder
+        if queryFolder is None:
+            queryFolder = convert_to_snake_case(queryOperationName)
+        try:
+            t_py = import_module(f"{search}.{queryFolder}")
             for name, obj in inspect.getmembers(t_py):
                 if (
-                    inspect.isclass(obj)
-                    and issubclass(obj, Operation)
-                    and not obj.__module__.startswith("interfaces")
+                        inspect.isclass(obj)
+                        and issubclass(obj, Operation)
+                        and not obj.__module__.startswith("interfaces")
+                        and name == queryOperationName
                 ):
-                    yield obj
+                    print(f"Found {queryOperationName} in {queryFolder}.")
+                    return obj
+        except Exception:
+            print(f"No folder of name {queryFolder} found. Looping through all folders.")
+
+        # (2) Loop through all the folders
+        for (_, folder, _) in iter_modules(
+                [transformations_dir]
+        ):  # ---> ["back_translation", ...]
+            try:
+                t_py = import_module(f"{search}.{folder}")
+                for name, obj in inspect.getmembers(t_py):
+                    if (
+                            inspect.isclass(obj)
+                            and issubclass(obj, Operation)
+                            and not obj.__module__.startswith("interfaces")
+                            and name == queryOperationName
+                    ):
+                        return obj
+            except Exception:
+                continue
+        return None
 
     @staticmethod
     def get_all_operations_for_task(
@@ -232,7 +278,8 @@ class OperationRuns(object):
 
 
 def get_implementation(clazz: str, search="transformations"):
-    for operation in OperationRuns.get_all_operations(search):
+    operation = OperationRuns.get_operation(search, clazz)
+    if operation is not None:
         if operation.name() == clazz:
             return operation
     raise ValueError(
@@ -251,6 +298,7 @@ if __name__ == "__main__":
         print(x)
     for x in OperationRuns.get_all_folder_names():
         print(x)
+    print("\nPrinting all Operation Names\n")
     for x in OperationRuns.get_all_operations():
         print(x)
     for x in OperationRuns.get_all_operations("filters"):

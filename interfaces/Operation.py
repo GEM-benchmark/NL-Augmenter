@@ -21,6 +21,8 @@ class Operation(object):
     def compare(self, raw: object, pt: List[object]) -> Tuple[int, int]:
         successful_pt = 0
         failed_pt = 0
+        if len(pt) == 0:
+            return 0, 1
         for pt_example in pt:
             if pt_example == raw:
                 failed_pt += 1
