@@ -98,6 +98,7 @@ class ChineseAntonymAndSynonymSubtitution(SentenceOperation):
             perturbed_texts.append(perturbed_text)
         return perturbed_texts
 
+"""
 if __name__ == '__main__':
     simp_text = "汉字是语素文字，总数非常庞大。汉字总共有多少字？到目前为止，恐怕没人能够答得上来精确的数字。"
     perturb_func = ChineseAntonymAndSynonymSubtitution()
@@ -106,4 +107,4 @@ if __name__ == '__main__':
     print(new_text)
 
 
-
+"""
