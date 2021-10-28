@@ -226,7 +226,9 @@ class OperationRuns(object):
                 continue
 
     @staticmethod
-    def get_operation(search="transformations", queryOperationName="ButterFingersPerturbation", queryFolder=None):
+    def get_operation(search="transformations",
+                      queryOperationName="ButterFingersPerturbation",
+                      queryFolder=None):
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
@@ -258,7 +260,7 @@ class OperationRuns(object):
                             inspect.isclass(obj)
                             and issubclass(obj, Operation)
                             and not obj.__module__.startswith("interfaces")
-                            and name is queryOperationName
+                            and name == queryOperationName
                     ):
                         return obj
             except Exception:
