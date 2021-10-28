@@ -58,6 +58,7 @@ map_transformation = {
         "whitespace_perturbation",
         "word_noise",
         "yes_no_question",
+        "french_conjugation_transformation",
     ],
     "heavy": [
         "back_translation",
