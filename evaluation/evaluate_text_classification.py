@@ -168,7 +168,9 @@ def evaluate_dataset(
     labels = [label_func(list(raw_text)[-1]) for raw_text in dataset]
     raw_preds = _get_model_pred(text_classification_pipeline, examples, batch_size=batch_size)
     preds = [_process_model_pred(model_name, raw_pred) for raw_pred in raw_preds]
-    accuracy = np.round(100 * np.mean(np.array(labels) == np.array(preds)))
     total = len(labels)
+    accuracy = 0
+    if total != 0:
+        accuracy = np.round(100 * np.mean(np.array(labels) == np.array(preds)))
     print(f"The accuracy on this subset which has {total} examples = {accuracy}")
     return accuracy, total
