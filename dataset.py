@@ -290,7 +290,7 @@ class KeyValueDataset(BaseDataset):
         context = datapoint[self.fields[0]]
         question = datapoint[self.fields[1]]
         answers = [datapoint[answer_key] for answer_key in self.fields[2:]]
-        return filter.filter(context, question, answers)
+        return filter.filter(context, question, answers[0]) # @Zhenhao, converting answers to answers[0] here
 
     def _apply_sentence1_sentence2_target_filter(
         self, datapoint: dict, filter: SentencePairOperation

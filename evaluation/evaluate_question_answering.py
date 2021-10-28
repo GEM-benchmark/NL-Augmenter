@@ -39,17 +39,23 @@ def evaluate(
     )
 
     if evaluate_filter:
+        print("Starting evaluation on the original dataset.")
+        performance = evaluate_on_dataset(dataset, qa_pipeline)
+        performance["accuracy"] = performance
+
         filtered_dataset = dataset.apply_filter(operation)
         print("Starting evaluation on the filtered dataset.")
-        performance = evaluate_on_dataset(filtered_dataset, qa_pipeline)
+        ft_performance = evaluate_on_dataset(filtered_dataset, qa_pipeline)
+        performance["ft_accuracy"] = ft_performance
     else:
         print("Starting evaluation on the original dataset.")
         performance = evaluate_on_dataset(dataset, qa_pipeline)
+        performance["accuracy"] = performance
 
         print("Starting evaluation on the transformed dataset.")
         pt_dataset = dataset.apply_transformation(operation)
         pt_performance = evaluate_on_dataset(pt_dataset, qa_pipeline)
-        performance["pt_accuracy"] = pt_performance["accuracy"]
+        performance["pt_accuracy"] = pt_performance
 
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
