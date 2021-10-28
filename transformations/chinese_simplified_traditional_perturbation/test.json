@@ -1,0 +1,50 @@
+{
+  "type": "chinese_simplified_traditional_perturbation",
+  "test_cases": [
+    {
+      "class": "ChineseSimplifiedTraditionalPerturbation",
+      "inputs": {
+        "sentence": "谢尔曼将访问中国天津，中国外交部主管中美关系的副部长谢峰将和她会谈."
+      },
+      "outputs": [{
+        "sentence": "謝爾曼將訪問中國天津，中國外交部主管中美關系的副部長謝峯將和她會談."
+      }]
+    },
+    {
+      "class": "ChineseSimplifiedTraditionalPerturbation",
+      "inputs": {
+        "sentence": "本意是指词的起源义，即词的最初意义。引申义是由词的本意引申出来的并经过推演发展而产生的意义"
+      },
+      "outputs": [{
+        "sentence": "本意是指詞的起源義，即詞的最初意義。引申義是由詞的本意引申出來的並經過推演發展而產生的意義"
+      }]
+    },
+    {
+      "class": "ChineseSimplifiedTraditionalPerturbation",
+      "inputs": {
+        "sentence": "汉字是语素文字，总数非常庞大。汉字总共有多少字？到目前为止，恐怕没人能够答得上来精确的数字。"
+      },
+      "outputs": [{
+        "sentence": "漢字是語素文字，總數非常龐大。漢字總共有多少字？到目前爲止，恐怕沒人能夠答得上來精確的數字。"
+      }]
+    },
+    {
+      "class": "ChineseSimplifiedTraditionalPerturbation",
+      "inputs": {
+        "sentence": "恰当的运用反义词，可以形成鲜明的对比，把事物的特点表达得更充分，给人留下深刻难忘的印象。"
+      },
+      "outputs": [{
+        "sentence": "恰當的運用反義詞，可以形成鮮明的對比，把事物的特點表達得更充分，給人留下深刻難忘的印象。"
+      }]
+    },
+    {
+      "class": "ChineseSimplifiedTraditionalPerturbation",
+      "inputs": {
+        "sentence": "随着两个遗迹文明的发展，他们终于开始了争斗。遗迹之间的能量冲突是战争的导火索，因为一方出现，另一方的遗迹能量就会相应的颓落。"
+      },
+      "outputs": [{
+        "sentence": "隨着兩個遺跡文明的發展，他們終於開始了爭鬥。遺跡之間的能量衝突是戰爭的導火索，因爲一方出現，另一方的遺跡能量就會相應的頹落。"
+      }]
+    }
+  ]
+}
