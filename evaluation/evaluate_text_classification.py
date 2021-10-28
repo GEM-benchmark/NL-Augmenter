@@ -125,16 +125,21 @@ def evaluate(
 
     print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset")
     if evaluate_filter:
-        filtered_dataset = dataset.apply_filter(operation)
-        print("Here is the performance of the model on the filtered set")
         accuracy, total = evaluate_dataset(
-            text_classification_pipeline, filtered_dataset, 
+            text_classification_pipeline, dataset,
             model_name, label_func, batch_size=batch_size)
         performance["accuracy"] = accuracy
         performance["no_of_examples"] = total
+        filtered_dataset = dataset.apply_filter(operation)
+        print("Here is the performance of the model on the filtered set")
+        ft_accuracy, ft_total = evaluate_dataset(
+            text_classification_pipeline, filtered_dataset, 
+            model_name, label_func, batch_size=batch_size)
+        performance["ft_accuracy"] = ft_accuracy
+        performance["ft_no_of_examples"] = ft_total
     else:
         accuracy, total = evaluate_dataset(
-            text_classification_pipeline, dataset, 
+            text_classification_pipeline, dataset,
             model_name, label_func, batch_size=batch_size)
         performance["accuracy"] = accuracy
         performance["no_of_examples"] = total
@@ -150,6 +155,7 @@ def evaluate(
         performance["pt_accuracy"] = accuracy
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
+    print(f"Performance ={performance}")
     return performance
 
 def _get_model_pred(model, examples, batch_size):
