@@ -290,7 +290,7 @@ class KeyValueDataset(BaseDataset):
         context = datapoint[self.fields[0]]
         question = datapoint[self.fields[1]]
         answers = [datapoint[answer_key] for answer_key in self.fields[2:]]
-        return filter.filter(context, question, answers)
+        return filter.filter(context, question, answers[0]) # @Zhenhao, converting answers to answers[0] here
 
     def _apply_sentence1_sentence2_target_filter(
         self, datapoint: dict, filter: SentencePairOperation
@@ -345,8 +345,17 @@ class KeyValueDataset(BaseDataset):
         self, datapoint: dict, transformation: SentenceOperation
     ):
         sentence = datapoint[self.fields[0]]
-        transformed_sentence = transformation.generate(sentence)
-        datapoint[self.fields[0]] = transformed_sentence
+        transformed_sentences = transformation.generate(sentence)
+
+        if len(self.fields) > 1: # QQP, MNLI
+            pt_datapoints = []
+            for tr in transformed_sentences:
+                pt_datapoint = datapoint.copy()
+                pt_datapoint[self.fields[0]] = tr
+                pt_datapoints.append(pt_datapoint)
+            return pt_datapoints
+
+        datapoint[self.fields[0]] = transformed_sentences
         return [datapoint]
 
     def _apply_sentence_and_target_transformation(

@@ -125,16 +125,21 @@ def evaluate(
 
     print(f"Here is the performance of the model {model_name} on the {split} split of the {dataset_name} dataset")
     if evaluate_filter:
-        filtered_dataset = dataset.apply_filter(operation)
-        print("Here is the performance of the model on the filtered set")
         accuracy, total = evaluate_dataset(
-            text_classification_pipeline, filtered_dataset, 
+            text_classification_pipeline, dataset,
             model_name, label_func, batch_size=batch_size)
         performance["accuracy"] = accuracy
         performance["no_of_examples"] = total
+        filtered_dataset = dataset.apply_filter(operation)
+        print("Here is the performance of the model on the filtered set")
+        ft_accuracy, ft_total = evaluate_dataset(
+            text_classification_pipeline, filtered_dataset, 
+            model_name, label_func, batch_size=batch_size)
+        performance["ft_accuracy"] = ft_accuracy
+        performance["ft_no_of_examples"] = ft_total
     else:
         accuracy, total = evaluate_dataset(
-            text_classification_pipeline, dataset, 
+            text_classification_pipeline, dataset,
             model_name, label_func, batch_size=batch_size)
         performance["accuracy"] = accuracy
         performance["no_of_examples"] = total
@@ -150,6 +155,7 @@ def evaluate(
         performance["pt_accuracy"] = accuracy
     # (3) Execute perturbation
     # (4) Execute the performance of the original set and the perturbed set
+    print(f"Performance ={performance}")
     return performance
 
 def _get_model_pred(model, examples, batch_size):
@@ -168,7 +174,9 @@ def evaluate_dataset(
     labels = [label_func(list(raw_text)[-1]) for raw_text in dataset]
     raw_preds = _get_model_pred(text_classification_pipeline, examples, batch_size=batch_size)
     preds = [_process_model_pred(model_name, raw_pred) for raw_pred in raw_preds]
-    accuracy = np.round(100 * np.mean(np.array(labels) == np.array(preds)))
     total = len(labels)
+    accuracy = 0
+    if total != 0:
+        accuracy = np.round(100 * np.mean(np.array(labels) == np.array(preds)))
     print(f"The accuracy on this subset which has {total} examples = {accuracy}")
     return accuracy, total
