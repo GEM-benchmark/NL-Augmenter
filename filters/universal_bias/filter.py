@@ -6,13 +6,16 @@ class UniversalBiasFilter(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     keywords = ["rule-based", "social-reasoning"]
 
-    def __init__(self, minority=None, majority=None):
+    def __init__(self, language=None, category=None, minority_group=None, majority_group=None, minority=None, majority=None):
         super().__init__()
+        self.language = language
+        self.category = category
+        self.minority_group = minority_group
+        self.majority_group = majority_group
         self.minority = minority
         self.majority = majority
-
-    @staticmethod
-    def flag_sentences(sentences, minority, majority):
+    
+    def flag_sentences(self, sentences):
         """
         flag sentences as belonging to the minority, majority or neutral groups
         :param sentences: sentences array
@@ -22,19 +25,26 @@ class UniversalBiasFilter(SentenceOperation):
         """
         flagged_sentences = []
 
+        # Read json
+        f = open('filters/universal_bias/lexicals.json')
+        data = json.load(f)
+
+        # Retrieve relevant data extracts
+        try:
+            minority_group = data[self.language][self.category][self.minority_group]
+            majority_group = data[self.language][self.category][self.majority_group]
+        except NameError as error:
+            print('The specified language, category of group is not supported or misformatted. Please provide valid arguments to the filter() method.') 
+
+        # Close names file
+        f.close()
+
+
         # Check whether the sentences array is not empty, otherwise - inform the user
         assert len(sentences) > 0, "You must provide at least one sentence for the analysis. Check the content of your sentences array you pass to the filter() method."
 
         for sentence in sentences:
             
-            # Initialize the variables
-            minority_flag = False
-            majority_flag = False
-            union_flag = False
-            neutral_flag = False
-            intersection_minority = set()
-            intersection_majority = set()
-
             # Clean the sentence content using regex
             sentence_cleaned = sentence.lower()
             sentence_cleaned = re.sub('^',' ', sentence_cleaned)
@@ -60,11 +70,11 @@ class UniversalBiasFilter(SentenceOperation):
 
             # Split the words in the sentence to find the intersection with the minority array of keywords
             intersection_minority = set(sentence_cleaned.split()).intersection(
-                set(minority)
+                set(minority_group + minority)
             )
             # Split the words in the sentence to find the intersection with the majority array of keywords
             intersection_majority = set(sentence_cleaned.split()).intersection(
-                set(majority)
+                set(majority_group + majority)
             )
 
             # If the intersection occurred, the intersection_minority and intersection_majority will contain at least one common keyword
@@ -163,7 +173,7 @@ class UniversalBiasFilter(SentenceOperation):
         biased = False
         
         # Retrieve the flags for each of the sentences
-        flagged_corpus = self.flag_sentences(sentences, self.minority, self.majority)
+        flagged_corpus = self.flag_sentences(sentences)
 
         # Use the retrieved flags to count the number of sentences in each group
         minority_count, majority_count, neutral_count = self.count_groups(

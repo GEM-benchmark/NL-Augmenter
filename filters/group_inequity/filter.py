@@ -7,6 +7,7 @@ import spacy
 class GroupInequityFilter(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en", "fr"]
+    keywords = ["rule-based", "social-reasoning"]
 
     def __init__(self, language, minority_group, majority_group, minority_factor, majority_factor):
         super().__init__()
@@ -275,7 +276,7 @@ class GroupInequityFilter(SentenceOperation):
         # Use the flagged objects to get the groups
         minority_group, majority_group, union_group, neutral_group = self.sort_groups(flagged_corpus)
 
-        # Retrieve the flags of intersection for the miority and majority groups
+        # Retrive the flags of intersection for the miority and majority groups
         doubble_flagged_corpus = self.find_intersection(self.language, minority_group, majority_group, self.minority_factor, self.majority_factor)
 
         # Count the number of intersections with the minority and majority factors
