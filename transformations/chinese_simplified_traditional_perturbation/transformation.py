@@ -46,6 +46,7 @@ class ChineseSimplifiedTraditionalPerturbation(SentenceOperation):
             perturbed_texts.append(butter_text)
         return perturbed_texts
 
+"""
 if __name__ == '__main__':
     simp_text = "hello, 随着两个遗迹文明的发展，他们终于开始了争斗。遗迹之间的能量冲突是战争的导火索，因为一方出现，另一方的遗迹能量就会相应的颓落。"
     trad_text = '恰當的運用反義詞，可以形成鮮明的對比，把事物的特點表達得更充分，給人留下深刻難忘的印象。'
@@ -53,5 +54,5 @@ if __name__ == '__main__':
     new_text = perturb_func.generate(simp_text)
     print(new_text)
 
-
+"""
 
