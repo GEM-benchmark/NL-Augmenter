@@ -41,7 +41,6 @@ def evaluate(
     if evaluate_filter:
         print("Starting evaluation on the original dataset.")
         performance = evaluate_on_dataset(dataset, qa_pipeline)
-        performance["accuracy"] = performance
 
         filtered_dataset = dataset.apply_filter(operation)
         print("Starting evaluation on the filtered dataset.")
@@ -50,7 +49,6 @@ def evaluate(
     else:
         print("Starting evaluation on the original dataset.")
         performance = evaluate_on_dataset(dataset, qa_pipeline)
-        performance["accuracy"] = performance
 
         print("Starting evaluation on the transformed dataset.")
         pt_dataset = dataset.apply_transformation(operation)
@@ -63,7 +61,7 @@ def evaluate(
     performance["model_name"] = model_name
     performance["split"] = split
     performance["dataset_name"] = dataset_name
-
+    print(f"Performance ={performance}")
     return performance
 
 
