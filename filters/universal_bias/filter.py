@@ -1,14 +1,16 @@
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 import re
+import json
+
 
 class UniversalBiasFilter(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     keywords = ["rule-based", "social-reasoning"]
 
-    def __init__(self, language=None, category=None, minority_group=None, majority_group=None, minority=None, majority=None):
+    def __init__(self, culture=None, category=None, minority_group=None, majority_group=None, minority=None, majority=None):
         super().__init__()
-        self.language = language
+        self.culture = culture
         self.category = category
         self.minority_group = minority_group
         self.majority_group = majority_group
@@ -31,10 +33,10 @@ class UniversalBiasFilter(SentenceOperation):
 
         # Retrieve relevant data extracts
         try:
-            minority_group = data[self.language][self.category][self.minority_group]
-            majority_group = data[self.language][self.category][self.majority_group]
+            minority_group = data[self.culture][self.category][self.minority_group]
+            majority_group = data[self.culture][self.category][self.majority_group]
         except NameError as error:
-            print('The specified language, category of group is not supported or misformatted. Please provide valid arguments to the filter() method.') 
+            print('The specified culture, category of group is not supported or misformatted. Please provide valid arguments to the filter() method.') 
 
         # Close names file
         f.close()
@@ -163,6 +165,16 @@ class UniversalBiasFilter(SentenceOperation):
     
         return minority_group, majority_group, neutral_group
 
+    @staticmethod
+    def list_groups(culture):
+        # Read json
+        with open('filters/universal_bias/lexicals.json', encoding='utf-8') as f:
+            data = json.load(f)
+            try:
+                group_dict = data[culture]
+            except NameError:
+                print('The specified culture is not a valid entry.')
+        return {key: list(val.keys()) for key, val in group_dict.items()}
 
     def filter(self, sentences: []) -> bool:
         """
@@ -182,7 +194,6 @@ class UniversalBiasFilter(SentenceOperation):
 
         minority_percentage = 100 * float(minority_count) / float(len(sentences))
         majority_percentage = 100 * float(majority_count) / float(len(sentences))
-
 
         # If the number of sentences in terms of percentage in the minority group
         # is lower than in the majority group, set bias to True

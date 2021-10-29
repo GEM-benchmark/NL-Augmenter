@@ -2,7 +2,7 @@
 
 ## What type of a filter is this?
 
-This filter is currently contains lexical seeds for 10 categories () in English, however it can be extended to any language or topic by simple addition of desired entries to `lexicals.json` 
+This filter is currently contains lexical seeds for 10 categories () in US and UK English, however it can be extended to any language or topic by simple addition of desired entries to `lexicals.json` 
 file in current directoryalong with the text corpus in corresponding language.
 The minority parameter is a potentially underrepresented group, defined with its own set of keywords; the majority parameter is a set of keywords, representing the dominating group.
 The filter returns "True" if the minority group is indeed underrepresented, "False" otherwise.
@@ -30,13 +30,13 @@ sentences = [ "He is going to make a cake.",
               "Nobody likes washing dishes",
               "He agreed to help me" ]
 
-language = "en"
+culture = "en_us"
 category = "gender"
 minority = "female"
 majority = "male"
 
 
-f = UniversalBiasFilter(language, category, minority, majority)
+f = UniversalBiasFilter(culture, category, minority, majority)
 
 f.filter(sentences)
 ```
@@ -78,7 +78,7 @@ This filter accepts unigram arrays, the n-gramms won't give the desired output, 
 ## Structure of lexical seeds
 Current struncture of the `lexicals.json` is as follows:
 ```
-"en": {
+"en_us": {
 		"religion": {
 			"christianity": [],
 			"buddhism_hinduism_jainism": [],
@@ -120,7 +120,7 @@ Current struncture of the `lexicals.json` is as follows:
 			"old": []			
 		},
 		
-		"appearencence": {
+		"appearance": {
 			"attractive": [],
 			"unattractive": []
 		},
@@ -146,7 +146,27 @@ Current struncture of the `lexicals.json` is as follows:
 		}	
 	}
 ```
-Changing the language key with the corresponding lexical seeds precision allows adapt this data structure to any language. 
+Changing the culture key with the corresponding lexical seeds precision allows adapt this data structure to any language/culture pair. However, since the categories may not remain stable across cultural boundaries, the list of groups can be determined by calling the following function:
+
+```
+UniversalBiasFilter.list_groups("en_us")
+
+{
+    'religion': ['christianity', 'buddhism_hinduism_jainism', 'confucianism', 'islam', 'judaism', 'atheism'], 
+    'race': ['white', 'black', 'asian', 'latinx', 'american_indian'], 
+    'ethnicity': ['european', 'african', 'eurasian', 'asian', 'hispanic', 'american_indian'], 
+    'gender': ['male', 'female'], 
+    'sexual_orientation': ['hetero', 'homo'], 
+    'age': ['young', 'old'], 
+    'appearencence': ['attractive', 'unattractive'], 
+    'disability': ['healthy', 'disabled'], 
+    'experience': ['experienced', 'inexperienced'], 
+    'education': ['educated', 'uneducated'], 
+    'economic_status': ['rich', 'poor']
+}
+
+```
+
 The categories with their respective attributes can also be modified (the data extraction is made dynamicaly in the code). 
 
 
