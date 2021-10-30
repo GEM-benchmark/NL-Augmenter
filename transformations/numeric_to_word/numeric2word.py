@@ -8,18 +8,7 @@ import phonenumbers
 from num2words import num2words
 from phonenumbers import carrier, timezone, geocoder
 
-from .constants import symbol_to_currency_name_dict, abbreviated_currency_symbols_to_currency_name_dict
-
-special_numbers = ['911']
-
-math_sign = ['=', '<', '<=', '=>', '>', '!=', "**"]
-
-month_words = ["january", "jan", "jan.", "february", "feb", "feb.",
-               "march", "mar", "mar.", "april", "apr", "apr.",
-               "may", "june", "jun", "jun.", "july", "jul", "jul.",
-               "august", "aug", "aug.", "september", "sep", "sep.", 
-               "sept", "sept.", "october", "oct", "oct.", "november", 
-               "nov", "nov.", "december", "dec", "dec."]
+from constants import symbol_to_currency_name_dict, abbreviated_currency_symbols_to_currency_name_dict
 
 ### Implementations 
 
@@ -137,12 +126,12 @@ def recognized_as_range_not_sticky(word, next_word):
         first_part = word[begin_digit_index:end_digit_index]
         last_part = word[end_digit_index:]
 
-        return bool(re.search(r'^\d*[-]?\d*$',first_part)) and len(last_part) == 0 and word[0].isnumeric()
+        return bool(re.search(r'^\d*[-]?\d*$',first_part)) and len(last_part) == 0 and word[0].isdigit()
     else:
         return False
     
 def recognized_as_date_word(word, prev_word, next_word):
-    return (prev_word.lower() in month_words or next_word.lower() in month_words) and word.isnumeric() and int(word) <= 31
+    return (prev_word.lower() in month_words or next_word.lower() in month_words) and word.isdigit() and int(word) <= 31
 
 def recognized_as_datestring(x):
     """
@@ -228,7 +217,7 @@ def recognized_as_year(x):
     
     checker = min([character in string.punctuation for character in after_assumed_year]+[True]) and \
               min([character in string.punctuation for character in before_assumed_year]+[True]) and \
-              year in possible_year_list and (len(year) <= 4) and year.isnumeric()
+              year in possible_year_list and (len(year) <= 4) and year.isdigit()
     
     if checker:
         return bool(re.compile(r'.*([1-3][0-9]{3})').match(x)) and len(set(x) - {'0'}) >= 3
@@ -292,8 +281,10 @@ def recognized_as_currency_symbols(x):
 
         if len(front_checker)>0:
             front_checker = front_checker[:-1] if (front_checker[-1] in ['.', ',']) else front_checker
-        else:
+        elif len(back_checker)>0:
             back_checker = back_checker[:-1] if (back_checker[-1] in ['.', ',']) else back_checker
+        else:
+            return x
     
     if front_checker in currency_symbols:
         other_end_non_numeric = x[begin_digit_index:][end_digit_index-(len(x[:begin_digit_index])):]
@@ -311,17 +302,17 @@ def recognized_as_currency_symbols(x):
         return False
     
 def recognized_as_cents(x, prev_word, next_word):
-    return ('¢' in x or x[-1] == 'c') and x[-2].isnumeric() and re.sub('[¢c,.]', "", x).isnumeric() and prev_word != '(' and next_word != ')'
+    return ('¢' in x or x[-1] == 'c') and x[-2].isdigit() and re.sub('[¢c,.]', "", x).isdigit() and prev_word != '(' and next_word != ')'
 
 def recognized_as_long_number(x):
     if x[0] == '+':
         x = x[1:]
     
     threshold = 7
-    return len(x) >= threshold and x.isnumeric()
+    return len(x) >= threshold and x.isdigit()
 
 def recognized_as_additional_number(x):
-    return x[0] == '+' and len(x[1:]) <= 3 and x[1:].isnumeric()
+    return x[0] == '+' and len(x[1:]) <= 3 and x[1:].isdigit()
 
 def recognized_as_long_number_with_stripes(x):
     return len(re.sub('[0-9-]','',x)) == 0 and len(x) > 8
@@ -332,7 +323,7 @@ def recognized_as_sticky_numbers(x):
 
     first_part = x[begin_digit_index:end_digit_index]
     last_part = x[end_digit_index:]
-    return bool(re.search(r'^\d*[.,]?\d*$',first_part)) and (last_part in ['st', 'nd', 'rd','th', '%'] or not re.search(r'\d', last_part)) and x[0].isnumeric()
+    return bool(re.search(r'^\d*[.,]?\d*$',first_part)) and (last_part in ['st', 'nd', 'rd','th', '%'] or not re.search(r'\d', last_part)) and x[0].isdigit()
 
 def recognized_as_sticky_range(x):
     begin_digit_index = re.search(r"\d", x).start()
@@ -340,7 +331,7 @@ def recognized_as_sticky_range(x):
 
     first_part = x[begin_digit_index:end_digit_index]
     last_part = x[end_digit_index:]
-    return bool(re.search(r'^\d*[-]?\d*$',first_part)) and len(last_part) > 0 and not re.search(r'\d', last_part) and x[0].isnumeric()
+    return bool(re.search(r'^\d*[-]?\d*$',first_part)) and len(last_part) > 0 and not re.search(r'\d', last_part) and x[0].isdigit()
 
 def recognized_as_math_formula_equality(x):
     matches = []
@@ -373,7 +364,7 @@ def recognized_as_special_phone_number(x):
     return x[0] in '*#' and x[-1] in '*#'
 
 def recognized_as_general_numbers(x):
-    return x.replace(',','').replace('.','').isnumeric() and x[-1].isnumeric()
+    return x.replace(',','').replace('.','').isdigit() and x[-1].isdigit()
 
 def recognized_as_negatives(x):
     return x[0] == '-'
@@ -460,6 +451,7 @@ def currency_to_words(x):
     front_checker = re.sub("[.]", "", x[:begin_digit_index])
     back_checker = x[end_digit_index:]
 
+    words = x
     if front_checker in currency_symbols: # $300
         if x.find('.') > -1:
             number = re.sub("[^.0-9]", "", x[begin_digit_index-1:])
@@ -539,7 +531,7 @@ def long_number_to_words(x):
 def long_number_with_stripes_to_words(x):
     words = ''
     for i, char in enumerate(x):
-        if char.isnumeric():
+        if char.isdigit():
             if i == len(x)-1:
                 words = words + num2words(char) 
             else:
@@ -563,10 +555,12 @@ def sticky_numbers_to_words(x):
     first_part = x[begin_digit_index:end_digit_index]
     last_part = x[end_digit_index:]
 
+    words = x
     if last_part in ['st', 'nd', 'rd', 'th']:
         words = num2words(first_part, to='ordinal')
-    else:
+    elif first_part.isdigit():
         words = num2words(first_part, to='cardinal') + ' ' +  last_part if len(last_part) > 0 else num2words(first_part, to='cardinal')
+        
     return words
 
 def sticky_range_to_words(x):
@@ -587,10 +581,12 @@ def math_formula_equality_to_words(x):
     equality_sign_index_numpy = np.array(equality_sign_index_list)
     count_match = sum(equality_sign_index_numpy > 0)
     if count_match > 1:
-        equality_sign_index = max(equality_sign_index_numpy)
+        equality_sign_index = equality_sign_index_numpy.argmax()
     elif count_match == 1:
         equality_sign_index = list(equality_sign_index_numpy > 0).index(True)
-        
+    else:
+        return x
+    
     equality_sign = math_sign[equality_sign_index]
     
     begin_equality_sign_index_in_word = x.index(equality_sign)
@@ -599,7 +595,11 @@ def math_formula_equality_to_words(x):
     before_equal = x[:begin_equality_sign_index_in_word]
     after_equal = x[end_equality_sign_index_in_word:]
 
-    begin_digit_index = re.search(r"\d", after_equal).start()
+    begin_digit_index = re.search(r"\d", after_equal)
+    if not begin_digit_index:
+        return x
+    
+    begin_digit_index = begin_digit_index.start()
     end_digit_index = len(after_equal) - re.search(r"\d", after_equal[::-1]).start()
 
     first_part = after_equal[begin_digit_index:end_digit_index]
@@ -622,7 +622,7 @@ def general_numbers_to_words(x):
 
         count = 0
         for i in np.arange(last_comma_index+1, len(x), 1):
-            if x[i].isnumeric():
+            if x[i].isdigit():
                 count = count + 1
             else:
                 break
@@ -635,8 +635,11 @@ def general_numbers_to_words(x):
             # last comma is actually dot, there'll only 1 comma in this case
             x = x[:last_comma_index] + '.' + x[last_comma_index+1:]
         
-    words = ''.join(num2words(x).split(","))
-    return words
+    if x.isdigit():
+        words = ''.join(num2words(x).split(","))
+        return words
+    else:
+        return x
 
 def numeric_beside_end_bracket_to_words(x):
     end_digit_index = len(x) - re.search(r"\d", x[::-1]).start()
@@ -666,8 +669,10 @@ def fraction_to_words(x):
         words = 'two quarter'
     elif numerator == '3' and denominator == '4':
         words = 'three quarter'
-    else:
+    elif numerator.isdigit() and denominator.isdigit():
         words = num2words(numerator) + ' over ' + num2words(denominator)
+    else:
+        words = x
     return words
 
 ### Supplements
