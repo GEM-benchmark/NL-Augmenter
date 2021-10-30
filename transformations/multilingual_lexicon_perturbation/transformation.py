@@ -46,7 +46,7 @@ def perturb_sentence(lexicon_df, text, prob_mix=0.5, mlt_src_lang="en", mlt_tgt_
         else:
             rand_prob = random.random()
             if rand_prob < prob_mix:
-                plain_word = word.translate(str.maketrans('', '', string.punctuation)).strip().lower()
+                plain_word = word.lower()
 
                 if plain_word == "":
                     continue
@@ -68,7 +68,7 @@ class MultilingualLexiconPerturbation(SentenceOperation):
         TaskType.TEXT_CLASSIFICATION,
         TaskType.TEXT_TO_TEXT_GENERATION
     ]
-    supported_languages = [
+    languages = [
         'af', 'am', 'ar', 'ast', 'az', 'ba', 'be', 'bg', 'bn', 'br', 'bs', 'ca', 'ceb', 'cs', 'cy',
         'da', 'de', 'el', 'en', 'es', 'et', 'fa', 'ff', 'fi', 'fr', 'fy', 'ga', 'gd', 'gl', 'gu',
         'ha', 'he', 'hi', 'hr', 'ht', 'hu', 'hy', 'id', 'ig', 'ilo', 'is', 'it', 'ja', 'jv', 'ka',
@@ -85,11 +85,11 @@ class MultilingualLexiconPerturbation(SentenceOperation):
         # Download nltk `punkt` package
         nltk.download('punkt')
 
-        if mlt_src_lang not in self.supported_languages: 
-            raise ValueError(f'Invalid `mlt_src_lang` value "{mlt_src_lang}". Supported languages: {supported_languages}')
+        if mlt_src_lang not in self.languages: 
+            raise ValueError(f'Invalid `mlt_src_lang` value "{mlt_src_lang}". Supported languages: {languages}')
             
-        if mlt_tgt_lang not in self.supported_languages:
-            raise ValueError(f'Invalid `mlt_tgt_lang` value "{mlt_tgt_lang}". Supported languages: {supported_languages}')
+        if mlt_tgt_lang not in self.languages:
+            raise ValueError(f'Invalid `mlt_tgt_lang` value "{mlt_tgt_lang}". Supported languages: {languages}')
             
         self.lexicon_df = pd.read_pickle(f'{FOLDER_PATH}/multilingual_lexicon_uncased.xz')
         
