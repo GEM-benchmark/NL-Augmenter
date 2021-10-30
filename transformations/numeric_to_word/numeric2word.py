@@ -10,6 +10,17 @@ from phonenumbers import carrier, timezone, geocoder
 
 from constants import symbol_to_currency_name_dict, abbreviated_currency_symbols_to_currency_name_dict
 
+special_numbers = ['911']
+
+math_sign = ['=', '<', '<=', '=>', '>', '!=', "**"]
+
+month_words = ["january", "jan", "jan.", "february", "feb", "feb.",
+               "march", "mar", "mar.", "april", "apr", "apr.",
+               "may", "june", "jun", "jun.", "july", "jul", "jul.",
+               "august", "aug", "aug.", "september", "sep", "sep.", 
+               "sept", "sept.", "october", "oct", "oct.", "november", 
+               "nov", "nov.", "december", "dec", "dec."]
+
 ### Implementations 
 
 def recognize_transform(word, prev_word, next_word):
