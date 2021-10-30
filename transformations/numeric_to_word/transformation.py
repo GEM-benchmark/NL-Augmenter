@@ -5,16 +5,6 @@ from .numeric2word import recognize_transform
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
-import re
-import time
-import string 
-import calendar
-import datetime
-import numpy as np
-import phonenumbers
-from num2words import num2words
-from phonenumbers import carrier, timezone, geocoder
-
 class NumericToWord(SentenceOperation):
     """
     This transformation translates numeric string in major formats 
