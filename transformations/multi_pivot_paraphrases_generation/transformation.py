@@ -281,31 +281,31 @@ class MultiPivotParaphrasesGeneration(SentenceOperation):
         return response
 
 
-if __name__ == '__main__':
-    import json
-    from TestRunner import convert_to_snake_case
+# if __name__ == '__main__':
+#     import json
+#     from TestRunner import convert_to_snake_case
 
-    tf = MultiPivotParaphrasesGeneration()
+#     tf = MultiPivotParaphrasesGeneration()
 
-    sentences = ['How does COVID-19 spread?',
-        'Book a flight from Lyon to Sydney?',
-        'Reserve an Italian Restaurant near Paris',
-        'how many 10 euros are worth in dollars',
-        'which company makes the ipod?',
-        'what states does the connecticut river flow through?',
-        'in which tournaments did west indies cricket team win the championship?']
+#     sentences = ['How does COVID-19 spread?',
+#         'Book a flight from Lyon to Sydney?',
+#         'Reserve an Italian Restaurant near Paris',
+#         'how many 10 euros are worth in dollars',
+#         'which company makes the ipod?',
+#         'what states does the connecticut river flow through?',
+#         'in which tournaments did west indies cricket team win the championship?']
     
-    pr_gray("Start paraphrases Generation:")
+#     pr_gray("Start paraphrases Generation:")
 
-    test_cases = []
-    for sentence in sentences:
-        test_cases.append({
-            "class": tf.name(),
-            "inputs": {"Reference sentence": sentence}, "outputs": [{"Paraphrase": o} for o in tf.generate(sentence)]}
-        )
+#     test_cases = []
+#     for sentence in sentences:
+#         test_cases.append({
+#             "class": tf.name(),
+#             "inputs": {"Reference sentence": sentence}, "outputs": [{"Paraphrase": o} for o in tf.generate(sentence)]}
+#         )
     
-    pr_green("... done")
+#     pr_green("... done")
 
-    json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
+#     json_file = {"type": convert_to_snake_case(tf.name()), "test_cases": test_cases}
     
-    print(json.dumps(json_file, indent=2))
+#     print(json.dumps(json_file, indent=2))
