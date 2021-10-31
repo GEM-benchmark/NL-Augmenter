@@ -48,6 +48,9 @@ class MultiPivotParaphrasesGeneration(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION
     ]
     languages = ["en"]
+    keywords = ["lexical", "rule-based", "syntactic","highly-meaning-preserving","transformer-based","tokenizer-required","high-generations"]
+    heavy = True
+
 
     def __init__(self, seed=0 , pivot_level=1):
         """
