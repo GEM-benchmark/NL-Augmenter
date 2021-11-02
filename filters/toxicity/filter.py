@@ -24,7 +24,7 @@ class ToxicityFilter(SentenceOperation):
 
     def __init__(
         self,
-        toxicity_type: ToxicityTypes,
+        toxicity_type: ToxicityTypes = ToxicityTypes.TOXICITY,
         op: str = ">",
         threshold: float = 0.5,
     ):
