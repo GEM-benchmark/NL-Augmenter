@@ -85,6 +85,8 @@ map_transformation = {
 # Mapping of light and heavy filters
 map_filter = {
     "light": [
+        "alphanumeric",
+        "ambiguouscharacters",
         "code_mixing",
         "encoding",
         "group_inequity",

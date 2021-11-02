@@ -3,8 +3,6 @@
     "test_cases": [
         {
             "class": "AmbiguousCharactersFilter",
-            "args": {
-            },
             "inputs": {
                 "sentence": "Buy some piIIs here."
             },
@@ -12,8 +10,6 @@
         },
         {
             "class": "AmbiguousCharactersFilter",
-            "args": {
-            },
             "inputs": {
                 "sentence": "0nly one person passed the test."
             },
@@ -21,8 +17,6 @@
         },
         {
             "class": "AmbiguousCharactersFilter",
-            "args": {
-            },
             "inputs": {
                 "sentence": "A ` can appear as a '"
             },
@@ -30,17 +24,13 @@
         },
         {
             "class": "AmbiguousCharactersFilter",
-            "args": {
-            },
             "inputs": {
-                "sentence": "She has a cat."
+                "sentence": "He has a cat."
             },
             "outputs": true
         },
         {
             "class": "AmbiguousCharactersFilter",
-            "args": {
-            },
             "inputs": {
                 "sentence": "Characters passes the filter."
             },

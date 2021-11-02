@@ -3,11 +3,16 @@ from tasks.TaskTypes import TaskType
 
 
 class AmbiguousCharactersFilter(SentenceOperation):
+    """
+    Filters sentence that contain ambiguous characters. The characters that might be ambiguous are defined below.
+
+    Inherits SentenceOperation.
+    """
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
     keywords = ["highly-meaning-preserving", "low-generations", "rule-based"]
 
-    def __init__(self, keywords=None):
+    def __init__(self):
         super().__init__()
         self.ambiguous_chars = [
                                 '0', 'O', 'D', 'o', 'Q',

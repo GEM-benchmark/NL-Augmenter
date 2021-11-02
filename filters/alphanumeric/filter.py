@@ -1,10 +1,16 @@
 from tasks.TaskTypes import TaskType
 
 class AlphanumericFilter(SentenceOperation):
+    """
+    Filters sentence that characters which are a) not alphanumeric and b) not common punctuation.
+
+    Inherits SentenceOperation.
+    """
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
+    keywords = ["highly-meaning-preserving", "low-generations", "rule-based"]
 
-    def __init__(self, keywords=None):
+    def __init__(self):
         super().__init__()
         self.punctuation = ['!', '.', '?', "'", '"', '(', ')', '-', ':', ';', ' ']
 

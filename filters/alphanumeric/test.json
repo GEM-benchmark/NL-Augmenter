@@ -3,8 +3,6 @@
     "test_cases": [
         {
             "class": "AlphanumericFilter",
-            "args": {
-            },
             "inputs": {
                 "sentence": "Andrew played cricket in India."
             },
@@ -12,8 +10,6 @@
         },
         {
             "class": "AlphanumericFilter",
-            "args": {
-            },
             "inputs": {
                 "sentence": "∂ is a Greek letter."
             },
@@ -21,8 +17,6 @@
         },
         {
             "class": "AlphanumericFilter",
-            "args": {
-            },
             "inputs": {
                 "sentence": "I love tennis!"
             },
@@ -30,8 +24,6 @@
         },
         {
             "class": "AlphanumericFilter",
-            "args": {
-            },
             "inputs": {
                 "sentence": "¿Cómo estás?"
             },
@@ -39,8 +31,6 @@
         },
         {
             "class": "AlphanumericFilter",
-            "args": {
-            },
             "inputs": {
                 "sentence": "Some non-alphanumeric characters are ^, *, and ž."
             },
