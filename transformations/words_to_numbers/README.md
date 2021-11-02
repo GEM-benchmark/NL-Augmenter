@@ -28,6 +28,10 @@ Our code is very loosely adapted from
 https://stackoverflow.com/questions/493174/is-there-a-way-to-convert-number-words-to-integers, though our implementation
 is more general and handles sentences where only part of the sentence refers to a number.
 
+This transformation is the "inverse" transformation of the 
+[number-to-word transformation](https://github.com/GEM-benchmark/NL-Augmenter/blob/main/transformations/number-to-word/transformation.py)
+which converts numerical representations of numbers to their word form and is a much easier transformation to implement.
+
 ## What are the limitations of this transformation?
 - Very large numbers (>10^66) have special names that are not included here as they are likely used rarely in common
 language
@@ -36,3 +40,6 @@ language
 "one billion", and assumes a standard formatting like "one million, three hundred thousand, seven hundred forty-two"
 - The transformation may fail in settings where the actual references are ambiguous, e.g. "The numbers five hundred, forty two, and six are even"
 - As an easy extension we could output styled numbers, e.g. "1000000" as "1,000,000"
+
+## Robustness Evaluation
+

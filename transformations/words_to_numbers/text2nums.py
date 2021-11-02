@@ -3,9 +3,8 @@ Very loosely adapted from https://stackoverflow.com/questions/493174/is-there-a-
 '''
 
 import re
-import ipdb
 
-from words_to_numbers_constants import units, tens, teens, scales
+from .words_to_numbers_constants import units, tens, teens, scales
 
 
 def period_rep(tokens, period_start_loc, period_end_loc):
@@ -13,7 +12,6 @@ def period_rep(tokens, period_start_loc, period_end_loc):
     Parse a "period" of the number corresponding to 3 digits, given a sequence of tokens and the location of the period
     in that sentence
     """
-    #ipdb.set_trace()
     str_ = ''
 
     first_digit = '0'
