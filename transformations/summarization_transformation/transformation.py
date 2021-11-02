@@ -81,7 +81,7 @@ class Summarization(SentenceOperation):
             rights = list(sub.rights)
             rightDeps = {tok.lower_ for tok in rights}
             if "and" in rightDeps:
-                moreSubs.extend([tok for tok in rights if tok.dep_ in self.dict['SUBJECTS'] or tok.pos_ == "NOUN"])
+                moreSubs.extend([tok for tok in rights if tok.dep_ in self.dicts['SUBJECTS'] or tok.pos_ == "NOUN"])
                 if len(moreSubs) > 0:
                     moreSubs.extend(self.getSubsFromConjunctions(moreSubs))
         return moreSubs
@@ -130,7 +130,7 @@ class Summarization(SentenceOperation):
             rights = list(obj.rights)
             rightDeps = {tok.lower_ for tok in rights}
             if "and" in rightDeps:
-                moreObjs.extend([tok for tok in rights if tok.dep_ in self.dict['OBJECTS'] or tok.pos_ == "NOUN"])
+                moreObjs.extend([tok for tok in rights if tok.dep_ in self.dicts['OBJECTS'] or tok.pos_ == "NOUN"])
                 if len(moreObjs) > 0:
                     moreObjs.extend(self.getObjsFromConjunctions(moreObjs))
         return moreObjs
