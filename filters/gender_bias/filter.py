@@ -7,6 +7,7 @@ from tasks.TaskTypes import TaskType
 class GenderBiasFilter(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en", "fr", "pl", "ru"]
+    keywords = ["rule-based", "social-reasoning"]
 
     def __init__(self, language, feminine_input=[], masculine_input=[]):
         """

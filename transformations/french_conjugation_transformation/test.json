@@ -1,0 +1,61 @@
+{
+  "type": "french_conjugation_transformation",
+  "test_cases": [
+    {
+      "class": "Conjugation_transformation",
+      "args": {
+        "tense": "Futur"},
+      "inputs": {
+        "sentence": "Vous chantiez des comptines et dansiez en harmonie, ils s'endormaient et firent jouer leur imaginiation"
+      },
+      "outputs": [{
+        "sentence": "Vous chanterez des comptines et danserez en harmonie, ils s'endormiront et feront jouer leur imaginiation"
+      }]
+    },
+    {
+      "class": "Conjugation_transformation",
+      "args": {
+        "tense": "Futur"},
+      "inputs": {
+        "sentence": "je dois passer chez le coiffeur, je veux faire une couleur"
+      },
+      "outputs": [{
+        "sentence": "je devrai passer chez le coiffeur, je voudrai faire une couleur"
+      }]
+    },
+    {
+      "class": "Conjugation_transformation",
+      "args": {
+        "tense": "Imparfait"},
+      "inputs": {
+        "sentence": "Elle mange une glace"
+      },
+      "outputs": [{
+        "sentence": "Elle mangeait une glace"
+      }]
+    },
+    {
+      "class": "Conjugation_transformation",
+      "args": {
+        "tense": "Futur"},
+      "inputs": {
+        "sentence": "je pouvais obtenir un passeport lorsqu'on remplissait toutes les conditions"
+      },
+      "outputs": [{
+        "sentence": "je pourrai obtenir un passeport lorsqu'on remplira toutes les conditions"
+      }]
+    },
+
+    {
+      "class": "Conjugation_transformation",
+      "args": {
+        "tense": "Imparfait"},
+      "inputs": {
+        "sentence": "J'apprendrai une nouvelle langue"
+      },
+      "outputs": [{
+        "sentence": "J'apprenais une nouvelle langue"
+      }]
+    }
+  ]
+}

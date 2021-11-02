@@ -1,6 +1,6 @@
 # Evaluation
 
-A transformation would be most effective when it can either reveal potential failures in a model or act as a data augmenter to generate more training data. 
+A transformation would be most effective when it can either reveal potential failures in a model or act as a data augmenter to generate more training data.
 
 
 ### Table of Contents
@@ -22,10 +22,10 @@ A transformation would be most effective when it can either reveal potential fai
 
 ## Evaluation Guideline and Scripts
 
-To evaluate how good a transformation is, you can simply call `evaluate.py` in the following manner:  
+To evaluate how good a transformation is, you can simply call `evaluate.py` in the following manner:
 
 ```bash
-python evaluate.py -t ButterFingersPerturbation 
+python evaluate.py -t ButterFingersPerturbation
 ```
 
 Depending on the interface of the transformation, `evaluate.py` would transform every example of a pre-defined dataset and evaluate how well the model performs on these new examples. The default dataset and models are mentioned [here](../interfaces/README.md). These dataset and model combinations are mapped to each task. The first task you specify in the `tasks` field is used by default.
@@ -37,9 +37,13 @@ python evaluate.py -t ButterFingersPerturbation -task "TEXT_CLASSIFICATION" -m "
 
 Note that it's highly possible that some of the evaluate_* functionality won't work owing to the variety of dataset and model formats. We've tried to mitigate this by using models and datasets of HuggingFace. If you wish to evaluate on models and datasets apart from those mentioned [here](evaluation_engine.py), you are welcome to do so. Do mention in your README how they turned out!
 
+## Colab notebook
+
+<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Running_Evaluation_NL_Augmenter_(All_Operations).ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly run evaluation on any transformation, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Running_Evaluation_NL_Augmenter_(All_Operations).ipynb).
+
 ## Leaderboard
 
-Here, we provide a leaderboards for each default task, by executing transformations on typical models in each task (p=20). If you would like to join the leaderboard party encourage you to submit pull requests! 
+Here, we provide a leaderboards for each default task, by executing transformations on typical models in each task (p=20). If you would like to join the leaderboard party encourage you to submit pull requests!
 
 ### Text Classification
 
@@ -55,6 +59,7 @@ Here, we provide a leaderboards for each default task, by executing transformati
 | MixedLanguagePerturbation   | 94.0->90.0 (-4.0)   | 92.0->86.0 (-6.0)     | 91.0->86.0 (-5.0)   | 95.0->91.0 (-4.0)   |
 | OcrPerturbation             | 94.0->89.0 (-5.0)   | 92.0->87.0 (-5.0)     | 91.0->89.0 (-2.0)   | 95.0->94.0 (-1.0)   |
 | PunctuationWithRules        | 94.0->94.0 (0.0)    | 92.0->92.0 (0.0)      | 91.0->91.0 (0.0)    | 95.0->90.0 (-5.0)   |
+| ReplaceFinancialAmount      | 94.0->94.0 (0.0)    | 92.0->92.0 (0.0)      | 91.0->91.0 (0.0)    | 95.0->95.0 (0.0)    |
 | ReplaceNumericalValues      | 94.0->94.0 (0.0)    | 92.0->92.0 (0.0)      | 91.0->90.0 (-1.0)   | 95.0->95.0 (0.0)    |
 | SentenceReordering          | 94.0->95.0 (1.0)    | 92.0->93.0 (1.0)      | nan                 | 95.0->94.0 (-1.0)   |
 | TokenReplacement            | 94.0->89.0 (-5.0)   | 92.0->84.0 (-8.0)     | 91.0->89.0 (-2.0)   | 95.0->92.0 (-3.0)   |
@@ -83,3 +88,18 @@ Default models and datasets:
 ### Question Generation
 ### AMR-to-Text
 ### End-to-End Task
+### Paraphrase Detection
+
+| Transformation                   | paraphrase-xlm-r-multilingual-v1-MRPC | paraphrase-xlm-r-multilingual-v1-PAWS |
+|:---------------------------------|:--------------------------------------|:--------------------------------------|
+| LexicalCounterfactualGenerator   | 69.0->50.0 (-19.0)                    | 44.0->23.0 (-21.0)                    |
+| PairAdjectivesAntonymsSwitch     | 69.0->36.0 (-33.0)                    | 44.0->30.0 (-14.0)                    |
+| PairAuxiliaryNegationRemoval     | 69.0->65.0 ( -4.0)                    | 44.0->44.0 (  0.0)                    |
+| PairSubjectObjectSwitch          | 69.0->30.0 (-39.0)                    | 44.0->24.0 (-20.0)                    |
+
+Default models and datasets:
+
+
+- [MRPC](https://huggingface.co/datasets/glue): [paraphrase-xlm-r-multilingual-v1](https://huggingface.co/sentence-transformers/paraphrase-xlm-r-multilingual-v1)
+- [PAWS](https://huggingface.co/datasets/paws): [paraphrase-xlm-r-multilingual-v1](https://huggingface.co/sentence-transformers/paraphrase-xlm-r-multilingual-v1)
+

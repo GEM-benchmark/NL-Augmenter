@@ -1,0 +1,40 @@
+{
+    "type": "diacritic_filter",
+    "test_cases": [
+        {
+            "class": "DiacriticFilter",
+            "inputs": {
+                "sentence": "Feluda handed over the blue attaché case before he sat down."
+            },
+            "outputs": true
+        },
+        {
+            "class": "DiacriticFilter",
+            "inputs": {
+                "sentence": "She lookèd east an she lookèd west."
+            },
+            "outputs": true
+        },
+        {
+            "class": "DiacriticFilter",
+            "inputs": {
+                "sentence": "Karel Čapek was a Czech writer, playwright and critic."
+            },
+            "outputs": true
+        },
+        {
+            "class": "DiacriticFilter",
+            "inputs": {
+                "sentence": "HNO₃-oplossing"
+            },
+            "outputs": true
+        },
+        {
+            "class": "DiacriticFilter",
+            "inputs": {
+                "sentence": "Jonathan was a Seagull."
+            },
+            "outputs": false
+        }
+    ]
+}

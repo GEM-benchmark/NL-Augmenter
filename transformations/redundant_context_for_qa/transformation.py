@@ -33,7 +33,6 @@ class QuestionInCaps(QuestionAnswerOperation):
     def generate(
         self, context: str, question: str, answers: [str]
     ) -> List[Tuple[str, str, List[str]]]:
-        answers.extend([answer.upper() for answer in answers])
         return [(context, question.upper(), answers)]
 
 

@@ -45,7 +45,7 @@ Title={Reformulating Unsupervised Style Transfer as Paraphrase Generation},
 
 ## What are the limitations of this transformation?
 
-This transformation is limited to different styles of writing in English. No other languages are supported. Furthermore, the paraphrasing takes place sentence by sentence in its current implementation, limiting the use of contextual informaiton between the sentences. In other words, the style transfer of one sentence does not affect the style transfer of another.
+This transformation is limited to different styles of writing in English. No other languages are supported. Furthermore, the paraphrasing takes place sentence by sentence in its current implementation, limiting the use of contextual information between the sentences. In other words, the style transfer of one sentence does not affect the style transfer of another.
 
 Also note, that if long sentences are sent in, or two sentences in one, there is a risk sometimes that only a part will be paraphrased (see the example `"Hi there, how are you doing today? "` in the tests).
 

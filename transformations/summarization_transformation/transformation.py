@@ -2,6 +2,7 @@
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 import spacy
+from initialize import spacy_nlp
 
 """
 The code is partially adapted and modified from https://github.com/NSchrading/intro-spacy-nlp

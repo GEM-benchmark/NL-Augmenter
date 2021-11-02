@@ -1,0 +1,71 @@
+{
+  "type": "shuffle_within_segments",
+  "test_cases": [
+    {
+      "class": "ShuffleWithinSegments",
+      "inputs": {
+        "token_sequence": "Manmohan Singh served as the PM of India .",
+        "tag_sequence": "B-PER I-PER O O O O O B-COUNTRY O"
+      },
+      "outputs": [{
+        "token_sequence": "Manmohan Singh served the as of PM India .",
+        "tag_sequence": "B-PER I-PER O O O O O B-COUNTRY O"
+      }]
+    },
+    {
+      "class": "ShuffleWithinSegments",
+      "inputs": {
+        "token_sequence": "Neil Alden Armstrong was an American astronaut",
+        "tag_sequence": "B-PER I-PER I-PER O O B-COUNTRY O"
+      },
+      "outputs": [{
+        "token_sequence": "Armstrong Neil Alden was an American astronaut",
+        "tag_sequence": "B-PER I-PER I-PER O O B-COUNTRY O"
+      }]
+    },
+    {
+      "class": "ShuffleWithinSegments",
+      "inputs": {
+        "token_sequence": "I am going to New Zealand via Costa Rica .",
+        "tag_sequence": "O O O O B-LOC I-LOC O B-LOC I-LOC O"
+      },
+      "outputs": [{
+        "token_sequence": "going to I am New Zealand via Rica Costa .",
+        "tag_sequence": "O O O O B-LOC I-LOC O B-LOC I-LOC O"
+      }]
+    },
+    {
+      "class": "ShuffleWithinSegments",
+      "inputs": {
+        "token_sequence": "I am travelling to London .",
+        "tag_sequence": "O O O O B-LOC O"
+      },
+      "outputs": [{
+        "token_sequence": "travelling to I am London .",
+        "tag_sequence": "O O O O B-LOC O"
+      }]
+    },
+    {
+      "class": "ShuffleWithinSegments",
+      "inputs": {
+        "token_sequence": "Edison was born in North East Ohio .",
+        "tag_sequence": "B-PER O O O B-LOC I-LOC I-LOC O"
+      },
+      "outputs": [{
+        "token_sequence": "Edison was in born Ohio East North .",
+        "tag_sequence": "B-PER O O O B-LOC I-LOC I-LOC O"
+      }]
+    },
+    {
+      "class": "ShuffleWithinSegments",
+      "inputs": {
+        "token_sequence": "Google head office is located in North East California .",
+        "tag_sequence": "B-ORG O O O O O B-LOC I-LOC I-LOC O"
+      },
+      "outputs": [{
+        "token_sequence": "Google head is office in located California East North .",
+        "tag_sequence": "B-ORG O O O O O B-LOC I-LOC I-LOC O"
+      }]
+    }
+  ]
+}
