@@ -36,7 +36,7 @@ class ContextualMeaningPerturbation(SentenceOperation):
         top_k=10,
         language="en",
         pos_to_change=["ADV", "ADJ", "VERB", "NOUN", "PROPN"],
-        perturbation_rate=0.3,
+        perturbation_rate=0.05,
     ):
         super().__init__(seed, max_outputs=max_outputs)
         self.seed = seed
@@ -175,10 +175,12 @@ class ContextualMeaningPerturbation(SentenceOperation):
             )
 
         # Calculate how many perturbations will be returned
-
-        keys, values = zip(*replacement_dict.items())
-        permutations = list(itertools.product(*values))
-        num_perturbations = min(self.max_outputs, len(permutations))
+        if replacement_dict:
+            keys, values = zip(*replacement_dict.items())
+            permutations = list(itertools.product(*values))
+            num_perturbations = min(self.max_outputs, len(permutations))
+        else:
+            num_perturbations = 0
         perturbed_sentences = []
 
         for i in range(num_perturbations):
