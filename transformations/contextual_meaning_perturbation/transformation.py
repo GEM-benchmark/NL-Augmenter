@@ -36,7 +36,7 @@ class ContextualMeaningPerturbation(SentenceOperation):
         top_k=10,
         language="en",
         pos_to_change=["ADV", "ADJ", "VERB", "NOUN", "PROPN"],
-        perturbation_rate=0.05,
+        perturbation_rate=0.3,
     ):
         super().__init__(seed, max_outputs=max_outputs)
         self.seed = seed
