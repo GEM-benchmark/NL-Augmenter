@@ -1,4 +1,5 @@
 from tasks.TaskTypes import TaskType
+from interfaces.SentenceOperation import SentenceOperation
 
 class AlphanumericFilter(SentenceOperation):
     """
