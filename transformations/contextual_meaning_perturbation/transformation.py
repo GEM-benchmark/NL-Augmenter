@@ -175,10 +175,12 @@ class ContextualMeaningPerturbation(SentenceOperation):
             )
 
         # Calculate how many perturbations will be returned
-
-        keys, values = zip(*replacement_dict.items())
-        permutations = list(itertools.product(*values))
-        num_perturbations = min(self.max_outputs, len(permutations))
+        if replacement_dict:
+            keys, values = zip(*replacement_dict.items())
+            permutations = list(itertools.product(*values))
+            num_perturbations = min(self.max_outputs, len(permutations))
+        else:
+            num_perturbations = 0
         perturbed_sentences = []
 
         for i in range(num_perturbations):
