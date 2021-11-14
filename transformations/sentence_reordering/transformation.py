@@ -41,7 +41,10 @@ class SentenceReordering(SentenceOperation):
         random.seed(self.seed)
         # resolve coref
         if self.enable_coref:
-            text = self.coref_model.coref_resolved(document=text)
+            try:
+                text = self.coref_model.coref_resolved(document=text)
+            except Exception:
+                pass
 
         # tokenize and shuffle
         text_split = [i.text for i in self.nlp(text).sents]
