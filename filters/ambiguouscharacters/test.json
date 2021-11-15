@@ -1,40 +1,5 @@
 {
     "type": "ambiguouscharacters",
     "test_cases": [
-        {
-            "class": "AmbiguousCharactersFilter",
-            "inputs": {
-                "sentence": "Buy some piIIs here."
-            },
-            "outputs": false
-        },
-        {
-            "class": "AmbiguousCharactersFilter",
-            "inputs": {
-                "sentence": "0nly one person passed the test."
-            },
-            "outputs": false
-        },
-        {
-            "class": "AmbiguousCharactersFilter",
-            "inputs": {
-                "sentence": "A ` can appear as a '"
-            },
-            "outputs": false
-        },
-        {
-            "class": "AmbiguousCharactersFilter",
-            "inputs": {
-                "sentence": "He has a cat."
-            },
-            "outputs": true
-        },
-        {
-            "class": "AmbiguousCharactersFilter",
-            "inputs": {
-                "sentence": "Characters passes the filter."
-            },
-            "outputs": true
-        }
     ]
 }
