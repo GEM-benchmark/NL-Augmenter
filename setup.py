@@ -1,9 +1,10 @@
 import os
+from test.mapper import map_filter, map_transformation
 
 from setuptools import setup
 
 from TestRunner import OperationRuns
-from test.mapper import map_transformation, map_filter
+
 
 def all_folders(search: str, transformation_type: str) -> list:
     """
@@ -27,12 +28,6 @@ def all_folders(search: str, transformation_type: str) -> list:
             OperationRuns.get_all_folder_names(search, transformation_type)
         )
     ]
-    #folder_names.extend(
-    #    [
-    #        "filters/" + f
-    #        for f in list(OperationRuns.get_all_folder_names("filters"))
-    #    ]
-    #)
     return folder_names
 
 
@@ -56,9 +51,9 @@ def recursive_requirements(search: str, transformation_type: str) -> str:
 
 
 def get_default_requirements(transformation_type: str) -> list:
-    """ 
+    """
     Populate the default requirements to be installed for the library
-        
+
     Parameters
     ----------
     transformation_type: str,
@@ -73,10 +68,15 @@ def get_default_requirements(transformation_type: str) -> list:
     # (1) read main requirements.txt
     mandatory_requirements = read("requirements.txt")
     # (2) read requirements for light transformations
-    mandatory_requirements += recursive_requirements("transformations", "light")
+    mandatory_requirements += recursive_requirements(
+        "transformations", "light"
+    )
     # (3) read requirements for light filters
-    mandatory_requirements += recursive_requirements("filters", "light") # light filters
+    mandatory_requirements += recursive_requirements(
+        "filters", "light"
+    )  # light filters
     return mandatory_requirements
+
 
 def get_extra_requirements() -> dict:
     """
@@ -95,11 +95,16 @@ def get_extra_requirements() -> dict:
     requirements = {}
     # Heavy transformations picked from test/mapper.py
     for entry in map_transformation["heavy"]:
-        requirements[entry] = recursive_requirements("transformations/" + entry, "heavy")
+        requirements[entry] = recursive_requirements(
+            "transformations/" + entry, "heavy"
+        )
     # Heavy filters picked from test/mapper.py
     for entry in map_filter["heavy"]:
-        requirements[entry] = recursive_requirements("filters/" + entry, "heavy")
+        requirements[entry] = recursive_requirements(
+            "filters/" + entry, "heavy"
+        )
     return requirements
+
 
 setup(
     name="NL-Augmenter",
