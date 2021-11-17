@@ -78,6 +78,26 @@ def get_default_requirements(transformation_type: str) -> list:
     return mandatory_requirements
 
 
+def filter_requirements(requirements: str) -> list:
+    """Filter the requirements, exclude comments, empty strings
+
+    Parameters:
+    -----------
+    requirements: str,
+        string of requirements
+
+    Returns:
+    --------
+    list
+        list of filtered requirements
+    """
+    list_requirements = requirements.split("\n")
+    for entry in list_requirements:
+        if "#" in entry or entry == "":
+            list_requirements.remove(entry)
+    return list_requirements
+
+
 def get_extra_requirements() -> dict:
     """
     Get the dict of requirements for all the heavy transformations and filters.
@@ -95,14 +115,16 @@ def get_extra_requirements() -> dict:
     requirements = {}
     # Heavy transformations picked from test/mapper.py
     for entry in map_transformation["heavy"]:
-        requirements[entry] = recursive_requirements(
-            "transformations/" + entry, "heavy"
-        )
+        file_name = "transformations/" + entry + "/requirements.txt"
+        if os.path.exists(file_name):
+            req_string = read(file_name)
+            requirements[entry] = filter_requirements(req_string)
     # Heavy filters picked from test/mapper.py
     for entry in map_filter["heavy"]:
-        requirements[entry] = recursive_requirements(
-            "filters/" + entry, "heavy"
-        )
+        file_name = "filters/" + entry + "/requirements.txt"
+        if os.path.exists(file_name):
+            req_string = read(file_name)
+            requirements[entry] = filter_requirements(req_string)
     return requirements
 
 
