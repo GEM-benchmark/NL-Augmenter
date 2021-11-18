@@ -105,6 +105,22 @@ def get_extra_requirements() -> dict:
     from the generated dictionary will be picked up and installed along with the default
     requiremens.
 
+    The generated dictionary will be of this format:
+    {
+        'lost_in_translation': ['rouge_score'],
+        'mr_value_replacement': ['torchtext==0.9.1'],
+        'ocr_perturbation': ['trdg==1.6.0', 'tesserocr>=2.5.2'],
+        'pinyin': ['g2pM==0.1.2.5'],
+        'punctuation': ['cucco==2.2.1', 'fastpunct==2.0.2'],
+        'sentence_reordering': ['allennlp==2.5.0', 'allennlp-models==2.5.0'],
+        'synonym_substitution': ['nltk==3.6.2'],
+        'token_replacement': ['editdistance>=0.5.3'],
+        'transformer_fill': ['torch', 'transformers', 'spacy'],
+        'toxicity': ['detoxify==0.2.2']
+    }
+
+    Example usage: pip install NL-Augmenter[lost_in_translation]
+
     Returns:
     -------
     dict
@@ -113,18 +129,22 @@ def get_extra_requirements() -> dict:
     """
     # Dictionary of requirements
     requirements = {}
+    count = 0
     # Heavy transformations picked from test/mapper.py
     for entry in map_transformation["heavy"]:
         file_name = "transformations/" + entry + "/requirements.txt"
         if os.path.exists(file_name):
             req_string = read(file_name)
             requirements[entry] = filter_requirements(req_string)
+            count += 1
     # Heavy filters picked from test/mapper.py
     for entry in map_filter["heavy"]:
         file_name = "filters/" + entry + "/requirements.txt"
         if os.path.exists(file_name):
             req_string = read(file_name)
             requirements[entry] = filter_requirements(req_string)
+            count += 1
+    print(count)
     return requirements
 
 
