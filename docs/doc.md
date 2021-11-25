@@ -34,11 +34,12 @@ Each transformation will receive two reviews and the transformation may be edite
 
 **Interface:** Participants should ensure that they use the correct interface. The complete list is mentioned [here.](../interfaces) E.g., for tasks like machine translation, a transformation which changes the value of a named entity (Andrew->Jason) might need parallel changes in the output too. And hence, it might be more appropriate to use `SentenceAndTargetOperation` or `SentenceAndTargetsOperation` rather than `SentenceOperation`. Similarly, if a transformation changes the label of a sentence, the interface's generate method should take as input the label too - eg. if your transformation reverses the sentiment, `SentenceAndTargetOperation` would be more appropriate then `SentenceOperation`. If you wish to add transformations for input formats other than those specified, you should add an interface [here.](../interfaces)  
 
-**Applicable Tasks:** We understand that transformations can vary across tasks as well as a single transformation can work for multiple tasks. Hence all the tasks where the transformation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](../tasks/TaskTypes.py).
+**Applicable Tasks & Keywords:** We understand that transformations can vary across tasks as well as a single transformation can work for multiple tasks. Hence all the tasks where the transformation is applicable should be specified in the list “tasks”. The list of tasks has been specified [here](../tasks/TaskTypes.py). The relevant keywords for the [transformation](../docs/keywords.md) should also be specified.
 ```python
 class ButterFingersPerturbation(SentenceOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION, TaskType.TEXT_TAGGING]
     languages = ["en"]
+    keywords = ["morphological", "noise", "rule-based", "high-coverage", "high-precision"]
 ```
 
 **Specificity:** While this is not a necessary criterion, it is highly encouraged to have a specific transformation. E.g., a perturbation which changes gendered pronouns could give insights about gender bias in models.
@@ -59,6 +60,8 @@ class ButterFingersPerturbation(SentenceOperation):
 **Evaluating Robustness:** To make a stronger PR, a transformation's potential to act as a robustness tool should be tested via executing [`evaluate.py`](../evaluation) and the corresponding performance should be mentioned in the README. Evaluation should only be skipped in case there is no support in the [evaluation_engine](../evaluation).  
 
 **Languages other than English:** We strongly encourage multilingual perturbations. All applicable languages should be specified in the list of “languages”.
+
+**Decent Programming Practise:** We recommend adding docstrings to help others follow your code with ease. Check the [PEP 257 Docstring Conventions](https://www.python.org/dev/peps/pep-0257/) to get an overview.
 
 All of the above criteria extend to [filters](../filters) too. 
  

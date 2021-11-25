@@ -1,0 +1,50 @@
+{
+  "type": "emoji_icon_transformation",
+  "test_cases": [
+    {
+      "class": "EmojiToIcon",
+      "inputs": {
+        "sentence": "I am happy :) but you are sad :("
+      },
+      "outputs": [{
+        "sentence": "I am happy ☺️ but you are sad ☹️"
+      }]
+    },
+    {
+      "class": "EmojiToIcon",
+      "inputs": {
+        "sentence": "That was very fun XD"
+      },
+      "outputs": [{
+        "sentence": "That was very fun 😃"
+      }]
+    },
+    {
+      "class": "EmojiToIcon",
+      "inputs": {
+        "sentence": "See you tomorrow :*:*"
+      },
+      "outputs": [{
+        "sentence": "See you tomorrow 😗😗"
+      }]
+    },
+    {
+      "class": "EmojiToIcon",
+      "inputs": {
+        "sentence": "Never talk to me again :@"
+      },
+      "outputs": [{
+        "sentence": "Never talk to me again 😖"
+      }]
+    },
+    {
+      "class": "EmojiToIcon",
+      "inputs": {
+        "sentence": "The meeting was really boring! |‑O"
+      },
+      "outputs": [{
+        "sentence": "The meeting was really boring! 😪"
+      }]
+    }
+  ]
+}
