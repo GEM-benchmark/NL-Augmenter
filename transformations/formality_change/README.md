@@ -6,7 +6,7 @@ Author Name: Rishabh Gupta (rishabh19089@iiitd.ac.in)
 ## What type of a transformation is this?
 This transformation acts like a paraphraser by performing style transfer. It changes the tone of the text from formal to informal or vice-versa.
 Example: This car looks fascinating --> This car is so cool (Formal to Casual)
-Example: What you upto? --> What are you currently doing? (Casual to Formal)
+Example: What you up to? --> What are you currently doing? (Casual to Formal)
 
 ## What tasks does it intend to benefit?
 This perturbation would benefit all tasks which have a sentence/paragraph/document as input like text classification, 

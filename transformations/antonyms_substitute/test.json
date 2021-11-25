@@ -1,0 +1,60 @@
+{
+  "type": "antonyms_substitute",
+  "test_cases": [
+    {
+      "class": "AntonymsSubstitute",
+      "inputs": {
+        "sentence": "Recently, we are more interested in leveraging AI to solve ethic issues."
+      },
+      "outputs": [
+        {
+          "sentence": "Recently, we are less uninterested in leveraging AI to solve ethic issues."
+        }
+      ]
+    },
+    {
+      "class": "AntonymsSubstitute",
+      "inputs": {
+        "sentence": "Jack and Ketty bought an apple from a often reputable person."
+      },
+      "outputs": [
+        {
+          "sentence": "Jack and Ketty bought an apple from a infrequently disreputable person."
+        }
+      ]
+    },
+    {
+      "class": "AntonymsSubstitute",
+      "inputs": {
+        "sentence": "It is useful to keep the right answer in mind."
+      },
+      "outputs": [
+        {
+          "sentence": "It is useless to keep the incorrect answer in mind."
+        }
+      ]
+    },
+    {
+      "class": "AntonymsSubstitute",
+      "inputs": {
+        "sentence": "Steve is able to recommend movies that depicts the lives of beautiful minds."
+      },
+      "outputs": [
+        {
+          "sentence": "Steve is unable to recommend movies that depicts the lives of ugly minds."
+        }
+      ]
+    },
+    {
+      "class": "AntonymsSubstitute",
+      "inputs": {
+        "sentence": "I wonder the reason why you want to select a rarely successful team?"
+      },
+      "outputs": [
+        {
+          "sentence": "I wonder the reason why you want to select a often unsuccessful team?"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+Notes on the provenance of the gender-country data:
+
+1.) This list of names organized by country and gender was taken from the
+ `gender_culture_diverse_name` transformation:
+
+https://github.com/GEM-benchmark/NL-Augmenter/blob/main/transformations/gender_culture_diverse_name/data.json
+
+with the following modifications:
+
+- Names which appeared as both male and female names were removed.**
+- Names consisting of 1 or 2 characters were removed.
+
+** Except for the following names, which were kept as female, as they are more
+commonly used as female names: 'Susan','Rebecca', 'Michelle','Marian','Lilian',
+'Karen','Julia','Jennifer','Jade','Hanna','Guadalupe','Desire','Cora',
+'Christine','Carmen','Berta','Angela','Amanda';
+
+and the following names, which were kept as male, since they are most commonly
+used as male names: 'Juan','Daniel','Gabriel','Jaime','John','Jean','Robert',
+'Noah','Oliver','Jose','James'.
+
+2.) According to the `gender_culture_diverse_name` README, this list was
+compiled from the following sources:
+
+- The World Gender Name Dictionary [1]
+- The BIG-bench project [2]
+- Wikipedia ([3,4])
+
+[1] World Gender Name Dictionary (WGND) 2.0
+```bibtex
+@data{DVN/MSEGSJ_2021,
+author = {Raffo, Julio},
+publisher = {Harvard Dataverse},
+title = {{WGND 2.0}},
+UNF = {UNF:6:5rI3h1mXzd6zkVhHurelLw==},
+year = {2021},
+version = {V1},
+doi = {10.7910/DVN/MSEGSJ},
+url = {https://doi.org/10.7910/DVN/MSEGSJ}
+}
+
+[2] https://github.com/google/BIG-bench/tree/main/bigbench/benchmark_tasks/gender_sensitivity_English
+[3] https://en.wikipedia.org/wiki/List_of_most_popular_given_names
+[4] https://en.wikipedia.org/wiki/List_of_the_most_popular_given_names_in_South_Korea
+

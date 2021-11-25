@@ -57,9 +57,9 @@ SPECIAL_GREETINGS_REGEX = (
         "(it('s| is| was) |)(a |)(nice|great|pleased|pleasure) to meet (you|u)(.|)",
         re.IGNORECASE,
     ),
-    re.compile("how( are|'re|) (you|u) doin(g|'|)\?", re.IGNORECASE),
-    re.compile("how( is|'s|) it going( on|)\?", re.IGNORECASE),
-    re.compile("how( have|'ve|) you been\?", re.IGNORECASE),
+    re.compile(r"how( are|'re|) (you|u) doin(g|'|)\?", re.IGNORECASE),
+    re.compile(r"how( is|'s|) it going( on|)\?", re.IGNORECASE),
+    re.compile(r"how( have|'ve|) you been\?", re.IGNORECASE),
 )
 
 FAREWELLS_REGEX = (

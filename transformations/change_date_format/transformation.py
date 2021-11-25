@@ -1,11 +1,9 @@
-import numpy as np
-
-import spacy
-from initialize import spacy_nlp
 import dateparser
-
+import numpy as np
+import spacy
 from babel.dates import format_date
 
+from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -48,7 +46,7 @@ class DateFormatTransformation:
     def parse_date(self, text: str):
         """Parse the text to extract the date components and return a datetime object."""
 
-        # By defualt the parser fills the missing values with current day"s values,
+        # By default the parser fills the missing values with current day"s values,
         # hence, using boolean values to keep track of what info is present in the text.
         date = None
         has_year = False
@@ -66,7 +64,9 @@ class DateFormatTransformation:
             has_day = True
         else:
             # Check if text contains two parts - Y and M.
-            date = dateparser.parse(text, settings={"REQUIRE_PARTS": ["year", "month"]})
+            date = dateparser.parse(
+                text, settings={"REQUIRE_PARTS": ["year", "month"]}
+            )
             if date is not None:
                 has_year = True
                 has_month = True
@@ -92,7 +92,9 @@ class DateFormatTransformation:
                 new_value = None
 
                 if entity.label_ == "DATE":
-                    date, has_year, has_month, has_day = self.parse_date(entity.text)
+                    date, has_year, has_month, has_day = self.parse_date(
+                        entity.text
+                    )
 
                     if date:
                         locale = np.random.choice(self.locales)
@@ -134,13 +136,20 @@ class ChangeDateFormat(SentenceOperation):
         TaskType.RDF_TO_TEXT,
     ]
     languages = ["en"]
-    keywords = ["lexical", "syntactic", "rule-based", "high-coverage", "high-precision"]
-    heavy = True # TODO: need to remove this later (test cases failing temporary fix)
+    keywords = [
+        "lexical",
+        "syntactic",
+        "rule-based",
+        "high-coverage",
+        "high-precision",
+    ]
 
     def __init__(self, seed=0, max_output=1):
         np.random.seed(self.seed)
         super().__init__(seed)
-        self.date_format_transformation = DateFormatTransformation(seed, max_output)
+        self.date_format_transformation = DateFormatTransformation(
+            seed, max_output
+        )
         self.max_output = max_output
 
     def generate(self, sentence: str):

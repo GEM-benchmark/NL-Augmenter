@@ -29,7 +29,7 @@ The accuracy on this subset which has 1000 examples = 96.0
 
 ## Related Work
 
-[Marco Lui and Timothy Baldwin (2012) langid.py: An Off-the-shelf Language Identification Tool](www.aclweb.org/anthology/P12-3005)
+[Marco Lui and Timothy Baldwin (2012) langid.py: An Off-the-shelf Language Identification Tool](https://aclanthology.org/P12-3005/)
 
 ## What are the limitations of this filter?
 

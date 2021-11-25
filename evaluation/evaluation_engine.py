@@ -1,11 +1,13 @@
 from evaluation import (
     evaluate_ner_tagging,
-    evaluate_text_generation,
+    evaluate_paraphrase_detection,
     evaluate_question_answering,
     evaluate_text_classification,
+    evaluate_text_generation,
 )
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import SentenceOperation
+from interfaces.SentencePairOperation import SentencePairOperation
 from interfaces.TaggingOperation import TaggingOperation
 from tasks.TaskTypes import TaskType
 
@@ -78,7 +80,7 @@ def execute_model(
 ):
     interface = implementation.__bases__[0]  # SentenceTransformation
     impl = implementation()
-    if locale is "en":
+    if locale in ["en", "zh"]:
         if (
             isinstance(impl, SentenceOperation)
             and TaskType[task_type] == TaskType.TEXT_CLASSIFICATION
@@ -120,6 +122,18 @@ def execute_model(
             and TaskType[task_type] == TaskType.TEXT_TAGGING
         ):
             return evaluate_ner_tagging.evaluate(
+                impl,
+                evaluate_filter,
+                model_name,
+                dataset,
+                split=f"test[:{percentage_of_examples}%]",
+            )
+
+        elif (
+            isinstance(impl, SentencePairOperation)
+            and TaskType[task_type] == TaskType.PARAPHRASE_DETECTION
+        ):
+            return evaluate_paraphrase_detection.evaluate(
                 impl,
                 evaluate_filter,
                 model_name,

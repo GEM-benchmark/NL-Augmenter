@@ -1,0 +1,37 @@
+{
+  "type": "simple_ciphers",
+  "test_cases": [
+    {
+      "class": "SimpleCiphers",
+      "inputs": {
+        "sentence": "The red fox jumped over the lazy dog."
+      },
+      "outputs": [
+        {
+          "sentence": "TThhee  rreedd  ffooxx  jjuummppeedd  oovveerr  tthhee  llaazzyy  ddoogg.."
+        },
+        {
+          "sentence": "The The red red fox fox jumped jumped over over the the lazy lazy dog. dog."
+        },
+        {
+          "sentence": "T h e   r e d   f o x   j u m p e d   o v e r   t h e   l a z y   d o g ."
+        },
+        {
+          "sentence": ".god yzal eht revo depmuj xof der ehT"
+        },
+        {
+          "sentence": "ehT der xof depmuj revo eht yzal .god"
+        },
+        {
+          "sentence": "dog. lazy the over jumped fox red The"
+        },
+        {
+          "sentence": "\ud835\ude35\ud835\ude77\ud835\udeac \u0280\ud835\udc6c\ud835\udc51 \ud801\udd25\ufbaa\ud835\udd35 \ud835\ude11\ud806\udcd8\ud835\udde0\ud835\udc29\ud806\udcae\ud835\udc51 \u07c0\u1d20\ua4f0\u16b1 \ud835\udfa3\ud835\udc3b\u212e \u2112\ud835\udda0\uff3a\ud835\udd02 \u1d05\ud835\udfd8\ud835\ude42\ua60e"
+        },
+        {
+          "sentence": "Gur erq sbk whzcrq bire gur ynml qbt."
+        }
+      ]
+    }
+  ]
+}

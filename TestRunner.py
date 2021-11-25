@@ -5,6 +5,7 @@ import re
 from importlib import import_module
 from pathlib import Path
 from pkgutil import iter_modules
+from test.mapper import map_filter, map_transformation
 from typing import Iterable
 
 from interfaces.Operation import Operation
@@ -42,7 +43,7 @@ class OperationRuns(object):
     def __init__(self, transformation_name, search="transformations"):
         if transformation_name == "light":
             self._load_all_transformation_test_case(heavy=False, search=search)
-        elif transformation_name == "all":
+        elif transformation_name == "heavy":
             self._load_all_transformation_test_case(heavy=True, search=search)
         else:
             self._load_single_transformation_test_case(
@@ -80,26 +81,52 @@ class OperationRuns(object):
         self.operations = filters
         self.operation_test_cases = filter_test_cases
 
-    def _load_all_transformation_test_case(
-        self, heavy=False, search="transformations"
+    def _load_multiple_transformation_test_case(
+        self,
+        transformation_names: list,
+        heavy: bool = False,
+        search: str = "transformations",
     ):
+        """Load multiple classes within a transforamtion.
+
+        Parameters:
+        -----------
+        heavy: bool, Default is False,
+            heavy or light transformation or filter.
+        transformation_names: str,
+            list of the transformations or filters.
+        search: str, Default is transformations,
+            either transformations or filters.
+
+        Returns:
+        --------
+        None.
+
+        """
         filters = []
         filter_test_cases = []
-        package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        filters_dir = package_dir.parent.joinpath(search)
-        for (_, m, _) in iter_modules([filters_dir]):
+
+        for m in transformation_names:
+            print(f"Directory = {m}")
             if m in disable_tests_for:
                 continue
-            print(f"Directory = {m}")
+
+            # Load only the specified transformation
             t_py = import_module(f"{search}.{m}")
-            t_js = os.path.join(filters_dir, m, "test.json")
+            t_js = os.path.join(
+                Path(__file__).resolve().parent.joinpath(search),
+                m,
+                "test.json",
+            )
             filter_instance = None
             prev_class_args = {}
+
+            # Load the test.json for the specified transformation
             for test_case in load_test_cases(t_js):
                 class_name = test_case["class"]
                 class_args = test_case["args"] if "args" in test_case else {}
+                # construct filter class with input args
                 cls = getattr(t_py, class_name)
-
                 is_heavy = cls.is_heavy()
                 if (not heavy) and is_heavy:
                     continue
@@ -113,21 +140,69 @@ class OperationRuns(object):
                         filter_instance = cls(**class_args)
                         prev_class_args = class_args
 
-                    filters.append(filter_instance)
-                    filter_test_cases.append(test_case)
+                filters.append(filter_instance)
+                filter_test_cases.append(test_case)
 
         self.operations = filters
         self.operation_test_cases = filter_test_cases
 
+    def _load_all_transformation_test_case(
+        self, heavy=False, search="transformations"
+    ):
+        if search == "transformations":
+            # Load either heavy or light transformations only based on heavy param
+            self._load_multiple_transformation_test_case(
+                map_transformation["heavy"]
+                if heavy
+                else map_transformation["light"],
+                heavy,
+                search,
+            )
+        elif search == "filters":
+            # Load either heavy or light filters only based on heavy param
+            self._load_multiple_transformation_test_case(
+                map_filter["heavy"] if heavy else map_filter["light"],
+                heavy,
+                search,
+            )
+
     @staticmethod
-    def get_all_folder_names(search="transformations") -> Iterable:
+    def get_all_folder_names(
+        search="transformations", transformation_name="all"
+    ) -> Iterable:
+        """Get all the folder names.
+
+        Parameters:
+        ----------
+        search: str, default "transformations"
+            value can be either transformations or filters.
+        transformation_name: str, default "all"
+            value can be either all (both light and heavy transformations) or light.
+
+        Returns:
+        -------
+        list of folder names.
+        """
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
-        for (_, folder, _) in iter_modules(
-            [transformations_dir]
-        ):  # ---> ["back_translation", ...]
-            yield folder
+        if search == "transformations" and transformation_name == "light":
+            for entry in map_transformation["light"]:
+                yield entry  # only light transformations
+        elif search == "transformations" and transformation_name == "heavy":
+            for entry in map_transformation["heavy"]:
+                yield entry  # only heavy transformations
+        elif search == "filters" and transformation_name == "light":
+            for entry in map_filter["light"]:
+                yield entry  # only light filters
+        elif search == "filters" and transformation_name == "heavy":
+            for entry in map_filter["heavy"]:
+                yield entry  # only heavy filters
+        else:
+            for (_, folder, _) in iter_modules(
+                [transformations_dir]
+            ):  # ---> ["back_translation", ...]
+                yield folder
 
     @staticmethod
     def get_all_operations(search="transformations") -> Iterable:
@@ -137,14 +212,60 @@ class OperationRuns(object):
         for (_, folder, _) in iter_modules(
             [transformations_dir]
         ):  # ---> ["back_translation", ...]
-            t_py = import_module(f"{search}.{folder}")
+            try:
+                t_py = import_module(f"{search}.{folder}")
+                for name, obj in inspect.getmembers(t_py):
+                    if (
+                        inspect.isclass(obj)
+                        and issubclass(obj, Operation)
+                        and not obj.__module__.startswith("interfaces")
+                    ):
+                        yield  obj
+            except Exception:
+                print (f"Issue in importing module in folder {folder}")
+                continue
+
+    @staticmethod
+    def get_operation(search="transformations",
+                      queryOperationName="ButterFingersPerturbation",
+                      queryFolder=None):
+        # iterate through the modules in the current package
+        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        transformations_dir = package_dir.parent.joinpath(search)
+        # (1) first check camel caas folder
+        if queryFolder is None:
+            queryFolder = convert_to_snake_case(queryOperationName)
+        try:
+            t_py = import_module(f"{search}.{queryFolder}")
             for name, obj in inspect.getmembers(t_py):
                 if (
-                    inspect.isclass(obj)
-                    and issubclass(obj, Operation)
-                    and not obj.__module__.startswith("interfaces")
+                        inspect.isclass(obj)
+                        and issubclass(obj, Operation)
+                        and not obj.__module__.startswith("interfaces")
+                        and name == queryOperationName
                 ):
-                    yield obj
+                    print(f"Found {queryOperationName} in {queryFolder}.")
+                    return obj
+        except Exception:
+            print(f"No folder of name {queryFolder} found. Looping through all folders.")
+
+        # (2) Loop through all the folders
+        for (_, folder, _) in iter_modules(
+                [transformations_dir]
+        ):  # ---> ["back_translation", ...]
+            try:
+                t_py = import_module(f"{search}.{folder}")
+                for name, obj in inspect.getmembers(t_py):
+                    if (
+                            inspect.isclass(obj)
+                            and issubclass(obj, Operation)
+                            and not obj.__module__.startswith("interfaces")
+                            and name == queryOperationName
+                    ):
+                        return obj
+            except Exception:
+                continue
+        return None
 
     @staticmethod
     def get_all_operations_for_task(
@@ -157,7 +278,8 @@ class OperationRuns(object):
 
 
 def get_implementation(clazz: str, search="transformations"):
-    for operation in OperationRuns.get_all_operations(search):
+    operation = OperationRuns.get_operation(search, clazz)
+    if operation is not None:
         if operation.name() == clazz:
             return operation
     raise ValueError(
@@ -166,10 +288,17 @@ def get_implementation(clazz: str, search="transformations"):
 
 
 if __name__ == "__main__":
-    for x in OperationRuns.get_all_folder_names():
+    for x in OperationRuns.get_all_folder_names("transformations", "heavy"):
+        print(x)
+    for x in OperationRuns.get_all_folder_names("transformations"):
+        print(x)
+    for x in OperationRuns.get_all_folder_names("filters", "heavy"):
         print(x)
     for x in OperationRuns.get_all_folder_names("filters"):
         print(x)
+    for x in OperationRuns.get_all_folder_names():
+        print(x)
+    print("\nPrinting all Operation Names\n")
     for x in OperationRuns.get_all_operations():
         print(x)
     for x in OperationRuns.get_all_operations("filters"):

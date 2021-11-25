@@ -1,0 +1,54 @@
+{
+  "type": "factive_verb_transformation",
+  "test_cases": [
+    {
+      "class": "FactiveVerbTransformation",
+      "inputs": {
+        "sentence": "He killed a street dog yesterday."
+      },
+      "outputs": [{
+        "sentence": "He confirmed that, he killed a street dog yesterday."
+      }]
+    }, {
+      "class": "FactiveVerbTransformation",
+      "inputs": {
+        "sentence": "An actress made her debut in hollywood."
+      },
+      "outputs": [{
+        "sentence": "An actress confirmed that, she made her debut in hollywood."
+      }]
+    }, {
+      "class": "FactiveVerbTransformation",
+      "inputs": {
+        "sentence": "John Watson was enjoying the summer in Baker street."
+      },
+      "outputs": [{
+        "sentence": "John Watson confirmed that, he was enjoying the summer in Baker street."
+      }]
+    }, {
+      "class": "FactiveVerbTransformation",
+      "inputs": {
+        "sentence": "The lady doctor made a huge mistake during the operation."
+      },
+      "outputs": [{
+        "sentence": "The lady doctor confirmed that, she made a huge mistake during the operation."
+      }]
+    }, {
+      "class": "FactiveVerbTransformation",
+      "inputs": {
+        "sentence": "Mr. Harry T. Potter won the Quidditch championship."
+      },
+      "outputs": [{
+        "sentence": "Mr. Harry T. Potter confirmed that, he won the Quidditch championship."
+      }]
+    }, {
+      "class": "FactiveVerbTransformation",
+      "inputs": {
+        "sentence": "A small group of researchers found a new variant of Coivd-19."
+      },
+      "outputs": [{
+        "sentence": "A small group of researchers confirmed that, they found a new variant of Coivd-19."
+      }]
+    }
+  ]
+}

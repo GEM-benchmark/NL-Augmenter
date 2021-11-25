@@ -1,0 +1,110 @@
+{
+  "type": "tag_subsequence_substitution",
+  "test_cases": [
+    {
+      "class": "TagSubsequenceSubstitution",
+      "inputs": {
+        "token_sequence": "EU rejects German call to boycott British lamb .",
+        "tag_sequence": "NNP VBZ JJ NN TO VB JJ NN ."
+      },
+      "outputs": [
+        {
+          "token_sequence": "EU rejects German move to protect human lamb .",
+          "tag_sequence": "NNP VBZ JJ NN TO VB JJ NN ."
+        },
+        {
+          "token_sequence": "EU rejects German call to have total lamb .",
+          "tag_sequence": "NNP VBZ JJ NN TO VB JJ NN ."
+        },
+        {
+          "token_sequence": "EU rejects retired governor to speak British lamb .",
+          "tag_sequence": "NNP VBZ JJ NN TO VB JJ NN ."
+        }
+      ]
+    },
+    {
+      "class": "TagSubsequenceSubstitution",
+      "inputs": {
+        "token_sequence": "Peter Blackburn",
+        "tag_sequence": "NNP NNP"
+      },
+      "outputs": [
+        {
+          "token_sequence": "Paul Stankowski",
+          "tag_sequence": "NNP NNP"
+        },
+        {
+          "token_sequence": "Yedioth Ahronoth",
+          "tag_sequence": "NNP NNP"
+        },
+        {
+          "token_sequence": "Eric Bernard",
+          "tag_sequence": "NNP NNP"
+        }
+      ]
+    },
+    {
+      "class": "TagSubsequenceSubstitution",
+      "inputs": {
+        "token_sequence": "BRUSSELS 1996-08-22",
+        "tag_sequence": "NNP CD"
+      },
+      "outputs": [
+        {
+          "token_sequence": "YORK 59",
+          "tag_sequence": "NNP CD"
+        },
+        {
+          "token_sequence": "Celaya 2",
+          "tag_sequence": "NNP CD"
+        },
+        {
+          "token_sequence": "Alkmaar 2",
+          "tag_sequence": "NNP CD"
+        }
+      ]
+    },
+    {
+      "class": "TagSubsequenceSubstitution",
+      "inputs": {
+        "token_sequence": "The European Commission said on Thursday it disagreed with German advice to consumers to shun British lamb until scientists determine whether mad cow disease can be transmitted to sheep .",
+        "tag_sequence": "DT NNP NNP VBD IN NNP PRP VBD IN JJ NN TO NNS TO VB JJ NN IN NNS VBP IN JJ NN NN MD VB VBN TO NN ."
+      },
+      "outputs": [
+        {
+          "token_sequence": "The European Commission said on Thursday it disagreed with German advice to consumers to shun British lamb until scientists determine whether mad cow disease may have contributed to sheep .",
+          "tag_sequence": "DT NNP NNP VBD IN NNP PRP VBD IN JJ NN TO NNS TO VB JJ NN IN NNS VBP IN JJ NN NN MD VB VBN TO NN ."
+        },
+        {
+          "token_sequence": "The European Commission said on Thursday it disagreed against German advice to consumers to shun British lamb until scientists determine whether mad cow disease can be transmitted to sheep .",
+          "tag_sequence": "DT NNP NNP VBD IN NNP PRP VBD IN JJ NN TO NNS TO VB JJ NN IN NNS VBP IN JJ NN NN MD VB VBN TO NN ."
+        },
+        {
+          "token_sequence": "The European Commission said on Thursday it disagreed with German advice to bombers to stage simultaneous lamb until scientists determine whether mad cow disease can be transmitted to sheep .",
+          "tag_sequence": "DT NNP NNP VBD IN NNP PRP VBD IN JJ NN TO NNS TO VB JJ NN IN NNS VBP IN JJ NN NN MD VB VBN TO NN ."
+        }
+      ]
+    },
+    {
+      "class": "TagSubsequenceSubstitution",
+      "inputs": {
+        "token_sequence": "Germany 's representative to the European Union 's veterinary committee Werner Zwingmann said on Wednesday consumers should buy sheepmeat from countries other than Britain until the scientific advice was clearer .",
+        "tag_sequence": "NNP POS NN TO DT NNP NNP POS JJ NN NNP NNP VBD IN NNP NNS MD VB NN IN NNS JJ IN NNP IN DT JJ NN VBD JJR ."
+      },
+      "outputs": [
+        {
+          "token_sequence": "Germany 's representative to the European Union 's veterinary committee Werner Zwingmann said on Wednesday consumers should buy sheepmeat from countries other than Britain of the apparent threat was clearer .",
+          "tag_sequence": "NNP POS NN TO DT NNP NNP POS JJ NN NNP NNP VBD IN NNP NNS MD VB NN IN NNS JJ IN NNP IN DT JJ NN VBD JJR ."
+        },
+        {
+          "token_sequence": "Germany 's representative to the European Union 's Yugoslav committee Werner Zwingmann said on Wednesday consumers should buy sheepmeat from countries other than Britain until the scientific advice was clearer .",
+          "tag_sequence": "NNP POS NN TO DT NNP NNP POS JJ NN NNP NNP VBD IN NNP NNS MD VB NN IN NNS JJ IN NNP IN DT JJ NN VBD JJR ."
+        },
+        {
+          "token_sequence": "Germany 's representative to the European Union 's veterinary committee Werner Zwingmann revealed in June losses should buy sheepmeat from countries other than Britain until the scientific advice was clearer .",
+          "tag_sequence": "NNP POS NN TO DT NNP NNP POS JJ NN NNP NNP VBD IN NNP NNS MD VB NN IN NNS JJ IN NNP IN DT JJ NN VBD JJR ."
+        }
+      ]
+    }
+  ]
+}

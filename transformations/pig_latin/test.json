@@ -1,0 +1,50 @@
+{
+  "type": "pig_latin",
+  "test_cases": [
+    {
+      "class": "PigLatin",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "andreway inallyfay eturnedray ethay enchfray ookbay otay ischray atthay iay oughtbay astlay eekway"
+      }]
+    },
+    {
+      "class": "PigLatin",
+      "inputs": {
+        "sentence": "Unfortunately, the rommate took the dude's beer that he bought for himself instead of the beer left over from the party."
+      },
+      "outputs": [{
+        "sentence": "unfortunatelyay, ethay ommateray ooktay ethay ude'sday eerbay atthay ehay oughtbay orfay imselfhay insteaday ofay ethay eerbay eftlay overay omfray ethay artypay."
+      }]
+    },
+    {
+      "class": "PigLatin",
+      "inputs": {
+        "sentence": "Long time no see"
+      },
+      "outputs": [{
+        "sentence": "onglay imetay onay eesay"
+      }]
+    },
+    {
+      "class": "PigLatin",
+      "inputs": {
+        "sentence": "Where's the toilet?"
+      },
+      "outputs": [{
+        "sentence": "ere'swhay ethay oilettay?"
+      }]
+    },
+    {
+      "class": "PigLatin",
+      "inputs": {
+        "sentence": "My hovercraft is full of eels"
+      },
+      "outputs": [{
+        "sentence": "ymay overcrafthay isay ullfay ofay eelsay"
+      }]
+    }
+  ]
+}

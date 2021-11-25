@@ -1,0 +1,50 @@
+{
+  "type": "visual_attack_letters",
+  "test_cases": [
+    {
+      "class": "VisualAttackLetters",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "An₫rѐw ẜiṋaɭly rєtuṙἠed tⱨe Ϝѓench bõoк եo Cһris ţhat I bougћt ḷäsէ ԝëek"
+      }]
+    },
+    {
+      "class": "VisualAttackLetters",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [{
+        "sentence": "Seռtѐnϲeș wíth gɑᵽpįἠg, suḉh ӑs ᒆ⍺ul liԟєš ϛofƒee ańd Mary tea, ᶅaϲƙ aἤ ọṿert preɒĩϲate tອ indⵏcặṱɞ ṱḥȩ гeլatioᾒ ᖯēṭᴡəeṉ tŵo oṟ mὁȓę aɼǥumẽnէṣ."
+      }]
+    },
+    {
+      "class": "VisualAttackLetters",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "Alἰcѐ iה Wơnȡerlɑἡḓ ⵏs a 2010 Aⴇḝr׀ḉan liעє-ȃϛtiȯn/anľmated darк fӓῃtằșȳ adventߎɽe film"
+      }]
+    },
+    {
+      "class": "VisualAttackLetters",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [{
+        "sentence": "Ujĵaⱡ Deѵ Dơsӑnjh șerᴠêd as 33ɼȡ Pѓemier õf ฿гiṭish ᑢolumbia fѓӧḿ 2000 tອ 2001"
+      }]
+    },
+    {
+      "class": "VisualAttackLetters",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [{
+        "sentence": "Neûrөpḷaștícitү is ḁ çontℹnὑoվs procêsšĩng ȧlloẅing short-ʈeɽḿ, mḙḏiųm-term, ȁnd ḷong-tẻṙⴊ rɞḿὀḍёl׀ng of էⱨe ᾑeטᴦoṉoşynȧpṯɩс oɼǥanǃᴢaṯἰὸn."
+      }]
+    }
+  ]
+}
