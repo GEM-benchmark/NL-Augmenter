@@ -18,8 +18,8 @@ class WordNoise(QuestionAnswerOperation):
 
     def __init__(
         self,
-        num_words: int,
-        concat_position: str,
+        num_words: int = 10,
+        concat_position: str = "prepend",
         remove_stop_words: bool = False,
         seed: int = 0,
         max_outputs: int = 1,

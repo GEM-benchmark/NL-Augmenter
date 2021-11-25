@@ -30,7 +30,7 @@ map_transformation = {
         "gender_culture_diverse_name",
         "gender_culture_diverse_name_two_way",
         "gender_swap",
-        "geonames_transformation",
+        "geo_names_transformation",
         "greetings_and_farewells",
         "insert_abbreviation",
         "leet_letters",
@@ -78,6 +78,7 @@ map_transformation = {
         "synonym_substitution",
         "token_replacement",
         "transformer_fill",
+        "french_conjugation_transformation",
     ],
 }
 
@@ -99,6 +100,7 @@ map_filter = {
         "speech_tag",
         "token_amount",
         "yesno_question",
+        "diacritic_filter"
     ],
     "heavy": ["quantitative_ques", "oscillatory_hallucination", "toxicity"],
 }
