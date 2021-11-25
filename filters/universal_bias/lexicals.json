@@ -47,7 +47,7 @@
 		},
 		
 		"disability": {
-			"healthy": ["healthy"],
+			"healthy": ["healthy", "fit", "sound", "healthful", "buxom", "bonny", "sanitary", "salubrious", "healthful", "wholesome", "salutary"],
 			"disabled": ["disabled", "impaired"]			
 		},
 		
@@ -57,12 +57,12 @@
 		},
 		
 		"education": {
-			"educated": ["educated"],
-			"uneducated": ["uneducated", "unlearned"]
+			"educated": ["educated", "cultivated", "cultured", "literate", "refined", "scholarly", "taught", "instructed", "trained"],
+			"uneducated": ["uneducated", "unlearned", "untrained", "uncultivated", "untilled", "uncivil"]
 		},
 		
 		"economic_status": {
-			"rich": ["rich", "wealth", "wealthy", "affluent", "abundant", "copious"],
+			"rich": ["rich", "wealth", "wealthy", "affluent", "abundant", "abundance", "copious"],
 			"poor": ["poor", "pauvre", "poverty", "broke", "homeless", "unhoused", "roofless", "unsheltered", "vagabond", "hipster", "hobo"]
 		}
 	},
@@ -115,23 +115,23 @@
 		},
 		
 		"disability": {
-			"healthy": [],
-			"disabled": []			
+			"healthy": ["sain", "saine", "sains", "saines", "salubre", "salubres", "sanitaire", "sanitaires", "salutaire", "salutaires"],
+			"disabled": ["handicapé", "handicapée", "handicapés", "handicapées", "infirme", "infirmes", "mutilé", "mutilée", "mutilés", "mutilées", "impotent", "impotente", "impotents", "impotentes", "invalide", "invalides"]			
 		},
 		
 		"experience": {
-			"experienced": [],
-			"inexperienced" : []
+			"experienced": ["expérimenté", "expert", "avancé", "compétent", "familier", "senior"],
+			"inexperienced" : ["inexpérimenté", "débutant", "junior"]
 		},
 		
 		"education": {
-			"educated": [],
-			"uneducated": []
+			"educated": ["éduqué", "éduquée", "éduqués", "éduquées", "cultivé", "cultivée", "cultivés", "cultivées", "enseigné", "enseignée", "enseignés", "enseignées", "alphabétisé", "alphabétisée", "alphabétisés", "alphabétisées", "raffiné", "raffinée", "raffinés", "raffinées", "érudit", "érudite", "érudits", "érudites", "instruit", "instruite", "instruits", "instruites", "formé", "formée", "formés", "formées"],
+			"uneducated": ["inculte"]
 		},
 		
 		"economic_status": {
-			"rich": [],
-			"poor": []
+			"rich": ["riche", "riches", "abondant", "abondante", "abondantes"],
+			"poor": ["pauvre", "pauvreté", "cassé", "sans-abri", "sans logement", "sans toit", "vagabond", "hipster", "clochard"]
 		}	
 	}
 }

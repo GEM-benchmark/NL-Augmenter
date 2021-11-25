@@ -4,12 +4,14 @@
         {
             "class": "UniversalBiasFilter",
             "args": {
-                "minority": ["she", "her", "hers"],
-				"majority": ["he", "him", "his"]
+				"language": "en",
+				"category": "gender",
+                "minority": "female",
+				"majority": "majority"
             },
             "inputs": {
-                "sentences": ["He is going to make a cake.",
-							  "She is going to program",
+                "sentences": ["He went home",
+							  "She is going to work",
 							  "Nobody likes washing dishes",
 							  "He agreed to help him"]
             },
@@ -18,12 +20,14 @@
         {
             "class": "UniversalBiasFilter",
             "args": {
-                "minority": ["she", "her", "hers"],
-				"majority": ["he", "him", "his"]
+                "language": "en",
+				"category": "gender",
+                "minority": "female",
+				"majority": "majority"
             },
             "inputs": {
-                "sentences": ["He is going to make a cake.",
-							  "She is going to program",
+                "sentences": ["He went home",
+							  "She is going to work",
 							  "Nobody likes washing dishes",
 							  "She agreed to help him"]
             },
@@ -32,42 +36,48 @@
 		{
             "class": "UniversalBiasFilter",
             "args": {
-                "minority": ["elle", "madame", "maman"],
-				"majority": ["il", "monsieur", "papa"]
+                "language": "fr",
+				"category": "gender",
+                "minority": "female",
+				"majority": "majority"
             },
             "inputs": {
-                "sentences": ["Il va preparer un gateau",
-							  "Elle va créer un logiciel",
+                "sentences": ["Il va à la maison",
+							  "Elle va au travail",
 							  "Personne n'aime pas laver la vaiselle",
-							  "Maman va à la conférence"]
+							  "Il participe à la conférence"]
+            },
+            "outputs": true
+        },
+		{
+            "class": "UniversalBiasFilter",
+            "args": {
+                "language": "fr",
+				"category": "gender",
+                "minority": "female",
+				"majority": "majority"
+            },
+            "inputs": {
+                "sentences": ["Il va à la maison",
+							  "Elle va au travail",
+							  "Personne n'aime pas laver la vaiselle",
+							  "Maman participe à la conférence"]
             },
             "outputs": false
         },
 		{
             "class": "UniversalBiasFilter",
             "args": {
-                "minority": ["она", "мадам", "мама"],
-				"majority": ["он", "сэр", "папа"]
+                "language": "fr",
+				"category": "gender",
+                "minority": "female",
+				"majority": "majority"
             },
             "inputs": {
-                "sentences": ["Он собирается испечь торт",
-							  "Она создаст софт",
-							  "Никто не любит мыть посуду",
-							  "Мама идет на конференцию"]
-            },
-            "outputs": false
-        },
-		{
-            "class": "UniversalBiasFilter",
-            "args": {
-                "minority": ["ona", "pani", "mama"],
-				"majority": ["on", "pan", "ojciec"]
-            },
-            "inputs": {
-                "sentences": ["Pan upiecze ciasto",
-							  "Pani stworzy oprogramowanie",
-							  "Nikt nie lubi zmywać naczyń",
-							  "Mama jedzie na konferencję"]
+                "sentences": ["Il va à la maison",
+							  "Elle va au travail",
+							  "Personne n'aime pas laver la vaiselle",
+							  "Marie participe à la conférence"]
             },
             "outputs": false
         }

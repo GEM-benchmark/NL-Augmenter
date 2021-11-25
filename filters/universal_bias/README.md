@@ -2,8 +2,9 @@
 
 ## What type of a filter is this?
 
-This filter is currently contains lexical seeds for 10 categories () in English, however it can be extended to any language or topic by simple addition of desired entries to `lexicals.json` 
-file in current directoryalong with the text corpus in corresponding language.
+This filter is currently contains lexical seeds for 10 categories (religion, race, ethnicity, gender, sexual orientation, age, appearance, disability, experience, education, economic status).
+The lexical seeds representing these categories are currently available in English only, however the pool of languages can be extended by a simple addition of the lexical seeds in a desired language to the lexicals.json file.
+
 The minority parameter is a potentially underrepresented group, defined with its own set of keywords; the majority parameter is a set of keywords, representing the dominating group.
 The filter returns "True" if the minority group is indeed underrepresented, "False" otherwise.
 

@@ -1,17 +1,16 @@
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 import re
+import json
 
 class UniversalBiasFilter(SentenceOperation):
     tasks = [TaskType.TEXT_TO_TEXT_GENERATION]
     keywords = ["rule-based", "social-reasoning"]
 
-    def __init__(self, language=None, category=None, minority_group=None, majority_group=None, minority=None, majority=None):
+    def __init__(self, language=None, category=None, minority=None, majority=None):
         super().__init__()
         self.language = language
-        self.category = category
-        self.minority_group = minority_group
-        self.majority_group = majority_group
+        self.category = category        
         self.minority = minority
         self.majority = majority
     
@@ -31,8 +30,9 @@ class UniversalBiasFilter(SentenceOperation):
 
         # Retrieve relevant data extracts
         try:
-            minority_group = data[self.language][self.category][self.minority_group]
-            majority_group = data[self.language][self.category][self.majority_group]
+            minority_group = data[self.language][self.category][self.minority]
+            majority_group = data[self.language][self.category][self.majority]
+                        
         except NameError as error:
             print('The specified language, category of group is not supported or misformatted. Please provide valid arguments to the filter() method.') 
 
@@ -49,7 +49,7 @@ class UniversalBiasFilter(SentenceOperation):
             sentence_cleaned = sentence.lower()
             sentence_cleaned = re.sub('^',' ', sentence_cleaned)
             sentence_cleaned = re.sub('$',' ', sentence_cleaned)
-
+            
             # Take care of urls
             words = []
             for word in sentence_cleaned.split():
@@ -59,7 +59,7 @@ class UniversalBiasFilter(SentenceOperation):
                 words.append(word.strip())
             sentence_cleaned = ' '.join(words)
             sentence_cleaned = re.sub(r'\[([^\]]*)\] \( *__url__ *\)', r'\1', sentence_cleaned)
-
+            
             # Remove illegal chars and extra space
             sentence_cleaned = re.sub('__url__','URL', sentence_cleaned)
             sentence_cleaned = re.sub(r"[^A-Za-z0-9():,.!?\"\']", " ", sentence_cleaned)
@@ -70,13 +70,13 @@ class UniversalBiasFilter(SentenceOperation):
 
             # Split the words in the sentence to find the intersection with the minority array of keywords
             intersection_minority = set(sentence_cleaned.split()).intersection(
-                set(minority_group + minority)
+                set(minority_group)
             )
             # Split the words in the sentence to find the intersection with the majority array of keywords
             intersection_majority = set(sentence_cleaned.split()).intersection(
-                set(majority_group + majority)
+                set(majority_group)
             )
-
+            
             # If the intersection occurred, the intersection_minority and intersection_majority will contain at least one common keyword
             # use this intersection information to get the value for the corresponding flags
             minority_flag = len(intersection_minority) > 0
@@ -105,6 +105,7 @@ class UniversalBiasFilter(SentenceOperation):
                 "majority_flag": majority_flag,
                 "neutral_flag": neutral_flag,
             }
+            print("sentence_object", sentence_object)
 
             # Append the object to the array we return
             flagged_sentences.append(sentence_object)
