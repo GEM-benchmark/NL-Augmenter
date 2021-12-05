@@ -1,14 +1,12 @@
 import re
 
 import nltk
-import spacy
-from initialize import spacy_nlp
-from nltk.corpus import wordnet
 import numpy as np
+from nltk.corpus import wordnet
 
+from initialize import initialize_models, spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-
 
 """
 The code is adapted from @zijwang https://github.com/GEM-benchmark/NL-Augmenter/tree/main/transformations/synonym_substitution
@@ -42,18 +40,19 @@ def untokenize(words):
 def is_synonyms(word1, word2):
     synonyms = []
     for syn in wordnet.synsets(word1):
-        for l in syn.lemmas():
-            synonyms.append(l.name())
+        for lemma in syn.lemmas():
+            synonyms.append(lemma.name())
     if word2 in synonyms:
         return True
     return False
 
+
 def is_antonyms(word1, word2):
     antonyms = []
     for syn in wordnet.synsets(word1):
-        for l in syn.lemmas():
-            if l.antonyms():
-                antonyms.append(l.antonyms()[0].name())
+        for lemma in syn.lemmas():
+            if lemma.antonyms():
+                antonyms.append(lemma.antonyms()[0].name())
     if word2 in antonyms:
         return True
     return False
@@ -83,10 +82,10 @@ def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
                 antonyms = []
                 # synonyms = []
                 for syn in wordnet.synsets(word, pos=wn_pos):
-                    for l in syn.lemmas():
+                    for lemma in syn.lemmas():
                         # synonyms.append(l.name())
-                        if l.antonyms():
-                            antonyms.append(l.antonyms()[0].name())
+                        if lemma.antonyms():
+                            antonyms.append(lemma.antonyms()[0].name())
                 antonyms = list(set(antonyms))
 
                 if len(antonyms) > 0:
@@ -101,7 +100,7 @@ def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
         result = untokenize(result)
 
         # choose even number of changes
-        if counter%2 != 0:
+        if counter % 2 != 0:
             result = text
 
         # avoid doing transformation that original words are either synonyms or antonyms
@@ -112,7 +111,6 @@ def antonyms_substitute(text, spacy_pipeline, seed=22, max_outputs=1):
                     if is_antonyms(word1, word2) or is_synonyms(word1, word2):
                         result = text
                         break
-
 
         if result not in results:
             # make sure there is no dup in results
@@ -135,7 +133,9 @@ class AntonymsSubstitute(SentenceOperation):
 
     def __init__(self, seed=42, prob=0.5, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = (
+            spacy_nlp if spacy_nlp else initialize_models()
+        )  # loads en_core_web_sm by default
         self.prob = prob
         nltk.download("wordnet")
 

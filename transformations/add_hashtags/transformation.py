@@ -1,7 +1,8 @@
+import random
+
+from initialize import initialize_models, spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-import random
-from spacy import load
 
 
 def extract_dep_nodes(dep_parse, be_class_verb):
@@ -37,7 +38,7 @@ def generate_hashtag_from_noun_chunk(chunk_list, subj_obj_list):
         for chunk in chunk_list:
             if chunk.lower() not in subj_obj_list:
                 chunk_words = [word.title() for word in chunk.split(" ")]
-                hash_tag_list.append("#"+"".join(chunk_words))
+                hash_tag_list.append("#" + "".join(chunk_words))
     return hash_tag_list
 
 
@@ -45,7 +46,7 @@ def extract_noun_chunks_hashtag(dep_parse, subj_obj_list):
     """Method for extracting noun chunks from dependency parse"""
     chunk_list = []
     for chunk in dep_parse.noun_chunks:
-        if len(str(chunk.text.split(" ")))>0:
+        if len(str(chunk.text.split(" "))) > 0:
             chunk_list.append(chunk.text)
     return generate_hashtag_from_noun_chunk(chunk_list, subj_obj_list)
 
@@ -56,11 +57,13 @@ def extract_hashtags(sentence, nlp, be_class_verb, subj_obj_list):
     verb, nsubj, dobj = extract_dep_nodes(dep_parse, be_class_verb)
     hash_tag_list = []
     for dep_n in [verb, nsubj, dobj]:
-        if(dep_n != ""):
-            hash_tag_list.append("#"+dep_n)
+        if dep_n != "":
+            hash_tag_list.append("#" + dep_n)
     if verb != "" and dobj != "":
-        hash_tag_list.append("#"+verb+dobj)
-    noun_chunks_hashtags = extract_noun_chunks_hashtag(dep_parse, subj_obj_list)
+        hash_tag_list.append("#" + verb + dobj)
+    noun_chunks_hashtags = extract_noun_chunks_hashtag(
+        dep_parse, subj_obj_list
+    )
     if noun_chunks_hashtags is not None:
         for ht in noun_chunks_hashtags:
             if ht not in hash_tag_list:
@@ -68,9 +71,13 @@ def extract_hashtags(sentence, nlp, be_class_verb, subj_obj_list):
     return verb, hash_tag_list
 
 
-def get_hash_tags(sentence, be_class_verb, subj_obj_list, seed=0, max_outputs=1, nlp=None):
+def get_hash_tags(
+    sentence, be_class_verb, subj_obj_list, seed=0, max_outputs=1, nlp=None
+):
     """method for appending hashtags to sentence"""
-    verb, hashtag_list = extract_hashtags(sentence, nlp, be_class_verb, subj_obj_list)
+    verb, hashtag_list = extract_hashtags(
+        sentence, nlp, be_class_verb, subj_obj_list
+    )
     transformation_list = []
     for _ in range(max_outputs):
         random.seed(0)
@@ -93,14 +100,30 @@ class HashtagGeneration(SentenceOperation):
 
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed)
-        self.max_outputs=max_outputs
-        self.nlp = load('en_core_web_sm')
-        self.be_class_verb = ["is", "am", "are", "was", "were", "will", "shall"]
+        self.max_outputs = max_outputs
+        self.nlp = (
+            spacy_nlp if spacy_nlp else initialize_models()
+        )  # loads en_core_web_sm by default
+        self.be_class_verb = [
+            "is",
+            "am",
+            "are",
+            "was",
+            "were",
+            "will",
+            "shall",
+        ]
         self.subj_obj_list = ["i", "you", "we", "they", "he", "she"]
 
     def generate(self, sentence: str):
-        transformed_sentences = get_hash_tags(sentence, self.be_class_verb, self.subj_obj_list,
-                                            self.seed, self.max_outputs, self.nlp)
+        transformed_sentences = get_hash_tags(
+            sentence,
+            self.be_class_verb,
+            self.subj_obj_list,
+            self.seed,
+            self.max_outputs,
+            self.nlp,
+        )
         return transformed_sentences
 
 
@@ -128,8 +151,8 @@ class HashtagGeneration(SentenceOperation):
 #             test_cases[i]["outputs"].append({"sentence":trans_sentence})
 #     json_file = {"type": convert_to_snake_case("add_hashtags"), "test_cases": test_cases}
 #     print(json.dumps(json_file))
-    # for ip in input_sent:
-    #     #random.seed(0)
-    #     print(ip)
-    #     res = tf.generate(ip)
-    #     print(res)
+# for ip in input_sent:
+#     #random.seed(0)
+#     print(ip)
+#     res = tf.generate(ip)
+#     print(res)

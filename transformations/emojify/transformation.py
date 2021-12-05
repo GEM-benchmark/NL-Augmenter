@@ -2,9 +2,7 @@ import os
 import random
 from json import load
 
-import spacy
-
-from initialize import spacy_nlp
+from initialize import initialize_models, spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -79,7 +77,9 @@ class EmojifyTransformation(SentenceOperation):
         self.word_to_emoji = load(open(dict_path, "r"))
 
         # Load the spacy nlp
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = (
+            spacy_nlp if spacy_nlp else initialize_models()
+        )  # loads en_core_web_sm by default
 
     def generate(self, sentence: str):
         """

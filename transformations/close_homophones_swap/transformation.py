@@ -1,9 +1,8 @@
 import random
 
-import spacy
 from SoundsLike.SoundsLike import Search
 
-from initialize import spacy_nlp
+from initialize import initialize_models, spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -60,7 +59,9 @@ class CloseHomophonesSwap(SentenceOperation):
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed)
         self.max_outputs = max_outputs
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = (
+            spacy_nlp if spacy_nlp else initialize_models()
+        )  # loads en_core_web_sm by default
 
     def generate(self, sentence: str):
         perturbed_texts = close_homophones_swap(

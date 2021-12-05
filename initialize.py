@@ -13,15 +13,39 @@ spacy_nlp = None
 glove = None
 
 
-def initialize_models():
+def initialize_models(model: str = "spacy", lang: str = "en"):
+    """
+    Initialize heavy models used across transformations/filters
+
+    Parameter:
+    ----------
+    model: str, default is 'spacy'
+        specify the type of model 'sapcy' or 'glove'.
+    lang: str, default is 'en'
+        language.
+
+    Returns:
+    --------
+    None.
+    """
     global spacy_nlp
     global glove
 
     # load spacy
-    spacy_nlp = spacy.load("en_core_web_sm")
-
-    # load glove
-    glove = vocab.GloVe(name = "6B", dim = "100")
+    if model == "spacy":
+        if lang == "en":
+            spacy_nlp = spacy.load("en_core_web_sm")
+        elif lang == "es":
+            spacy_nlp = spacy.load("es_core_news_sm")
+        elif lang == "zh":
+            spacy_nlp = spacy.load("zh_core_web_sm")
+        elif lang == "de":
+            spacy_nlp = spacy.load("de_core_news_sm")
+        elif lang == "fr":
+            spacy_nlp = spacy.load("fr_core_news_sm")
+    elif model == "glove":
+        # load glove
+        glove = vocab.GloVe(name="6B", dim="100")
 
 
 def reinitialize_spacy():

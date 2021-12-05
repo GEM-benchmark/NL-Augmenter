@@ -1,7 +1,7 @@
 import numpy as np
-import spacy
 from checklist.perturb import Perturb
-from initialize import spacy_nlp
+
+from initialize import initialize_models, spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -15,7 +15,9 @@ class ChangePersonNamedEntities(SentenceOperation):
         # TODO: Do not repeat parse computations.
         super().__init__(seed, max_outputs=max_outputs)
         self.n = n
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = (
+            spacy_nlp if spacy_nlp else initialize_models()
+        )  # loads en_core_web_sm by default
 
     def generate(self, sentence: str):
         np.random.seed(self.seed)

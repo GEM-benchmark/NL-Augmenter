@@ -1,6 +1,4 @@
-import spacy
-
-from initialize import spacy_nlp
+from initialize import initialize_models, spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
@@ -114,7 +112,9 @@ class SentenceSubjectObjectSwitch(SentenceOperation):
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
         # Initialize the spacy model
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = (
+            spacy_nlp if spacy_nlp else initialize_models()
+        )  # loads en_core_web_sm by default
 
     def generate(self, sentence: str):
 
@@ -148,7 +148,9 @@ class PairSubjectObjectSwitch(SentencePairOperation):
     def __init__(self, seed=0, max_outputs=3, pos_label="1", neg_label="0"):
         super().__init__(seed, max_outputs=max_outputs)
         # Initialize the spacy model
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        self.nlp = (
+            spacy_nlp if spacy_nlp else initialize_models()
+        )  # loads en_core_web_sm by default
 
         self.pos_label = pos_label
         self.neg_label = neg_label
