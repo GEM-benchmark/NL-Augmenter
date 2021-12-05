@@ -26,6 +26,11 @@ DEFAULT_LEADERBOARD_MODELS = {
         ("roberta-large-mnli", "multi_nli"),
         ("textattack/roberta-base-imdb", "imdb"),
     ],
+    "TEXT_TO_TEXT_GENERATION": [
+        ("mrm8488/bert-small2bert-small-finetuned-cnn_daily_mail-summarization", "cnn_dailymail"),
+        ("google/pegasus-billsum", "billsum"),
+        ("google/bigbird-pegasus-large-bigpatent", "big_patent"),
+    ],
     "TEXT_TAGGING": [],
     "DIALOGUE_ACT_TO_TEXT": [],
     "TABLE_TO_TEXT": [],
