@@ -1,0 +1,279 @@
+{
+  "type": "replace_hyponyms_hypernyms",
+  "test_cases": [
+    {
+      "class": "ReplaceHyponyms",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week."
+      },
+      "outputs": [
+        {
+          "sentence": "Andrew finally returned the French notebook to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French card to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French novel to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French journal to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French dictionary to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French textbook to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French paperback to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French catalog to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French catalogue to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French manual to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French album to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French folder to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French diary to Chris that I bought last week."
+        }
+      ]
+    },
+    {
+      "class": "ReplaceHyponyms",
+      "inputs": {
+        "sentence": "This car looks fascinating"
+      },
+      "outputs": [
+        {
+          "sentence": "This tank looks fascinating"
+        },
+        {
+          "sentence": "This van looks fascinating"
+        },
+        {
+          "sentence": "This bus looks fascinating"
+        },
+        {
+          "sentence": "This hack looks fascinating"
+        },
+        {
+          "sentence": "This flat looks fascinating"
+        },
+        {
+          "sentence": "This heap looks fascinating"
+        },
+        {
+          "sentence": "This wagon looks fascinating"
+        },
+        {
+          "sentence": "This SUV looks fascinating"
+        },
+        {
+          "sentence": "This diner looks fascinating"
+        }
+      ]
+    },
+    {
+      "class": "ReplaceHyponyms",
+      "inputs": {
+        "sentence": "There is no love for this product."
+      },
+      "outputs": [
+        {
+          "sentence": "There is no loyalty for this product."
+        },
+        {
+          "sentence": "There is no take for this product."
+        },
+        {
+          "sentence": "There is no romance for this product."
+        },
+        {
+          "sentence": "There is no caring for this product."
+        },
+        {
+          "sentence": "There is no love for this book."
+        },
+        {
+          "sentence": "There is no love for this movie."
+        },
+        {
+          "sentence": "There is no love for this film."
+        },
+        {
+          "sentence": "There is no love for this picture."
+        },
+        {
+          "sentence": "There is no love for this work."
+        },
+        {
+          "sentence": "There is no love for this album."
+        },
+        {
+          "sentence": "There is no love for this job."
+        },
+        {
+          "sentence": "There is no love for this cartoon."
+        },
+        {
+          "sentence": "There is no love for this fruit."
+        }
+      ]
+    },
+    {
+      "class": "ReplaceHyponyms",
+      "inputs": {
+        "sentence": "United Airlines has horrible service"
+      },
+      "outputs": [
+        {
+          "sentence": "United Airlines has horrible seating"
+        }
+      ]
+    },
+    {
+      "class": "ReplaceHypernyms",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week."
+      },
+      "outputs": [
+        {
+          "sentence": "Andrew finally returned the French register to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French collection to Chris that I bought last week."
+        },
+        {
+          "sentence": "Andrew finally returned the French work to Chris that I bought last week."
+        }
+      ]
+    },
+    {
+      "class": "ReplaceHypernyms",
+      "inputs": {
+        "sentence": "This car looks fascinating"
+      },
+      "outputs": [
+        {
+          "sentence": "This structure looks fascinating"
+        },
+        {
+          "sentence": "This object looks fascinating"
+        },
+        {
+          "sentence": "This artifact looks fascinating"
+        },
+        {
+          "sentence": "This room looks fascinating"
+        },
+        {
+          "sentence": "This construction looks fascinating"
+        },
+        {
+          "sentence": "This area looks fascinating"
+        },
+        {
+          "sentence": "This vehicle looks fascinating"
+        },
+        {
+          "sentence": "This container looks fascinating"
+        },
+        {
+          "sentence": "This unit looks fascinating"
+        },
+        {
+          "sentence": "This whole looks fascinating"
+        },
+        {
+          "sentence": "This compartment looks fascinating"
+        },
+        {
+          "sentence": "This entity looks fascinating"
+        },
+        {
+          "sentence": "This transport looks fascinating"
+        }
+      ]
+    },
+    {
+      "class": "ReplaceHypernyms",
+      "inputs": {
+        "sentence": "There is no love for this product."
+      },
+      "outputs": [
+        {
+          "sentence": "There is no content for this product."
+        },
+        {
+          "sentence": "There is no desire for this product."
+        },
+        {
+          "sentence": "There is no cause for this product."
+        },
+        {
+          "sentence": "There is no process for this product."
+        },
+        {
+          "sentence": "There is no link for this product."
+        },
+        {
+          "sentence": "There is no number for this product."
+        },
+        {
+          "sentence": "There is no score for this product."
+        },
+        {
+          "sentence": "There is no quantity for this product."
+        },
+        {
+          "sentence": "There is no state for this product."
+        },
+        {
+          "sentence": "There is no unit for this product."
+        },
+        {
+          "sentence": "There is no activity for this product."
+        },
+        {
+          "sentence": "There is no amount for this product."
+        },
+        {
+          "sentence": "There is no knowledge for this product."
+        }
+      ]
+    },
+    {
+      "class": "ReplaceHypernyms",
+      "inputs": {
+        "sentence": "United Airlines has horrible service"
+      },
+      "outputs": [
+        {
+          "sentence": "United Airlines has horrible quality"
+        },
+        {
+          "sentence": "United Airlines has horrible business"
+        },
+        {
+          "sentence": "United Airlines has horrible personnel"
+        },
+        {
+          "sentence": "United Airlines has horrible maintenance"
+        },
+        {
+          "sentence": "United Airlines has horrible transportation"
+        }
+      ]
+    }
+  ]
+}

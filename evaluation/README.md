@@ -37,6 +37,10 @@ python evaluate.py -t ButterFingersPerturbation -task "TEXT_CLASSIFICATION" -m "
 
 Note that it's highly possible that some of the evaluate_* functionality won't work owing to the variety of dataset and model formats. We've tried to mitigate this by using models and datasets of HuggingFace. If you wish to evaluate on models and datasets apart from those mentioned [here](evaluation_engine.py), you are welcome to do so. Do mention in your README how they turned out!
 
+## Colab notebook
+
+<a href="https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Running_Evaluation_NL_Augmenter_(All_Operations).ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> To quickly run evaluation on any transformation, run through our [colab notebook](https://colab.research.google.com/github/GEM-benchmark/NL-Augmenter/blob/main/notebooks/Running_Evaluation_NL_Augmenter_(All_Operations).ipynb).
+
 ## Leaderboard
 
 Here, we provide a leaderboards for each default task, by executing transformations on typical models in each task (p=20). If you would like to join the leaderboard party encourage you to submit pull requests!

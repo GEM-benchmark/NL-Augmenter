@@ -143,7 +143,6 @@ class SuspectingParaphraser(QuestionAnswerOperation):
 
         doc = self.nlp(question)
         token = doc[0]
-        print(token, token.pos_)
         if token.pos_ != "AUX":
             return False
 

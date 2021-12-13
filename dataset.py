@@ -101,21 +101,25 @@ class TextLineDataset(BaseDataset):
         self, transformation: SentenceOperation
     ) -> TextLineDataset:
         transformed_data = []
+        transformed_labels = []
         print("Applying transformation:")
 
         # calculating ratio of transformed example to unchanged example
         successful_num = 0
         failed_num = 0
 
-        for line in tqdm(self.data):
-            pt_examples = transformation.generate(line)
+        for datapoint, label in tqdm(
+            zip(self.data, self.labels), total=len(self.data)
+        ):
+            pt_examples = transformation.generate(datapoint)
             successful_pt, failed_pt = transformation.compare(
-                line, pt_examples
+                datapoint, pt_examples
             )
             successful_num += successful_pt
             failed_num += failed_pt
 
             transformed_data.extend(pt_examples)
+            transformed_labels.extend([label]*len(pt_examples))
 
         total_num = successful_num + failed_num
         print(
@@ -129,7 +133,7 @@ class TextLineDataset(BaseDataset):
         )
         if total_num == 0:
             return None
-        return TextLineDataset(transformed_data, self.labels)
+        return TextLineDataset(transformed_data, transformed_labels)
 
     def __iter__(self):
         for text, label in zip(self.data, self.labels):
@@ -286,7 +290,7 @@ class KeyValueDataset(BaseDataset):
         context = datapoint[self.fields[0]]
         question = datapoint[self.fields[1]]
         answers = [datapoint[answer_key] for answer_key in self.fields[2:]]
-        return filter.filter(context, question, answers)
+        return filter.filter(context, question, answers[0]) # @Zhenhao, converting answers to answers[0] here
 
     def _apply_sentence1_sentence2_target_filter(
         self, datapoint: dict, filter: SentencePairOperation
@@ -341,8 +345,17 @@ class KeyValueDataset(BaseDataset):
         self, datapoint: dict, transformation: SentenceOperation
     ):
         sentence = datapoint[self.fields[0]]
-        transformed_sentence = transformation.generate(sentence)
-        datapoint[self.fields[0]] = transformed_sentence
+        transformed_sentences = transformation.generate(sentence)
+
+        if len(self.fields) > 1: # QQP, MNLI
+            pt_datapoints = []
+            for tr in transformed_sentences:
+                pt_datapoint = datapoint.copy()
+                pt_datapoint[self.fields[0]] = tr
+                pt_datapoints.append(pt_datapoint)
+            return pt_datapoints
+
+        datapoint[self.fields[0]] = transformed_sentences
         return [datapoint]
 
     def _apply_sentence_and_target_transformation(

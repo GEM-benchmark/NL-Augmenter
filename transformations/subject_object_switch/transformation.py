@@ -81,16 +81,16 @@ def subject_object_switch(sentence, nlp):
             doc[i] for i in range(object_chunk[-1].i + 1, len(doc))
         )
 
-    # Rebuild Sentence
-    new_sentence = [t.text + t.whitespace_ for t in new_sentence]
-    new_sentence = "".join(new_sentence)
+        # Rebuild Sentence
+        new_sentence = [t.text + t.whitespace_ for t in new_sentence]
+        new_sentence = "".join(new_sentence)
 
-    # Naively handle basic capitalization
-    if (
-        sentence[0] == sentence[0].upper()
-        and new_sentence[0] != new_sentence[0].upper()
-    ):
-        new_sentence = new_sentence[0].upper() + new_sentence[1:]
+        # Naively handle basic capitalization
+        if (
+            sentence[0] == sentence[0].upper()
+            and new_sentence[0] != new_sentence[0].upper()
+        ):
+            new_sentence = new_sentence[0].upper() + new_sentence[1:]
 
     return new_sentence, changed
 

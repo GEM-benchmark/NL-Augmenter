@@ -1,7 +1,6 @@
 import logging
-from abc import ABC
-
 import random
+from abc import ABC
 from typing import Callable, Dict, List, Union
 
 import numpy as np
@@ -149,6 +148,7 @@ class BigramForbidStrategy(ForbidStrategy):
 class ProtaugmentDiverseParaphrase(SentenceOperation, ABC):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.SENTIMENT_ANALYSIS]
     languages = ["en"]
+    heavy = True
     keywords = [
         # Linguistic change
         "lexical",

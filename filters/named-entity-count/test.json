@@ -1,0 +1,64 @@
+{
+    "type": "named-entity-count",
+    "test_cases": [
+
+        {
+            "class": "NamedEntityCountFilter",
+            "args": {
+                "op": "<",
+                "threshold": 2
+            },
+            "inputs": {
+                "sentence": "America and Japan have signed treaty on automobile exports."
+            },
+            "outputs": false
+        },
+        {
+            "class": "NamedEntityCountFilter",
+            "args": {
+                "op": ">=",
+                "threshold": 1
+            },
+            "inputs": {
+                "sentence": "Novak Djokovic is the greatest tennis player of all time."
+            },
+            "outputs": true
+        },
+        {
+            "class": "NamedEntityCountFilter",
+            "args": {
+                "op": "==",
+                "threshold": 3
+            },
+            "inputs": {
+                "sentence": "La Flamenco is a dance performed in Spain in the region of Barcelona."
+            },
+            "outputs": true
+        },
+        {
+            "class": "SentenceAndTargetNamedEntityCountFilter",
+            "args": {
+                "ops": ["<=", ">="],
+                "thresholds": [2, 3]
+            },
+            "inputs": {
+                "sentence": "Ronaldo played cricket in India with Michael and Jackson.",
+                "target": "Michael talked to Jackson about the importance of crickets in nature."
+            },
+            "outputs": false
+        },
+        {
+            "class": "SentenceAndTargetNamedEntityCountFilter",
+            "args": {
+                "ops": ["==", "=="],
+                "thresholds": [2, 1]
+            },
+            "inputs": {
+                "sentence": "France is a country in Europe.",
+                "target": "The capital of France is Paris."
+            },
+            "outputs": false
+        }
+
+    ]
+}
