@@ -24,7 +24,7 @@ python evaluate.py -t TokenReplacement -task "TEXT_CLASSIFICATION" -m "textattac
 * The accuracy of the *roberta-large-mnli* model, evaluated on a subset of 1000 examples from the MNLI validation set, dropped from 91.0 (original examples) to 89.0 (perturbed examples).
 
 ```bash
-python evaluate.py -t TokenReplacement -task "TEXT_CLASSIFICATION" -m "roberta-large-mnli" -d "mnli" -p 20
+python evaluate.py -t TokenReplacement -task "TEXT_CLASSIFICATION" -m "roberta-large-mnli" -d "multi_nli" -p 20
 ```
 * The accuracy of the *textattack/bert-base-uncased-QQP* model, evaluated on a subset of 1000 examples from the QQP validation set, dropped from 92.0 (original examples) to 84.0 (perturbed examples).
 

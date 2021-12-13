@@ -69,13 +69,13 @@ python evaluate.py -t OcrPerturbation -task "TEXT_CLASSIFICATION" -m "textattack
 python evaluate.py -t OcrPerturbation -task "TEXT_CLASSIFICATION" -m "roberta-large-mnli" -d "multi_nli" -p 20
 ```
 
-- The accuracy of the *textattack/bert-base-uncased-QQP* model, evaluated on a subset of 1000 examples from the QQP validation set,  dropped from 92.0 (original examples) to 87.0 (perturbed examples).
+- The accuracy of the *textattack/bert-base-uncased-QQP* model, evaluated on a subset of 1000 examples from the QQP validation set,  dropped from 92.0 (original examples) to 88.0 (perturbed examples).
 
 ```
 python evaluate.py -t OcrPerturbation -task "TEXT_CLASSIFICATION" -m "textattack/bert-base-uncased-QQP" -d "qqp" -p 20
 ```
 
-- The accuracy of the *textattack/roberta-base-SST-2* model,  evaluated on a subset of 174 examples from the SST-2 validation set,  dropped from 94.0 (original examples) to 89.0 (perturbed examples).
+- The accuracy of the *textattack/roberta-base-SST-2* model,  evaluated on a subset of 174 examples from the SST-2 validation set,  dropped from 94.0 (original examples) to 87.0 (perturbed examples).
 
 ```
 python evaluate.py -t OcrPerturbation -task "TEXT_CLASSIFICATION" -m "textattack/roberta-base-SST-2" -d "sst2" -p 20
