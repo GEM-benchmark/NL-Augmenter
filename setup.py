@@ -158,7 +158,7 @@ setup(
     install_requires=get_default_requirements(),
     extras_require=get_extra_requirements(),
     classifiers=[
-        "License :: MIT License",
+        "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
         "Operating System :: OS Independent",
