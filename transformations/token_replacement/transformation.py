@@ -3,7 +3,7 @@ from typing import List
 
 from spacy import load as spacy_load
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from transformations.token_replacement.lookup_table_utils import (

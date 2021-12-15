@@ -3,8 +3,8 @@ from test.keywords import keywords_in_file
 
 import pytest
 
+from common.initialize import initialize_models, reinitialize_spacy
 from interfaces.KeyValuePairsOperation import KeyValuePairsOperation
-from initialize import initialize_models, reinitialize_spacy
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from interfaces.SentenceOperation import (
     SentenceAndTargetOperation,
@@ -99,16 +99,15 @@ def execute_tagging_test_case(transformation, test):
             transformation, expected_tags, p_tags
         )
 
+
 def execute_key_value_pair_test_case(transformation, test):
     filter_args = test["inputs"]
     mr = filter_args["meaning_representation"]
     reference = filter_args["reference"]
     outputs = test["outputs"]
-    perturbs = transformation.generate(
-        mr, reference
-    )
+    perturbs = transformation.generate(mr, reference)
     for idx, (p_mr, p_ref) in enumerate(perturbs):
-        print(p_mr)      
+        print(p_mr)
         expected_mr = outputs[idx]["meaning_representation"]
         expected_ref = outputs[idx]["reference"]
         assert p_mr == expected_mr, get_assert_message(

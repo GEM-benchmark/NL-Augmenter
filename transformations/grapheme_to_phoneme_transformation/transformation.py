@@ -1,11 +1,10 @@
 import random
-import re
 import string
 
 import pronouncing
 import spacy
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -65,7 +64,14 @@ class PhonemeSubstitution(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["en"]
-    keywords = ["lexical", "noise", "noise", "api-based", "aural", "high-precision"]
+    keywords = [
+        "lexical",
+        "noise",
+        "noise",
+        "api-based",
+        "aural",
+        "high-precision",
+    ]
 
     def __init__(self, seed=0, prob=0.5, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)

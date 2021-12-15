@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 import spacy
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
 from transformations.back_translation import BackTranslation

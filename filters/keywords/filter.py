@@ -1,7 +1,8 @@
+import spacy
+
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from initialize import spacy_nlp
-import spacy
 
 
 class TextContainsKeywordsFilter(SentenceOperation):

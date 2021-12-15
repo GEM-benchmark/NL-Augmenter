@@ -1,7 +1,4 @@
 import random
-from interfaces.SentenceOperation import SentenceOperation
-from tasks.TaskTypes import TaskType
-from initialize import spacy_nlp
 
 # for sent tokenizer
 import spacy
@@ -9,6 +6,10 @@ import spacy
 # coref resolution from allennlp
 # ref: https://demo.allennlp.org/coreference-resolution
 from allennlp.predictors.predictor import Predictor
+
+from common.initialize import spacy_nlp
+from interfaces.SentenceOperation import SentenceOperation
+from tasks.TaskTypes import TaskType
 
 """
 Shuffle sentence order

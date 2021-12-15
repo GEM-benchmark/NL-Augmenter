@@ -3,7 +3,7 @@ import numpy as np
 import spacy
 from babel.dates import format_date
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 

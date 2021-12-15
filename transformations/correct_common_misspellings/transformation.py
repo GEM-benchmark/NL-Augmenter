@@ -1,7 +1,9 @@
-import spacy
 import json
 import os
-from initialize import spacy_nlp
+
+import spacy
+
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -40,7 +42,9 @@ class CorrectCommonMisspellings(SentenceOperation):
 
 def get_common_misspellings_dict():
     spell_corrections = os.path.join(
-        "transformations", "correct_common_misspellings", "spell_corrections.json"
+        "transformations",
+        "correct_common_misspellings",
+        "spell_corrections.json",
     )
     with open(spell_corrections, "r") as fp:
         spell_corrections = json.load(fp)

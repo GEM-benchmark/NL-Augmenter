@@ -1,14 +1,13 @@
 import re
 
 import nltk
-import spacy
-from initialize import spacy_nlp
-from nltk.corpus import wordnet
 import numpy as np
+import spacy
+from nltk.corpus import wordnet
 
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.

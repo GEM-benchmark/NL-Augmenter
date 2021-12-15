@@ -6,7 +6,7 @@ import spacy
 import torch
 import torchtext.vocab
 
-from initialize import glove, spacy_nlp
+from common.initialize import glove, spacy_nlp
 from interfaces.KeyValuePairsOperation import KeyValuePairsOperation
 from tasks.TaskTypes import TaskType
 

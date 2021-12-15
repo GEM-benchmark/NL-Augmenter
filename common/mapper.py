@@ -100,7 +100,7 @@ map_filter = {
         "speech_tag",
         "token_amount",
         "yesno_question",
-        "diacritic_filter"
+        "diacritic_filter",
     ],
     "heavy": ["quantitative_ques", "oscillatory_hallucination", "toxicity"],
 }

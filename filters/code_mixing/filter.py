@@ -1,9 +1,9 @@
 import spacy
 from ftlid import identify_language
 
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from initialize import spacy_nlp
 
 
 class CodeMixing(SentenceOperation):
@@ -18,7 +18,7 @@ class CodeMixing(SentenceOperation):
         TaskType.TEXT_TAGGING,
         TaskType.TEXT_CLASSIFICATION,
     ]
-    keywords = ['model-based', 'tokenizer-required']
+    keywords = ["model-based", "tokenizer-required"]
     languages = [
         "en",
         "ru",

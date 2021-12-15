@@ -1,9 +1,11 @@
 import os
-from test.mapper import map_filter, map_transformation
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
+from common.mapper import map_filter, map_transformation
 from TestRunner import OperationRuns
+
+VERSION = "1.0.0"
 
 
 def all_folders(search: str, transformation_type: str) -> list:
@@ -50,14 +52,9 @@ def recursive_requirements(search: str, transformation_type: str) -> str:
     return requirements
 
 
-def get_default_requirements(transformation_type: str) -> list:
+def get_default_requirements() -> list:
     """
-    Populate the default requirements to be installed for the library
-
-    Parameters
-    ----------
-    transformation_type: str,
-        type of transformation, light or heavy.
+    Populate the default requirements to be installed for the library.
 
     Returns:
     -------
@@ -75,7 +72,7 @@ def get_default_requirements(transformation_type: str) -> list:
     mandatory_requirements += recursive_requirements(
         "filters", "light"
     )  # light filters
-    return mandatory_requirements
+    return filter_requirements(mandatory_requirements)
 
 
 def filter_requirements(requirements: str) -> list:
@@ -91,11 +88,12 @@ def filter_requirements(requirements: str) -> list:
     list
         list of filtered requirements
     """
-    list_requirements = requirements.split("\n")
-    for entry in list_requirements:
-        if "#" in entry or entry == "":
-            list_requirements.remove(entry)
-    return list_requirements
+    requirement_list = requirements.split("\n")
+    # Remove all comments and empty string.
+    requirement_list = set(
+        filter(lambda req: "#" not in req and req != "", requirement_list)
+    )
+    return list(requirement_list)
 
 
 def get_extra_requirements() -> dict:
@@ -103,7 +101,7 @@ def get_extra_requirements() -> dict:
     Get the dict of requirements for all the heavy transformations and filters.
     If a user specifies a heavy transformation or filter, the corresponding requirements
     from the generated dictionary will be picked up and installed along with the default
-    requiremens.
+    requirements.
 
     The generated dictionary will be of this format:
     {
@@ -119,7 +117,7 @@ def get_extra_requirements() -> dict:
         'toxicity': ['detoxify==0.2.2']
     }
 
-    Example usage: pip install NL-Augmenter[lost_in_translation]
+    Example usage: pip install nl-augmenter[lost_in_translation]
 
     Returns:
     -------
@@ -129,34 +127,46 @@ def get_extra_requirements() -> dict:
     """
     # Dictionary of requirements
     requirements = {}
-    count = 0
-    # Heavy transformations picked from test/mapper.py
+    # Heavy transformations picked from mapper.py
     for entry in map_transformation["heavy"]:
         file_name = "transformations/" + entry + "/requirements.txt"
         if os.path.exists(file_name):
             req_string = read(file_name)
             requirements[entry] = filter_requirements(req_string)
-            count += 1
-    # Heavy filters picked from test/mapper.py
+    # Heavy filters picked from mapper.py
     for entry in map_filter["heavy"]:
         file_name = "filters/" + entry + "/requirements.txt"
         if os.path.exists(file_name):
             req_string = read(file_name)
             requirements[entry] = filter_requirements(req_string)
-            count += 1
-    print(count)
     return requirements
 
 
 setup(
-    name="NL-Augmenter",
-    version="0.0.1",
-    description="The official repository of transformations.",
+    name="nl-augmenter",
+    version=VERSION,
+    description="NL-Augmenter: A Framework for Task-Sensitive Natural Language Augmentation",
+    author_email="nl-augmenter@googlegroups.com",
     long_description=read("README.md"),
-    install_requires=get_default_requirements("light"),
+    long_description_content_type="text/markdown",
+    license="MIT",
+    url="https://github.com/GEM-benchmark/NL-Augmenter",
+    project_urls={
+        "Bug Tracker": "https://github.com/GEM-benchmark/NL-Augmenter/issues",
+        "Web Page": "https://gem-benchmark.com/nl_augmenter",
+    },
+    install_requires=get_default_requirements(),
     extras_require=get_extra_requirements(),
+    classifiers=[
+        "License :: MIT License",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Operating System :: OS Independent",
+    ],
+    packages=find_packages(exclude=["test", "docs"]),
     package_data={
         "": ["*.json", "*.txt", "*.tsv", "*.csv", "*.npz", "*.ckpt"]
     },
     include_package_data=True,
+    python_requires=">=3.7",
 )

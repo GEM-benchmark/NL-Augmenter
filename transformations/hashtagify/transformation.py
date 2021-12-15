@@ -10,7 +10,7 @@ from nltk.tag import pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.tree import Tree
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 

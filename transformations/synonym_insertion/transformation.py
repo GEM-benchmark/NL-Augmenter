@@ -4,11 +4,11 @@ from abc import ABC
 
 import nltk
 import spacy
-from nltk.corpus import wordnet, stopwords
+from nltk.corpus import stopwords, wordnet
 
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from initialize import spacy_nlp
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.
@@ -23,7 +23,7 @@ class InsertWordTransformation:
         self.max_outputs = max_outputs
         self.seed = seed
         self.prob = prob
-        self.stopwords = stopwords.words('english')
+        self.stopwords = stopwords.words("english")
 
     def untokenize(self, words: list):
         """
@@ -35,7 +35,9 @@ class InsertWordTransformation:
         """
         text = " ".join(words)
         step1 = (
-            text.replace("`` ", '"').replace(" ''", '"').replace(". . .", "...")
+            text.replace("`` ", '"')
+            .replace(" ''", '"')
+            .replace(". . .", "...")
         )
         step2 = step1.replace(" ( ", " (").replace(" ) ", ") ")
         step3 = re.sub(r' ([.,:;?!%]+)([ \'"`])', r"\1\2", step2)
@@ -71,8 +73,14 @@ class InsertWordTransformation:
                     synsets = wordnet.synsets(word, pos=wordnet_pos)
                     if len(synsets) > 0:
                         synsets = [syn.name().split(".")[0] for syn in synsets]
-                        synsets = [syn for syn in synsets if syn.lower() != word.lower()]
-                        synsets = list(set(synsets))  # remove duplicate synonyms
+                        synsets = [
+                            syn
+                            for syn in synsets
+                            if syn.lower() != word.lower()
+                        ]
+                        synsets = list(
+                            set(synsets)
+                        )  # remove duplicate synonyms
                         if len(synsets) > 0 and random.random() < self.prob:
                             syn = random.choice(synsets)
                             syn = syn.replace("_", " ")
@@ -88,7 +96,7 @@ class InsertWordTransformation:
 
 
 """
-Insert words such as synonyms from WordNet via nltk. 
+Insert words such as synonyms from WordNet via nltk.
 """
 
 
@@ -97,11 +105,17 @@ class SynonymInsertion(SentenceOperation, ABC):
     This class is an implementation of synonym insertion in the sentence. Created by the Authors of TextAugment
     https://github.com/dsfsi/textaugment
     """
+
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
     heavy = False
     keywords = [
-        "tokenizer", "external-knowledge-based", "lexical", "low-precision", "low-coverage", "low-generations"
+        "tokenizer",
+        "external-knowledge-based",
+        "lexical",
+        "low-precision",
+        "low-coverage",
+        "low-generations",
     ]
 
     def __init__(self, seed=0, prob=0.5, max_outputs=1):

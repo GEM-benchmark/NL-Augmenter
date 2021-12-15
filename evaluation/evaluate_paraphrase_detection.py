@@ -4,7 +4,7 @@ from datasets import load_dataset
 from torch.nn.functional import cosine_similarity
 from transformers import AutoModel, AutoTokenizer
 
-from dataset import KeyValueDataset
+from common.dataset import KeyValueDataset
 from tasks.TaskTypes import TaskType
 
 

@@ -1,8 +1,9 @@
 from typing import Callable, List, Tuple
+
 import numpy as np
 import spacy
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
 

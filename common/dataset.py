@@ -119,7 +119,7 @@ class TextLineDataset(BaseDataset):
             failed_num += failed_pt
 
             transformed_data.extend(pt_examples)
-            transformed_labels.extend([label]*len(pt_examples))
+            transformed_labels.extend([label] * len(pt_examples))
 
         total_num = successful_num + failed_num
         print(
@@ -290,7 +290,9 @@ class KeyValueDataset(BaseDataset):
         context = datapoint[self.fields[0]]
         question = datapoint[self.fields[1]]
         answers = [datapoint[answer_key] for answer_key in self.fields[2:]]
-        return filter.filter(context, question, answers[0]) # @Zhenhao, converting answers to answers[0] here
+        return filter.filter(
+            context, question, answers[0]
+        )  # @Zhenhao, converting answers to answers[0] here
 
     def _apply_sentence1_sentence2_target_filter(
         self, datapoint: dict, filter: SentencePairOperation
@@ -347,7 +349,7 @@ class KeyValueDataset(BaseDataset):
         sentence = datapoint[self.fields[0]]
         transformed_sentences = transformation.generate(sentence)
 
-        if len(self.fields) > 1: # QQP, MNLI
+        if len(self.fields) > 1:  # QQP, MNLI
             pt_datapoints = []
             for tr in transformed_sentences:
                 pt_datapoint = datapoint.copy()

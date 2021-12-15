@@ -3,7 +3,7 @@ from datasets import load_dataset
 from sacrebleu import corpus_bleu
 from transformers import pipeline
 
-from dataset import KeyValueDataset
+from common.dataset import KeyValueDataset
 from tasks.TaskTypes import TaskType
 
 

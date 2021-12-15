@@ -1,13 +1,12 @@
 from typing import List, Optional, Union
 
-import pyinflect  # noqa: F401
 import spacy
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 from spacy.symbols import AUX, NOUN, PRON, PROPN, VERB, aux, cc, nsubj
 from spacy.tokens import Span, Token
 from spacy.tokens.doc import Doc
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 

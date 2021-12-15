@@ -5,9 +5,9 @@ import re
 from importlib import import_module
 from pathlib import Path
 from pkgutil import iter_modules
-from test.mapper import map_filter, map_transformation
 from typing import Iterable
 
+from common.mapper import map_filter, map_transformation
 from interfaces.Operation import Operation
 from tasks.TaskTypes import TaskType
 
@@ -53,14 +53,16 @@ class OperationRuns(object):
     def _load_single_transformation_test_case(
         self, transformation_name, search="transformations"
     ):
-        filters = []
-        filter_test_cases = []
+        operations = []
+        operations_test_cases = []
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        filters_dir = package_dir.parent.joinpath(search, transformation_name)
+        operations_dir = package_dir.parent.joinpath(
+            search, transformation_name
+        )
 
         t_py = import_module(f"{search}.{transformation_name}")
-        t_js = os.path.join(filters_dir, "test.json")
-        filter_instance = None
+        t_js = os.path.join(operations_dir, "test.json")
+        operation_instance = None
         prev_class_args = {}
         for test_case in load_test_cases(t_js):
             class_name = test_case["class"]
@@ -68,18 +70,18 @@ class OperationRuns(object):
             # construct filter class with input args
             cls = getattr(t_py, class_name)
             if (
-                filter_instance is None
-                or filter_instance.name() != class_name
+                operation_instance is None
+                or operation_instance.name() != class_name
                 or prev_class_args != class_args
             ):
-                filter_instance = cls(**class_args)
+                operation_instance = cls(**class_args)
                 prev_class_args = class_args
 
-            filters.append(filter_instance)
-            filter_test_cases.append(test_case)
+            operations.append(operation_instance)
+            operations_test_cases.append(test_case)
 
-        self.operations = filters
-        self.operation_test_cases = filter_test_cases
+        self.operations = operations
+        self.operation_test_cases = operations_test_cases
 
     def _load_multiple_transformation_test_case(
         self,
@@ -220,15 +222,17 @@ class OperationRuns(object):
                         and issubclass(obj, Operation)
                         and not obj.__module__.startswith("interfaces")
                     ):
-                        yield  obj
+                        yield obj
             except Exception:
-                print (f"Issue in importing module in folder {folder}")
+                print(f"Issue in importing module in folder {folder}")
                 continue
 
     @staticmethod
-    def get_operation(search="transformations",
-                      queryOperationName="ButterFingersPerturbation",
-                      queryFolder=None):
+    def get_operation(
+        search="transformations",
+        queryOperationName="ButterFingersPerturbation",
+        queryFolder=None,
+    ):
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         transformations_dir = package_dir.parent.joinpath(search)
@@ -239,28 +243,30 @@ class OperationRuns(object):
             t_py = import_module(f"{search}.{queryFolder}")
             for name, obj in inspect.getmembers(t_py):
                 if (
-                        inspect.isclass(obj)
-                        and issubclass(obj, Operation)
-                        and not obj.__module__.startswith("interfaces")
-                        and name == queryOperationName
+                    inspect.isclass(obj)
+                    and issubclass(obj, Operation)
+                    and not obj.__module__.startswith("interfaces")
+                    and name == queryOperationName
                 ):
                     print(f"Found {queryOperationName} in {queryFolder}.")
                     return obj
         except Exception:
-            print(f"No folder of name {queryFolder} found. Looping through all folders.")
+            print(
+                f"No folder of name {queryFolder} found. Looping through all folders."
+            )
 
         # (2) Loop through all the folders
         for (_, folder, _) in iter_modules(
-                [transformations_dir]
+            [transformations_dir]
         ):  # ---> ["back_translation", ...]
             try:
                 t_py = import_module(f"{search}.{folder}")
                 for name, obj in inspect.getmembers(t_py):
                     if (
-                            inspect.isclass(obj)
-                            and issubclass(obj, Operation)
-                            and not obj.__module__.startswith("interfaces")
-                            and name == queryOperationName
+                        inspect.isclass(obj)
+                        and issubclass(obj, Operation)
+                        and not obj.__module__.startswith("interfaces")
+                        and name == queryOperationName
                     ):
                         return obj
             except Exception:

@@ -35,7 +35,7 @@ from transformers import GPT2LMHeadModel, GPT2TokenizerFast
 # English multi-task CNN trained on OntoNotes
 # Assigns context-specific token vectors, POS tags, dependency parse and named entities
 # https://spacy.io/models/en
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from transformations.gender_neutral_rewrite.myconstants import (

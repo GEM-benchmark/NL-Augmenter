@@ -4,11 +4,10 @@ import nltk
 import numpy as np
 
 # Spacy needs this module, but it's used only implicitly
-import pyinflect  # noqa: F401
 import spacy
 from gender_extractor import GenderExtractor
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
 

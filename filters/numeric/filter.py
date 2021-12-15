@@ -1,8 +1,9 @@
+import spacy
+
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from spacy import load
-from initialize import spacy_nlp
-import spacy
+
 
 def has_number_in_digit(sentence):
     return any(char.isdigit() for char in sentence)
@@ -28,13 +29,52 @@ class TextContainsNumberFilter(SentenceOperation):
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.has_digit = has_digit
         self.has_word = has_word
-        self.numbers_in_words = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
-                                 "nine", "ten","eleven", "twelve", "thirteen", "fourteen",
-                                 "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
-                                 "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty",
-                                 "ninety", "hundred", "hundreds" "thousand", "thousands", "crore",
-                                 "crores", "million", "millions", "billion", "billions", "first",
-                                 "second", "third", "forth", "fifth", "eighth", "ninth"]
+        self.numbers_in_words = [
+            "zero",
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine",
+            "ten",
+            "eleven",
+            "twelve",
+            "thirteen",
+            "fourteen",
+            "fifteen",
+            "sixteen",
+            "seventeen",
+            "eighteen",
+            "nineteen",
+            "twenty",
+            "thirty",
+            "forty",
+            "fifty",
+            "sixty",
+            "seventy",
+            "eighty",
+            "ninety",
+            "hundred",
+            "hundreds" "thousand",
+            "thousands",
+            "crore",
+            "crores",
+            "million",
+            "millions",
+            "billion",
+            "billions",
+            "first",
+            "second",
+            "third",
+            "forth",
+            "fifth",
+            "eighth",
+            "ninth",
+        ]
 
     def filter(self, sentence: str) -> bool:
         if self.has_digit:

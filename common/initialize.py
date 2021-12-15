@@ -21,7 +21,7 @@ def initialize_models():
     spacy_nlp = spacy.load("en_core_web_sm")
 
     # load glove
-    glove = vocab.GloVe(name = "6B", dim = "100")
+    glove = vocab.GloVe(name="6B", dim="100")
 
 
 def reinitialize_spacy():

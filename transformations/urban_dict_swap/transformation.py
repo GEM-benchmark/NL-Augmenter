@@ -5,7 +5,7 @@ import spacy
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -37,8 +37,15 @@ class UrbanThesaurusSwap(SentenceOperation):
         TaskType.TEXT_TAGGING,
     ]
     languages = ["en"]
-    keywords = ["lexical", "api-based", "unnaturally-written", "possible-meaning-alteration", "high-precision",
-                "high-coverage", "figurative-language"]
+    keywords = [
+        "lexical",
+        "api-based",
+        "unnaturally-written",
+        "possible-meaning-alteration",
+        "high-precision",
+        "high-coverage",
+        "figurative-language",
+    ]
 
     retry_strategy = Retry(
         total=3,

@@ -3,7 +3,7 @@ import random
 import spacy
 from SoundsLike.SoundsLike import Search
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 

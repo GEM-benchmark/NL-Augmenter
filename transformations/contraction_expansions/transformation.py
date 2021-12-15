@@ -1,4 +1,5 @@
 import re
+
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -93,8 +94,9 @@ class ContractionExpansions(SentenceOperation):
             "you're": "you are",
             "you've": "you have",
         }
-        self.reverse_contraction_map = {value:key for key, value in self.contraction_map.items()}
-    
+        self.reverse_contraction_map = {
+            value: key for key, value in self.contraction_map.items()
+        }
 
     def contract(self, sentence):
         """Contract expanded contractions in a sentence (if any)
@@ -107,7 +109,7 @@ class ContractionExpansions(SentenceOperation):
         string
             String with contractions contracted (if any)
         """
-        
+
         reverse_contraction_pattern = re.compile(
             r"\b({})\b ".format("|".join(self.reverse_contraction_map.keys())),
             flags=re.IGNORECASE | re.DOTALL,
@@ -135,7 +137,6 @@ class ContractionExpansions(SentenceOperation):
         string
             String with contractions expanded (if any)
         """
-        
 
         contraction_pattern = re.compile(
             r"\b({})\b".format("|".join(self.contraction_map.keys())),
@@ -165,12 +166,12 @@ class ContractionExpansions(SentenceOperation):
             List of strings with contractions expanded or contracted
             if no contractions are possible returns the same sentence
         """
-        expanded = [self.expand_contractions(sentence), self.contract(sentence)]
+        expanded = [
+            self.expand_contractions(sentence),
+            self.contract(sentence),
+        ]
         return [t for t in expanded if t != sentence]
 
     def generate(self, sentence):
         pertubed = self.contractions(sentence)
-        if pertubed !=[]:
-            return pertubed
-        else:
-            return [sentence]
+        return pertubed if pertubed else [sentence]

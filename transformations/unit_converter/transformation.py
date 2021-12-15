@@ -6,7 +6,7 @@ import spacy
 from num2words import num2words
 from word2number import w2n
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 

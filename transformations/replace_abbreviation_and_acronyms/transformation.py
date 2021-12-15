@@ -1,10 +1,11 @@
-from typing import List, Tuple, Set, Dict
-from initialize import spacy_nlp
-import random
-import spacy
-import ftfy
 import os
+import random
+from typing import Dict, List, Set, Tuple
 
+import ftfy
+import spacy
+
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 

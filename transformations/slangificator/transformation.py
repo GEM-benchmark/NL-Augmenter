@@ -1,12 +1,12 @@
 import itertools
-import random
-import spacy
 import os
+import random
 
+import spacy
 
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-from initialize import spacy_nlp
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.
@@ -14,7 +14,14 @@ Base Class for implementing the different input transformations a generation sho
 
 
 def slangifyPoS(
-    token, modified_toks, Dictionary, PoS, probReplace, isCap, ReplPot, ReplMade
+    token,
+    modified_toks,
+    Dictionary,
+    PoS,
+    probReplace,
+    isCap,
+    ReplPot,
+    ReplMade,
 ):  # performs transformation similar to all three PoS
 
     # Check if word is in the corresponding dictionary
@@ -36,7 +43,9 @@ def slangifyPoS(
             indChosenRepl = random.randint(
                 0, len(indAllPosRepl) - 1
             )  # choose one of the replacements
-            indChosenRepl = indAllPosRepl[indChosenRepl]  # index of that replacement
+            indChosenRepl = indAllPosRepl[
+                indChosenRepl
+            ]  # index of that replacement
 
             if PoS == "Noun":  # Treat plular case for nouns
                 # Take plural or singular form. Note only for nouns
@@ -146,7 +155,9 @@ def slangify(
             else:  # if there is no part of speech which might be replaced then just keep the original one
                 modified_toks.append(token.text + token.whitespace_)
 
-        modified_toks = "".join(modified_toks)  # Reconstruct the transformed text
+        modified_toks = "".join(
+            modified_toks
+        )  # Reconstruct the transformed text
 
         perturbed_texts.append(modified_toks)
 
@@ -173,7 +184,9 @@ class Slangificator(SentenceOperation):
 
         pathDic = os.path.dirname(os.path.abspath(__file__))
 
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")  # get an instance of the tokenizer
+        self.nlp = (
+            spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
+        )  # get an instance of the tokenizer
 
         # Load dictionaries
         self.Slang_Nouns = [
@@ -186,7 +199,9 @@ class Slangificator(SentenceOperation):
         ]
         self.Slang_Adjectives = [
             line.strip("\n\r").split(",")
-            for line in open(os.path.join(pathDic, "Slang_Adjectives.txt"), "r")
+            for line in open(
+                os.path.join(pathDic, "Slang_Adjectives.txt"), "r"
+            )
         ]
 
     def generate(self, sentence: str):

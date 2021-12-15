@@ -1,6 +1,8 @@
 import benepar
-import spacy
 import nltk
+import spacy
+
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 from transformations.syntactically_diverse_paraphrase.sowreap.parse_utils import (
@@ -12,7 +14,6 @@ from transformations.syntactically_diverse_paraphrase.sowreap.reap_utils import 
 from transformations.syntactically_diverse_paraphrase.sowreap.sow_utils import (
     sowModel,
 )
-from initialize import spacy_nlp
 
 
 class ParaphraseSowReap(SentenceOperation):
@@ -25,11 +26,11 @@ class ParaphraseSowReap(SentenceOperation):
         super().__init__(seed, max_outputs=max_outputs)
         self.sow = sowModel("tanyagoyal/paraphrase-sow", max_outputs)
         self.reap = reapModel("tanyagoyal/paraphrase-reap", max_outputs)
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         try:
-            nltk.data.find(f"models/benepar_en3")
+            nltk.data.find("models/benepar_en3")
         except LookupError:
-            benepar.download('benepar_en3')
+            benepar.download("benepar_en3")
 
         if spacy.__version__.startswith("2"):
             self.nlp.add_pipe(benepar.BeneparComponent("benepar_en3"))
@@ -54,6 +55,8 @@ if __name__ == "__main__":
 
     tf = ParaphraseSowReap(max_outputs=10)
 
-    sentence = "the company withdrew its application on the 196th day its submission."
+    sentence = (
+        "the company withdrew its application on the 196th day its submission."
+    )
     output = tf.generate(sentence)
     print(output)

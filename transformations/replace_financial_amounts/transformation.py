@@ -1,13 +1,13 @@
-from typing import List, Dict, Tuple
-from initialize import spacy_nlp
 import random
-import spacy
-import ftfy
+from typing import Dict, List, Tuple
 
-from transformations.replace_financial_amounts import entity_financial_amount
+import ftfy
+import spacy
+
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-
+from transformations.replace_financial_amounts import entity_financial_amount
 
 # Token has three keys => text: str, category: str and is_financial_amount: bool
 Token = Dict[str, any]
@@ -325,7 +325,8 @@ def generate_financial_amount_replacement(
         else:
             # case currency has never been encountered in the text previously
             currencies_generated = [
-                financial_amounts_encountered[_c]["name"] for _c in financial_amounts_encountered
+                financial_amounts_encountered[_c]["name"]
+                for _c in financial_amounts_encountered
             ]
             (
                 new_financial_amount,

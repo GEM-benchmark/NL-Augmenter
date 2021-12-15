@@ -1,10 +1,12 @@
+import random
+from typing import List
+
+import spacy
+
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-import random
 
-from typing import List
-import spacy
-from initialize import spacy_nlp
 
 def extract_names_and_titles():
     """
@@ -89,7 +91,7 @@ def extract_names_and_titles():
         "he": "she",
     }
     male_name_file = open("gender.male.names", "r")
-    male_names  = []
+    male_names = []
     for line in male_name_file:
         male_names.append(line.strip())
     female_name_file = open("gender.female.names", "r")
@@ -97,8 +99,12 @@ def extract_names_and_titles():
     for line in female_name_file:
         female_names.append(line.strip())
 
-    male_names.extend(SINGULAR_GENDER_PAIRS.keys()) # adding male title, profession and relation
-    female_names.extend(SINGULAR_GENDER_PAIRS.values()) # adding female title, profession and relation
+    male_names.extend(
+        SINGULAR_GENDER_PAIRS.keys()
+    )  # adding male title, profession and relation
+    female_names.extend(
+        SINGULAR_GENDER_PAIRS.values()
+    )  # adding female title, profession and relation
 
     return male_names, female_names
 
@@ -107,8 +113,8 @@ def is_candidate_word(word):
     """
     check a word is correct candidate word for identifying pronoun
     """
-    discarded_words = ["a", "an", "the"] # can enhance this list
-    if len(word)<=2 or word.lower() in discarded_words:
+    discarded_words = ["a", "an", "the"]  # can enhance this list
+    if len(word) <= 2 or word.lower() in discarded_words:
         return False
     return True
 
@@ -145,28 +151,41 @@ def fetch_corresponding_pronoun(nsubj_phrase, male_names, female_names):
     if nsubj_phrase.lower() in ["i", "you", "we", "he", "she", "they"]:
         return nsubj_phrase.lower()
     if len(nsubj_phrase.split(" ")) > 1:
-        for ph in nsubj_phrase.split(" "): # if nsubj phrase contains multiple words.
+        for ph in nsubj_phrase.split(
+            " "
+        ):  # if nsubj phrase contains multiple words.
             if is_candidate_word(ph):
                 pronoun = map_pronoun(ph, male_names, female_names)
-                if(pronoun != ""):
+                if pronoun != "":
                     return pronoun
-        return "they" # default pronoun
+        return "they"  # default pronoun
     else:
         return map_pronoun(nsubj_phrase)
 
 
-def get_transformation(sentence, nlp, factive_verbs, non_factive_verbs, initial_verbs, male_names, female_names, seed):
+def get_transformation(
+    sentence,
+    nlp,
+    factive_verbs,
+    non_factive_verbs,
+    initial_verbs,
+    male_names,
+    female_names,
+    seed,
+):
     """
     transform a input sentence by adding factive verb
     """
     parse = nlp(sentence)
     nsubj_phrase = extract_nsubj_phrase(parse)
-    pronoun = fetch_corresponding_pronoun(nsubj_phrase, male_names, female_names)
+    pronoun = fetch_corresponding_pronoun(
+        nsubj_phrase, male_names, female_names
+    )
     random.seed(0)
-    verb = random.choice(factive_verbs + non_factive_verbs) # pick random verb
-    #initial_verb = random.choice(initial_verbs) # TODO:
+    verb = random.choice(factive_verbs + non_factive_verbs)  # pick random verb
+    # initial_verb = random.choice(initial_verbs) # TODO:
     sentence = sentence.replace(nsubj_phrase, pronoun)
-    return f"{nsubj_phrase} {verb} that, {sentence}"#, f"{nsubj} didn't {verb} that, {sentence}"
+    return f"{nsubj_phrase} {verb} that, {sentence}"  # , f"{nsubj} didn't {verb} that, {sentence}"
 
 
 class FactiveVerbTransformation(SentenceOperation):
@@ -181,51 +200,131 @@ class FactiveVerbTransformation(SentenceOperation):
     def __init__(self, seed=1, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-        self.initial_verbs = ["", "have to", "has to", "need to"] # TODO: use this in next push after discussion
-        #TODO: we can add third person variation like (after discussion)
+        self.initial_verbs = [
+            "",
+            "have to",
+            "has to",
+            "need to",
+        ]  # TODO: use this in next push after discussion
+        # TODO: we can add third person variation like (after discussion)
         # "Peter published a research paper. => John revealed that, Peter published a research paper."
         self.male_names, self.female_names = extract_names_and_titles()
-        self.factive_verbs = ["accept", "accepts", "accepted",
-                              "establish", "establishes", "established",
-                              "note", "notes", "noted",
-                              "reveal", "reveals", "revealed",
-                              "acknowledge","acknowledges", "acknowledged",
-                              "explain", "explains", "explained",
-                              "observe", "observes", "observed",
-                              "see", "saw", "seen",
-                              "know", "knows", "knew",
-                              "prove", "proves", "proved",
-                              "show", "shows", "showed",
-                              "demonstrate", "demonstrates","demonstrated",
-                              "learn", "learns", "learnt",
-                              "recognise", "recognises", "recognised",
-                              "inform", "informs", "informed",
-                              "understand", "understands", "understood"
-                              "confirm", "confirms", "confirmed"] # more verbs can be added
-        self.non_factive_verbs = ["argue", "argues", "argued",
-                                  "doubt", "doubts", "doubted",
-                                  "hypothesise", "hypothesises", "hypothesised",
-                                  "recommend", "recommends", "recommended",
-                                  "assume", "assumes", "assumed",
-                                  "estimate", "estimates", "estimated",
-                                  "imply", "implies", "implied",
-                                  "suggest", "suggests", "suggested",
-                                  "believe", "believes", "believed",
-                                  "expect", "expects", "expected",
-                                  "predict", "predicts", "predicted",
-                                  "suspect", "suspects", "suspected",
-                                  "claim", "claims", "claimed",
-                                  "foresee", "foresaw", "foreseen",
-                                  "presume", "presumes", "presumed",
-                                  "think", "thinks", "thought"]
+        self.factive_verbs = [
+            "accept",
+            "accepts",
+            "accepted",
+            "establish",
+            "establishes",
+            "established",
+            "note",
+            "notes",
+            "noted",
+            "reveal",
+            "reveals",
+            "revealed",
+            "acknowledge",
+            "acknowledges",
+            "acknowledged",
+            "explain",
+            "explains",
+            "explained",
+            "observe",
+            "observes",
+            "observed",
+            "see",
+            "saw",
+            "seen",
+            "know",
+            "knows",
+            "knew",
+            "prove",
+            "proves",
+            "proved",
+            "show",
+            "shows",
+            "showed",
+            "demonstrate",
+            "demonstrates",
+            "demonstrated",
+            "learn",
+            "learns",
+            "learnt",
+            "recognise",
+            "recognises",
+            "recognised",
+            "inform",
+            "informs",
+            "informed",
+            "understand",
+            "understands",
+            "understood" "confirm",
+            "confirms",
+            "confirmed",
+        ]  # more verbs can be added
+        self.non_factive_verbs = [
+            "argue",
+            "argues",
+            "argued",
+            "doubt",
+            "doubts",
+            "doubted",
+            "hypothesise",
+            "hypothesises",
+            "hypothesised",
+            "recommend",
+            "recommends",
+            "recommended",
+            "assume",
+            "assumes",
+            "assumed",
+            "estimate",
+            "estimates",
+            "estimated",
+            "imply",
+            "implies",
+            "implied",
+            "suggest",
+            "suggests",
+            "suggested",
+            "believe",
+            "believes",
+            "believed",
+            "expect",
+            "expects",
+            "expected",
+            "predict",
+            "predicts",
+            "predicted",
+            "suspect",
+            "suspects",
+            "suspected",
+            "claim",
+            "claims",
+            "claimed",
+            "foresee",
+            "foresaw",
+            "foreseen",
+            "presume",
+            "presumes",
+            "presumed",
+            "think",
+            "thinks",
+            "thought",
+        ]
 
     def generate(self, sentence: str) -> List[str]:
         transformed_sentences = []
         for _ in range(self.max_outputs):
-            transformed_sentence = get_transformation(sentence, self.nlp,
-                                                    self.factive_verbs, self.non_factive_verbs,
-                                                    self.initial_verbs, self.male_names,
-                                                    self.female_names, self.seed)
+            transformed_sentence = get_transformation(
+                sentence,
+                self.nlp,
+                self.factive_verbs,
+                self.non_factive_verbs,
+                self.initial_verbs,
+                self.male_names,
+                self.female_names,
+                self.seed,
+            )
             transformed_sentences.append(transformed_sentence)
         return transformed_sentences
 

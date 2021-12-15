@@ -1,12 +1,12 @@
-import os
-import itertools
-import random
-import spacy
-import sys
-from tasks.TaskTypes import TaskType
-from interfaces.SentenceOperation import SentenceOperation
 import hashlib
-from initialize import spacy_nlp
+import os
+import random
+
+import spacy
+
+from common.initialize import spacy_nlp
+from interfaces.SentenceOperation import SentenceOperation
+from tasks.TaskTypes import TaskType
 
 
 def hash(input: str):
@@ -162,14 +162,20 @@ not as populous or well-known to test the robustness of NLP models.
 
 
 class CityNamesTransformation(SentenceOperation):
-    tasks = [
-        TaskType.TEXT_CLASSIFICATION,
-        TaskType.TEXT_TAGGING
-    ]
+    tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TAGGING]
     languages = ["en", "es"]
     heavy = True
-    keywords = ["lexical","model-based","tokenizer-required","highly-meaning-preserving","high-precision","low-coverage","high-generations","world-knowledge"]
-    # languages the operation can operate on.
+    keywords = [
+        "lexical",
+        "model-based",
+        "tokenizer-required",
+        "highly-meaning-preserving",
+        "high-precision",
+        "low-coverage",
+        "high-generations",
+        "world-knowledge",
+    ]
+
     def __init__(self, seed=0, max_outputs=1, lang="en", data_path=None):
         """
         Constructor of the CityNamesTransformation object in a given language
@@ -191,10 +197,6 @@ class CityNamesTransformation(SentenceOperation):
 
         """
         super().__init__(seed, max_outputs=max_outputs)
-        # if lang == "en":
-        #     self.model = spacy.load("en_core_web_sm")
-        # else:
-        #     self.model = spacy.load("es_core_news_sm")
         self.model = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         if lang == "en":
             if data_path is None:
@@ -230,7 +232,6 @@ class CityNamesTransformation(SentenceOperation):
         seed = self.seed + hash(sentence)
         doc = self.model(sentence)
         perturbed_text = self.transformer.transform(doc, seed=seed)
-        # print(perturbed_text)
         return [perturbed_text]
 
 

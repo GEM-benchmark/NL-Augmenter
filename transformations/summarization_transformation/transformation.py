@@ -1,8 +1,8 @@
+import spacy
 
+from common.initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
-import spacy
-from initialize import spacy_nlp
 
 """
 The code is partially adapted and modified from https://github.com/NSchrading/intro-spacy-nlp
@@ -15,16 +15,47 @@ class Summarization(SentenceOperation):
         TaskType.TEXT_TO_TEXT_GENERATION,
     ]
     languages = ["en"]
-    keywords = ["parser-based", "possible-meaning-alteration","rule-based"]
+    keywords = ["parser-based", "possible-meaning-alteration", "rule-based"]
 
     def __init__(self):
         # super().__init__(seed, max_outputs=max_outputs)
-        self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm", disable=['ner','textcat'])
-        self.dicts ={
-            'SUBJECTS': ["nsubj", "nsubjpass", "csubj", "csubjpass", "agent", "expl"],
-            'OBJECTS': ["dobj", "dative", "attr", "oprd", "acomp", "advcl", "advmod", "amod", "appos", "nn", "nmod", "ccomp", "complm", "hmod", "infmod", "xcomp", "rcmod", "poss"," possessive"],
-            'COMPOUNDS': ["compound"],
-            'PREPOSITIONS': ["prep"]
+        self.nlp = (
+            spacy_nlp
+            if spacy_nlp
+            else spacy.load("en_core_web_sm", disable=["ner", "textcat"])
+        )
+        self.dicts = {
+            "SUBJECTS": [
+                "nsubj",
+                "nsubjpass",
+                "csubj",
+                "csubjpass",
+                "agent",
+                "expl",
+            ],
+            "OBJECTS": [
+                "dobj",
+                "dative",
+                "attr",
+                "oprd",
+                "acomp",
+                "advcl",
+                "advmod",
+                "amod",
+                "appos",
+                "nn",
+                "nmod",
+                "ccomp",
+                "complm",
+                "hmod",
+                "infmod",
+                "xcomp",
+                "rcmod",
+                "poss",
+                " possessive",
+            ],
+            "COMPOUNDS": ["compound"],
+            "PREPOSITIONS": ["prep"],
         }
 
     def generate(self, sentence: str):
@@ -38,9 +69,13 @@ class Summarization(SentenceOperation):
         otherwise, we will split the sentence based on the root token.
         """
         results = []
-        verbs = [tok for tok in tokens if tok.pos_ == "VERB" or tok.pos_ == "AUX" or tok.dep_ == "aux" ]
+        verbs = [
+            tok
+            for tok in tokens
+            if tok.pos_ == "VERB" or tok.pos_ == "AUX" or tok.dep_ == "aux"
+        ]
         roots = [tok for tok in tokens if tok.dep_ == "ROOT"]
-        checks = [0 for tok in verbs if tok.dep_ =='ROOT']
+        checks = [0 for tok in verbs if tok.dep_ == "ROOT"]
         if 0 in checks:
             for v in verbs:
                 subs, verbNegated = self.getAllSubs(v)
@@ -49,7 +84,17 @@ class Summarization(SentenceOperation):
                     for sub in subs:
                         for obj in objs:
                             objNegated = self.isNegated(obj)
-                            results.append(sub.text +' '+ ('!' + v.text if verbNegated or objNegated else v.text)+' '+ obj.text)
+                            results.append(
+                                sub.text
+                                + " "
+                                + (
+                                    "!" + v.text
+                                    if verbNegated or objNegated
+                                    else v.text
+                                )
+                                + " "
+                                + obj.text
+                            )
             # print(', '.join(results))
 
         else:
@@ -58,20 +103,30 @@ class Summarization(SentenceOperation):
                 subs, rootNegated = [root], self.isNegated(root)
                 if len(subs) > 0:
                     for term in root.rights:
-                        if term.pos_ in ['VERB', 'AUX']:
+                        if term.pos_ in ["VERB", "AUX"]:
                             v = term
                     if v is not None:
                         v, objs = self.getAllObjs(v)
                         for sub in subs:
                             for obj in objs:
                                 objNegated = self.isNegated(obj)
-                                results.append(sub.text +' '+ ('!' + v.text if rootNegated or objNegated else v.text)+' '+ obj.text)
+                                results.append(
+                                    sub.text
+                                    + " "
+                                    + (
+                                        "!" + v.text
+                                        if rootNegated or objNegated
+                                        else v.text
+                                    )
+                                    + " "
+                                    + obj.text
+                                )
                     else:
                         continue
 
-        final_results = [', '.join(results)]
+        final_results = [", ".join(results)]
         return final_results
-    
+
     def getSubsFromConjunctions(self, subs):
         """
         search the subject when meet the conjuntions
@@ -82,7 +137,14 @@ class Summarization(SentenceOperation):
             rights = list(sub.rights)
             rightDeps = {tok.lower_ for tok in rights}
             if "and" in rightDeps:
-                moreSubs.extend([tok for tok in rights if tok.dep_ in self.dicts['SUBJECTS'] or tok.pos_ == "NOUN"])
+                moreSubs.extend(
+                    [
+                        tok
+                        for tok in rights
+                        if tok.dep_ in self.dicts["SUBJECTS"]
+                        or tok.pos_ == "NOUN"
+                    ]
+                )
                 if len(moreSubs) > 0:
                     moreSubs.extend(self.getSubsFromConjunctions(moreSubs))
         return moreSubs
@@ -104,18 +166,35 @@ class Summarization(SentenceOperation):
         objs = []
         for dep in deps:
             if dep.pos_ == "ADP" and dep.dep_ == "prep":
-                objs.extend([tok for tok in dep.rights if tok.dep_  in self.dicts['OBJECTS'] or (tok.pos_ == "PRON" and tok.lower_ == "me")])
-                potentialNewVerb, potentialNewObjs = self.getObjFromXComp(dep.rights)
-                if potentialNewVerb is not None and potentialNewObjs is not None and len(potentialNewObjs) > 0:
+                objs.extend(
+                    [
+                        tok
+                        for tok in dep.rights
+                        if tok.dep_ in self.dicts["OBJECTS"]
+                        or (tok.pos_ == "PRON" and tok.lower_ == "me")
+                    ]
+                )
+                potentialNewVerb, potentialNewObjs = self.getObjFromXComp(
+                    dep.rights
+                )
+                if (
+                    potentialNewVerb is not None
+                    and potentialNewObjs is not None
+                    and len(potentialNewObjs) > 0
+                ):
                     objs.extend(potentialNewObjs)
         return objs
 
     def getObjFromXComp(self, deps):
         for dep in deps:
-            if dep.pos_ == "VERB" and (dep.dep_ == "xcomp" or dep.dep_ == "pcomp"):
+            if dep.pos_ == "VERB" and (
+                dep.dep_ == "xcomp" or dep.dep_ == "pcomp"
+            ):
                 v = dep
                 rights = list(v.rights)
-                objs = [tok for tok in rights if tok.dep_ in self.dicts['OBJECTS']]
+                objs = [
+                    tok for tok in rights if tok.dep_ in self.dicts["OBJECTS"]
+                ]
                 objs.extend(self.getObjsFromPrepositions(rights))
                 if len(objs) > 0:
                     return v, objs
@@ -131,7 +210,14 @@ class Summarization(SentenceOperation):
             rights = list(obj.rights)
             rightDeps = {tok.lower_ for tok in rights}
             if "and" in rightDeps:
-                moreObjs.extend([tok for tok in rights if tok.dep_ in self.dicts['OBJECTS'] or tok.pos_ == "NOUN"])
+                moreObjs.extend(
+                    [
+                        tok
+                        for tok in rights
+                        if tok.dep_ in self.dicts["OBJECTS"]
+                        or tok.pos_ == "NOUN"
+                    ]
+                )
                 if len(moreObjs) > 0:
                     moreObjs.extend(self.getObjsFromConjunctions(moreObjs))
         return moreObjs
@@ -144,7 +230,9 @@ class Summarization(SentenceOperation):
         for verb in verbs:
             rightDeps = {tok.lower_ for tok in verb.rights}
             if "and" in rightDeps:
-                moreVerbs.extend([tok for tok in verb.rights if tok.pos_ == "VERB"])
+                moreVerbs.extend(
+                    [tok for tok in verb.rights if tok.pos_ == "VERB"]
+                )
                 if len(moreVerbs) > 0:
                     moreVerbs.extend(self.getVerbsFromConjunctions(moreVerbs))
         return moreVerbs
@@ -154,7 +242,9 @@ class Summarization(SentenceOperation):
         Based on the verbs, search backwards to find the subjects
         """
         head = tok.head
-        while head.pos_ != "VERB" and head.pos_ != "NOUN" and head.head != head:
+        while (
+            head.pos_ != "VERB" and head.pos_ != "NOUN" and head.head != head
+        ):
             head = head.head
         if head.pos_ == "VERB":
             subs = [tok for tok in head.lefts if tok.dep_ == "SUB"]
@@ -170,7 +260,11 @@ class Summarization(SentenceOperation):
 
     def getAllSubs(self, v):
         verbNegated = self.isNegated(v)
-        subs = [tok for tok in v.lefts if tok.dep_ in self.dicts['SUBJECTS'] and tok.pos_ != "DET"]
+        subs = [
+            tok
+            for tok in v.lefts
+            if tok.dep_ in self.dicts["SUBJECTS"] and tok.pos_ != "DET"
+        ]
         if len(subs) > 0:
             subs.extend(self.getSubsFromConjunctions(subs))
         else:
@@ -180,11 +274,15 @@ class Summarization(SentenceOperation):
 
     def getAllObjs(self, v):
         rights = list(v.rights)
-        objs = [tok for tok in rights if tok.dep_ in self.dicts['OBJECTS']]
+        objs = [tok for tok in rights if tok.dep_ in self.dicts["OBJECTS"]]
         objs.extend(self.getObjsFromPrepositions(rights))
 
         potentialNewVerb, potentialNewObjs = self.getObjFromXComp(rights)
-        if potentialNewVerb is not None and potentialNewObjs is not None and len(potentialNewObjs) > 0:
+        if (
+            potentialNewVerb is not None
+            and potentialNewObjs is not None
+            and len(potentialNewObjs) > 0
+        ):
             objs.extend(potentialNewObjs)
             v = potentialNewVerb
         if len(objs) > 0:

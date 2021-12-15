@@ -1,7 +1,7 @@
 import random
 import re
-
 from collections import defaultdict
+
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
 
@@ -52,7 +52,7 @@ MARKER_TO_CLASS = {
 
 CLASS_TO_MARKERS = defaultdict(list)
 for (k, v) in MARKER_TO_CLASS.items():
-    CLASS_TO_MARKERS[v].append(k.rstrip(','))
+    CLASS_TO_MARKERS[v].append(k.rstrip(","))
 CLASS_TO_MARKERS = dict(CLASS_TO_MARKERS)
 
 
@@ -63,13 +63,17 @@ def discourse_marker_substitution(text, seed=0, max_output=1):
     random.seed(seed)
     perturbed_texts = []
     for _ in range(max_output):
-        present_markers = [m for m in MARKER_TO_CLASS if m in text.lower().split()]
+        present_markers = [
+            m for m in MARKER_TO_CLASS if m in text.lower().split()
+        ]
 
         if not present_markers:
             return [text]
         original = random.choice(present_markers)
         same_class_markers = CLASS_TO_MARKERS[MARKER_TO_CLASS[original]]
-        possible_substitutions = [m for m in same_class_markers if m not in original]
+        possible_substitutions = [
+            m for m in same_class_markers if m not in original
+        ]
         if not possible_substitutions:
             return [text]
         new = random.choice(possible_substitutions)
@@ -86,7 +90,9 @@ def discourse_marker_substitution(text, seed=0, max_output=1):
             if original.endswith(","):
                 new_with_matching_case_type += ","
             perturbed_text = (
-                text[: m.start()] + new_with_matching_case_type + text[m.end() :]
+                text[: m.start()]
+                + new_with_matching_case_type
+                + text[m.end() :]
             )
             perturbed_texts.append(perturbed_text)
     return list(set(perturbed_texts))
@@ -100,11 +106,10 @@ class DiscourseMarkerSubstitution(SentenceOperation):
     languages = ["en"]
 
     def __init__(self, seed=0, max_output=1):
-        super().__init__(seed)
-        self.max_output = max_output
+        super().__init__(seed, max_outputs=max_output)
 
     def generate(self, sentence: str):
         perturbed_texts = discourse_marker_substitution(
-            text=sentence, seed=self.seed, max_output=self.max_output
+            text=sentence, seed=self.seed, max_output=self.max_outputs
         )
         return perturbed_texts

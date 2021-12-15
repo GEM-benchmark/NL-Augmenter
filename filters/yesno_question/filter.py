@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 import spacy
 
-from initialize import spacy_nlp
+from common.initialize import spacy_nlp
 from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
 from tasks.TaskTypes import TaskType
 
@@ -24,10 +24,9 @@ class YesNoQuestionFilter(QuestionAnswerOperation):
         super().__init__()
         # self.nlp = spacy.load("en_core_web_sm")
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-        if 'tagger' not in self.nlp.pipe_names:
+        if "tagger" not in self.nlp.pipe_names:
             self.nlp.add_pipe("tagger", first=True)
             self.nlp.add_pipe("attribute_ruler", after="tagger")
-
 
     def filter(
         self, context: str, question: str, answers: [str]
@@ -54,4 +53,3 @@ class YesNoQuestionFilter(QuestionAnswerOperation):
             return False
 
         return True
-

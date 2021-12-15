@@ -1,15 +1,17 @@
+import spacy
+
+from common.initialize import spacy_nlp
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
-from initialize import spacy_nlp
-from spacytextblob.spacytextblob import SpacyTextBlob
-import spacy
 
 
 class TextRetainsPolarity(SentencePairOperation):
     tasks = [TaskType.TEXT_CLASSIFICATION, TaskType.TEXT_TO_TEXT_GENERATION]
     languages = ["en"]
 
-    def __init__(self, strict_polarity: bool = False, diff_allowed: float = 0.5):
+    def __init__(
+        self, strict_polarity: bool = False, diff_allowed: float = 0.5
+    ):
         """
         Args:
             strict_polarity: if any change of polarity is not allowed (True)
@@ -33,9 +35,18 @@ class TextRetainsPolarity(SentencePairOperation):
         Returns:
             boolean if transformation passes filtration
         """
-        text1 = self.nlp(sentence1, disable=["parser", "tagger", "ner", 'lemmatizer'])
-        text2 = self.nlp(sentence2, disable=["parser", "tagger", "ner", 'lemmatizer'])
+        text1 = self.nlp(
+            sentence1, disable=["parser", "tagger", "ner", "lemmatizer"]
+        )
+        text2 = self.nlp(
+            sentence2, disable=["parser", "tagger", "ner", "lemmatizer"]
+        )
         if self.strict_polarity:
             return True if text1._.polarity * text2._.polarity >= 0 else False
         else:
-            return True if abs(text1._.polarity - text2._.polarity) <= self.diff_allowed else False
+            return (
+                True
+                if abs(text1._.polarity - text2._.polarity)
+                <= self.diff_allowed
+                else False
+            )
