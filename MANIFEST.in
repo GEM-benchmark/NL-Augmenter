@@ -1,5 +1,9 @@
-include README.md
+include README.md LICENSE
 include requirements.txt
-include LICENSE
+include evaluate.py TestRunner.py
+graft filters
+graft transformations
+graft evaluation
+graft analysis
 
-recursive-exclude * __pycache__
+global-exclude __pycache__ *.py[cod]
