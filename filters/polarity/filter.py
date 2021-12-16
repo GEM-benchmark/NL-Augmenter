@@ -3,6 +3,7 @@ import spacy
 from common.initialize import spacy_nlp
 from interfaces.SentencePairOperation import SentencePairOperation
 from tasks.TaskTypes import TaskType
+from spacytextblob.spacytextblob import SpacyTextBlob
 
 
 class TextRetainsPolarity(SentencePairOperation):
