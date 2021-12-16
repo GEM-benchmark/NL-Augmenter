@@ -1,9 +1,8 @@
 include README.md LICENSE
-include requirements.txt requirements-light.txt
-include evaluate.py TestRunner.py
+include requirements-light.txt
+include evaluate.py
 graft filters
 graft transformations
 graft evaluation
-graft analysis
 
 global-exclude __pycache__ *.py[cod]

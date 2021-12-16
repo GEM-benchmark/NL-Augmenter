@@ -7,7 +7,6 @@ lemminflect==0.2.2
 spacytextblob==3.0.1
 tqdm
 pandas>=1.2.0
-pandas
 ftfy==6.0.3
 dateparser==1.0.0
 torchtext==0.9.1

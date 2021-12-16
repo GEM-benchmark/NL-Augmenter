@@ -143,7 +143,7 @@ def get_extra_requirements() -> dict:
 
 
 setup(
-    name="nl-augmenter",
+    name="nlaugmenter",
     version=VERSION,
     description="NL-Augmenter: A Framework for Task-Sensitive Natural Language Augmentation",
     author_email="nl-augmenter@googlegroups.com",

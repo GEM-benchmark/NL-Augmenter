@@ -42,3 +42,6 @@ fail_under = 90.0
 skip_empty = true
 show_missing = true
 
+[build-system]
+requires = ["setuptools", "wheel"]
+
