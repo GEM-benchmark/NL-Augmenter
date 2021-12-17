@@ -7,9 +7,9 @@ from pathlib import Path
 from pkgutil import iter_modules
 from typing import Iterable
 
-from common.mapper import map_filter, map_transformation
-from interfaces.Operation import Operation
-from tasks.TaskTypes import TaskType
+from nlaugmenter.common.mapper import map_filter, map_transformation
+from nlaugmenter.interfaces.Operation import Operation
+from nlaugmenter.tasks.TaskTypes import TaskType
 
 disable_tests_for = [
     "negate_strengthen",
@@ -57,10 +57,10 @@ class OperationRuns(object):
         operations_test_cases = []
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
         operations_dir = package_dir.parent.joinpath(
-            search, transformation_name
+            "nlaugmenter/", search, transformation_name
         )
-
-        t_py = import_module(f"{search}.{transformation_name}")
+        parent_dir = "nlaugmenter"
+        t_py = import_module(f"{parent_dir}.{search}.{transformation_name}")
         t_js = os.path.join(operations_dir, "test.json")
         operation_instance = None
         prev_class_args = {}
@@ -114,9 +114,12 @@ class OperationRuns(object):
                 continue
 
             # Load only the specified transformation
-            t_py = import_module(f"{search}.{m}")
+            parent_dir = "nlaugmenter"
+            t_py = import_module(f"{parent_dir}.{search}.{m}")
             t_js = os.path.join(
-                Path(__file__).resolve().parent.joinpath(search),
+                Path(__file__)
+                .resolve()
+                .parent.joinpath("nlaugmenter/", search),
                 m,
                 "test.json",
             )
@@ -187,7 +190,9 @@ class OperationRuns(object):
         """
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        transformations_dir = package_dir.parent.joinpath(search)
+        transformations_dir = package_dir.parent.joinpath(
+            "nlaugmenter/", search
+        )
         if search == "transformations" and transformation_name == "light":
             for entry in map_transformation["light"]:
                 yield entry  # only light transformations
@@ -210,7 +215,9 @@ class OperationRuns(object):
     def get_all_operations(search="transformations") -> Iterable:
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        transformations_dir = package_dir.parent.joinpath(search)
+        transformations_dir = package_dir.parent.joinpath(
+            "nlaugmenter/", search
+        )
         for (_, folder, _) in iter_modules(
             [transformations_dir]
         ):  # ---> ["back_translation", ...]
@@ -235,8 +242,10 @@ class OperationRuns(object):
     ):
         # iterate through the modules in the current package
         package_dir = Path(__file__).resolve()  # --> TestRunner.py
-        transformations_dir = package_dir.parent.joinpath(search)
-        # (1) first check camel caas folder
+        transformations_dir = package_dir.parent.joinpath(
+            "nlaugmenter/", search
+        )
+        # (1) first check camel case folder
         if queryFolder is None:
             queryFolder = convert_to_snake_case(queryOperationName)
         try:

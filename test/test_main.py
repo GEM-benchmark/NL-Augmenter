@@ -3,15 +3,19 @@ from test.keywords import keywords_in_file
 
 import pytest
 
-from common.initialize import initialize_models, reinitialize_spacy
-from interfaces.KeyValuePairsOperation import KeyValuePairsOperation
-from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
-from interfaces.SentenceOperation import (
+from nlaugmenter.common.initialize import initialize_models, reinitialize_spacy
+from nlaugmenter.interfaces.KeyValuePairsOperation import (
+    KeyValuePairsOperation,
+)
+from nlaugmenter.interfaces.QuestionAnswerOperation import (
+    QuestionAnswerOperation,
+)
+from nlaugmenter.interfaces.SentenceOperation import (
     SentenceAndTargetOperation,
     SentenceOperation,
 )
-from interfaces.SentencePairOperation import SentencePairOperation
-from interfaces.TaggingOperation import TaggingOperation
+from nlaugmenter.interfaces.SentencePairOperation import SentencePairOperation
+from nlaugmenter.interfaces.TaggingOperation import TaggingOperation
 from TestRunner import OperationRuns
 
 expected_keywords = keywords_in_file()

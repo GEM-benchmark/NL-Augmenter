@@ -9,13 +9,19 @@ import inspect
 from importlib import import_module
 
 from analysis.mapping_analysis_utils import MappingAnalysisUtilities
-from interfaces.Operation import Operation
+from nlaugmenter.interfaces.Operation import Operation
 
 
-class TransformationMappingAnalysis():
-    ignore_list = ["german_gender_swap", "disability_transformation",
-                   "english_inflectional_variation", "correct_common_misspellings", "ocr_perturbation",
-                   "p1_noun_transformation", "summarization_transformation"]
+class TransformationMappingAnalysis:
+    ignore_list = [
+        "german_gender_swap",
+        "disability_transformation",
+        "english_inflectional_variation",
+        "correct_common_misspellings",
+        "ocr_perturbation",
+        "p1_noun_transformation",
+        "summarization_transformation",
+    ]
 
     mapping_analysis_utils = None
 
@@ -23,8 +29,9 @@ class TransformationMappingAnalysis():
         self.mapping_analysis_utils = MappingAnalysisUtilities()
 
     def fetch_transformation_directories(self):
-        return self.mapping_analysis_utils.fetch_directories(ignore_list=self.ignore_list,
-                                                             type="transformations")
+        return self.mapping_analysis_utils.fetch_directories(
+            ignore_list=self.ignore_list, type="transformations"
+        )
 
     def find_transformation_classes(self, package_dir_list: list):
         print("*** Finding Transformation Classes.")
@@ -38,8 +45,10 @@ class TransformationMappingAnalysis():
             # Instantiate the object:
             for name, obj in inspect.getmembers(module):
                 if inspect.isclass(obj):
-                    if issubclass(obj, Operation) and not "Operation" in name:
-                        print(f"Loading: Package Name: {a_package}, Class Name: {name}")
+                    if issubclass(obj, Operation) and "Operation" not in name:
+                        print(
+                            f"Loading: Package Name: {a_package}, Class Name: {name}"
+                        )
                         result_obj = None
                         # Hardcode rules for those classes that need specific positional arguments:
                         if name == "EntityMentionReplacementNER":
@@ -55,10 +64,18 @@ class TransformationMappingAnalysis():
                         else:
                             result_obj = obj()
                         # Find out which operation type:
-                        operation_type = self.mapping_analysis_utils.get_operation_type(result_obj)
-                        transformations[a_package].append({"class_name": name,
-                                                           "operation_type": operation_type,
-                                                           "result_obj": result_obj})
+                        operation_type = (
+                            self.mapping_analysis_utils.get_operation_type(
+                                result_obj
+                            )
+                        )
+                        transformations[a_package].append(
+                            {
+                                "class_name": name,
+                                "operation_type": operation_type,
+                                "result_obj": result_obj,
+                            }
+                        )
         return transformations
 
 
@@ -66,9 +83,11 @@ def main():
     analysis = TransformationMappingAnalysis()
     package_dir_list = analysis.fetch_transformation_directories()
     transformations = analysis.find_transformation_classes(package_dir_list)
-    analysis.mapping_analysis_utils.build_keyword_mappings(operations=transformations, type="Transformation")
+    analysis.mapping_analysis_utils.build_keyword_mappings(
+        operations=transformations, type="Transformation"
+    )
     analysis.mapping_analysis_utils.generate_csv(type="transformations")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -1,8 +1,5 @@
 include README.md LICENSE
 include requirements-light.txt
-include evaluate.py
-graft filters
-graft transformations
-graft evaluation
+graft nlaugmenter
 
 global-exclude __pycache__ *.py[cod]

@@ -2,10 +2,11 @@ import os
 
 from setuptools import find_packages, setup
 
-from common.mapper import map_filter, map_transformation
+from nlaugmenter.common.mapper import map_filter, map_transformation
 from TestRunner import OperationRuns
 
 VERSION = "1.0.0"
+NAME = "nlaugmenter"
 
 
 def all_folders(search: str, transformation_type: str) -> list:
@@ -25,7 +26,7 @@ def all_folders(search: str, transformation_type: str) -> list:
 
     """
     folder_names = [
-        search + "/" + f
+        NAME + "/" + search + "/" + f
         for f in list(
             OperationRuns.get_all_folder_names(search, transformation_type)
         )
@@ -129,13 +130,13 @@ def get_extra_requirements() -> dict:
     requirements = {}
     # Heavy transformations picked from mapper.py
     for entry in map_transformation["heavy"]:
-        file_name = "transformations/" + entry + "/requirements.txt"
+        file_name = NAME + "/transformations/" + entry + "/requirements.txt"
         if os.path.exists(file_name):
             req_string = read(file_name)
             requirements[entry] = filter_requirements(req_string)
     # Heavy filters picked from mapper.py
     for entry in map_filter["heavy"]:
-        file_name = "filters/" + entry + "/requirements.txt"
+        file_name = NAME + "/filters/" + entry + "/requirements.txt"
         if os.path.exists(file_name):
             req_string = read(file_name)
             requirements[entry] = filter_requirements(req_string)
@@ -143,7 +144,7 @@ def get_extra_requirements() -> dict:
 
 
 setup(
-    name="nlaugmenter",
+    name=NAME,
     version=VERSION,
     description="NL-Augmenter: A Framework for Task-Sensitive Natural Language Augmentation",
     author_email="nl-augmenter@googlegroups.com",
