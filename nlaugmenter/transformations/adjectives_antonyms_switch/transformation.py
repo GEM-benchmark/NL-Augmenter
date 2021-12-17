@@ -1,6 +1,5 @@
 import spacy
-from nltk import download
-from nltk.data import find
+from nltk.corpus import wordnet
 
 from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
@@ -75,12 +74,6 @@ class SentenceAdjectivesAntonymsSwitch(SentenceOperation):
     def __init__(self, seed=0, max_outputs=1):
         super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-        try:
-            find("corpora/wordnet")
-        except LookupError:
-            download("wordnet")
-            global wordnet
-            from nltk.corpus import wordnet
 
     def generate(self, sentence: str):
 
@@ -112,12 +105,6 @@ class PairAdjectivesAntonymsSwitch(SentencePairOperation):
     def __init__(self, seed=0, max_outputs=3, pos_label="1", neg_label="0"):
         super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
-        try:
-            find("corpora/wordnet")
-        except LookupError:
-            download("wordnet")
-            global wordnet
-            from nltk.corpus import wordnet
         self.pos_label = pos_label
         self.neg_label = neg_label
 
