@@ -32,7 +32,7 @@ git checkout -b my_awesome_filter
 We will base our filter on an existing example.
 Create a new filter directory by copying over an existing filter `keywords`:
 ```bash
-cd filters/
+cd nlaugmenter/transformations/
 cp -r keywords my_awesome_filter
 cd my_awesome_filter
 ```
