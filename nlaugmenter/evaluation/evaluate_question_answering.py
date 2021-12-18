@@ -2,8 +2,8 @@ import numpy as np
 from datasets import load_dataset
 from transformers import pipeline
 
-from nlaugmenter.common.dataset import KeyValueDataset
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.dataset import KeyValueDataset
 
 
 def evaluate(

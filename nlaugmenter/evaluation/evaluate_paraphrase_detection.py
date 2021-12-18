@@ -4,8 +4,8 @@ from datasets import load_dataset
 from torch.nn.functional import cosine_similarity
 from transformers import AutoModel, AutoTokenizer
 
-from nlaugmenter.common.dataset import KeyValueDataset
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.dataset import KeyValueDataset
 
 
 # Mean Pooling - Take attention mask into account for correct averaging

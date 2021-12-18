@@ -3,8 +3,8 @@ from datasets import load_dataset
 from sacrebleu import corpus_bleu
 from transformers import pipeline
 
-from nlaugmenter.common.dataset import KeyValueDataset
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.dataset import KeyValueDataset
 
 
 def sacrebleu_score(hypotheses, references):

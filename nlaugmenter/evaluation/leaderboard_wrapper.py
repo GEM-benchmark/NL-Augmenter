@@ -3,8 +3,8 @@ import sys
 import pandas as pd
 
 from nlaugmenter.evaluation.evaluation_engine import execute_model
+from nlaugmenter.evaluation.TestRunner import OperationRuns, get_implementation
 from nlaugmenter.tasks.TaskTypes import TaskType
-from TestRunner import OperationRuns, get_implementation
 
 sys.path.append("..")
 sys.path.append("../..")

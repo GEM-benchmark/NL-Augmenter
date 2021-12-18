@@ -5,8 +5,8 @@ import torch
 from datasets import load_dataset
 from transformers import pipeline
 
-from nlaugmenter.common.dataset import KeyValueDataset, TextLineDataset
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.dataset import KeyValueDataset, TextLineDataset
 
 # make this to work for three task.
 
