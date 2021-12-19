@@ -149,8 +149,8 @@ def get_extra_requirements() -> dict:
 
 
 setup(
-    name="NL-Augmenter",
-    version="0.0.1",
+    name="nlaugmenter",
+    version="1.0.0",
     description="The official repository of transformations.",
     long_description=read("README.md"),
     install_requires=get_default_requirements("light"),
