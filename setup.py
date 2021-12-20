@@ -6,7 +6,7 @@ from nlaugmenter.common.mapper import map_filter, map_transformation
 from TestRunner import OperationRuns
 
 NAME = "nlaugmenter"
-VERSION = "1.1.0"
+VERSION = "1.0.0"
 
 
 def all_folders(search: str, transformation_type: str) -> list:
