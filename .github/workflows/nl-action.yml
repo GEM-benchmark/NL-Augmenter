@@ -5,7 +5,7 @@ name: nl-tests
 
 on:
   push:
-    #branches: [ main ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -26,7 +26,7 @@ jobs:
         key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
     - name: Install dependencies
       run: |
-        if [ -f requirements.txt ]; then pip install --upgrade --upgrade-strategy eager -r requirements.txt -e . ; fi
+        if [ -f requirements.txt ]; then pip3 install --upgrade --upgrade-strategy eager -r requirements.txt -e . ; fi
         pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz
     - name: Test with pytest
       run: |
