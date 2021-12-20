@@ -33,4 +33,4 @@ pre-commit==2.13.0
 flake8==3.9.2
 isort==5.9.1
 
-setuptools<59.7.0
+setuptools==59.6.0

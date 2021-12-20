@@ -2,11 +2,11 @@ import os
 
 from setuptools import find_packages, setup
 
+from nlaugmenter import __version__
 from nlaugmenter.common.mapper import map_filter, map_transformation
 from TestRunner import OperationRuns
 
 NAME = "nlaugmenter"
-VERSION = "1.0.0"
 
 
 def all_folders(search: str, transformation_type: str) -> list:
@@ -145,7 +145,7 @@ def get_extra_requirements() -> dict:
 
 setup(
     name=NAME,
-    version=VERSION,
+    version=__version__,
     description="NL-Augmenter: A Framework for Task-Sensitive Natural Language Augmentation",
     author_email="nl-augmenter@googlegroups.com",
     long_description=read("README.md"),
