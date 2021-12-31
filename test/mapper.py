@@ -74,6 +74,7 @@ map_transformation = {
         "protaugment_diverse_paraphrase",
         "punctuation",
         "quora_trained_t5_for_qa",
+        "random_walk"
         "sentence_reordering",
         "synonym_substitution",
         "token_replacement",
