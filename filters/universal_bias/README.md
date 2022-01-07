@@ -2,9 +2,11 @@
 
 ## What type of a filter is this?
 
-This filter is currently contains lexical seeds for 10 categories () in English, however it can be extended to any language or topic by simple addition of desired entries to `lexicals.json` 
-file in current directoryalong with the text corpus in corresponding language.
+This filter is currently contains lexical seeds for 10 categories (religion, race, ethnicity, gender, sexual orientation, age, appearance, disability, experience, education, economic status).
+The lexical seeds representing these categories are currently available in English and French languages, however the pool of languages can be extended by a simple addition of the lexical seeds in a desired language to the lexicals.json file, using a separate language key (Ex.: Polish language goes with "pl" key).
+
 The minority parameter is a potentially underrepresented group, defined with its own set of keywords; the majority parameter is a set of keywords, representing the dominating group.
+
 The filter returns "True" if the minority group is indeed underrepresented, "False" otherwise.
 
 Author: Anna Shvets
@@ -25,8 +27,8 @@ The beneficial impact of the current extrinsic filter is its complete transparen
 
 ## Example of use
 ```
-sentences = [ "He is going to make a cake.",
-              "Olivia is going to program",
+sentences = [ "He is going home.",
+              "Olivia is going to work",
               "Nobody likes washing dishes",
               "He agreed to help me" ]
 
@@ -67,8 +69,8 @@ print("This is a neutral group:", neutral_group)
 ```
 Output:
 ```
-This is a minority group: ['She is going to program']
-This is a majority group: ['He is going to make a cake.', 'He agreed to help me']
+This is a minority group: ['She is going to work']
+This is a majority group: ['He is going home.', 'He agreed to help me']
 This is a neutral group: ['Nobody likes washing dishes']
 ```
 
