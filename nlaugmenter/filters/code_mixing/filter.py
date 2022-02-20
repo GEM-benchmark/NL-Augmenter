@@ -1,9 +1,9 @@
 import spacy
 from ftlid import identify_language
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 
 class CodeMixing(SentenceOperation):

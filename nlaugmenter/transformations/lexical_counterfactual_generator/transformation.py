@@ -2,10 +2,10 @@ from typing import List, Tuple
 
 import spacy
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentencePairOperation import SentencePairOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
 from nlaugmenter.transformations.back_translation import BackTranslation
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 This generates counterfactuals using a simple rule based approach which would be

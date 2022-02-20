@@ -1,10 +1,10 @@
 import spacy
 from nltk.corpus import wordnet
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.interfaces.SentencePairOperation import SentencePairOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 Adjectives Antonyms Switch.

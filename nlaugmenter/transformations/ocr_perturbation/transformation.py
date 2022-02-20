@@ -5,9 +5,9 @@ import spacy
 from tesserocr import OEM, PSM, PyTessBaseAPI
 from trdg.generators import GeneratorFromStrings
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 This transformation renders input text as an image (optionally augmented with

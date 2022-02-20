@@ -3,9 +3,9 @@ import numpy as np
 import spacy
 from babel.dates import format_date
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 
 class DateFormatTransformation:

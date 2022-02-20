@@ -7,9 +7,9 @@ import spacy
 # ref: https://demo.allennlp.org/coreference-resolution
 from allennlp.predictors.predictor import Predictor
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 Shuffle sentence order

@@ -1,7 +1,7 @@
 import argparse
 
 from nlaugmenter.evaluation.evaluation_engine import evaluate
-from TestRunner import get_implementation
+from nlaugmenter.evaluation.TestRunner import get_implementation
 
 parser = argparse.ArgumentParser(
     description="This is the evaluate function. This will evaluate your specified "

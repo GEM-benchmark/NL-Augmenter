@@ -2,11 +2,11 @@ from typing import List, Tuple
 
 import spacy
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.QuestionAnswerOperation import (
     QuestionAnswerOperation,
 )
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 This filter allows to select questions that can be correctly answered with either 'yes' or 'no'.

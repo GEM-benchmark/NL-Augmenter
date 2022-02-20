@@ -2,9 +2,9 @@ import string
 
 import spacy
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 # A dict containing offensive words and their alternatives
 disability_names = {

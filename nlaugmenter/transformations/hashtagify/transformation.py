@@ -10,9 +10,9 @@ from nltk.tag import pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.tree import Tree
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 
 def find_candidates(doc):

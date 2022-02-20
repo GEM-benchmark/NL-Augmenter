@@ -4,9 +4,9 @@ from typing import Union
 
 import spacy
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 A filter on if the tokens contain specific speech tag a certain number of times.

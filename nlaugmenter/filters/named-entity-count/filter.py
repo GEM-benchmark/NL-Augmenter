@@ -3,12 +3,12 @@ from typing import List
 
 import spacy
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import (
     SentenceAndTargetOperation,
     SentenceOperation,
 )
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 
 class NamedEntityCountFilter(SentenceOperation):

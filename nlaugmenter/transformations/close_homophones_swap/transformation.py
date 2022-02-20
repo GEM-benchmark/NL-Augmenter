@@ -3,9 +3,9 @@ import random
 import spacy
 from SoundsLike.SoundsLike import Search
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 
 def close_homophones_swap(text, corrupt_prob, seed=0, max_outputs=1, nlp=None):

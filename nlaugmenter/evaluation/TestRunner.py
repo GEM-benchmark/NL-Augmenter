@@ -55,9 +55,9 @@ class OperationRuns(object):
     ):
         operations = []
         operations_test_cases = []
-        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        package_dir = Path(__file__).parent.resolve()  # --> nlaugmenter
         operations_dir = package_dir.parent.joinpath(
-            "nlaugmenter/", search, transformation_name
+            search, transformation_name
         )
         parent_dir = "nlaugmenter"
         t_py = import_module(f"{parent_dir}.{search}.{transformation_name}")
@@ -118,7 +118,7 @@ class OperationRuns(object):
             t_py = import_module(f"{parent_dir}.{search}.{m}")
             t_js = os.path.join(
                 Path(__file__)
-                .resolve()
+                .parent.parent.resolve()
                 .parent.joinpath("nlaugmenter/", search),
                 m,
                 "test.json",
@@ -189,9 +189,10 @@ class OperationRuns(object):
         list of folder names.
         """
         # iterate through the modules in the current package
-        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        package_dir = Path(__file__).parent.resolve()  # --> nlaugmenter
         transformations_dir = package_dir.parent.joinpath(
-            "nlaugmenter/", search
+            # "nlaugmenter/",
+            search
         )
         if search == "transformations" and transformation_name == "light":
             for entry in map_transformation["light"]:
@@ -214,9 +215,10 @@ class OperationRuns(object):
     @staticmethod
     def get_all_operations(search="transformations") -> Iterable:
         # iterate through the modules in the current package
-        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        package_dir = Path(__file__).parent.resolve()  # --> nlaugmenter
         transformations_dir = package_dir.parent.joinpath(
-            "nlaugmenter/", search
+            # "nlaugmenter/",
+            search
         )
         for (_, folder, _) in iter_modules(
             [transformations_dir]
@@ -241,9 +243,10 @@ class OperationRuns(object):
         queryFolder=None,
     ):
         # iterate through the modules in the current package
-        package_dir = Path(__file__).resolve()  # --> TestRunner.py
+        package_dir = Path(__file__).parent.resolve()  # --> nlaugmenter
         transformations_dir = package_dir.parent.joinpath(
-            "nlaugmenter/", search
+            # "nlaugmenter/",
+            search
         )
         # (1) first check camel case folder
         if queryFolder is None:
@@ -288,7 +291,9 @@ class OperationRuns(object):
     ) -> Iterable:
         # iterate through the modules in the current package
         for operation in OperationRuns.get_all_operations(search):
-            if query_task_type in operation.tasks:
+            if operation.tasks is not None and query_task_type.name in [
+                e.name for e in operation.tasks
+            ]:
                 yield operation
 
 

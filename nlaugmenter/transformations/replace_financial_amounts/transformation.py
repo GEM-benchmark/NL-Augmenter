@@ -4,12 +4,12 @@ from typing import Dict, List, Tuple
 import ftfy
 import spacy
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
 from nlaugmenter.transformations.replace_financial_amounts import (
     entity_financial_amount,
 )
+from nlaugmenter.utils.initialize import spacy_nlp
 
 # Token has three keys => text: str, category: str and is_financial_amount: bool
 Token = Dict[str, any]

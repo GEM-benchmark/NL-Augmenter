@@ -1,9 +1,8 @@
 import spacy
-from spacytextblob.spacytextblob import SpacyTextBlob
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentencePairOperation import SentencePairOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 
 class TextRetainsPolarity(SentencePairOperation):

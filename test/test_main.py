@@ -3,7 +3,7 @@ from test.keywords import keywords_in_file
 
 import pytest
 
-from nlaugmenter.common.initialize import initialize_models, reinitialize_spacy
+from nlaugmenter.evaluation.TestRunner import OperationRuns
 from nlaugmenter.interfaces.KeyValuePairsOperation import (
     KeyValuePairsOperation,
 )
@@ -16,7 +16,7 @@ from nlaugmenter.interfaces.SentenceOperation import (
 )
 from nlaugmenter.interfaces.SentencePairOperation import SentencePairOperation
 from nlaugmenter.interfaces.TaggingOperation import TaggingOperation
-from TestRunner import OperationRuns
+from nlaugmenter.utils.initialize import initialize_models, reinitialize_spacy
 
 expected_keywords = keywords_in_file()
 

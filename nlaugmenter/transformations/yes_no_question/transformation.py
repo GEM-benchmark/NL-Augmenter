@@ -6,9 +6,9 @@ from spacy.symbols import AUX, NOUN, PRON, PROPN, VERB, aux, cc, nsubj
 from spacy.tokens import Span, Token
 from spacy.tokens.doc import Doc
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.

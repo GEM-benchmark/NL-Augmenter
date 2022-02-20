@@ -5,9 +5,9 @@ import spacy
 from pattern.en import PAST, PLURAL, PRESENT, SINGULAR, conjugate
 from spacy.symbols import NOUN
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 SUBJ_DEPS = {"agent", "csubj", "csubjpass", "expl", "nsubj", "nsubjpass"}
 

@@ -6,9 +6,9 @@ import nltk
 import spacy
 from nltk.corpus import stopwords, wordnet
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.

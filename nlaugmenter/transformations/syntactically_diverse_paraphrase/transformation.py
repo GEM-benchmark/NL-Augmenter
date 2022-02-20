@@ -2,7 +2,6 @@ import benepar
 import nltk
 import spacy
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
 from nlaugmenter.transformations.syntactically_diverse_paraphrase.sowreap.parse_utils import (
@@ -14,6 +13,7 @@ from nlaugmenter.transformations.syntactically_diverse_paraphrase.sowreap.reap_u
 from nlaugmenter.transformations.syntactically_diverse_paraphrase.sowreap.sow_utils import (
     sowModel,
 )
+from nlaugmenter.utils.initialize import spacy_nlp
 
 
 class ParaphraseSowReap(SentenceOperation):

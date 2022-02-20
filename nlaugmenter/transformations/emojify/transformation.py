@@ -4,9 +4,9 @@ from json import load
 
 import spacy
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 
 def emojify(sentence, nlp, word_to_emoji, prob=1, seed=0, max_outputs=1):

@@ -5,9 +5,9 @@ import numpy as np
 import spacy
 from nltk.corpus import wordnet
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 The code is adapted from @zijwang https://github.com/GEM-benchmark/NL-Augmenter/tree/main/transformations/synonym_substitution

@@ -4,9 +4,9 @@ import random
 
 import spacy
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 
 def abbreviate(self, text, nlp, prob=0.25, seed=0, max_outputs=1):

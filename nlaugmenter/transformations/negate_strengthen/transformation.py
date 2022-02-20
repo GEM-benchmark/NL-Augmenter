@@ -12,9 +12,9 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from pattern.en import conjugate as conjugate_en
 from spacy.tokenizer import Tokenizer
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceAndTargetOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 # defaults
 _RE_COMBINE_WHITESPACE = re.compile(r"\s+")

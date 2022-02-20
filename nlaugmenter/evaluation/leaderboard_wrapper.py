@@ -56,7 +56,7 @@ def create_leaderboard_for_task(
     Raises:
         ValueError: [description]
     """
-    if task_type not in TaskType:
+    if task_type not in (TaskType):
         #  TODO: this might be more useful somewhere else.
         raise ValueError(f"{task_type} does not exist.")
     task_name = TaskType(task_type).name

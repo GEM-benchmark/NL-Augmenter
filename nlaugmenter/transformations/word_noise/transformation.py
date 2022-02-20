@@ -3,11 +3,11 @@ from typing import Callable, List, Tuple
 import numpy as np
 import spacy
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.QuestionAnswerOperation import (
     QuestionAnswerOperation,
 )
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 
 class WordNoise(QuestionAnswerOperation):

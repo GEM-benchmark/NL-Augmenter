@@ -3,13 +3,13 @@ from typing import List
 
 from spacy import load as spacy_load
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
 from nlaugmenter.transformations.token_replacement.lookup_table_utils import (
     get_token_replacement,
     load_lookup,
 )
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 Implementation of the token replacement perturbation using lookup tables

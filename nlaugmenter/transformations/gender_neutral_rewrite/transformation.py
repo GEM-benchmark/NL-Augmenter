@@ -31,11 +31,6 @@ from spacy.tokens import Doc, Token
 # https://huggingface.co/transformers/model_doc/gpt2.html
 from transformers import GPT2LMHeadModel, GPT2TokenizerFast
 
-# load SpaCy's "en_core_web_sm" model
-# English multi-task CNN trained on OntoNotes
-# Assigns context-specific token vectors, POS tags, dependency parse and named entities
-# https://spacy.io/models/en
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
 from nlaugmenter.tasks.TaskTypes import TaskType
 from nlaugmenter.transformations.gender_neutral_rewrite.myconstants import (
@@ -45,6 +40,12 @@ from nlaugmenter.transformations.gender_neutral_rewrite.myconstants import (
     NON_FUNCTION_PRONOUNS,
     VERB_ES_SUFFIXES,
 )
+
+# load SpaCy's "en_core_web_sm" model
+# English multi-task CNN trained on OntoNotes
+# Assigns context-specific token vectors, POS tags, dependency parse and named entities
+# https://spacy.io/models/en
+from nlaugmenter.utils.initialize import spacy_nlp
 
 # direct replacement mapping
 SIMPLE_REPLACE = EASY_PRONOUNS

@@ -6,11 +6,11 @@ import spacy
 import torch
 import torchtext.vocab
 
-from nlaugmenter.common.initialize import glove, spacy_nlp
 from nlaugmenter.interfaces.KeyValuePairsOperation import (
     KeyValuePairsOperation,
 )
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import glove, spacy_nlp
 
 
 class MRValueReplacement(KeyValuePairsOperation):

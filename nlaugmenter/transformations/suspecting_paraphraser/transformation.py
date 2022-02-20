@@ -7,11 +7,11 @@ import numpy as np
 import spacy
 from gender_extractor import GenderExtractor
 
-from nlaugmenter.common.initialize import spacy_nlp
 from nlaugmenter.interfaces.QuestionAnswerOperation import (
     QuestionAnswerOperation,
 )
 from nlaugmenter.tasks.TaskTypes import TaskType
+from nlaugmenter.utils.initialize import spacy_nlp
 
 """
 Base Class for implementing the different input transformations a generation should be robust against.
