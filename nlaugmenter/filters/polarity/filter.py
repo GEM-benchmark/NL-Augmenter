@@ -1,4 +1,5 @@
 import spacy
+from spacytextblob.spacytextblob import SpacyTextBlob  # noqa: F401
 
 from nlaugmenter.interfaces.SentencePairOperation import SentencePairOperation
 from nlaugmenter.tasks.TaskTypes import TaskType

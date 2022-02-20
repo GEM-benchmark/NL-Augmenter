@@ -133,7 +133,7 @@ def assert_keywords(transformation):
         )
         assert set(keywords_t) < set(expected_keywords), (
             f"Some Keywords in {transformation.name()} "
-            f"not present in docs/keywords.md file "
+            f"not present in keywords.md file "
             f": {set(keywords_t) - set(expected_keywords)} "
         )
 
