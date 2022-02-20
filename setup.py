@@ -3,8 +3,8 @@ import os
 from setuptools import find_packages, setup
 
 from nlaugmenter import __version__
-from nlaugmenter.common.mapper import map_filter, map_transformation
-from TestRunner import OperationRuns
+from nlaugmenter.evaluation.TestRunner import OperationRuns
+from nlaugmenter.utils.mapper import map_filter, map_transformation
 
 NAME = "nlaugmenter"
 
