@@ -9,10 +9,10 @@ import inspect
 from importlib import import_module
 
 from analysis.mapping_analysis_utils import MappingAnalysisUtilities
-from interfaces.Operation import Operation
+from nlaugmenter.interfaces.Operation import Operation
 
 
-class FilterMappingAnalysis():
+class FilterMappingAnalysis:
     ignore_list = []
 
     mapping_analysis_utils = None
@@ -21,8 +21,9 @@ class FilterMappingAnalysis():
         self.mapping_analysis_utils = MappingAnalysisUtilities()
 
     def fetch_filter_directories(self):
-        return self.mapping_analysis_utils.fetch_directories(ignore_list=self.ignore_list,
-                                                             type="filters")
+        return self.mapping_analysis_utils.fetch_directories(
+            ignore_list=self.ignore_list, type="filters"
+        )
 
     def find_filter_classes(self, package_dir_list: list):
         print("*** Finding Filter Classes.")
@@ -36,9 +37,10 @@ class FilterMappingAnalysis():
             # Instantiate the object:
             for name, obj in inspect.getmembers(module):
                 if inspect.isclass(obj):
-                    if issubclass(obj, Operation) and not "Operation" in name:
-                        print(f"Loading: Package Name: {a_package}, Class Name: {name}")
-                        result_obj = None
+                    if issubclass(obj, Operation) and "Operation" not in name:
+                        print(
+                            f"Loading: Package Name: {a_package}, Class Name: {name}"
+                        )
                         if name == "GenderBiasFilter":
                             result_obj = obj("en")
                         elif name == "PhoneticMatchFilter":
@@ -48,16 +50,30 @@ class FilterMappingAnalysis():
                         elif name == "ToxicityFilter":
                             result_obj = obj("toxicity")
                         elif name == "GroupInequityFilter":
-                            result_obj = obj("en", ["she", "her", "hers"], ["he", "him", "his"], ["cake"], ["program"])
+                            result_obj = obj(
+                                "en",
+                                ["she", "her", "hers"],
+                                ["he", "him", "his"],
+                                ["cake"],
+                                ["program"],
+                            )
                         elif name == "TokenAmountFilter":
                             result_obj = obj(["in", "at"], [2, 3], [">=", "<"])
                         else:
                             result_obj = obj()
                         # Find out which operation type:
-                        operation_type = self.mapping_analysis_utils.get_operation_type(result_obj)
-                        filters[a_package].append({"class_name": name,
-                                                   "operation_type": operation_type,
-                                                   "result_obj": result_obj})
+                        operation_type = (
+                            self.mapping_analysis_utils.get_operation_type(
+                                result_obj
+                            )
+                        )
+                        filters[a_package].append(
+                            {
+                                "class_name": name,
+                                "operation_type": operation_type,
+                                "result_obj": result_obj,
+                            }
+                        )
         return filters
 
 
@@ -65,9 +81,11 @@ def main():
     analysis = FilterMappingAnalysis()
     package_dir_list = analysis.fetch_filter_directories()
     transformations = analysis.find_filter_classes(package_dir_list)
-    analysis.mapping_analysis_utils.build_keyword_mappings(operations=transformations, type="Filter")
+    analysis.mapping_analysis_utils.build_keyword_mappings(
+        operations=transformations, type="Filter"
+    )
     analysis.mapping_analysis_utils.generate_csv(type="filters")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
