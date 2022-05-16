@@ -8,8 +8,8 @@ spacytextblob==3.0.1
 tqdm
 pandas>=1.2.0
 ftfy==6.0.3
-dateparser==1.0.0
-torchtext==0.9.1
+dateparser==1.1.1
+torchtext==0.10.1
 black==21.5b2
 SoundsLike==0.0.11
 seqeval==1.2.2
