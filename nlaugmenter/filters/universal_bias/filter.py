@@ -37,7 +37,7 @@ class UniversalBiasFilter(SentenceOperation):
         flagged_sentences = []
 
         # Read json
-        f = open("filters/universal_bias/lexicals.json")
+        f = open("nlaugmenter/filters/universal_bias/lexicals.json")
         data = json.load(f)
 
         # Retrieve relevant data extracts
