@@ -1,0 +1,5 @@
+include README.md LICENSE
+include requirements-light.txt
+graft nlaugmenter
+
+global-exclude __pycache__ *.py[cod]

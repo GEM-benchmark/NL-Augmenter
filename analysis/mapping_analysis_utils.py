@@ -6,16 +6,21 @@ This script provides utilities to enable analysis of both transformations and fi
 """
 import json
 import os
+
 import pandas as pd
 
-from interfaces.KeyValuePairsOperation import KeyValuePairsOperation
-from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
-from interfaces.SentenceOperation import SentenceOperation
-from interfaces.SentencePairOperation import SentencePairOperation
-from interfaces.TaggingOperation import TaggingOperation
+from nlaugmenter.interfaces.KeyValuePairsOperation import (
+    KeyValuePairsOperation,
+)
+from nlaugmenter.interfaces.QuestionAnswerOperation import (
+    QuestionAnswerOperation,
+)
+from nlaugmenter.interfaces.SentenceOperation import SentenceOperation
+from nlaugmenter.interfaces.SentencePairOperation import SentencePairOperation
+from nlaugmenter.interfaces.TaggingOperation import TaggingOperation
 
 
-class MappingAnalysisUtilities():
+class MappingAnalysisUtilities:
     keyword_mappings = {}
 
     dataset = {
@@ -35,14 +40,16 @@ class MappingAnalysisUtilities():
         "17_input_data_processing": [],
         "18_rule_model": [],
         "19_algorithm_type": [],
-        "20_precision_recall": []
+        "20_precision_recall": [],
     }
 
     def __init__(self):
         self.keyword_mappings = self.load_mappings()
 
     def load_mappings(self):
-        keyword_mapping_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'keyword_mappings.json')
+        keyword_mapping_file = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "keyword_mappings.json"
+        )
         with open(keyword_mapping_file, "r") as fp:
             return json.load(fp)
 
@@ -52,8 +59,10 @@ class MappingAnalysisUtilities():
 
         for root, dirs, files in os.walk(f"../{type}", topdown=False):
             for name in dirs:
-                if not name.startswith("_") and os.path.isdir(f"../{type}/{name}"):
-                    if not name in ignore_list:
+                if not name.startswith("_") and os.path.isdir(
+                    f"../{type}/{name}"
+                ):
+                    if name not in ignore_list:
                         package_dir_list.append(name)
         return package_dir_list
 
@@ -76,9 +85,13 @@ class MappingAnalysisUtilities():
             package_class_list = operations[a_package]
 
             for a_pkg_class in package_class_list:
-                self.dataset["1_operation_type"].append(a_pkg_class["operation_type"])
+                self.dataset["1_operation_type"].append(
+                    a_pkg_class["operation_type"]
+                )
                 self.dataset["2_transformation_package_name"].append(a_package)
-                self.dataset["3_transformation_class_name"].append(a_pkg_class["class_name"])
+                self.dataset["3_transformation_class_name"].append(
+                    a_pkg_class["class_name"]
+                )
                 self.dataset["4_challenge_set_type"].append(type)
 
                 result_obj = a_pkg_class["result_obj"]
@@ -100,7 +113,9 @@ class MappingAnalysisUtilities():
 
                     for a_mapping_rule in self.keyword_mappings.keys():
                         found_keywords = []
-                        mapping_keywords = self.keyword_mappings[a_mapping_rule]
+                        mapping_keywords = self.keyword_mappings[
+                            a_mapping_rule
+                        ]
                         if a_mapping_rule.startswith("20_"):
                             found_precision_keyword = ""
                             found_coverage_keyword = ""
@@ -109,13 +124,22 @@ class MappingAnalysisUtilities():
                                     found_precision_keyword = a_keyword
                                 elif a_keyword in mapping_keywords["coverage"]:
                                     found_coverage_keyword = a_keyword
-                            if f"{found_precision_keyword}_{found_coverage_keyword}" in mapping_keywords["mappings"]:
-                                found_keywords.append(f"{found_precision_keyword}_{found_coverage_keyword}")
+                            if (
+                                f"{found_precision_keyword}_{found_coverage_keyword}"
+                                in mapping_keywords["mappings"]
+                            ):
+                                found_keywords.append(
+                                    f"{found_precision_keyword}_{found_coverage_keyword}"
+                                )
                         else:
                             for a_mapping_keyword in mapping_keywords.keys():
                                 if a_mapping_keyword in keywords:
-                                    found_keywords.append(mapping_keywords[a_mapping_keyword])
-                        self.dataset[a_mapping_rule].append(self.create_mapping_keywords_text(found_keywords))
+                                    found_keywords.append(
+                                        mapping_keywords[a_mapping_keyword]
+                                    )
+                        self.dataset[a_mapping_rule].append(
+                            self.create_mapping_keywords_text(found_keywords)
+                        )
 
     def create_mapping_keywords_text(self, found_keywords: list):
         output_text = ", ".join(found_keywords)
@@ -127,10 +151,25 @@ class MappingAnalysisUtilities():
         print("*** Generating Complete CSV file.")
         output_dir_name = os.path.dirname(os.path.abspath(__file__))
         dataset_df = pd.DataFrame.from_dict(self.dataset)
-        dataset_df.to_csv(os.path.join(output_dir_name, "output", type, f"{type}_dataset.csv"),
-                          index=False)
+        dataset_df.to_csv(
+            os.path.join(
+                output_dir_name, "output", type, f"{type}_dataset.csv"
+            ),
+            index=False,
+        )
         print("*** Generating Operation Type CSV files.")
-        for a_operation_type in dataset_df["1_operation_type"].unique().tolist():
-            operation_type_df = dataset_df.loc[dataset_df["1_operation_type"] == a_operation_type]
-            operation_type_df.to_csv(os.path.join(output_dir_name, "output", type,
-                                                  f"{type}_{(a_operation_type.lower())}_dataset.csv"), index=False)
+        for a_operation_type in (
+            dataset_df["1_operation_type"].unique().tolist()
+        ):
+            operation_type_df = dataset_df.loc[
+                dataset_df["1_operation_type"] == a_operation_type
+            ]
+            operation_type_df.to_csv(
+                os.path.join(
+                    output_dir_name,
+                    "output",
+                    type,
+                    f"{type}_{(a_operation_type.lower())}_dataset.csv",
+                ),
+                index=False,
+            )

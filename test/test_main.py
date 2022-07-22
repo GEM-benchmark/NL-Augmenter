@@ -3,16 +3,20 @@ from test.keywords import keywords_in_file
 
 import pytest
 
-from interfaces.KeyValuePairsOperation import KeyValuePairsOperation
-from initialize import initialize_models, reinitialize_spacy
-from interfaces.QuestionAnswerOperation import QuestionAnswerOperation
-from interfaces.SentenceOperation import (
+from nlaugmenter.evaluation.TestRunner import OperationRuns
+from nlaugmenter.interfaces.KeyValuePairsOperation import (
+    KeyValuePairsOperation,
+)
+from nlaugmenter.interfaces.QuestionAnswerOperation import (
+    QuestionAnswerOperation,
+)
+from nlaugmenter.interfaces.SentenceOperation import (
     SentenceAndTargetOperation,
     SentenceOperation,
 )
-from interfaces.SentencePairOperation import SentencePairOperation
-from interfaces.TaggingOperation import TaggingOperation
-from TestRunner import OperationRuns
+from nlaugmenter.interfaces.SentencePairOperation import SentencePairOperation
+from nlaugmenter.interfaces.TaggingOperation import TaggingOperation
+from nlaugmenter.utils.initialize import initialize_models, reinitialize_spacy
 
 expected_keywords = keywords_in_file()
 
@@ -99,16 +103,15 @@ def execute_tagging_test_case(transformation, test):
             transformation, expected_tags, p_tags
         )
 
+
 def execute_key_value_pair_test_case(transformation, test):
     filter_args = test["inputs"]
     mr = filter_args["meaning_representation"]
     reference = filter_args["reference"]
     outputs = test["outputs"]
-    perturbs = transformation.generate(
-        mr, reference
-    )
+    perturbs = transformation.generate(mr, reference)
     for idx, (p_mr, p_ref) in enumerate(perturbs):
-        print(p_mr)      
+        print(p_mr)
         expected_mr = outputs[idx]["meaning_representation"]
         expected_ref = outputs[idx]["reference"]
         assert p_mr == expected_mr, get_assert_message(
@@ -130,7 +133,7 @@ def assert_keywords(transformation):
         )
         assert set(keywords_t) < set(expected_keywords), (
             f"Some Keywords in {transformation.name()} "
-            f"not present in docs/keywords.md file "
+            f"not present in keywords.md file "
             f": {set(keywords_t) - set(expected_keywords)} "
         )
 

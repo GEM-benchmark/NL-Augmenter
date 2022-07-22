@@ -7,20 +7,9 @@
 
 # NL-Augmenter 🦎 → 🐍
 
-The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: randomizing names and numbers, changing style/syntax, [paraphrasing](https://aclanthology.org/J13-3001.pdf), KB-based paraphrasing ... and whatever creative augmentation you contribute. We invite submissions of transformations to this framework by way of GitHub pull request, through August 31, 2021. All submitters of accepted transformations (and filters) will be included as co-authors on a paper announcing this framework.
+The NL-Augmenter is a collaborative effort intended to add transformations of datasets dealing with natural language. Transformations augment text datasets in diverse ways, including: randomizing names and numbers, changing style/syntax, [paraphrasing](https://aclanthology.org/J13-3001.pdf), KB-based paraphrasing ... and whatever creative augmentation you contribute. We invite submissions of transformations to this framework by way of GitHub pull request.
 
 The framework organizers can be contacted at nl-augmenter@googlegroups.com.
-
-**Submission timeline**
-
-| Due date          | Description                                                                 |
-| ------------------ | -----------                                                                 |
-| A̶u̶g̶u̶s̶t̶ 3̶1̶, 2̶0̶2̶1̶ | P̶u̶l̶l̶ r̶e̶q̶u̶e̶s̶t̶ m̶u̶s̶t̶ b̶e̶ o̶p̶e̶n̶e̶d̶ t̶o̶ b̶e̶ e̶l̶i̶g̶i̶b̶l̶e̶ f̶o̶r̶ i̶n̶c̶l̶u̶s̶i̶o̶n̶ i̶n̶ t̶h̶e̶ f̶r̶a̶m̶e̶w̶o̶r̶k̶ a̶n̶d̶ a̶s̶s̶o̶c̶i̶a̶t̶e̶d̶ p̶a̶p̶e̶r̶  |
-| September 2̶2̶, 30 2021 | Review process for pull request above must be complete           |
-
-A transformation can be revised between the pull request submission and pull request merge deadlines. We will provide reviewer feedback to help with the revisions.
-
-The transformations which are already accepted to NL-Augmenter are summarized in [the transformations folder](transformations). Transformations undergoing review can be seen as [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls).
 
 **Table of contents**
 
@@ -74,7 +63,7 @@ git checkout -b my_awesome_transformation
 We will base our transformation on an existing example.
 Create a new transformation directory by copying over an existing transformation. You can choose to copy from other [transformation directories](interfaces) depending on the task you wish to create a transformation for. Check some of the existing [pull requests](https://github.com/GEM-benchmark/NL-Augmenter/pulls?q=is%3Aopen+is%3Apr+label%3Atransformation) [and merged transformations](transformations) first to avoid duplicating efforts or creating transformations too similar to previous ones.
 ```bash
-cd transformations/
+cd nlaugmenter/transformations/
 cp -r butter_fingers_perturbation my_awesome_transformation
 cd my_awesome_transformation
 ```
@@ -126,6 +115,18 @@ If you are interested in NL-Augmenter, you may also be interested in the [BIG-be
 ### Most Creative Implementations 🏆
 
 After all pull-requests have been merged, 3 of the [most creative implementations](docs/doc.md#Three-most-creative-Implementations) would be selected and featured on this README page and on the NL-Augmenter [webpage](https://gem-benchmark.com/nl_augmenter).
+
+### Paper
+```bibtex
+@misc{dhole2021nlaugmenter,
+      title={NL-Augmenter: A Framework for Task-Sensitive Natural Language Augmentation}, 
+      author={Kaustubh D. Dhole and Varun Gangal and Sebastian Gehrmann and Aadesh Gupta and Zhenhao Li and Saad Mahamood and Abinaya Mahendiran and Simon Mille and Ashish Srivastava and Samson Tan and Tongshuang Wu and Jascha Sohl-Dickstein and Jinho D. Choi and Eduard Hovy and Ondrej Dusek and Sebastian Ruder and Sajant Anand and Nagender Aneja and Rabin Banjade and Lisa Barthe and Hanna Behnke and Ian Berlot-Attwell and Connor Boyle and Caroline Brun and Marco Antonio Sobrevilla Cabezudo and Samuel Cahyawijaya and Emile Chapuis and Wanxiang Che and Mukund Choudhary and Christian Clauss and Pierre Colombo and Filip Cornell and Gautier Dagan and Mayukh Das and Tanay Dixit and Thomas Dopierre and Paul-Alexis Dray and Suchitra Dubey and Tatiana Ekeinhor and Marco Di Giovanni and Rishabh Gupta and Rishabh Gupta and Louanes Hamla and Sang Han and Fabrice Harel-Canada and Antoine Honore and Ishan Jindal and Przemyslaw K. Joniak and Denis Kleyko and Venelin Kovatchev and Kalpesh Krishna and Ashutosh Kumar and Stefan Langer and Seungjae Ryan Lee and Corey James Levinson and Hualou Liang and Kaizhao Liang and Zhexiong Liu and Andrey Lukyanenko and Vukosi Marivate and Gerard de Melo and Simon Meoni and Maxime Meyer and Afnan Mir and Nafise Sadat Moosavi and Niklas Muennighoff and Timothy Sum Hon Mun and Kenton Murray and Marcin Namysl and Maria Obedkova and Priti Oli and Nivranshu Pasricha and Jan Pfister and Richard Plant and Vinay Prabhu and Vasile Pais and Libo Qin and Shahab Raji and Pawan Kumar Rajpoot and Vikas Raunak and Roy Rinberg and Nicolas Roberts and Juan Diego Rodriguez and Claude Roux and Vasconcellos P. H. S. and Ananya B. Sai and Robin M. Schmidt and Thomas Scialom and Tshephisho Sefara and Saqib N. Shamsi and Xudong Shen and Haoyue Shi and Yiwen Shi and Anna Shvets and Nick Siegel and Damien Sileo and Jamie Simon and Chandan Singh and Roman Sitelew and Priyank Soni and Taylor Sorensen and William Soto and Aman Srivastava and KV Aditya Srivatsa and Tony Sun and Mukund Varma T and A Tabassum and Fiona Anting Tan and Ryan Teehan and Mo Tiwari and Marie Tolkiehn and Athena Wang and Zijian Wang and Gloria Wang and Zijie J. Wang and Fuxuan Wei and Bryan Wilie and Genta Indra Winata and Xinyi Wu and Witold Wydmański and Tianbao Xie and Usama Yaseen and M. Yee and Jing Zhang and Yue Zhang},
+      year={2021},
+      eprint={2112.02721},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
 
 ### License
 Some transformations include components released under a different (permissive, open source) license. For license details, refer to the `README.md` and any license files in the transformations's or filter's directory.

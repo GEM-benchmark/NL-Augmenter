@@ -1,0 +1,85 @@
+{
+    "type": "groupinequity",
+    "test_cases": [
+        {
+            "class": "GroupInequityFilter",
+            "args": {
+				"language": "en",
+				"minority_group": ["she", "her", "hers"],
+				"majority_group": ["he", "him", "his"],
+				"minority_factor": ["cake"],
+				"majority_factor": ["program"]
+            },
+            "inputs": {
+                "sentences": ["He is going to make a cake.",
+				"She is going to make a cake.",
+				"She is going to make a computer program"]
+            },
+            "outputs": false
+        },
+        {
+            "class": "GroupInequityFilter",
+            "args": {
+				"language": "en",
+				"minority_group": ["she", "her", "hers"],
+				"majority_group": ["he", "him", "his"],
+				"minority_factor": ["cake"],
+				"majority_factor": ["program"]
+            },
+            "inputs": {
+                "sentences": ["He is going to make a cake.",
+				"She is going to make a cake.",
+				"She is going to make a computer program",
+				"He is going to make a computer program",
+				"She makes good cakes"]
+            },
+            "outputs": true
+        },
+		{
+            "class": "GroupInequityFilter",
+            "args": {
+				"language": "en",
+				"minority_group": ["she", "her", "hers"],
+				"majority_group": ["he", "him", "his"],
+				"minority_factor": ["cake"],
+				"majority_factor": ["program"]
+            },
+            "inputs": {
+                "sentences": ["He is going to make a cake.",
+				"She is going to make a cake.",
+				"Nobody will program!"]
+            },
+            "outputs": false
+        },
+		{
+            "class": "GroupInequityFilter",
+            "args": {
+				"language": "en",
+				"minority_group": ["she", "her", "hers"],
+				"majority_group": ["he", "him", "his"],
+				"minority_factor": ["cake"],
+				"majority_factor": ["program"]
+            },
+            "inputs": {
+                "sentences": ["He is going to make a cake.",
+				"She is going to make a computer program"]
+            },
+            "outputs": false
+        },
+		{
+            "class": "GroupInequityFilter",
+            "args": {
+				"language": "en",
+				"minority_group": ["she", "her", "hers"],
+				"majority_group": ["he", "him", "his"],
+				"minority_factor": ["cake"],
+				"majority_factor": ["program"]
+            },
+            "inputs": {
+                "sentences": ["He is going to make a computer program.",
+				"She is going to make a cake"]
+            },
+            "outputs": true
+        }
+    ]
+}
