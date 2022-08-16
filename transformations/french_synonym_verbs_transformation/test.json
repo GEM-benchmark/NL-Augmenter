@@ -1,0 +1,52 @@
+{
+  "type": "french_verbs_transformation",
+  "test_cases": [
+    
+    {
+      "class": "FrenchVerbsSynonymTransformation",
+      "inputs": {
+        "sentence": "je vais finir ce devoir avant demain"
+      },
+      "outputs": [{
+        "sentence": "je vais terminer ce devoir avant demain"
+      }]
+    
+    },
+    
+    {
+      "class": "FrenchVerbsSynonymTransformation",
+      "inputs": {
+        "sentence": "Puis-je entrer ? Cela fait 10 minutes que je suis en face."
+      },
+      "outputs": [{
+        "sentence": "Puis-je venir ? Cela fait 10 minutes que je suis en face."
+      }]
+    
+    },
+    
+    {
+      "class": "FrenchVerbsSynonymTransformation",
+      "inputs": {
+        "sentence": "Les psychologues vont devoir calmer les tensions"
+      },
+      "outputs": [{
+        "sentence": "Les psychologues vont devoir soulager les tensions"
+      }]
+    
+    },
+  
+    
+    {
+      "class": "FrenchVerbsSynonymTransformation",
+      "inputs": {
+        "sentence": "J'ai enfin pu faire remorquer la voiture !"
+      },
+      "outputs": [{
+        "sentence": "J'ai enfin pu faire rouler la voiture !"
+      }]
+    
+    }
+
+
+  ]
+}
