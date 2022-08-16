@@ -1,0 +1,50 @@
+{
+  "type": "character_duplication",
+  "test_cases": [
+    {
+      "class": "CharacterDuplication",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "Anndrew ffinnallly returrned thee  French book too Chhris that I bought last  week"
+      }]
+    },
+    {
+      "class": "CharacterDuplication",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [{
+        "sentence": "Seentencees  witth gappiing, succhh as Paul likess cooffee and Mary tea, lackk an overt predicate ttoo indiicate tthe relation between two  orr moree arrguuments."
+      }]
+    },
+    {
+      "class": "CharacterDuplication",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "Allice inn WWondderland  is a 2010 AAmmerican live-acctioon/animated dark fantasyy adventure film"
+      }]
+    },
+    {
+      "class": "CharacterDuplication",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [{
+        "sentence": "Ujjjal Deev  Dossanjh seerved ass  33rd Premier of  Briitish Columbia from 2000 to  2001"
+      }]
+    },
+    {
+      "class": "CharacterDuplication",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [{
+        "sentence": "Neeuroplaastticiity is aa continnuuous processingg alllowing short-term, mediium-term, and long-terrmm remoodelingg of the neuronosynaptic  orrganizzatiionn."
+      }]
+    }
+  ]
+}
