@@ -42,7 +42,7 @@ def read(fname):
 
 def recursive_requirements(search: str, transformation_type: str) -> str:
     # (1) read all requirements.txt in the folder.
-    requirements = ""
+    requirements = "\n"
     for folder in all_folders(search, transformation_type):
         r_file = os.path.join(
             os.path.dirname(__file__), folder + "/requirements.txt"
@@ -142,45 +142,46 @@ def get_extra_requirements() -> dict:
             requirements[entry] = filter_requirements(req_string)
     return requirements
 
+print(get_default_requirements())
 
-setup(
-    name=NAME,
-    version=__version__,
-    description="NL-Augmenter: A Framework for Task-Sensitive Natural Language Augmentation",
-    author_email="nl-augmenter@googlegroups.com",
+# setup(
+#     name=NAME,
+#     version=__version__,
+#     description="NL-Augmenter: A Framework for Task-Sensitive Natural Language Augmentation",
+#     author_email="nl-augmenter@googlegroups.com",
 
-    long_description=read("README.md"),
-    long_description_content_type="text/markdown",
-    license="MIT",
-    url="https://github.com/GEM-benchmark/NL-Augmenter",
-    project_urls={
-        "Bug Tracker": "https://github.com/GEM-benchmark/NL-Augmenter/issues",
-        "Web Page": "https://gem-benchmark.com/nl_augmenter",
-    },
-    install_requires=get_default_requirements(),
-    extras_require=get_extra_requirements(),
-    keywords=[
-        "augmentation",
-        "natural language processing",
-        "NLP",
-        "filters",
-        "deep learning",
-        "text processing",
-        "machine learning",
-    ],
-    classifiers=[
-        "License :: OSI Approved :: MIT License",
-        "Intended Audience :: Developers",
-        "Intended Audience :: Information Technology",
-        "Intended Audience :: Science/Research",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Operating System :: OS Independent",
-    ],
-    packages=find_packages(exclude=["test", "docs"]),
-    package_data={
-        "": ["*.json", "*.txt", "*.tsv", "*.csv", "*.npz", "*.ckpt"]
-    },
-    include_package_data=True,
-    python_requires=">=3.7",
-)
+#     long_description=read("README.md"),
+#     long_description_content_type="text/markdown",
+#     license="MIT",
+#     url="https://github.com/GEM-benchmark/NL-Augmenter",
+#     project_urls={
+#         "Bug Tracker": "https://github.com/GEM-benchmark/NL-Augmenter/issues",
+#         "Web Page": "https://gem-benchmark.com/nl_augmenter",
+#     },
+#     install_requires=get_default_requirements(),
+#     extras_require=get_extra_requirements(),
+#     keywords=[
+#         "augmentation",
+#         "natural language processing",
+#         "NLP",
+#         "filters",
+#         "deep learning",
+#         "text processing",
+#         "machine learning",
+#     ],
+#     classifiers=[
+#         "License :: OSI Approved :: MIT License",
+#         "Intended Audience :: Developers",
+#         "Intended Audience :: Information Technology",
+#         "Intended Audience :: Science/Research",
+#         "Programming Language :: Python :: 3",
+#         "Programming Language :: Python :: 3.7",
+#         "Operating System :: OS Independent",
+#     ],
+#     packages=find_packages(exclude=["test", "docs"]),
+#     package_data={
+#         "": ["*.json", "*.txt", "*.tsv", "*.csv", "*.npz", "*.ckpt"]
+#     },
+#     include_package_data=True,
+#     python_requires=">=3.7",
+# )
