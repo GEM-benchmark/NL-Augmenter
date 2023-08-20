@@ -42,7 +42,7 @@ def read(fname):
 
 def recursive_requirements(search: str, transformation_type: str) -> str:
     # (1) read all requirements.txt in the folder.
-    requirements = ""
+    requirements = "\n"
     for folder in all_folders(search, transformation_type):
         r_file = os.path.join(
             os.path.dirname(__file__), folder + "/requirements.txt"

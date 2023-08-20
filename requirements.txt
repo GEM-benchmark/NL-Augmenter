@@ -1,4 +1,4 @@
-checklist==0.0.11
+git+https://github.com/decypher-ai/checklist@e6ffe5e148585d0bd377a590d3d46aa58978d83c
 spacy==3.0.0
 numpy
 

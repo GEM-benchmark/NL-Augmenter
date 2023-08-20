@@ -19,7 +19,7 @@ phonenumbers==8.12.25
 datasets==1.7.0
 pattern3==3.0.0
 allennlp-models==2.5.0
-checklist==0.0.11
+git+https://github.com/decypher-ai/checklist@e6ffe5e148585d0bd377a590d3d46aa58978d83c
 langid==1.1.6
 Babel==2.9.1
 word2number==1.1
