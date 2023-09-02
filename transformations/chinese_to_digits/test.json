@@ -1,0 +1,60 @@
+{
+  "type": "chinese_to_digits",
+  "test_cases": [
+    {
+      "class": "ChineseToDigits",
+      "inputs": {
+        "sentence": "小明今年亏了十万，真糟糕！"
+      },
+      "outputs": [
+        {
+          "sentence": "小明今年亏了100000.0，真糟糕！"
+        }
+      ]
+    },
+    {
+      "class": "ChineseToDigits",
+      "inputs": {
+        "sentence": "一只羊，两只羊，三只羊。。。"
+      },
+      "outputs": [
+        {
+          "sentence": "1只羊，2只羊，3只羊。。。"
+        }
+      ]
+    },
+    {
+      "class": "ChineseToDigits",
+      "inputs": {
+        "sentence": "您好，一共伍亿柒仟万拾柒元。"
+      },
+      "outputs": [
+        {
+          "sentence": "您好，一共570000017元。"
+        }
+      ]
+    },
+    {
+      "class": "ChineseToDigits",
+      "inputs": {
+        "sentence": "这次奖学金的获得者只占全校同学的万分之四"
+      },
+      "outputs": [
+        {
+          "sentence": "这次奖学金的获得者只占全校同学的0.0004"
+        }
+      ]
+    },
+    {
+      "class": "ChineseToDigits",
+      "inputs": {
+        "sentence": "随着两个遗迹文明的发展，他们终于开始了争斗。遗迹之间的能量冲突是战争的导火索。"
+      },
+      "outputs": [
+        {
+          "sentence": "随着2个遗迹文明的发展，他们终于开始了争斗。遗迹之间的能量冲突是战争的导火索。"
+        }
+      ]
+    }
+  ]
+}
