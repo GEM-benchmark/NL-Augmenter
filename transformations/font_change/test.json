@@ -1,0 +1,71 @@
+{
+  "type": "font_change",
+  "test_cases": [
+    {
+      "class": "FontChange",
+      "inputs": {
+        "sentence": "Apple is looking at buying U.K. startup for $132 billion."
+      },
+      "outputs": [
+        {
+          "sentence": "Apple is looking at buying U.K. startup for $132 \ud83c\udd71\ud83c\udd78\ud83c\udd7b\ud83c\udd7b\ud83c\udd78\ud83c\udd7e\ud83c\udd7d."
+        }
+      ]
+    },
+    {
+      "class": "FontChange",
+      "inputs": {
+        "sentence": "We had to box part of the pizza to take it home and we were out the door by 6:42."
+      },
+      "outputs": [
+        {
+          "sentence": "We had to box part of the pizza to take it \ud835\ude5d\ud835\ude64\ud835\ude62\ud835\ude5a and we were out the \ud835\udcb9\u2134\u2134\ud835\udcc7 by 6:42."
+        }
+      ]
+    },
+    {
+      "class": "FontChange",
+      "inputs": {
+        "sentence": "The quick brown fox jumps over the lazy dog."
+      },
+      "outputs": [
+        {
+          "sentence": "The quick brown \ud83c\udd75\ud83c\udd7e\ud83c\udd87 \u027en\u026fds over the lazy \u1d05\u1d0f\u0262."
+        }
+      ]
+    },
+    {
+      "class": "FontChange",
+      "inputs": {
+        "sentence": "Mumbai, Bengaluru, New Delhi are among the many famous places in India."
+      },
+      "outputs": [
+        {
+          "sentence": "Mumbai, Bengaluru, New \ud83c\udd73\ud83c\udd74\ud83c\udd7b\ud83c\udd77\ud83c\udd78 are \u0250\u026fou\u0183 the many famous places in I\u0274\u1d05\u026a\u1d00."
+        }
+      ]
+    },
+    {
+      "class": "FontChange",
+      "inputs": {
+        "sentence": "New Delhi is among the many famous places in India."
+      },
+      "outputs": [
+        {
+          "sentence": "New Delhi is among the \ud83c\udd7c\ud83c\udd70\ud83c\udd7d\ud83c\udd88 \u025f\u0250\u026fons places in I\u0274\u1d05\u026a\u1d00."
+        }
+      ]
+    },
+    {
+      "class": "FontChange",
+      "inputs": {
+        "sentence": "Oh, and their spring rolls and the accompanying peanuts and hot sauces were also delicious."
+      },
+      "outputs": [
+        {
+          "sentence": "Oh, and their \ud835\ude68\ud835\ude65\ud835\ude67\ud835\ude5e\ud835\ude63\ud835\ude5c rolls and the accompanying peanuts and hot \ud835\udcc8\ud835\udcb6\ud835\udcca\ud835\udcb8\u212f\ud835\udcc8 were \ud835\udcb6\ud835\udcc1\ud835\udcc8\u2134 delicious."
+        }
+      ]
+    }
+  ]
+}
