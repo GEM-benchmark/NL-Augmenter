@@ -1,0 +1,206 @@
+{
+    "type": "multi_pivot_paraphrases_generation",
+    "test_cases": [
+      {
+        "class": "MultiPivotParaphrasesGeneration",
+        "inputs": {
+          "Reference sentence": "How does COVID-19 spread?"
+        },
+        "outputs": [
+          {
+            "Paraphrase": "How is COVID-19 disseminated?"
+          },
+          {
+            "Paraphrase": "How is COVID-19 spread?"
+          },
+          {
+            "Paraphrase": "How did COVID-19 spread?"
+          },
+          {
+            "Paraphrase": "How is COVID-19 spreading?"
+          },
+          {
+            "Paraphrase": "How does COVID-19 spread?"
+          }
+        ]
+      },
+      {
+        "class": "MultiPivotParaphrasesGeneration",
+        "inputs": {
+          "Reference sentence": "Book a flight from Lyon to Sydney?"
+        },
+        "outputs": [
+          {
+            "Paraphrase": "To book a flight from Lyon to Sydney?"
+          },
+          {
+            "Paraphrase": "Have you booked a flight from Lyon to Sydney?"
+          },
+          {
+            "Paraphrase": "What is the journey from Lyon to Sydney?"
+          },
+          {
+            "Paraphrase": "Book a flight from Lyon to Sydney?"
+          },
+          {
+            "Paraphrase": "Are you booking a flight from Lyon to Sydney?"
+          }
+        ]
+      },
+      {
+        "class": "MultiPivotParaphrasesGeneration",
+        "inputs": {
+          "Reference sentence": "Reserve an Italian Restaurant near Paris"
+        },
+        "outputs": [
+          {
+            "Paraphrase": "Reserve an Italian restaurant near Paris"
+          },
+          {
+            "Paraphrase": "Italian restaurants near Paris"
+          },
+          {
+            "Paraphrase": "Book an Italian restaurant near Paris"
+          },
+          {
+            "Paraphrase": "It's a reservation at the Italian restaurant near Paris."
+          },
+          {
+            "Paraphrase": "Save the Italian restaurant near Paris."
+          }
+        ]
+      },
+      {
+        "class": "MultiPivotParaphrasesGeneration",
+        "inputs": {
+          "Reference sentence": "how many 10 euros are worth in dollars"
+        },
+        "outputs": [
+          {
+            "Paraphrase": "how many 10 euros are worth in dollars"
+          },
+          {
+            "Paraphrase": "how much 10 euros are worth in dollars"
+          },
+          {
+            "Paraphrase": "10 Euros in Dollars."
+          },
+          {
+            "Paraphrase": "How many Euros are worth in United States dollars?"
+          },
+          {
+            "Paraphrase": "How much is 10 euros in dollars?"
+          },
+          {
+            "Paraphrase": "how many 10 euros is worth in dollars"
+          },
+          {
+            "Paraphrase": "how many 10 euros in dollars are worth"
+          }
+        ]
+      },
+      {
+        "class": "MultiPivotParaphrasesGeneration",
+        "inputs": {
+          "Reference sentence": "which company makes the ipod?"
+        },
+        "outputs": [
+          {
+            "Paraphrase": "Which company is making iPods?"
+          },
+          {
+            "Paraphrase": "What company does the iPod make?"
+          },
+          {
+            "Paraphrase": "Which company does the ipod?"
+          },
+          {
+            "Paraphrase": "What kind of company does an iPod?"
+          },
+          {
+            "Paraphrase": "Which company manufactures ipods?"
+          },
+          {
+            "Paraphrase": "What company does the iPod do?"
+          },
+          {
+            "Paraphrase": "Which company makes the iPod?"
+          },
+          {
+            "Paraphrase": "What company manufactures the ipod?"
+          }
+        ]
+      },
+      {
+        "class": "MultiPivotParaphrasesGeneration",
+        "inputs": {
+          "Reference sentence": "what states does the connecticut river flow through?"
+        },
+        "outputs": [
+          {
+            "Paraphrase": "In what states does the connected river flow?"
+          },
+          {
+            "Paraphrase": "What state is the link to the river?"
+          },
+          {
+            "Paraphrase": "What states is the connecticut river going through?"
+          },
+          {
+            "Paraphrase": "Where does the river flow? What is the way the Nile flows?"
+          },
+          {
+            "Paraphrase": "What are you running through the Connecticut River?"
+          },
+          {
+            "Paraphrase": "What states does the river connecticut flow through?"
+          },
+          {
+            "Paraphrase": "In what state does the river connecticut flow?"
+          },
+          {
+            "Paraphrase": "What states pass through the river Kinkito?"
+          },
+          {
+            "Paraphrase": "What conditions does the Connecticut River flow through?"
+          },
+          {
+            "Paraphrase": "What states the river connecticut flows?"
+          }
+        ]
+      },
+      {
+        "class": "MultiPivotParaphrasesGeneration",
+        "inputs": {
+          "Reference sentence": "in which tournaments did west indies cricket team win the championship?"
+        },
+        "outputs": [
+          {
+            "Paraphrase": "In which tournaments did Western Indians win the championship?"
+          },
+          {
+            "Paraphrase": "What tournaments did the West Indies cricket team win the championship?"
+          },
+          {
+            "Paraphrase": "Which team won the World Cup in West India?"
+          },
+          {
+            "Paraphrase": "in which tournaments has West India cricket team won the championship?"
+          },
+          {
+            "Paraphrase": "In which tournaments did the cricket team of the West Indies win the championship?"
+          },
+          {
+            "Paraphrase": "What game did the Cricket Team of the West Indies win?"
+          },
+          {
+            "Paraphrase": "In what tournaments did the cricket team of the West Indies win the championship?"
+          },
+          {
+            "Paraphrase": "What tournament did the West Indies cricket team win?"
+          }
+        ]
+      }
+    ]
+  }
+  
