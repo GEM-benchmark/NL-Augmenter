@@ -75,13 +75,15 @@ class LostInTranslation(SentenceOperation):
     ):
         # repeated encode_decode cycles
         # according to self.how
+        # preserve original input for comparison, scoring
+        orig = text
         if how == "random":
             # choose a random transformation from the given set
             for i in range(layers):
                 target = random.choice(langs)
                 text = self.encode_decode(text, target, max_length, device)
                 if min_score > 0:
-                    # TODO: Unresolved reference orig. (Needs to be fix)
+                    # check to see if similarity falls below minimum score
                     if self.similarity(orig, text, scorer) < min_score:
                         break
         else:
