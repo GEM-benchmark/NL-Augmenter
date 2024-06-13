@@ -1,0 +1,10 @@
+# for gender_randomizer
+pandas==1.1.5
+scipy==1.7.1
+lemminflect==0.2.2
+spacy==3.0.5
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz
+tensorflow==2.6.0
+tensorflow-gpu==2.6.0
+transformations/gender_randomizer/coreferee
+transformations/gender_randomizer/coreferee/models/coreferee_model_en.zip
