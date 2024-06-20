@@ -1,0 +1,50 @@
+{
+  "type": "space_between_characters",
+  "test_cases": [
+    {
+      "class": "SpaceBetweenCharacters",
+      "inputs": {
+        "sentence": "Andrew finally returned the French book to Chris that I bought last week"
+      },
+      "outputs": [{
+        "sentence": "Andrew f i n a l l y returned the French book to C h r i s that I bought last w e e k"
+      }]
+    },
+    {
+      "class": "SpaceBetweenCharacters",
+      "inputs": {
+        "sentence": "Sentences with gapping, such as Paul likes coffee and Mary tea, lack an overt predicate to indicate the relation between two or more arguments."
+      },
+      "outputs": [{
+        "sentence": "Sentences w i t h gapping, such as Paul likes c o f f e e and M a r y tea, lack a n overt predicate to indicate the relation b e t w e e n two or more arguments."
+      }]
+    },
+    {
+      "class": "SpaceBetweenCharacters",
+      "inputs": {
+        "sentence": "Alice in Wonderland is a 2010 American live-action/animated dark fantasy adventure film"
+      },
+      "outputs": [{
+        "sentence": "Alice i n Wonderland is a 2010 American l i v e - a c t i o n / a n i m a t e d dark f a n t a s y adventure film"
+      }]
+    },
+    {
+      "class": "SpaceBetweenCharacters",
+      "inputs": {
+        "sentence": "Ujjal Dev Dosanjh served as 33rd Premier of British Columbia from 2000 to 2001"
+      },
+      "outputs": [{
+        "sentence": "Ujjal D e v Dosanjh served as 33rd Premier o f British C o l u m b i a from 2000 t o 2001"
+      }]
+    },
+    {
+      "class": "SpaceBetweenCharacters",
+      "inputs": {
+        "sentence": "Neuroplasticity is a continuous processing allowing short-term, medium-term, and long-term remodeling of the neuronosynaptic organization."
+      },
+      "outputs": [{
+        "sentence": "Neuroplasticity i s a continuous processing allowing short-term, m e d i u m - t e r m , and l o n g - t e r m remodeling of t h e neuronosynaptic organization."
+      }]
+    }
+  ]
+}
