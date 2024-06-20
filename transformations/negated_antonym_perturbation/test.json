@@ -1,0 +1,68 @@
+{
+  "type": "negated_antonym_transformation",
+  "test_cases": [
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "I think you are successful."
+      },
+      "outputs": [{
+        "sentence": "I think you are not unsuccessful."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "I think you are prepared for the test."
+      },
+      "outputs": [{
+        "sentence": "I think you are not unprepared for the test."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "He ran quickly."
+      },
+      "outputs": [{
+        "sentence": "He ran not slowly ."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "He plays the flute beautifully."
+      },
+      "outputs": [{
+        "sentence": "He plays the flute not unattractively."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "I think you are joyful."
+      },
+      "outputs": [{
+        "sentence": "I think you are not sorrowful."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "During Harry's fourth year of school, Harry is unwillingly entered as a participant in the Triwizard Tournament, a dangerous yet exciting contest where three champions, one from each participating school, must compete with each other in three tasks in order to win the Triwizard Cup."
+      },
+      "outputs": [{
+        "sentence": "During Harry's fourth year of school, Harry is not willingly entered as a participant in the Triwizard Tournament, a not safe yet exciting contest where three champions, one from each participating school, must compete with each not same in three tasks in order to win the Triwizard Cup."
+      }]
+    },
+    {
+      "class": "NegatedAntonym",
+      "inputs": {
+        "sentence": "Umbridge's incessant and persistent efforts to land him in trouble and the defensive lessons, Harry begins to lose sleep as he constantly receives disturbing dreams about a dark corridor in the Ministry of Magic, followed by a burning desire to learn more."
+      },
+      "outputs": [{
+        "sentence": "Umbridge's incessant and not caducous efforts to land him in trouble and the not offensive lessons, Harry begins to lose sleep as he constantly receives disturbing dreams about a not light corridor in the Ministry of Magic, followed by a burning desire to learn not less."
+      }]
+    }
+  ]
+}
