@@ -15,3 +15,7 @@ notebooks/leaderboard.ipynb
 .ipynb_checkpoints
 notebooks/leaderboard_*.csv
 NL_Augmenter.egg-info
+
+venv*
+nlaugmenter.egg-info
+.python-version
